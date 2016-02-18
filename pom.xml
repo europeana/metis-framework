@@ -28,5 +28,6 @@
         <module>metis-framework-service</module>
         <module>metis-framework-rest</module>
         <module>metis-framework-ui</module>
+        <module>metis-framework-rest-client</module>
     </modules>
 </project>

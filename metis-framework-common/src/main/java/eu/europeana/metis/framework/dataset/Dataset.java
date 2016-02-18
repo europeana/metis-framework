@@ -1,8 +1,10 @@
 package eu.europeana.metis.framework.dataset;
 
-import com.google.code.morphia.annotations.Id;
-import com.google.code.morphia.annotations.Indexed;
+
 import eu.europeana.metis.framework.common.HarvestingMetadata;
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Indexed;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -10,92 +12,141 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * The Dataset representation
  * Created by ymamakis on 2/17/16.
  */
 @XmlRootElement
+@Entity
 public class Dataset {
 
-    @Id
-    @XmlElement
-    private String id;
 
+    @Id
+    private String id;
+    /**
+     * The name of the dataset
+     */
     @Indexed
-    @XmlElement
     private String name;
 
-    @XmlElement
+    /**
+     * Data providers associated with this dataset
+     */
     @Indexed
     private List<String> dataProviders;
 
-    @XmlElement
+    /**
+     * Providers have signed DEA for the dataset
+     */
     private boolean deaSigned;
 
-    @XmlElement
+    /**
+     * List of subjects for the dataset
+     */
     private List<String> subject;
 
-    @XmlElement
+    /**
+     * The source of the dataset
+     */
     private List<String> source;
 
-    @XmlElement
+    /**
+     * When was the dataset created
+     */
     private Date created;
 
-    @XmlElement
+    /**
+     * When was the dataset updated
+     */
     private Date updated;
 
-    @XmlElement
+    /**
+     * What dataset replaces it (ID)
+     */
     private String replacedBy;
 
-    @XmlElement
+    /**
+     * Description of the dataset
+     */
     private String description;
 
-    @XmlElement
+    /**
+     * Notes for the dataset
+     */
     private String notes;
 
-    @XmlElement
+    /**
+     * User id that created the dataset
+     */
     @Indexed
     private String createdByLdapId;
 
-    @XmlElement
+    /**
+     * User id to process the dataset
+     */
     @Indexed
     private String assignedToLdapId;
 
-    @XmlElement
+    /**
+     * When it ws first published
+     */
     private Date firstPublished;
 
-    @XmlElement
+    /**
+     * When it was last published
+     */
     private Date lastPublished;
 
-    @XmlElement
+    /**
+     * How many records were published
+     */
     private int recordsPublished;
 
-    @XmlElement
+    /**
+     * When it was harvested
+     */
     private Date harvestedAt;
 
-    @XmlElement
+    /**
+     * When it was submitted
+     */
     private Date submittedAt;
 
-    @XmlElement
+    /**
+     * How many records were submitted
+     */
     private int recordsSubmitted;
 
-    @XmlElement
+    /**
+     * Has the provider accepted it
+     */
     private boolean accepted;
 
-    @XmlElement
+    /**
+     * Data Quality Assurance
+     */
     private List<String> DQA;
 
-    @XmlElement
+    /**
+     * Harvesting metadata (override the organizational metadata)
+     */
     private HarvestingMetadata metadata;
 
-    @XmlElement
+    /**
+     * The workflow status
+     */
     private WorkflowStatus workflowStatus;
 
-    @XmlElement
+    /**
+     * The country of the dataset
+     */
     private Country country;
 
-    @XmlElement
+    /**
+     * The language of the dataset
+     */
     private Language language;
 
-
+    @XmlElement
     public String getId() {
         return id;
     }
@@ -103,7 +154,7 @@ public class Dataset {
     public void setId(String id) {
         this.id = id;
     }
-
+    @XmlElement
     public String getName() {
         return name;
     }
@@ -111,7 +162,7 @@ public class Dataset {
     public void setName(String name) {
         this.name = name;
     }
-
+    @XmlElement
     public List<String> getDataProviders() {
         return dataProviders;
     }
@@ -119,7 +170,7 @@ public class Dataset {
     public void setDataProviders(List<String> dataProviders) {
         this.dataProviders = dataProviders;
     }
-
+    @XmlElement
     public boolean isDeaSigned() {
         return deaSigned;
     }
@@ -127,7 +178,7 @@ public class Dataset {
     public void setDeaSigned(boolean deaSigned) {
         this.deaSigned = deaSigned;
     }
-
+    @XmlElement
     public List<String> getSubject() {
         return subject;
     }
@@ -135,7 +186,7 @@ public class Dataset {
     public void setSubject(List<String> subject) {
         this.subject = subject;
     }
-
+    @XmlElement
     public List<String> getSource() {
         return source;
     }
@@ -143,7 +194,7 @@ public class Dataset {
     public void setSource(List<String> source) {
         this.source = source;
     }
-
+    @XmlElement
     public Date getCreated() {
         return created;
     }
@@ -151,7 +202,7 @@ public class Dataset {
     public void setCreated(Date created) {
         this.created = created;
     }
-
+    @XmlElement
     public Date getUpdated() {
         return updated;
     }
@@ -159,7 +210,7 @@ public class Dataset {
     public void setUpdated(Date updated) {
         this.updated = updated;
     }
-
+    @XmlElement
     public String getReplacedBy() {
         return replacedBy;
     }
@@ -167,7 +218,7 @@ public class Dataset {
     public void setReplacedBy(String replacedBy) {
         this.replacedBy = replacedBy;
     }
-
+    @XmlElement
     public String getDescription() {
         return description;
     }
@@ -175,7 +226,7 @@ public class Dataset {
     public void setDescription(String description) {
         this.description = description;
     }
-
+    @XmlElement
     public String getNotes() {
         return notes;
     }
@@ -183,7 +234,7 @@ public class Dataset {
     public void setNotes(String notes) {
         this.notes = notes;
     }
-
+    @XmlElement
     public String getCreatedByLdapId() {
         return createdByLdapId;
     }
@@ -191,7 +242,7 @@ public class Dataset {
     public void setCreatedByLdapId(String createdByLdapId) {
         this.createdByLdapId = createdByLdapId;
     }
-
+    @XmlElement
     public String getAssignedToLdapId() {
         return assignedToLdapId;
     }
@@ -199,7 +250,7 @@ public class Dataset {
     public void setAssignedToLdapId(String assignedToLdapId) {
         this.assignedToLdapId = assignedToLdapId;
     }
-
+    @XmlElement
     public Date getFirstPublished() {
         return firstPublished;
     }
@@ -207,7 +258,7 @@ public class Dataset {
     public void setFirstPublished(Date firstPublished) {
         this.firstPublished = firstPublished;
     }
-
+    @XmlElement
     public Date getLastPublished() {
         return lastPublished;
     }
@@ -215,7 +266,7 @@ public class Dataset {
     public void setLastPublished(Date lastPublished) {
         this.lastPublished = lastPublished;
     }
-
+    @XmlElement
     public int getRecordsPublished() {
         return recordsPublished;
     }
@@ -223,7 +274,7 @@ public class Dataset {
     public void setRecordsPublished(int recordsPublished) {
         this.recordsPublished = recordsPublished;
     }
-
+    @XmlElement
     public Date getHarvestedAt() {
         return harvestedAt;
     }
@@ -231,7 +282,7 @@ public class Dataset {
     public void setHarvestedAt(Date harvestedAt) {
         this.harvestedAt = harvestedAt;
     }
-
+    @XmlElement
     public Date getSubmittedAt() {
         return submittedAt;
     }
@@ -239,7 +290,7 @@ public class Dataset {
     public void setSubmittedAt(Date submittedAt) {
         this.submittedAt = submittedAt;
     }
-
+    @XmlElement
     public int getRecordsSubmitted() {
         return recordsSubmitted;
     }
@@ -247,7 +298,7 @@ public class Dataset {
     public void setRecordsSubmitted(int recordsSubmitted) {
         this.recordsSubmitted = recordsSubmitted;
     }
-
+    @XmlElement
     public boolean isAccepted() {
         return accepted;
     }
@@ -255,7 +306,7 @@ public class Dataset {
     public void setAccepted(boolean accepted) {
         this.accepted = accepted;
     }
-
+    @XmlElement
     public List<String> getDQA() {
         return DQA;
     }
@@ -263,7 +314,7 @@ public class Dataset {
     public void setDQA(List<String> DQA) {
         this.DQA = DQA;
     }
-
+    @XmlElement
     public HarvestingMetadata getMetadata() {
         return metadata;
     }
@@ -271,7 +322,7 @@ public class Dataset {
     public void setMetadata(HarvestingMetadata metadata) {
         this.metadata = metadata;
     }
-
+    @XmlElement
     public WorkflowStatus getWorkflowStatus() {
         return workflowStatus;
     }
@@ -279,7 +330,7 @@ public class Dataset {
     public void setWorkflowStatus(WorkflowStatus workflowStatus) {
         this.workflowStatus = workflowStatus;
     }
-
+    @XmlElement
     public Country getCountry() {
         return country;
     }
@@ -287,7 +338,7 @@ public class Dataset {
     public void setCountry(Country country) {
         this.country = country;
     }
-
+    @XmlElement
     public Language getLanguage() {
         return language;
     }
