@@ -3,6 +3,7 @@ package eu.europeana.metis.framework.dao;
 import eu.europeana.metis.framework.dataset.Dataset;
 import eu.europeana.metis.framework.mongo.MongoProvider;
 import eu.europeana.metis.framework.organization.Organization;
+import org.bson.types.ObjectId;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,12 +61,12 @@ public class DatasetDao implements MetisDao<Dataset> {
 
     @Override
     public Dataset getById(String id) {
-        return provider.getDatastore().find(Dataset.class).filter("id",id).get();
+        return provider.getDatastore().find(Dataset.class).filter("_id",new ObjectId(id)).get();
     }
 
     @Override
     public void delete(Dataset dataset) {
-        provider.getDatastore().delete(dataset);
+        provider.getDatastore().delete(provider.getDatastore().createQuery(Dataset.class).filter("name",dataset.getName()));
     }
 
     /**

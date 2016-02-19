@@ -1,7 +1,9 @@
 package eu.europeana.metis.framework.common;
 
 
+import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
 
 import javax.xml.bind.annotation.XmlElement;
 
@@ -12,6 +14,8 @@ import javax.xml.bind.annotation.XmlElement;
 @Entity
 public class HarvestingMetadata {
 
+    @Id
+    private ObjectId id;
     /**
      * Harvesting type (controlled list)
      */
@@ -36,5 +40,13 @@ public class HarvestingMetadata {
 
     public void setMetadataSchema(String metadataSchema) {
         this.metadataSchema = metadataSchema;
+    }
+
+    public ObjectId getId() {
+        return id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
     }
 }

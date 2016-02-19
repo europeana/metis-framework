@@ -3,6 +3,7 @@ package eu.europeana.metis.framework.organization;
 
 import eu.europeana.metis.framework.common.HarvestingMetadata;
 import eu.europeana.metis.framework.dataset.Dataset;
+import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Indexed;
@@ -25,7 +26,7 @@ public class Organization {
      * Id
      */
     @Id
-    private String id;
+    private ObjectId id;
 
 
     /**
@@ -49,12 +50,12 @@ public class Organization {
      */
     @Reference
     private List<Dataset> datasets;
-
-    public String getId() {
+    @XmlElement
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
     @XmlElement

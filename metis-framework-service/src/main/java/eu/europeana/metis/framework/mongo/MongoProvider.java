@@ -46,7 +46,7 @@ public class MongoProvider {
     }
 
     /**
-     * REtrieve the datastore connection to Mongo
+     * Retrieve the datastore connection to Mongo
      * @return The datastore connection to Mongo
      */
     public Datastore getDatastore(){

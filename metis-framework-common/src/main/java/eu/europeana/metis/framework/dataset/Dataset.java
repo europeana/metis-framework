@@ -2,6 +2,7 @@ package eu.europeana.metis.framework.dataset;
 
 
 import eu.europeana.metis.framework.common.HarvestingMetadata;
+import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Indexed;
@@ -21,7 +22,7 @@ public class Dataset {
 
 
     @Id
-    private String id;
+    private ObjectId id;
     /**
      * The name of the dataset
      */
@@ -147,11 +148,11 @@ public class Dataset {
     private Language language;
 
     @XmlElement
-    public String getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
     @XmlElement

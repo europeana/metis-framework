@@ -2,6 +2,7 @@ package eu.europeana.metis.framework.dataset;
 
 import eu.europeana.metis.framework.common.FtpMetadata;
 import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
