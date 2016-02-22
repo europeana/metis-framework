@@ -26,7 +26,8 @@ public enum Country {
     private String name;
     private String isoCode;
     Country(String name,String isoCode){
-
+        this.name = name;
+        this.isoCode = isoCode;
     }
 
     public String getName(){
