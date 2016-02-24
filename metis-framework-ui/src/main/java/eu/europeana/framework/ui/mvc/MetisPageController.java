@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import eu.europeana.metis.framework.dataset.Dataset;
 
@@ -12,15 +13,15 @@ import eu.europeana.metis.framework.dataset.Dataset;
 public class MetisPageController {
 	
     @RequestMapping(value="/metis", method=RequestMethod.GET)
-    public String addDatasetForm(Model model) {
-        model.addAttribute("metis", new Dataset());
-        return "metis";
+    public ModelAndView addDatasetForm() {
+//        model.addAttribute("metis", new Dataset());
+        return new ModelAndView("metis", "command", new Dataset());
     }
 
     @RequestMapping(value="/metis", method=RequestMethod.POST)
     public String addDatasetSubmit(@ModelAttribute Dataset dataset, Model model) {
         model.addAttribute("dataset", dataset);
-        System.out.println(dataset.getName());
+        System.out.println(dataset.getName() + " " + dataset.getDescription() + " " + dataset.getNotes());
         return "result";
     }
 }
