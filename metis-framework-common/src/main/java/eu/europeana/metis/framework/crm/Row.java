@@ -8,13 +8,20 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * REpresentation of a row of results in Zoho
  * Created by ymamakis on 2/23/16.
  */
 
 public class Row {
 
+    /**
+     * The row number
+     */
     @JsonProperty(value = "no")
     private String rowNum;
+    /**
+     * The list of fields for each row
+     */
     @JsonProperty(value="FL")
     private List<Field> fields;
 

@@ -94,6 +94,12 @@ public class OrganizationService {
         return restClient.getOrganizationById(id);
     }
 
+    /**
+     * Get all organizations from CRM
+     * @return GEt the list of all the organizations for CRM
+     * @throws ParseException
+     * @throws IOException
+     */
     public List<Organization> getAllOrganizationsFromCRM() throws ParseException,IOException{
         return restClient.getAllOrganizations();
     }

@@ -6,12 +6,21 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
+ * A Response wrapper for Zoho
  * Created by ymamakis on 2/24/16.
  */
 
 public class Response {
+
+    /**
+     * The result of Zoho
+     */
     @JsonProperty(value=  "result")
     private Result result;
+
+    /**
+     * THe URI of the call
+     */
     @JsonProperty(value=  "uri")
     private String uri;
 

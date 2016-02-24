@@ -1,6 +1,7 @@
 package eu.europeana.metis.framework.crm;
 
 /**
+ * The list of fields exposed in the Zoho Response
  * Created by ymamakis on 2/23/16.
  */
 public class ZohoFields {

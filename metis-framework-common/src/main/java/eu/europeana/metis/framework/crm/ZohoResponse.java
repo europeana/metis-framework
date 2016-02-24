@@ -1,18 +1,17 @@
 package eu.europeana.metis.framework.crm;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
-
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
+ * Zoho client response
  * Created by ymamakis on 2/23/16.
  */
 
 public class ZohoResponse {
 
-
+    /**
+     * The response wrapper
+     */
     @JsonProperty(value="response")
     private Response response;
 

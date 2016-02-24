@@ -7,12 +7,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
 /**
+ * A module wrapper
  * Created by ymamakis on 2/23/16.
  */
 
 public class Module {
+    /**
+     * List of results
+     */
     @JsonProperty(value= "row")
-
     private List<Row> rows;
 
 
