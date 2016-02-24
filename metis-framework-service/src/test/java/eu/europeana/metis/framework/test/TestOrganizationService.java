@@ -2,6 +2,7 @@ package eu.europeana.metis.framework.test;
 
 import eu.europeana.metis.framework.common.HarvestingMetadata;
 import eu.europeana.metis.framework.dao.OrganizationDao;
+import eu.europeana.metis.framework.dao.ZohoRestClient;
 import eu.europeana.metis.framework.dataset.Dataset;
 import eu.europeana.metis.framework.mongo.MongoProvider;
 import eu.europeana.metis.framework.organization.Organization;
@@ -30,6 +31,7 @@ public class TestOrganizationService {
     private OrganizationService service;
     private Datastore datastore;
     private Organization org;
+
     @Before
     public void prepare(){
         mongoProvider = Mockito.mock(MongoProvider.class);
@@ -43,6 +45,8 @@ public class TestOrganizationService {
         org.setDatasets(new ArrayList<>());
         org.setOrganizationUri("testUri");
         org.setHarvestingMetadata(new HarvestingMetadata());
+
+
     }
 
     @Test

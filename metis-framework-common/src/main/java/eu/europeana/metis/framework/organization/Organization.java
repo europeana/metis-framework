@@ -12,6 +12,7 @@ import org.mongodb.morphia.annotations.Reference;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -44,6 +45,31 @@ public class Organization {
      * Override that to specify dataset specific ones
      */
     private HarvestingMetadata harvestingMetadata;
+
+    /**
+     * The name of the organization
+     */
+    private String name;
+
+    /**
+     * Created
+     */
+    private Date created;
+
+    /**
+     * Updated
+     */
+    private Date modified;
+
+    /**
+     * Acronym
+     */
+    private String acronym;
+
+    /**
+     * Role
+     */
+    private List<String> roles;
 
     /**
      * The datasets associated with the organization
@@ -89,5 +115,50 @@ public class Organization {
 
     public void setDatasets(List<Dataset> datasets) {
         this.datasets = datasets;
+    }
+
+    @XmlElement
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @XmlElement
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    @XmlElement
+    public Date getModified() {
+        return modified;
+    }
+
+    public void setModified(Date modified) {
+        this.modified = modified;
+    }
+
+    @XmlElement
+    public String getAcronym() {
+        return acronym;
+    }
+
+    public void setAcronym(String acronym) {
+        this.acronym = acronym;
+    }
+
+    @XmlElement
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
     }
 }

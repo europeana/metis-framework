@@ -34,6 +34,11 @@ public class OrganizationDao implements MetisDao<Organization> {
         ops.set("harvestingMetadata", organization.getHarvestingMetadata());
         ops.set("organizationUri",organization.getOrganizationUri());
         ops.set("datasets",organization.getDatasets());
+        ops.set("name",organization.getName());
+        ops.set("roles",organization.getRoles());
+        ops.set("acronym",organization.getAcronym());
+        ops.set("created",organization.getCreated());
+        ops.set("modified",organization.getModified());
         provider.getDatastore().update(q,ops);
     }
 

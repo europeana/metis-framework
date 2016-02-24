@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -91,5 +93,36 @@ public class OrganizationController {
     @ResponseBody
     public Organization getOrganizationByOrganizationId(@RequestParam(value = "orgId") String id){
         return organizationService.getOrganizationByOrganizationId(id);
+    }
+
+    /**
+     * Retrieve the organization with a specific organization from CRM
+     * @param id The organization id of the organization to retrieve
+     * @return The organization with the specified id
+     */
+    @RequestMapping(value = "/organization/crm",method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public Organization getOrganizationByOrganizationIdFromCRM(@RequestParam(value = "orgId") String id){
+        try{
+           return organizationService.getOrganizationByIdFromCRM(id);
+        } catch(ParseException|IOException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * Retrieve all the organizations from CRM
+     * @return The organization with the specified id
+     */
+    @RequestMapping(value = "/organizations/crm",method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public List<Organization> getOrganizationsFromCRM(){
+        try{
+            return organizationService.getAllOrganizationsFromCRM();
+        } catch(ParseException|IOException e){
+            e.printStackTrace();
+            return null;
+        }
     }
 }
