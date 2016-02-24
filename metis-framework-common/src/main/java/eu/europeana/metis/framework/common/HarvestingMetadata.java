@@ -25,6 +25,7 @@ public class HarvestingMetadata {
      * The schema the metadata conform to
      */
     private String metadataSchema;
+    
     @XmlElement
     public HarvestType getHarvestType(){
         return harvestType;

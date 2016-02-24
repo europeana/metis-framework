@@ -18,6 +18,7 @@ public class HttpDatasetMetadata extends HttpMetadata {
      * The URL of the dataset
      */
     private String httpUrl;
+    
     @XmlElement
     public String getHttpUrl() {
         return httpUrl;

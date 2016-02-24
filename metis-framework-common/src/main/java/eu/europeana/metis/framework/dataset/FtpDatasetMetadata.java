@@ -15,6 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class FtpDatasetMetadata extends FtpMetadata{
 
     private String ftpUrl;
+    
     @XmlElement
     public String getFtpUrl() {
         return ftpUrl;

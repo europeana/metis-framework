@@ -110,9 +110,8 @@ $(document).ready(function() {
 		</sec:authorize>
 	</div-->
 	
-	<h1 class="blue">&nbsp;&nbsp;Dataset Creation Form</h1>
+	<h1 class="blue">&nbsp;&nbsp;The Dataset Bla-bla was successfully created!</h1>
 	<div style="padding-left:30px;">
-	<form:form method="POST" action="/metis">
 	   <table cellspacing='0' cellpadding='6'>
 	    <tr>
 	        <td><form:label path="name">Name</form:label></td>
@@ -265,8 +264,7 @@ $(document).ready(function() {
 	            <input type="reset" class="blue semi-square" value="Reset" />
 	        </td>
 	    </tr>
-	  </table>  
-	</form:form>
+	  </table>
 	</div>
 </body>
 </html>
