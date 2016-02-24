@@ -23,7 +23,6 @@ public class HttpMetadata extends HarvestingMetadata{
      * The harvest password
      */
     private String harvestPassword;
-    
     @XmlElement
     public String getHarvestUser() {
         return harvestUser;

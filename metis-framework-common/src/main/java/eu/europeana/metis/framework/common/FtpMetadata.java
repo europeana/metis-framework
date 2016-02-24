@@ -18,7 +18,6 @@ public class FtpMetadata extends HttpMetadata {
      * Ftp Server address
      */
     private String ftpServerAddress;
-    
     @XmlElement
     public String getFtpServerAddress() {
         return ftpServerAddress;

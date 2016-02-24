@@ -19,7 +19,6 @@ public class OAIDatasetMetadata extends OAIMetadata {
      * The setSpec
      */
     private String setSpec;
-    
     @XmlElement
     public String getSetSpec() {
         return setSpec;

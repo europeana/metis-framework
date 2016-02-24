@@ -23,7 +23,6 @@ public class OAIMetadata extends HarvestingMetadata {
      * The metadata format
      */
     private String metadataFormat;
-    
     @XmlElement
     public String getHarvestUrl() {
         return harvestUrl;
