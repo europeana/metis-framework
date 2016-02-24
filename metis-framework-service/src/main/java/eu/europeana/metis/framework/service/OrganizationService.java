@@ -1,11 +1,14 @@
 package eu.europeana.metis.framework.service;
 
 import eu.europeana.metis.framework.dao.OrganizationDao;
+import eu.europeana.metis.framework.dao.ZohoRestClient;
 import eu.europeana.metis.framework.dataset.Dataset;
 import eu.europeana.metis.framework.organization.Organization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -17,6 +20,9 @@ public class OrganizationService {
 
     @Autowired
     private OrganizationDao orgDao;
+
+    @Autowired
+    private ZohoRestClient restClient;
 
     /**
      * Create an organization
@@ -75,5 +81,20 @@ public class OrganizationService {
      */
     public Organization getOrganizationByOrganizationId(String id){
         return  orgDao.getByOrganizationId(id);
+    }
+
+    /**
+     * Get an organization from CRM
+     * @param id The organization to retrieve from CRM
+     * @return The organization as its kept in CRM
+     * @throws ParseException
+     * @throws IOException
+     */
+    public Organization getOrganizationByIdFromCRM(String id) throws ParseException,IOException{
+        return restClient.getOrganizationById(id);
+    }
+
+    public List<Organization> getAllOrganizationsFromCRM() throws ParseException,IOException{
+        return restClient.getAllOrganizations();
     }
 }

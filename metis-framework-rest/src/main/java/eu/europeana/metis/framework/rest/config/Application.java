@@ -2,6 +2,7 @@ package eu.europeana.metis.framework.rest.config;
 
 import eu.europeana.metis.framework.dao.DatasetDao;
 import eu.europeana.metis.framework.dao.OrganizationDao;
+import eu.europeana.metis.framework.dao.ZohoRestClient;
 import eu.europeana.metis.framework.mongo.MongoProvider;
 import eu.europeana.metis.framework.service.DatasetService;
 import eu.europeana.metis.framework.service.OrganizationService;
@@ -40,6 +41,13 @@ public class Application extends WebMvcConfigurerAdapter {
     private String username;
     @Value("${mongo.pass}")
     private String password;
+    @Value("${crm.scope}")
+    private String scope;
+    @Value("${crm.authtoken}")
+    private String authtoken;
+    @Value("${crm.baseUrl}")
+    private String baseUrl;
+
 
     @Override
     public  void configureMessageConverters(List<HttpMessageConverter<?>> converters){
@@ -57,6 +65,10 @@ public class Application extends WebMvcConfigurerAdapter {
         return null;
     }
 
+    @Bean
+    ZohoRestClient getZohoRestClient(){
+        return new ZohoRestClient(baseUrl,authtoken,scope);
+    }
     @Bean
     public static PropertySourcesPlaceholderConfigurer properties() {
         PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer = new PropertySourcesPlaceholderConfigurer();
