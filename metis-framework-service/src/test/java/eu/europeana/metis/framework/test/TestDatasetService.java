@@ -4,6 +4,7 @@ import eu.europeana.metis.framework.common.HarvestingMetadata;
 import eu.europeana.metis.framework.dao.DatasetDao;
 import eu.europeana.metis.framework.dao.OrganizationDao;
 import eu.europeana.metis.framework.dataset.*;
+import eu.europeana.metis.framework.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.framework.mongo.MongoProvider;
 import eu.europeana.metis.framework.organization.Organization;
 import eu.europeana.metis.framework.service.DatasetService;
@@ -140,7 +141,11 @@ public class TestDatasetService {
 
         Mockito.when(datasetDao.getByName("name")).thenReturn(ds);
 
-        Dataset retDataset = service.getByName("name");
-        Assert.assertEquals(ds,retDataset);
+        try {
+            Dataset retDataset = service.getByName("name");
+            Assert.assertEquals(ds, retDataset);
+        } catch (NoDatasetFoundException e){
+            e.printStackTrace();
+        }
     }
 }

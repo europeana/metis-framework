@@ -4,6 +4,7 @@ import eu.europeana.metis.framework.common.HarvestingMetadata;
 import eu.europeana.metis.framework.dao.OrganizationDao;
 import eu.europeana.metis.framework.dao.ZohoRestClient;
 import eu.europeana.metis.framework.dataset.Dataset;
+import eu.europeana.metis.framework.exceptions.NoOrganizationExceptionFound;
 import eu.europeana.metis.framework.mongo.MongoProvider;
 import eu.europeana.metis.framework.organization.Organization;
 import eu.europeana.metis.framework.service.OrganizationService;
@@ -33,13 +34,13 @@ public class TestOrganizationService {
     private Organization org;
 
     @Before
-    public void prepare(){
+    public void prepare() {
         mongoProvider = Mockito.mock(MongoProvider.class);
         organizationDao = Mockito.mock(OrganizationDao.class);
-        ReflectionTestUtils.setField(organizationDao,"provider",mongoProvider);
+        ReflectionTestUtils.setField(organizationDao, "provider", mongoProvider);
         service = new OrganizationService();
         datastore = Mockito.mock(Datastore.class);
-        ReflectionTestUtils.setField(service,"orgDao",organizationDao);
+        ReflectionTestUtils.setField(service, "orgDao", organizationDao);
         org = new Organization();
         org.setOrganizationId("orgId");
         org.setDatasets(new ArrayList<>());
@@ -50,7 +51,7 @@ public class TestOrganizationService {
     }
 
     @Test
-    public void testOrganizationCreation(){
+    public void testOrganizationCreation() {
         Mockito.when(mongoProvider.getDatastore()).thenReturn(datastore);
         Mockito.doAnswer(new Answer<Object>() {
             @Override
@@ -62,7 +63,7 @@ public class TestOrganizationService {
     }
 
     @Test
-    public void testOrganizationUpdate(){
+    public void testOrganizationUpdate() {
         Mockito.when(mongoProvider.getDatastore()).thenReturn(datastore);
 
         Mockito.doAnswer(new Answer<Object>() {
@@ -75,7 +76,7 @@ public class TestOrganizationService {
     }
 
     @Test
-    public void testOrganizationDelete(){
+    public void testOrganizationDelete() {
         Mockito.when(mongoProvider.getDatastore()).thenReturn(datastore);
 
         Mockito.doAnswer(new Answer<Object>() {
@@ -88,25 +89,32 @@ public class TestOrganizationService {
     }
 
     @Test
-    public void testRetrieveOrgByOrgId(){
+    public void testRetrieveOrgByOrgId() {
         Mockito.when(mongoProvider.getDatastore()).thenReturn(datastore);
         Mockito.when(organizationDao.getByOrganizationId("string")).thenReturn(org);
 
-        Organization orgRet = service.getOrganizationByOrganizationId("string");
-        Assert.assertEquals(org,orgRet);
+        try {
+            Organization orgRet = service.getOrganizationByOrganizationId("string");
+            Assert.assertEquals(org, orgRet);
+        } catch (NoOrganizationExceptionFound e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
-    public void testRetrieveOrgById(){
+    public void testRetrieveOrgById() {
         Mockito.when(mongoProvider.getDatastore()).thenReturn(datastore);
         Mockito.when(organizationDao.getById("string")).thenReturn(org);
-
-        Organization orgRet = service.getOrganizationById("string");
-        Assert.assertEquals(org,orgRet);
+        try {
+            Organization orgRet = service.getOrganizationById("string");
+            Assert.assertEquals(org, orgRet);
+        } catch (NoOrganizationExceptionFound e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
-    public void testRetrieveAll(){
+    public void testRetrieveAll() {
 
         List<Organization> orgs = new ArrayList<>();
         orgs.add(org);
@@ -114,13 +122,17 @@ public class TestOrganizationService {
         orgs.add(org);
         Mockito.when(mongoProvider.getDatastore()).thenReturn(datastore);
         Mockito.when(organizationDao.getAll()).thenReturn(orgs);
+        try {
+            List<Organization> orgRet = service.getAllOrganizations();
+            Assert.assertEquals(orgs, orgRet);
+        } catch (NoOrganizationExceptionFound e) {
+            e.printStackTrace();
+        }
 
-        List<Organization> orgRet = service.getAllOrganizations();
-        Assert.assertEquals(orgs,orgRet);
     }
 
     @Test
-    public void testRetrieveDatasets(){
+    public void testRetrieveDatasets() {
 
         List<Dataset> datasets = new ArrayList<>();
         datasets.add(new Dataset());
@@ -128,9 +140,13 @@ public class TestOrganizationService {
         datasets.add(new Dataset());
         org.setDatasets(datasets);
         Mockito.when(mongoProvider.getDatastore()).thenReturn(datastore);
-        Mockito.when(organizationDao.getAllDatasetsByOrganization("string")).thenReturn(org.getDatasets());
+        try {
+            Mockito.when(organizationDao.getAllDatasetsByOrganization("string")).thenReturn(org.getDatasets());
 
-        List<Dataset> datasetsRet = service.getDatasetsByOrganization("string");
-        Assert.assertEquals(datasets,datasetsRet);
+            List<Dataset> datasetsRet = service.getDatasetsByOrganization("string");
+            Assert.assertEquals(datasets, datasetsRet);
+        } catch (NoOrganizationExceptionFound e) {
+            e.printStackTrace();
+        }
     }
 }
