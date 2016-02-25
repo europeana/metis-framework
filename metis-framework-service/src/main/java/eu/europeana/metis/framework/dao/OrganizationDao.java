@@ -1,6 +1,7 @@
 package eu.europeana.metis.framework.dao;
 
 import eu.europeana.metis.framework.dataset.Dataset;
+import eu.europeana.metis.framework.exceptions.NoOrganizationExceptionFound;
 import eu.europeana.metis.framework.mongo.MongoProvider;
 import eu.europeana.metis.framework.organization.Organization;
 import org.mongodb.morphia.query.Query;
@@ -75,12 +76,12 @@ public class OrganizationDao implements MetisDao<Organization> {
      * @param organizationId The id to retrieve the datasets for
      * @return The datasets for this organization
      */
-    public List<Dataset> getAllDatasetsByOrganization(String organizationId){
+    public List<Dataset> getAllDatasetsByOrganization(String organizationId) throws NoOrganizationExceptionFound{
         Organization org = getByOrganizationId(organizationId);
         if(org!=null){
             return org.getDatasets();
         }
-        return null;
+       throw new NoOrganizationExceptionFound("No organization found with id: " +organizationId);
     }
 
 }

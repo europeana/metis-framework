@@ -15,13 +15,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
-import java.net.URI;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
+ * Rest Client for Zoho CRM
  * Created by ymamakis on 2/23/16.
  */
 @Component
@@ -34,6 +34,12 @@ public class ZohoRestClient {
     private final static String GETALLPROVIDERS = "getRecords";
     private final static String GETPROVIDERBYID = "getRecordById";
 
+    /**
+     * Constructor for Zoho Rest Client
+     * @param baseUrl The URL of Zoho
+     * @param authorizationToken The authorization token
+     * @param scope The scope
+     */
     public ZohoRestClient(String baseUrl, String authorizationToken, String scope) {
         this.authorizationToken = authorizationToken;
         this.baseUrl = baseUrl;
@@ -43,8 +49,13 @@ public class ZohoRestClient {
         template.setMessageConverters(converters);
     }
 
+    /**
+     * Retrieve all the organizations from Zoho
+     * @return A list of all the registered organizations in Zoho
+     * @throws ParseException
+     * @throws IOException
+     */
     public List<Organization> getAllOrganizations() throws ParseException, IOException {
-        List<Organization> orgs = new ArrayList<>();
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         ZohoResponse resp = new ZohoResponse();
@@ -55,8 +66,14 @@ public class ZohoRestClient {
         return fromListResponse(ret);
     }
 
+    /**
+     * Get an organization by a specific id from the CRM
+     * @param id The id of the organization to search for
+     * @return The Organization representation for that Id
+     * @throws ParseException
+     * @throws IOException
+     */
     public Organization getOrganizationById(String id) throws ParseException, IOException {
-        List<Organization> orgs = new ArrayList<>();
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         ZohoResponse resp = new ZohoResponse();
@@ -70,7 +87,6 @@ public class ZohoRestClient {
         List<Row> rows = resp.getResponse().getResult().getModule().getRows();
         List<Organization> orgs = new ArrayList<>();
         for (Row row : rows) {
-
             orgs.add(readResponsetoOrganization(row));
         }
         return orgs;

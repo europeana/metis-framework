@@ -1,6 +1,7 @@
 package eu.europeana.metis.framework.rest;
 
 import eu.europeana.metis.framework.dataset.Dataset;
+import eu.europeana.metis.framework.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.framework.organization.Organization;
 import eu.europeana.metis.framework.service.DatasetService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +61,7 @@ public class DatasetController {
      */
     @RequestMapping (value = "/dataset/{name}",method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public Dataset getByName(@PathVariable String name){
+    public Dataset getByName(@PathVariable String name) throws NoDatasetFoundException{
         return datasetService.getByName(name);
     }
 }

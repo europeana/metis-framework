@@ -3,6 +3,7 @@ package eu.europeana.metis.framework.service;
 import eu.europeana.metis.framework.dao.DatasetDao;
 import eu.europeana.metis.framework.dao.OrganizationDao;
 import eu.europeana.metis.framework.dataset.Dataset;
+import eu.europeana.metis.framework.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.framework.organization.Organization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -54,8 +55,12 @@ public class DatasetService {
      * @param name The name of the dataset
      * @return The Dataset
      */
-    public Dataset getByName(String name){
-        return dsDao.getByName(name);
+    public Dataset getByName(String name) throws NoDatasetFoundException{
+        Dataset dataset = dsDao.getByName(name);
+        if(dataset==null){
+            throw new NoDatasetFoundException(name);
+        }
+        return dataset;
     }
 
 }

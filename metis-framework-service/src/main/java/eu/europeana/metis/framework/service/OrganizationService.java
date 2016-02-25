@@ -3,6 +3,7 @@ package eu.europeana.metis.framework.service;
 import eu.europeana.metis.framework.dao.OrganizationDao;
 import eu.europeana.metis.framework.dao.ZohoRestClient;
 import eu.europeana.metis.framework.dataset.Dataset;
+import eu.europeana.metis.framework.exceptions.NoOrganizationExceptionFound;
 import eu.europeana.metis.framework.organization.Organization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -52,8 +53,12 @@ public class OrganizationService {
      * List all the organizations
      * @return Retrieve all the organizations
      */
-    public List<Organization> getAllOrganizations(){
-        return orgDao.getAll();
+    public List<Organization> getAllOrganizations() throws NoOrganizationExceptionFound{
+        List<Organization> organizations = orgDao.getAll();
+        if(organizations == null||organizations.size()==0){
+            throw new NoOrganizationExceptionFound("No organization found in METIS");
+        }
+        return organizations;
     }
 
     /**
@@ -61,7 +66,7 @@ public class OrganizationService {
      * @param orgId The organization id to search on
      * @return The datasets for that organization
      */
-    public List<Dataset> getDatasetsByOrganization(String orgId){
+    public List<Dataset> getDatasetsByOrganization(String orgId) throws NoOrganizationExceptionFound{
         return orgDao.getAllDatasetsByOrganization(orgId);
     }
 
@@ -70,8 +75,12 @@ public class OrganizationService {
      * @param id The id to search for
      * @return The organization with the requested id
      */
-    public Organization getOrganizationById(String id){
-        return  orgDao.getById(id);
+    public Organization getOrganizationById(String id)throws NoOrganizationExceptionFound{
+        Organization organization = orgDao.getById(id);
+        if(organization == null){
+            throw new NoOrganizationExceptionFound("No organization found with id: "+id+" in METIS");
+        }
+        return  organization;
     }
 
     /**
@@ -79,8 +88,13 @@ public class OrganizationService {
      * @param id The organization id to search on
      * @return The organization with that organization id
      */
-    public Organization getOrganizationByOrganizationId(String id){
-        return  orgDao.getByOrganizationId(id);
+    public Organization getOrganizationByOrganizationId(String id) throws NoOrganizationExceptionFound{
+
+        Organization organization= orgDao.getByOrganizationId(id);
+        if(organization == null){
+            throw new NoOrganizationExceptionFound("No organization found with organization id: "+id+" in METIS");
+        }
+        return  organization;
     }
 
     /**
@@ -90,8 +104,12 @@ public class OrganizationService {
      * @throws ParseException
      * @throws IOException
      */
-    public Organization getOrganizationByIdFromCRM(String id) throws ParseException,IOException{
-        return restClient.getOrganizationById(id);
+    public Organization getOrganizationByIdFromCRM(String id) throws ParseException,IOException, NoOrganizationExceptionFound{
+        Organization organization= restClient.getOrganizationById(id);
+        if(organization == null){
+            throw new NoOrganizationExceptionFound("No organization found with organization id: "+id+" in CRM");
+        }
+        return  organization;
     }
 
     /**
@@ -100,7 +118,11 @@ public class OrganizationService {
      * @throws ParseException
      * @throws IOException
      */
-    public List<Organization> getAllOrganizationsFromCRM() throws ParseException,IOException{
-        return restClient.getAllOrganizations();
+    public List<Organization> getAllOrganizationsFromCRM() throws ParseException,IOException,NoOrganizationExceptionFound {
+        List<Organization> organizations= restClient.getAllOrganizations();
+        if(organizations == null||organizations.size()==0){
+            throw new NoOrganizationExceptionFound("No organization found in CRM");
+        }
+        return organizations;
     }
 }
