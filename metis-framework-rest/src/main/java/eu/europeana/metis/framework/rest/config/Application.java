@@ -16,7 +16,9 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.net.UnknownHostException;
 import java.util.List;
@@ -29,6 +31,7 @@ import java.util.List;
 @ComponentScan (basePackages = "eu.europeana.metis.framework.rest")
 @PropertySource("classpath:metis.properties")
 @EnableWebMvc
+@EnableSwagger2
 public class Application extends WebMvcConfigurerAdapter {
 
     @Value("${mongo.host}")
@@ -54,6 +57,12 @@ public class Application extends WebMvcConfigurerAdapter {
         converters.add(new MappingJackson2HttpMessageConverter());
 
         super.configureMessageConverters(converters);
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
     @Bean
     MongoProvider getMongoProvider(){

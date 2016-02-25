@@ -4,6 +4,9 @@ import eu.europeana.metis.framework.dataset.Dataset;
 import eu.europeana.metis.framework.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.framework.organization.Organization;
 import eu.europeana.metis.framework.service.DatasetService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
  * Created by ymamakis on 2/18/16.
  */
 @Controller
+@Api("/")
 public class DatasetController {
 
     @Autowired
@@ -26,7 +30,8 @@ public class DatasetController {
      */
     @RequestMapping (value = "/dataset",method = RequestMethod.POST, consumes = "application/json")
     @ResponseBody
-    public void createDataset(@RequestBody Organization org, @RequestBody Dataset ds){
+    @ApiOperation(value="Create a dataset")
+    public void createDataset(@ApiParam @RequestBody Organization org, @ApiParam @RequestBody Dataset ds){
         datasetService.createDataset(org,ds);
 
     }
@@ -37,7 +42,8 @@ public class DatasetController {
      */
     @RequestMapping (value = "/dataset",method = RequestMethod.PUT, consumes = "application/json")
     @ResponseBody
-    public void updateDataset(@RequestBody Dataset ds){
+    @ApiOperation(value = "Update a dataset")
+    public void updateDataset(@ApiParam @RequestBody Dataset ds){
         datasetService.updateDataset(ds);
 
     }
@@ -49,7 +55,8 @@ public class DatasetController {
      */
     @RequestMapping (value = "/dataset",method = RequestMethod.DELETE, consumes = "application/json")
     @ResponseBody
-    public void deleteDataset(@RequestBody Organization org,@RequestBody Dataset ds){
+    @ApiOperation(value = "Delete a dataset from an organization")
+    public void deleteDataset(@ApiParam @RequestBody Organization org,@ApiParam @RequestBody Dataset ds){
         datasetService.deleteDataset(org, ds);
 
     }
@@ -61,7 +68,8 @@ public class DatasetController {
      */
     @RequestMapping (value = "/dataset/{name}",method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public Dataset getByName(@PathVariable String name) throws NoDatasetFoundException{
+    @ApiOperation(value = "Retrieve a dataset by name", response = Dataset.class)
+    public Dataset getByName(@ApiParam("name") @PathVariable("name") String name) throws NoDatasetFoundException{
         return datasetService.getByName(name);
     }
 }
