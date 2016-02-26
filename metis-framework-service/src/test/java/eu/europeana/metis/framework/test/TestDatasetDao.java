@@ -41,9 +41,7 @@ public class TestDatasetDao {
             ds.setCountry(Country.ALBANIA);
             ds.setCreated(new Date(1000));
             ds.setCreatedByLdapId("Lemmy");
-            List<String> dps = new ArrayList<>();
-            dps.add("prov");
-            ds.setDataProviders(dps);
+            ds.setDataProvider("prov");
             ds.setDeaSigned(true);
             ds.setDescription("Test description");
             List<String> DQA = new ArrayList<>();
@@ -84,7 +82,7 @@ public class TestDatasetDao {
         Assert.assertEquals(ds.getCountry(),dsRet.getCountry());
         Assert.assertEquals(ds.getCreated(),dsRet.getCreated());
         Assert.assertEquals(ds.getCreatedByLdapId(),dsRet.getCreatedByLdapId());
-        Assert.assertEquals(ds.getDataProviders(),dsRet.getDataProviders());
+        Assert.assertEquals(ds.getDataProvider(),dsRet.getDataProvider());
         Assert.assertEquals(ds.getDQA(),dsRet.getDQA());
         Assert.assertEquals(ds.getDescription(),ds.getDescription());
         Assert.assertEquals(ds.getFirstPublished(),dsRet.getFirstPublished());
@@ -113,7 +111,7 @@ public class TestDatasetDao {
         Assert.assertEquals(ds.getCountry(),dsRet.getCountry());
         Assert.assertEquals(ds.getCreated(),dsRet.getCreated());
         Assert.assertEquals(ds.getCreatedByLdapId(),dsRet.getCreatedByLdapId());
-        Assert.assertEquals(ds.getDataProviders(),dsRet.getDataProviders());
+        Assert.assertEquals(ds.getDataProvider(),dsRet.getDataProvider());
         Assert.assertEquals(ds.getDQA(),dsRet.getDQA());
         Assert.assertEquals(ds.getDescription(),ds.getDescription());
         Assert.assertEquals(ds.getFirstPublished(),dsRet.getFirstPublished());

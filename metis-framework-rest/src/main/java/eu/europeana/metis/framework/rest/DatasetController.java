@@ -8,6 +8,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,9 +32,9 @@ public class DatasetController {
     @RequestMapping (value = "/dataset",method = RequestMethod.POST, consumes = "application/json")
     @ResponseBody
     @ApiOperation(value="Create a dataset")
-    public void createDataset(@ApiParam @RequestBody Organization org, @ApiParam @RequestBody Dataset ds){
+    public ResponseEntity<Void> createDataset(@ApiParam @RequestBody Organization org, @ApiParam @RequestBody Dataset ds){
         datasetService.createDataset(org,ds);
-
+        return ResponseEntity.ok().build();
     }
 
     /**
@@ -43,8 +44,9 @@ public class DatasetController {
     @RequestMapping (value = "/dataset",method = RequestMethod.PUT, consumes = "application/json")
     @ResponseBody
     @ApiOperation(value = "Update a dataset")
-    public void updateDataset(@ApiParam @RequestBody Dataset ds){
+    public ResponseEntity<Void> updateDataset(@ApiParam @RequestBody Dataset ds){
         datasetService.updateDataset(ds);
+        return ResponseEntity.ok().build();
 
     }
 
@@ -56,9 +58,9 @@ public class DatasetController {
     @RequestMapping (value = "/dataset",method = RequestMethod.DELETE, consumes = "application/json")
     @ResponseBody
     @ApiOperation(value = "Delete a dataset from an organization")
-    public void deleteDataset(@ApiParam @RequestBody Organization org,@ApiParam @RequestBody Dataset ds){
+    public ResponseEntity<Void> deleteDataset(@ApiParam @RequestBody Organization org,@ApiParam @RequestBody Dataset ds){
         datasetService.deleteDataset(org, ds);
-
+        return ResponseEntity.ok().build();
     }
 
     /**

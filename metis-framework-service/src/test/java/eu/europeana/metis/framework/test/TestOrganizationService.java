@@ -2,7 +2,6 @@ package eu.europeana.metis.framework.test;
 
 import eu.europeana.metis.framework.common.HarvestingMetadata;
 import eu.europeana.metis.framework.dao.OrganizationDao;
-import eu.europeana.metis.framework.dao.ZohoRestClient;
 import eu.europeana.metis.framework.dataset.Dataset;
 import eu.europeana.metis.framework.exceptions.NoOrganizationExceptionFound;
 import eu.europeana.metis.framework.mongo.MongoProvider;

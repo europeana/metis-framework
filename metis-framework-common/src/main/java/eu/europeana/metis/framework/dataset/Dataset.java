@@ -33,7 +33,7 @@ public class Dataset {
      * Data providers associated with this dataset
      */
     @Indexed
-    private List<String> dataProviders;
+    private String dataProvider;
 
     /**
      * Providers have signed DEA for the dataset
@@ -164,12 +164,12 @@ public class Dataset {
         this.name = name;
     }
     @XmlElement
-    public List<String> getDataProviders() {
-        return dataProviders;
+    public String getDataProvider() {
+        return dataProvider;
     }
 
-    public void setDataProviders(List<String> dataProviders) {
-        this.dataProviders = dataProviders;
+    public void setDataProvider(String dataProvider) {
+        this.dataProvider = dataProvider;
     }
     @XmlElement
     public boolean isDeaSigned() {

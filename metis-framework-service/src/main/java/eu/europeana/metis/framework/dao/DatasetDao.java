@@ -7,6 +7,7 @@ import org.bson.types.ObjectId;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,25 +34,63 @@ public class DatasetDao implements MetisDao<Dataset> {
     public void update(Dataset dataset) {
         UpdateOperations<Dataset> ops = provider.getDatastore().createUpdateOperations(Dataset.class);
         Query<Dataset> q = provider.getDatastore().find(Dataset.class).filter("name",dataset.getName());
-        ops.set("assignedToLdapId",dataset.getAssignedToLdapId());
+        if(dataset.getAssignedToLdapId()!=null) {
+            ops.set("assignedToLdapId", dataset.getAssignedToLdapId());
+        } else {
+            ops.unset("assignedToLdapId");
+        }
         ops.set("createdByLdapId",dataset.getCreatedByLdapId());
         ops.set("created",dataset.getCreated());
         ops.set("country",dataset.getCountry());
-        ops.set("dataProviders",dataset.getDataProviders());
+        ops.set("dataProvider",dataset.getDataProvider());
         ops.set("description",dataset.getDescription());
-        ops.set("DQA",dataset.getDQA());
-        ops.set("firstPublished",dataset.getFirstPublished());
-        ops.set("harvestedAt",dataset.getHarvestedAt());
+        if(dataset.getDQA()!=null) {
+            ops.set("DQA", dataset.getDQA());
+        } else {
+            ops.unset("DQA");
+        }
+        if(dataset.getFirstPublished()!=null) {
+            ops.set("firstPublished", dataset.getFirstPublished());
+        } else {
+            ops.unset("firstPublished");
+        }
+        if (dataset.getHarvestedAt()!=null) {
+            ops.set("harvestedAt", dataset.getHarvestedAt());
+        } else {
+            ops.unset("harvestedAt");
+        }
         ops.set("language",dataset.getLanguage());
-        ops.set("lastPublished",dataset.getLastPublished());
+        if(dataset.getLastPublished()!=null) {
+            ops.set("lastPublished", dataset.getLastPublished());
+        } else {
+            ops.unset("lastPublished");
+        }
         ops.set("metadata",dataset.getMetadata());
         ops.set("notes",dataset.getNotes());
         ops.set("recordsPublished",dataset.getRecordsPublished());
         ops.set("recordsSubmitted",dataset.getRecordsSubmitted());
-        ops.set("replacedBy",dataset.getReplacedBy());
-        ops.set("source",dataset.getSource());
-        ops.set("subject",dataset.getSubject());
-        ops.set("submittedAt",dataset.getSubmittedAt());
+        if(dataset.getReplacedBy()!=null) {
+            ops.set("replacedBy", dataset.getReplacedBy());
+        } else {
+            ops.unset("replacedBy");
+        }
+
+        if(dataset.getSource()!=null) {
+            ops.set("source", dataset.getSource());
+        } else {
+            ops.unset("source");
+        }
+        if(dataset.getSubject()!=null) {
+            ops.set("subject", dataset.getSubject());
+        } else {
+            ops.unset("subject");
+        }
+        if(dataset.getSubmittedAt()!=null) {
+            ops.set("submittedAt", dataset.getSubmittedAt());
+        } else {
+            ops.unset("submittedAt");
+        }
+
         ops.set("updated",dataset.getUpdated());
         ops.set("workflowStatus",dataset.getWorkflowStatus());
         ops.set("accepted",dataset.isAccepted());

@@ -55,9 +55,7 @@ public class TestDatasetService {
         ds.setCountry(Country.ALBANIA);
         ds.setCreated(new Date(1000));
         ds.setCreatedByLdapId("Lemmy");
-        List<String> dps = new ArrayList<>();
-        dps.add("prov");
-        ds.setDataProviders(dps);
+        ds.setDataProvider("prov");
         ds.setDeaSigned(true);
         ds.setDescription("Test description");
         List<String> DQA = new ArrayList<>();

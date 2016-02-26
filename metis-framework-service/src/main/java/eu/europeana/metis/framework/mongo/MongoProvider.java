@@ -1,6 +1,5 @@
 package eu.europeana.metis.framework.mongo;
 
-import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
@@ -16,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class providing connecitons to Mongo
+ * Class providing connections to Mongo
  * Created by ymamakis on 2/17/16.
  */
 @Component

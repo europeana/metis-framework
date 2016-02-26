@@ -46,9 +46,7 @@ public class TestOrganizationDao {
             ds.setCountry(Country.ALBANIA);
             ds.setCreated(new Date(1000));
             ds.setCreatedByLdapId("Lemmy");
-            List<String> dps = new ArrayList<>();
-            dps.add("prov");
-            ds.setDataProviders(dps);
+            ds.setDataProvider("prov");
             ds.setDeaSigned(true);
             ds.setDescription("Test description");
             List<String> DQA = new ArrayList<>();
@@ -146,6 +144,13 @@ public class TestOrganizationDao {
         orgDao.create(org);
 
         org.setOrganizationUri("testNew");
+        org.setName("name");
+        org.setModified(new Date());
+        org.setCreated(new Date());
+        List<String> roles = new ArrayList<>();
+        roles.add("admin");
+        org.setRoles(roles);
+        org.setAcronym("acronym");
         orgDao.update(org);
         Organization organization = orgDao.getByOrganizationId(org.getOrganizationId());
 

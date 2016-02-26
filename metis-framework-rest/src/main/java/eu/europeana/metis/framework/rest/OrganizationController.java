@@ -8,7 +8,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,10 +31,10 @@ public class OrganizationController {
      * @param organization The organization to create
      */
     @RequestMapping(value = "/organization", method = RequestMethod.POST, consumes = "application/json")
-    @ResponseStatus(value = HttpStatus.OK)
     @ApiOperation(value = "Create an organization in METIS")
-    public void createOrganization(@ApiParam @RequestBody Organization organization) {
+    public ResponseEntity<Void> createOrganization(@ApiParam @RequestBody Organization organization) {
         organizationService.createOrganization(organization);
+        return ResponseEntity.ok().build();
     }
 
     /**
@@ -42,10 +42,10 @@ public class OrganizationController {
      * @param organization The organization to delete
      */
     @RequestMapping(value = "/organization", method = RequestMethod.DELETE, consumes = "application/json")
-    @ResponseStatus(value = HttpStatus.OK)
     @ApiOperation(value = "Delete an organization")
-    public void deleteOrganization(@ApiParam @RequestBody Organization organization) {
+    public ResponseEntity<Void> deleteOrganization(@ApiParam @RequestBody Organization organization) {
         organizationService.deleteOrganization(organization);
+        return ResponseEntity.ok().build();
     }
 
     /**
@@ -53,10 +53,10 @@ public class OrganizationController {
      * @param organization The organization to update
      */
     @RequestMapping(value = "/organization", method = RequestMethod.PUT, consumes = "application/json")
-    @ResponseStatus(value = HttpStatus.OK)
     @ApiOperation(value = "Update an organization")
-    public void updateOrganization(@RequestBody Organization organization) {
+    public ResponseEntity<Void> updateOrganization(@RequestBody Organization organization) {
         organizationService.updateOrganization(organization);
+        return ResponseEntity.ok().build();
     }
 
     /**
@@ -116,10 +116,10 @@ public class OrganizationController {
      * @param id The organization id of the organization to retrieve
      * @return The organization with the specified id
      */
-    @RequestMapping(value = "/organization/crm", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/organization/crm/{orgId}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     @ApiOperation(value = "Retrieve an organization from CRM", response = Organization.class)
-    public Organization getOrganizationByOrganizationIdFromCRM(@ApiParam("orgId") @RequestParam(value = "orgId") String id) throws NoOrganizationExceptionFound, IOException, ParseException {
+    public Organization getOrganizationByOrganizationIdFromCRM(@ApiParam("orgId") @PathVariable(value = "orgId") String id) throws NoOrganizationExceptionFound, IOException, ParseException {
         return organizationService.getOrganizationByIdFromCRM(id);
     }
 
