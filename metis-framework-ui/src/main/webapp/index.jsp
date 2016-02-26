@@ -26,7 +26,7 @@
 			<ul class="nav navbar-nav">
 				<li><a href="${base}index.jsp" class="selected">Home</a></li>
 				<sec:authorize ifNotGranted="ROLE_USER">
-					<%-- <li><a href="${base}login.jsp">Login</a></li> --%>
+					<li><a href="${base}login.jsp">Login</a></li>
 				</sec:authorize>
 			</ul>
 		</div>
@@ -39,8 +39,16 @@
 		<p>
 			This is a test application for <a href="http://localhost:8080/metis/">Metis</a>!
 		</p>
-
-		<p><a href="<c:url value="/metis"/>">Go to Dataset Creation page</a></p>
+		<sec:authorize access="isAuthenticated()">
+			<p>The user <sec:authentication property="principal.username"/> with roles <sec:authentication property="principal.authorities"/> is authenticated!</p>
+		</sec:authorize>
+		<sec:authorize access="!isAuthenticated()">
+			<p><a href="<c:url value="login"/>">Login to Metis</a></p>
+		</sec:authorize>
+		<sec:authorize access="isAuthenticated()">
+			<p><a href="<c:url value="/metis"/>">Go to Dataset Creation page</a></p>
+			<p><a href="<c:url value="/logout"/>">Logout</a></p>
+		</sec:authorize>
 	</div>
 </body>
 </html>

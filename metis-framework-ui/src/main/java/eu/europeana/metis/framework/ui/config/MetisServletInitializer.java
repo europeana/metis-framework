@@ -13,7 +13,7 @@ public class MetisServletInitializer extends AbstractDispatcherServletInitialize
 	@Override
 	protected WebApplicationContext createServletApplicationContext() {
 		AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-		context.register(MetisWebMvcConfig.class);
+		context.register(SecurityConfig.class, MetisWebMvcConfig.class);
 		return context;
 	}
 
@@ -25,14 +25,14 @@ public class MetisServletInitializer extends AbstractDispatcherServletInitialize
 	@Override
 	protected WebApplicationContext createRootApplicationContext() {
 		AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-		context.register(MetisWebMvcConfig.class);
+		context.register(SecurityConfig.class, MetisWebMvcConfig.class);
 		return context;
 	}
 
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
 		super.onStartup(servletContext);
-//		registerProxyFilter(servletContext, "springSecurityFilterChain");
+		registerProxyFilter(servletContext, "springSecurityFilterChain");
 	}
 
 	private void registerProxyFilter(ServletContext servletContext, String name) {

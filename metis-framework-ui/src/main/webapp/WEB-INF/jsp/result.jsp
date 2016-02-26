@@ -88,9 +88,9 @@ $(document).ready(function() {
 	<div id="navbar" class="navbar navbar-default" role="navigation">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span> 
-				<span class="icon-bar"></span>
+				<span class='table-label'class="icon-bar"></span>
+				<span class='table-label'class="icon-bar"></span> 
+				<span class='table-label'class="icon-bar"></span>
 			</button>
 			<a class="navbar-brand" href="#">Metis</a>
 		</div>
@@ -110,159 +110,140 @@ $(document).ready(function() {
 		</sec:authorize>
 	</div-->
 	
-	<h1 class="blue">&nbsp;&nbsp;The Dataset Bla-bla was successfully created!</h1>
-	<div style="padding-left:30px;">
+	<h1 class="blue">&nbsp;&nbsp;Ta da! The Dataset <b>${dataset.name}</b> was successfully created!</h1>
+ 	<div style="padding-left:30px;">
 	   <table cellspacing='0' cellpadding='6'>
 	    <tr>
-	        <td><form:label path="name">Name</form:label></td>
-	        <td ><form:input path="name" /></td>
+	        <td><span>Name</span></td>
+	        <td><b>${dataset.name}</b></td>
 	    </tr>
 	    <tr>
-	        <td><form:label path="dataProviders">Data Providers List</form:label></td>
-	        <td><form:input path="dataProviders" /></td>
+	        <td><span>Data Providers List</span></td>
+	        <td><b>${dataset.dataProviders}</b></td>
 	    </tr>
  	    <tr>
-	        <td><form:label path="deaSigned">DEA Signed</form:label></td>
-	        <td><form:checkbox checked='checked'  path="deaSigned" /></td>
+	        <td><span>DEA</span></td>
+	        <td><b>${dataset.deaSigned}</b></td>
 	    </tr>
 	    <tr style="display:none"> <!-- TODO: currently this field is hidden -->
-	        <td><form:label path="subject">Subject List</form:label></td>
-	        <td><form:input path="subject" /></td>
+	        <td><span>Subject List</span></td>
+	        <td><b>${dataset.subject}</b></td>
 	    </tr>
 	    <tr style="display:none"> <!-- TODO: currently this field is hidden -->
-	        <td><form:label path="source">Source List</form:label></td>
-	        <td><form:input path="source" /></td>
+	        <td><span>Source List</span></td>
+	        <td><b>${dataset.source}</b></td>
 	    </tr>
 	    <tr>
-	        <td><form:label path="created">Date Created</form:label></td>
-	        <td><form:input class="datepicker" placeholder="mm/dd/yyyy" path="created" /></td>
+	        <td><span>Date Created</span></td>
+	        <td><b>${dataset.created}</b></td>
 	    </tr>
 	    <tr>
-	        <td><form:label path="updated">Date Updated</form:label></td>
-	        <td><form:input class="datepicker" placeholder="mm/dd/yyyy" path="updated" /></td>
+	        <td><span>Date Updated</span></td>
+	        <td><b>${dataset.updated}</b></td>
 	    </tr>
 	    <tr>
-	        <td><form:label path="replacedBy">Replaced By</form:label></td>
-	        <td><form:input path="replacedBy" /></td>
+	        <td><span>Replaced By</span></td>
+	        <td><b>${dataset.replacedBy}</b></td>
 	    </tr>
 	    <tr>
-	        <td><form:label path="description">Description</form:label></td>
-	        <td><form:input path="description" /></td>
+	        <td><span>Description</span></td>
+	        <td><b>${dataset.description}</b></td>
 	    </tr>
 	    <tr>
-	        <td><form:label path="notes">Notes</form:label></td>
-	        <td><form:input path="notes" /></td>
+	        <td><span>Notes</span></td>
+	        <td><b>${dataset.notes}</b></td>
 	    </tr>
 	    <tr>
-	        <td><form:label path="assignedToLdapId">Assignee Select</form:label></td>
-	        <td><form:input path="assignedToLdapId" /></td>
+	        <td><span>Assignee Select</span></td>
+	        <td><b>${dataset.assignedToLdapId}</b></td>
 	    </tr>
 	    <tr>
-	        <td><form:label path="firstPublished">First Published </form:label></td>
-	        <td><form:input class="datepicker" placeholder="mm/dd/yyyy" path="firstPublished" /></td>
+	        <td><span>First Published </span></td>
+	        <td><b>${dataset.firstPublished}</b></td>
 	    </tr>
 	    <tr>
-	        <td><form:label path="lastPublished">Last Published</form:label></td>
-	        <td><form:input class="datepicker" placeholder="mm/dd/yyyy" path="lastPublished" /></td>
+	        <td><span>Last Published</span></td>
+	        <td><b>${dataset.lastPublished}</b></td>
 	    </tr>
 	    <tr>
-	        <td><form:label path="recordsPublished">Records Published</form:label></td>
-	        <td><form:input path="recordsPublished" /></td>
+	        <td><span>Records Published</span></td>
+	        <td><b>${dataset.recordsPublished}</b></td>
 	    </tr>
 	    <tr>
-	        <td><form:label path="harvestedAt">Harvested At</form:label></td>
-	        <td><form:input class="datepicker" placeholder="mm/dd/yyyy" path="harvestedAt" /></td>
+	        <td><span>Harvested At</span></td>
+	        <td><b>${dataset.harvestedAt}</b></td>
 	    </tr>
 	    <tr>
-	        <td><form:label path="submittedAt">Submitted At</form:label></td>
-	        <td><form:input class="datepicker" placeholder="mm/dd/yyyy" path="submittedAt" /></td>
+	        <td><span>Submitted At</span></td>
+	        <td><b>${dataset.submittedAt}</b></td>
 	    </tr>
 	    <tr>
-	        <td><form:label path="recordsSubmitted">Records Submitted</form:label></td>
-	        <td><form:input path="recordsSubmitted" /></td>
+	        <td><span>Records Submitted</span></td>
+	       <td><b>${dataset.recordsSubmitted}</b></td>
 	    </tr>
 	    <tr>
-	        <td><form:label path="accepted">Accepted</form:label></td>
-	        <td><form:checkbox checked='checked' path="accepted" /></td>
+	        <td><span>Accepted</span></td>
+	        <td><b>${dataset.accepted}</b></td>
 	    </tr>
 	    <tr style="display:none"> <!-- TODO: currently this field is hidden -->
-	        <td><form:label path="DQA">DQA List</form:label></td>
-	        <td><form:input path="DQA" /></td>
+	        <td><span>DQA List</span></td>
+	        <td><b>${dataset.DQA}</b></td>
 	    </tr>
  	    <tr>
-	        <td><form:label path="metadata.harvestType">Harvest Protocol</form:label></td>
-	        <td><form:radiobuttons class="harvestType" path="metadata.harvestType" items="${harvestType}"/></td>
-	        
+	        <td><span>Harvest Protocol</span></td>
+	        <td><b>${dataset.metadata.harvestType}</b></td>   
 	    </tr>
 	    <tr class="metadataUnspecified">
-	        <td><form:label path="metadata.metadataSchema">Metadata Schema</form:label></td>
-	        <td><form:input path="metadata.metadataSchema" /></td>
+	        <td><span>Metadata Schema</span></td>
+	        <td><b>${dataset.metadata.metadataSchema}</b></td>
 	    </tr>
    	    <tr class="metadataFolder">
-	        <td><form:label path="recordXPath">Record XPath</form:label></td>
-	        <td><form:input path="recordXPath" /></td>
+	        <td><span>Record XPath</span></td>
+	        <td><b>${dataset.recordXPath}</b></td>
  	    </tr>
 	    <tr class="metadataOAI">
-	        <td><form:label path="harvestUrl">Harvest URL</form:label></td>
-	        <td><form:input path="harvestUrl" /></td>
+	        <td><>Harvest URL</span></td>
+	        <td><b>${dataset.harvestUrl}</b></td>
 	    </tr>
 	    <tr class="metadataOAI">
-	        <td><form:label path="metadataFormat">Metadata Format</form:label></td>
-	        <td><form:input path="metadataFormat" /></td>
+	        <td><span>Metadata Format</span></td>
+	        <td><b>${dataset.metadataFormat}</b></td>
 	    </tr>
 	    <tr class="metadataOAI">
-	        <td><form:label path="setSpec">setSpec</form:label></td>
-	        <td><form:input path="setSpec" /></td>
+	        <td><span>setSpec</span></td>
+	        <td><b>${dataset.setSpec}</b></td>
 	    </tr>
 	     <tr class="metadataFile">
-	        <td><form:label path="harvestUser">Harvest User</form:label></td>
-	        <td><form:input path="harvestUser" /></td>
+	        <td><span>Harvest User</span></td>
+	        <td><b>${dataset.harvestUser}</b></td>
 	    </tr>
 	    <tr class="metadataFile">
-	        <td><form:label path="harvestPassword">Harvest Password</form:label></td>
-	        <td><form:input path="harvestPassword" /></td>
+	        <td><span>Harvest Password</span></td>
+	        <td><b>${dataset.harvestPassword}</b></td>
 	    </tr>
 	    <tr class="metadataHTTP">
-	        <td><form:label path="httpUrl">HTTP URL</form:label></td>
-	        <td><form:input path="httpUrl" /></td>
+	        <td><span>HTTP URL</span></td>
+	        <td><b>${dataset.httpUrl}</b></td>
 	    </tr>
 	    <tr class="metadataFTP">
-	        <td><form:label path="ftpServerAddress">FTP Server Address</form:label></td>
-	        <td><form:input path="ftpServerAddress" /></td>
+	        <td><span>FTP Server Address</span></td>
+	        <td><b>${dataset.ftpServerAddress}</b></td>
 	    </tr>
 	    <tr class="metadataFTP">
-	        <td><form:label path="ftpUrl">FTP URL</form:label></td>
-	        <td><form:input path="ftpUrl" /></td>
+	        <td><span>FTP URL</span></td>
+	        <td><b>${dataset.ftpUrl}</b></td>
 	    </tr>
  	    <tr>
-	        <td><form:label path="workflowStatus">Workflow Status</form:label></td>
-	        <td><form:select class="styled-select blue semi-square" path="workflowStatus">
-				    <form:option value="" label="* Select Option *" />
-				    <form:options items="${workflowStatus}" />
-				</form:select>
-			</td>
+	        <td><span>Workflow Status</span></td>
+	        <td><b>${dataset.workflowStatus}</b></td>
 	    </tr>
 	    <tr>
-	        <td><form:label path="country">Country</form:label></td>
-	        <td><form:select class="styled-select blue semi-square" path="country">
-				    <form:option value="" label="* Select Option *" />
-				    <form:options items="${country}" itemValue="isoCode" itemLabel="name"/>
-				</form:select>
-			</td>
+	        <td><span>Country</span></td>
+	        <td><b>${dataset.country}</b></td>
 	    </tr>
 	    <tr>
-	        <td><form:label path="language">Language</form:label></td>
-	        <td><form:select class="styled-select blue semi-square" path="language">
-				    <form:option value="" label="* Select Option *" />
-				    <form:options items="${language}" />
-				</form:select>
-			</td>
-	    </tr>
-	    <tr>
-	        <td colspan="2">
-	            <input type="submit" class="blue semi-square" value="Submit"/>
-	            <input type="reset" class="blue semi-square" value="Reset" />
-	        </td>
+	        <td><span>Language</span></td>
+	        <td><b>${dataset.language}</b></td>
 	    </tr>
 	  </table>
 	</div>

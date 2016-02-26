@@ -23,12 +23,13 @@ $(function() {
     showOn: "button",
     buttonImage: "img/calendar.png",
     buttonImageOnly: true,
-    buttonText: "Select date"
+    buttonText: "Select date",
+    dateFormat: "dd/mm/yy"
   });
 });
 
 $(document).ready(function() {
-	$('.metadataUnspecified').hide();
+	$('.metadataUnspecified').show();
 	$('.metadataFolder').hide();
 	$('.metadataOAI').hide();
 	$('.metadataFile').hide();
@@ -111,7 +112,7 @@ $(document).ready(function() {
 	</div-->
 	
 	<h1 class="blue">&nbsp;&nbsp;Dataset Creation Form</h1>
-	<div style="padding-left:30px;">
+	<div style="padding-left:30px;">	
 	<form:form method="POST" action="/metis">
 	   <table cellspacing='0' cellpadding='6'>
 	    <tr>
@@ -123,7 +124,7 @@ $(document).ready(function() {
 	        <td><form:input path="dataProviders" /></td>
 	    </tr>
  	    <tr>
-	        <td><form:label path="deaSigned">DEA Signed</form:label></td>
+	        <td><form:label path="deaSigned">DEA</form:label></td>
 	        <td><form:checkbox checked='checked'  path="deaSigned" /></td>
 	    </tr>
 	    <tr style="display:none"> <!-- TODO: currently this field is hidden -->
@@ -136,11 +137,11 @@ $(document).ready(function() {
 	    </tr>
 	    <tr>
 	        <td><form:label path="created">Date Created</form:label></td>
-	        <td><form:input class="datepicker" placeholder="mm/dd/yyyy" path="created" /></td>
+	        <td><form:input class="datepicker" placeholder="dd/mm/yyyy" path="created" /></td>
 	    </tr>
 	    <tr>
 	        <td><form:label path="updated">Date Updated</form:label></td>
-	        <td><form:input class="datepicker" placeholder="mm/dd/yyyy" path="updated" /></td>
+	        <td><form:input class="datepicker" placeholder="dd/mm/yyyy" path="updated" /></td>
 	    </tr>
 	    <tr>
 	        <td><form:label path="replacedBy">Replaced By</form:label></td>
@@ -160,11 +161,11 @@ $(document).ready(function() {
 	    </tr>
 	    <tr>
 	        <td><form:label path="firstPublished">First Published </form:label></td>
-	        <td><form:input class="datepicker" placeholder="mm/dd/yyyy" path="firstPublished" /></td>
+	        <td><form:input class="datepicker" placeholder="dd/mm/yyyy" path="firstPublished" /></td>
 	    </tr>
 	    <tr>
 	        <td><form:label path="lastPublished">Last Published</form:label></td>
-	        <td><form:input class="datepicker" placeholder="mm/dd/yyyy" path="lastPublished" /></td>
+	        <td><form:input class="datepicker" placeholder="dd/mm/yyyy" path="lastPublished" /></td>
 	    </tr>
 	    <tr>
 	        <td><form:label path="recordsPublished">Records Published</form:label></td>
@@ -172,11 +173,11 @@ $(document).ready(function() {
 	    </tr>
 	    <tr>
 	        <td><form:label path="harvestedAt">Harvested At</form:label></td>
-	        <td><form:input class="datepicker" placeholder="mm/dd/yyyy" path="harvestedAt" /></td>
+	        <td><form:input class="datepicker" placeholder="dd/mm/yyyy" path="harvestedAt" /></td>
 	    </tr>
 	    <tr>
 	        <td><form:label path="submittedAt">Submitted At</form:label></td>
-	        <td><form:input class="datepicker" placeholder="mm/dd/yyyy" path="submittedAt" /></td>
+	        <td><form:input class="datepicker" placeholder="dd/mm/yyyy" path="submittedAt" /></td>
 	    </tr>
 	    <tr>
 	        <td><form:label path="recordsSubmitted">Records Submitted</form:label></td>
