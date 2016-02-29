@@ -34,6 +34,7 @@ public class MetisPageController {
        HarvestingMetadata metadata = new HarvestingMetadata();
        metadata.setHarvestType(HarvestType.UNSPECIFIED);
        dataset.setMetadata(metadata);
+       dataset.setCreated(new Date());
        ModelAndView modelAndView = new ModelAndView("metis", "command", new DatasetWrapper(dataset));
        
        final List<WorkflowStatus> workflowStatus = Arrays.asList(WorkflowStatus.values());
@@ -59,6 +60,11 @@ public class MetisPageController {
     
     @RequestMapping(value="/login")
     public String login(Model model) {    	
+        return "login";
+    }
+    
+    @RequestMapping(value="/logout")
+    public String logot(Model model) {    	
         return "login";
     }
     

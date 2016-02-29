@@ -49,10 +49,14 @@ label {
 	padding-right:8px;
 }
 
-.datepicker {
+.datepicker,.datepicker-disabled {
 	width:378px !important;
 }
 
 .ui-datepicker-trigger {
 	padding-bottom:4px;
+}
+
+.datepicker-disabled {
+	background-color: #ebf4f9;
 }

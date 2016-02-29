@@ -28,6 +28,16 @@ $(function() {
   });
 });
 
+$(function() {
+	  $( ".datepicker-disabled" ).datepicker({
+	    showOn: "button",
+	    buttonImage: "img/calendar-disabled.png",
+	    buttonImageOnly: true,
+	    buttonText: "Select date",
+	    dateFormat: "dd/mm/yy"
+	  });
+	});
+
 $(document).ready(function() {
 	$('.metadataUnspecified').show();
 	$('.metadataFolder').hide();
@@ -119,12 +129,10 @@ $(document).ready(function() {
 	        <td><form:label path="name">Name</form:label></td>
 	        <td ><form:input path="name" /></td>
 	    </tr>
-	    <sec:authorize ifAllGranted="ROLE_EUROPEANA_ADMIN">
-		    <tr>
-		        <td><form:label path="dataProvider">Data Provider</form:label></td>
-		        <td><form:input path="dataProvider" /></td>
-		    </tr>
-		</sec:authorize>
+	    <tr>
+	        <td><form:label path="dataProvider">Data Provider</form:label></td>
+	        <td><form:input path="dataProvider" /></td>
+	    </tr>
  	    <tr>
 	        <td><form:label path="deaSigned">DEA</form:label></td>
 	        <td><form:checkbox checked='checked'  path="deaSigned" /></td>
@@ -139,11 +147,11 @@ $(document).ready(function() {
 	    </tr>
 	    <tr>
 	        <td><form:label path="created">Date Created</form:label></td>
-	        <td><form:input class="datepicker" placeholder="dd/mm/yyyy" path="created" /></td>
+	        <td><form:input class="datepicker-disabled" disabled="disabled" placeholder="dd/mm/yyyy" path="created" /></td>
 	    </tr>
 	    <tr>
 	        <td><form:label path="updated">Date Updated</form:label></td>
-	        <td><form:input class="datepicker" placeholder="dd/mm/yyyy" path="updated" /></td>
+	        <td><form:input class="datepicker-disabled" disabled="disabled" placeholder="dd/mm/yyyy" path="updated" /></td>
 	    </tr>
 	    <tr>
 	        <td><form:label path="replacedBy">Replaced By</form:label></td>
@@ -153,21 +161,23 @@ $(document).ready(function() {
 	        <td><form:label path="description">Description</form:label></td>
 	        <td><form:input path="description" /></td>
 	    </tr>
-	    <tr>
-	        <td><form:label path="notes">Notes</form:label></td>
-	        <td><form:input path="notes" /></td>
-	    </tr>
+	    <sec:authorize access="hasAnyRole('ROLE_EUROPEANA_ADMIN','ROLE_EUROPEANA_DATA_OFFICER')">
+		    <tr>
+		        <td><form:label path="notes">Notes</form:label></td>
+		        <td><form:input path="notes" /></td>
+		    </tr>
+	    </sec:authorize>
 	    <tr>
 	        <td><form:label path="assignedToLdapId">Assignee Select</form:label></td>
 	        <td><form:input path="assignedToLdapId" /></td>
 	    </tr>
 	    <tr>
 	        <td><form:label path="firstPublished">First Published </form:label></td>
-	        <td><form:input class="datepicker" placeholder="dd/mm/yyyy" path="firstPublished" /></td>
+	        <td><form:input class="datepicker-disabled" placeholder="dd/mm/yyyy" path="firstPublished" /></td>
 	    </tr>
 	    <tr>
 	        <td><form:label path="lastPublished">Last Published</form:label></td>
-	        <td><form:input class="datepicker" placeholder="dd/mm/yyyy" path="lastPublished" /></td>
+	        <td><form:input class="datepicker-disabled" placeholder="dd/mm/yyyy" path="lastPublished" /></td>
 	    </tr>
 	    <tr>
 	        <td><form:label path="recordsPublished">Records Published</form:label></td>
@@ -175,11 +185,11 @@ $(document).ready(function() {
 	    </tr>
 	    <tr>
 	        <td><form:label path="harvestedAt">Harvested At</form:label></td>
-	        <td><form:input class="datepicker" placeholder="dd/mm/yyyy" path="harvestedAt" /></td>
+	        <td><form:input class="datepicker-disabled" placeholder="dd/mm/yyyy" path="harvestedAt" /></td>
 	    </tr>
 	    <tr>
 	        <td><form:label path="submittedAt">Submitted At</form:label></td>
-	        <td><form:input class="datepicker" placeholder="dd/mm/yyyy" path="submittedAt" /></td>
+	        <td><form:input class="datepicker-disabled" placeholder="dd/mm/yyyy" path="submittedAt" /></td>
 	    </tr>
 	    <tr>
 	        <td><form:label path="recordsSubmitted">Records Submitted</form:label></td>

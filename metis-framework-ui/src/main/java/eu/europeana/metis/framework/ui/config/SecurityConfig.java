@@ -54,7 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.hasAnyRole("EUROPEANA_ADMIN","EUROPEANA_VIEWER", "EUROPEANA_DATA_OFFICER", "HUB_ADMIN", "HUB_VIEWER", "HUB_DATA_OFFICER")
 				.anyRequest().permitAll()
 				.and()
-				.logout().logoutSuccessUrl("/login.jsp").permitAll()
+				.logout().logoutSuccessUrl("/login").permitAll()
 				.and().formLogin().loginProcessingUrl("/login")
 				.loginPage("/login").defaultSuccessUrl("/").failureUrl("/login.jsp?authentication_error=true").permitAll()
 				.and()
