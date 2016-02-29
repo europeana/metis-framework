@@ -119,10 +119,12 @@ $(document).ready(function() {
 	        <td><form:label path="name">Name</form:label></td>
 	        <td ><form:input path="name" /></td>
 	    </tr>
-	    <tr>
-	        <td><form:label path="dataProviders">Data Providers List</form:label></td>
-	        <td><form:input path="dataProviders" /></td>
-	    </tr>
+	    <sec:authorize ifAllGranted="ROLE_EUROPEANA_ADMIN">
+		    <tr>
+		        <td><form:label path="dataProvider">Data Provider</form:label></td>
+		        <td><form:input path="dataProvider" /></td>
+		    </tr>
+		</sec:authorize>
  	    <tr>
 	        <td><form:label path="deaSigned">DEA</form:label></td>
 	        <td><form:checkbox checked='checked'  path="deaSigned" /></td>

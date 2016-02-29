@@ -54,12 +54,12 @@ public class DatasetWrapper {
 		dataset.setName(name);
 	}
 
-	public List<String> getDataProviders() {
-		return dataset.getDataProviders();
+	public String getDataProvider() {
+		return dataset.getDataProvider();
 	}
 
-	public void setDataProviders(List<String> dataProviders) {
-		dataset.setDataProviders(dataProviders);
+	public void setDataProvider(String dataProvider) {
+		dataset.setDataProvider(dataProvider);
 	}
 
 	public boolean isDeaSigned() {
