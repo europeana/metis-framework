@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.beans.propertyeditors.CustomBooleanEditor;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +22,7 @@ import eu.europeana.metis.framework.dataset.Country;
 import eu.europeana.metis.framework.dataset.Dataset;
 import eu.europeana.metis.framework.dataset.Language;
 import eu.europeana.metis.framework.dataset.WorkflowStatus;
+import eu.europeana.metis.framework.ui.mongo.MongoDBVirtual;
 
 @Controller
 public class MetisPageController {
@@ -34,7 +34,10 @@ public class MetisPageController {
        HarvestingMetadata metadata = new HarvestingMetadata();
        metadata.setHarvestType(HarvestType.UNSPECIFIED);
        dataset.setMetadata(metadata);
-       dataset.setCreated(new Date());
+       Date dateCreated = new Date();
+       dataset.setCreated(dateCreated);
+       SimpleDateFormat format = new SimpleDateFormat("dd_MM_yyyy");
+       dataset.setName(format.format(dateCreated) + "_001");
        ModelAndView modelAndView = new ModelAndView("metis", "command", new DatasetWrapper(dataset));
        
        final List<WorkflowStatus> workflowStatus = Arrays.asList(WorkflowStatus.values());
@@ -54,6 +57,12 @@ public class MetisPageController {
     @RequestMapping(value="/metis", method=RequestMethod.POST)
     public String addDatasetSubmit(@ModelAttribute DatasetWrapper dataset, Model model) {    	
         model.addAttribute("dataset", dataset);
+        String dataProvider = dataset.getDataProvider();
+		if (dataProvider != null && !dataProvider.isEmpty()) {
+        	dataset.setName(dataProvider + "_" + dataset.getName());        	
+        }
+		MongoDBVirtual mongoVirtual = new MongoDBVirtual();
+		mongoVirtual.createDataset(dataset.getDataset());
         System.out.println(dataset.getName() + " " + dataset.getNotes() + " " + dataset.getCreated());
         return "result";
     }

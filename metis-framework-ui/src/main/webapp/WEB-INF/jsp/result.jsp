@@ -114,12 +114,12 @@ $(document).ready(function() {
  	<div style="padding-left:30px;">
 	   <table cellspacing='0' cellpadding='6'>
 	    <tr>
-	        <td><span>Name</span></td>
+	        <td><span>Dataset Name</span></td>
 	        <td><b>${dataset.name}</b></td>
 	    </tr>
 	    <tr>
-	        <td><span>Data Providers List</span></td>
-	        <td><b>${dataset.dataProviders}</b></td>
+	        <td><span>Data Providers</span></td>
+	        <td><b>${dataset.dataProvider}</b></td>
 	    </tr>
  	    <tr>
 	        <td><span>DEA</span></td>
@@ -154,7 +154,7 @@ $(document).ready(function() {
 	        <td><b>${dataset.notes}</b></td>
 	    </tr>
 	    <tr>
-	        <td><span>Assignee Select</span></td>
+	        <td><span>Assignee</span></td>
 	        <td><b>${dataset.assignedToLdapId}</b></td>
 	    </tr>
 	    <tr>
@@ -246,6 +246,9 @@ $(document).ready(function() {
 	        <td><b>${dataset.language}</b></td>
 	    </tr>
 	  </table>
+	  
+	  <button class="blue semi-square" onclick="window.location.href='/metis'">Add New Dataset</button>
+	  <button class="blue semi-square" onclick="window.location.href='/metis'">Edit Current Dataset</button>
 	</div>
 </body>
 </html>

@@ -37,6 +37,21 @@ $(function() {
 	    dateFormat: "dd/mm/yy"
 	  });
 	});
+	
+function addElement(parentId, elementTag, elementId, html) {
+    // Adds an element to the document
+    var p = document.getElementById(parentId);
+    var newElement = document.createElement(elementTag);
+    newElement.setAttribute('id', elementId);
+    newElement.innerHTML = html;
+    p.appendChild(newElement);
+}
+
+function removeElement(elementId) {
+    // Removes an element from the document
+    var element = document.getElementById(elementId);
+    element.parentNode.removeChild(element);
+}
 
 $(document).ready(function() {
 	$('.metadataUnspecified').show();
@@ -125,7 +140,7 @@ $(document).ready(function() {
 	<div style="padding-left:30px;">	
 	<form:form method="POST" action="/metis">
 	   <table cellspacing='0' cellpadding='6'>
-	    <tr>
+	    <tr style="display:none;">
 	        <td><form:label path="name">Name</form:label></td>
 	        <td ><form:input path="name" /></td>
 	    </tr>
@@ -133,10 +148,12 @@ $(document).ready(function() {
 	        <td><form:label path="dataProvider">Data Provider</form:label></td>
 	        <td><form:input path="dataProvider" /></td>
 	    </tr>
- 	    <tr>
-	        <td><form:label path="deaSigned">DEA</form:label></td>
-	        <td><form:checkbox checked='checked'  path="deaSigned" /></td>
-	    </tr>
+ 	     <sec:authorize access="hasAnyRole('ROLE_EUROPEANA_ADMIN','ROLE_EUROPEANA_DATA_OFFICER')">
+	 	    <tr>
+		        <td><form:label path="deaSigned">DEA</form:label></td>
+		        <td><form:checkbox checked='checked'  path="deaSigned" /></td>
+		    </tr>
+	    </sec:authorize>
 	    <tr style="display:none"> <!-- TODO: currently this field is hidden -->
 	        <td><form:label path="subject">Subject List</form:label></td>
 	        <td><form:input path="subject" /></td>

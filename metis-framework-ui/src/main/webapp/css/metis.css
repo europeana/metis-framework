@@ -53,6 +53,10 @@ label {
 	width:378px !important;
 }
 
+.dataprovider {
+	width:378px !important;
+}
+
 .ui-datepicker-trigger {
 	padding-bottom:4px;
 }

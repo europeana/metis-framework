@@ -21,6 +21,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import eu.europeana.framework.ui.mvc.MetisPageController;
+import eu.europeana.metis.framework.ui.mongo.MongoDBInstance;
 
 @Configuration
 @EnableWebMvc
@@ -52,6 +53,7 @@ public class MetisWebMvcConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();
+		
 	}
 
 	@Bean

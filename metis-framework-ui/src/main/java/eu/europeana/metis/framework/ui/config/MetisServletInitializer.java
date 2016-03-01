@@ -8,6 +8,8 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.support.AbstractDispatcherServletInitializer;
 
+import eu.europeana.metis.framework.ui.mongo.MongoDBInstance;
+
 public class MetisServletInitializer extends AbstractDispatcherServletInitializer {
 
 	@Override
@@ -33,6 +35,7 @@ public class MetisServletInitializer extends AbstractDispatcherServletInitialize
 	public void onStartup(ServletContext servletContext) throws ServletException {
 		super.onStartup(servletContext);
 		registerProxyFilter(servletContext, "springSecurityFilterChain");
+		MongoDBInstance.start();
 	}
 
 	private void registerProxyFilter(ServletContext servletContext, String name) {
