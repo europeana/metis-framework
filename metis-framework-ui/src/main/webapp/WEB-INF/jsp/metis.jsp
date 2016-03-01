@@ -122,8 +122,8 @@ $(document).ready(function() {
 		</div>
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li><a href="${base}index.jsp">Home</a></li>
-				<li><a href="<c:url value="/logout"/>">Logout</a></li>
+				<li><a href="${base}index">Home</a></li>
+				<li><a href="<c:url value="${base}logout"/>">Logout</a></li>
 			</ul>
 		</div>
 	</div>
@@ -138,7 +138,7 @@ $(document).ready(function() {
 	
 	<h1 class="blue">&nbsp;&nbsp;Dataset Creation Form</h1>
 	<div style="padding-left:30px;">	
-	<form:form method="POST" action="/metis">
+	<form:form method="POST" action="${base}metis">
 	   <table cellspacing='0' cellpadding='6'>
 	    <tr style="display:none;">
 	        <td><form:label path="name">Name</form:label></td>

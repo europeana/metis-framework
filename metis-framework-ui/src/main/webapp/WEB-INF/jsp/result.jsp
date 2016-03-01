@@ -247,8 +247,8 @@ $(document).ready(function() {
 	    </tr>
 	  </table>
 	  
-	  <button class="blue semi-square" onclick="window.location.href='/metis'">Add New Dataset</button>
-	  <button class="blue semi-square" onclick="window.location.href='/metis'">Edit Current Dataset</button>
+	  <button class="blue semi-square" onclick="window.location.href='${base}metis'">Add New Dataset</button>
+	  <button class="blue semi-square" onclick="window.location.href='${base}metis'">Edit Current Dataset</button>
 	</div>
 </body>
 </html>

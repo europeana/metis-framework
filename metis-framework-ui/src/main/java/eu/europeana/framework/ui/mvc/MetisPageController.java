@@ -22,7 +22,6 @@ import eu.europeana.metis.framework.dataset.Country;
 import eu.europeana.metis.framework.dataset.Dataset;
 import eu.europeana.metis.framework.dataset.Language;
 import eu.europeana.metis.framework.dataset.WorkflowStatus;
-import eu.europeana.metis.framework.ui.mongo.MongoDBVirtual;
 
 @Controller
 public class MetisPageController {
@@ -70,6 +69,11 @@ public class MetisPageController {
     @RequestMapping(value="/login")
     public String login(Model model) {    	
         return "login";
+    }
+    
+    @RequestMapping(value="/result")
+    public String result(Model model) {    	
+        return "result";
     }
     
     @RequestMapping(value="/logout")
