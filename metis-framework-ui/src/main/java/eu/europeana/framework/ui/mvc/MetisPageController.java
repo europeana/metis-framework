@@ -61,8 +61,8 @@ public class MetisPageController {
 		if (dataProvider != null && !dataProvider.isEmpty()) {
         	dataset.setName(dataProvider + "_" + dataset.getName());        	
         }
-		MongoDBVirtual mongoVirtual = new MongoDBVirtual();
-		mongoVirtual.createDataset(dataset.getDataset());
+//		MongoDBVirtual mongoVirtual = new MongoDBVirtual();
+//		mongoVirtual.createDataset(dataset.getDataset());
         System.out.println(dataset.getName() + " " + dataset.getNotes() + " " + dataset.getCreated());
         return "result";
     }
