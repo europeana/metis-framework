@@ -1,5 +1,6 @@
 package eu.europeana.framework.ui.mvc;
 
+import java.beans.PropertyEditorSupport;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -82,9 +83,21 @@ public class MetisPageController {
     }
     
     @InitBinder
-    public void initDateBinder(WebDataBinder binder) {
+    public void initBinders(WebDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         dateFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+        binder.registerCustomEditor(Country.class, new PropertyEditorSupport() {
+        	@Override
+        	public void setAsText(String text) throws IllegalArgumentException {
+        		setValue(Country.toCountry(text.toUpperCase().trim()));
+        	}
+        });
+        binder.registerCustomEditor(Language.class, new PropertyEditorSupport() {
+        	@Override
+        	public void setAsText(String text) throws IllegalArgumentException {
+        		setValue(Language.valueOf(text));
+        	}
+        });
     }
 }

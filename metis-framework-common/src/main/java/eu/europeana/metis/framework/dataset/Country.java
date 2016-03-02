@@ -37,5 +37,14 @@ public enum Country {
     public String getIsoCode(){
         return this.isoCode;
     }
+    
+    public static Country toCountry(String isoCode) {
+    	for (Country country: Country.values()) {
+    		if (country.getIsoCode().equals(isoCode)) {
+    			return country;
+    		}
+    	}
+    	return null;
+    }
 
 }
