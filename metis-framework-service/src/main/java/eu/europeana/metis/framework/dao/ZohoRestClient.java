@@ -78,9 +78,10 @@ public class ZohoRestClient {
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         ZohoResponse resp = new ZohoResponse();
         HttpEntity<ZohoResponse> entity = new HttpEntity<>(resp, httpHeaders);
-        Object ts = template.exchange(baseUrl + GETPROVIDERBYID + "?authtoken=" + authorizationToken + "&scope=" + scope + "&id=" + id, HttpMethod.GET, entity, String.class);
-        System.out.println(ts.toString());
-        return fromOneResponse(resp);
+        ResponseEntity<String>  ts = template.exchange(baseUrl + GETPROVIDERBYID + "?authtoken=" + authorizationToken + "&scope=" + scope + "&id=" + id, HttpMethod.GET, entity, String.class);
+        ObjectMapper om = new ObjectMapper().enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
+        ZohoResponse ret = om.readValue(ts.getBody(), ZohoResponse.class);
+        return fromOneResponse(ret);
     }
 
     private List<Organization> fromListResponse(ZohoResponse resp) throws ParseException {

@@ -4,10 +4,12 @@ import eu.europeana.metis.framework.dataset.Dataset;
 import eu.europeana.metis.framework.exceptions.NoOrganizationExceptionFound;
 import eu.europeana.metis.framework.mongo.MongoProvider;
 import eu.europeana.metis.framework.organization.Organization;
+import org.bson.types.ObjectId;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,20 +34,36 @@ public class OrganizationDao implements MetisDao<Organization> {
     public void update(Organization organization) {
         Query<Organization> q = provider.getDatastore().find(Organization.class).filter("organizationId", organization.getOrganizationId());
         UpdateOperations<Organization> ops = provider.getDatastore().createUpdateOperations(Organization.class);
-        ops.set("harvestingMetadata", organization.getHarvestingMetadata());
-        ops.set("organizationUri",organization.getOrganizationUri());
-        ops.set("datasets",organization.getDatasets());
+        if(organization.getHarvestingMetadata()!=null) {
+            ops.set("harvestingMetadata", organization.getHarvestingMetadata());
+        } else {
+            ops.unset("harvestingMetadata");
+        }
+        if(organization.getOrganizationUri()!=null) {
+            ops.set("organizationUri", organization.getOrganizationUri());
+        } else {
+            ops.unset("organizationUri");
+        }
+        if(organization.getDatasets()!=null|| organization.getDatasets().size()!=0) {
+            ops.set("datasets", organization.getDatasets());
+        } else {
+            ops.unset("datasets");
+        }
         ops.set("name",organization.getName());
-        ops.set("roles",organization.getRoles());
+        if(organization.getRoles()!=null) {
+            ops.set("roles", organization.getRoles());
+        } else {
+            ops.unset("roles");
+        }
         ops.set("acronym",organization.getAcronym());
         ops.set("created",organization.getCreated());
-        ops.set("modified",organization.getModified());
+        ops.set("modified",new Date());
         provider.getDatastore().update(q,ops);
     }
 
     @Override
     public Organization getById(String id) {
-        return provider.getDatastore().find(Organization.class).filter("id",id).get();
+        return provider.getDatastore().find(Organization.class).filter("id",new ObjectId(id)).get();
     }
 
     @Override

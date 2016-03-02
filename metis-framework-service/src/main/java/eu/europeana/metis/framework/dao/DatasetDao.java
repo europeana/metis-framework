@@ -129,7 +129,7 @@ public class DatasetDao implements MetisDao<Dataset> {
         if(ds==null){
             ds = new ArrayList<>();
         }
-        ds.add(dataset);
+        ds.add(getByName(dataset.getName()));
         organization.setDatasets(ds);
         return organization;
     }

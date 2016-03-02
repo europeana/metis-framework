@@ -26,7 +26,7 @@ public class Dataset {
     /**
      * The name of the dataset
      */
-    @Indexed
+    @Indexed (unique = true)
     private String name;
 
     /**

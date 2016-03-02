@@ -1,5 +1,6 @@
 package eu.europeana.metis.framework.rest;
 
+import eu.europeana.metis.framework.OrgDatasetDTO;
 import eu.europeana.metis.framework.dataset.Dataset;
 import eu.europeana.metis.framework.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.framework.organization.Organization;
@@ -25,16 +26,16 @@ public class DatasetController {
     private DatasetService datasetService;
 
     /**
-     * Method to create a dataset
+     * Method to create a dataset (OK)
      * @param org The organization to assign the dataset to
      * @param ds The dataset to persist
      */
     @RequestMapping (value = "/dataset",method = RequestMethod.POST, consumes = "application/json")
     @ResponseBody
     @ApiOperation(value="Create a dataset")
-    public ResponseEntity<Void> createDataset(@ApiParam @RequestBody Organization org, @ApiParam @RequestBody Dataset ds){
-        datasetService.createDataset(org,ds);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Void> createDataset(@ApiParam @RequestBody OrgDatasetDTO dto){
+        datasetService.createDataset(dto.getOrganization(),dto.getDataset());
+        return ResponseEntity.noContent().build();
     }
 
     /**
@@ -58,9 +59,9 @@ public class DatasetController {
     @RequestMapping (value = "/dataset",method = RequestMethod.DELETE, consumes = "application/json")
     @ResponseBody
     @ApiOperation(value = "Delete a dataset from an organization")
-    public ResponseEntity<Void> deleteDataset(@ApiParam @RequestBody Organization org,@ApiParam @RequestBody Dataset ds){
-        datasetService.deleteDataset(org, ds);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Void> deleteDataset(@ApiParam @RequestBody OrgDatasetDTO dto){
+        datasetService.deleteDataset(dto.getOrganization(),dto.getDataset());
+        return ResponseEntity.noContent().build();
     }
 
     /**

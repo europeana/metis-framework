@@ -1,13 +1,16 @@
 package eu.europeana.metis.framework.rest;
 
 import eu.europeana.metis.framework.dataset.Dataset;
+import eu.europeana.metis.framework.dataset.DatasetList;
 import eu.europeana.metis.framework.exceptions.NoOrganizationExceptionFound;
 import eu.europeana.metis.framework.organization.Organization;
+import eu.europeana.metis.framework.organization.OrganizationList;
 import eu.europeana.metis.framework.service.OrganizationService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +37,7 @@ public class OrganizationController {
     @ApiOperation(value = "Create an organization in METIS")
     public ResponseEntity<Void> createOrganization(@ApiParam @RequestBody Organization organization) {
         organizationService.createOrganization(organization);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     /**
@@ -45,7 +48,7 @@ public class OrganizationController {
     @ApiOperation(value = "Delete an organization")
     public ResponseEntity<Void> deleteOrganization(@ApiParam @RequestBody Organization organization) {
         organizationService.deleteOrganization(organization);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     /**
@@ -56,7 +59,7 @@ public class OrganizationController {
     @ApiOperation(value = "Update an organization")
     public ResponseEntity<Void> updateOrganization(@RequestBody Organization organization) {
         organizationService.updateOrganization(organization);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     /**
@@ -64,11 +67,13 @@ public class OrganizationController {
      *
      * @return All the registered organizations in METIS
      */
-    @RequestMapping(value = "/organizations", method = RequestMethod.GET, produces = "application/json", consumes = "application/json")
+    @RequestMapping(value = "/organizations", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    @ApiOperation(value = "Retrieve all the organizations from METIS", response = List.class)
-    public List<Organization> getAllOrganizations() throws NoOrganizationExceptionFound {
-        return organizationService.getAllOrganizations();
+    @ApiOperation(value = "Retrieve all the organizations from METIS", response = OrganizationList.class)
+    public OrganizationList getAllOrganizations() throws NoOrganizationExceptionFound {
+        OrganizationList list = new OrganizationList();
+        list.setOrganizations(organizationService.getAllOrganizations());
+        return list;
     }
 
     /**
@@ -79,9 +84,11 @@ public class OrganizationController {
      */
     @RequestMapping(value = "/organization/{id}/datasets", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    @ApiOperation(value = "Get the datasets of an organization", response = List.class)
-    public List<Dataset> getDatasetsByOrganization(@ApiParam("id") @PathVariable("id") String id) throws NoOrganizationExceptionFound {
-        return organizationService.getDatasetsByOrganization(id);
+    @ApiOperation(value = "Get the datasets of an organization", response = DatasetList.class)
+    public DatasetList getDatasetsByOrganization(@ApiParam("id") @PathVariable("id") String id) throws NoOrganizationExceptionFound {
+        DatasetList list = new DatasetList();
+        list.setDatasetList(organizationService.getDatasetsByOrganization(id));
+        return list;
     }
 
     /**
@@ -120,7 +127,8 @@ public class OrganizationController {
     @ResponseBody
     @ApiOperation(value = "Retrieve an organization from CRM", response = Organization.class)
     public Organization getOrganizationByOrganizationIdFromCRM(@ApiParam("orgId") @PathVariable(value = "orgId") String id) throws NoOrganizationExceptionFound, IOException, ParseException {
-        return organizationService.getOrganizationByIdFromCRM(id);
+        Organization org = organizationService.getOrganizationByIdFromCRM(id);
+        return org;
     }
 
     /**
@@ -131,8 +139,11 @@ public class OrganizationController {
     @RequestMapping(value = "/organizations/crm", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     @ApiOperation(value = "Retrieve all the organizations from CRM", response = List.class)
-    public List<Organization> getOrganizationsFromCRM() throws NoOrganizationExceptionFound, IOException, ParseException {
-        return organizationService.getAllOrganizationsFromCRM();
+    public OrganizationList getOrganizationsFromCRM() throws NoOrganizationExceptionFound, IOException, ParseException {
+
+        OrganizationList list = new OrganizationList();
+        list.setOrganizations(organizationService.getAllOrganizationsFromCRM());
+        return list;
     }
 
 }

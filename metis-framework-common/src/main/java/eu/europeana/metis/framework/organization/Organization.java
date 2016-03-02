@@ -33,7 +33,7 @@ public class Organization {
     /**
      * The organization ID
      */
-    @Indexed
+    @Indexed (unique = true)
     private String organizationId;
 
     /**

@@ -8,6 +8,8 @@ import eu.europeana.metis.framework.organization.Organization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * Service for storing datasets
  * Created by ymamakis on 2/17/16.
@@ -46,7 +48,9 @@ public class DatasetService {
      */
     public void deleteDataset(Organization org, Dataset ds){
         dsDao.delete(ds);
-        org.getDatasets().remove(ds);
+        List<Dataset> datasetList = org.getDatasets();
+        datasetList.remove(ds);
+        org.setDatasets(datasetList);
         orgDao.update(org);
     }
 
