@@ -10,19 +10,30 @@ import javax.naming.directory.SearchResult;
 import javax.naming.ldap.InitialLdapContext;
 import javax.naming.ldap.LdapContext;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ldap.core.LdapTemplate;
 import org.springframework.ldap.core.support.LdapContextSource;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 
 public class RetrieveUserAttributes {
 
+	@Autowired
+	LdapTemplate ldapTemplate;
+	
 	public static void main(String[] args) {
 //		RetrieveUserAttributes retrieveUserAttributes = new RetrieveUserAttributes();
 //		retrieveUserAttributes.getUserBasicAttributes("alena", retrieveUserAttributes.getLdapContext());
-		LdapTemplate template =  new LdapTemplate(contextSourceTarget());
+		
+		
 //		template.l
 	}
+	
+	public void createUser(User user) {
+		ldapTemplate.create(user);
+	}
 
+	
 	public LdapContext getLdapContext(){
 		LdapContext ctx = null;
 		try{

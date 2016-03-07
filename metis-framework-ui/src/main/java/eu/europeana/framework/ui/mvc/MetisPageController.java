@@ -23,6 +23,7 @@ import eu.europeana.metis.framework.dataset.Country;
 import eu.europeana.metis.framework.dataset.Dataset;
 import eu.europeana.metis.framework.dataset.Language;
 import eu.europeana.metis.framework.dataset.WorkflowStatus;
+import eu.europeana.metis.framework.ui.ldap.UserBAK;
 
 @Controller
 public class MetisPageController {
@@ -55,7 +56,7 @@ public class MetisPageController {
     }
     
     @RequestMapping(value="/metis", method=RequestMethod.POST)
-    public String addDatasetSubmit(@ModelAttribute DatasetWrapper dataset, Model model) {    	
+    public String submitDataset(@ModelAttribute DatasetWrapper dataset, Model model) {    	
         model.addAttribute("dataset", dataset);
         String dataProvider = dataset.getDataProvider();
 		if (dataProvider != null && !dataProvider.isEmpty()) {
@@ -65,6 +66,17 @@ public class MetisPageController {
 //		mongoVirtual.createDataset(dataset.getDataset());
         System.out.println(dataset.getName() + " " + dataset.getNotes() + " " + dataset.getCreated());
         return "result";
+    }
+    
+    @RequestMapping(value="/register", method=RequestMethod.GET)
+    public ModelAndView registerUser() {    	
+    	return new ModelAndView("register", "command", new UserBAK());
+    }
+    
+    @RequestMapping(value="/register", method=RequestMethod.POST)
+    public String submitUser(@ModelAttribute UserBAK user, Model model) {  
+    	model.addAttribute("user", user);
+    	return "/";
     }
     
     @RequestMapping(value="/login")

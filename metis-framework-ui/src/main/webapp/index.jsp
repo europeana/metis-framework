@@ -26,8 +26,9 @@
 			<ul class="nav navbar-nav">
 				<li><a href="${base}index.jsp" class="selected">Home</a></li>
 				<sec:authorize ifNotGranted="ROLE_USER">
-					<li><a href="${base}login.jsp">Login</a></li>
+					<li><a href="${base}login">Login</a></li>
 				</sec:authorize>
+				<li><a href="${base}register">Register</a></li>
 			</ul>
 		</div>
 	</div>

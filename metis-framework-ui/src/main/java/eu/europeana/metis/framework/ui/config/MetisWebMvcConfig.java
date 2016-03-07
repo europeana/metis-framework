@@ -52,8 +52,7 @@ public class MetisWebMvcConfig extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-		configurer.enable();
-		
+		configurer.enable();	
 	}
 
 	@Bean

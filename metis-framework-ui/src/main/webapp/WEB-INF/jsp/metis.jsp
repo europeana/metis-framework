@@ -124,6 +124,7 @@ $(document).ready(function() {
 			<ul class="nav navbar-nav">
 				<li><a href="${base}index">Home</a></li>
 				<li><a href="<c:url value="${base}logout"/>">Logout</a></li>
+				<li><a href="<c:url value="${base}register"/>">Register</a></li>
 			</ul>
 		</div>
 	</div>

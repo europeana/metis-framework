@@ -1,4 +1,4 @@
-package eu.europeana.metis.framework.ui.ldap;
+package eu.europeana.metis.framework.ui.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,7 +9,7 @@ import org.springframework.security.ldap.userdetails.InetOrgPersonContextMapper;
 import org.springframework.security.ldap.userdetails.LdapUserDetailsManager;
 
 @Configuration
-public class LDAPManagerConfiguration {
+public class LDAPManagerConfig {
 
 	@Bean
 	public LdapContextSource contextSourceTarget() {

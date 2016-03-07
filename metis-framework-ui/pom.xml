@@ -144,6 +144,11 @@
 			<version>2.0.4.RELEASE</version>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.ldap</groupId>
+			<artifactId>spring-ldap-odm</artifactId>
+			<version>2.0.4.RELEASE</version>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-ldap</artifactId>
 			<version>3.2.8.RELEASE</version>
