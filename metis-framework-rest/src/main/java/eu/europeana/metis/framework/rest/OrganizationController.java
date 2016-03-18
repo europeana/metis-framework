@@ -1,6 +1,5 @@
 package eu.europeana.metis.framework.rest;
 
-import eu.europeana.metis.framework.dataset.Dataset;
 import eu.europeana.metis.framework.dataset.DatasetList;
 import eu.europeana.metis.framework.exceptions.NoOrganizationExceptionFound;
 import eu.europeana.metis.framework.organization.Organization;
@@ -10,14 +9,12 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.List;
 
 /**
  * The organization controller
@@ -138,7 +135,7 @@ public class OrganizationController {
      */
     @RequestMapping(value = "/organizations/crm", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    @ApiOperation(value = "Retrieve all the organizations from CRM", response = List.class)
+    @ApiOperation(value = "Retrieve all the organizations from CRM", response = OrganizationList.class)
     public OrganizationList getOrganizationsFromCRM() throws NoOrganizationExceptionFound, IOException, ParseException {
 
         OrganizationList list = new OrganizationList();
