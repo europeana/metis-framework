@@ -1,0 +1,76 @@
+package eu.europeana.metis.ui.ldap.dao.impl;
+
+import org.springframework.ldap.core.AttributesMapper;
+import org.springframework.ldap.core.LdapTemplate;
+import org.springframework.ldap.support.LdapNameBuilder;
+
+import eu.europeana.metis.ui.ldap.dao.UserDao;
+import eu.europeana.metis.ui.ldap.domain.User;
+
+import javax.naming.NamingException;
+import javax.naming.directory.Attributes;
+import javax.naming.ldap.LdapName;
+import java.util.List;
+
+import static org.springframework.ldap.query.LdapQueryBuilder.query;
+
+public class UserDaoImpl implements UserDao {
+
+	private LdapTemplate ldapTemplate;
+
+    @Override
+	public void create(User person) {
+		ldapTemplate.create(person);
+	}
+
+    @Override
+	public void update(User person) {
+		ldapTemplate.update(person);
+	}
+
+    @Override
+	public void delete(User person) {
+		ldapTemplate.delete(ldapTemplate.findByDn(buildDn(person), User.class));
+	}
+
+    @Override
+	public List<String> getAllPersonNames() {
+        return ldapTemplate.search(query()
+                .attributes("cn")
+                .where("objectclass").is("person"),
+                new AttributesMapper<String>() {
+                    public String mapFromAttributes(Attributes attrs) throws NamingException {
+                        return attrs.get("cn").get().toString();
+                    }
+                });
+    }
+
+    @Override
+	public List<User> findAll() {
+        return ldapTemplate.findAll(User.class);
+	}
+
+    @Override
+	public User findByPrimaryKey(String country, String company, String fullname) {
+		LdapName dn = buildDn(country, company, fullname);
+        User person = ldapTemplate.findByDn(dn, User.class);
+
+        return person;
+	}
+
+	private LdapName buildDn(User person) {
+		return buildDn(person.getCountry(), person.getCompany(), person.getFullName());
+	}
+
+	private LdapName buildDn(String country, String company, String fullname) {
+        return LdapNameBuilder.newInstance()
+                .add("c", country)
+                .add("ou", company)
+                .add("cn", fullname)
+                .build();
+	}
+
+	public void setLdapTemplate(LdapTemplate ldapTemplate) {
+		this.ldapTemplate = ldapTemplate;
+	}
+}

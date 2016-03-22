@@ -26,7 +26,7 @@
 		</div>
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-					<li><a href="${base}index.jsp">Home</a></li>
+					<li><a href="${base}index">Home</a></li>
 			</ul>
 		</div>
 	</div>
@@ -59,8 +59,8 @@
 						class="form-control" type='text' name='username' value="Alena" />
 				</div>
 				<div class="form-group">
-					<label for="password">Password:</label> <input id="password"
-						class="form-control" type='password' name='password' value="alena" />
+					<label for="password">Password:</label> 
+					<input id="password" class="form-control" type='password' name='password' value="alena" />
 				</div>
 				<button class="btn btn-primary" type="submit">Login</button>
 			</fieldset>

@@ -16,6 +16,18 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script>
+$(document).ready(function() {
+	$('.newOrganization').hide();
+	$('#missingOrg').change(function(e) {
+		if (this.attr('checked', true)) {
+			$('.newOrganization').show();
+		} else {
+			$('.newOrganization').hide();
+		}
+	});
+});
+</script>
   
 </head>
 <body>
@@ -53,12 +65,35 @@
 	        <td><form:input path="email" /></td>
 	    </tr>
 	    <tr>
-	        <td><form:label path="password">Password*</form:label></td>
+	        <td><form:label path="organization">Organization*</form:label></td>
+	        <td><form:input path="organization" /></td>
+	    </tr>
+	    <tr>
+	        <td><form:label path="missingOrganization">Organization is missing in select list</form:label></td>
+	        <td><form:checkbox  id="missingOrg" path="missingOrganization" /></td>
+	    </tr>
+	    <tr class="newOrganisation">
+	        <td><form:label path="newOrganization">New Organization*</form:label></td>
+	        <td><form:input path="newOrganization" /></td>
+	    </tr>
+	    <tr>
+	        <td><form:label path="skype">Skype</form:label></td>
+	        <td><form:input path="skype" /></td>
+	    </tr>
+		<tr>
+	        <td collspan=2><label>Reset Password:</label></td>
+	    </tr>
+	    <tr>
+	        <td><form:label path="password">Old Password*</form:label></td>
+	        <td><form:input path="password" type="password"/></td>
+	    </tr>
+	    <tr>
+	        <td><form:label path="password">New Password*</form:label></td>
 	        <td><form:input path="password" type="password"/></td>
 	    </tr>
 	   	<tr>
-	        <td><form:label path="password">Confirm Password*</form:label></td>
-	        <td><form:input path="confirmPassword" type="confirmPassword"/></td>
+	        <td><form:label path="password">Confirm New Password*</form:label></td>
+	        <td><form:input path="password" type="password"/></td>
 	    </tr>
 	    <tr>
 	        <td colspan="2">

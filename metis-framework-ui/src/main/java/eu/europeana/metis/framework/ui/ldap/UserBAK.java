@@ -34,6 +34,10 @@ public class UserBAK { //extends org.springframework.security.core.userdetails.U
 	String email;
 	
 	String password;
+	
+	String organization;
+	
+	String skype;
 
 	public String getName() {
 		return name;
