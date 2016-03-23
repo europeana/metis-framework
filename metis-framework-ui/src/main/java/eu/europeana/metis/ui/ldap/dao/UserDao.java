@@ -15,5 +15,5 @@ public interface UserDao {
 
    List<User> findAll();
 
-   User findByPrimaryKey(String country, String company, String fullname);
+   User findByPrimaryKey(String email, String fullname);
 }

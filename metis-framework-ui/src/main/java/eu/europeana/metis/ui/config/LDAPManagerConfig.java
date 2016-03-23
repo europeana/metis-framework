@@ -10,7 +10,9 @@ import java.util.ResourceBundle;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.ldap.core.LdapTemplate;
@@ -27,7 +29,7 @@ import eu.europeana.metis.ui.ldap.dao.UserDao;
 import eu.europeana.metis.ui.ldap.dao.impl.UserDaoImpl;
 
 @Configuration
-@PropertySource("classpath:authentication.properties")
+@PropertySource("classpath:/authentication.properties")
 public class LDAPManagerConfig {
 
 	@Value("${ldif.url}")
@@ -46,21 +48,17 @@ public class LDAPManagerConfig {
 	private String clean;
 
 	@Bean
+	public static PropertySourcesPlaceholderConfigurer propertyConfigInDev() {
+		return new PropertySourcesPlaceholderConfigurer();
+	}
+	
+	@Bean
 	public LdapContextSource contextSource() {
 	    LdapContextSource ldapContextSource = new LdapContextSource();
 	    ldapContextSource.setUrl(url);
 	    ldapContextSource.setBase(base);
 	    ldapContextSource.setUserDn(dn);
 	    ldapContextSource.setPassword(pwd);
-	    
-//	    .root("dc=europeana,dc=eu")	//TODO   comment this line when we get LDAP server!
-//		//.url(url).managerDn(managerDN).managerPassword(managerPWD) 	//TODO uncomment this line when we get LDAP server!
-//		.and()
-//        .userSearchBase("ou=users,ou=metis_authentication")
-//        .userSearchFilter("(uid={0})")
-//        .groupSearchBase("ou=roles,ou=metis_authentication")
-//        .groupRoleAttribute("cn")
-//        .groupSearchFilter("(member={0})");
 	    return ldapContextSource;
 	}
 
@@ -91,21 +89,16 @@ public class LDAPManagerConfig {
 	}
 	
 	@Bean
-	public EmbeddedLdapServer embeddedLdapServer() {
+	public EmbeddedLdapServerFactoryBean embeddedLdapServer() {
 		EmbeddedLdapServerFactoryBean embeddedLdapServerFactoryBean = new EmbeddedLdapServerFactoryBean();
 		embeddedLdapServerFactoryBean.setPartitionName("example");
 		embeddedLdapServerFactoryBean.setPartitionSuffix(base);
-		embeddedLdapServerFactoryBean.setPort(18880);
-		try {
-			return embeddedLdapServerFactoryBean.getObject();
-		} catch (Exception e) {
-			//FIXME
-			e.printStackTrace();
-			return null;
-		}
+		embeddedLdapServerFactoryBean.setPort(18880);		
+		return embeddedLdapServerFactoryBean;
 	}
 	
 	@Bean
+	@DependsOn("embeddedLdapServer")
 	public LdifPopulator ldifPopulator() {
 		LdifPopulator ldifPopulator = new LdifPopulator();
 		ldifPopulator.setContextSource(contextSource());

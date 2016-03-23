@@ -53,19 +53,19 @@ public class UserDaoImpl implements UserDao {
 	}
 
     @Override
-	public User findByPrimaryKey(String country, String company, String fullname) {
-		LdapName dn = buildDn(country, company, fullname);
+	public User findByPrimaryKey(String email, String fullname) {
+		LdapName dn = buildDn(email, fullname);
         return ldapTemplate.findByDn(dn, User.class);
 	}
 
 	private LdapName buildDn(User user) {
-		return buildDn(user.getCountry(), user.getCompany(), user.getFullName());
+		return buildDn(user.getEmail(), user.getFullName());
 	}
 
-	private LdapName buildDn(String country, String company, String fullname) {
+	private LdapName buildDn(String email, String fullname) {
         return LdapNameBuilder.newInstance()
-                .add("c", country)
-                .add("ou", company)
+                .add("ou", "metis_authentication")
+                .add("ou", "users")
                 .add("cn", fullname)
                 .build();
 	}

@@ -46,33 +46,29 @@ public class LdifTest extends AbstractJUnit4SpringContextTests {
     @Before
     public void prepareUser() throws Exception {
         user = new User();
-        user.setCountry("Norway");
-        user.setCompany("Europeana");
-        user.setFullName("John Doe");
-        user.setLastName("User");
-        user.setDescription("Europeana, Europeana, John Doe");
-        user.setPhone("+31 12345678");
+        user.setFullName("John");
+        user.setLastName("Doe");
         user.setEmail("john.doe@europeana.eu");
     }
 
     @Test
     public void testCreateUpdateDelete() {
         try {
-            user.setFullName("Another User");
             userDao.create(user);
-            userDao.findByPrimaryKey( "Netherlands", "Europeana", "Bill Smith");
+            userDao.findByPrimaryKey( "john.doe@europeana.eu", "John");
             //creation succeeded
-            user.setDescription("Another description");
+            user.setDescription("Added new description");
             userDao.update(user);
-            User result = userDao.findByPrimaryKey("Netherlands", "Europeana", "Bill Smith");
-            assertEquals("Another description", result.getDescription());
+            User result = userDao.findByPrimaryKey("john.doe@europeana.eu", "John");
+            assertEquals("Doe", result.getLastName());
+            assertEquals("Added new description", result.getDescription());
         } catch(Exception e){
             e.printStackTrace();
         }
         finally {
             userDao.delete(user);
             try {
-                userDao.findByPrimaryKey("Sweden", "company1", "Another User");
+                userDao.findByPrimaryKey("john.doe@europeana.eu", "John");
                 fail("NameNotFoundException for embedded LDAP or RuntimeException for normal LDAP");
             } catch (NameNotFoundException e) {
                 e.printStackTrace();
@@ -85,27 +81,23 @@ public class LdifTest extends AbstractJUnit4SpringContextTests {
     @Test
     public void testGetAllUserNames() {
         List<String> result = userDao.getAllUserNames();
-        assertEquals(2, result.size());
+        assertEquals(4, result.size());
         String first = result.get(0);
-        assertEquals("John Doe", first);
+        assertEquals("Alena", first);
     }
 
     @Test
     public void testFindAll() {
         List<User> result = userDao.findAll();
-        assertEquals(2, result.size());
+        assertEquals(4, result.size());
         User first = result.get(0);
-        assertEquals("John Doe", first.getFullName());
+        assertEquals("Alena", first.getFullName());
     }
 
     @Test
     public void testFindByPrimaryKey() {
-        User result = userDao.findByPrimaryKey("Norway", "Europeana", "John Doe");
-        assertEquals("Sweden", result.getCountry());
-        assertEquals("company1", result.getCompany());
-        assertEquals("Sweden, Company1, Some User", result.getDescription());
-        assertEquals("+46 555-123456", result.getPhone());
-        assertEquals("Some User", result.getFullName());
-        assertEquals("User", result.getLastName());
+        User result = userDao.findByPrimaryKey("alena.fedasenka@europeana.eu", "Alena");
+        assertEquals("Fedasenka", result.getLastName());
+        assertEquals("alena.fedasenka@europeana.eu", result.getEmail());
     }
 }

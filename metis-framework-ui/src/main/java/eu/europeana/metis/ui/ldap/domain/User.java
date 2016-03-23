@@ -26,17 +26,17 @@ public class User {
 
     @Attribute(name = "description")
     private String description;
-
-    @Transient
-    @DnAttribute(value = "c", index = 0)
-    private String country;
-
-    @Transient
-    @DnAttribute(value = "ou", index = 1)
-    private String company;
-
-    @Attribute(name = "telephoneNumber")
-    private String phone;    
+//
+//    @Transient
+//    @DnAttribute(value = "c", index = 0)
+//    private String country;
+//
+//    @Transient
+//    @DnAttribute(value = "ou", index = 1)
+//    private String company;
+//
+//    @Attribute(name = "telephoneNumber")
+//    private String phone;    
 
     @Attribute(name = "mail")
     private String email;
@@ -73,29 +73,29 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getCompany() {
-        return company;
-    }
-
-    public void setCompany(String company) {
-        this.company = company;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
+//    public String getCompany() {
+//        return company;
+//    }
+//
+//    public void setCompany(String company) {
+//        this.company = company;
+//    }
+//
+//    public String getCountry() {
+//        return country;
+//    }
+//
+//    public void setCountry(String country) {
+//        this.country = country;
+//    }
+//
+//    public String getPhone() {
+//        return phone;
+//    }
+//
+//    public void setPhone(String phone) {
+//        this.phone = phone;
+//    }
     
     public String getEmail() {
     	return email;
