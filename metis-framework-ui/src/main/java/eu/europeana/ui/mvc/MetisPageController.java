@@ -1,4 +1,4 @@
-package eu.europeana.framework.ui.mvc;
+package eu.europeana.ui.mvc;
 
 import java.beans.PropertyEditorSupport;
 import java.text.SimpleDateFormat;
@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import eu.europeana.framework.ui.mvc.wrapper.DatasetWrapper;
 import eu.europeana.metis.framework.common.HarvestType;
 import eu.europeana.metis.framework.common.HarvestingMetadata;
 import eu.europeana.metis.framework.dataset.Country;
 import eu.europeana.metis.framework.dataset.Dataset;
 import eu.europeana.metis.framework.dataset.Language;
 import eu.europeana.metis.framework.dataset.WorkflowStatus;
-import eu.europeana.metis.framework.ui.ldap.UserBAK;
+import eu.europeana.metis.ui.ldap.UserBAK;
+import eu.europeana.ui.wrapper.DatasetWrapper;
 
 @Controller
 public class MetisPageController {

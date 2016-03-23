@@ -1,7 +1,5 @@
-package eu.europeana.framework.ui.mvc.wrapper;
+package eu.europeana.ui.wrapper;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -21,8 +19,6 @@ import eu.europeana.metis.framework.dataset.OAIDatasetMetadata;
 import eu.europeana.metis.framework.dataset.WorkflowStatus;
 
 public class DatasetWrapper {
-
-//	private SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 	
 	private Dataset dataset;
 

@@ -1,4 +1,4 @@
-package eu.europeana.metis.framework.ui.config;
+package eu.europeana.metis.ui.config;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -8,7 +8,7 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.support.AbstractDispatcherServletInitializer;
 
-import eu.europeana.metis.framework.ui.mongo.MongoDBInstance;
+import eu.europeana.metis.ui.mongo.MongoDBInstance;
 
 public class MetisServletInitializer extends AbstractDispatcherServletInitializer {
 

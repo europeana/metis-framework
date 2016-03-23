@@ -1,5 +1,6 @@
 package eu.europeana.metis.ui.ldap.dao.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ldap.core.AttributesMapper;
 import org.springframework.ldap.core.LdapTemplate;
 import org.springframework.ldap.support.LdapNameBuilder;
@@ -16,25 +17,26 @@ import static org.springframework.ldap.query.LdapQueryBuilder.query;
 
 public class UserDaoImpl implements UserDao {
 
+	@Autowired
 	private LdapTemplate ldapTemplate;
 
     @Override
-	public void create(User person) {
-		ldapTemplate.create(person);
+	public void create(User user) {
+		ldapTemplate.create(user);
 	}
 
     @Override
-	public void update(User person) {
-		ldapTemplate.update(person);
+	public void update(User user) {
+		ldapTemplate.update(user);
 	}
 
     @Override
-	public void delete(User person) {
-		ldapTemplate.delete(ldapTemplate.findByDn(buildDn(person), User.class));
+	public void delete(User user) {
+		ldapTemplate.delete(ldapTemplate.findByDn(buildDn(user), User.class));
 	}
 
     @Override
-	public List<String> getAllPersonNames() {
+	public List<String> getAllUserNames() {
         return ldapTemplate.search(query()
                 .attributes("cn")
                 .where("objectclass").is("person"),
@@ -53,13 +55,11 @@ public class UserDaoImpl implements UserDao {
     @Override
 	public User findByPrimaryKey(String country, String company, String fullname) {
 		LdapName dn = buildDn(country, company, fullname);
-        User person = ldapTemplate.findByDn(dn, User.class);
-
-        return person;
+        return ldapTemplate.findByDn(dn, User.class);
 	}
 
-	private LdapName buildDn(User person) {
-		return buildDn(person.getCountry(), person.getCompany(), person.getFullName());
+	private LdapName buildDn(User user) {
+		return buildDn(user.getCountry(), user.getCompany(), user.getFullName());
 	}
 
 	private LdapName buildDn(String country, String company, String fullname) {

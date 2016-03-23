@@ -1,4 +1,4 @@
-package eu.europeana.metis.framework.ui.config;
+package eu.europeana.metis.ui.config;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,8 +20,8 @@ import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
-import eu.europeana.framework.ui.mvc.MetisPageController;
-import eu.europeana.metis.framework.ui.mongo.MongoDBInstance;
+import eu.europeana.metis.ui.mongo.MongoDBInstance;
+import eu.europeana.ui.mvc.MetisPageController;
 
 @Configuration
 @EnableWebMvc

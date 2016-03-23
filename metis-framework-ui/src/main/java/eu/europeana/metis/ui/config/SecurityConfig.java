@@ -1,4 +1,4 @@
-package eu.europeana.metis.framework.ui.config;
+package eu.europeana.metis.ui.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package eu.europeana.metis.framework.ui.mongo;
+package eu.europeana.metis.ui.mongo;
 
 import de.flapdoodle.embed.mongo.MongodExecutable;
 import de.flapdoodle.embed.mongo.MongodStarter;

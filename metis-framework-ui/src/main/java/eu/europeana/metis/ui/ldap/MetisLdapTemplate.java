@@ -1,4 +1,4 @@
-package eu.europeana.metis.framework.ui.ldap;
+package eu.europeana.metis.ui.ldap;
 
 import org.springframework.ldap.core.LdapTemplate;
 

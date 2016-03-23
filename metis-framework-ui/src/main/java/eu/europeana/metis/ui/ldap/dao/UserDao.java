@@ -5,13 +5,13 @@ import java.util.List;
 import eu.europeana.metis.ui.ldap.domain.User;
 
 public interface UserDao {
-   void create(User person);
+   void create(User user);
 
-   void update(User person);
+   void update(User user);
 
-   void delete(User person);
+   void delete(User user);
 
-   List<String> getAllPersonNames();
+   List<String> getAllUserNames();
 
    List<User> findAll();
 
