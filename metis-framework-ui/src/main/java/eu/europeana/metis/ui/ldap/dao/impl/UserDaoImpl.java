@@ -22,6 +22,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
 	public void create(User user) {
+    	user.setDn(buildDn(user));
 		ldapTemplate.create(user);
 	}
 

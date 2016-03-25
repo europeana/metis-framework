@@ -55,7 +55,8 @@ public class LdifTest extends AbstractJUnit4SpringContextTests {
     public void testCreateUpdateDelete() {
         try {
             userDao.create(user);
-            userDao.findByPrimaryKey( "john.doe@europeana.eu", "John");
+            User newUser = userDao.findByPrimaryKey( "john.doe@europeana.eu", "John");
+            assertEquals("john.doe@europeana.eu", newUser.getEmail());
             //creation succeeded
             user.setDescription("Added new description");
             userDao.update(user);
