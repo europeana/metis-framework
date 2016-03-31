@@ -8,7 +8,7 @@ import org.springframework.ldap.odm.annotations.Attribute;
 import org.springframework.ldap.odm.annotations.DnAttribute;
 import org.springframework.ldap.odm.annotations.Entry;
 import org.springframework.ldap.odm.annotations.Id;
-import org.springframework.ldap.odm.annotations.Transient;
+//import org.springframework.ldap.odm.annotations.Transient;
 
 import javax.naming.Name;
 
@@ -23,6 +23,9 @@ public class User {
 
     @Attribute(name = "sn")
     private String lastName;
+    
+    @Attribute(name = "userPassword")
+    private String password;
 
     @Attribute(name = "description")
     private String description;
@@ -103,6 +106,14 @@ public class User {
     
     public void setEmail(String email) {
     	this.email = email;
+    }
+    
+    public String getPassword() {
+    	return password;
+    }
+    
+    public void setPassword(String password) {
+    	this.password = password;
     }
 
     public boolean equals(Object obj) {
