@@ -10,11 +10,11 @@ import eu.europeana.metis.framework.common.FtpMetadata;
 import eu.europeana.metis.framework.common.HarvestingMetadata;
 import eu.europeana.metis.framework.common.HttpMetadata;
 import eu.europeana.metis.framework.common.OAIMetadata;
-import eu.europeana.metis.framework.dataset.Country;
+import eu.europeana.metis.framework.common.Country;
 import eu.europeana.metis.framework.dataset.Dataset;
 import eu.europeana.metis.framework.dataset.FtpDatasetMetadata;
 import eu.europeana.metis.framework.dataset.HttpDatasetMetadata;
-import eu.europeana.metis.framework.dataset.Language;
+import eu.europeana.metis.framework.common.Language;
 import eu.europeana.metis.framework.dataset.OAIDatasetMetadata;
 import eu.europeana.metis.framework.dataset.WorkflowStatus;
 

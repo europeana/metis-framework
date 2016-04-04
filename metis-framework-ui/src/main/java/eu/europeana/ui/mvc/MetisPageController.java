@@ -18,9 +18,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import eu.europeana.metis.framework.common.HarvestType;
 import eu.europeana.metis.framework.common.HarvestingMetadata;
-import eu.europeana.metis.framework.dataset.Country;
+import eu.europeana.metis.framework.common.Country;
 import eu.europeana.metis.framework.dataset.Dataset;
-import eu.europeana.metis.framework.dataset.Language;
+import eu.europeana.metis.framework.common.Language;
 import eu.europeana.metis.framework.dataset.WorkflowStatus;
 import eu.europeana.metis.ui.ldap.UserBAK;
 import eu.europeana.ui.wrapper.DatasetWrapper;

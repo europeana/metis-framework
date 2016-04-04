@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Created by ymamakis on 2/23/16.
  */
 
-public class Result {
+public class OrganizationResult {
 
     /**
      * The module name Zoho communicates to (it is part of the URL as well)

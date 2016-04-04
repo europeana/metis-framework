@@ -1,7 +1,9 @@
 package eu.europeana.metis.framework.dataset;
 
 
+import eu.europeana.metis.framework.common.Country;
 import eu.europeana.metis.framework.common.HarvestingMetadata;
+import eu.europeana.metis.framework.common.Language;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
@@ -146,6 +148,8 @@ public class Dataset {
      * The language of the dataset
      */
     private Language language;
+
+    private Boolean acceptanceStep;
 
     @XmlElement
     public ObjectId getId() {
@@ -346,5 +350,14 @@ public class Dataset {
 
     public void setLanguage(Language language) {
         this.language = language;
+    }
+
+    @XmlElement
+    public Boolean getAcceptanceStep() {
+        return acceptanceStep;
+    }
+
+    public void setAcceptanceStep(Boolean acceptanceStep) {
+        this.acceptanceStep = acceptanceStep;
     }
 }

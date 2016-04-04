@@ -2,21 +2,18 @@ package eu.europeana.metis.framework.crm;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
 /**
- * A Response wrapper for Zoho
+ * A OrganizationResponse wrapper for Zoho
  * Created by ymamakis on 2/24/16.
  */
 
-public class Response {
+public class ContactResponse {
 
     /**
-     * The result of Zoho
+     * The organizationResult of Zoho
      */
     @JsonProperty(value=  "result")
-    private Result result;
+    private ContactResult contactResult;
 
     /**
      * THe URI of the call
@@ -24,12 +21,12 @@ public class Response {
     @JsonProperty(value=  "uri")
     private String uri;
 
-    public Result getResult() {
-        return result;
+    public ContactResult getContactResult() {
+        return contactResult;
     }
 
-    public void setResult(Result result) {
-        this.result = result;
+    public void setContactResult(ContactResult contactResult) {
+        this.contactResult = contactResult;
     }
 
     public String getUri() {

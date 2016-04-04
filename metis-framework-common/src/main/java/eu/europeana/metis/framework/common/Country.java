@@ -1,4 +1,4 @@
-package eu.europeana.metis.framework.dataset;
+package eu.europeana.metis.framework.common;
 
 /**
  * Countries supported by METIS

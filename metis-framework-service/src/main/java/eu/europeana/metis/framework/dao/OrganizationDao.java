@@ -55,6 +55,79 @@ public class OrganizationDao implements MetisDao<Organization> {
         } else {
             ops.unset("roles");
         }
+        ops.set("createdByLdapId",organization.getCreatedByLdapId());
+
+        if(organization.getUpdatedByLdapId()!=null){
+            ops.set("updatedByLdapId",organization.getUpdatedByLdapId());
+        } else {
+            ops.unset("updatedByLdapId");
+        }
+
+        if(organization.getPrefLabel()!=null){
+            ops.set("prefLabel",organization.getPrefLabel());
+        } else {
+            ops.unset("prefLabel");
+        }
+
+        if(organization.getAltLabel()!=null){
+            ops.set("altLabel",organization.getAltLabel());
+        } else {
+            ops.unset("altLabel");
+        }
+
+        if(organization.getSameAs()!=null){
+            ops.set("sameAs",organization.getSameAs());
+        } else {
+            ops.unset("sameAs");
+        }
+
+        if(organization.getDescription()!=null){
+            ops.set("description",organization.getDescription());
+        } else {
+            ops.unset("description");
+        }
+
+        if(organization.getLogoLocation()!=null){
+            ops.set("logoLocation",organization.getLogoLocation());
+        } else {
+            ops.unset("logoLocation");
+        }
+        if(organization.getDomain()!=null){
+            ops.set("domain",organization.getDomain());
+        } else {
+            ops.unset("domain");
+        }
+        if(organization.getSector()!=null){
+            ops.set("sector",organization.getSector());
+        } else {
+            ops.unset("sector");
+        }
+        if(organization.getGeographicLevel()!=null){
+            ops.set("geographicLevel",organization.getGeographicLevel());
+        } else {
+            ops.unset("geographicLevel");
+        }
+        if(organization.getWebsite()!=null){
+            ops.set("website",organization.getWebsite());
+        } else {
+            ops.unset("website");
+        }
+        if(organization.getCountry()!=null){
+            ops.set("country",organization.getCountry());
+        } else {
+            ops.unset("country");
+        }
+        if(organization.getLanguage()!=null){
+            ops.set("language",organization.getLanguage());
+        } else {
+            ops.unset("language");
+        }
+        if(organization.isDeaSigned()!=null){
+            ops.set("deaSigned",organization.isDeaSigned());
+        } else {
+            ops.unset("deaSigned");
+        }
+
         ops.set("acronym",organization.getAcronym());
         ops.set("created",organization.getCreated());
         ops.set("modified",new Date());

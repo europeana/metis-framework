@@ -3,7 +3,6 @@ package eu.europeana.metis.framework.rest;
 import eu.europeana.metis.framework.OrgDatasetDTO;
 import eu.europeana.metis.framework.dataset.Dataset;
 import eu.europeana.metis.framework.exceptions.NoDatasetFoundException;
-import eu.europeana.metis.framework.organization.Organization;
 import eu.europeana.metis.framework.service.DatasetService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,8 +26,6 @@ public class DatasetController {
 
     /**
      * Method to create a dataset (OK)
-     * @param org The organization to assign the dataset to
-     * @param ds The dataset to persist
      */
     @RequestMapping (value = "/dataset",method = RequestMethod.POST, consumes = "application/json")
     @ResponseBody
@@ -53,8 +50,6 @@ public class DatasetController {
 
     /**
      * Delete a dataset
-     * @param org  The organization associated with the dataset
-     * @param ds The dataset to delete
      */
     @RequestMapping (value = "/dataset",method = RequestMethod.DELETE, consumes = "application/json")
     @ResponseBody

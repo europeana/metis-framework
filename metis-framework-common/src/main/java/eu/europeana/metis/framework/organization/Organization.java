@@ -1,8 +1,10 @@
 package eu.europeana.metis.framework.organization;
 
 
-import eu.europeana.metis.framework.common.HarvestingMetadata;
+import eu.europeana.metis.framework.common.*;
+import eu.europeana.metis.framework.common.Country;
 import eu.europeana.metis.framework.dataset.Dataset;
+import eu.europeana.metis.framework.common.Language;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
@@ -11,7 +13,7 @@ import org.mongodb.morphia.annotations.Reference;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-
+import java.net.URL;
 import java.util.Date;
 import java.util.List;
 
@@ -69,13 +71,42 @@ public class Organization {
     /**
      * Role
      */
-    private List<String> roles;
+    private List<Role> roles;
 
     /**
      * The datasets associated with the organization
      */
     @Reference
     private List<Dataset> datasets;
+
+    private String createdByLdapId;
+
+    private String updatedByLdapId;
+
+    private List<PrefLabel> prefLabel;
+
+    private List<AltLabel> altLabel;
+
+    private String[] sameAs;
+
+    private String description;
+
+    private String logoLocation;
+
+    private Domain domain;
+
+    private Sector sector;
+
+    private GeographicLevel geographicLevel;
+
+    private URL website;
+
+    private Country country;
+
+    private Language language;
+
+    private Boolean deaSigned;
+
     @XmlElement
     public ObjectId getId() {
         return id;
@@ -154,11 +185,127 @@ public class Organization {
     }
 
     @XmlElement
-    public List<String> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<String> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    @XmlElement
+    public String getCreatedByLdapId() {
+        return createdByLdapId;
+    }
+
+    public void setCreatedByLdapId(String createdByLdapId) {
+        this.createdByLdapId = createdByLdapId;
+    }
+
+    @XmlElement
+    public String getUpdatedByLdapId() {
+        return updatedByLdapId;
+    }
+
+    public void setUpdatedByLdapId(String updatedByLdapId) {
+        this.updatedByLdapId = updatedByLdapId;
+    }
+
+    @XmlElement
+    public List<PrefLabel> getPrefLabel() {
+        return prefLabel;
+    }
+
+    public void setPrefLabel(List<PrefLabel> prefLabel) {
+        this.prefLabel = prefLabel;
+    }
+    @XmlElement
+    public List<AltLabel> getAltLabel() {
+        return altLabel;
+    }
+
+    public void setAltLabel(List<AltLabel> altLabel) {
+        this.altLabel = altLabel;
+    }
+    @XmlElement
+    public String[] getSameAs() {
+        return sameAs;
+    }
+
+    public void setSameAs(String[] sameAs) {
+        this.sameAs = sameAs;
+    }
+    @XmlElement
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @XmlElement
+    public String getLogoLocation() {
+        return logoLocation;
+    }
+
+    public void setLogoLocation(String logoLocation) {
+        this.logoLocation = logoLocation;
+    }
+    @XmlElement
+    public Domain getDomain() {
+        return domain;
+    }
+
+    public void setDomain(Domain domain) {
+        this.domain = domain;
+    }
+    @XmlElement
+    public Sector getSector() {
+        return sector;
+    }
+
+    public void setSector(Sector sector) {
+        this.sector = sector;
+    }
+    @XmlElement
+    public GeographicLevel getGeographicLevel() {
+        return geographicLevel;
+    }
+
+    public void setGeographicLevel(GeographicLevel geographicLevel) {
+        this.geographicLevel = geographicLevel;
+    }
+    @XmlElement
+    public URL getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(URL website) {
+        this.website = website;
+    }
+    @XmlElement
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
+    }
+    @XmlElement
+    public Language getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(Language language) {
+        this.language = language;
+    }
+    @XmlElement
+    public Boolean isDeaSigned() {
+        return deaSigned;
+    }
+
+    public void setDeaSigned(Boolean deaSigned) {
+        this.deaSigned = deaSigned;
     }
 }
