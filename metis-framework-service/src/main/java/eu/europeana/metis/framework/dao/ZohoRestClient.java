@@ -78,7 +78,7 @@ public class ZohoRestClient {
      * @throws ParseException
      * @throws IOException
      */
-    public Organization getOrganizationById(String id, String moduleUrl) throws ParseException, IOException {
+    public Organization getOrganizationById(String id) throws ParseException, IOException {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         ZohoOrganizationResponse resp = new ZohoOrganizationResponse();
@@ -89,12 +89,12 @@ public class ZohoRestClient {
         return fromOneResponse(ret);
     }
 
-    public Contact getContactByEmail(String email, String moduleUrl) throws ParseException,IOException{
+    public Contact getContactByEmail(String email) throws ParseException,IOException{
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         ZohoContactResponse resp = new ZohoContactResponse();
         HttpEntity<ZohoContactResponse> entity = new HttpEntity<>(resp, httpHeaders);
-        ResponseEntity<String>  ts = template.exchange(baseUrl + "/"+USERSMODULE +"/" + "?authtoken=" + authorizationToken + "&scope=" + scope + "&searchColumn=email&searchValue=" + email, HttpMethod.GET, entity, String.class);
+        ResponseEntity<String>  ts = template.exchange(baseUrl + "/"+USERSMODULE +"/" + GETBYEMAIL+ "?authtoken=" + authorizationToken + "&scope=" + scope + "&searchColumn=email&searchValue=" + email, HttpMethod.GET, entity, String.class);
         ObjectMapper om = new ObjectMapper().enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
         ZohoContactResponse ret = om.readValue(ts.getBody(), ZohoContactResponse.class);
         return fromOneResponse(ret);
