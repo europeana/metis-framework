@@ -1,8 +1,7 @@
 package eu.europeana.metis.framework.rest.client;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import eu.europeana.metis.framework.OrgDatasetDTO;
+import eu.europeana.metis.framework.common.Contact;
 import eu.europeana.metis.framework.dataset.Dataset;
 import eu.europeana.metis.framework.dataset.DatasetList;
 import eu.europeana.metis.framework.organization.Organization;
@@ -224,5 +223,15 @@ public class DsOrgRestClient {
         } catch (Exception e){
             throw new ServerException("Dataset could not be retrieved with error: "+e.getMessage());
         }
+    }
+
+
+    public Contact getUserByEmail(String email) throws ServerException{
+        try{
+            return template.getForEntity(hostUrl+"/user/"+email,Contact.class).getBody();
+        } catch (Exception e){
+            throw new ServerException("User could not be retrieved with error: "+e.getMessage());
+        }
+
     }
 }

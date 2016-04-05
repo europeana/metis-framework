@@ -6,6 +6,7 @@ import eu.europeana.metis.framework.dao.ZohoRestClient;
 import eu.europeana.metis.framework.mongo.MongoProvider;
 import eu.europeana.metis.framework.service.DatasetService;
 import eu.europeana.metis.framework.service.OrganizationService;
+import eu.europeana.metis.framework.service.UserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -107,6 +108,11 @@ public class Application extends WebMvcConfigurerAdapter {
     @Bean
     public OrganizationService getOrganizationService(){
         return new OrganizationService();
+    }
+
+    @Bean
+    public UserService getUserService(){
+        return new UserService();
     }
 
     @Bean
