@@ -30,12 +30,12 @@ import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
-import eu.europeana.metis.ui.config.LDAPManagerConfig;
+import eu.europeana.metis.ui.config.MetisLdapManagerConfig;
 import eu.europeana.metis.ui.ldap.dao.UserDao;
 import eu.europeana.metis.ui.ldap.domain.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes=LDAPManagerConfig.class,loader=AnnotationConfigContextLoader.class)
+@ContextConfiguration(classes=MetisLdapManagerConfig.class,loader=AnnotationConfigContextLoader.class)
 public class LdifTest extends AbstractJUnit4SpringContextTests {
 
     protected User user;

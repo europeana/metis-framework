@@ -12,7 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class MetisSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Configuration
 	@PropertySource("classpath:authentication.properties")

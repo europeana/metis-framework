@@ -6,8 +6,11 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -22,11 +25,17 @@ import eu.europeana.metis.framework.common.Country;
 import eu.europeana.metis.framework.dataset.Dataset;
 import eu.europeana.metis.framework.common.Language;
 import eu.europeana.metis.framework.dataset.WorkflowStatus;
-import eu.europeana.metis.ui.ldap.UserBAK;
+import eu.europeana.metis.ui.config.MetisLdapManagerConfig;
+import eu.europeana.metis.ui.ldap.dao.UserDao;
+import eu.europeana.metis.ui.ldap.domain.User;
 import eu.europeana.ui.wrapper.DatasetWrapper;
 
 @Controller
+@ContextConfiguration(classes=MetisLdapManagerConfig.class,loader=AnnotationConfigContextLoader.class)
 public class MetisPageController {
+
+	@Autowired
+    private UserDao userDao;
 	
     @RequestMapping(value="/metis", method=RequestMethod.GET)
     public ModelAndView addDatasetForm() {
@@ -70,12 +79,14 @@ public class MetisPageController {
     
     @RequestMapping(value="/register", method=RequestMethod.GET)
     public ModelAndView registerUser() {    	
-    	return new ModelAndView("register", "command", new UserBAK());
+    	return new ModelAndView("register", "command", new User());
     }
     
     @RequestMapping(value="/register", method=RequestMethod.POST)
-    public String submitUser(@ModelAttribute UserBAK user, Model model) {  
+    public String submitUser(@ModelAttribute User user, Model model) { 
     	model.addAttribute("user", user);
+    	userDao.create(user);
+    	System.out.println("INFO: User " + user.getFullName() + " was sucessfully created!");
     	return "/";
     }
     

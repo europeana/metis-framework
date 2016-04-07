@@ -41,12 +41,12 @@
 	<form:form method="POST" action="${base}">
 	   <table cellspacing='0' cellpadding='6'>
 	    <tr>
-	        <td><form:label path="name">First Name*</form:label></td>
-	        <td ><form:input path="name" /></td>
+	        <td><form:label path="fullName">First Name*</form:label></td>
+	        <td ><form:input path="fullName" /></td>
 	    </tr>
 	    <tr>
-	        <td><form:label path="surname">Last Name*</form:label></td>
-	        <td><form:input path="surname" /></td>
+	        <td><form:label path="lastName">Last Name*</form:label></td>
+	        <td><form:input path="lastName" /></td>
 	    </tr>
 	    <tr>
 	        <td><form:label path="email">Email*</form:label></td>
@@ -56,10 +56,10 @@
 	        <td><form:label path="password">Password*</form:label></td>
 	        <td><form:input path="password" type="password"/></td>
 	    </tr>
-	   	<tr>
+<%-- 	   	<tr>
 	        <td><form:label path="password">Confirm Password*</form:label></td>
 	        <td><form:input path="confirmPassword" type="confirmPassword"/></td>
-	    </tr>
+	    </tr> --%>
 	    <tr>
 	        <td colspan="2">
 	            <input type="submit" class="blue semi-square" value="Submit"/>

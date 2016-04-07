@@ -1,12 +1,5 @@
 package eu.europeana.metis.ui.config;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,13 +7,10 @@ import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 import org.springframework.ldap.core.LdapTemplate;
 import org.springframework.ldap.core.support.LdapContextSource;
-import org.springframework.ldap.test.EmbeddedLdapServer;
 import org.springframework.ldap.test.EmbeddedLdapServerFactoryBean;
 import org.springframework.ldap.test.LdifPopulator;
-import org.springframework.security.config.annotation.authentication.configurers.ldap.LdapAuthenticationProviderConfigurer.ContextSourceBuilder;
 import org.springframework.security.ldap.DefaultLdapUsernameToDnMapper;
 import org.springframework.security.ldap.userdetails.InetOrgPersonContextMapper;
 import org.springframework.security.ldap.userdetails.LdapUserDetailsManager;
@@ -30,7 +20,7 @@ import eu.europeana.metis.ui.ldap.dao.impl.UserDaoImpl;
 
 @Configuration
 @PropertySource("classpath:/authentication.properties")
-public class LDAPManagerConfig {
+public class MetisLdapManagerConfig {
 
 	@Value("${ldif.url}")
 	private String url;
