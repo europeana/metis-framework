@@ -1,4 +1,4 @@
-package eu.europeana.ui.wrapper;
+package eu.europeana.metis.ui.wrapper;
 
 import java.util.Date;
 import java.util.List;

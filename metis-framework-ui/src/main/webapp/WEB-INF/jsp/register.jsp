@@ -38,7 +38,7 @@
 	
 	<h1 class="blue">&nbsp;&nbsp;User Registration Form</h1>
 	<div style="padding-left:30px;">	
-	<form:form method="POST" action="${base}">
+	<form:form method="POST" action="${base}register">
 	   <table cellspacing='0' cellpadding='6'>
 	    <tr>
 	        <td><form:label path="fullName">First Name*</form:label></td>

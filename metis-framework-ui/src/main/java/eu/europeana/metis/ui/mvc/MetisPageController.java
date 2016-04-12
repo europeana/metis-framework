@@ -1,4 +1,4 @@
-package eu.europeana.ui.mvc;
+package eu.europeana.metis.ui.mvc;
 
 import java.beans.PropertyEditorSupport;
 import java.text.SimpleDateFormat;
@@ -9,8 +9,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -19,19 +17,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import eu.europeana.metis.framework.common.Country;
 import eu.europeana.metis.framework.common.HarvestType;
 import eu.europeana.metis.framework.common.HarvestingMetadata;
-import eu.europeana.metis.framework.common.Country;
-import eu.europeana.metis.framework.dataset.Dataset;
 import eu.europeana.metis.framework.common.Language;
+import eu.europeana.metis.framework.dataset.Dataset;
 import eu.europeana.metis.framework.dataset.WorkflowStatus;
-import eu.europeana.metis.ui.config.MetisLdapManagerConfig;
 import eu.europeana.metis.ui.ldap.dao.UserDao;
 import eu.europeana.metis.ui.ldap.domain.User;
-import eu.europeana.ui.wrapper.DatasetWrapper;
+import eu.europeana.metis.ui.wrapper.DatasetWrapper;
 
 @Controller
-@ContextConfiguration(classes=MetisLdapManagerConfig.class,loader=AnnotationConfigContextLoader.class)
 public class MetisPageController {
 
 	@Autowired
@@ -87,7 +83,7 @@ public class MetisPageController {
     	model.addAttribute("user", user);
     	userDao.create(user);
     	System.out.println("INFO: User " + user.getFullName() + " was sucessfully created!");
-    	return "/";
+    	return "login";
     }
     
     @RequestMapping(value="/login")
