@@ -22,7 +22,6 @@ public class UserDaoImpl implements UserDao {
 
     @Override
 	public void create(User user) {
-    	user.setDn(buildDn(user));
 		ldapTemplate.create(user);
 	}
 
@@ -65,8 +64,8 @@ public class UserDaoImpl implements UserDao {
 
 	private LdapName buildDn(String email, String fullname) {
         return LdapNameBuilder.newInstance()
-                .add("ou", "metis_authentication")
-                .add("ou", "users")
+//                .add("ou", "metis_authentication")
+//                .add("ou", "users")
                 .add("cn", fullname)
                 .build();
 	}

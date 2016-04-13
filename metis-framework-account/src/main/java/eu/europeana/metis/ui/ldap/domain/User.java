@@ -18,7 +18,7 @@ public class User {
     private Name dn;
 
     @Attribute(name = "cn")
-    @DnAttribute(value = "cn", index = 2)
+    @DnAttribute(value = "cn", index = 0)
     private String fullName;
 
     @Attribute(name = "sn")
