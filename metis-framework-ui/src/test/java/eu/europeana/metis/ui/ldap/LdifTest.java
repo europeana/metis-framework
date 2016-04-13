@@ -35,70 +35,70 @@ import eu.europeana.metis.ui.ldap.dao.UserDao;
 import eu.europeana.metis.ui.ldap.domain.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes=MetisLdapManagerConfig.class,loader=AnnotationConfigContextLoader.class)
+@ContextConfiguration(classes = MetisLdapManagerConfig.class, loader = AnnotationConfigContextLoader.class)
 public class LdifTest extends AbstractJUnit4SpringContextTests {
 
-    protected User user;
+	protected User user;
 
-    @Autowired
-    private UserDao userDao;
+	@Autowired
+	private UserDao userDao;
 
-    @Before
-    public void prepareUser() throws Exception {
-        user = new User();
-        user.setFullName("John");
-        user.setLastName("Doe");
-        user.setEmail("john.doe@europeana.eu");
-    }
+	@Before
+	public void prepareUser() throws Exception {
+		user = new User();
+		user.setFullName("John");
+		user.setLastName("Doe");
+		user.setEmail("john.doe@europeana.eu");
+	}
 
-    @Test
-    public void testCreateUpdateDelete() {
-        try {
-            userDao.create(user);
-            User newUser = userDao.findByPrimaryKey( "john.doe@europeana.eu", "John");
-            assertEquals("john.doe@europeana.eu", newUser.getEmail());
-            //creation succeeded
-            user.setDescription("Added new description");
-            userDao.update(user);
-            User result = userDao.findByPrimaryKey("john.doe@europeana.eu", "John");
-            assertEquals("Doe", result.getLastName());
-            assertEquals("Added new description", result.getDescription());
-        } catch(Exception e){
-            e.printStackTrace();
-        }
-        finally {
-            userDao.delete(user);
-            try {
-                userDao.findByPrimaryKey("john.doe@europeana.eu", "John");
-                fail("NameNotFoundException for embedded LDAP or RuntimeException for normal LDAP");
-            } catch (NameNotFoundException e) {
-                e.printStackTrace();
-            } catch (RuntimeException e) {
-            	e.printStackTrace();
-            }
-        }
-    }
+	@Test
+	public void testCreateUpdateDelete() {
+		try {
+			userDao.create(user);
+			User newUser = userDao.findByPrimaryKey("john.doe@europeana.eu", "John");
+			assertEquals("john.doe@europeana.eu", newUser.getEmail());
+			// creation succeeded
+			newUser.setDescription("Added new description");
+			userDao.update(newUser);
+			User result = userDao.findByPrimaryKey("john.doe@europeana.eu", "John");
+			assertEquals("Doe", result.getLastName());
+			assertEquals("Added new description", result.getDescription());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			userDao.delete(user);
+			try {
+				userDao.findByPrimaryKey("john.doe@europeana.eu", "John");
+				fail("NameNotFoundException for embedded LDAP or RuntimeException for normal LDAP");
+			} catch (NameNotFoundException e) {
+				//e.printStackTrace();
+			} catch (RuntimeException e) {
+				//e.printStackTrace();
+			}
+		}
+	}
 
-    @Test
-    public void testGetAllUserNames() {
-        List<String> result = userDao.getAllUserNames();
-        assertEquals(4, result.size());
-        String first = result.get(0);
-        assertEquals("Alena", first);
-    }
+	@Test
+	public void testGetAllUserNames() {
+		List<String> result = userDao.getAllUserNames();
+		assertEquals(4, result.size());
+		String first = result.get(0);
+		assertEquals("Alena", first);
+	}
 
-    @Test
-    public void testFindAll() {
-        List<User> result = userDao.findAll();
-        assertEquals(4, result.size());
-        User first = result.get(0);
-        assertEquals("Alena", first.getFullName());
-    }
+	@Test
+	public void testFindAll() {
+		List<User> result = userDao.findAll();
+		assertEquals(4, result.size());
+		User first = result.get(0);
+		assertEquals("Alena", first.getFullName());
+	}
 
-    @Test
-    public void testFindByPrimaryKey() {
-        User result = userDao.findByPrimaryKey("alena.fedasenka@europeana.eu", "Alena");
-        assertEquals("Fedasenka", result.getLastName());
-        assertEquals("alena.fedasenka@europeana.eu", result.getEmail());
-    }
+	@Test
+	public void testFindByPrimaryKey() {
+		User result = userDao.findByPrimaryKey("alena.fedasenka@europeana.eu", "Alena");
+		assertEquals("Fedasenka", result.getLastName());
+		assertEquals("alena.fedasenka@europeana.eu", result.getEmail());
+	}
 }

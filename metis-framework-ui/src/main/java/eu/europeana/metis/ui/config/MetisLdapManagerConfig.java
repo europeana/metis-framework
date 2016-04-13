@@ -92,7 +92,7 @@ public class MetisLdapManagerConfig {
 	public LdifPopulator ldifPopulator() {
 		LdifPopulator ldifPopulator = new LdifPopulator();
 		ldifPopulator.setContextSource(contextSource());
-		ldifPopulator.setResource(new ClassPathResource("metis-ldap.ldif"));
+		ldifPopulator.setResource(new ClassPathResource("/metis-ldap.ldif"));
 		ldifPopulator.setBase(base);
 		ldifPopulator.setDefaultBase("dc=europeana,dc=eu");
 		ldifPopulator.setClean(Boolean.valueOf(clean));
