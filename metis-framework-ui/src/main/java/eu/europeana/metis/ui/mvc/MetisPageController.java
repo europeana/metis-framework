@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.Priority;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -29,6 +31,8 @@ import eu.europeana.metis.ui.wrapper.DatasetWrapper;
 
 @Controller
 public class MetisPageController {
+
+	final static Logger logger = Logger.getLogger(MetisPageController.class);
 
 	@Autowired
     private UserDao userDao;
@@ -67,9 +71,7 @@ public class MetisPageController {
 		if (dataProvider != null && !dataProvider.isEmpty()) {
         	dataset.setName(dataProvider + "_" + dataset.getName());        	
         }
-//		MongoDBVirtual mongoVirtual = new MongoDBVirtual();
-//		mongoVirtual.createDataset(dataset.getDataset());
-        System.out.println(dataset.getName() + " " + dataset.getNotes() + " " + dataset.getCreated());
+		logger.info("Dataset created: " + dataset.getName() + " " + dataset.getNotes() + " " + dataset.getCreated());
         return "result";
     }
     
@@ -81,23 +83,29 @@ public class MetisPageController {
     @RequestMapping(value="/register", method=RequestMethod.POST)
     public String submitUser(@ModelAttribute User user, Model model) { 
     	model.addAttribute("user", user);
+    	User userFound = userDao.findByPrimaryKey(user.getEmail(), user.getFullName());
+    	if (userFound != null) {
+    		return "register?status=duplicate_user";
+    	}
     	userDao.create(user);
-    	System.out.println("INFO: User " + user.getFullName() + " was sucessfully created!");
+    	logger.info("*** User created: " + user.getFullName() + " ***");
+    	logger.info("*** User found: " + userDao.findByPrimaryKey(user.getEmail(), user.getFullName()) + " ***");
     	return "login";
     }
     
     @RequestMapping(value="/login")
-    public String login(Model model) {    	
+    public String login(Model model) {
+    	logger.info("*** All the users found: " + userDao.findAll() + " ***");
         return "login";
     }
     
     @RequestMapping(value="/result")
-    public String result(Model model) {    	
+    public String result(Model model) {
         return "result";
     }
     
     @RequestMapping(value="/logout")
-    public String logot(Model model) {    	
+    public String logout(Model model) {
         return "login";
     }
     

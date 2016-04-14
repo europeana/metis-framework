@@ -34,8 +34,10 @@
 	</div>
 
 	<div class="container">
-
 		<h1>Welcome to Metis!</h1>
+		<sec:authorize access="isAuthenticated()">
+		<h1>Hello, <%= request.getUserPrincipal().getName() %>!</h1>
+		</sec:authorize>
 
 		<p>
 			This is a test application for <a href="http://localhost:8080/metis/">Metis</a>!

@@ -27,6 +27,7 @@
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
 					<li><a href="${base}index">Home</a></li>
+					<li><a href="${base}register">Register</a></li>
 			</ul>
 		</div>
 	</div>
