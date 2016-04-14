@@ -22,6 +22,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
 	public void create(User user) {
+    	user.setDn(buildDn(user.getFullName()));
 		ldapTemplate.create(user);
 	}
 
@@ -54,18 +55,18 @@ public class UserDaoImpl implements UserDao {
 
     @Override
 	public User findByPrimaryKey(String email, String fullname) {
-		LdapName dn = buildDn(email, fullname);
+		LdapName dn = buildDn(fullname);
         return ldapTemplate.findByDn(dn, User.class);
 	}
 
 	private LdapName buildDn(User user) {
-		return buildDn(user.getEmail(), user.getFullName());
+		return buildDn(user.getFullName());
 	}
 
-	private LdapName buildDn(String email, String fullname) {
+	private LdapName buildDn(String fullname) {
         return LdapNameBuilder.newInstance()
-//                .add("ou", "metis_authentication")
-//                .add("ou", "users")
+                .add("ou", "metis_authentication")
+                .add("ou", "users")
                 .add("cn", fullname)
                 .build();
 	}
