@@ -83,10 +83,11 @@ public class MetisPageController {
     @RequestMapping(value="/register", method=RequestMethod.POST)
     public String submitUser(@ModelAttribute User user, Model model) { 
     	model.addAttribute("user", user);
-    	User userFound = userDao.findByPrimaryKey(user.getEmail(), user.getFullName());
-    	if (userFound != null) {
-    		return "register?status=duplicate_user";
-    	}
+    	//TODO add the validation for user duplication!
+//    	User userFound = userDao.findByPrimaryKey(user.getEmail(), user.getFullName());
+//    	if (userFound != null) {
+//    		return "register?status=duplicate_user";
+//    	}
     	userDao.create(user);
     	logger.info("*** User created: " + user.getFullName() + " ***");
     	logger.info("*** User found: " + userDao.findByPrimaryKey(user.getEmail(), user.getFullName()) + " ***");

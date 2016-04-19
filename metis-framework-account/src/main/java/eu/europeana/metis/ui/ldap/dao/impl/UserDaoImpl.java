@@ -28,6 +28,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
 	public void update(User user) {
+    	user.setDn(buildDn(user.getFullName()));
 		ldapTemplate.update(user);
 	}
 
