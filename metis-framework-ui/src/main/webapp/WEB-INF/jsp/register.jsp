@@ -37,29 +37,36 @@
 	</div>
 	
 	<h1 class="blue">&nbsp;&nbsp;User Registration Form</h1>
+	<% String status = request.getParameter("status"); %>
+	<c:choose>
+	    <c:when test= '${status.equals("duplicate_user")}'>
+	        <h3 style="color:red;">The user with this name and the email already exists!</h3>
+	    </c:when>
+	</c:choose>
+	
 	<div style="padding-left:30px;">	
-	<form:form method="POST" action="${base}">
+	<form:form method="POST" action="${base}register">
 	   <table cellspacing='0' cellpadding='6'>
 	    <tr>
-	        <td><form:label path="name">First Name*</form:label></td>
-	        <td ><form:input path="name" /></td>
+	        <td><form:label path="fullName">First Name*</form:label></td>
+	        <td ><form:input path="fullName" value="Vitali"/></td>
 	    </tr>
 	    <tr>
-	        <td><form:label path="surname">Last Name*</form:label></td>
-	        <td><form:input path="surname" /></td>
+	        <td><form:label path="lastName">Last Name*</form:label></td>
+	        <td><form:input path="lastName"  value="Fedasenka"/></td>
 	    </tr>
 	    <tr>
 	        <td><form:label path="email">Email*</form:label></td>
-	        <td><form:input path="email" /></td>
+	        <td><form:input path="email"  value="vitali.fedosenko@gmail.com"/></td>
 	    </tr>
 	    <tr>
 	        <td><form:label path="password">Password*</form:label></td>
-	        <td><form:input path="password" type="password"/></td>
+	        <td><form:input path="password" type="password"  value="123"/></td>
 	    </tr>
-	   	<tr>
+<%-- 	   	<tr>
 	        <td><form:label path="password">Confirm Password*</form:label></td>
 	        <td><form:input path="confirmPassword" type="confirmPassword"/></td>
-	    </tr>
+	    </tr> --%>
 	    <tr>
 	        <td colspan="2">
 	            <input type="submit" class="blue semi-square" value="Submit"/>

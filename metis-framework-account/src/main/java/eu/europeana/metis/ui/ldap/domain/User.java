@@ -12,6 +12,13 @@ import org.springframework.ldap.odm.annotations.Id;
 
 import javax.naming.Name;
 
+/**
+ * LDAP Template:
+ * dn: cn=Cecile,ou=users,ou=metis_authentication,{dc=europeana,dc=eu}
+ * dn: cn={fullName},ou=users,ou=metis_authentication,{base_dn}
+ * @author alena
+ *
+ */
 @Entry(objectClasses = {"person", "inetOrgPerson", "organizationalPerson", "top"})
 public class User {
     @Id
@@ -20,6 +27,14 @@ public class User {
     @Attribute(name = "cn")
     @DnAttribute(value = "cn", index = 2)
     private String fullName;
+    
+    @Attribute(name = "ou")
+    @DnAttribute(value = "ou", index = 1)
+    private String usersDn;
+
+	@Attribute(name = "ou")
+    @DnAttribute(value = "ou", index = 0)
+    private String metisAuthenticationDn;
 
     @Attribute(name = "sn")
     private String lastName;
@@ -28,18 +43,7 @@ public class User {
     private String password;
 
     @Attribute(name = "description")
-    private String description;
-//
-//    @Transient
-//    @DnAttribute(value = "c", index = 0)
-//    private String country;
-//
-//    @Transient
-//    @DnAttribute(value = "ou", index = 1)
-//    private String company;
-//
-//    @Attribute(name = "telephoneNumber")
-//    private String phone;    
+    private String description;  
 
     @Attribute(name = "mail")
     private String email;
@@ -67,6 +71,22 @@ public class User {
     public void setFullName(String fullName) {
         this.fullName = fullName;
     }
+    
+	public String getUsersDn() {
+		return usersDn;
+	}
+	
+	public void setUsersDn(String usersDn) {
+		this.usersDn = usersDn;
+	}
+	
+	public String getMetisAuthenticationDn() {
+		return metisAuthenticationDn;
+	}
+	
+	public void setMetisAuthenticationDn(String metisAuthenticationDn) {
+		this.metisAuthenticationDn = metisAuthenticationDn;
+	}
 
     public String getLastName() {
         return lastName;
@@ -75,30 +95,6 @@ public class User {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
-//    public String getCompany() {
-//        return company;
-//    }
-//
-//    public void setCompany(String company) {
-//        this.company = company;
-//    }
-//
-//    public String getCountry() {
-//        return country;
-//    }
-//
-//    public void setCountry(String country) {
-//        this.country = country;
-//    }
-//
-//    public String getPhone() {
-//        return phone;
-//    }
-//
-//    public void setPhone(String phone) {
-//        this.phone = phone;
-//    }
     
     public String getEmail() {
     	return email;

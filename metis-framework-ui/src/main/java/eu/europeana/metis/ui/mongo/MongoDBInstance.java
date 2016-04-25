@@ -29,6 +29,7 @@ public class MongoDBInstance {
             mongodExecutable = runtime.prepare(conf);
             mongodExecutable.start();
         } catch (IOException e){
+        	stop();
             e.printStackTrace();
         }
     }

@@ -21,7 +21,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import eu.europeana.metis.ui.mongo.MongoDBInstance;
-import eu.europeana.ui.mvc.MetisPageController;
+import eu.europeana.metis.ui.mvc.MetisPageController;
 
 @Configuration
 @EnableWebMvc
