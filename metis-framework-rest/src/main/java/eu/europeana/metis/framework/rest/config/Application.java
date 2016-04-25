@@ -2,6 +2,7 @@ package eu.europeana.metis.framework.rest.config;
 
 import eu.europeana.metis.framework.dao.DatasetDao;
 import eu.europeana.metis.framework.dao.OrganizationDao;
+import eu.europeana.metis.framework.dao.ZohoClient;
 import eu.europeana.metis.framework.dao.ZohoRestClient;
 import eu.europeana.metis.framework.mongo.MongoProvider;
 import eu.europeana.metis.framework.service.DatasetService;
@@ -81,7 +82,7 @@ public class Application extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    ZohoRestClient getZohoRestClient(){
+    ZohoClient getZohoRestClient(){
         return new ZohoRestClient(baseUrl,authtoken,scope);
     }
     @Bean

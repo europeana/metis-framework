@@ -1,7 +1,7 @@
 package eu.europeana.metis.framework.service;
 
 import eu.europeana.metis.framework.dao.OrganizationDao;
-import eu.europeana.metis.framework.dao.ZohoRestClient;
+import eu.europeana.metis.framework.dao.ZohoClient;
 import eu.europeana.metis.framework.dataset.Dataset;
 import eu.europeana.metis.framework.exceptions.NoOrganizationExceptionFound;
 import eu.europeana.metis.framework.organization.Organization;
@@ -23,7 +23,7 @@ public class OrganizationService {
     private OrganizationDao orgDao;
 
     @Autowired
-    private ZohoRestClient restClient;
+    private ZohoClient restClient;
 
     /**
      * Create an organization

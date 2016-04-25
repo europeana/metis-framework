@@ -26,7 +26,7 @@ import java.util.List;
  * Created by ymamakis on 2/23/16.
  */
 @Component
-public class ZohoRestClient {
+public class ZohoRestClient implements ZohoClient{
 
     private RestTemplate template = new RestTemplate();
     private String baseUrl;
@@ -44,6 +44,7 @@ public class ZohoRestClient {
      * @param authorizationToken The authorization token
      * @param scope The scope
      */
+
     public ZohoRestClient(String baseUrl, String authorizationToken, String scope) {
         this.authorizationToken = authorizationToken;
 
@@ -60,6 +61,7 @@ public class ZohoRestClient {
      * @throws ParseException
      * @throws IOException
      */
+    @Override
     public List<Organization> getAllOrganizations() throws ParseException, IOException {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
@@ -78,6 +80,7 @@ public class ZohoRestClient {
      * @throws ParseException
      * @throws IOException
      */
+    @Override
     public Organization getOrganizationById(String id) throws ParseException, IOException {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
@@ -89,6 +92,7 @@ public class ZohoRestClient {
         return fromOneResponse(ret);
     }
 
+    @Override
     public Contact getContactByEmail(String email) throws ParseException,IOException{
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
