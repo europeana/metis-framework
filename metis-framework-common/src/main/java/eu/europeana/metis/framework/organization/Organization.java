@@ -6,10 +6,7 @@ import eu.europeana.metis.framework.common.Country;
 import eu.europeana.metis.framework.dataset.Dataset;
 import eu.europeana.metis.framework.common.Language;
 import org.bson.types.ObjectId;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
-import org.mongodb.morphia.annotations.Indexed;
-import org.mongodb.morphia.annotations.Reference;
+import org.mongodb.morphia.annotations.*;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -83,8 +80,10 @@ public class Organization {
 
     private String updatedByLdapId;
 
+    @Embedded
     private List<PrefLabel> prefLabel;
 
+    @Embedded
     private List<AltLabel> altLabel;
 
     private String[] sameAs;

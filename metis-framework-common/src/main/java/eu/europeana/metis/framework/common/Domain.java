@@ -17,4 +17,13 @@ public enum Domain {
     public String getName(){
         return this.name;
     }
+
+    public static Domain getDomainFromName(String name){
+        for (Domain domain:Domain.values()) {
+            if(domain.getName().equals(name)){
+                return domain;
+            }
+        }
+        return null;
+    }
 }

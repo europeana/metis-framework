@@ -3,17 +3,16 @@ package eu.europeana.metis.framework.rest.config;
 import eu.europeana.metis.framework.dao.DatasetDao;
 import eu.europeana.metis.framework.dao.OrganizationDao;
 import eu.europeana.metis.framework.dao.ZohoClient;
-import eu.europeana.metis.framework.dao.ZohoRestClient;
 import eu.europeana.metis.framework.mongo.MongoProvider;
 import eu.europeana.metis.framework.service.DatasetService;
 import eu.europeana.metis.framework.service.OrganizationService;
+import eu.europeana.metis.framework.rest.RestConfig;
 import eu.europeana.metis.framework.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.core.annotation.Order;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -35,7 +34,7 @@ import java.util.List;
  * Created by ymamakis on 12-2-16.
  */
 @Configuration
-@ComponentScan (basePackages = "eu.europeana.metis.framework.rest")
+@ComponentScan (basePackages = {"eu.europeana.metis.framework.rest"})
 @PropertySource("classpath:metis.properties")
 @EnableWebMvc
 @EnableSwagger2
@@ -51,16 +50,14 @@ public class Application extends WebMvcConfigurerAdapter {
     private String username;
     @Value("${mongo.pass}")
     private String password;
-    @Value("${crm.scope}")
-    private String scope;
-    @Value("${crm.authtoken}")
-    private String authtoken;
-    @Value("${crm.baseUrl}")
-    private String baseUrl;
 
+    @Autowired
+    @Lazy
+    private RestConfig restConfig;
 
     @Override
     public  void configureMessageConverters(List<HttpMessageConverter<?>> converters){
+
         converters.add(new MappingJackson2HttpMessageConverter());
 
         super.configureMessageConverters(converters);
@@ -82,8 +79,9 @@ public class Application extends WebMvcConfigurerAdapter {
     }
 
     @Bean
+    @Order(100)
     ZohoClient getZohoRestClient(){
-        return new ZohoRestClient(baseUrl,authtoken,scope);
+        return restConfig.getZohoClient();
     }
     @Bean
     public static PropertySourcesPlaceholderConfigurer properties() {

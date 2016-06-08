@@ -2,7 +2,7 @@ package eu.europeana.metis.framework.dao;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import eu.europeana.metis.framework.common.*;
+import eu.europeana.metis.framework.common.Contact;
 import eu.europeana.metis.framework.crm.*;
 import eu.europeana.metis.framework.organization.Organization;
 import org.springframework.http.*;
@@ -13,12 +13,8 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -26,7 +22,7 @@ import java.util.List;
  * Created by ymamakis on 2/23/16.
  */
 @Component
-public class ZohoRestClient implements ZohoClient{
+public class ZohoRestClient extends ZohoClient{
 
     private RestTemplate template = new RestTemplate();
     private String baseUrl;
@@ -112,24 +108,6 @@ public class ZohoRestClient implements ZohoClient{
         return null;
     }
 
-    private Contact readResponseToContact(Row row) {
-        Contact contact = new Contact();
-        for (Field field : row.getFields()) {
-            switch (field.getVal()) {
-                case ZohoFields.EMAIL:
-                    contact.setEmail(field.getContent());
-                    break;
-                case ZohoFields.FIRSTNAME:
-                    contact.setFirstName(field.getContent());
-                    break;
-                case ZohoFields.LASTNAME:
-                    contact.setLastName(field.getContent());
-                    break;
-            }
-        }
-        return contact;
-    }
-
     private List<Organization> fromListResponse(ZohoOrganizationResponse resp) throws ParseException, MalformedURLException {
         List<Row> rows = resp.getOrganizationResponse().getOrganizationResult().getModule().getRows();
         List<Organization> orgs = new ArrayList<>();
@@ -145,54 +123,5 @@ public class ZohoRestClient implements ZohoClient{
         return readResponsetoOrganization(row);
     }
 
-    private Organization readResponsetoOrganization(Row row) throws ParseException, MalformedURLException {
-        Organization org = new Organization();
-        DateFormat fd = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
-        for (Field field : row.getFields()) {
 
-            switch (field.getVal()){
-                case ZohoFields.ID:
-                    org.setOrganizationId(field.getContent());
-                    break;
-                case ZohoFields.ACRONYM:
-                    org.setAcronym(field.getContent());
-                    break;
-                case  ZohoFields.NAME:
-                    org.setName(field.getContent());
-                    break;
-                case ZohoFields.CREATEDTIME:
-                    org.setCreated(fd.parse(field.getContent()));
-                    break;
-                case ZohoFields.MODIFIEDTIME:
-                    org.setModified(fd.parse(field.getContent()));
-                    break;
-                case ZohoFields.ROLE:
-                    List<String> roles = Arrays.asList(field.getContent().split(";"));
-                    List<Role> metisRoles = new ArrayList<>();
-                    for (String role:roles){
-                        metisRoles.add(Role.valueOf(role));
-                    }
-                    org.setRoles(metisRoles);
-                    break;
-                case ZohoFields.COUNTRY:
-                    org.setCountry(Country.valueOf(field.getContent()));
-                    break;
-                case ZohoFields.DOMAIN:
-                    org.setDomain(Domain.valueOf(field.getContent()));
-                    break;
-                case ZohoFields.GEOGRAPHICLEVEL:
-                    org.setGeographicLevel(GeographicLevel.valueOf(field.getContent()));
-                    break;
-                case ZohoFields.WEBSITE:
-                    org.setWebsite(new URL(field.getContent()));
-                    break;
-                case ZohoFields.SECTOR:
-                    org.setSector(Sector.valueOf(field.getContent()));
-            }
-
-        }
-
-
-        return org;
-    }
 }

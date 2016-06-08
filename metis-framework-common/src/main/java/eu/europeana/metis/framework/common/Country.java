@@ -47,4 +47,12 @@ public enum Country {
     	return null;
     }
 
+    public static Country getCountryFromName(String name){
+        for (Country country:Country.values()) {
+            if(country.getName().equals(name)){
+                return country;
+            }
+        }
+        return null;
+    }
 }

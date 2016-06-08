@@ -15,4 +15,13 @@ public enum Sector {
     public String getName(){
         return this.name;
     }
+
+    public static Sector getSectorFromName(String name){
+        for (Sector sector:Sector.values()) {
+            if(sector.getName().equals(name)){
+                return sector;
+            }
+        }
+        return null;
+    }
 }

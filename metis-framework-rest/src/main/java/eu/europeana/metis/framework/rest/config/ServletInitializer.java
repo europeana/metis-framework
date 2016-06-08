@@ -15,8 +15,12 @@ public class ServletInitializer extends AbstractDispatcherServletInitializer {
 
     @Override
     protected WebApplicationContext createServletApplicationContext() {
+
+
         AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
+
         context.scan(ClassUtils.getPackageName(getClass()));
+
         return context;
     }
 
@@ -29,4 +33,5 @@ public class ServletInitializer extends AbstractDispatcherServletInitializer {
     protected WebApplicationContext createRootApplicationContext() {
         return null;
     }
+
 }
