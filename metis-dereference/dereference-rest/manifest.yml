@@ -1,0 +1,15 @@
+---
+applications:
+- name: metis-dereference-test
+  memory: 2048M
+  instances: 1
+  host: metis-dereference-test
+  domain: de.a9sapp.eu
+  path: target/dereference-rest-1.0-SNAPSHOT.war
+  buildpack: https://github.com/ymamakis/java-buildpack.git
+  services:
+    - syslog
+    - redis2
+    - annotation-mongo
+  env:
+    enrichmentpath: http://136.243.103.29:8080/enrichment-framework-rest-0.1-SNAPSHOT/

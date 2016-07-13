@@ -1,0 +1,49 @@
+package eu.europeana.identifier.service;
+
+import eu.europeana.corelib.utils.EuropeanaUriUtils;
+import eu.europeana.identifier.service.utils.IdentifierNormalizer;
+import org.jibx.runtime.JiBXException;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Class used to generate a Europeana identifier
+ * Created by ymamakis on 2/8/16.
+ */
+public class IdentifierService {
+
+    /**
+     * Generate identifier based on a collection identifier and a record identifier
+     * @param collectionId The collection identifier
+     * @param recordId The record identifier
+     * @return A valid Europeana identifier
+     */
+    public String generateIdentifier(String collectionId, String recordId){
+        return EuropeanaUriUtils.createEuropeanaId(collectionId,recordId);
+    }
+
+    /**
+     * Modify a single record identifiers to correctly link them
+     * @param record The record to modify
+     * @return The correctly linked record
+     */
+    public String fixIdentifiers(String record) throws JiBXException{
+
+        return new IdentifierNormalizer().normalize(record);
+    }
+
+    /**
+     * Modify a record to append the correct Europeana Identifier
+     * @param records The list of records to modify the identifiers
+     * @return The correctly linked records
+     */
+    public List<String> fixIdentifiers(List<String> records)throws JiBXException{
+        List<String> fixed = new ArrayList<>();
+        for(String record:records){
+            fixed.add(fixIdentifiers(record));
+        }
+        return fixed;
+    }
+
+}

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <!--
+            appender LOGSTASH
+    -->
+    <appender name="logstash-socket-appernder" class="org.apache.log4j.net.SocketAppender">
+        <param name="RemoteHost" value="127.0.0.1"/>
+        <param name="Port" value="5000"/>
+        <param name="ReconnectionDelay" value="60000"/>
+        <param name="Threshold" value="INFO"/>
+    </appender>
+    <!--
+            logger LOGSTASH
+    -->
+    <root>
+        <level value="info"/>
+        <appender-ref ref="logstash-socket-appernder"/>
+    </root>
+
+
+</log4j:configuration>

@@ -24,10 +24,11 @@
         </plugins>
     </build>
     <modules>
-        <module>metis-framework-common</module>
-        <module>metis-framework-service</module>
-        <module>metis-framework-rest</module>
-        <module>metis-framework-ui</module>
-        <module>metis-framework-rest-client</module>
+        <module>metis-core</module>
+        <module>metis-hierarchies</module>
+        <module>metis-dereference</module>
+        <module>metis-redirect</module>
+        <module>metis-identifiers</module>
+        <module>metis-validation</module>
     </modules>
 </project>

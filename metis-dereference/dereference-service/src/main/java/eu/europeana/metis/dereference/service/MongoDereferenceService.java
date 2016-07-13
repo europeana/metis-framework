@@ -1,0 +1,112 @@
+package eu.europeana.metis.dereference.service;
+
+import eu.europeana.enrichment.api.external.EntityWrapper;
+import eu.europeana.enrichment.rest.client.EnrichmentDriver;
+import eu.europeana.metis.dereference.OriginalEntity;
+import eu.europeana.metis.dereference.ProcessedEntity;
+import eu.europeana.metis.dereference.Vocabulary;
+import eu.europeana.metis.dereference.service.dao.CacheDao;
+import eu.europeana.metis.dereference.service.dao.EntityDao;
+import eu.europeana.metis.dereference.service.dao.VocabularyDao;
+import eu.europeana.metis.dereference.service.utils.RdfRetriever;
+import eu.europeana.metis.dereference.service.xslt.XsltTransformer;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Mongo implementation of the dereference service
+ * Created by ymamakis on 2/11/16.
+ */
+public class MongoDereferenceService implements DereferenceService {
+
+    Logger logger = LogManager.getLogger(MongoDereferenceService.class);
+    @Autowired
+    private RdfRetriever retriever;
+    @Autowired
+    private CacheDao cacheDao;
+    @Autowired
+    private EntityDao entityDao;
+    @Autowired
+    private VocabularyDao vocabularyDao;
+    @Autowired
+    private EnrichmentDriver driver;
+
+    public MongoDereferenceService(){
+
+
+    }
+    @Override
+    public List<String> dereference(String uri) throws TransformerException, ParserConfigurationException, IOException{
+        List<String> toReturn= null;
+        String fromEntity = checkInEntityCollection(uri);
+        if (fromEntity!=null){
+            toReturn = new ArrayList<>();
+            toReturn.add(fromEntity);
+        }
+        String[] splitName = uri.split("/");
+        if(splitName.length>3) {
+            String vocabularyUri = splitName[0] + "/" + splitName[1] + "/"
+                    + splitName[2] + "/";
+            List<Vocabulary> vocs = vocabularyDao.getByUri(vocabularyUri);
+
+            if (vocs != null && vocs.size()>0) {
+
+                ProcessedEntity cached = cacheDao.getByUri(uri);
+                if (cached != null) {
+                    if(toReturn==null){
+                        toReturn = new ArrayList<>();
+
+                    }
+                    toReturn.add(cached.getXml());
+                    return toReturn;
+                }
+                Vocabulary vocabulary;
+                OriginalEntity originalEntity = entityDao.getByUri(uri);
+                if (originalEntity == null) {
+                    originalEntity = new OriginalEntity();
+                    originalEntity.setURI(uri);
+                    String originalXml = retriever.retrieve(uri);
+                    originalEntity.setXml(originalXml.contains("<html>") ? null : originalXml);
+                    entityDao.save(originalEntity);
+                }
+                if (originalEntity.getXml() != null) {
+                    vocabulary = vocabularyDao.findByEntity(vocs, originalEntity.getXml(),uri);
+
+                    String transformed = null;
+                    try {
+                        transformed = new XsltTransformer().transform(originalEntity.getXml(), vocabulary.getXslt());
+                    } catch (ParserConfigurationException |TransformerException e) {
+                        logger.error("Error transforming entity: "+uri +" with message :" +e.getMessage());
+                        throw e;
+                    }
+
+
+                    ProcessedEntity entity = new ProcessedEntity();
+                    entity.setXml(transformed);
+                    entity.setURI(uri);
+                    cacheDao.save(entity);
+                    if(toReturn==null){
+                        toReturn=new ArrayList<>();
+                    }
+                    toReturn.add(transformed);
+                    return toReturn;
+                }
+            }
+        }
+        return toReturn;
+    }
+
+    private String checkInEntityCollection(String uri) throws IOException{
+        EntityWrapper wrapper = driver.getByUri(uri);
+
+        return wrapper!=null?wrapper.getContextualEntity():null;
+    }
+
+}
