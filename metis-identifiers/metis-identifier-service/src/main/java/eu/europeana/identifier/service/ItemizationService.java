@@ -7,6 +7,7 @@ import eu.europeana.identifier.service.utils.HttpRetriever;
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
 import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream;
 import org.jibx.runtime.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -23,6 +24,8 @@ import java.util.List;
 public class ItemizationService {
     private IBindingFactory context;
 
+    @Autowired
+    private Decoupler decoupler;
     /**
      * Constructor to instantiate the JiBX context
      */
@@ -54,7 +57,7 @@ public class ItemizationService {
      * @return A list of itemized records
      */
     public List<String> itemize(List<String> records) throws DeduplicationException, JiBXException {
-        Decoupler decoupler = new Decoupler();
+
         List<String> itemizedRecords = new ArrayList<>();
         IMarshallingContext uctx = context.createMarshallingContext();
         for(String record:records){

@@ -1,5 +1,6 @@
 package eu.europeana.identifier.service.test;
 
+import eu.europeana.identifier.service.Application;
 import eu.europeana.identifier.service.ItemizationService;
 import eu.europeana.identifier.service.exceptions.DeduplicationException;
 import eu.europeana.identifier.service.utils.HttpRetriever;
@@ -9,6 +10,11 @@ import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream;
 import org.jibx.runtime.JiBXException;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,10 +25,14 @@ import java.util.List;
 /**
  * Created by ymamakis on 2/9/16.
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = Application.class, loader = AnnotationConfigContextLoader.class)
 public class ItemizationServiceTest {
+
+    @Autowired
+    ItemizationService itemizationService;
     @Test
     public void testFile() throws JiBXException, IOException, DeduplicationException {
-        ItemizationService itemizationService = new ItemizationService();
         List<String> records = itemizationService.itemize(new File("src/test/resources/records.tgz"));
         Assert.assertTrue(records.size()>0);
         Assert.assertTrue(records.size()==10234);
@@ -35,7 +45,6 @@ public class ItemizationServiceTest {
     @Test
     public void testRecords() throws JiBXException, IOException, DeduplicationException{
         List<String> readFiles = readFile();
-        ItemizationService itemizationService = new ItemizationService();
         List<String> records = itemizationService.itemize(readFiles);
         Assert.assertTrue(records.size()>0);
         Assert.assertTrue(records.size()==10234);
@@ -73,7 +82,6 @@ public class ItemizationServiceTest {
 
     @Test
     public void testUrl()throws JiBXException, IOException, DeduplicationException{
-        ItemizationService itemizationService = new ItemizationService();
 
         List<String> records = itemizationService.itemize(new File("src/test/resources/records.tgz").toURI().toURL());
         Assert.assertTrue(records.size()>0);

@@ -1,41 +1,68 @@
 package eu.europeana.identifier.rest.config;
 
-import eu.europeana.identifier.rest.IdentifierResource;
-import eu.europeana.identifier.rest.ItemizationResource;
-import eu.europeana.identifier.rest.exceptions.IdentifierException;
-import eu.europeana.identifier.rest.exceptions.IdentifierExceptionMapper;
-import eu.europeana.itemization.IdentifierError;
-import eu.europeana.itemization.Request;
-import eu.europeana.itemization.RequestResult;
-import io.swagger.jaxrs.config.BeanConfig;
-import org.glassfish.jersey.media.multipart.MultiPartFeature;
-import org.glassfish.jersey.server.ResourceConfig;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-import javax.ws.rs.ApplicationPath;
+import java.util.List;
 
 /**
  * Created by ymamakis on 2/9/16.
  */
-@ApplicationPath("/rest")
-public class Application extends ResourceConfig {
-    public Application() {
-        super();
-        register(IdentifierResource.class);
-        register(ItemizationResource.class);
-        register(Request.class);
-        register(RequestResult.class);
-        register(MultiPartFeature.class);
-        register(IdentifierException.class);
-        register(IdentifierError.class);
-        register(IdentifierExceptionMapper.class);
-        register(io.swagger.jaxrs.listing.ApiListingResource.class);
-        register(io.swagger.jaxrs.listing.SwaggerSerializers.class);
-        BeanConfig beanConfig = new BeanConfig();
-        beanConfig.setVersion("1.0.2");
-        beanConfig.setSchemes(new String[]{"http"});
-        beanConfig.setHost("metis-identifier-test.de.a9sapp.eu");
-        beanConfig.setBasePath("/rest");
-        beanConfig.setResourcePackage("eu.europeana.identifier.rest");
-        beanConfig.setScan(true);
+@Configuration
+@ComponentScan(basePackages = {"eu.europeana.identifier.rest","eu.europeana.identifier.rest.exceptions"})
+@EnableWebMvc
+@EnableSwagger2
+@Import(eu.europeana.identifier.service.Application.class)
+public class Application extends WebMvcConfigurerAdapter {
+
+
+
+
+    @Override
+    public  void configureMessageConverters(List<HttpMessageConverter<?>> converters){
+        converters.add(new MappingJackson2HttpMessageConverter());
+
+        super.configureMessageConverters(converters);
+    }
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+    }
+
+    @Bean
+    public Docket api(){
+        return new Docket(DocumentationType.SWAGGER_2)
+                .select()
+                .apis(RequestHandlerSelectors.any())
+                .paths(PathSelectors.regex("/.*"))
+                .build()
+                .apiInfo(apiInfo());
+    }
+
+    private ApiInfo apiInfo() {
+        ApiInfo apiInfo = new ApiInfo(
+                "Identifier and Itemization REST API",
+                "Identifier and Itemization REST API for Europeana",
+                "v1",
+                "API TOS",
+                "development@europeana.eu",
+                "EUPL Licence v1.1",
+                ""
+        );
+        return apiInfo;
     }
 }

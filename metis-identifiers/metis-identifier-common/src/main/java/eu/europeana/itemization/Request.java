@@ -14,9 +14,9 @@ public class Request {
     /**
      * A list of records as string
      */
-    @XmlElement
-    private List<String> records;
 
+    private List<String> records;
+    @XmlElement
     public List<String> getRecords() {
         return records;
     }

@@ -14,9 +14,9 @@ public class RequestResult {
     /**
      * A list of itemized EDM records
      */
-    @XmlElement
-    private List<String> itemizedRecords;
 
+    private List<String> itemizedRecords;
+    @XmlElement
     public List<String> getItemizedRecords() {
         return itemizedRecords;
     }

@@ -34,28 +34,30 @@ public class OrganizationDao implements MetisDao<Organization> {
     public void update(Organization organization) {
         Query<Organization> q = provider.getDatastore().find(Organization.class).filter("organizationId", organization.getOrganizationId());
         UpdateOperations<Organization> ops = provider.getDatastore().createUpdateOperations(Organization.class);
-        if(organization.getHarvestingMetadata()!=null) {
+        if (organization.getHarvestingMetadata() != null) {
             ops.set("harvestingMetadata", organization.getHarvestingMetadata());
         } else {
             ops.unset("harvestingMetadata");
         }
-        if(organization.getOrganizationUri()!=null) {
+        if (organization.getOrganizationUri() != null) {
             ops.set("organizationUri", organization.getOrganizationUri());
         } else {
             ops.unset("organizationUri");
         }
-        if(organization.getDatasets()!=null|| organization.getDatasets().size()!=0) {
+        if (organization.getDatasets() != null || organization.getDatasets().size() != 0) {
             ops.set("datasets", organization.getDatasets());
         } else {
             ops.unset("datasets");
         }
-        ops.set("name",organization.getName());
-        if(organization.getRoles()!=null) {
+        ops.set("name", organization.getName());
+        if (organization.getRoles() != null) {
             ops.set("roles", organization.getRoles());
         } else {
             ops.unset("roles");
         }
-        ops.set("createdByLdapId",organization.getCreatedByLdapId());
+        if (organization.getCreatedByLdapId() != null){
+            ops.set("createdByLdapId", organization.getCreatedByLdapId());
+        }
 
         if(organization.getUpdatedByLdapId()!=null){
             ops.set("updatedByLdapId",organization.getUpdatedByLdapId());

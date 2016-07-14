@@ -15,7 +15,6 @@
  */
 package eu.europeana.metis.ui.ldap;
 
-import eu.europeana.metis.ui.config.MetisLdapManagerConfig;
 import eu.europeana.metis.ui.ldap.dao.UserDao;
 import eu.europeana.metis.ui.ldap.domain.User;
 import org.junit.Assert;
@@ -36,7 +35,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = MetisLdapManagerConfig.class, loader = AnnotationConfigContextLoader.class)
+@ContextConfiguration(classes = TestMetisLdapManagerConfig.class, loader = AnnotationConfigContextLoader.class)
 public class LdifTest extends AbstractJUnit4SpringContextTests {
 
 	protected User user;

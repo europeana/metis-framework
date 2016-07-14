@@ -78,7 +78,6 @@ public class Application extends WebMvcConfigurerAdapter {
 
     @Bean
     EnrichmentDriver getEnrichmentDriver(){
-        System.out.println("The enrichment path is: "+enrichmentPath);
         return new EnrichmentDriver(enrichmentPath);
     }
 

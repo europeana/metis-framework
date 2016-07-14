@@ -34,7 +34,7 @@ public class TestDatasetDao {
             dsDao = new DatasetDao();
             org = new Organization();
             org.setOrganizationId("orgId");
-            org.setDatasets(new ArrayList<>());
+            org.setDatasets(new ArrayList<Dataset>());
             org.setOrganizationUri("testUri");
             org.setHarvestingMetadata(new HarvestingMetadata());
             ds = new Dataset();

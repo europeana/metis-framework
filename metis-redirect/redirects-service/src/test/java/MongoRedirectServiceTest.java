@@ -11,15 +11,12 @@ import eu.europeana.redirects.params.ControlledParams;
 import eu.europeana.redirects.params.QualifiedFieldName;
 import eu.europeana.redirects.service.config.ServiceConfig;
 import eu.europeana.redirects.service.mongo.MongoRedirectService;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.solr.client.solrj.impl.CloudSolrServer;
 import org.apache.solr.client.solrj.response.QueryResponse;
-import org.apache.solr.client.solrj.util.ClientUtils;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.params.ModifiableSolrParams;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,12 +25,12 @@ import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 
 
 /**
@@ -58,7 +55,9 @@ public class MongoRedirectServiceTest {
     }
     @Test
     public void testTransformationsOnly() throws Exception{
-        MongoRedirectService service = new MongoRedirectService(serviceConfig);
+
+        MongoRedirectService service = new MongoRedirectService();
+        ReflectionTestUtils.setField(service,"serviceConfig",serviceConfig);
         RedirectRequest request = new RedirectRequest();
         request.setCollection("test_collection");
         request.setEuropeanaId("id1");
@@ -92,7 +91,8 @@ public class MongoRedirectServiceTest {
 
     @Test
     public void testCollectionChange() throws Exception{
-        MongoRedirectService service = new MongoRedirectService(serviceConfig);
+        MongoRedirectService service = new MongoRedirectService();
+        ReflectionTestUtils.setField(service,"serviceConfig",serviceConfig);
         RedirectRequest request = new RedirectRequest();
         request.setCollection("test_collection");
         request.setEuropeanaId("/id1");
@@ -126,7 +126,8 @@ public class MongoRedirectServiceTest {
 
     @Test
     public void testCustomField() throws Exception{
-        MongoRedirectService service = new MongoRedirectService(serviceConfig);
+        MongoRedirectService service = new MongoRedirectService();
+        ReflectionTestUtils.setField(service,"serviceConfig",serviceConfig);
         RedirectRequest request = new RedirectRequest();
         request.setCollection("test_collection");
         request.setEuropeanaId("/id1");
@@ -161,7 +162,8 @@ public class MongoRedirectServiceTest {
 
     @Test
     public void testCollectionChangeNoTransform() throws Exception{
-        MongoRedirectService service = new MongoRedirectService(serviceConfig);
+        MongoRedirectService service = new MongoRedirectService();
+        ReflectionTestUtils.setField(service,"serviceConfig",serviceConfig);
         RedirectRequest request = new RedirectRequest();
         request.setCollection("test_collection");
         request.setEuropeanaId("/id1");
@@ -193,7 +195,8 @@ public class MongoRedirectServiceTest {
 
     @Test
     public void testCustomFieldNoTransform() throws Exception{
-        MongoRedirectService service = new MongoRedirectService(serviceConfig);
+        MongoRedirectService service = new MongoRedirectService();
+        ReflectionTestUtils.setField(service,"serviceConfig",serviceConfig);
         RedirectRequest request = new RedirectRequest();
         request.setCollection("test_collection");
         request.setEuropeanaId("/id1");
@@ -226,7 +229,8 @@ public class MongoRedirectServiceTest {
 
     @Test
     public void testIdNotExists() throws Exception{
-        MongoRedirectService service = new MongoRedirectService(serviceConfig);
+        MongoRedirectService service = new MongoRedirectService();
+        ReflectionTestUtils.setField(service,"serviceConfig",serviceConfig);
         RedirectRequest request = new RedirectRequest();
         request.setCollection("test_collection");
         request.setEuropeanaId("/id1");
@@ -254,7 +258,8 @@ public class MongoRedirectServiceTest {
 
     @Test
     public void testGenerateIdFailsNotNull() throws Exception{
-        MongoRedirectService service = new MongoRedirectService(serviceConfig);
+        MongoRedirectService service = new MongoRedirectService();
+        ReflectionTestUtils.setField(service,"serviceConfig",serviceConfig);
         RedirectRequest request = new RedirectRequest();
         request.setCollection("test_collection");
         request.setEuropeanaId("/id1");
@@ -291,7 +296,8 @@ public class MongoRedirectServiceTest {
 
     @Test
     public void testBatchRedirects() throws Exception{
-        MongoRedirectService service = new MongoRedirectService(serviceConfig);
+        MongoRedirectService service = new MongoRedirectService();
+        ReflectionTestUtils.setField(service,"serviceConfig",serviceConfig);
         RedirectRequestList lst = new RedirectRequestList();
         List<RedirectRequest> list = new ArrayList<>();
         RedirectRequest req = new RedirectRequest();

@@ -8,9 +8,9 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public class IdentifierError {
-    @XmlElement
-    private String message;
 
+    private String message;
+    @XmlElement
     public String getMessage() {
         return message;
     }

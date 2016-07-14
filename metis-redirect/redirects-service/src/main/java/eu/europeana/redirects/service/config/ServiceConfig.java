@@ -27,10 +27,6 @@ public class ServiceConfig {
     private Properties props;
     private EuropeanaIdMongoServer mongoServer;
     private CloudSolrServer productionSolrServer;
-
-
-
-
     private CollectionMongoServer collectionMongoServer;
 
 

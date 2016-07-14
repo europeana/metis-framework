@@ -42,7 +42,7 @@ public class TestOrganizationService {
         ReflectionTestUtils.setField(service, "orgDao", organizationDao);
         org = new Organization();
         org.setOrganizationId("orgId");
-        org.setDatasets(new ArrayList<>());
+        org.setDatasets(new ArrayList<Dataset>());
         org.setOrganizationUri("testUri");
         org.setHarvestingMetadata(new HarvestingMetadata());
 

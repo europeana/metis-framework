@@ -13,11 +13,11 @@ import eu.europeana.redirects.service.StringTransformationUtils;
 import eu.europeana.redirects.service.config.ServiceConfig;
 import org.apache.commons.lang.StringUtils;
 import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.impl.CloudSolrServer;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.client.solrj.util.ClientUtils;
 import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.params.ModifiableSolrParams;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,19 +29,11 @@ import java.util.List;
  * Created by ymamakis on 1/13/16.
  */
 public class MongoRedirectService implements RedirectService {
+    @Autowired
     private ServiceConfig serviceConfig;
-    private CloudSolrServer cloudSolrServer;
-    /**
-     * Default constructor for the Mongo-based redirect service
-     */
-    public MongoRedirectService() {
-        serviceConfig = new ServiceConfig();
 
-    }
 
-    public MongoRedirectService(ServiceConfig config) {
-        serviceConfig = config;
-    }
+
 
     /**
      * Handle a request for a redirect
@@ -101,8 +93,7 @@ public class MongoRedirectService implements RedirectService {
         params.set("rows", 1);
         params.set("fl", "europeana_id");
         try {
-            cloudSolrServer = serviceConfig.getProductionSolrServer();
-            QueryResponse resp = cloudSolrServer.query(params);
+            QueryResponse resp = serviceConfig.getProductionSolrServer().query(params);
             SolrDocumentList list = resp.getResults();
             if (list.getNumFound() == 1) {
                 return list.get(0).getFieldValue("europeana_id").toString();

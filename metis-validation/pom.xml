@@ -12,6 +12,7 @@
 		<module>validation-rest</module>
 		<module>validation-client</module>
 		<module>validation-common</module>
+		<module>validation-service</module>
 	</modules>
 
 	<properties>

@@ -1,52 +1,81 @@
 package eu.europeana.redirects.rest.config;
 
-import eu.europeana.redirects.model.RedirectRequest;
-import eu.europeana.redirects.model.RedirectRequestList;
-import eu.europeana.redirects.model.RedirectResponse;
-import eu.europeana.redirects.model.RedirectResponseList;
-import eu.europeana.redirects.rest.RedirectResource;
 import eu.europeana.redirects.service.RedirectService;
+import eu.europeana.redirects.service.config.ServiceConfig;
 import eu.europeana.redirects.service.mongo.MongoRedirectService;
-import io.swagger.jaxrs.config.BeanConfig;
-import org.glassfish.hk2.utilities.binding.AbstractBinder;
-import org.glassfish.jersey.media.multipart.MultiPartFeature;
-import org.glassfish.jersey.server.ResourceConfig;
+import org.springframework.context.annotation.*;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-import javax.ws.rs.ApplicationPath;
+import java.util.List;
 
-/**
- * Jersey Configuration class
- * Created by ymamakis on 1/15/16.
- */
-@ApplicationPath("/rest")
-public class Application extends ResourceConfig {
+@Configuration
+@ComponentScan(basePackages = {"eu.europeana.redirects.rest"})
+@PropertySource("classpath:redirects.properties")
+@EnableWebMvc
+@EnableSwagger2
+public class Application extends WebMvcConfigurerAdapter {
 
-    public Application(){
-        this(new MongoRedirectService());
+    @Bean (name = "serviceConfig")
+    ServiceConfig getServiceConfig(){
+        return new ServiceConfig();
     }
 
-    public Application(final RedirectService service){
-        super();
-        register(new AbstractBinder() {
-            @Override
-            protected void configure() {
-                bind(service).to(RedirectService.class);
-            }
-        });
-        register(RedirectResource.class);
-        register(MultiPartFeature.class);
-        register(RedirectRequest.class);
-        register(RedirectRequestList.class);
-        register(RedirectResponse.class);
-        register(RedirectResponseList.class);
-        register(io.swagger.jaxrs.listing.ApiListingResource.class);
-        register(io.swagger.jaxrs.listing.SwaggerSerializers.class);
-        BeanConfig beanConfig = new BeanConfig();
-        beanConfig.setVersion("1.0.2");
-        beanConfig.setSchemes(new String[]{"http"});
-        beanConfig.setHost("metis-redirects-test");
-        beanConfig.setBasePath("/rest");
-        beanConfig.setResourcePackage("eu.europeana.redirects.rest");
-        beanConfig.setScan(true);
+    @Bean
+    @DependsOn(value = "serviceConfig")
+    RedirectService getRedirectService(){
+        return new MongoRedirectService();
+    }
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+    }
+    @Override
+    public  void configureMessageConverters(List<HttpMessageConverter<?>> converters){
+        converters.add(new MappingJackson2HttpMessageConverter());
+
+        super.configureMessageConverters(converters);
+    }
+
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer properties() {
+        PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer = new PropertySourcesPlaceholderConfigurer();
+        propertySourcesPlaceholderConfigurer.setLocation(new ClassPathResource("metis.properties"));
+        return propertySourcesPlaceholderConfigurer;
+    }
+
+    @Bean
+    public Docket api(){
+        return new Docket(DocumentationType.SWAGGER_2)
+                .select()
+                .apis(RequestHandlerSelectors.any())
+                .paths(PathSelectors.regex("/.*"))
+                .build()
+                .apiInfo(apiInfo());
+    }
+
+    private ApiInfo apiInfo() {
+        ApiInfo apiInfo = new ApiInfo(
+                "Metis redirects REST API",
+                "Metis redirects REST API for Europeana",
+                "v1",
+                "API TOS",
+                "development@europeana.eu",
+                "EUPL Licence v1.1",
+                ""
+        );
+        return apiInfo;
     }
 }

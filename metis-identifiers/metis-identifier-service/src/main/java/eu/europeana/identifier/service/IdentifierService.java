@@ -3,6 +3,7 @@ package eu.europeana.identifier.service;
 import eu.europeana.corelib.utils.EuropeanaUriUtils;
 import eu.europeana.identifier.service.utils.IdentifierNormalizer;
 import org.jibx.runtime.JiBXException;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,9 @@ import java.util.List;
  * Created by ymamakis on 2/8/16.
  */
 public class IdentifierService {
+
+    @Autowired
+    private IdentifierNormalizer normalizer;
 
     /**
      * Generate identifier based on a collection identifier and a record identifier
@@ -30,7 +34,7 @@ public class IdentifierService {
      */
     public String fixIdentifiers(String record) throws JiBXException{
 
-        return new IdentifierNormalizer().normalize(record);
+        return normalizer.normalize(record);
     }
 
     /**

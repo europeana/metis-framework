@@ -6,7 +6,7 @@
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>metis-framework-ui</artifactId>
-	<version>0.1-SNAPSHOT</version>
+
 	<packaging>war</packaging>
 	<properties>
 		<m2eclipse.wtp.contextRoot>/</m2eclipse.wtp.contextRoot>
@@ -77,22 +77,22 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-			<version>4.0.9.RELEASE</version>
+			<version>4.2.5.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aop</artifactId>
-			<version>4.0.9.RELEASE</version>
+			<version>4.2.5.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
-			<version>4.0.9.RELEASE</version>
+			<version>4.2.5.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
-			<version>4.0.9.RELEASE</version>
+			<version>4.2.5.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
@@ -177,12 +177,12 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-expression</artifactId>
-			<version>4.0.9.RELEASE</version>
+			<version>4.2.5.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-tx</artifactId>
-			<version>4.0.9.RELEASE</version>
+			<version>4.2.5.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>de.flapdoodle.embed</groupId>

@@ -1,20 +1,28 @@
 package eu.europeana.identifier.rest.exceptions;
 
 import eu.europeana.itemization.IdentifierError;
-
-import javax.ws.rs.core.Response;
-import javax.ws.rs.ext.ExceptionMapper;
-import javax.ws.rs.ext.Provider;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Created by ymamakis on 2/25/16.
  */
-@Provider
-public class IdentifierExceptionMapper implements ExceptionMapper<IdentifierException> {
+@Controller
+public class IdentifierExceptionMapper {
 
-    public Response toResponse(IdentifierException e) {
+    @ExceptionHandler(IdentifierException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ModelAndView toResponse(IdentifierException e) {
         IdentifierError error = new IdentifierError();
         error.setMessage(e.getMessage());
-        return Response.status(Response.Status.fromStatusCode(422)).entity(error).build();
+        ModelAndView mav = new ModelAndView();
+        mav.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+        mav.addObject("error", e.getMessage());
+        return mav;
     }
 }

@@ -1,4 +1,4 @@
-import eu.europeana.validation.edm.rest.main.Main;
+import eu.europeana.validation.rest.main.Main;
 
 /**
  * Created by ymamakis on 12/24/15.
