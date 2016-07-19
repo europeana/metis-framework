@@ -4,12 +4,10 @@ applications:
   memory: 2048M
   instances: 1
   host: metis-redirect-test
-  domain: de.a9sapp.eu
   path: target/redirects-rest-1.0-SNAPSHOT.war
-  buildpack: https://github.com/ymamakis/java-buildpack.git
+  buildpack: https://github.com/europeana/java-buildpack.git#feat/java8
   services:
-    - syslog
-    - annotation-mongo
+    - annotation-test-mongo
   env:
     solrProduction: http://sol1.ingest.eanadev.org:9090/solr
     solrCore: search_test

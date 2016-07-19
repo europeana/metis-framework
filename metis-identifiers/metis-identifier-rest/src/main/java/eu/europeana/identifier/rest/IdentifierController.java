@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.*;
  * Identifier REST API
  * Created by ymamakis on 2/9/16.
  */
-@Controller(value = "/rest/identifier")
-@Api(value = "/rest/identifier", description = "Generate Europeana identifier")
+@Controller
+@Api(value = "/", description = "Generate Europeana identifier")
 public class IdentifierController {
 
     @Autowired
@@ -32,8 +32,9 @@ public class IdentifierController {
      * @return A Europeana identifier
      */
 
-    @RequestMapping(method = RequestMethod.GET, value = "/generate/{collectionId}/{recordId}")
+    @RequestMapping(method = RequestMethod.GET, value = "/identifier/generate/{collectionId}/{recordId}")
     @ApiOperation(value = "Generate record identifier", response = String.class)
+    @ResponseBody
     public String generateIdentifier(@ApiParam("collectionId") @PathVariable("collectionId") String collectionId,
                                        @ApiParam("recordId") @PathVariable("recordId") String recordId) {
         return idService.generateIdentifier(collectionId, recordId);
@@ -47,7 +48,7 @@ public class IdentifierController {
      * @return The normalized record
      */
 
-    @RequestMapping(method = RequestMethod.POST,value = "/normalize/single")
+    @RequestMapping(method = RequestMethod.POST,value = "/identifier/normalize/single")
     @ResponseBody
     @ApiOperation(value = "Fix the identifiers of a record for internal semantic linking", response = String.class)
     public String normalize(@ApiParam("record") @RequestBody String record) throws IdentifierException {
@@ -65,7 +66,7 @@ public class IdentifierController {
      * @return
      */
 
-    @RequestMapping(value = "/normalize/batch", method = RequestMethod.POST)
+    @RequestMapping(value = "/identifier/normalize/batch", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "Batch normalizations of records", response = RequestResult.class)
     public RequestResult normalize(@RequestBody Request records) throws IdentifierException {

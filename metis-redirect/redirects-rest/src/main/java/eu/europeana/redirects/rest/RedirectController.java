@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * REST Endpoint for Europeana Redirects Service module
  * Created by ymamakis on 1/15/16.
  */
-@Controller("/rest")
-@Api("/rest")
+@Controller("/")
+@Api("/")
 public class RedirectController {
     @Autowired
     private  RedirectService redirectService;

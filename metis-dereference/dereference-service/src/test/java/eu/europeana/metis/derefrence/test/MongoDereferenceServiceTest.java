@@ -41,8 +41,8 @@ public class MongoDereferenceServiceTest {
     public void prepare() throws UnknownHostException {
 
         MongoDBInstance.start();
-        vocabularyDao = new VocabularyDao(new MongoClient("localhost", 10000), "voctest", "", "");
-        entityDao = new EntityDao(new MongoClient("localhost", 10000), "voctest", "", "");
+        vocabularyDao = new VocabularyDao(new MongoClient("localhost", 10000), "voctest");
+        entityDao = new EntityDao(new MongoClient("localhost", 10000), "voctest");
         jedis = Mockito.mock(Jedis.class);
         cacheDao = new CacheDao(jedis);
         RdfRetriever retriever = new RdfRetriever();

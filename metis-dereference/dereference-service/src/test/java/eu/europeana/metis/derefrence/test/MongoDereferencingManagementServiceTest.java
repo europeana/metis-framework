@@ -1,6 +1,5 @@
 package eu.europeana.metis.derefrence.test;
 
-import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
 import eu.europeana.metis.dereference.ContextualClass;
 import eu.europeana.metis.dereference.OriginalEntity;
@@ -37,8 +36,8 @@ public class MongoDereferencingManagementServiceTest {
         jedis = Mockito.mock(Jedis.class);
         CacheDao cacheDao = new CacheDao(jedis);
         MongoClient mongo = new MongoClient("localhost",10000);
-        VocabularyDao vocDao = new VocabularyDao(mongo,"voctest","","");
-        entityDao = new EntityDao(mongo,"voctest","","");
+        VocabularyDao vocDao = new VocabularyDao(mongo,"voctest");
+        entityDao = new EntityDao(mongo,"voctest");
         ReflectionTestUtils.setField(service,"cacheDao",cacheDao);
         ReflectionTestUtils.setField(service,"vocabularyDao",vocDao);
         ReflectionTestUtils.setField(service,"entityDao",entityDao);

@@ -17,7 +17,7 @@ public class EntityDao implements AbstractDao<OriginalEntity> {
 
     private Datastore ds;
 
-    public EntityDao(MongoClient mongo, String db, String username, String password) {
+    public EntityDao(MongoClient mongo, String db) {
         Morphia morphia = new Morphia();
         morphia.map(OriginalEntity.class);
         ds = morphia.createDatastore(mongo, db);

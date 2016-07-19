@@ -8,22 +8,22 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
 /**
- * Wrapper class for the batch validation
+ * Wrapper class for the batch service
  * Created by ymamakis on 12/22/15.
  */
 @XmlRootElement
-@ApiModel(value="Validation Result List",description = "Batch validation result")
+@ApiModel(value="Validation Result List",description = "Batch service result")
 public class ValidationResultList {
 
     /**
-     * List of validation results. If the list is empty then we assume success == true
+     * List of service results. If the list is empty then we assume success == true
      */
     @XmlElement
     @ApiModelProperty(value ="Result list",required = false)
     private List<ValidationResult> resultList;
 
     /**
-     * The result of the batch validation
+     * The result of the batch service
      */
     @XmlElement
     @ApiModelProperty(value ="Operation outcome",required = true)

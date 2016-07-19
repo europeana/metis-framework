@@ -3,6 +3,7 @@ package eu.europeana.redirects.service.config;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
 import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
 import eu.europeana.corelib.lookup.impl.CollectionMongoServerImpl;
@@ -53,15 +54,17 @@ public class ServiceConfig {
             } else {
                 JsonParser parser = new JsonParser();
                 JsonObject object = parser.parse(System.getenv().get("VCAP_SERVICES")).getAsJsonObject();
-                JsonObject element = object.getAsJsonArray("mongodb-2.0").get(0).getAsJsonObject();
+                JsonObject element = object.getAsJsonArray("mlab").get(0).getAsJsonObject();
 
                 JsonObject credentials = element.getAsJsonObject("credentials");
+                JsonPrimitive mongouri = credentials.getAsJsonPrimitive("uri");
 
-                String mongoDb = credentials.get("db").getAsString();
-                String mongoHost = credentials.get("host").getAsString();
-                int mongoPort = credentials.get("port").getAsInt();
-                String mongoUsername = credentials.get("username").getAsString();
-                String mongoPassword = credentials.get("password").getAsString();
+                String mongoUsername = StringUtils.substringBetween(mongouri.getAsString(),"mongodb://",":");
+                String mongoPassword = StringUtils.substringBetween(mongouri.getAsString(),mongoUsername+":","@");
+                String mongoHost = StringUtils.substringBetween(mongouri.getAsString(),mongoPassword+"@",":");
+                int mongoPort = Integer.parseInt(StringUtils.substringBetween(mongouri.getAsString(),mongoHost+":","/"));
+                String mongoDb = StringUtils.substringAfterLast(mongouri.getAsString(),"/");
+
                 Mongo mongo = new MongoClient(mongoHost,mongoPort);
                 mongoServer = new EuropeanaIdMongoServerImpl(mongo, mongoDb,
                         mongoUsername, mongoPassword);

@@ -4,8 +4,5 @@ applications:
   memory: 2048M
   instances: 1
   host: metis-identifier-test
-  domain: de.a9sapp.eu
   path: target/metis-identifier-rest-1.0-SNAPSHOT.war
-  buildpack: https://github.com/ymamakis/java-buildpack.git
-  services:
-    - syslog
+  buildpack: https://github.com/europeana/java-buildpack.git#feat/java8

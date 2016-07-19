@@ -1,7 +1,7 @@
 import eu.europeana.validation.model.ValidationResult;
 import eu.europeana.validation.model.ValidationResultList;
-import eu.europeana.validation.validation.ValidationExecutionService;
-import eu.europeana.validation.validation.ValidationManagementService;
+import eu.europeana.validation.service.ValidationExecutionService;
+import eu.europeana.validation.service.ValidationManagementService;
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 import org.apache.commons.io.FileUtils;

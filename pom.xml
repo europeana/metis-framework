@@ -30,5 +30,6 @@
         <module>metis-redirect</module>
         <module>metis-identifiers</module>
         <module>metis-validation</module>
+        <module>metis-pandora</module>
     </modules>
 </project>

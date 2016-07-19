@@ -21,7 +21,6 @@ public class IdentifierExceptionMapper {
         IdentifierError error = new IdentifierError();
         error.setMessage(e.getMessage());
         ModelAndView mav = new ModelAndView();
-        mav.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
         mav.addObject("error", e.getMessage());
         return mav;
     }

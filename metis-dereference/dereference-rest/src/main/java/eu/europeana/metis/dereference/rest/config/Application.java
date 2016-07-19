@@ -2,9 +2,9 @@ package eu.europeana.metis.dereference.rest.config;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
 import com.mongodb.MongoClient;
-import com.mongodb.MongoCredential;
-import com.mongodb.ServerAddress;
+import com.mongodb.MongoClientURI;
 import eu.europeana.enrichment.rest.client.EnrichmentDriver;
 import eu.europeana.metis.dereference.service.MongoDereferenceService;
 import eu.europeana.metis.dereference.service.MongoDereferencingManagementService;
@@ -36,9 +36,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.net.UnknownHostException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 /**
  * Spring configuration class
@@ -52,29 +50,23 @@ import java.util.Properties;
 public class Application extends WebMvcConfigurerAdapter {
 
     Logger logger = Logger.getLogger(Application.class);
-    @Value("${mongo.host}")
-    private String mongoHost;
-
-    @Value("${mongo.port}")
-    private int mongoPort;
 
     @Value("${redis.host}")
-    private String redisHost;
+    private static String redisHost;
     @Value("${redis.port}")
-    private int redisPort;
+    private static int redisPort;
     @Value("${redis.password}")
-    private String redisPassword;
+    private static String redisPassword;
     @Value("${entity.db}")
-    private String db;
-    @Value("${mongo.username}")
-    private String username;
-    @Value("${mongo.password}")
-    private String password;
+    private static String enDb;
+
     @Value("${vocabulary.db}")
-    private String vocDb;
+    private static String vocDb;
 
     @Value("${enrichment.path}")
-    private String enrichmentPath;
+    private static String enrichmentPath;
+    @Value("${mongoUri}")
+    private static String mongoUri;
 
     @Bean
     EnrichmentDriver getEnrichmentDriver(){
@@ -84,15 +76,9 @@ public class Application extends WebMvcConfigurerAdapter {
     @Bean
     MongoClient getMongo(){
         try {
-            if(StringUtils.isEmpty(username)) {
-                return new MongoClient(mongoHost, mongoPort);
-            } else {
-                MongoCredential credential =  MongoCredential.createMongoCRCredential(username,db,password.toCharArray());
-                ServerAddress address = new ServerAddress(mongoHost,mongoPort);
-                List<MongoCredential> credentials  = new ArrayList<>();
-                credentials.add(credential);
-               return  new MongoClient(address,credentials);
-            }
+
+               return  new MongoClient(new MongoClientURI(mongoUri));
+
         } catch (UnknownHostException e) {
            logger.error("Failed to connect to Mongo: " + e.getMessage());
         }
@@ -118,26 +104,23 @@ public class Application extends WebMvcConfigurerAdapter {
         if(System.getenv().get("VCAP_SERVICES")==null) {
             propertySourcesPlaceholderConfigurer.setLocation(new ClassPathResource("dereferencing.properties"));
         } else {
-            Properties properties = new Properties();
             JsonParser parser = new JsonParser();
             JsonObject object = parser.parse(System.getenv().get("VCAP_SERVICES")).getAsJsonObject();
-            JsonObject element = object.getAsJsonArray("mongodb-2.0").get(0).getAsJsonObject();
+            JsonObject element = object.getAsJsonArray("mlab").get(0).getAsJsonObject();
 
             JsonObject credentials = element.getAsJsonObject("credentials");
-            properties.setProperty("vocabulary.db",credentials.get("db").getAsString());
-            properties.setProperty("entity.db",credentials.get("db").getAsString());
-            properties.setProperty("mongo.host",credentials.get("host").getAsString());
-            properties.setProperty("mongo.port",credentials.get("port").getAsString());
-            properties.setProperty("mongo.username",credentials.get("username").getAsString());
-            properties.setProperty("mongo.password",credentials.get("password").getAsString());
-            properties.setProperty("enrichment.path",System.getenv().get("enrichmentpath"));
-            JsonObject redisElement = object.getAsJsonArray("redis-2.2").get(0).getAsJsonObject();
+            JsonPrimitive uri = credentials.getAsJsonPrimitive("uri");
+            mongoUri= uri.getAsString();
+            String db = StringUtils.substringAfterLast(uri.getAsString(),"/");
+            vocDb = db;
+            enDb = db;
+            enrichmentPath =System.getenv().get("enrichmentpath");
+            JsonObject redisElement = object.getAsJsonArray("rediscloud").get(0).getAsJsonObject();
             JsonObject redisCredentials = redisElement.getAsJsonObject("credentials");
-            properties.setProperty("redis.host",redisCredentials.get("host").getAsString());
-            properties.setProperty("redis.port",redisCredentials.get("port").getAsString());
-            properties.setProperty("redis.password",redisCredentials.get("password").getAsString());
+            redisHost = redisCredentials.get("hostname").getAsString();
+            redisPort = Integer.parseInt(redisCredentials.get("port").getAsString());
+            redisPassword= redisCredentials.get("password").getAsString();
 
-            propertySourcesPlaceholderConfigurer.setProperties(properties);
         }
 
         return propertySourcesPlaceholderConfigurer;
@@ -160,12 +143,12 @@ public class Application extends WebMvcConfigurerAdapter {
 
     @Bean
     EntityDao getEntityDao(){
-        return new EntityDao(getMongo(),db,username,password);
+        return new EntityDao(getMongo(),enDb);
     }
 
     @Bean
     VocabularyDao getVocabularyDao(){
-        return new VocabularyDao(getMongo(),vocDb,username,password);
+        return new VocabularyDao(getMongo(),vocDb);
     }
 
     @Bean

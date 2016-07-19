@@ -1,0 +1,10 @@
+---
+applications:
+- name: metis-mapping-test
+  memory: 2048M
+  instances: 1
+  host: metis-mapping-test
+  path: target/metis-mapping-rest-1.0-SNAPSHOT.war
+  buildpack: https://github.com/europeana/java-buildpack.git#feat/java8
+  services:
+    - annotation-test-mongo

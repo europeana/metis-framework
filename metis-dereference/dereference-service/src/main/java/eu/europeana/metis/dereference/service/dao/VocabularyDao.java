@@ -20,7 +20,7 @@ public class VocabularyDao {
 
     private Datastore ds;
 
-    public VocabularyDao(MongoClient mongo, String db, String username, String password) {
+    public VocabularyDao(MongoClient mongo, String db) {
         Morphia morphia = new Morphia();
         morphia.map(Vocabulary.class);
 

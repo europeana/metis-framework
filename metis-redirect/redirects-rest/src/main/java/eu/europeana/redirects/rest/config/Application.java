@@ -52,7 +52,7 @@ public class Application extends WebMvcConfigurerAdapter {
     @Bean
     public static PropertySourcesPlaceholderConfigurer properties() {
         PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer = new PropertySourcesPlaceholderConfigurer();
-        propertySourcesPlaceholderConfigurer.setLocation(new ClassPathResource("metis.properties"));
+        propertySourcesPlaceholderConfigurer.setLocation(new ClassPathResource("redirects.properties"));
         return propertySourcesPlaceholderConfigurer;
     }
 

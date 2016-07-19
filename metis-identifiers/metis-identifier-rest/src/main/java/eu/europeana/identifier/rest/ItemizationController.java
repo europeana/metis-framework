@@ -24,8 +24,8 @@ import java.util.Date;
  * Itemization REST API
  * Created by ymamakis on 2/9/16.
  */
-@Controller(value = "/rest/itemize")
-@Api("/rest/itemize")
+@Controller
+@Api(value = "/", description = "Itemize records REST API")
 public class ItemizationController {
 
     @Autowired
@@ -40,10 +40,10 @@ public class ItemizationController {
      * @throws DeduplicationException
      * @throws JiBXException
      */
-    @RequestMapping(value = "/url", method = RequestMethod.POST)
+    @RequestMapping(value = "/itemize/url", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "Itemize a remote tar.gz file", response = RequestResult.class)
-    public RequestResult itemizeByUrl(@ApiParam("url") @RequestBody String url) throws IdentifierException {
+    public RequestResult itemizeByUrl(@ApiParam("url") @RequestParam("url") String url) throws IdentifierException {
         RequestResult res = new RequestResult();
         try {
             res.setItemizedRecords(service.itemize(new URL(url)));
@@ -62,7 +62,7 @@ public class ItemizationController {
      * @throws DeduplicationException
      * @throws JiBXException
      */
-    @RequestMapping(value="/records", method = RequestMethod.POST)
+    @RequestMapping(value="/itemize/records", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "Itemize a list of records", response = RequestResult.class)
     public RequestResult itemizeRecords(@ApiParam("records") @RequestBody Request request) throws IdentifierException {
@@ -84,7 +84,7 @@ public class ItemizationController {
      * @throws DeduplicationException
      * @throws JiBXException
      */
-    @RequestMapping(method = RequestMethod.POST,value = "/file")
+    @RequestMapping(method = RequestMethod.POST,value = "/itemize/file")
     @ResponseBody
     @ApiOperation(value = "Itemize a file of records", response = RequestResult.class)
     public RequestResult itemizeFile(@ApiParam("file") @RequestParam("file") MultipartFile zipFile) throws IdentifierException {
