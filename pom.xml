@@ -32,4 +32,61 @@
         <module>metis-validation</module>
         <module>metis-pandora</module>
     </modules>
+    <repositories>
+        <repository>
+            <id>libs-release-local</id>
+            <name>artifactory.eanadev.org-releases</name>
+            <url>http://artifactory.eanadev.org/artifactory/libs-release-local</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <!-- Europeana Labs UIM external libraries repository -->
+        <repository>
+            <id>artifactory.eanadev.org</id>
+            <name>artifactory.eanadev.org-releases</name>
+            <url>http://artifactory.eanadev.org/artifactory/ext-release-local</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+
+        <repository>
+            <id>ext-snapshots-local</id>
+            <name>artifactory.eanadev.org-snapshot</name>
+            <url>http://artifactory.eanadev.org/artifactory/ext-snapshot-local</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+
+        <!-- Europeana Labs Java.net Maven 2 Repository (mirror) -->
+        <repository>
+            <id>maven2-repository.dev.java.net</id>
+            <name>Java.net Maven 2 Repository (mirror)</name>
+            <url>http://artifactory.eanadev.org/artifactory/java.net.m2</url>
+        </repository>
+
+
+        <!-- Europeana Labs UIM releases repository -->
+        <repository>
+            <id>uim-releases-local</id>
+            <name>UIM Releases Repository</name>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <url>http://artifactory.eanadev.org/artifactory/uim-releases-local</url>
+        </repository>
+
+
+        <!-- Europeana Labs Core snapshot libraries -->
+        <repository>
+            <id>artifactory.eanadev.org.corelibs.eu.snapshot</id>
+            <name>artifactory.eanadev.org.libs-snapshot-local</name>
+            <url>http://artifactory.eanadev.org/artifactory/libs-snapshot-local</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+    </repositories>
 </project>
