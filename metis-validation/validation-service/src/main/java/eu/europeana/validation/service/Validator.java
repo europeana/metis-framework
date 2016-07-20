@@ -159,8 +159,8 @@ class EDMParser {
             DocumentBuilderFactory parseFactory = DocumentBuilderFactory.newInstance();
 
             parseFactory.setNamespaceAware(true);
-            parseFactory.setFeature("http://apache.org/xml/features/service/schema-full-checking", false);
-            parseFactory.setFeature("http://apache.org/xml/features/honour-all-schemaLocations", true);
+            //parseFactory.setFeature("http://apache.org/xml/features/service/schema-full-checking", false);
+            //parseFactory.setFeature("http://apache.org/xml/features/honour-all-schemaLocations", true);
 
             return parseFactory.newDocumentBuilder();
         } catch (ParserConfigurationException e) {
@@ -182,8 +182,8 @@ class EDMParser {
             //Set the prefix as schema since this is the folder where the schemas exist in the classpath
             resolver.setPrefix(rootPath);
             factory.setResourceResolver(resolver);
-            factory.setFeature("http://apache.org/xml/features/service/schema-full-checking", false);
-            factory.setFeature("http://apache.org/xml/features/honour-all-schemaLocations", true);
+            //factory.setFeature("http://apache.org/xml/features/service/schema-full-checking", false);
+            //factory.setFeature("http://apache.org/xml/features/honour-all-schemaLocations", true);
             if (resolver.getClass().isAssignableFrom(OpenstackResourceResolver.class)) {
                 return factory.newSchema(new StreamSource(resolver.getSwiftProvider().getObjectApi().get(path).getPayload().openStream())).newValidator();
             }

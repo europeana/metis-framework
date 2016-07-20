@@ -29,7 +29,7 @@ public class Configuration {
         Properties properties = new Properties();
         try {
             if (StringUtils.isEmpty(System.getenv("VCAP_SERVICES"))) {
-                properties.load(Configuration.class.getClassLoader().getResourceAsStream("service.properties"));
+                properties.load(Configuration.class.getClassLoader().getResourceAsStream("validation.properties"));
                 ServerAddress address = new ServerAddress(properties.getProperty("mongo.host"),
                         Integer.parseInt(properties.getProperty("mongo.port")));
                 MongoClient client = new MongoClient(address);
