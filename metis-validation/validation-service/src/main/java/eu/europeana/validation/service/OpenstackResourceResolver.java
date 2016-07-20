@@ -16,7 +16,7 @@ import java.util.Map;
 public class OpenstackResourceResolver implements AbstractLSResourceResolver {
     private String prefix;
     private static final Logger logger =  Logger.getRootLogger();
-    private static Map<String,InputStream> cache = new HashMap<>();
+    private static Map<String,InputStream> cache;
     public void setProvider(SwiftProvider provider) {
         this.provider = provider;
     }
@@ -25,6 +25,9 @@ public class OpenstackResourceResolver implements AbstractLSResourceResolver {
     @Override
     public LSInput resolveResource(String type, String namespaceURI, String publicId, String systemId, String baseURI) {
         try {
+            if(cache==null){
+                cache= new HashMap<>();
+            }
             LSInput input = new ClasspathLSInput();
             InputStream stream;
             if(!systemId.startsWith("http")) {

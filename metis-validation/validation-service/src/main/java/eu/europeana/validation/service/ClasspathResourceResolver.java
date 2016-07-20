@@ -17,10 +17,13 @@ import java.util.Map;
 public class ClasspathResourceResolver implements AbstractLSResourceResolver {
     private String prefix;
     private static final Logger logger =  Logger.getRootLogger();
-    private static Map<String,InputStream> cache = new HashMap<>();
+    private static Map<String,InputStream> cache;
     @Override
     public LSInput resolveResource(String type, String namespaceURI, String publicId, String systemId, String baseURI) {
         try {
+            if(cache==null){
+                cache= new HashMap<>();
+            }
             LSInput input = new ClasspathLSInput();
             InputStream stream;
             if(!systemId.startsWith("http")) {
