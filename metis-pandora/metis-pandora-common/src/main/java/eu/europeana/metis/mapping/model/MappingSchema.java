@@ -1,6 +1,6 @@
 package eu.europeana.metis.mapping.model;
 
-import eu.europeana.validation.edm.model.Schema;
+import eu.europeana.validation.model.Schema;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
