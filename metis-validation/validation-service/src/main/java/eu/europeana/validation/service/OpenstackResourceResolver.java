@@ -6,6 +6,8 @@ import org.w3c.dom.ls.LSInput;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Class enabling classpath XSD reading for split XSDs. This is because of an issue with JAXP XSD loading
@@ -14,7 +16,7 @@ import java.net.URL;
 public class OpenstackResourceResolver implements AbstractLSResourceResolver {
     private String prefix;
     private static final Logger logger =  Logger.getRootLogger();
-
+    private static Map<String,InputStream> cache = new HashMap<>();
     public void setProvider(SwiftProvider provider) {
         this.provider = provider;
     }
@@ -30,7 +32,12 @@ public class OpenstackResourceResolver implements AbstractLSResourceResolver {
                 stream = provider.getObjectApi().get(prefix+"/"+systemId).getPayload().openStream();
 
             }else {
-                stream = new URL(systemId).openStream();
+                if(cache.get(systemId)==null) {
+                    stream = new URL(systemId).openStream();
+                    cache.put(systemId,stream);
+                } else {
+                    stream = cache.get(systemId);
+                }
             }
             input.setPublicId(publicId);
             input.setSystemId(systemId);

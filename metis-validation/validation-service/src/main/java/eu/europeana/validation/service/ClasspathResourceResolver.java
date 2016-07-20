@@ -7,6 +7,8 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Class enabling classpath XSD reading for split XSDs. This is because of an issue with JAXP XSD loading
@@ -15,6 +17,7 @@ import java.net.URL;
 public class ClasspathResourceResolver implements AbstractLSResourceResolver {
     private String prefix;
     private static final Logger logger =  Logger.getRootLogger();
+    private static Map<String,InputStream> cache = new HashMap<>();
     @Override
     public LSInput resolveResource(String type, String namespaceURI, String publicId, String systemId, String baseURI) {
         try {
@@ -23,7 +26,12 @@ public class ClasspathResourceResolver implements AbstractLSResourceResolver {
             if(!systemId.startsWith("http")) {
                 stream = new FileInputStream(prefix+"/"+systemId);
             }else {
-                stream = new URL(systemId).openStream();
+                if(cache.get(systemId)==null) {
+                    stream = new URL(systemId).openStream();
+                    cache.put(systemId,stream);
+                } else {
+                    stream = cache.get(systemId);
+                }
             }
             input.setPublicId(publicId);
             input.setSystemId(systemId);
