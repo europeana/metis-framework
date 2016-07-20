@@ -86,13 +86,12 @@ public class Validator implements Callable<ValidationResult> {
                 for (int i = 0; i < nresults.getLength(); i++) {
                     Node nresult = nresults.item(i);
                     if ("failed-assert".equals(nresult.getLocalName())) {
-                        System.out.println(nresult.getTextContent());
                         return constructValidationError(document, "Schematron error: " + nresult.getTextContent());
                     }
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+
             return constructValidationError(document, e);
         }
         return constructOk();
