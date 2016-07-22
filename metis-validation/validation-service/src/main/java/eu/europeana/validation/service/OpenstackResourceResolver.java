@@ -5,7 +5,6 @@ import org.w3c.dom.ls.LSInput;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,7 +35,7 @@ public class OpenstackResourceResolver implements AbstractLSResourceResolver {
 
             }else {
                 if(cache.get(systemId)==null) {
-                    stream = new URL(systemId).openStream();
+                    stream = this.getClass().getClassLoader().getResourceAsStream("xml.xsd");
                     cache.put(systemId,stream);
                 } else {
                     stream = cache.get(systemId);

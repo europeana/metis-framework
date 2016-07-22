@@ -17,7 +17,7 @@ public class MongoProvider {
     public static void start(){
 
         try {
-            int port = 10000;
+            int port = 10001;
             IMongodConfig conf = new MongodConfigBuilder().version(Version.Main.V3_0)
                     .net(new Net(port, Network.localhostIsIPv6()))
                     .build();
