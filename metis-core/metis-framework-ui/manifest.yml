@@ -1,0 +1,8 @@
+---
+applications:
+- name: metis-framework-ui-test
+  memory: 1024M
+  instances: 1
+  host: metis-framework-ui-test
+  path: target/metis-framework-ui-1.0-SNAPSHOT.war
+  buildpack: https://github.com/europeana/java-buildpack.git#feat/java8
