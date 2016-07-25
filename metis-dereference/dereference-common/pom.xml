@@ -14,7 +14,7 @@
         <dependency>
             <groupId>org.mongodb.morphia</groupId>
             <artifactId>morphia</artifactId>
-            <version>1.1.0</version>
+            <version>${version.morphia}</version>
         </dependency>
 
     </dependencies>
