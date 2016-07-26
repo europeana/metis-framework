@@ -110,28 +110,15 @@
             <type>jar</type>
         </dependency>
         <dependency>
-            <groupId>org.openrdf.alibaba</groupId>
-            <artifactId>alibaba</artifactId>
-            <version>2.0-beta12</version>
-            <type>pom</type>
+            <groupId>org.openrdf.sesame</groupId>
+            <artifactId>sesame-repository-sparql</artifactId>
+            <version>${sesame.version}</version>
+            <type>jar</type>
         </dependency>
         <dependency>
-            <groupId>org.openrdf.alibaba</groupId>
-            <artifactId>alibaba-repository-object</artifactId>
-            <version>2.0-beta12</version>
-            <type>pom</type>
-        </dependency>
-        <dependency>
-            <groupId>org.openrdf.alibaba</groupId>
-            <artifactId>alibaba-repository-optimistic</artifactId>
-            <version>2.0-beta12</version>
-            <type>pom</type>
-        </dependency>
-        <dependency>
-            <groupId>org.openrdf.alibaba</groupId>
-            <artifactId>alibaba-repository-sparql</artifactId>
-            <version>2.0-beta9</version>
-            <type>pom</type>
+            <groupId>org.openrdf.sesame</groupId>
+            <artifactId>sesame-rio-rdfxml</artifactId>
+            <version>${sesame.version}</version>
         </dependency>
 
         <dependency>
@@ -206,10 +193,25 @@
             <version>${version.embeddedMongo}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.openrdf.sesame</groupId>
+            <artifactId>sesame-sail-memory</artifactId>
+            <version>${sesame.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openrdf.sesame</groupId>
+            <artifactId>sesame-repository-sail</artifactId>
+            <version>${sesame.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openrdf.sesame</groupId>
+            <artifactId>sesame-repository-http</artifactId>
+            <version>${sesame.version}</version>
+        </dependency>
     </dependencies>
     <properties>
         <enrichment.version>1.0-SNAPSHOT</enrichment.version>
-        <sesame.version>2.6.1</sesame.version>
+        <sesame.version>2.7.8</sesame.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 	
