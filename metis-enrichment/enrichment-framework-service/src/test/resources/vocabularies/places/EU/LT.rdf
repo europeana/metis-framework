@@ -1,0 +1,2403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: EU_LT
+Description: Selected fields pulled from Geonames about LT done on Mon May 23 21:12:40 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/592889/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864484/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.73333</wgs:lat>
+	<wgs:long>26.25</wgs:long>
+	<skos:prefLabel>Zarasų Rajonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/592974/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.CSTL"/>
+	<wgs:lat>55.11667</wgs:lat>
+	<wgs:long>22.98333</wgs:long>
+	<skos:prefLabel>Pilis Vytenai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/593063/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>28348</europeana:population>
+	<wgs:lat>55.6</wgs:lat>
+	<wgs:long>26.41667</wgs:long>
+	<skos:altLabel>Snechkus</skos:altLabel>
+	<skos:altLabel>Sniečkus</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Visagina</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Visaginas</skos:altLabel>
+	<skos:altLabel xml:lang="de">Visaginas</skos:altLabel>
+	<skos:altLabel xml:lang="en">Visaginas</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Visaginas</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Visaginas</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Visaginas</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Visaginas</skos:altLabel>
+	<skos:altLabel xml:lang="et">Visaginas</skos:altLabel>
+	<skos:altLabel>Visaginas</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Wisaginia</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Висагинас</skos:altLabel>
+	<skos:prefLabel>Visaginas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/593116/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>542366</europeana:population>
+	<wgs:lat>54.68916</wgs:lat>
+	<wgs:long>25.2798</wgs:long>
+	<skos:altLabel>Vil'no</skos:altLabel>
+	<skos:altLabel>Vil'nyus</skos:altLabel>
+	<skos:altLabel>Vilna</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Vilna</skos:altLabel>
+	<skos:altLabel xml:lang="es">Vilna</skos:altLabel>
+	<skos:altLabel xml:lang="la">Vilna</skos:altLabel>
+	<skos:altLabel>Vilnia</skos:altLabel>
+	<skos:altLabel xml:lang="id">Vilnius</skos:altLabel>
+	<skos:altLabel xml:lang="de">Vilnius</skos:altLabel>
+	<skos:altLabel xml:lang="en">Vilnius</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Vilnius</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Vilnius</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Vilnius</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Vilnius</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Vilnius</skos:altLabel>
+	<skos:altLabel xml:lang="io">Vilnius</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Vilnius</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Vilnius</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Vilnius</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Vilnius</skos:altLabel>
+	<skos:altLabel xml:lang="br">Vilnius</skos:altLabel>
+	<skos:altLabel xml:lang="da">Vilnius</skos:altLabel>
+	<skos:altLabel xml:lang="et">Vilnius</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Vilnius</skos:altLabel>
+	<skos:altLabel xml:lang="it">Vilnius</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Vilnius</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Vilnius</skos:altLabel>
+	<skos:altLabel xml:lang="no">Vilnius</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Vilnius</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Vilnius</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Vilnius</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Vilnius</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Vilnius</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Vilnius</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Vilnius</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Vilnius</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Vilnius</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Vilno</skos:altLabel>
+	<skos:altLabel xml:lang="is">Vilníus</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Vilnüs</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Viļņa</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Vílnius</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Vílnius</skos:altLabel>
+	<skos:altLabel xml:lang="de">Wilna</skos:altLabel>
+	<skos:altLabel>Wilno</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Wilno</skos:altLabel>
+	<skos:altLabel xml:lang="el">Βίλνα</skos:altLabel>
+	<skos:altLabel xml:lang="el">Βίλνιους</skos:altLabel>
+	<skos:altLabel xml:lang="el">Βιλνιους</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ВИЛЬНЮС</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Вилнус</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Вилнюс</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Вильнюс</skos:altLabel>
+	<skos:altLabel xml:lang="os">Вильнюс</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Вильнюс</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Виљнус</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Виљњус</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Вільнюс</skos:altLabel>
+	<skos:altLabel xml:lang="be">Вільня</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Վիլնյուս</skos:altLabel>
+	<skos:altLabel xml:lang="he">וילנה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">فيلنيوس</skos:altLabel>
+	<skos:altLabel xml:lang="fa">ویلنیوس</skos:altLabel>
+	<skos:altLabel xml:lang="th">วิลนีอุส</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ვილნიუსი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ቪልኒውስ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ビリニュス</skos:altLabel>
+	<skos:altLabel xml:lang="zh">维尔纽斯</skos:altLabel>
+	<skos:altLabel xml:lang="ko">빌뉴스</skos:altLabel>
+	<skos:prefLabel>Vilnius</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/593118/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864485/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.68333</wgs:lat>
+	<wgs:long>25.31667</wgs:long>
+	<skos:altLabel>Gorod Vilnius</skos:altLabel>
+	<skos:altLabel>Gorod Vil’nyus</skos:altLabel>
+	<skos:altLabel>Vilnius</skos:altLabel>
+	<skos:prefLabel>Vilnius</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/593120/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864485/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.68333</wgs:lat>
+	<wgs:long>25.31667</wgs:long>
+	<skos:prefLabel>Vilniaus Rajonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/593153/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13011</europeana:population>
+	<wgs:lat>54.65167</wgs:lat>
+	<wgs:long>23.03222</wgs:long>
+	<skos:altLabel>Vilkavishkis</skos:altLabel>
+	<skos:altLabel>Vilkaviškio</skos:altLabel>
+	<skos:altLabel xml:lang="en">Vilkaviškis</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Vilkaviškis</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Vilkaviškis</skos:altLabel>
+	<skos:altLabel xml:lang="de">Vilkaviškis</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Vilkaviškis</skos:altLabel>
+	<skos:altLabel>Vilkaviškis</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Vilkavišķi</skos:altLabel>
+	<skos:altLabel>Wiłkowyszki</skos:altLabel>
+	<skos:altLabel>Wyłkowyszki</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Wyłkowyszki</skos:altLabel>
+	<skos:altLabel xml:lang="el">Βιλκαβίσκις</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ВИЛЬКАВИШКИС</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Вилкавишкис</skos:altLabel>
+	<skos:prefLabel>Vilkaviškis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/593154/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864479/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.65</wgs:lat>
+	<wgs:long>23.03333</wgs:long>
+	<skos:prefLabel>Vilkaviškio Rajonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/593403/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864389/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.25</wgs:lat>
+	<wgs:long>24.55</wgs:long>
+	<skos:prefLabel>Varėnos Rajonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/593406/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10304</europeana:population>
+	<wgs:lat>54.21667</wgs:lat>
+	<wgs:long>24.56667</wgs:long>
+	<skos:altLabel>Orany</skos:altLabel>
+	<skos:altLabel>Varėna</skos:altLabel>
+	<skos:prefLabel>Varėna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/593668/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864484/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.5</wgs:lat>
+	<wgs:long>25.6</wgs:long>
+	<skos:prefLabel>Utenos Rajonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/593672/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>33240</europeana:population>
+	<wgs:lat>55.5</wgs:lat>
+	<wgs:long>25.6</wgs:long>
+	<skos:altLabel>Uciana</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Uciana</skos:altLabel>
+	<skos:altLabel>Uciany</skos:altLabel>
+	<skos:altLabel xml:lang="en">Utena</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Utena</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Utena</skos:altLabel>
+	<skos:altLabel xml:lang="de">Utena</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Utena</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Utena</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Utena</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Utena</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Utena</skos:altLabel>
+	<skos:altLabel xml:lang="et">Utena</skos:altLabel>
+	<skos:altLabel>Utena</skos:altLabel>
+	<skos:altLabel>Utenos</skos:altLabel>
+	<skos:altLabel>Utyana</skos:altLabel>
+	<skos:altLabel>Uzjany</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ουτένα</skos:altLabel>
+	<skos:altLabel xml:lang="ru">УТЕНА</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Утена</skos:altLabel>
+	<skos:prefLabel>Utena</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/593732/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864485/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.25</wgs:lat>
+	<wgs:long>24.75</wgs:long>
+	<skos:prefLabel>Ukmergės Rajonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/593733/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>28659</europeana:population>
+	<wgs:lat>55.25</wgs:lat>
+	<wgs:long>24.75</wgs:long>
+	<skos:altLabel xml:lang="en">Ukmergė</skos:altLabel>
+	<skos:altLabel xml:lang="es">Ukmergė</skos:altLabel>
+	<skos:altLabel xml:lang="de">Ukmergė</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Ukmergė</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Ukmergė</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Ukmergė</skos:altLabel>
+	<skos:altLabel xml:lang="et">Ukmergė</skos:altLabel>
+	<skos:altLabel>Ukmergė</skos:altLabel>
+	<skos:altLabel>Ukmergės</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Ukmerģe</skos:altLabel>
+	<skos:altLabel>Vilkmergė</skos:altLabel>
+	<skos:altLabel>Vilkomir</skos:altLabel>
+	<skos:altLabel xml:lang="de">Wilkomir</skos:altLabel>
+	<skos:altLabel>Wiłkomierz</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Wiłkomierz</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ουκμεργκέ</skos:altLabel>
+	<skos:altLabel xml:lang="ru">УКМЕРГЕ</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Укмерге</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Укмярге</skos:altLabel>
+	<skos:prefLabel>Ukmergė</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/593825/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>55.28333</wgs:lat>
+	<wgs:long>21.28333</wgs:long>
+	<skos:altLabel>Ostrov Shtraytverder</skos:altLabel>
+	<skos:altLabel>Triušių Sala</skos:altLabel>
+	<skos:prefLabel>Triušių Sala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/593850/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864485/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.63333</wgs:lat>
+	<wgs:long>24.93333</wgs:long>
+	<skos:prefLabel>Trakų Rajonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/593925/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864483/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.98333</wgs:lat>
+	<wgs:long>22.25</wgs:long>
+	<skos:prefLabel>Telšių Rajonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/593926/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>30098</europeana:population>
+	<wgs:lat>55.98139</wgs:lat>
+	<wgs:long>22.24722</wgs:long>
+	<skos:altLabel>Telsche</skos:altLabel>
+	<skos:altLabel xml:lang="de">Telschen</skos:altLabel>
+	<skos:altLabel>Telshay</skos:altLabel>
+	<skos:altLabel>Telshi</skos:altLabel>
+	<skos:altLabel>Telshyay</skos:altLabel>
+	<skos:altLabel>Telsze</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Telsze</skos:altLabel>
+	<skos:altLabel>Telšai</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Telši</skos:altLabel>
+	<skos:altLabel xml:lang="de">Telšiai</skos:altLabel>
+	<skos:altLabel xml:lang="ee">Telšiai</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Telšiai</skos:altLabel>
+	<skos:altLabel xml:lang="en">Telšiai</skos:altLabel>
+	<skos:altLabel xml:lang="et">Telšiai</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Telšiai</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Telšiai</skos:altLabel>
+	<skos:altLabel xml:lang="tt">Telšiai</skos:altLabel>
+	<skos:altLabel xml:lang="es">Telšiai</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Telšiai</skos:altLabel>
+	<skos:altLabel>Telšiai</skos:altLabel>
+	<skos:altLabel>Telšių</skos:altLabel>
+	<skos:altLabel xml:lang="el">Τελσιάι</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ТЕЛЬШЯЙ</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Тельшяй</skos:altLabel>
+	<skos:altLabel xml:lang="ja">テリシアイ</skos:altLabel>
+	<skos:prefLabel>Telšiai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/593957/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864482/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.25</wgs:lat>
+	<wgs:long>22.28333</wgs:long>
+	<skos:prefLabel>Tauragės Rajonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/593959/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>27662</europeana:population>
+	<wgs:lat>55.25222</wgs:lat>
+	<wgs:long>22.28972</wgs:long>
+	<skos:altLabel xml:lang="fr">Tauragė</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Tauragė</skos:altLabel>
+	<skos:altLabel xml:lang="es">Tauragė</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Tauragė</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tauragė</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Tauragė</skos:altLabel>
+	<skos:altLabel xml:lang="de">Tauragė</skos:altLabel>
+	<skos:altLabel xml:lang="et">Tauragė</skos:altLabel>
+	<skos:altLabel>Tauragė</skos:altLabel>
+	<skos:altLabel>Tauragės</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Tauraģe</skos:altLabel>
+	<skos:altLabel>Taurogen</skos:altLabel>
+	<skos:altLabel xml:lang="de">Tauroggen</skos:altLabel>
+	<skos:altLabel>Taurogi</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Taurogi</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ταουραγκέ</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Таураге</skos:altLabel>
+	<skos:prefLabel>Tauragė</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/594065/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864485/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.15</wgs:lat>
+	<wgs:long>26.16667</wgs:long>
+	<skos:prefLabel>Švenčionių Rajonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/594486/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864478/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>56.26667</wgs:lat>
+	<wgs:long>21.53333</wgs:long>
+	<skos:prefLabel>Skuodo Rajonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/594606/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864485/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.05</wgs:lat>
+	<wgs:long>24.95</wgs:long>
+	<skos:prefLabel>Širvintų Rajonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/594654/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864478/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.35</wgs:lat>
+	<wgs:long>21.48333</wgs:long>
+	<skos:prefLabel>Šilutės Rajonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/594656/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21760</europeana:population>
+	<wgs:lat>55.34889</wgs:lat>
+	<wgs:long>21.48306</wgs:long>
+	<skos:altLabel>Heidekrug</skos:altLabel>
+	<skos:altLabel xml:lang="de">Heydekrug</skos:altLabel>
+	<skos:altLabel>Heydekrug-Matzicken</skos:altLabel>
+	<skos:altLabel>Shilute</skos:altLabel>
+	<skos:altLabel>Szyłokarczma</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Szyłokarczma</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Šilute</skos:altLabel>
+	<skos:altLabel xml:lang="en">Šilutė</skos:altLabel>
+	<skos:altLabel xml:lang="et">Šilutė</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Šilutė</skos:altLabel>
+	<skos:altLabel xml:lang="de">Šilutė</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Šilutė</skos:altLabel>
+	<skos:altLabel>Šilutė</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ШИЛУТЕ</skos:altLabel>
+	<skos:altLabel xml:lang="ko">실루테</skos:altLabel>
+	<skos:prefLabel>Šilutė</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/594692/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864482/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.46667</wgs:lat>
+	<wgs:long>22.2</wgs:long>
+	<skos:prefLabel>Šilalės Rajonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/594736/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864481/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.93333</wgs:lat>
+	<wgs:long>23.31667</wgs:long>
+	<skos:prefLabel>Šiaulių Rajonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/594739/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>130587</europeana:population>
+	<wgs:lat>55.93333</wgs:lat>
+	<wgs:long>23.31667</wgs:long>
+	<skos:altLabel>Schaulen</skos:altLabel>
+	<skos:altLabel>Shaulyay</skos:altLabel>
+	<skos:altLabel>Shavli</skos:altLabel>
+	<skos:altLabel>Shyaulyay</skos:altLabel>
+	<skos:altLabel xml:lang="da">Siauliai</skos:altLabel>
+	<skos:altLabel xml:lang="no">Siauliai</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Siauliai</skos:altLabel>
+	<skos:altLabel>Sokniai</skos:altLabel>
+	<skos:altLabel>Szawle</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Szawle</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Šauļi</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Šiauliai</skos:altLabel>
+	<skos:altLabel xml:lang="no">Šiauliai</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Šiauliai</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Šiauliai</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Šiauliai</skos:altLabel>
+	<skos:altLabel xml:lang="de">Šiauliai</skos:altLabel>
+	<skos:altLabel xml:lang="es">Šiauliai</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Šiauliai</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Šiauliai</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Šiauliai</skos:altLabel>
+	<skos:altLabel xml:lang="en">Šiauliai</skos:altLabel>
+	<skos:altLabel xml:lang="et">Šiauliai</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Šiauliai</skos:altLabel>
+	<skos:altLabel>Šiauliai</skos:altLabel>
+	<skos:altLabel>Šiaulių</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Шяуляй</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Шяуляй</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Шяуляй</skos:altLabel>
+	<skos:prefLabel>Šiauliai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/594743/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864481/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.93333</wgs:lat>
+	<wgs:long>23.31667</wgs:long>
+	<skos:prefLabel>Šiauliai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/595014/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864485/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.3</wgs:lat>
+	<wgs:long>25.38333</wgs:long>
+	<skos:prefLabel>Šalčininkų Rajonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/595037/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864479/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.95</wgs:lat>
+	<wgs:long>23.05</wgs:long>
+	<skos:prefLabel>Šakių Rajonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/595213/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16255</europeana:population>
+	<wgs:lat>55.96667</wgs:lat>
+	<wgs:long>25.58333</wgs:long>
+	<skos:altLabel>Myasto Rokishkis</skos:altLabel>
+	<skos:altLabel xml:lang="de">Rakischki</skos:altLabel>
+	<skos:altLabel>Rakishki</skos:altLabel>
+	<skos:altLabel>Rakiszki</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Rakiszki</skos:altLabel>
+	<skos:altLabel>Rakiškis</skos:altLabel>
+	<skos:altLabel>Rokishkis</skos:altLabel>
+	<skos:altLabel>Rokiškio</skos:altLabel>
+	<skos:altLabel xml:lang="en">Rokiškis</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Rokiškis</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Rokiškis</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Rokiškis</skos:altLabel>
+	<skos:altLabel xml:lang="de">Rokiškis</skos:altLabel>
+	<skos:altLabel xml:lang="et">Rokiškis</skos:altLabel>
+	<skos:altLabel>Rokiškis</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Rokišķi</skos:altLabel>
+	<skos:altLabel xml:lang="ru">РОКИШКИС</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Рокишкис</skos:altLabel>
+	<skos:prefLabel>Rokiškis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/595215/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864480/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.96667</wgs:lat>
+	<wgs:long>25.58333</wgs:long>
+	<skos:prefLabel>Rokiškio Rajonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/595376/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864477/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.36667</wgs:lat>
+	<wgs:long>23.11667</wgs:long>
+	<skos:prefLabel>Raseinių Rajonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/595378/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12523</europeana:population>
+	<wgs:lat>55.37361</wgs:lat>
+	<wgs:long>23.12167</wgs:long>
+	<skos:altLabel xml:lang="eo">Raseiniai</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Raseiniai</skos:altLabel>
+	<skos:altLabel xml:lang="de">Raseiniai</skos:altLabel>
+	<skos:altLabel xml:lang="en">Raseiniai</skos:altLabel>
+	<skos:altLabel xml:lang="et">Raseiniai</skos:altLabel>
+	<skos:altLabel xml:lang="es">Raseiniai</skos:altLabel>
+	<skos:altLabel>Raseiniai</skos:altLabel>
+	<skos:altLabel>Raseinių</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Raseiņi</skos:altLabel>
+	<skos:altLabel>Raseynyay</skos:altLabel>
+	<skos:altLabel>Reseiniai</skos:altLabel>
+	<skos:altLabel>Rosienie</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Rosienie</skos:altLabel>
+	<skos:altLabel>Rossienie</skos:altLabel>
+	<skos:altLabel>Rossieny</skos:altLabel>
+	<skos:altLabel xml:lang="de">Rossingen</skos:altLabel>
+	<skos:altLabel>Rossiyeny</skos:altLabel>
+	<skos:prefLabel>Raseiniai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/595449/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19914</europeana:population>
+	<wgs:lat>55.81667</wgs:lat>
+	<wgs:long>23.53333</wgs:long>
+	<skos:altLabel>Radvilai</skos:altLabel>
+	<skos:altLabel>Radvilishkis</skos:altLabel>
+	<skos:altLabel>Radviliskis-Nemunelio</skos:altLabel>
+	<skos:altLabel>Radviliškio</skos:altLabel>
+	<skos:altLabel xml:lang="en">Radviliškis</skos:altLabel>
+	<skos:altLabel xml:lang="de">Radviliškis</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Radviliškis</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Radviliškis</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Radviliškis</skos:altLabel>
+	<skos:altLabel xml:lang="et">Radviliškis</skos:altLabel>
+	<skos:altLabel>Radviliškis</skos:altLabel>
+	<skos:altLabel>Radvilišks</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Radvilišķi</skos:altLabel>
+	<skos:altLabel>Radziwiliszki</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Radziwiliszki</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ραντβιλίσκις</skos:altLabel>
+	<skos:altLabel xml:lang="ru">РАДВИЛИШКИС</skos:altLabel>
+	<skos:prefLabel>Radviliškis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/595451/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864481/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.81667</wgs:lat>
+	<wgs:long>23.53333</wgs:long>
+	<skos:prefLabel>Radviliškio Rajonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/595590/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864477/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.63333</wgs:lat>
+	<wgs:long>23.95</wgs:long>
+	<skos:prefLabel>Prienų Rajonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/595596/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11352</europeana:population>
+	<wgs:lat>54.63333</wgs:lat>
+	<wgs:long>23.95</wgs:long>
+	<skos:altLabel>Prenay</skos:altLabel>
+	<skos:altLabel>Preny</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Preny</skos:altLabel>
+	<skos:altLabel xml:lang="en">Prienai</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Prienai</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Prienai</skos:altLabel>
+	<skos:altLabel xml:lang="de">Prienai</skos:altLabel>
+	<skos:altLabel xml:lang="et">Prienai</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Prienai</skos:altLabel>
+	<skos:altLabel xml:lang="es">Prienai</skos:altLabel>
+	<skos:altLabel>Prienai</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Prieni</skos:altLabel>
+	<skos:altLabel>Prienų</skos:altLabel>
+	<skos:altLabel>Priyenay</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ПРЕНАЙ</skos:altLabel>
+	<skos:prefLabel>Prienai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/595688/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864483/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.91667</wgs:lat>
+	<wgs:long>21.85</wgs:long>
+	<skos:prefLabel>Plungės Rajonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/595689/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23381</europeana:population>
+	<wgs:lat>55.91139</wgs:lat>
+	<wgs:long>21.84417</wgs:long>
+	<skos:altLabel xml:lang="en">Plungė</skos:altLabel>
+	<skos:altLabel>Plungė</skos:altLabel>
+	<skos:altLabel>Plungės</skos:altLabel>
+	<skos:altLabel>Płungiany</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ПЛУНГЕ</skos:altLabel>
+	<skos:prefLabel>Plungė</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/595998/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864480/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>56.06667</wgs:lat>
+	<wgs:long>24.4</wgs:long>
+	<skos:prefLabel>Pasvalio Rajonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/596128/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>117395</europeana:population>
+	<wgs:lat>55.73333</wgs:lat>
+	<wgs:long>24.35</wgs:long>
+	<skos:altLabel>Panevezhi</skos:altLabel>
+	<skos:altLabel>Panevezhis</skos:altLabel>
+	<skos:altLabel xml:lang="da">Panevezys</skos:altLabel>
+	<skos:altLabel xml:lang="no">Panevezys</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Panevēža</skos:altLabel>
+	<skos:altLabel>Panevėžio</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Panevėžys</skos:altLabel>
+	<skos:altLabel xml:lang="no">Panevėžys</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Panevėžys</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Panevėžys</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Panevėžys</skos:altLabel>
+	<skos:altLabel xml:lang="en">Panevėžys</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Panevėžys</skos:altLabel>
+	<skos:altLabel xml:lang="de">Panevėžys</skos:altLabel>
+	<skos:altLabel xml:lang="et">Panevėžys</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Panevėžys</skos:altLabel>
+	<skos:altLabel xml:lang="it">Panevėžys</skos:altLabel>
+	<skos:altLabel>Panevėžys</skos:altLabel>
+	<skos:altLabel xml:lang="de">Ponewesch</skos:altLabel>
+	<skos:altLabel>Poniewesch</skos:altLabel>
+	<skos:altLabel>Poniewiesh</skos:altLabel>
+	<skos:altLabel>Poniewież</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Poniewież</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ПАНЕВЕЖИС</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Паневежис</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Паневежис</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Паневежис</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Панявежис</skos:altLabel>
+	<skos:altLabel xml:lang="he">פנבז'יס</skos:altLabel>
+	<skos:prefLabel>Panevėžys</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/596130/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864480/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.73333</wgs:lat>
+	<wgs:long>24.35</wgs:long>
+	<skos:prefLabel>Panevėžys</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/596132/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864480/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.73333</wgs:lat>
+	<wgs:long>24.35</wgs:long>
+	<skos:prefLabel>Panevėžio Rajonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/596238/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17796</europeana:population>
+	<wgs:lat>55.9175</wgs:lat>
+	<wgs:long>21.06861</wgs:long>
+	<skos:altLabel xml:lang="id">Palanga</skos:altLabel>
+	<skos:altLabel xml:lang="de">Palanga</skos:altLabel>
+	<skos:altLabel xml:lang="et">Palanga</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Palanga</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Palanga</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Palanga</skos:altLabel>
+	<skos:altLabel>Palanga</skos:altLabel>
+	<skos:altLabel>Palangos</skos:altLabel>
+	<skos:altLabel>Polaga</skos:altLabel>
+	<skos:altLabel>Polanga</skos:altLabel>
+	<skos:altLabel>Polangen</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Połąga</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ПАЛАНГА</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Паланга</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Паланга</skos:altLabel>
+	<skos:prefLabel>Palanga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/596240/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864478/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.91667</wgs:lat>
+	<wgs:long>21.05</wgs:long>
+	<skos:prefLabel>Palanga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/596259/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864481/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.96667</wgs:lat>
+	<wgs:long>23.86667</wgs:long>
+	<skos:prefLabel>Pakruojo Rajonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/596644/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864478/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.36667</wgs:lat>
+	<wgs:long>21.06667</wgs:long>
+	<skos:prefLabel>Neringa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/596719/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11922</europeana:population>
+	<wgs:lat>56.31667</wgs:lat>
+	<wgs:long>22.9</wgs:long>
+	<skos:altLabel>Karpėnai</skos:altLabel>
+	<skos:altLabel>Naujogi-Akmenė</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Naujoji Akmene</skos:altLabel>
+	<skos:altLabel xml:lang="de">Naujoji Akmenė</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Naujoji Akmenė</skos:altLabel>
+	<skos:altLabel xml:lang="en">Naujoji Akmenė</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Naujoji Akmenė</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Naujoji Akmenė</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Naujoji Akmenė</skos:altLabel>
+	<skos:altLabel>Naujoji Akmenė</skos:altLabel>
+	<skos:altLabel>Nauyëyi-Akmyane</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Nowe Okmiany</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ναουγιόγι Ακμενέ</skos:altLabel>
+	<skos:prefLabel>Naujoji Akmenė</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/596866/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864484/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.23333</wgs:lat>
+	<wgs:long>25.41667</wgs:long>
+	<skos:prefLabel>Molėtų Rajonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/597186/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864483/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>56.31667</wgs:lat>
+	<wgs:long>22.33333</wgs:long>
+	<skos:prefLabel>Mažeikių Rajonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/597188/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>41309</europeana:population>
+	<wgs:lat>56.31667</wgs:lat>
+	<wgs:long>22.33333</wgs:long>
+	<skos:altLabel>Mazheykyay</skos:altLabel>
+	<skos:altLabel xml:lang="de">Mažeikiai</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Mažeikiai</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Mažeikiai</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Mažeikiai</skos:altLabel>
+	<skos:altLabel xml:lang="es">Mažeikiai</skos:altLabel>
+	<skos:altLabel xml:lang="en">Mažeikiai</skos:altLabel>
+	<skos:altLabel xml:lang="et">Mažeikiai</skos:altLabel>
+	<skos:altLabel>Mažeikiai</skos:altLabel>
+	<skos:altLabel>Mažeikių</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Mažeiķi</skos:altLabel>
+	<skos:altLabel>Możejki</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Możejki</skos:altLabel>
+	<skos:altLabel>Muravjovo</skos:altLabel>
+	<skos:altLabel>Murawlewo</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μαζεϊκιάι</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Мажейкяй</skos:altLabel>
+	<skos:prefLabel>Mažeikiai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/597229/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864479/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.56667</wgs:lat>
+	<wgs:long>23.35</wgs:long>
+	<skos:altLabel>Kapsuko Rajonas</skos:altLabel>
+	<skos:altLabel>Marijampolės Rajonas</skos:altLabel>
+	<skos:prefLabel>Marijampolės Rajonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/597231/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>47613</europeana:population>
+	<wgs:lat>54.56667</wgs:lat>
+	<wgs:long>23.35</wgs:long>
+	<skos:altLabel>Kapsukas</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Mariampol</skos:altLabel>
+	<skos:altLabel>Mariampolė</skos:altLabel>
+	<skos:altLabel>Mariampolės</skos:altLabel>
+	<skos:altLabel>Mariampol’</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Marijampole</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Marijampolė</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Marijampolė</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Marijampolė</skos:altLabel>
+	<skos:altLabel xml:lang="de">Marijampolė</skos:altLabel>
+	<skos:altLabel xml:lang="et">Marijampolė</skos:altLabel>
+	<skos:altLabel xml:lang="en">Marijampolė</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Marijampolė</skos:altLabel>
+	<skos:altLabel>Marijampolė</skos:altLabel>
+	<skos:altLabel>Mariyampole</skos:altLabel>
+	<skos:altLabel>Mariyampol’</skos:altLabel>
+	<skos:altLabel>Marjampol</skos:altLabel>
+	<skos:altLabel>Pašešupiai</skos:altLabel>
+	<skos:altLabel>Starapolė</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μαριγιαμπολέ</skos:altLabel>
+	<skos:altLabel xml:lang="ru">МАРИЯМПОЛЕ</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Мариямполе</skos:altLabel>
+	<skos:prefLabel>Marijampolė</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/597233/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864479/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.56667</wgs:lat>
+	<wgs:long>23.35</wgs:long>
+	<skos:prefLabel>Marijampolė</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/597427/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255148/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>3565000</europeana:population>
+	<wgs:lat>56</wgs:lat>
+	<wgs:long>24</wgs:long>
+	<skos:altLabel xml:lang="ga">An Liotuáin</skos:altLabel>
+	<skos:altLabel>LT</skos:altLabel>
+	<skos:altLabel xml:lang="et">Leedu</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Li-tu-a-ni-a</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Li-tu-a-ni-a (Lithuania)</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Liettua</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Lietuva</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Lietuva</skos:altLabel>
+	<skos:altLabel xml:lang="se">Lietuva</skos:altLabel>
+	<skos:altLabel>Lietuvas Taryu Socialistine Respublika</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Lietuvos Respublika</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Lietuvän</skos:altLabel>
+	<skos:altLabel xml:lang="af">Litaue</skos:altLabel>
+	<skos:altLabel xml:lang="da">Litauen</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Litauen</skos:altLabel>
+	<skos:altLabel xml:lang="de">Litauen</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Litauen</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Litauen</skos:altLabel>
+	<skos:altLabel xml:lang="no">Litauen</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Litauen</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Litava</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Lithouani</skos:altLabel>
+	<skos:altLabel xml:lang="id">Lithuania</skos:altLabel>
+	<skos:altLabel xml:lang="en">Lithuania</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Lithuania</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Lithuania</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Lithuania</skos:altLabel>
+	<skos:altLabel xml:lang="na">Lithuania</skos:altLabel>
+	<skos:altLabel>Lithuanian Soviet Socialist Republic</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Lithwania</skos:altLabel>
+	<skos:altLabel xml:lang="is">Litháen</skos:altLabel>
+	<skos:altLabel xml:lang="li">Litouwe</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Litouwen</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Litouwen</skos:altLabel>
+	<skos:altLabel xml:lang="mi">Litovia</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Litovio</skos:altLabel>
+	<skos:altLabel>Litovskaya Sovetskaya Sotsialisticheskaya Respublika</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Litovujo</skos:altLabel>
+	<skos:altLabel xml:lang="tt">Litua</skos:altLabel>
+	<skos:altLabel xml:lang="sc">Lituana</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Lituani</skos:altLabel>
+	<skos:altLabel xml:lang="es">Lituania</skos:altLabel>
+	<skos:altLabel xml:lang="id">Lituania</skos:altLabel>
+	<skos:altLabel xml:lang="it">Lituania</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Lituania</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Lituania</skos:altLabel>
+	<skos:altLabel xml:lang="an">Lituania</skos:altLabel>
+	<skos:altLabel xml:lang="br">Lituania</skos:altLabel>
+	<skos:altLabel xml:lang="jv">Lituania</skos:altLabel>
+	<skos:altLabel xml:lang="la">Lituania</skos:altLabel>
+	<skos:altLabel xml:lang="ay">Lituania</skos:altLabel>
+	<skos:altLabel xml:lang="co">Lituania</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Lituania</skos:altLabel>
+	<skos:altLabel xml:lang="gn">Lituania</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Lituania</skos:altLabel>
+	<skos:altLabel xml:lang="ie">Lituania</skos:altLabel>
+	<skos:altLabel xml:lang="io">Lituania</skos:altLabel>
+	<skos:altLabel xml:lang="rm">Lituania</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Lituania</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Lituania</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Lituania - Lietuva</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Lituanie</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Lituanya</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Lituwa</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Lituwaniya</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Lituània</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Lituània</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Lituânia</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Litva</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Litva</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Litva</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Litva</skos:altLabel>
+	<skos:altLabel xml:lang="az">Litva</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Litva</skos:altLabel>
+	<skos:altLabel xml:lang="uz">Litva</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Litva</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Litvanija</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Litvanya</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Litvánia</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Litwa</skos:altLabel>
+	<skos:altLabel xml:lang="wa">Litwaneye</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Litwanja</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Lityani</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Lotyšsko</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Lîtvanya</skos:altLabel>
+	<skos:altLabel xml:lang="en">Republic of Lithuania</skos:altLabel>
+	<skos:altLabel xml:lang="el">Λιθουανία</skos:altLabel>
+	<skos:altLabel xml:lang="be">Летува</skos:altLabel>
+	<skos:altLabel xml:lang="mn">Литва</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Литва</skos:altLabel>
+	<skos:altLabel xml:lang="cv">Литва</skos:altLabel>
+	<skos:altLabel xml:lang="kk">Литва</skos:altLabel>
+	<skos:altLabel xml:lang="ky">Литва</skos:altLabel>
+	<skos:altLabel xml:lang="os">Литва</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Литва</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Литва</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Литва</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Литванија</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Литванија</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Литуания</skos:altLabel>
+	<skos:altLabel xml:lang="be">Літва</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Լիտվա</skos:altLabel>
+	<skos:altLabel xml:lang="he">ליטא</skos:altLabel>
+	<skos:altLabel xml:lang="yi">ליטע</skos:altLabel>
+	<skos:altLabel xml:lang="ar">لتوانيا</skos:altLabel>
+	<skos:altLabel xml:lang="ur">لتھوانیا</skos:altLabel>
+	<skos:altLabel xml:lang="ar">ليتوانيا</skos:altLabel>
+	<skos:altLabel xml:lang="fa">لیتوانی</skos:altLabel>
+	<skos:altLabel xml:lang="fa">لیتوانیا</skos:altLabel>
+	<skos:altLabel xml:lang="hi">लिथुआनिया</skos:altLabel>
+	<skos:altLabel xml:lang="ne">लिथुआनिया</skos:altLabel>
+	<skos:altLabel xml:lang="mr">लिथुएनिया</skos:altLabel>
+	<skos:altLabel xml:lang="sa">लिथ्वानिया</skos:altLabel>
+	<skos:altLabel xml:lang="bn">লিত্ভা</skos:altLabel>
+	<skos:altLabel xml:lang="bn">লিথুয়েনিয়া</skos:altLabel>
+	<skos:altLabel xml:lang="ta">லிதுவேனியா</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ലിത്വാനിയ</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศลิทัวเนีย</skos:altLabel>
+	<skos:altLabel xml:lang="th">ลิทัวเนีย</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ລິເທີເນຍ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ལི་ཐུ་ཨེ་ནི་ཡ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ლიტვა</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሊቱዌኒያ</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሊትዌኒያ</skos:altLabel>
+	<skos:altLabel xml:lang="km">លីទុយអានី</skos:altLabel>
+	<skos:altLabel xml:lang="ja">リトアニア</skos:altLabel>
+	<skos:altLabel xml:lang="ja">リトアニア共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">立陶宛</skos:altLabel>
+	<skos:altLabel xml:lang="ko">리투아니아</skos:altLabel>
+	<skos:prefLabel>Republic of Lithuania</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/597532/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11588</europeana:population>
+	<wgs:lat>54.65</wgs:lat>
+	<wgs:long>25.05</wgs:long>
+	<skos:altLabel>Landvaruv</skos:altLabel>
+	<skos:altLabel>Landwarów</skos:altLabel>
+	<skos:altLabel>Lentvaravas</skos:altLabel>
+	<skos:altLabel xml:lang="en">Lentvaris</skos:altLabel>
+	<skos:altLabel>Lentvaris</skos:altLabel>
+	<skos:altLabel>Liudvtvaras</skos:altLabel>
+	<skos:altLabel>Liutavariškės</skos:altLabel>
+	<skos:altLabel>Lyandvarovo</skos:altLabel>
+	<skos:altLabel>Lyandvaruv</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ЛЕНТВАРИС</skos:altLabel>
+	<skos:prefLabel>Lentvaris</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/597595/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864389/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.23333</wgs:lat>
+	<wgs:long>23.51667</wgs:long>
+	<skos:prefLabel>Lazdijų Rajonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/597769/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13914</europeana:population>
+	<wgs:lat>55.985</wgs:lat>
+	<wgs:long>22.91889</wgs:long>
+	<skos:altLabel>Kurshchenay</skos:altLabel>
+	<skos:altLabel>Kurshenay</skos:altLabel>
+	<skos:altLabel>Kurszany</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kurszany</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Kuršēni</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kuršėnai</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Kuršėnai</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kuršėnai</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Kuršėnai</skos:altLabel>
+	<skos:altLabel>Kuršėnai</skos:altLabel>
+	<skos:altLabel>Kuržėnų</skos:altLabel>
+	<skos:altLabel xml:lang="el">Κουρσέναι</skos:altLabel>
+	<skos:altLabel xml:lang="el">Κουρσενάι</skos:altLabel>
+	<skos:altLabel xml:lang="ru">КУРШЕНАЙ</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Куршенай</skos:altLabel>
+	<skos:prefLabel>Kuršėnai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/597807/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864480/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.83333</wgs:lat>
+	<wgs:long>24.96667</wgs:long>
+	<skos:prefLabel>Kupiškio Rajonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/597912/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>55.28333</wgs:lat>
+	<wgs:long>21.28333</wgs:long>
+	<skos:altLabel>Kubilių Sala</skos:altLabel>
+	<skos:altLabel>Ostrov Kubillyusverder</skos:altLabel>
+	<skos:prefLabel>Kubilių Sala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/597985/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864478/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.88333</wgs:lat>
+	<wgs:long>21.25</wgs:long>
+	<skos:prefLabel>Kretingos Rajonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/597989/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>22236</europeana:population>
+	<wgs:lat>55.87583</wgs:lat>
+	<wgs:long>21.25083</wgs:long>
+	<skos:altLabel>Kratinga</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kretinga</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Kretinga</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Kretinga</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kretinga</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Kretinga</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Kretinga</skos:altLabel>
+	<skos:altLabel>Kretinga</skos:altLabel>
+	<skos:altLabel>Kretingos</skos:altLabel>
+	<skos:altLabel>Kretynga</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kretynga</skos:altLabel>
+	<skos:altLabel>Krottingen</skos:altLabel>
+	<skos:altLabel>Myasto Kretinga</skos:altLabel>
+	<skos:altLabel xml:lang="el">Κρετίνγκα</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кретинга</skos:altLabel>
+	<skos:altLabel xml:lang="ko">크레팅가</skos:altLabel>
+	<skos:prefLabel>Kretinga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/598095/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864478/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.71667</wgs:lat>
+	<wgs:long>21.4</wgs:long>
+	<skos:prefLabel>Klaipėdos Rajonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/598098/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>192307</europeana:population>
+	<wgs:lat>55.71722</wgs:lat>
+	<wgs:long>21.1175</wgs:long>
+	<skos:altLabel>Klaipada</skos:altLabel>
+	<skos:altLabel xml:lang="id">Klaipeda</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Klaipeda</skos:altLabel>
+	<skos:altLabel xml:lang="da">Klaipeda</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Klaipeda</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Klaipeda</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Klaipeda</skos:altLabel>
+	<skos:altLabel xml:lang="no">Klaipeda</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Klaipeda</skos:altLabel>
+	<skos:altLabel xml:lang="wa">Klaipeda</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Klaipéda</skos:altLabel>
+	<skos:altLabel xml:lang="su">Klaipéda</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Klaipēda</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Klaipėda</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Klaipėda</skos:altLabel>
+	<skos:altLabel xml:lang="da">Klaipėda</skos:altLabel>
+	<skos:altLabel xml:lang="no">Klaipėda</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Klaipėda</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Klaipėda</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Klaipėda</skos:altLabel>
+	<skos:altLabel xml:lang="en">Klaipėda</skos:altLabel>
+	<skos:altLabel xml:lang="et">Klaipėda</skos:altLabel>
+	<skos:altLabel xml:lang="de">Klaipėda</skos:altLabel>
+	<skos:altLabel xml:lang="es">Klaipėda</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Klaipėda</skos:altLabel>
+	<skos:altLabel xml:lang="it">Klaipėda</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Klaipėda</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Klaipėda</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Klaipėda</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Klaipėda</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Klaipėda</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Klaipėda</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Klaipėda</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Klaipėda</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Klaipėda</skos:altLabel>
+	<skos:altLabel xml:lang="tt">Klaipėda</skos:altLabel>
+	<skos:altLabel xml:lang="id">Klaipėda</skos:altLabel>
+	<skos:altLabel>Klaipėda</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Klajpeda</skos:altLabel>
+	<skos:altLabel>Klaypeda</skos:altLabel>
+	<skos:altLabel>Kłajpeda</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kłajpeda</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Lungsod ng Klaipėda</skos:altLabel>
+	<skos:altLabel xml:lang="de">Memel</skos:altLabel>
+	<skos:altLabel xml:lang="la">Memela</skos:altLabel>
+	<skos:altLabel xml:lang="el">Κλαϊπέντα</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Клаипеда</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Клайпеда</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Клайпеда</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Клайпеда</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Клајпеда</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Клајпеда</skos:altLabel>
+	<skos:altLabel xml:lang="he">קלייפדה</skos:altLabel>
+	<skos:altLabel xml:lang="he">קליפדה</skos:altLabel>
+	<skos:altLabel xml:lang="th">ไคลเพดา</skos:altLabel>
+	<skos:altLabel xml:lang="ja">クライペダ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">克莱佩达</skos:altLabel>
+	<skos:altLabel xml:lang="ko">클라이페다</skos:altLabel>
+	<skos:prefLabel>Klaipėda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/598099/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864478/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.71667</wgs:lat>
+	<wgs:long>21.11667</wgs:long>
+	<skos:prefLabel>Klaipėda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/598164/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>55.26667</wgs:lat>
+	<wgs:long>21.28333</wgs:long>
+	<skos:altLabel>Kiemo Sala</skos:altLabel>
+	<skos:altLabel>Ostrov Dorfverder</skos:altLabel>
+	<skos:prefLabel>Kiemo Sala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/598256/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864481/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.63333</wgs:lat>
+	<wgs:long>22.93333</wgs:long>
+	<skos:prefLabel>Kelmės Rajonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/598257/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10626</europeana:population>
+	<wgs:lat>55.63389</wgs:lat>
+	<wgs:long>22.93417</wgs:long>
+	<skos:altLabel xml:lang="lv">Kelme</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kelmė</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kelmė</skos:altLabel>
+	<skos:altLabel xml:lang="et">Kelmė</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Kelmė</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Kelmė</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Kelmė</skos:altLabel>
+	<skos:altLabel>Kelmė</skos:altLabel>
+	<skos:altLabel>Kelmės</skos:altLabel>
+	<skos:altLabel>Kielmy</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kielmy</skos:altLabel>
+	<skos:altLabel xml:lang="ru">КЕЛЬМЕ</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кельме</skos:altLabel>
+	<skos:altLabel xml:lang="ko">켈메</skos:altLabel>
+	<skos:prefLabel>Kelmė</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/598271/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864477/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.28333</wgs:lat>
+	<wgs:long>23.96667</wgs:long>
+	<skos:prefLabel>Kėdainių Rajonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/598272/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>31980</europeana:population>
+	<wgs:lat>55.28833</wgs:lat>
+	<wgs:long>23.97472</wgs:long>
+	<skos:altLabel>Kedainių</skos:altLabel>
+	<skos:altLabel>Kedayny</skos:altLabel>
+	<skos:altLabel>Kedaynyai</skos:altLabel>
+	<skos:altLabel>Kedaynyay</skos:altLabel>
+	<skos:altLabel>Keidany</skos:altLabel>
+	<skos:altLabel>Keydany</skos:altLabel>
+	<skos:altLabel>Kiejdany</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kiejdany</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Kēdaiņi</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kėdainiai</skos:altLabel>
+	<skos:altLabel xml:lang="et">Kėdainiai</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Kėdainiai</skos:altLabel>
+	<skos:altLabel xml:lang="es">Kėdainiai</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kėdainiai</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Kėdainiai</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Kėdainiai</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Kėdainiai</skos:altLabel>
+	<skos:altLabel xml:lang="id">Kėdainiai</skos:altLabel>
+	<skos:altLabel>Kėdainiai</skos:altLabel>
+	<skos:altLabel xml:lang="el">Κενταϊνιάι</skos:altLabel>
+	<skos:altLabel xml:lang="ru">КЕДАЙНЯЙ</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Кедаjњај</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кедайняй</skos:altLabel>
+	<skos:prefLabel>Kėdainiai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/598313/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864477/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.9</wgs:lat>
+	<wgs:long>23.9</wgs:long>
+	<skos:prefLabel>Kauno Rajonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/598316/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>374643</europeana:population>
+	<wgs:lat>54.9</wgs:lat>
+	<wgs:long>23.9</wgs:long>
+	<skos:altLabel>Caunas</skos:altLabel>
+	<skos:altLabel>Kauen</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kauen</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kauen</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kaunas</skos:altLabel>
+	<skos:altLabel>Kaunas</skos:altLabel>
+	<skos:altLabel>Kauno</skos:altLabel>
+	<skos:altLabel>Kovno</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kowno</skos:altLabel>
+	<skos:altLabel>Palemonas</skos:altLabel>
+	<skos:altLabel xml:lang="ru">КАУНАС</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Каунас</skos:altLabel>
+	<skos:prefLabel>Kaunas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/598318/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864477/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.9</wgs:lat>
+	<wgs:long>23.9</wgs:long>
+	<skos:prefLabel>Kaunas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/598568/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864477/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.86667</wgs:lat>
+	<wgs:long>24.45</wgs:long>
+	<skos:prefLabel>Kaišiadorių Rajonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/598653/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864482/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.06667</wgs:lat>
+	<wgs:long>22.76667</wgs:long>
+	<skos:prefLabel>Jurbarko Rajonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/598655/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13102</europeana:population>
+	<wgs:lat>55.07778</wgs:lat>
+	<wgs:long>22.76639</wgs:long>
+	<skos:altLabel>Georgenburg</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Jurbarka</skos:altLabel>
+	<skos:altLabel xml:lang="en">Jurbarkas</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Jurbarkas</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Jurbarkas</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Jurbarkas</skos:altLabel>
+	<skos:altLabel xml:lang="de">Jurbarkas</skos:altLabel>
+	<skos:altLabel>Jurbarkas</skos:altLabel>
+	<skos:altLabel>Jurbarko</skos:altLabel>
+	<skos:altLabel>Jurbork</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Jurbork</skos:altLabel>
+	<skos:altLabel>Yurbarkas</skos:altLabel>
+	<skos:altLabel>Yurburg</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Юрбаркас</skos:altLabel>
+	<skos:altLabel xml:lang="he">יורבורג</skos:altLabel>
+	<skos:prefLabel>Jurbarkas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/598796/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11113</europeana:population>
+	<wgs:lat>56.24028</wgs:lat>
+	<wgs:long>23.61528</wgs:long>
+	<skos:altLabel>Ionishkis</skos:altLabel>
+	<skos:altLabel>Janiszki</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Janiszki</skos:altLabel>
+	<skos:altLabel>Jonischki</skos:altLabel>
+	<skos:altLabel>Joniškio</skos:altLabel>
+	<skos:altLabel xml:lang="en">Joniškis</skos:altLabel>
+	<skos:altLabel xml:lang="et">Joniškis</skos:altLabel>
+	<skos:altLabel xml:lang="de">Joniškis</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Joniškis</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Joniškis</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Joniškis</skos:altLabel>
+	<skos:altLabel>Joniškis</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Jonišķi</skos:altLabel>
+	<skos:altLabel>Yanishki</skos:altLabel>
+	<skos:altLabel>Yonishkis</skos:altLabel>
+	<skos:altLabel xml:lang="el">Γιονίσκις</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Йонишкис</skos:altLabel>
+	<skos:prefLabel>Joniškis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/598798/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864481/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>56.23333</wgs:lat>
+	<wgs:long>23.61667</wgs:long>
+	<skos:prefLabel>Joniškio Rajonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/598814/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864477/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.08333</wgs:lat>
+	<wgs:long>24.28333</wgs:long>
+	<skos:prefLabel>Jonavos Rajonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/598818/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>34993</europeana:population>
+	<wgs:lat>55.08333</wgs:lat>
+	<wgs:long>24.28333</wgs:long>
+	<skos:altLabel>Ionava</skos:altLabel>
+	<skos:altLabel>Janów</skos:altLabel>
+	<skos:altLabel xml:lang="en">Jonava</skos:altLabel>
+	<skos:altLabel>Jonava</skos:altLabel>
+	<skos:altLabel>Jonavos Miestelis</skos:altLabel>
+	<skos:altLabel>Yonava</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ИОНАВА</skos:altLabel>
+	<skos:prefLabel>Jonava</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/598997/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864484/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.35</wgs:lat>
+	<wgs:long>26.16667</wgs:long>
+	<skos:prefLabel>Ignalinos Rajonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/599161/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11555</europeana:population>
+	<wgs:lat>54.68333</wgs:lat>
+	<wgs:long>25.08333</wgs:long>
+	<skos:altLabel xml:lang="en">Grigiškės</skos:altLabel>
+	<skos:altLabel>Grigiškės</skos:altLabel>
+	<skos:altLabel>Grigor’yevo</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ГРИГИШКЕС</skos:altLabel>
+	<skos:prefLabel>Grigiškės</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/599504/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13809</europeana:population>
+	<wgs:lat>54.81667</wgs:lat>
+	<wgs:long>23.86667</wgs:long>
+	<skos:altLabel xml:lang="en">Garliava</skos:altLabel>
+	<skos:altLabel>Garliava</skos:altLabel>
+	<skos:altLabel>Garliavos</skos:altLabel>
+	<skos:altLabel>Garlyava</skos:altLabel>
+	<skos:altLabel>Godlewo</skos:altLabel>
+	<skos:altLabel>Godlezo</skos:altLabel>
+	<skos:altLabel>Gorleva</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ГАРЛЯВА</skos:altLabel>
+	<skos:prefLabel>Garliava</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/599506/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15949</europeana:population>
+	<wgs:lat>55.71278</wgs:lat>
+	<wgs:long>21.40333</wgs:long>
+	<skos:altLabel>Gardždai</skos:altLabel>
+	<skos:altLabel>Gargzhday</skos:altLabel>
+	<skos:altLabel xml:lang="en">Gargždai</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Gargždai</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Gargždai</skos:altLabel>
+	<skos:altLabel xml:lang="de">Gargždai</skos:altLabel>
+	<skos:altLabel>Gargždai</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Gargždi</skos:altLabel>
+	<skos:altLabel>Gargždų</skos:altLabel>
+	<skos:altLabel>Garsden</skos:altLabel>
+	<skos:altLabel>Garždai</skos:altLabel>
+	<skos:altLabel>Gorzdy</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Gorżdy</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ГАРГЖДАЙ</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гаргждай</skos:altLabel>
+	<skos:prefLabel>Gargždai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/599599/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>55.26667</wgs:lat>
+	<wgs:long>21.3</wgs:long>
+	<skos:altLabel>Elenos Verderis</skos:altLabel>
+	<skos:altLabel>Ostrov Elena-verder</skos:altLabel>
+	<skos:prefLabel>Elenos Verderis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/599602/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13721</europeana:population>
+	<wgs:lat>54.76667</wgs:lat>
+	<wgs:long>24.63333</wgs:long>
+	<skos:altLabel>Elektrenay</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Elektreny</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Elektrēni</skos:altLabel>
+	<skos:altLabel xml:lang="en">Elektrėnai</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Elektrėnai</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Elektrėnai</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Elektrėnai</skos:altLabel>
+	<skos:altLabel xml:lang="de">Elektrėnai</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Elektrėnai</skos:altLabel>
+	<skos:altLabel xml:lang="no">Elektrėnai</skos:altLabel>
+	<skos:altLabel xml:lang="it">Elektrėnai</skos:altLabel>
+	<skos:altLabel>Elektrėnai</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Электренай</skos:altLabel>
+	<skos:prefLabel>Elektrėnai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/599757/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17791</europeana:population>
+	<wgs:lat>54.01667</wgs:lat>
+	<wgs:long>23.96667</wgs:long>
+	<skos:altLabel>Druskeniki</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Druskieniki</skos:altLabel>
+	<skos:altLabel>Druskiniki</skos:altLabel>
+	<skos:altLabel xml:lang="en">Druskininkai</skos:altLabel>
+	<skos:altLabel xml:lang="de">Druskininkai</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Druskininkai</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Druskininkai</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Druskininkai</skos:altLabel>
+	<skos:altLabel xml:lang="et">Druskininkai</skos:altLabel>
+	<skos:altLabel xml:lang="no">Druskininkai</skos:altLabel>
+	<skos:altLabel>Druskininkai</skos:altLabel>
+	<skos:altLabel>Druskininkay</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Druskininki</skos:altLabel>
+	<skos:altLabel>Druśkieniki</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ДРУСКИНИНКАЙ</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Друскининкай</skos:altLabel>
+	<skos:prefLabel>Druskininkai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/599759/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864389/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.01667</wgs:lat>
+	<wgs:long>23.96667</wgs:long>
+	<skos:prefLabel>Druskininkai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/600428/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864480/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>56.2</wgs:lat>
+	<wgs:long>24.75</wgs:long>
+	<skos:prefLabel>Biržų Rajonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/600438/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14911</europeana:population>
+	<wgs:lat>56.2</wgs:lat>
+	<wgs:long>24.75</wgs:long>
+	<skos:altLabel>Birsche</skos:altLabel>
+	<skos:altLabel>Birsen</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Birzai</skos:altLabel>
+	<skos:altLabel>Birzhay</skos:altLabel>
+	<skos:altLabel>Birzhi</skos:altLabel>
+	<skos:altLabel>Birże</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Birże</skos:altLabel>
+	<skos:altLabel xml:lang="en">Biržai</skos:altLabel>
+	<skos:altLabel xml:lang="de">Biržai</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Biržai</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Biržai</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Biržai</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Biržai</skos:altLabel>
+	<skos:altLabel>Biržai</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Birži</skos:altLabel>
+	<skos:altLabel>Biržų</skos:altLabel>
+	<skos:altLabel>Myasto Birzhay</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μπιρζάι</skos:altLabel>
+	<skos:altLabel xml:lang="ru">БИРЖАЙ</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Биржай</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ビルジャイ</skos:altLabel>
+	<skos:prefLabel>Biržai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/600444/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864477/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.61667</wgs:lat>
+	<wgs:long>24.03333</wgs:long>
+	<skos:prefLabel>Birštonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/600992/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864484/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.53333</wgs:lat>
+	<wgs:long>25.1</wgs:long>
+	<skos:prefLabel>Anykščių Rajonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/600994/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11958</europeana:population>
+	<wgs:lat>55.52557</wgs:lat>
+	<wgs:long>25.10264</wgs:long>
+	<skos:altLabel>Anikshchay</skos:altLabel>
+	<skos:altLabel>Anikshchyay</skos:altLabel>
+	<skos:altLabel>Anykshchay</skos:altLabel>
+	<skos:altLabel xml:lang="en">Anykščiai</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Anykščiai</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Anykščiai</skos:altLabel>
+	<skos:altLabel xml:lang="de">Anykščiai</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Anykščiai</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Anykščiai</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Anykščiai</skos:altLabel>
+	<skos:altLabel>Anykščių</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Anīkšči</skos:altLabel>
+	<skos:altLabel>Onikschty</skos:altLabel>
+	<skos:altLabel>Onikshty</skos:altLabel>
+	<skos:altLabel>Onikszty</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Onikszty</skos:altLabel>
+	<skos:altLabel>Onukszty</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ανυκστσιάι</skos:altLabel>
+	<skos:altLabel xml:lang="ru">АНИКЩЯЙ</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Аникщяй</skos:altLabel>
+	<skos:prefLabel>Anykščiai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/601084/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>70747</europeana:population>
+	<wgs:lat>54.4</wgs:lat>
+	<wgs:long>24.05</wgs:long>
+	<skos:altLabel>Alitus</skos:altLabel>
+	<skos:altLabel>Alytaus</skos:altLabel>
+	<skos:altLabel xml:lang="de">Alytus</skos:altLabel>
+	<skos:altLabel xml:lang="en">Alytus</skos:altLabel>
+	<skos:altLabel xml:lang="et">Alytus</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Alytus</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Alytus</skos:altLabel>
+	<skos:altLabel xml:lang="no">Alytus</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Alytus</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Alytus</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Alytus</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Alytus</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Alytus</skos:altLabel>
+	<skos:altLabel>Alytus</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Alīta</skos:altLabel>
+	<skos:altLabel>Olita</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Olita</skos:altLabel>
+	<skos:altLabel xml:lang="ru">АЛИТУС</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Алитус</skos:altLabel>
+	<skos:altLabel xml:lang="ko">알리투스</skos:altLabel>
+	<skos:prefLabel>Alytus</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/601086/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864389/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.4</wgs:lat>
+	<wgs:long>24.05</wgs:long>
+	<skos:prefLabel>Alytus</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/601087/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864389/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.4</wgs:lat>
+	<wgs:long>24.05</wgs:long>
+	<skos:prefLabel>Alytaus Rajonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/601179/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864481/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>56.31667</wgs:lat>
+	<wgs:long>22.9</wgs:long>
+	<skos:prefLabel>Akmenės Rajonas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864389/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>54.16667</wgs:lat>
+	<wgs:long>24.16667</wgs:long>
+	<skos:altLabel>Alytaus Apskritis</skos:altLabel>
+	<skos:prefLabel>Alytaus Apskritis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864477/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>55.16667</wgs:lat>
+	<wgs:long>24</wgs:long>
+	<skos:altLabel>Kauno Apskritis</skos:altLabel>
+	<skos:prefLabel>Kauno Apskritis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864478/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>55.66667</wgs:lat>
+	<wgs:long>21.33333</wgs:long>
+	<skos:altLabel>Klaipėdos Apskritis</skos:altLabel>
+	<skos:prefLabel>Klaipėdos Apskritis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864479/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>54.75</wgs:lat>
+	<wgs:long>23.25</wgs:long>
+	<skos:altLabel>Marijampolės Apskritis</skos:altLabel>
+	<skos:prefLabel>Marijampolės Apskritis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864480/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>55.91667</wgs:lat>
+	<wgs:long>24.83333</wgs:long>
+	<skos:altLabel>Panevėžio Apskritis</skos:altLabel>
+	<skos:prefLabel>Panevėžio Apskritis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864481/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56</wgs:lat>
+	<wgs:long>23.33333</wgs:long>
+	<skos:altLabel>Šiaulių Apskritis</skos:altLabel>
+	<skos:prefLabel>Šiaulių Apskritis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864482/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>55.33333</wgs:lat>
+	<wgs:long>22.5</wgs:long>
+	<skos:altLabel>Tauragės Apskritis</skos:altLabel>
+	<skos:prefLabel>Tauragės Apskritis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864483/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.08333</wgs:lat>
+	<wgs:long>22.16667</wgs:long>
+	<skos:altLabel>Telšių Apskritis</skos:altLabel>
+	<skos:prefLabel>Telšių Apskritis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864484/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>55.5</wgs:lat>
+	<wgs:long>25.75</wgs:long>
+	<skos:altLabel>Utenos Apskritis</skos:altLabel>
+	<skos:prefLabel>Utenos Apskritis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864485/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>54.83333</wgs:lat>
+	<wgs:long>25.33333</wgs:long>
+	<skos:altLabel>Vilniaus Apskritis</skos:altLabel>
+	<skos:prefLabel>Vilniaus Apskritis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864486/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864389/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.23333</wgs:lat>
+	<wgs:long>23.51667</wgs:long>
+	<skos:prefLabel>Lazdijai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864487/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864389/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.21667</wgs:lat>
+	<wgs:long>24.56667</wgs:long>
+	<skos:prefLabel>Varėna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864488/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864477/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.08333</wgs:lat>
+	<wgs:long>24.28333</wgs:long>
+	<skos:prefLabel>Jonava</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864489/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864477/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.86667</wgs:lat>
+	<wgs:long>24.45</wgs:long>
+	<skos:prefLabel>Kaišiadorys</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864490/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864477/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.28333</wgs:lat>
+	<wgs:long>23.96667</wgs:long>
+	<skos:prefLabel>Kėdainiai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864491/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864477/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.63333</wgs:lat>
+	<wgs:long>23.95</wgs:long>
+	<skos:prefLabel>Prienai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864492/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864477/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.36667</wgs:lat>
+	<wgs:long>23.11667</wgs:long>
+	<skos:prefLabel>Raseiniai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864493/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864478/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.71667</wgs:lat>
+	<wgs:long>21.4</wgs:long>
+	<skos:prefLabel>Gargždai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864494/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864478/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.88333</wgs:lat>
+	<wgs:long>21.25</wgs:long>
+	<skos:prefLabel>Kretinga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864495/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864478/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>56.26667</wgs:lat>
+	<wgs:long>21.53333</wgs:long>
+	<skos:prefLabel>Skuodas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864496/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864478/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.35</wgs:lat>
+	<wgs:long>21.48333</wgs:long>
+	<skos:prefLabel>Šilutė</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864497/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864479/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.95</wgs:lat>
+	<wgs:long>23.05</wgs:long>
+	<skos:prefLabel>Šakiai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864498/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864479/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.65</wgs:lat>
+	<wgs:long>23.03333</wgs:long>
+	<skos:prefLabel>Vilkaviškis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864499/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864480/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>56.2</wgs:lat>
+	<wgs:long>24.75</wgs:long>
+	<skos:prefLabel>Biržai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864500/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864480/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.83333</wgs:lat>
+	<wgs:long>24.96667</wgs:long>
+	<skos:prefLabel>Kupiškis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864501/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864480/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>56.06667</wgs:lat>
+	<wgs:long>24.4</wgs:long>
+	<skos:prefLabel>Pasvalys</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864502/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864480/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.96667</wgs:lat>
+	<wgs:long>25.58333</wgs:long>
+	<skos:prefLabel>Rokiškis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864503/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864481/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>56.31667</wgs:lat>
+	<wgs:long>22.9</wgs:long>
+	<skos:prefLabel>Naujoji Akmenė</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864504/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864481/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>56.23333</wgs:lat>
+	<wgs:long>23.61667</wgs:long>
+	<skos:prefLabel>Joniškis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864505/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864481/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.63333</wgs:lat>
+	<wgs:long>22.93333</wgs:long>
+	<skos:prefLabel>Kelmė</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864506/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864481/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.96667</wgs:lat>
+	<wgs:long>23.86667</wgs:long>
+	<skos:prefLabel>Pakruojis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864507/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864481/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.81667</wgs:lat>
+	<wgs:long>23.53333</wgs:long>
+	<skos:prefLabel>Radviliškis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864508/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864482/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.25</wgs:lat>
+	<wgs:long>22.28333</wgs:long>
+	<skos:prefLabel>Tauragė</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864509/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864482/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.06667</wgs:lat>
+	<wgs:long>22.76667</wgs:long>
+	<skos:prefLabel>Jurbarkas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864510/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864482/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.46667</wgs:lat>
+	<wgs:long>22.2</wgs:long>
+	<skos:prefLabel>Šilalė</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864511/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864483/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.98333</wgs:lat>
+	<wgs:long>22.25</wgs:long>
+	<skos:prefLabel>Telšiai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864512/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864483/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>56.31667</wgs:lat>
+	<wgs:long>22.33333</wgs:long>
+	<skos:prefLabel>Mažeikiai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864513/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864483/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.91667</wgs:lat>
+	<wgs:long>21.85</wgs:long>
+	<skos:prefLabel>Plungė</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864514/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864484/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.5</wgs:lat>
+	<wgs:long>25.6</wgs:long>
+	<skos:prefLabel>Utena</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864515/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864484/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.6</wgs:lat>
+	<wgs:long>26.41667</wgs:long>
+	<skos:prefLabel>Visaginas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864516/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864484/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.53333</wgs:lat>
+	<wgs:long>25.1</wgs:long>
+	<skos:prefLabel>Anykščiai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864517/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864484/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.35</wgs:lat>
+	<wgs:long>26.16667</wgs:long>
+	<skos:prefLabel>Ignalina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864518/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864484/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.23333</wgs:lat>
+	<wgs:long>25.41667</wgs:long>
+	<skos:prefLabel>Molėtai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864519/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864484/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.73333</wgs:lat>
+	<wgs:long>26.25</wgs:long>
+	<skos:prefLabel>Zarasai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864520/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864485/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.3</wgs:lat>
+	<wgs:long>25.38333</wgs:long>
+	<skos:prefLabel>Šalčininkai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864521/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864485/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.05</wgs:lat>
+	<wgs:long>24.95</wgs:long>
+	<skos:prefLabel>Širvintos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864522/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864485/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.15</wgs:lat>
+	<wgs:long>26.16667</wgs:long>
+	<skos:prefLabel>Švenčionys</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864523/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864485/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.63333</wgs:lat>
+	<wgs:long>24.93333</wgs:long>
+	<skos:prefLabel>Trakai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864524/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/864485/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.25</wgs:lat>
+	<wgs:long>24.75</wgs:long>
+	<skos:prefLabel>Ukmergė</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/867558/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>55.26361</wgs:lat>
+	<wgs:long>21.28361</wgs:long>
+	<skos:altLabel xml:lang="ru">Ostrov Bol’shoy</skos:altLabel>
+	<skos:prefLabel>Ostrov Bol’shoy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/867559/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>55.28167</wgs:lat>
+	<wgs:long>21.28417</wgs:long>
+	<skos:altLabel>Ostrov Severnyy</skos:altLabel>
+	<skos:prefLabel>Ostrov Severnyy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/867560/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>55.27861</wgs:lat>
+	<wgs:long>21.28083</wgs:long>
+	<skos:altLabel>Ostrov Sredniy</skos:altLabel>
+	<skos:prefLabel>Ostrov Sredniy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/867561/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>55.27111</wgs:lat>
+	<wgs:long>21.27167</wgs:long>
+	<skos:altLabel>Ostrov Yuzhnyy</skos:altLabel>
+	<skos:prefLabel>Ostrov Yuzhnyy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6618486/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/597427/"/>
+	<europeana:country>LT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>70000</europeana:population>
+	<wgs:lat>54.91525</wgs:lat>
+	<wgs:long>23.96831</wgs:long>
+	<skos:prefLabel>Dainava (Kaunas)</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 152 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

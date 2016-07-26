@@ -1,0 +1,32 @@
+.yui-dt-col-1 {
+	width: 50%;
+}
+
+.yui-skin-sam tr.yui-dt-even td.yui-dt-asc,.yui-skin-sam tr.yui-dt-even td.yui-dt-desc {
+	background-color: #fdefd1;
+}
+
+.yui-skin-sam tr.yui-dt-odd td.yui-dt-asc,.yui-skin-sam tr.yui-dt-odd td.yui-dt-desc {
+	background-color: #fbd697;
+}
+
+.yui-skin-sam tr.yui-dt-even {
+	background-color: #FFF;
+}
+
+.yui-skin-sam tr.yui-dt-odd {
+	background-color: #fdefd1;
+}
+
+
+.report-justify {
+	margin-left: 1cm;
+}
+
+td {
+	color: black;
+}
+
+.namespaceAbbr {
+	font-style: italic;
+}

@@ -1,0 +1,4382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AF_ZA
+Description: Selected fields pulled from Geonames about ZA done on Mon May 23 21:16:30 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/936374/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>225000</europeana:population>
+	<wgs:lat>-26.1625</wgs:lat>
+	<wgs:long>27.8725</wgs:long>
+	<skos:altLabel>Roodepoort</skos:altLabel>
+	<skos:altLabel>Roodeport-Maraisburg</skos:altLabel>
+	<skos:prefLabel>Roodepoort</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/937136/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17708</europeana:population>
+	<wgs:lat>-25.53333</wgs:lat>
+	<wgs:long>26.08333</wgs:long>
+	<skos:altLabel>Zeerust</skos:altLabel>
+	<skos:prefLabel>Zeerust</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/937246/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12449</europeana:population>
+	<wgs:lat>-30.3</wgs:lat>
+	<wgs:long>27.08333</wgs:long>
+	<skos:prefLabel>Zastron</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/937970/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-26.88333</wgs:lat>
+	<wgs:long>27.45</wgs:long>
+	<skos:prefLabel>Woody Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/938457/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>49366</europeana:population>
+	<wgs:lat>-27.2</wgs:lat>
+	<wgs:long>25.96667</wgs:long>
+	<skos:altLabel>Wolmaransstad</skos:altLabel>
+	<skos:altLabel>Wolmaranstad</skos:altLabel>
+	<skos:prefLabel>Wolmaransstad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/938694/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15954</europeana:population>
+	<wgs:lat>-25.31667</wgs:lat>
+	<wgs:long>31.01667</wgs:long>
+	<skos:altLabel>White River</skos:altLabel>
+	<skos:altLabel>Witrivier</skos:altLabel>
+	<skos:prefLabel>White River</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/938925/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.7</wgs:lat>
+	<wgs:long>20.51667</wgs:long>
+	<skos:altLabel>Witkop Island</skos:altLabel>
+	<skos:altLabel>Witkopeiland</skos:altLabel>
+	<skos:prefLabel>Witkopeiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/938927/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-26.46667</wgs:lat>
+	<wgs:long>28.06667</wgs:long>
+	<skos:prefLabel>Witkop Blokhuis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/939018/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.63333</wgs:lat>
+	<wgs:long>20.36667</wgs:long>
+	<skos:prefLabel>Witklipeiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/939270/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>262491</europeana:population>
+	<wgs:lat>-25.86667</wgs:lat>
+	<wgs:long>29.23333</wgs:long>
+	<skos:prefLabel>Witbank</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/939608/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11072</europeana:population>
+	<wgs:lat>-28.53333</wgs:lat>
+	<wgs:long>27.01667</wgs:long>
+	<skos:altLabel>Winburg</skos:altLabel>
+	<skos:prefLabel>Winburg</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/940186/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12080</europeana:population>
+	<wgs:lat>-32.16667</wgs:lat>
+	<wgs:long>26.81667</wgs:long>
+	<skos:prefLabel>Whittlesea</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/940316/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>156831</europeana:population>
+	<wgs:lat>-26.31667</wgs:lat>
+	<wgs:long>27.65</wgs:long>
+	<skos:altLabel xml:lang="en">Westonaria</skos:altLabel>
+	<skos:altLabel>Westonaria</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Вестонария</skos:altLabel>
+	<skos:prefLabel>Westonaria</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/940424/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>42552</europeana:population>
+	<wgs:lat>-27.85</wgs:lat>
+	<wgs:long>26.36667</wgs:long>
+	<skos:altLabel>Wesselsbron</skos:altLabel>
+	<skos:prefLabel>Wesselsbron</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/940909/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>431944</europeana:population>
+	<wgs:lat>-27.98333</wgs:lat>
+	<wgs:long>26.73333</wgs:long>
+	<skos:altLabel>Welkom</skos:altLabel>
+	<skos:prefLabel>Welkom</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/941446/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.56667</wgs:lat>
+	<wgs:long>20.33333</wgs:long>
+	<skos:altLabel>Waterval Island</skos:altLabel>
+	<skos:altLabel>Watervaleiland</skos:altLabel>
+	<skos:prefLabel>Watervaleiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/941931/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17946</europeana:population>
+	<wgs:lat>-28.11667</wgs:lat>
+	<wgs:long>24.85</wgs:long>
+	<skos:altLabel>Warrenton</skos:altLabel>
+	<skos:prefLabel>Warrenton</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/941966/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>90210</europeana:population>
+	<wgs:lat>-24.88333</wgs:lat>
+	<wgs:long>28.28333</wgs:long>
+	<skos:altLabel>Warmbad</skos:altLabel>
+	<skos:altLabel>Warmbaths</skos:altLabel>
+	<skos:prefLabel>Warmbaths</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/942470/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>150012</europeana:population>
+	<wgs:lat>-27.76667</wgs:lat>
+	<wgs:long>30.8</wgs:long>
+	<skos:altLabel>Vryheid</skos:altLabel>
+	<skos:prefLabel>Vryheid</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/942511/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>49588</europeana:population>
+	<wgs:lat>-26.95</wgs:lat>
+	<wgs:long>24.73333</wgs:long>
+	<skos:altLabel>Vryburg</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Фрейбурга</skos:altLabel>
+	<skos:prefLabel>Vryburg</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/942683/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10649</europeana:population>
+	<wgs:lat>-27.01667</wgs:lat>
+	<wgs:long>27.38333</wgs:long>
+	<skos:altLabel>Vredefort</skos:altLabel>
+	<skos:prefLabel>Vredefort</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/942701/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14622</europeana:population>
+	<wgs:lat>-27.41667</wgs:lat>
+	<wgs:long>29.16667</wgs:long>
+	<skos:prefLabel>Vrede</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/942849/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-28.53333</wgs:lat>
+	<wgs:long>26.98333</wgs:long>
+	<skos:prefLabel>Voortrekker Monument</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/942852/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-33.35</wgs:lat>
+	<wgs:long>22.03333</wgs:long>
+	<skos:prefLabel>Voortrekker Gedenkteken</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/943032/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>43378</europeana:population>
+	<wgs:lat>-27.36667</wgs:lat>
+	<wgs:long>29.88333</wgs:long>
+	<skos:altLabel>Volkrust</skos:altLabel>
+	<skos:altLabel>Volksrust</skos:altLabel>
+	<skos:prefLabel>Volksrust</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/943373/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.65</wgs:lat>
+	<wgs:long>21.06667</wgs:long>
+	<skos:prefLabel>Vlameiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/943882/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>122502</europeana:population>
+	<wgs:lat>-28.11667</wgs:lat>
+	<wgs:long>26.9</wgs:long>
+	<skos:altLabel xml:lang="en">Virginia</skos:altLabel>
+	<skos:altLabel>Virginia</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Вирджиния</skos:altLabel>
+	<skos:prefLabel>Virginia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/943929/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-28.16667</wgs:lat>
+	<wgs:long>32.45</wgs:long>
+	<skos:prefLabel>Vincent Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/943937/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11240</europeana:population>
+	<wgs:lat>-27.03333</wgs:lat>
+	<wgs:long>28.6</wgs:long>
+	<skos:altLabel>Villiers</skos:altLabel>
+	<skos:prefLabel>Villiers</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/943960/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>54955</europeana:population>
+	<wgs:lat>-27.21667</wgs:lat>
+	<wgs:long>26.95</wgs:long>
+	<skos:altLabel>Viljoenskroon</skos:altLabel>
+	<skos:prefLabel>Viljoenskroon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/944385/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>474681</europeana:population>
+	<wgs:lat>-26.66667</wgs:lat>
+	<wgs:long>27.93333</wgs:long>
+	<skos:altLabel>Vereeniging</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Феринихинг</skos:altLabel>
+	<skos:prefLabel>Vereeniging</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/944540/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10698</europeana:population>
+	<wgs:lat>-28.08333</wgs:lat>
+	<wgs:long>27.13333</wgs:long>
+	<skos:altLabel>Ventersburg</skos:altLabel>
+	<skos:prefLabel>Ventersburg</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/944986/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>246754</europeana:population>
+	<wgs:lat>-26.7</wgs:lat>
+	<wgs:long>27.81667</wgs:long>
+	<skos:altLabel xml:lang="en">Vanderbijlpark</skos:altLabel>
+	<skos:altLabel>Vanderbijlpark</skos:altLabel>
+	<skos:prefLabel>Vanderbijlpark</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/945945/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>71373</europeana:population>
+	<wgs:lat>-28.45</wgs:lat>
+	<wgs:long>21.25</wgs:long>
+	<skos:altLabel xml:lang="af">Upington</skos:altLabel>
+	<skos:altLabel xml:lang="en">Upington</skos:altLabel>
+	<skos:altLabel>Upington</skos:altLabel>
+	<skos:prefLabel>Upington</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/946058/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>78663</europeana:population>
+	<wgs:lat>-31.58333</wgs:lat>
+	<wgs:long>28.78333</wgs:long>
+	<skos:altLabel>Umtata</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Умтата</skos:altLabel>
+	<skos:prefLabel>Umtata</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/946128/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20410</europeana:population>
+	<wgs:lat>-30.2</wgs:lat>
+	<wgs:long>30.8</wgs:long>
+	<skos:altLabel>Umkomaas</skos:altLabel>
+	<skos:prefLabel>Umkomaas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/946257/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20753</europeana:population>
+	<wgs:lat>-28.33333</wgs:lat>
+	<wgs:long>31.41667</wgs:long>
+	<skos:altLabel>Ulundi</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Улунди</skos:altLabel>
+	<skos:prefLabel>Ulundi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/946447/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-30.55</wgs:lat>
+	<wgs:long>25.4</wgs:long>
+	<skos:prefLabel>Uitvaleiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/946877/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>228912</europeana:population>
+	<wgs:lat>-33.76528</wgs:lat>
+	<wgs:long>25.40222</wgs:long>
+	<skos:altLabel xml:lang="af">Uitenhage</skos:altLabel>
+	<skos:altLabel xml:lang="en">Uitenhage</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Uitenhage</skos:altLabel>
+	<skos:altLabel>Uitenhage</skos:altLabel>
+	<skos:prefLabel>Uitenhage</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/946973/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16954</europeana:population>
+	<wgs:lat>-23.83333</wgs:lat>
+	<wgs:long>30.16667</wgs:long>
+	<skos:altLabel>Tzaneen</skos:altLabel>
+	<skos:prefLabel>Tzaneen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/948914/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.6</wgs:lat>
+	<wgs:long>20.31667</wgs:long>
+	<skos:prefLabel>Tierhokeiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/949026/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11655</europeana:population>
+	<wgs:lat>-24.71667</wgs:lat>
+	<wgs:long>31.2</wgs:long>
+	<skos:prefLabel>Thulamahashi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/949224/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>44046</europeana:population>
+	<wgs:lat>-22.95</wgs:lat>
+	<wgs:long>30.48333</wgs:long>
+	<skos:altLabel>Thohoyandou</skos:altLabel>
+	<skos:prefLabel>Thohoyandou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/949282/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>34718</europeana:population>
+	<wgs:lat>-28.4</wgs:lat>
+	<wgs:long>26.71667</wgs:long>
+	<skos:altLabel>Theunissen</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Тениссен</skos:altLabel>
+	<skos:prefLabel>Theunissen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/949315/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-34.04706</wgs:lat>
+	<wgs:long>23.05492</wgs:long>
+	<skos:altLabel>Paarden</skos:altLabel>
+	<skos:altLabel>Paarden Island</skos:altLabel>
+	<skos:prefLabel>Thesen's Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/949683/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10365</europeana:population>
+	<wgs:lat>-24.6</wgs:lat>
+	<wgs:long>27.4</wgs:long>
+	<skos:altLabel>Thabazimbi</skos:altLabel>
+	<skos:prefLabel>Thabazimbi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/949703/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>38616</europeana:population>
+	<wgs:lat>-29.21667</wgs:lat>
+	<wgs:long>26.83333</wgs:long>
+	<skos:altLabel>Thaba Nchu</skos:altLabel>
+	<skos:altLabel>Thabantsjoe</skos:altLabel>
+	<skos:prefLabel>Thaba Nchu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/949880/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>511655</europeana:population>
+	<wgs:lat>-25.99889</wgs:lat>
+	<wgs:long>28.22694</wgs:long>
+	<skos:prefLabel>Tembisa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/950709/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13674</europeana:population>
+	<wgs:lat>-34.03333</wgs:lat>
+	<wgs:long>20.43333</wgs:long>
+	<skos:altLabel>Swellendam</skos:altLabel>
+	<skos:prefLabel>Swellendam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/950957/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.51667</wgs:lat>
+	<wgs:long>21.18333</wgs:long>
+	<skos:altLabel>Swartkop Island</skos:altLabel>
+	<skos:altLabel>Swartkopeiland</skos:altLabel>
+	<skos:prefLabel>Swartkopeiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/951441/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12455</europeana:population>
+	<wgs:lat>-29.13333</wgs:lat>
+	<wgs:long>31.4</wgs:long>
+	<skos:prefLabel>Sundumbili</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/951650/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>35510</europeana:population>
+	<wgs:lat>-32.56667</wgs:lat>
+	<wgs:long>27.41667</wgs:long>
+	<skos:altLabel>Stutterheim</skos:altLabel>
+	<skos:prefLabel>Stutterheim</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/952192/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>93110</europeana:population>
+	<wgs:lat>-26.85</wgs:lat>
+	<wgs:long>26.78333</wgs:long>
+	<skos:prefLabel>Stilfontein</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/952734/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>59899</europeana:population>
+	<wgs:lat>-29.33333</wgs:lat>
+	<wgs:long>31.3</wgs:long>
+	<skos:altLabel xml:lang="en">KwaDukuza</skos:altLabel>
+	<skos:altLabel>Stanger</skos:altLabel>
+	<skos:altLabel>Stanger Station</skos:altLabel>
+	<skos:prefLabel>Stanger</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/952747/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>74021</europeana:population>
+	<wgs:lat>-26.95</wgs:lat>
+	<wgs:long>29.25</wgs:long>
+	<skos:altLabel>Standerston</skos:altLabel>
+	<skos:altLabel xml:lang="en">Standerton</skos:altLabel>
+	<skos:altLabel>Standerton</skos:altLabel>
+	<skos:prefLabel>Standerton</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/952764/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-33.83333</wgs:lat>
+	<wgs:long>26.28333</wgs:long>
+	<skos:prefLabel>Stag Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/952865/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/957339/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>186394</europeana:population>
+	<wgs:lat>-26.25</wgs:lat>
+	<wgs:long>28.4</wgs:long>
+	<skos:altLabel>Springs</skos:altLabel>
+	<skos:prefLabel>Springs</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/953781/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>1695047</europeana:population>
+	<wgs:lat>-26.26667</wgs:lat>
+	<wgs:long>27.86667</wgs:long>
+	<skos:altLabel>Mpanzaville</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Sovetas</skos:altLabel>
+	<skos:altLabel xml:lang="en">Soweto</skos:altLabel>
+	<skos:altLabel xml:lang="de">Soweto</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Soweto</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Soweto</skos:altLabel>
+	<skos:altLabel xml:lang="es">Soweto</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Soweto</skos:altLabel>
+	<skos:altLabel xml:lang="no">Soweto</skos:altLabel>
+	<skos:altLabel xml:lang="da">Soweto</skos:altLabel>
+	<skos:altLabel>Soweto</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Соуэто</skos:altLabel>
+	<skos:altLabel xml:lang="he">סווטו</skos:altLabel>
+	<skos:prefLabel>Soweto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/953987/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255146/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>49000000</europeana:population>
+	<wgs:lat>-30</wgs:lat>
+	<wgs:long>26</wgs:long>
+	<skos:altLabel xml:lang="tn">Aferika Borwa</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Afraga a Deas</skos:altLabel>
+	<skos:altLabel xml:lang="la">Africa Australis</skos:altLabel>
+	<skos:altLabel xml:lang="rm">Africa dal Sid</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Africa de Sud</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Africa del Sud</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Africa del Sud</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Afrik Disid</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Afrik disid</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Afrika Dheghow</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Afrika Kusini</skos:altLabel>
+	<skos:altLabel xml:lang="id">Afrika Selatan</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Afrika Selatan</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Afrika e Jugut</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Afrika t’Isfel</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Afrika ya Kusini</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Afrique du Sud</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Afryka Południowa</skos:altLabel>
+	<skos:altLabel xml:lang="ln">Afríka ya Nsé</skos:altLabel>
+	<skos:altLabel xml:lang="ga">An Afraic Theas</skos:altLabel>
+	<skos:altLabel xml:lang="mi">Awherika ki te Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Cộng hòa Nam Phi</skos:altLabel>
+	<skos:altLabel xml:lang="cy">De Affrica</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Dienvidāfrika</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Dienvidāfrikas Republika</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Dél-Afrika</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Dél-afrikai Köztársaság</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Efrîqaya Başûr</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Etelä-Afrikka</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Güney Afrika</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Güney Afrika Cumhuriyeti</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Hego Afrika</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Hegoafrika</skos:altLabel>
+	<skos:altLabel xml:lang="zu">IRiphabliki yaseNingizimu Afrika</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Jihoafrická republika</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Jižní Afrika</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Južna Afrika</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Južna Afrika</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Južna Afrika</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Južna Afrika</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Južnoafrička Republika</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Južnoafrička Republika</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Južná Afrika</skos:altLabel>
+	<skos:altLabel xml:lang="so">Koonfur Afrika</skos:altLabel>
+	<skos:altLabel xml:lang="et">Lõuna Aafrika</skos:altLabel>
+	<skos:altLabel xml:lang="et">Lõuna-Aafrika Vabariik</skos:altLabel>
+	<skos:altLabel xml:lang="se">Mátta-Afrihká</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Nam Phi</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Pietų Afrika</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Pietų Afrikos Respublika</skos:altLabel>
+	<skos:altLabel xml:lang="de">Republik Südafrika</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Republika Južna Afrika</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Republika Południowej Afryki</skos:altLabel>
+	<skos:altLabel xml:lang="en">South Africa</skos:altLabel>
+	<skos:altLabel xml:lang="br">Suafrika</skos:altLabel>
+	<skos:altLabel xml:lang="io">Sud-Afrika</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Sud-Afriko</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Sud-àfrica</skos:altLabel>
+	<skos:altLabel xml:lang="it">Sudafrica</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Sudàfrica</skos:altLabel>
+	<skos:altLabel xml:lang="es">Sudáfrica</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Sudáfrica</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Sudáfrica - Ningizimu Afrika</skos:altLabel>
+	<skos:altLabel xml:lang="af">Suid-Afrika</skos:altLabel>
+	<skos:altLabel xml:lang="an">Surafrica</skos:altLabel>
+	<skos:altLabel xml:lang="is">Suður-Afríka</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Suðurafrika</skos:altLabel>
+	<skos:altLabel xml:lang="da">Sydafrika</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Sydafrika</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Sør-Afrika</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Sør-Afrika</skos:altLabel>
+	<skos:altLabel xml:lang="no">Sør-Afrika</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Südafrika</skos:altLabel>
+	<skos:altLabel xml:lang="de">Südafrika</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Timog Aprika</skos:altLabel>
+	<skos:altLabel xml:lang="xh">UMzantsi Afrika</skos:altLabel>
+	<skos:altLabel>Unie Van Suid-Afrika</skos:altLabel>
+	<skos:altLabel>Union of South Africa</skos:altLabel>
+	<skos:altLabel>ZA</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Zuid-Afrika</skos:altLabel>
+	<skos:altLabel xml:lang="li">Zuud-Afrika</skos:altLabel>
+	<skos:altLabel xml:lang="pt">África do Sul</skos:altLabel>
+	<skos:altLabel xml:lang="mi">Āwherika ki te Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="to">ʻAfelika tonga</skos:altLabel>
+	<skos:altLabel xml:lang="el">Νότια Αφρική</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Јужна Африка</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Јужна Африка</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Јужноафричка Република</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Африқои Ҷанубӣ</skos:altLabel>
+	<skos:altLabel xml:lang="uk">ПАР</skos:altLabel>
+	<skos:altLabel xml:lang="be">Паўднёва-Афрыканская Рэспубліка</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Південна Африка</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Південно-Африканська Республіка</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Република Южна Африка</skos:altLabel>
+	<skos:altLabel xml:lang="bg">ЮАР</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Южна Африка</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Южная Африка</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Южно-Африканская Республика</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Южноафриканска република</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Հարավային Աֆրիկա</skos:altLabel>
+	<skos:altLabel xml:lang="he">דרום אפריקה</skos:altLabel>
+	<skos:altLabel xml:lang="fa">آفریقای جنوبی</skos:altLabel>
+	<skos:altLabel xml:lang="fa">افریقای جنوبی</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جمهورية جنوب افريقيا</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جنوب أفريقيا</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جنوب افريقيا</skos:altLabel>
+	<skos:altLabel xml:lang="ur">جنوبی افریقہ</skos:altLabel>
+	<skos:altLabel xml:lang="ug">جەنۇبىي ئافرىقا</skos:altLabel>
+	<skos:altLabel xml:lang="hi">दक्षिण अफ़्रीका</skos:altLabel>
+	<skos:altLabel xml:lang="hi">दक्षिण अफ्रीका</skos:altLabel>
+	<skos:altLabel xml:lang="ks">दक्षिण अफ्रीका</skos:altLabel>
+	<skos:altLabel xml:lang="sa">दक्षिण अफ्रीका</skos:altLabel>
+	<skos:altLabel xml:lang="bn">দক্ষিণ আফ্রিকা</skos:altLabel>
+	<skos:altLabel xml:lang="ta">தென் ஆப்ரிக்கா</skos:altLabel>
+	<skos:altLabel xml:lang="ta">தென்னாபிரிக்கா</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ദക്ഷിണ ആഫ്രിക്ക</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศแอฟริกาใต้</skos:altLabel>
+	<skos:altLabel xml:lang="th">แอฟริกาใต้</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ອາຟະລິກາໃຕ້</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ལྷོ་ ཨཕྲི་ཀ།</skos:altLabel>
+	<skos:altLabel xml:lang="dz">སའུཐ་ཨཕ་རི་ཀ</skos:altLabel>
+	<skos:altLabel xml:lang="ka">სამხრეთ აფრიკა</skos:altLabel>
+	<skos:altLabel xml:lang="ka">სამხრეთ აფრიკის რესპუბლიკა</skos:altLabel>
+	<skos:altLabel xml:lang="am">ደቡብ አፍሪካ</skos:altLabel>
+	<skos:altLabel xml:lang="km">អាហ្វ្រិកខាងត្បូង</skos:altLabel>
+	<skos:altLabel xml:lang="ja">南アフリカ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">南アフリカ共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">南非</skos:altLabel>
+	<skos:altLabel xml:lang="ko">남아공</skos:altLabel>
+	<skos:altLabel xml:lang="ko">남아프리카</skos:altLabel>
+	<skos:altLabel xml:lang="ko">남아프리카 공화국</skos:altLabel>
+	<skos:prefLabel>South Africa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/954161/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16155</europeana:population>
+	<wgs:lat>-32.71667</wgs:lat>
+	<wgs:long>25.58333</wgs:long>
+	<skos:altLabel>Somerset East</skos:altLabel>
+	<skos:altLabel>Somerset-Oos</skos:altLabel>
+	<skos:prefLabel>Somerset East</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/954776/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-27.85</wgs:lat>
+	<wgs:long>27.88333</wgs:long>
+	<skos:prefLabel>Slag van Yeomanrykoppies</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/954777/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-27.46667</wgs:lat>
+	<wgs:long>27.91667</wgs:long>
+	<skos:prefLabel>Slag van Vechtkop</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/955258/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.71667</wgs:lat>
+	<wgs:long>20.96667</wgs:long>
+	<skos:altLabel>Schanskop Island</skos:altLabel>
+	<skos:altLabel>Skanskopeiland</skos:altLabel>
+	<skos:prefLabel>Skanskopeiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/955313/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>26236</europeana:population>
+	<wgs:lat>-25.11667</wgs:lat>
+	<wgs:long>29.05</wgs:long>
+	<skos:altLabel>Siyabuswa</skos:altLabel>
+	<skos:prefLabel>Siyabuswa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/956318/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-33.31667</wgs:lat>
+	<wgs:long>26.51667</wgs:long>
+	<skos:prefLabel>Settlers Monument</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/956507/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>39584</europeana:population>
+	<wgs:lat>-28.31667</wgs:lat>
+	<wgs:long>27.6</wgs:long>
+	<skos:altLabel>Senekal</skos:altLabel>
+	<skos:prefLabel>Senekal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/956767/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20418</europeana:population>
+	<wgs:lat>-26.55</wgs:lat>
+	<wgs:long>29.16667</wgs:long>
+	<skos:altLabel>Secunda</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Секунда</skos:altLabel>
+	<skos:prefLabel>Secunda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/956842/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-34.15</wgs:lat>
+	<wgs:long>22.11667</wgs:long>
+	<skos:altLabel>Seal</skos:altLabel>
+	<skos:altLabel>Seal Island</skos:altLabel>
+	<skos:altLabel>Sealeiland</skos:altLabel>
+	<skos:prefLabel>Seal Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/956843/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-33.83333</wgs:lat>
+	<wgs:long>26.26667</wgs:long>
+	<skos:prefLabel>Seal Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/956878/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23949</europeana:population>
+	<wgs:lat>-30.28333</wgs:lat>
+	<wgs:long>30.75</wgs:long>
+	<skos:altLabel>Scottburg</skos:altLabel>
+	<skos:altLabel>Scottburgh</skos:altLabel>
+	<skos:altLabel>Scottsburgh</skos:altLabel>
+	<skos:prefLabel>Scottburgh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/956907/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>70214</europeana:population>
+	<wgs:lat>-27.18333</wgs:lat>
+	<wgs:long>25.33333</wgs:long>
+	<skos:altLabel>Schweizer-Reineke</skos:altLabel>
+	<skos:altLabel>Schweizer-Reneke</skos:altLabel>
+	<skos:altLabel xml:lang="en">Schweizer-Reneke</skos:altLabel>
+	<skos:prefLabel>Schweizer-Reineke</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/957487/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>77016</europeana:population>
+	<wgs:lat>-26.81358</wgs:lat>
+	<wgs:long>27.81695</wgs:long>
+	<skos:altLabel xml:lang="en">Sasolburg</skos:altLabel>
+	<skos:altLabel xml:lang="af">Sasolburg</skos:altLabel>
+	<skos:prefLabel>Sasolburg</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/957655/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13500</europeana:population>
+	<wgs:lat>-26.1</wgs:lat>
+	<wgs:long>28.06667</wgs:long>
+	<skos:altLabel>Sandton</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сендтон</skos:altLabel>
+	<skos:prefLabel>Sandton</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/957775/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-28.21667</wgs:lat>
+	<wgs:long>27.08333</wgs:long>
+	<skos:prefLabel>Sand River Convention</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/957869/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.71667</wgs:lat>
+	<wgs:long>20.91667</wgs:long>
+	<skos:prefLabel>Sandkopeiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/958346/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-33.8</wgs:lat>
+	<wgs:long>25.76667</wgs:long>
+	<skos:altLabel>Saint Croix Eiland</skos:altLabel>
+	<skos:altLabel>Saint Croix Island</skos:altLabel>
+	<skos:prefLabel>Saint Croix Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/958724/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>124064</europeana:population>
+	<wgs:lat>-25.66667</wgs:lat>
+	<wgs:long>27.25</wgs:long>
+	<skos:altLabel xml:lang="en">Rustenburg</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Rustenburg</skos:altLabel>
+	<skos:altLabel xml:lang="de">Rustenburg</skos:altLabel>
+	<skos:altLabel xml:lang="af">Rustenburg</skos:altLabel>
+	<skos:altLabel>Rustenburg</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Рустенбург</skos:altLabel>
+	<skos:prefLabel>Rustenburg</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/958885/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-27.15</wgs:lat>
+	<wgs:long>26.08333</wgs:long>
+	<skos:prefLabel>Ruins of Broadbent’s House</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/959767/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.73333</wgs:lat>
+	<wgs:long>21</wgs:long>
+	<skos:prefLabel>Rooikopeiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/960644/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.73333</wgs:lat>
+	<wgs:long>20.9</wgs:long>
+	<skos:prefLabel>Rondemuiseiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/962330/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>32445</europeana:population>
+	<wgs:lat>-29.86667</wgs:lat>
+	<wgs:long>30.26667</wgs:long>
+	<skos:prefLabel>Richmond</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/962367/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>252968</europeana:population>
+	<wgs:lat>-28.8</wgs:lat>
+	<wgs:long>32.1</wgs:long>
+	<skos:altLabel>Richards Bay</skos:altLabel>
+	<skos:altLabel>Richardsbaai</skos:altLabel>
+	<skos:prefLabel>Richards Bay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/962683/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-23.93333</wgs:lat>
+	<wgs:long>30.61667</wgs:long>
+	<skos:prefLabel>Republic Borehole</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/962735/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.65</wgs:lat>
+	<wgs:long>20.41667</wgs:long>
+	<skos:altLabel>Renosterkopeiland</skos:altLabel>
+	<skos:altLabel>Rhenosterkop Island</skos:altLabel>
+	<skos:prefLabel>Renosterkopeiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/962847/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16637</europeana:population>
+	<wgs:lat>-27.8</wgs:lat>
+	<wgs:long>28.43333</wgs:long>
+	<skos:altLabel>Reitz</skos:altLabel>
+	<skos:prefLabel>Reitz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/963230/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>133654</europeana:population>
+	<wgs:lat>-26.1844</wgs:lat>
+	<wgs:long>27.70203</wgs:long>
+	<skos:prefLabel>Randfontein</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/963298/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.73333</wgs:lat>
+	<wgs:long>20.88333</wgs:long>
+	<skos:altLabel>Ram Island</skos:altLabel>
+	<skos:altLabel>Rameiland</skos:altLabel>
+	<skos:prefLabel>Rameiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/963299/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.68333</wgs:lat>
+	<wgs:long>21.08333</wgs:long>
+	<skos:prefLabel>Rameiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/963372/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-28.95</wgs:lat>
+	<wgs:long>31.75</wgs:long>
+	<skos:altLabel>Raffia Palms</skos:altLabel>
+	<skos:altLabel>Raphia Palms</skos:altLabel>
+	<skos:prefLabel>Raffia Palms</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/963516/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>105309</europeana:population>
+	<wgs:lat>-31.9</wgs:lat>
+	<wgs:long>26.88333</wgs:long>
+	<skos:altLabel>Queenstown</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Квинстаун</skos:altLabel>
+	<skos:prefLabel>Queenstown</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/963525/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20009</europeana:population>
+	<wgs:lat>-31.86667</wgs:lat>
+	<wgs:long>26.98333</wgs:long>
+	<skos:prefLabel>Queensdale</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/964074/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-28.11667</wgs:lat>
+	<wgs:long>30.78333</wgs:long>
+	<skos:prefLabel>Prince Imperial Monument</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/964090/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11236</europeana:population>
+	<wgs:lat>-29.66667</wgs:lat>
+	<wgs:long>22.75</wgs:long>
+	<skos:prefLabel>Prieska</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/964137/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>1619438</europeana:population>
+	<wgs:lat>-25.74486</wgs:lat>
+	<wgs:long>28.18783</wgs:long>
+	<skos:altLabel xml:lang="id">Pretoria</skos:altLabel>
+	<skos:altLabel xml:lang="en">Pretoria</skos:altLabel>
+	<skos:altLabel xml:lang="es">Pretoria</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Pretoria</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Pretoria</skos:altLabel>
+	<skos:altLabel xml:lang="io">Pretoria</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Pretoria</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Pretoria</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Pretoria</skos:altLabel>
+	<skos:altLabel xml:lang="de">Pretoria</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Pretoria</skos:altLabel>
+	<skos:altLabel xml:lang="af">Pretoria</skos:altLabel>
+	<skos:altLabel xml:lang="da">Pretoria</skos:altLabel>
+	<skos:altLabel xml:lang="et">Pretoria</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Pretoria</skos:altLabel>
+	<skos:altLabel xml:lang="it">Pretoria</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Pretoria</skos:altLabel>
+	<skos:altLabel xml:lang="no">Pretoria</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Pretoria</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Pretorija</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Pretorija</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Pretòria</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Pretòria</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Pretória</skos:altLabel>
+	<skos:altLabel>Pta</skos:altLabel>
+	<skos:altLabel>Tshwane</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Ĉvaneo</skos:altLabel>
+	<skos:altLabel xml:lang="el">Πρετόρια/Πόλη του Ακρωτηρίου</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Претория</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Претория</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Преторија</skos:altLabel>
+	<skos:altLabel xml:lang="he">פרטוריה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بريتوريا</skos:altLabel>
+	<skos:altLabel xml:lang="ug">پرېتورىيە</skos:altLabel>
+	<skos:altLabel xml:lang="th">พริทอเรีย</skos:altLabel>
+	<skos:altLabel xml:lang="am">ፕሪቶሪያ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">プレトリア</skos:altLabel>
+	<skos:altLabel xml:lang="ko">프리토리아</skos:altLabel>
+	<skos:prefLabel>Pretoria</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/964315/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>101090</europeana:population>
+	<wgs:lat>-24.18333</wgs:lat>
+	<wgs:long>29.01667</wgs:long>
+	<skos:altLabel>Potgietersrus</skos:altLabel>
+	<skos:altLabel>Potgietersrust</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Потгитерсрус</skos:altLabel>
+	<skos:prefLabel>Potgietersrus</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/964349/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>123669</europeana:population>
+	<wgs:lat>-26.71667</wgs:lat>
+	<wgs:long>27.1</wgs:long>
+	<skos:altLabel xml:lang="fr">Potchefstroom</skos:altLabel>
+	<skos:altLabel xml:lang="de">Potchefstroom</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Potchefstroom</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Potchefstroom</skos:altLabel>
+	<skos:altLabel xml:lang="en">Potchefstroom</skos:altLabel>
+	<skos:altLabel xml:lang="af">Potchefstroom</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Potchefstroom</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Potchefstroom</skos:altLabel>
+	<skos:altLabel>Potchefstroom</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Почефструм</skos:altLabel>
+	<skos:prefLabel>Potchefstroom</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/964406/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>52793</europeana:population>
+	<wgs:lat>-30.75</wgs:lat>
+	<wgs:long>30.45</wgs:long>
+	<skos:altLabel>Port Shepstone</skos:altLabel>
+	<skos:prefLabel>Port Shepstone</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/964420/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>967677</europeana:population>
+	<wgs:lat>-33.96667</wgs:lat>
+	<wgs:long>25.58333</wgs:long>
+	<skos:altLabel xml:lang="lt">Port Elizabetas</skos:altLabel>
+	<skos:altLabel xml:lang="en">Port Elizabeth</skos:altLabel>
+	<skos:altLabel xml:lang="af">Port Elizabeth</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Port Elizabeth</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Port Elizabeth</skos:altLabel>
+	<skos:altLabel xml:lang="de">Port Elizabeth</skos:altLabel>
+	<skos:altLabel xml:lang="es">Port Elizabeth</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Port Elizabeth</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Port Elizabeth</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Port Elizabeth</skos:altLabel>
+	<skos:altLabel xml:lang="it">Port Elizabeth</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Port Elizabeth</skos:altLabel>
+	<skos:altLabel>Port Elizabeth</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Порт Елизабет</skos:altLabel>
+	<skos:prefLabel>Port Elizabeth</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/964432/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17959</europeana:population>
+	<wgs:lat>-33.6</wgs:lat>
+	<wgs:long>26.9</wgs:long>
+	<skos:altLabel>Kowie</skos:altLabel>
+	<skos:altLabel>Port Alfred</skos:altLabel>
+	<skos:altLabel>The Kowie</skos:altLabel>
+	<skos:prefLabel>Port Alfred</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/964642/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.43333</wgs:lat>
+	<wgs:long>21.3</wgs:long>
+	<skos:altLabel>Pokie Island</skos:altLabel>
+	<skos:altLabel>Pokie-eiland</skos:altLabel>
+	<skos:altLabel>Pokkies Eiland</skos:altLabel>
+	<skos:prefLabel>Pokkies Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/964712/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19445</europeana:population>
+	<wgs:lat>-34.05</wgs:lat>
+	<wgs:long>23.36667</wgs:long>
+	<skos:altLabel>Formosa</skos:altLabel>
+	<skos:altLabel xml:lang="en">Plettenberg</skos:altLabel>
+	<skos:altLabel xml:lang="en">Plettenberg Bay</skos:altLabel>
+	<skos:altLabel>Plettenberg Bay</skos:altLabel>
+	<skos:altLabel>Plettenbergbaai</skos:altLabel>
+	<skos:prefLabel>Plettenberg Bay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/965241/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>84349</europeana:population>
+	<wgs:lat>-27</wgs:lat>
+	<wgs:long>30.8</wgs:long>
+	<skos:altLabel>Piet Retief</skos:altLabel>
+	<skos:prefLabel>Piet Retief</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/965289/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>123749</europeana:population>
+	<wgs:lat>-23.9</wgs:lat>
+	<wgs:long>29.45</wgs:long>
+	<skos:altLabel>Pietersburg</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Pietersburg</skos:altLabel>
+	<skos:altLabel xml:lang="af">Pietersburg</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Polokvanė</skos:altLabel>
+	<skos:altLabel xml:lang="de">Polokwane</skos:altLabel>
+	<skos:altLabel xml:lang="af">Polokwane</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Polokwane</skos:altLabel>
+	<skos:altLabel xml:lang="en">Polokwane</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Polokwane</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Polokwane</skos:altLabel>
+	<skos:altLabel>Polokwane</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Полокване</skos:altLabel>
+	<skos:prefLabel>Polokwane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/965301/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>750845</europeana:population>
+	<wgs:lat>-29.61667</wgs:lat>
+	<wgs:long>30.38333</wgs:long>
+	<skos:altLabel>Maritzburg</skos:altLabel>
+	<skos:altLabel>Pietermaritsburg</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Pietermaritzburg</skos:altLabel>
+	<skos:altLabel xml:lang="en">Pietermaritzburg</skos:altLabel>
+	<skos:altLabel xml:lang="af">Pietermaritzburg</skos:altLabel>
+	<skos:altLabel xml:lang="de">Pietermaritzburg</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Pietermaritzburg</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Pietermaritzburg</skos:altLabel>
+	<skos:altLabel xml:lang="es">Pietermaritzburg</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Pietermaritzburg</skos:altLabel>
+	<skos:altLabel xml:lang="da">Pietermaritzburg</skos:altLabel>
+	<skos:altLabel>Pietermaritzburg</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Pitermaricburgas</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Питермарицбург</skos:altLabel>
+	<skos:prefLabel>Pietermaritzburg</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/965401/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>84258</europeana:population>
+	<wgs:lat>-28.53333</wgs:lat>
+	<wgs:long>28.81667</wgs:long>
+	<skos:altLabel>Phutaditjhaba</skos:altLabel>
+	<skos:altLabel xml:lang="de">Phuthaditjhaba</skos:altLabel>
+	<skos:altLabel xml:lang="es">Phuthaditjhaba</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Phuthaditjhaba</skos:altLabel>
+	<skos:altLabel xml:lang="en">Phuthaditjhaba</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Phuthaditjhaba</skos:altLabel>
+	<skos:altLabel>Phuthaditjhaba</skos:altLabel>
+	<skos:prefLabel>Phuthaditjhaba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/965528/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>109468</europeana:population>
+	<wgs:lat>-23.95</wgs:lat>
+	<wgs:long>31.11667</wgs:long>
+	<skos:altLabel>Palabora</skos:altLabel>
+	<skos:altLabel xml:lang="en">Phalaborwa</skos:altLabel>
+	<skos:altLabel xml:lang="de">Phalaborwa</skos:altLabel>
+	<skos:altLabel xml:lang="af">Phalaborwa</skos:altLabel>
+	<skos:altLabel>Phalaborwa</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Палаборва</skos:altLabel>
+	<skos:prefLabel>Phalaborwa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/965826/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.76667</wgs:lat>
+	<wgs:long>20.81667</wgs:long>
+	<skos:prefLabel>Perde-eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/965827/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.71667</wgs:lat>
+	<wgs:long>20.5</wgs:long>
+	<skos:altLabel>Paarden Island</skos:altLabel>
+	<skos:altLabel>Perde-eiland</skos:altLabel>
+	<skos:prefLabel>Perde-eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/965959/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.8</wgs:lat>
+	<wgs:long>32.08333</wgs:long>
+	<skos:prefLabel>Pelican Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/966166/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>71319</europeana:population>
+	<wgs:lat>-26.9</wgs:lat>
+	<wgs:long>27.45</wgs:long>
+	<skos:altLabel xml:lang="en">Parys</skos:altLabel>
+	<skos:altLabel xml:lang="af">Parys</skos:altLabel>
+	<skos:altLabel>Parys</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Парис</skos:altLabel>
+	<skos:prefLabel>Parys</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/966380/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21800</europeana:population>
+	<wgs:lat>-27.78333</wgs:lat>
+	<wgs:long>24.68333</wgs:long>
+	<skos:altLabel>Pampierstad</skos:altLabel>
+	<skos:altLabel>Pampierstat</skos:altLabel>
+	<skos:prefLabel>Pampierstad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/967019/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-34.01667</wgs:lat>
+	<wgs:long>20.61667</wgs:long>
+	<skos:prefLabel>Oupos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/967106/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>76708</europeana:population>
+	<wgs:lat>-33.59067</wgs:lat>
+	<wgs:long>22.2014</wgs:long>
+	<skos:altLabel xml:lang="de">Oudtshoorn</skos:altLabel>
+	<skos:altLabel xml:lang="af">Oudtshoorn</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Oudtshoorn</skos:altLabel>
+	<skos:altLabel xml:lang="en">Oudtshoorn</skos:altLabel>
+	<skos:altLabel xml:lang="it">Oudtshoorn</skos:altLabel>
+	<skos:prefLabel>Oudtshoorn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/967315/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-30.55</wgs:lat>
+	<wgs:long>25.18333</wgs:long>
+	<skos:prefLabel>Ossewatrek</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/967316/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-23.85</wgs:lat>
+	<wgs:long>29.46667</wgs:long>
+	<skos:prefLabel>Ossewatrek</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/967429/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.6</wgs:lat>
+	<wgs:long>20.33333</wgs:long>
+	<skos:prefLabel>Oseiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/967476/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>145801</europeana:population>
+	<wgs:lat>-26.98333</wgs:lat>
+	<wgs:long>26.66667</wgs:long>
+	<skos:altLabel>Eastleigh</skos:altLabel>
+	<skos:altLabel xml:lang="en">Orkney</skos:altLabel>
+	<skos:altLabel>Orkney</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Оркнейские</skos:altLabel>
+	<skos:prefLabel>Orkney</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/967573/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>2740946</europeana:population>
+	<wgs:lat>-29</wgs:lat>
+	<wgs:long>26</wgs:long>
+	<skos:altLabel>Free State</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Fristaten</skos:altLabel>
+	<skos:altLabel>OFS</skos:altLabel>
+	<skos:altLabel>Orange Free State</skos:altLabel>
+	<skos:altLabel>Oranje-Vrystaat</skos:altLabel>
+	<skos:altLabel>Province of the Orange Free State</skos:altLabel>
+	<skos:prefLabel>Free State</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/968048/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.73333</wgs:lat>
+	<wgs:long>20.86667</wgs:long>
+	<skos:prefLabel>Onderste Komseilande</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/968665/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20527</europeana:population>
+	<wgs:lat>-24.7</wgs:lat>
+	<wgs:long>28.4</wgs:long>
+	<skos:altLabel>Nylstroom</skos:altLabel>
+	<skos:prefLabel>Nylstroom</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/969661/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-27.91667</wgs:lat>
+	<wgs:long>32.91667</wgs:long>
+	<skos:prefLabel>North Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/969830/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-23.78333</wgs:lat>
+	<wgs:long>29.63333</wgs:long>
+	<skos:prefLabel>Nooitgedacht Gedenkteken</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/970341/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>30138</europeana:population>
+	<wgs:lat>-23.88333</wgs:lat>
+	<wgs:long>30.28333</wgs:long>
+	<skos:prefLabel>Nkowakowa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/970566/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>140644</europeana:population>
+	<wgs:lat>-26.41667</wgs:lat>
+	<wgs:long>28.46667</wgs:long>
+	<skos:altLabel xml:lang="en">Nigel</skos:altLabel>
+	<skos:altLabel>Nigel</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Найджел</skos:altLabel>
+	<skos:prefLabel>Nigel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/971421/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>404838</europeana:population>
+	<wgs:lat>-27.75</wgs:lat>
+	<wgs:long>29.93333</wgs:long>
+	<skos:altLabel>Newcastle</skos:altLabel>
+	<skos:prefLabel>Newcastle</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/971483/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.76667</wgs:lat>
+	<wgs:long>20.73333</wgs:long>
+	<skos:altLabel>Neus Island</skos:altLabel>
+	<skos:altLabel>Neuseiland</skos:altLabel>
+	<skos:prefLabel>Neuseiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/971534/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>110159</europeana:population>
+	<wgs:lat>-25.46667</wgs:lat>
+	<wgs:long>30.96667</wgs:long>
+	<skos:altLabel xml:lang="id">Nelspruit</skos:altLabel>
+	<skos:altLabel xml:lang="de">Nelspruit</skos:altLabel>
+	<skos:altLabel xml:lang="en">Nelspruit</skos:altLabel>
+	<skos:altLabel xml:lang="et">Nelspruit</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Nelspruit</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Nelspruit</skos:altLabel>
+	<skos:altLabel xml:lang="af">Nelspruit</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Nelspruit</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Nelspruit</skos:altLabel>
+	<skos:altLabel xml:lang="es">Nelspruit</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Nelspruit</skos:altLabel>
+	<skos:altLabel>Nelspruit</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Nelsprutas</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Нелспруит</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ネルスプロイト</skos:altLabel>
+	<skos:prefLabel>Nelspruit</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/972062/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>10154469</europeana:population>
+	<wgs:lat>-29</wgs:lat>
+	<wgs:long>30</wgs:long>
+	<skos:altLabel>KwaZulu-Natal</skos:altLabel>
+	<skos:altLabel xml:lang="sv">KwaZulu-Natal</skos:altLabel>
+	<skos:altLabel>Natal</skos:altLabel>
+	<skos:altLabel>Province of KwaZulu-Natal</skos:altLabel>
+	<skos:altLabel>Province of KwaZulu/Natal</skos:altLabel>
+	<skos:altLabel>Province of Natal</skos:altLabel>
+	<skos:prefLabel>Province of KwaZulu-Natal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/972146/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.71667</wgs:lat>
+	<wgs:long>21.05</wgs:long>
+	<skos:prefLabel>Namapeiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/973111/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>140121</europeana:population>
+	<wgs:lat>-29.81667</wgs:lat>
+	<wgs:long>30.61667</wgs:long>
+	<skos:prefLabel>Mpumalanga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/973139/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>26229</europeana:population>
+	<wgs:lat>-29.56667</wgs:lat>
+	<wgs:long>30.2</wgs:long>
+	<skos:prefLabel>Mpophomeni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/974222/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10132</europeana:population>
+	<wgs:lat>-29.2</wgs:lat>
+	<wgs:long>29.98333</wgs:long>
+	<skos:altLabel xml:lang="en">Mooi River</skos:altLabel>
+	<skos:altLabel>Mooirivier</skos:altLabel>
+	<skos:altLabel>Mooirivier</skos:altLabel>
+	<skos:prefLabel>Mooirivier</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/974670/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>44922</europeana:population>
+	<wgs:lat>-27.98333</wgs:lat>
+	<wgs:long>30.71667</wgs:long>
+	<skos:prefLabel>Mondlo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/974719/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10078</europeana:population>
+	<wgs:lat>-31.4</wgs:lat>
+	<wgs:long>26.36667</wgs:long>
+	<skos:prefLabel>Molteno</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/975436/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>76754</europeana:population>
+	<wgs:lat>-25.85</wgs:lat>
+	<wgs:long>25.63333</wgs:long>
+	<skos:altLabel>Mabatho</skos:altLabel>
+	<skos:altLabel>Mbabatho</skos:altLabel>
+	<skos:altLabel xml:lang="en">Mmabatho</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Mmabatho</skos:altLabel>
+	<skos:altLabel xml:lang="de">Mmabatho</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Mmabatho</skos:altLabel>
+	<skos:altLabel>Mmabatho</skos:altLabel>
+	<skos:prefLabel>Mmabatho</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/975657/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.23333</wgs:lat>
+	<wgs:long>32.46667</wgs:long>
+	<skos:prefLabel>Mitchell Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/976323/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.7</wgs:lat>
+	<wgs:long>20.5</wgs:long>
+	<skos:prefLabel>Middeleiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/976358/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18164</europeana:population>
+	<wgs:lat>-31.48333</wgs:lat>
+	<wgs:long>25.01667</wgs:long>
+	<skos:prefLabel>Middelburg</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/976361/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>154706</europeana:population>
+	<wgs:lat>-25.78333</wgs:lat>
+	<wgs:long>29.46667</wgs:long>
+	<skos:altLabel>Middelberg</skos:altLabel>
+	<skos:altLabel>Middelburg</skos:altLabel>
+	<skos:prefLabel>Middelburg</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/976885/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20191</europeana:population>
+	<wgs:lat>-22.35</wgs:lat>
+	<wgs:long>30.05</wgs:long>
+	<skos:prefLabel>Messina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/977076/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-25.73333</wgs:lat>
+	<wgs:long>30.1</wgs:long>
+	<skos:prefLabel>Memorial Gedenkbeeld</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/977205/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.73333</wgs:lat>
+	<wgs:long>21.05</wgs:long>
+	<skos:prefLabel>Melkboseiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/978677/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10839</europeana:population>
+	<wgs:lat>-28.66667</wgs:lat>
+	<wgs:long>27.43333</wgs:long>
+	<skos:altLabel>Marquard</skos:altLabel>
+	<skos:prefLabel>Marquard</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/978699/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-29.25</wgs:lat>
+	<wgs:long>26.81667</wgs:long>
+	<skos:prefLabel>Marokashoek</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/978770/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-29</wgs:lat>
+	<wgs:long>29.88333</wgs:long>
+	<skos:prefLabel>Maritz Monument</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/978895/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>34407</europeana:population>
+	<wgs:lat>-30.85</wgs:lat>
+	<wgs:long>30.36667</wgs:long>
+	<skos:altLabel>Berkleys</skos:altLabel>
+	<skos:altLabel>Margate</skos:altLabel>
+	<skos:altLabel>Margate No. 4</skos:altLabel>
+	<skos:prefLabel>Margate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/979365/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12499</europeana:population>
+	<wgs:lat>-23.9</wgs:lat>
+	<wgs:long>29.81667</wgs:long>
+	<skos:prefLabel>Mankoeng</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/979385/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-28.5</wgs:lat>
+	<wgs:long>20.08333</wgs:long>
+	<skos:prefLabel>Manie Maritz se Fort</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/980921/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>97417</europeana:population>
+	<wgs:lat>-25.50722</wgs:lat>
+	<wgs:long>28.1075</wgs:long>
+	<skos:prefLabel>Mabopane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/981158/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21695</europeana:population>
+	<wgs:lat>-25.1</wgs:lat>
+	<wgs:long>30.45</wgs:long>
+	<skos:altLabel>Lydenburg</skos:altLabel>
+	<skos:prefLabel>Lydenburg</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/981381/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-28.9</wgs:lat>
+	<wgs:long>26.4</wgs:long>
+	<skos:prefLabel>Lumsden’s Horse Monument</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/981755/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-30.45</wgs:lat>
+	<wgs:long>25.95</wgs:long>
+	<skos:prefLabel>Louw Wepener</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/981827/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>86854</europeana:population>
+	<wgs:lat>-23.05</wgs:lat>
+	<wgs:long>29.9</wgs:long>
+	<skos:altLabel>Louis Trichardt</skos:altLabel>
+	<skos:prefLabel>Louis Trichardt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/982728/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-24.68333</wgs:lat>
+	<wgs:long>31.93333</wgs:long>
+	<skos:prefLabel>Lindanda Memorial</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/982899/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>65863</europeana:population>
+	<wgs:lat>-26.15</wgs:lat>
+	<wgs:long>26.16667</wgs:long>
+	<skos:altLabel xml:lang="af">Lichtenburg</skos:altLabel>
+	<skos:altLabel xml:lang="en">Lichtenburg</skos:altLabel>
+	<skos:altLabel>Lichtenburg</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Лихтенбурге</skos:altLabel>
+	<skos:prefLabel>Lichtenburg</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/983187/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.58333</wgs:lat>
+	<wgs:long>20.33333</wgs:long>
+	<skos:prefLabel>Lenhoff se Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/983393/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-34.06781</wgs:lat>
+	<wgs:long>23.06052</wgs:long>
+	<skos:altLabel>Leisure</skos:altLabel>
+	<skos:altLabel>Leisure Isle</skos:altLabel>
+	<skos:altLabel>Steenbok Island</skos:altLabel>
+	<skos:prefLabel>Leisure Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/984087/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>33308</europeana:population>
+	<wgs:lat>-24.2</wgs:lat>
+	<wgs:long>29.5</wgs:long>
+	<skos:altLabel>Lebowakgomo</skos:altLabel>
+	<skos:prefLabel>Lebowakgomo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/984796/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.03333</wgs:lat>
+	<wgs:long>32.48333</wgs:long>
+	<skos:altLabel>Bird Island</skos:altLabel>
+	<skos:altLabel>Birdeiland</skos:altLabel>
+	<skos:altLabel>Lane Island</skos:altLabel>
+	<skos:prefLabel>Lane Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/985011/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>25041</europeana:population>
+	<wgs:lat>-31.7</wgs:lat>
+	<wgs:long>27.23333</wgs:long>
+	<skos:prefLabel>Lady Frere</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/985015/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17228</europeana:population>
+	<wgs:lat>-29.2</wgs:lat>
+	<wgs:long>27.45</wgs:long>
+	<skos:altLabel>Ladybrand</skos:altLabel>
+	<skos:prefLabel>Ladybrand</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/986083/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>95008</europeana:population>
+	<wgs:lat>-27.83333</wgs:lat>
+	<wgs:long>26.75</wgs:long>
+	<skos:prefLabel>Kutloanong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/986717/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18991</europeana:population>
+	<wgs:lat>-34</wgs:lat>
+	<wgs:long>24.73333</wgs:long>
+	<skos:prefLabel>Kruisfontein</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/986822/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>378821</europeana:population>
+	<wgs:lat>-26.1</wgs:lat>
+	<wgs:long>27.76667</wgs:long>
+	<skos:altLabel xml:lang="pl">Krugersdorp</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Krugersdorp</skos:altLabel>
+	<skos:altLabel xml:lang="en">Krugersdorp</skos:altLabel>
+	<skos:altLabel xml:lang="af">Krugersdorp</skos:altLabel>
+	<skos:altLabel>Krugersdorp</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Krugersdorpas</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Крюгерсдорпа</skos:altLabel>
+	<skos:prefLabel>Krugersdorp</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/986846/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>103992</europeana:population>
+	<wgs:lat>-27.65</wgs:lat>
+	<wgs:long>27.23333</wgs:long>
+	<skos:altLabel>Kroonstad</skos:altLabel>
+	<skos:prefLabel>Kroonstad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/987202/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15055</europeana:population>
+	<wgs:lat>-26.26667</wgs:lat>
+	<wgs:long>29.23333</wgs:long>
+	<skos:prefLabel>Kriel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/987648/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12126</europeana:population>
+	<wgs:lat>-25.86667</wgs:lat>
+	<wgs:long>26.9</wgs:long>
+	<skos:altLabel>Koster</skos:altLabel>
+	<skos:prefLabel>Koster</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/987712/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.6</wgs:lat>
+	<wgs:long>20.36667</wgs:long>
+	<skos:prefLabel>Korraeiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/987875/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11445</europeana:population>
+	<wgs:lat>-27.23333</wgs:lat>
+	<wgs:long>27.58333</wgs:long>
+	<skos:altLabel>Kopjes</skos:altLabel>
+	<skos:altLabel>Koppies</skos:altLabel>
+	<skos:prefLabel>Koppies</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/988290/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20508</europeana:population>
+	<wgs:lat>-25.43333</wgs:lat>
+	<wgs:long>31.93333</wgs:long>
+	<skos:altLabel>Komatipoort</skos:altLabel>
+	<skos:prefLabel>Komatipoort</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/988356/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>25373</europeana:population>
+	<wgs:lat>-30.55</wgs:lat>
+	<wgs:long>29.41667</wgs:long>
+	<skos:prefLabel>Kokstad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/988512/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.66667</wgs:lat>
+	<wgs:long>21.08333</wgs:long>
+	<skos:prefLabel>Koeieiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/988698/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>63106</europeana:population>
+	<wgs:lat>-34.03627</wgs:lat>
+	<wgs:long>23.04713</wgs:long>
+	<skos:altLabel>De Nysna</skos:altLabel>
+	<skos:altLabel xml:lang="de">Knysna</skos:altLabel>
+	<skos:altLabel xml:lang="af">Knysna</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Knysna</skos:altLabel>
+	<skos:altLabel xml:lang="en">Knysna</skos:altLabel>
+	<skos:altLabel xml:lang="it">Knysna</skos:altLabel>
+	<skos:prefLabel>Knysna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/989740/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.78333</wgs:lat>
+	<wgs:long>20.78333</wgs:long>
+	<skos:prefLabel>Klipeiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/989741/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.76667</wgs:lat>
+	<wgs:long>20.83333</wgs:long>
+	<skos:prefLabel>Klipeiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/989921/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>178921</europeana:population>
+	<wgs:lat>-26.86667</wgs:lat>
+	<wgs:long>26.66667</wgs:long>
+	<skos:altLabel>Klerksdorp</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Клерксдорп</skos:altLabel>
+	<skos:prefLabel>Klerksdorp</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/990014/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.63333</wgs:lat>
+	<wgs:long>20.38333</wgs:long>
+	<skos:prefLabel>Klein-Vaalkopeiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/990760/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.61667</wgs:lat>
+	<wgs:long>20.35</wgs:long>
+	<skos:altLabel>Klaas Island</skos:altLabel>
+	<skos:altLabel>Klaaseiland</skos:altLabel>
+	<skos:prefLabel>Klaaseiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/990802/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10148</europeana:population>
+	<wgs:lat>-33.41556</wgs:lat>
+	<wgs:long>25.44361</wgs:long>
+	<skos:altLabel>Kirkwood</skos:altLabel>
+	<skos:prefLabel>Kirkwood</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/990930/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>142089</europeana:population>
+	<wgs:lat>-28.73333</wgs:lat>
+	<wgs:long>24.76667</wgs:long>
+	<skos:altLabel xml:lang="en">Kimberley</skos:altLabel>
+	<skos:altLabel xml:lang="af">Kimberley</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kimberley</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kimberley</skos:altLabel>
+	<skos:altLabel xml:lang="es">Kimberley</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Kimberley</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Kimberley</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Kimberley</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Kimberley</skos:altLabel>
+	<skos:altLabel xml:lang="it">Kimberley</skos:altLabel>
+	<skos:altLabel xml:lang="da">Kimberley</skos:altLabel>
+	<skos:altLabel>Kimberley</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Kimberlis</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кимберли</skos:altLabel>
+	<skos:altLabel xml:lang="ko">킴벌리</skos:altLabel>
+	<skos:prefLabel>Kimberley</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/991459/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.7</wgs:lat>
+	<wgs:long>20.51667</wgs:long>
+	<skos:prefLabel>Kelkarieseiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/991906/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-28.23333</wgs:lat>
+	<wgs:long>30.13333</wgs:long>
+	<skos:prefLabel>Karel Landman Monument</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/992228/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-28.53333</wgs:lat>
+	<wgs:long>24.55</wgs:long>
+	<skos:prefLabel>Kantienkoppie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/992263/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.65</wgs:lat>
+	<wgs:long>21.08333</wgs:long>
+	<skos:prefLabel>Kanoneiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/993678/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.46667</wgs:lat>
+	<wgs:long>21.21667</wgs:long>
+	<skos:altLabel>Jooste Island</skos:altLabel>
+	<skos:altLabel>Jooste-eiland</skos:altLabel>
+	<skos:prefLabel>Jooste-eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/993800/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>2026469</europeana:population>
+	<wgs:lat>-26.20227</wgs:lat>
+	<wgs:long>28.04363</wgs:long>
+	<skos:altLabel xml:lang="zu">EGoli</skos:altLabel>
+	<skos:altLabel xml:lang="zu">IGoli</skos:altLabel>
+	<skos:altLabel xml:lang="en">Jo'anna</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Joanesburgo</skos:altLabel>
+	<skos:altLabel>Joburg</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Johanesburgas</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Johanesburgo</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Johannesbourg</skos:altLabel>
+	<skos:altLabel xml:lang="id">Johannesburg</skos:altLabel>
+	<skos:altLabel xml:lang="af">Johannesburg</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Johannesburg</skos:altLabel>
+	<skos:altLabel xml:lang="de">Johannesburg</skos:altLabel>
+	<skos:altLabel xml:lang="da">Johannesburg</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Johannesburg</skos:altLabel>
+	<skos:altLabel xml:lang="it">Johannesburg</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Johannesburg</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Johannesburg</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Johannesburg</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Johannesburg</skos:altLabel>
+	<skos:altLabel xml:lang="no">Johannesburg</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Johannesburg</skos:altLabel>
+	<skos:altLabel xml:lang="et">Johannesburg</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Johannesburg</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Johannesburg</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Johannesburg</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Johannesburg</skos:altLabel>
+	<skos:altLabel xml:lang="en">Johannesburg</skos:altLabel>
+	<skos:altLabel xml:lang="es">Johannesburgo</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Johannesburgo</skos:altLabel>
+	<skos:altLabel xml:lang="is">Jóhannesarborg</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Јоханезбург</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Јоханесбург</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Јоханесбург</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Йоханесбург</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Йоханнесбург</skos:altLabel>
+	<skos:altLabel xml:lang="he">יוהנסבורג</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جوهانسبرغ</skos:altLabel>
+	<skos:altLabel xml:lang="ug">يوھاننېسبۇرگ</skos:altLabel>
+	<skos:altLabel xml:lang="fa">ژوهانسبورگ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ヨハネスブルグ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">约翰内斯堡</skos:altLabel>
+	<skos:altLabel xml:lang="ko">요하네스버그</skos:altLabel>
+	<skos:prefLabel>Johannesburg</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/993911/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11698</europeana:population>
+	<wgs:lat>-34.05</wgs:lat>
+	<wgs:long>24.91667</wgs:long>
+	<skos:altLabel>Jeffreysbaai</skos:altLabel>
+	<skos:altLabel>Jeffrey’s Bay</skos:altLabel>
+	<skos:prefLabel>Jeffrey’s Bay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/994023/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13485</europeana:population>
+	<wgs:lat>-27.91667</wgs:lat>
+	<wgs:long>24.85</wgs:long>
+	<skos:altLabel>Andalusia</skos:altLabel>
+	<skos:altLabel>Jan Kemp</skos:altLabel>
+	<skos:altLabel>Jan Kempdorp</skos:altLabel>
+	<skos:prefLabel>Jan Kempdorp</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/994199/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-33.8</wgs:lat>
+	<wgs:long>25.7</wgs:long>
+	<skos:altLabel>Jaheel Island</skos:altLabel>
+	<skos:altLabel>Jahleel Island</skos:altLabel>
+	<skos:prefLabel>Jahleel Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/994450/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-28.5</wgs:lat>
+	<wgs:long>31.03333</wgs:long>
+	<skos:prefLabel>Itala Monument</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/994939/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10899</europeana:population>
+	<wgs:lat>-31.96667</wgs:lat>
+	<wgs:long>27.05</wgs:long>
+	<skos:prefLabel>Ilinge</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/995202/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>28725</europeana:population>
+	<wgs:lat>-29.46667</wgs:lat>
+	<wgs:long>30.23333</wgs:long>
+	<skos:altLabel>Howick</skos:altLabel>
+	<skos:prefLabel>Howick</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/995573/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12663</europeana:population>
+	<wgs:lat>-27.83333</wgs:lat>
+	<wgs:long>25.91667</wgs:long>
+	<skos:altLabel>Hoopstad</skos:altLabel>
+	<skos:prefLabel>Hoopstad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/996918/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>22847</europeana:population>
+	<wgs:lat>-27.96667</wgs:lat>
+	<wgs:long>27.03333</wgs:long>
+	<skos:altLabel>Hennenman</skos:altLabel>
+	<skos:prefLabel>Hennenman</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/996930/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15871</europeana:population>
+	<wgs:lat>-26.15</wgs:lat>
+	<wgs:long>29.71667</wgs:long>
+	<skos:prefLabel>Hendrina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/997140/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>55196</europeana:population>
+	<wgs:lat>-27.28333</wgs:lat>
+	<wgs:long>27.96667</wgs:long>
+	<skos:prefLabel>Heilbron</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/997151/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>64199</europeana:population>
+	<wgs:lat>-26.5</wgs:lat>
+	<wgs:long>28.35</wgs:long>
+	<skos:altLabel>Heidelberg</skos:altLabel>
+	<skos:altLabel>Heidelburg</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гейдельберг</skos:altLabel>
+	<skos:prefLabel>Heidelberg</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/997751/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>35108</europeana:population>
+	<wgs:lat>-28.28333</wgs:lat>
+	<wgs:long>29.13333</wgs:long>
+	<skos:altLabel>Harrismith</skos:altLabel>
+	<skos:prefLabel>Harrismith</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/998915/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.61667</wgs:lat>
+	<wgs:long>20.38333</wgs:long>
+	<skos:altLabel>Groot Island</skos:altLabel>
+	<skos:altLabel>Groot-Vaalkopeiland</skos:altLabel>
+	<skos:altLabel>Grooteiland</skos:altLabel>
+	<skos:prefLabel>Groot-Vaalkopeiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/999067/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.71667</wgs:lat>
+	<wgs:long>21.06667</wgs:long>
+	<skos:prefLabel>Groot Piet-Smaleiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/999508/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-26.93333</wgs:lat>
+	<wgs:long>27.41667</wgs:long>
+	<skos:prefLabel>Grooteiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/999509/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-26.86667</wgs:lat>
+	<wgs:long>28.16667</wgs:long>
+	<skos:prefLabel>Grooteiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1000006/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13912</europeana:population>
+	<wgs:lat>-29.06667</wgs:lat>
+	<wgs:long>30.58333</wgs:long>
+	<skos:altLabel>Greytown</skos:altLabel>
+	<skos:prefLabel>Greytown</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1000414/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.7</wgs:lat>
+	<wgs:long>21.05</wgs:long>
+	<skos:prefLabel>Graseiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1000501/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>91548</europeana:population>
+	<wgs:lat>-33.3</wgs:lat>
+	<wgs:long>26.53333</wgs:long>
+	<skos:altLabel>Grahamstad</skos:altLabel>
+	<skos:altLabel xml:lang="af">Grahamstad</skos:altLabel>
+	<skos:altLabel xml:lang="de">Grahamstown</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Grahamstown</skos:altLabel>
+	<skos:altLabel xml:lang="en">Grahamstown</skos:altLabel>
+	<skos:altLabel>Grahamstown</skos:altLabel>
+	<skos:prefLabel>Grahamstown</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1000543/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>62896</europeana:population>
+	<wgs:lat>-32.25215</wgs:lat>
+	<wgs:long>24.53075</wgs:long>
+	<skos:altLabel>Graaf Reinet</skos:altLabel>
+	<skos:altLabel xml:lang="en">Graaff Reinet</skos:altLabel>
+	<skos:altLabel xml:lang="de">Graaff-Reinet</skos:altLabel>
+	<skos:altLabel xml:lang="af">Graaff-Reinet</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Graaff-Reinet</skos:altLabel>
+	<skos:prefLabel>Graaff-Reinet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1000620/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-33.26667</wgs:lat>
+	<wgs:long>26.68333</wgs:long>
+	<skos:prefLabel>Governors Kop Tower</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1000783/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-28.55</wgs:lat>
+	<wgs:long>30.46667</wgs:long>
+	<skos:prefLabel>Gordon Memorial</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1000994/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-26.88333</wgs:lat>
+	<wgs:long>27.46667</wgs:long>
+	<skos:altLabel>Golf Island</skos:altLabel>
+	<skos:altLabel>Long Island</skos:altLabel>
+	<skos:prefLabel>Golf Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1001736/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13547</europeana:population>
+	<wgs:lat>-28.18333</wgs:lat>
+	<wgs:long>30.15</wgs:long>
+	<skos:altLabel>Glencoe</skos:altLabel>
+	<skos:prefLabel>Glencoe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1001860/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>37024</europeana:population>
+	<wgs:lat>-23.31667</wgs:lat>
+	<wgs:long>30.71667</wgs:long>
+	<skos:altLabel>Giyane</skos:altLabel>
+	<skos:altLabel>Giyani</skos:altLabel>
+	<skos:prefLabel>Giyani</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1002145/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>174582</europeana:population>
+	<wgs:lat>-33.96667</wgs:lat>
+	<wgs:long>22.45</wgs:long>
+	<skos:altLabel xml:lang="fr">George</skos:altLabel>
+	<skos:altLabel xml:lang="af">George</skos:altLabel>
+	<skos:altLabel xml:lang="en">George</skos:altLabel>
+	<skos:altLabel xml:lang="it">George</skos:altLabel>
+	<skos:altLabel>George</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Джордж</skos:altLabel>
+	<skos:prefLabel>George</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1002620/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.7</wgs:lat>
+	<wgs:long>21.05</wgs:long>
+	<skos:prefLabel>Geelboseiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1002851/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>68767</europeana:population>
+	<wgs:lat>-25.61667</wgs:lat>
+	<wgs:long>27.98333</wgs:long>
+	<skos:prefLabel>Ga-Rankuwa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1003462/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13000</europeana:population>
+	<wgs:lat>-23.63333</wgs:lat>
+	<wgs:long>30.21667</wgs:long>
+	<skos:altLabel>Ga-Kgapane</skos:altLabel>
+	<skos:prefLabel>GAKGAPANE</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1003764/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>38006</europeana:population>
+	<wgs:lat>-27.26667</wgs:lat>
+	<wgs:long>28.48333</wgs:long>
+	<skos:prefLabel>Frankfort</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1003867/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.75</wgs:lat>
+	<wgs:long>20.83333</wgs:long>
+	<skos:prefLabel>Foster Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1003909/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-29.41667</wgs:lat>
+	<wgs:long>29.91667</wgs:long>
+	<skos:prefLabel>Fort Nottingham</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1003941/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-29.01667</wgs:lat>
+	<wgs:long>29.88333</wgs:long>
+	<skos:prefLabel>Fort Durnford</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1003953/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>58419</europeana:population>
+	<wgs:lat>-32.78333</wgs:lat>
+	<wgs:long>26.63333</wgs:long>
+	<skos:altLabel>Fort Beaufort</skos:altLabel>
+	<skos:prefLabel>Fort Beaufort</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1003958/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-27.78333</wgs:lat>
+	<wgs:long>30.08333</wgs:long>
+	<skos:prefLabel>Fort Albert</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1004109/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>62416</europeana:population>
+	<wgs:lat>-26.48333</wgs:lat>
+	<wgs:long>27.5</wgs:long>
+	<skos:altLabel xml:lang="fr">Fochville</skos:altLabel>
+	<skos:altLabel xml:lang="en">Fochville</skos:altLabel>
+	<skos:altLabel>Fochville</skos:altLabel>
+	<skos:prefLabel>Fochville</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1004471/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.1</wgs:lat>
+	<wgs:long>32.45</wgs:long>
+	<skos:altLabel>Fanies Island</skos:altLabel>
+	<skos:altLabel>Fanieseiland</skos:altLabel>
+	<skos:altLabel>Fanis Island</skos:altLabel>
+	<skos:altLabel>Faniseisland</skos:altLabel>
+	<skos:altLabel>Fenieseiland</skos:altLabel>
+	<skos:prefLabel>Fanieseiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1005029/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>49265</europeana:population>
+	<wgs:lat>-28.88333</wgs:lat>
+	<wgs:long>31.9</wgs:long>
+	<skos:altLabel>Esikhawini Township</skos:altLabel>
+	<skos:altLabel>eSikhawini</skos:altLabel>
+	<skos:prefLabel>eSikhawini</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1005040/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14786</europeana:population>
+	<wgs:lat>-28.88333</wgs:lat>
+	<wgs:long>31.46667</wgs:long>
+	<skos:altLabel>Eshowe</skos:altLabel>
+	<skos:prefLabel>Eshowe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1005125/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>41124</europeana:population>
+	<wgs:lat>-26.53333</wgs:lat>
+	<wgs:long>29.98333</wgs:long>
+	<skos:altLabel>Ermelo</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Эрмело</skos:altLabel>
+	<skos:prefLabel>Ermelo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1005544/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>28093</europeana:population>
+	<wgs:lat>-28.75</wgs:lat>
+	<wgs:long>31.9</wgs:long>
+	<skos:altLabel>Empangeni</skos:altLabel>
+	<skos:prefLabel>Empangeni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1005646/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>141741</europeana:population>
+	<wgs:lat>-26.53333</wgs:lat>
+	<wgs:long>29.06667</wgs:long>
+	<skos:prefLabel>eMbalenhle</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1005768/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15360</europeana:population>
+	<wgs:lat>-23.66667</wgs:lat>
+	<wgs:long>27.73333</wgs:long>
+	<skos:prefLabel>Ellisras</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1005781/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11836</europeana:population>
+	<wgs:lat>-31.33333</wgs:lat>
+	<wgs:long>27.85</wgs:long>
+	<skos:prefLabel>Elliot</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1005849/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.75</wgs:lat>
+	<wgs:long>20.86667</wgs:long>
+	<skos:prefLabel>Elim Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1006420/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14331</europeana:population>
+	<wgs:lat>-28.46667</wgs:lat>
+	<wgs:long>30.15</wgs:long>
+	<skos:prefLabel>Ekuvukeni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1006984/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>478676</europeana:population>
+	<wgs:lat>-33.01529</wgs:lat>
+	<wgs:long>27.91162</wgs:long>
+	<skos:altLabel xml:lang="en">Buffalo City</skos:altLabel>
+	<skos:altLabel xml:lang="id">East London</skos:altLabel>
+	<skos:altLabel xml:lang="fi">East London</skos:altLabel>
+	<skos:altLabel xml:lang="fr">East London</skos:altLabel>
+	<skos:altLabel xml:lang="pl">East London</skos:altLabel>
+	<skos:altLabel xml:lang="da">East London</skos:altLabel>
+	<skos:altLabel xml:lang="en">East London</skos:altLabel>
+	<skos:altLabel xml:lang="af">Oos Londen</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Oost-Londen</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Yst Londonas</skos:altLabel>
+	<skos:prefLabel>East London</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1007311/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>3120282</europeana:population>
+	<wgs:lat>-29.85</wgs:lat>
+	<wgs:long>31.01667</wgs:long>
+	<skos:altLabel xml:lang="id">Durban</skos:altLabel>
+	<skos:altLabel xml:lang="es">Durban</skos:altLabel>
+	<skos:altLabel xml:lang="de">Durban</skos:altLabel>
+	<skos:altLabel xml:lang="en">Durban</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Durban</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Durban</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Durban</skos:altLabel>
+	<skos:altLabel xml:lang="no">Durban</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Durban</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Durban</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Durban</skos:altLabel>
+	<skos:altLabel xml:lang="af">Durban</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Durban</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Durban</skos:altLabel>
+	<skos:altLabel xml:lang="it">Durban</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Durban</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Durban</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Durban</skos:altLabel>
+	<skos:altLabel>Durban</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Durbanas</skos:altLabel>
+	<skos:altLabel xml:lang="zu">IThekwini</skos:altLabel>
+	<skos:altLabel>Port Natal</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Дурбан</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Дурбан</skos:altLabel>
+	<skos:altLabel xml:lang="ur">ڈربن</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ダーバン</skos:altLabel>
+	<skos:altLabel xml:lang="zh">德班</skos:altLabel>
+	<skos:prefLabel>Durban</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1007400/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>84413</europeana:population>
+	<wgs:lat>-28.16667</wgs:lat>
+	<wgs:long>30.23333</wgs:long>
+	<skos:altLabel xml:lang="en">Dundee</skos:altLabel>
+	<skos:altLabel>Dundee</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Данди</skos:altLabel>
+	<skos:prefLabel>Dundee</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1007514/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>24572</europeana:population>
+	<wgs:lat>-23.7</wgs:lat>
+	<wgs:long>30.13333</wgs:long>
+	<skos:altLabel>Duivelskloof</skos:altLabel>
+	<skos:altLabel>Duiwelskloof</skos:altLabel>
+	<skos:altLabel>Duweiskloof</skos:altLabel>
+	<skos:prefLabel>Duiwelskloof</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1007966/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.75</wgs:lat>
+	<wgs:long>20.56667</wgs:long>
+	<skos:altLabel>Drifeiland</skos:altLabel>
+	<skos:altLabel>Drift Island</skos:altLabel>
+	<skos:prefLabel>Drifeiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1008060/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-30.63333</wgs:lat>
+	<wgs:long>25.5</wgs:long>
+	<skos:prefLabel>Driekopseiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1008061/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-30.61667</wgs:lat>
+	<wgs:long>25.46667</wgs:long>
+	<skos:prefLabel>Driekopseiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1008261/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>28127</europeana:population>
+	<wgs:lat>-27.01667</wgs:lat>
+	<wgs:long>30.45</wgs:long>
+	<skos:prefLabel>Driefontein</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1010496/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-33.25</wgs:lat>
+	<wgs:long>26.93333</wgs:long>
+	<skos:prefLabel>Dick King Route Monument</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1010962/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12397</europeana:population>
+	<wgs:lat>-26.88333</wgs:lat>
+	<wgs:long>28.1</wgs:long>
+	<skos:altLabel>Deneysville</skos:altLabel>
+	<skos:altLabel>Denysville</skos:altLabel>
+	<skos:prefLabel>Deneysville</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1011031/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>92046</europeana:population>
+	<wgs:lat>-26.15</wgs:lat>
+	<wgs:long>28.68333</wgs:long>
+	<skos:altLabel xml:lang="en">Delmas</skos:altLabel>
+	<skos:altLabel>Delmas</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Дельмас</skos:altLabel>
+	<skos:prefLabel>Delmas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1011632/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>32318</europeana:population>
+	<wgs:lat>-30.65</wgs:lat>
+	<wgs:long>24.01667</wgs:long>
+	<skos:altLabel>De Aar</skos:altLabel>
+	<skos:prefLabel>De Aar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1011918/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10123</europeana:population>
+	<wgs:lat>-28.18333</wgs:lat>
+	<wgs:long>23.53333</wgs:long>
+	<skos:prefLabel>Daniëlskuil</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1012413/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>25490</europeana:population>
+	<wgs:lat>-25.67556</wgs:lat>
+	<wgs:long>28.52222</wgs:long>
+	<skos:altLabel>Cullinan</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Куллинан</skos:altLabel>
+	<skos:prefLabel>Cullinan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1012600/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>32898</europeana:population>
+	<wgs:lat>-32.18333</wgs:lat>
+	<wgs:long>25.61667</wgs:long>
+	<skos:altLabel>Cradock</skos:altLabel>
+	<skos:prefLabel>Cradock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1013076/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12423</europeana:population>
+	<wgs:lat>-30.73333</wgs:lat>
+	<wgs:long>25.1</wgs:long>
+	<skos:altLabel>Colesberg</skos:altLabel>
+	<skos:altLabel>Colesberg Dorp</skos:altLabel>
+	<skos:altLabel>Colesberg Town</skos:altLabel>
+	<skos:prefLabel>Colesberg</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1013266/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12318</europeana:population>
+	<wgs:lat>-28.9</wgs:lat>
+	<wgs:long>27.56667</wgs:long>
+	<skos:altLabel>Clocolan</skos:altLabel>
+	<skos:prefLabel>Clocolan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1013550/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17523</europeana:population>
+	<wgs:lat>-27.91667</wgs:lat>
+	<wgs:long>25.16667</wgs:long>
+	<skos:prefLabel>Christiana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1013715/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-27.71667</wgs:lat>
+	<wgs:long>27.68333</wgs:long>
+	<skos:prefLabel>Charl Cillierst Ou Fort</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1014073/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>182304</europeana:population>
+	<wgs:lat>-26.36667</wgs:lat>
+	<wgs:long>27.4</wgs:long>
+	<skos:altLabel xml:lang="en">Carletonville</skos:altLabel>
+	<skos:altLabel>Carletonville</skos:altLabel>
+	<skos:prefLabel>Carletonville</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1014134/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.63333</wgs:lat>
+	<wgs:long>21.11667</wgs:long>
+	<skos:prefLabel>Cannon Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1014489/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>34353</europeana:population>
+	<wgs:lat>-32.33333</wgs:lat>
+	<wgs:long>28.15</wgs:long>
+	<skos:altLabel>Butterworth</skos:altLabel>
+	<skos:altLabel>Gcuwa</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Баттерворта</skos:altLabel>
+	<skos:prefLabel>Butterworth</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1014653/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12548</europeana:population>
+	<wgs:lat>-30.98333</wgs:lat>
+	<wgs:long>26.31667</wgs:long>
+	<skos:altLabel>Burgersdorf</skos:altLabel>
+	<skos:altLabel>Burgersdorp</skos:altLabel>
+	<skos:altLabel>Burghersdorp</skos:altLabel>
+	<skos:prefLabel>Burgersdorp</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1015504/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>27343</europeana:population>
+	<wgs:lat>-25.80833</wgs:lat>
+	<wgs:long>28.74056</wgs:long>
+	<skos:altLabel>Bronkhorstspruit</skos:altLabel>
+	<skos:altLabel>Erasmus</skos:altLabel>
+	<skos:prefLabel>Bronkhorstspruit</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1015621/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>122497</europeana:population>
+	<wgs:lat>-25.63333</wgs:lat>
+	<wgs:long>27.78333</wgs:long>
+	<skos:altLabel>Brits</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Британцы</skos:altLabel>
+	<skos:prefLabel>Brits</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1015694/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12550</europeana:population>
+	<wgs:lat>-26.3</wgs:lat>
+	<wgs:long>29.98333</wgs:long>
+	<skos:altLabel>Breyten</skos:altLabel>
+	<skos:altLabel>Breyton</skos:altLabel>
+	<skos:prefLabel>Breyten</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1015720/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-33.81667</wgs:lat>
+	<wgs:long>25.75</wgs:long>
+	<skos:altLabel>Brenton Island</skos:altLabel>
+	<skos:altLabel>Brenton Rock</skos:altLabel>
+	<skos:prefLabel>Brenton Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1015776/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14936</europeana:population>
+	<wgs:lat>-34.53333</wgs:lat>
+	<wgs:long>20.03333</wgs:long>
+	<skos:altLabel>Bredasdorp</skos:altLabel>
+	<skos:prefLabel>Bredasdorp</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1015969/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12091</europeana:population>
+	<wgs:lat>-28.7</wgs:lat>
+	<wgs:long>26.46667</wgs:long>
+	<skos:altLabel>Brandfort</skos:altLabel>
+	<skos:prefLabel>Brandfort</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1016181/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>305692</europeana:population>
+	<wgs:lat>-26.23333</wgs:lat>
+	<wgs:long>28.36667</wgs:long>
+	<skos:altLabel xml:lang="pl">Brakpan</skos:altLabel>
+	<skos:altLabel xml:lang="af">Brakpan</skos:altLabel>
+	<skos:altLabel xml:lang="en">Brakpan</skos:altLabel>
+	<skos:altLabel>Brakpan</skos:altLabel>
+	<skos:prefLabel>Brakpan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1016441/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.73333</wgs:lat>
+	<wgs:long>21.03333</wgs:long>
+	<skos:prefLabel>Brakboseiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1016670/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>309714</europeana:population>
+	<wgs:lat>-29.23333</wgs:lat>
+	<wgs:long>26.73333</wgs:long>
+	<skos:prefLabel>Botshabelo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1016698/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>71934</europeana:population>
+	<wgs:lat>-27.36667</wgs:lat>
+	<wgs:long>26.61667</wgs:long>
+	<skos:altLabel xml:lang="en">Bothaville</skos:altLabel>
+	<skos:altLabel>Bothaville</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ботавилль</skos:altLabel>
+	<skos:prefLabel>Bothaville</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1017780/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>445168</europeana:population>
+	<wgs:lat>-26.21667</wgs:lat>
+	<wgs:long>28.25</wgs:long>
+	<skos:altLabel xml:lang="pl">Boksburg</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Boksburg</skos:altLabel>
+	<skos:altLabel xml:lang="en">Boksburg</skos:altLabel>
+	<skos:altLabel>Boksburg</skos:altLabel>
+	<skos:prefLabel>Boksburg</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1017860/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.71667</wgs:lat>
+	<wgs:long>20.93333</wgs:long>
+	<skos:altLabel>Bok Island</skos:altLabel>
+	<skos:altLabel>Bokeiland</skos:altLabel>
+	<skos:prefLabel>Bokeiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1018673/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17122</europeana:population>
+	<wgs:lat>-27.65</wgs:lat>
+	<wgs:long>25.6</wgs:long>
+	<skos:prefLabel>Bloemhof</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1018725/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>463064</europeana:population>
+	<wgs:lat>-29.13333</wgs:lat>
+	<wgs:long>26.2</wgs:long>
+	<skos:altLabel xml:lang="id">Bloemfontein</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bloemfontein</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Bloemfontein</skos:altLabel>
+	<skos:altLabel xml:lang="it">Bloemfontein</skos:altLabel>
+	<skos:altLabel xml:lang="de">Bloemfontein</skos:altLabel>
+	<skos:altLabel xml:lang="af">Bloemfontein</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Bloemfontein</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Bloemfontein</skos:altLabel>
+	<skos:altLabel xml:lang="no">Bloemfontein</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Bloemfontein</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Bloemfontein</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Bloemfontein</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Bloemfontein</skos:altLabel>
+	<skos:altLabel xml:lang="es">Bloemfontein</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Bloemfontein</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Bloemfontein</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Bloemfontein</skos:altLabel>
+	<skos:altLabel xml:lang="da">Bloemfontein</skos:altLabel>
+	<skos:altLabel>Bloemfontein</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Blumfonteinas</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μπλουμφοντέιν</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Блумфонтейн</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Блумфонтейн</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Блумфонтејн</skos:altLabel>
+	<skos:altLabel xml:lang="he">בלומפונטיין</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ブルームフォンテーン</skos:altLabel>
+	<skos:altLabel xml:lang="zh">布隆方丹</skos:altLabel>
+	<skos:prefLabel>Bloemfontein</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1019330/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>137287</europeana:population>
+	<wgs:lat>-32.86667</wgs:lat>
+	<wgs:long>27.43333</wgs:long>
+	<skos:altLabel xml:lang="en">Bhisho</skos:altLabel>
+	<skos:altLabel>Bhisho</skos:altLabel>
+	<skos:altLabel xml:lang="de">Bisho</skos:altLabel>
+	<skos:altLabel xml:lang="es">Bisho</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Bisho</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Bisho</skos:altLabel>
+	<skos:altLabel xml:lang="af">Bisho</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Bisho</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Bisho</skos:altLabel>
+	<skos:altLabel xml:lang="da">Bisho</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Bisho</skos:altLabel>
+	<skos:altLabel>Bisho</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Bišo</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бишо</skos:altLabel>
+	<skos:prefLabel>Bhisho</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1019355/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-33.83333</wgs:lat>
+	<wgs:long>26.28333</wgs:long>
+	<skos:prefLabel>Bird Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1019357/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-33.85</wgs:lat>
+	<wgs:long>26.28333</wgs:long>
+	<skos:prefLabel>Bird Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1019358/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.8</wgs:lat>
+	<wgs:long>32.05</wgs:long>
+	<skos:prefLabel>Bird Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1019359/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-27.95</wgs:lat>
+	<wgs:long>32.5</wgs:long>
+	<skos:prefLabel>Bird Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1019413/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-28.21667</wgs:lat>
+	<wgs:long>30.18333</wgs:long>
+	<skos:prefLabel>Biggar Monument</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1019704/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>83654</europeana:population>
+	<wgs:lat>-28.23333</wgs:lat>
+	<wgs:long>28.3</wgs:long>
+	<skos:altLabel xml:lang="en">Bethlehem</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Bethlehem</skos:altLabel>
+	<skos:altLabel>Bethlehem</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Вифлеем</skos:altLabel>
+	<skos:prefLabel>Bethlehem</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1019760/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>101919</europeana:population>
+	<wgs:lat>-26.45</wgs:lat>
+	<wgs:long>29.46667</wgs:long>
+	<skos:prefLabel>Bethal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1020066/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/962597/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15000</europeana:population>
+	<wgs:lat>-29.85185</wgs:lat>
+	<wgs:long>30.99337</wgs:long>
+	<skos:prefLabel>Berea</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1020098/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>605344</europeana:population>
+	<wgs:lat>-26.18333</wgs:lat>
+	<wgs:long>28.31667</wgs:long>
+	<skos:altLabel>Benoni</skos:altLabel>
+	<skos:prefLabel>Benoni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1020300/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.7</wgs:lat>
+	<wgs:long>21.03333</wgs:long>
+	<skos:prefLabel>Bella Vista Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1020340/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11916</europeana:population>
+	<wgs:lat>-25.68333</wgs:lat>
+	<wgs:long>30.03333</wgs:long>
+	<skos:prefLabel>Belfast</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1020641/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>44737</europeana:population>
+	<wgs:lat>-32.35</wgs:lat>
+	<wgs:long>22.58333</wgs:long>
+	<skos:altLabel>Beaufort West</skos:altLabel>
+	<skos:altLabel>Beaufort-Wes</skos:altLabel>
+	<skos:prefLabel>Beaufort West</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1020688/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLT"/>
+	<wgs:lat>-34.06667</wgs:lat>
+	<wgs:long>23.38333</wgs:long>
+	<skos:prefLabel>Beacon Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1021040/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11621</europeana:population>
+	<wgs:lat>-28.53333</wgs:lat>
+	<wgs:long>24.51667</wgs:long>
+	<skos:altLabel>Barkly West</skos:altLabel>
+	<skos:altLabel>Barkly-Wes</skos:altLabel>
+	<skos:prefLabel>Barkly West</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1021086/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>67927</europeana:population>
+	<wgs:lat>-25.78333</wgs:lat>
+	<wgs:long>31.05</wgs:long>
+	<skos:altLabel xml:lang="en">Barberton</skos:altLabel>
+	<skos:altLabel xml:lang="af">Barberton</skos:altLabel>
+	<skos:altLabel>Barberton</skos:altLabel>
+	<skos:prefLabel>Barberton</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1021360/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17218</europeana:population>
+	<wgs:lat>-29.55</wgs:lat>
+	<wgs:long>31.2</wgs:long>
+	<skos:prefLabel>Ballitoville</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1021396/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>46008</europeana:population>
+	<wgs:lat>-26.65</wgs:lat>
+	<wgs:long>28.58333</wgs:long>
+	<skos:altLabel>Balfour</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бальфур</skos:altLabel>
+	<skos:prefLabel>Balfour</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1022116/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-33.4</wgs:lat>
+	<wgs:long>26.25</wgs:long>
+	<skos:prefLabel>Assegai Bush Monument</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1022827/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-33.21667</wgs:lat>
+	<wgs:long>26.63333</wgs:long>
+	<skos:prefLabel>Andrew Geddes Bain Monument</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1023287/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>31700</europeana:population>
+	<wgs:lat>-27.75</wgs:lat>
+	<wgs:long>26.66667</wgs:long>
+	<skos:altLabel>Allanridge</skos:altLabel>
+	<skos:prefLabel>Allanridge</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1023309/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>44436</europeana:population>
+	<wgs:lat>-30.7</wgs:lat>
+	<wgs:long>26.7</wgs:long>
+	<skos:altLabel>Aliwal North</skos:altLabel>
+	<skos:altLabel>Aliwal-Noord</skos:altLabel>
+	<skos:prefLabel>Aliwal North</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1023528/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.66667</wgs:lat>
+	<wgs:long>21.06667</wgs:long>
+	<skos:prefLabel>Agterste-eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1023656/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12212</europeana:population>
+	<wgs:lat>-32.7</wgs:lat>
+	<wgs:long>26.3</wgs:long>
+	<skos:altLabel>Adelaide</skos:altLabel>
+	<skos:prefLabel>Adelaide</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1023687/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-28.95</wgs:lat>
+	<wgs:long>24.73333</wgs:long>
+	<skos:prefLabel>Adbl Memorial</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1085593/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>6490714</europeana:population>
+	<wgs:lat>-32</wgs:lat>
+	<wgs:long>26</wgs:long>
+	<skos:altLabel>Eastern Cape</skos:altLabel>
+	<skos:altLabel>Province of Eastern Cape</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Östra Kapprovinsen</skos:altLabel>
+	<skos:prefLabel>Province of Eastern Cape</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1085594/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>10058121</europeana:population>
+	<wgs:lat>-26.08333</wgs:lat>
+	<wgs:long>28.25</wgs:long>
+	<skos:altLabel>Gauteng</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Gauteng</skos:altLabel>
+	<skos:altLabel>PWV</skos:altLabel>
+	<skos:altLabel>Province of Pretoria-Witwatersrand-Vereeniging</skos:altLabel>
+	<skos:prefLabel>Gauteng</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1085595/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>3409743</europeana:population>
+	<wgs:lat>-26</wgs:lat>
+	<wgs:long>30</wgs:long>
+	<skos:altLabel>Mpumalanga</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Mpumalanga</skos:altLabel>
+	<skos:altLabel>Province of Eastern Transvaal</skos:altLabel>
+	<skos:prefLabel>Mpumalanga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1085596/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>819380</europeana:population>
+	<wgs:lat>-29.5</wgs:lat>
+	<wgs:long>22</wgs:long>
+	<skos:altLabel xml:lang="sv">Norra Kapprovinsen</skos:altLabel>
+	<skos:altLabel xml:lang="en">Northern Cape</skos:altLabel>
+	<skos:altLabel>Province of Northern Cape</skos:altLabel>
+	<skos:prefLabel>Province of Northern Cape</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1085597/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>5494928</europeana:population>
+	<wgs:lat>-24</wgs:lat>
+	<wgs:long>29.5</wgs:long>
+	<skos:altLabel>Limpopo</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Limpopo</skos:altLabel>
+	<skos:altLabel>Limpopo Province</skos:altLabel>
+	<skos:altLabel>Northern Province</skos:altLabel>
+	<skos:altLabel>Province of Northern Transvaal</skos:altLabel>
+	<skos:prefLabel>Limpopo Province</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1085598/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>3895126</europeana:population>
+	<wgs:lat>-26.5</wgs:lat>
+	<wgs:long>26</wgs:long>
+	<skos:altLabel xml:lang="sv">Nordvästprovinsen</skos:altLabel>
+	<skos:altLabel>North-West</skos:altLabel>
+	<skos:altLabel>Province of North-West</skos:altLabel>
+	<skos:prefLabel>Province of North-West</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1085599/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>4988154</europeana:population>
+	<wgs:lat>-34</wgs:lat>
+	<wgs:long>20</wgs:long>
+	<skos:altLabel>Province of the Western Cape</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Västra Kapprovinsen</skos:altLabel>
+	<skos:altLabel>Western Cape</skos:altLabel>
+	<skos:prefLabel>Province of the Western Cape</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1105726/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>37650</europeana:population>
+	<wgs:lat>-25.69444</wgs:lat>
+	<wgs:long>28.74833</wgs:long>
+	<skos:prefLabel>Ekangala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1105776/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>173009</europeana:population>
+	<wgs:lat>-25.96361</wgs:lat>
+	<wgs:long>28.13778</wgs:long>
+	<skos:altLabel>Midrand</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Мидранд</skos:altLabel>
+	<skos:prefLabel>Midrand</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1105777/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>233386</europeana:population>
+	<wgs:lat>-25.87444</wgs:lat>
+	<wgs:long>28.17056</wgs:long>
+	<skos:altLabel xml:lang="en">Centurion</skos:altLabel>
+	<skos:altLabel xml:lang="af">Centurion</skos:altLabel>
+	<skos:altLabel>Centurion</skos:altLabel>
+	<skos:altLabel>Verwoerdburg</skos:altLabel>
+	<skos:altLabel xml:lang="eo">centurion</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Центурион</skos:altLabel>
+	<skos:prefLabel>Centurion</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3359041/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>127597</europeana:population>
+	<wgs:lat>-33.65</wgs:lat>
+	<wgs:long>19.43333</wgs:long>
+	<skos:altLabel>Worcester</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Вустер</skos:altLabel>
+	<skos:prefLabel>Worcester</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3359736/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14806</europeana:population>
+	<wgs:lat>-31.66667</wgs:lat>
+	<wgs:long>18.5</wgs:long>
+	<skos:altLabel>Vredendal</skos:altLabel>
+	<skos:prefLabel>Vredendal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3359784/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-33.15</wgs:lat>
+	<wgs:long>17.98333</wgs:long>
+	<skos:altLabel>Vondeling Island</skos:altLabel>
+	<skos:altLabel>Vondelingeiland</skos:altLabel>
+	<skos:prefLabel>Vondelingeiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3359863/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-32.88333</wgs:lat>
+	<wgs:long>17.86667</wgs:long>
+	<skos:altLabel>Voël Island</skos:altLabel>
+	<skos:altLabel>Voëleiland</skos:altLabel>
+	<skos:prefLabel>Voëleiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3361025/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>94263</europeana:population>
+	<wgs:lat>-33.93333</wgs:lat>
+	<wgs:long>18.85</wgs:long>
+	<skos:altLabel xml:lang="af">Stellenbos</skos:altLabel>
+	<skos:altLabel xml:lang="de">Stellenbosch</skos:altLabel>
+	<skos:altLabel xml:lang="en">Stellenbosch</skos:altLabel>
+	<skos:altLabel xml:lang="it">Stellenbosch</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Stellenbosch</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Stellenbosch</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Stellenbosch</skos:altLabel>
+	<skos:altLabel xml:lang="es">Stellenbosch</skos:altLabel>
+	<skos:altLabel>Stellenbosch</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Стелленбос</skos:altLabel>
+	<skos:prefLabel>Stellenbosch</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3361142/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10438</europeana:population>
+	<wgs:lat>-29.66667</wgs:lat>
+	<wgs:long>17.88333</wgs:long>
+	<skos:altLabel>Springbok</skos:altLabel>
+	<skos:altLabel>Springbok Fontein</skos:altLabel>
+	<skos:prefLabel>Springbok</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3361605/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-33.08333</wgs:lat>
+	<wgs:long>18.01667</wgs:long>
+	<skos:altLabel>Skaap Island</skos:altLabel>
+	<skos:altLabel>Skaapeiland</skos:altLabel>
+	<skos:prefLabel>Skaapeiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3361713/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-32.75</wgs:lat>
+	<wgs:long>17.86667</wgs:long>
+	<skos:altLabel>Seal Eilande</skos:altLabel>
+	<skos:altLabel>Seal Islands</skos:altLabel>
+	<skos:prefLabel>Seal Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3361714/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-34.13333</wgs:lat>
+	<wgs:long>18.58333</wgs:long>
+	<skos:altLabel>Seal</skos:altLabel>
+	<skos:altLabel>Seal Island</skos:altLabel>
+	<skos:prefLabel>Seal Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3361715/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-32.73333</wgs:lat>
+	<wgs:long>17.86667</wgs:long>
+	<skos:altLabel>Seal</skos:altLabel>
+	<skos:altLabel>Seal Eiland</skos:altLabel>
+	<skos:altLabel>Seal Island</skos:altLabel>
+	<skos:prefLabel>Seal Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3361761/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-33.31403</wgs:lat>
+	<wgs:long>19.19961</wgs:long>
+	<skos:altLabel xml:lang="en">Schalkenbosch Wine Estate Tulbagh</skos:altLabel>
+	<skos:prefLabel>Schalkenbosch Wine Estate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3361867/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.58333</wgs:lat>
+	<wgs:long>16.5</wgs:long>
+	<skos:altLabel>Sand Island</skos:altLabel>
+	<skos:altLabel>Sandy Island</skos:altLabel>
+	<skos:prefLabel>Sand Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3361868/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.56667</wgs:lat>
+	<wgs:long>16.48333</wgs:long>
+	<skos:prefLabel>Sand Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3361934/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>68284</europeana:population>
+	<wgs:lat>-33.01667</wgs:lat>
+	<wgs:long>17.95</wgs:long>
+	<skos:altLabel>Hoedjes Bay</skos:altLabel>
+	<skos:altLabel>Hoedjesbaai</skos:altLabel>
+	<skos:altLabel>Hoetjes Bay</skos:altLabel>
+	<skos:altLabel>Saldanha</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Салдана</skos:altLabel>
+	<skos:prefLabel>Saldanha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3362345/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.53333</wgs:lat>
+	<wgs:long>19.55</wgs:long>
+	<skos:prefLabel>Rock Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3362353/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-31.65</wgs:lat>
+	<wgs:long>18.15</wgs:long>
+	<skos:altLabel>Elephant Rock</skos:altLabel>
+	<skos:altLabel>Rob Island</skos:altLabel>
+	<skos:altLabel>Robeiland</skos:altLabel>
+	<skos:altLabel>Seal</skos:altLabel>
+	<skos:altLabel>Seal Island</skos:altLabel>
+	<skos:prefLabel>Robeiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3362356/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-33.8</wgs:lat>
+	<wgs:long>18.36667</wgs:long>
+	<skos:altLabel xml:lang="eo">Insulo Robben</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Robben</skos:altLabel>
+	<skos:altLabel xml:lang="de">Robben Island</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Robben Island</skos:altLabel>
+	<skos:altLabel xml:lang="it">Robben Island</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Robben Island</skos:altLabel>
+	<skos:altLabel xml:lang="en">Robben Island</skos:altLabel>
+	<skos:altLabel xml:lang="es">Robben Island</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Robben Island</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Robben Island</skos:altLabel>
+	<skos:altLabel xml:lang="no">Robben Island</skos:altLabel>
+	<skos:altLabel>Robben Island</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Robben-sziget</skos:altLabel>
+	<skos:altLabel>Robbeneiland</skos:altLabel>
+	<skos:altLabel xml:lang="af">Robbeneiland</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Robbeneiland</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Роббен</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ロベン島</skos:altLabel>
+	<skos:prefLabel>Robben Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3363613/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>187865</europeana:population>
+	<wgs:lat>-33.71667</wgs:lat>
+	<wgs:long>18.96667</wgs:long>
+	<skos:prefLabel>Noorder-Paarl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3364235/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-33.08333</wgs:lat>
+	<wgs:long>18.01667</wgs:long>
+	<skos:altLabel>Meeu Island</skos:altLabel>
+	<skos:altLabel>Meeu eiland</skos:altLabel>
+	<skos:prefLabel>Meeu Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3364307/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.85</wgs:lat>
+	<wgs:long>18.66667</wgs:long>
+	<skos:altLabel>Marten Island</skos:altLabel>
+	<skos:altLabel>Marteneiland</skos:altLabel>
+	<skos:altLabel>Martineiland</skos:altLabel>
+	<skos:prefLabel>Martineiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3364319/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLT"/>
+	<wgs:lat>-33.03333</wgs:lat>
+	<wgs:long>17.96667</wgs:long>
+	<skos:prefLabel>Marcus Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3364346/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>34991</europeana:population>
+	<wgs:lat>-33.4608</wgs:lat>
+	<wgs:long>18.72714</wgs:long>
+	<skos:prefLabel>Malmesbury</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3364357/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-33.05</wgs:lat>
+	<wgs:long>17.93333</wgs:long>
+	<skos:altLabel>Malagas Island</skos:altLabel>
+	<skos:altLabel>Malagaseiland</skos:altLabel>
+	<skos:altLabel>Malgas Island</skos:altLabel>
+	<skos:altLabel>Malgaseiland</skos:altLabel>
+	<skos:prefLabel>Malgas Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3364479/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.6</wgs:lat>
+	<wgs:long>16.5</wgs:long>
+	<skos:altLabel>Long Eiland</skos:altLabel>
+	<skos:altLabel>Long Island</skos:altLabel>
+	<skos:prefLabel>Long Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3364480/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.58333</wgs:lat>
+	<wgs:long>16.96667</wgs:long>
+	<skos:prefLabel>Long Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3365029/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.85</wgs:lat>
+	<wgs:long>18.73333</wgs:long>
+	<skos:altLabel>Krapohl Island</skos:altLabel>
+	<skos:altLabel>Krapohl Islands</skos:altLabel>
+	<skos:altLabel>Krapohleiland</skos:altLabel>
+	<skos:prefLabel>Krapohleiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3365487/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.43333</wgs:lat>
+	<wgs:long>17.38333</wgs:long>
+	<skos:prefLabel>Klipneuseiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3365837/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-33.15</wgs:lat>
+	<wgs:long>17.98333</wgs:long>
+	<skos:altLabel>Klein Island</skos:altLabel>
+	<skos:altLabel>Kleineiland</skos:altLabel>
+	<skos:prefLabel>Kleineiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3366410/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-33.08333</wgs:lat>
+	<wgs:long>17.95</wgs:long>
+	<skos:altLabel>Jutten Island</skos:altLabel>
+	<skos:altLabel>Jutteneiland</skos:altLabel>
+	<skos:prefLabel>Jutteneiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3366577/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-34.33333</wgs:lat>
+	<wgs:long>18.43333</wgs:long>
+	<skos:prefLabel>Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3366825/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-33.31667</wgs:lat>
+	<wgs:long>18.36667</wgs:long>
+	<skos:prefLabel>Hildebrands Memorial</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3366880/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>25153</europeana:population>
+	<wgs:lat>-34.41667</wgs:lat>
+	<wgs:long>19.23333</wgs:long>
+	<skos:altLabel>Hermanus</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Мпумаланга</skos:altLabel>
+	<skos:prefLabel>Hermanus</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3367229/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.21667</wgs:lat>
+	<wgs:long>17.33333</wgs:long>
+	<skos:altLabel>Grootpens Island</skos:altLabel>
+	<skos:altLabel>Grootpenseiland</skos:altLabel>
+	<skos:prefLabel>Grootpenseiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3367447/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-28.6</wgs:lat>
+	<wgs:long>16.46667</wgs:long>
+	<skos:altLabel>Green Eiland</skos:altLabel>
+	<skos:altLabel>Green Island</skos:altLabel>
+	<skos:prefLabel>Green Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3367513/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>29885</europeana:population>
+	<wgs:lat>-34.15</wgs:lat>
+	<wgs:long>19.01667</wgs:long>
+	<skos:altLabel>Grabouw</skos:altLabel>
+	<skos:prefLabel>Grabouw</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3367688/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-34.68333</wgs:lat>
+	<wgs:long>19.4</wgs:long>
+	<skos:altLabel>Geyser</skos:altLabel>
+	<skos:altLabel>Geyser Island</skos:altLabel>
+	<skos:altLabel>Geysereiland</skos:altLabel>
+	<skos:prefLabel>Geyser Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3368148/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-32.73333</wgs:lat>
+	<wgs:long>17.88333</wgs:long>
+	<skos:prefLabel>Egg Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3368204/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-34.66667</wgs:lat>
+	<wgs:long>19.43333</wgs:long>
+	<skos:altLabel>Dyer</skos:altLabel>
+	<skos:altLabel>Dyer Island</skos:altLabel>
+	<skos:altLabel>Dyereiland</skos:altLabel>
+	<skos:prefLabel>Dyer Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3368581/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-32.13333</wgs:lat>
+	<wgs:long>18.98333</wgs:long>
+	<skos:prefLabel>Doctor Christiaan Louis Leipoldt se Graf</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3368753/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-34.31667</wgs:lat>
+	<wgs:long>18.45</wgs:long>
+	<skos:prefLabel>Diaz Monument</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3368950/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-33.43333</wgs:lat>
+	<wgs:long>18.08333</wgs:long>
+	<skos:altLabel>Dassen Island</skos:altLabel>
+	<skos:altLabel>Dasseneiland</skos:altLabel>
+	<skos:prefLabel>Dasseneiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3369005/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-34.31667</wgs:lat>
+	<wgs:long>18.46667</wgs:long>
+	<skos:prefLabel>Da Gama Monument</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3369098/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3367634/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14531</europeana:population>
+	<wgs:lat>-33.98056</wgs:lat>
+	<wgs:long>18.46528</wgs:long>
+	<skos:prefLabel>Claremont</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3369129/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>41596</europeana:population>
+	<wgs:lat>-33.36667</wgs:lat>
+	<wgs:long>19.31667</wgs:long>
+	<skos:altLabel>Ceres</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Церера</skos:altLabel>
+	<skos:prefLabel>Ceres</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3369157/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>3433441</europeana:population>
+	<wgs:lat>-33.91667</wgs:lat>
+	<wgs:long>18.41667</wgs:long>
+	<skos:altLabel xml:lang="id">Cape Town</skos:altLabel>
+	<skos:altLabel xml:lang="en">Cape Town</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Cape Town</skos:altLabel>
+	<skos:altLabel xml:lang="no">Cape Town</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Cape Town</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Cape Town</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Cape Town</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Cape Town</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Cape Town</skos:altLabel>
+	<skos:altLabel>Cape Town</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Cidade do Cabo</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Cidade do Cabo - Cape Town</skos:altLabel>
+	<skos:altLabel xml:lang="it">Città del Capo</skos:altLabel>
+	<skos:altLabel xml:lang="es">Ciudad del Cabo</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Ciutat del Cap</skos:altLabel>
+	<skos:altLabel xml:lang="es">El Cabo</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Fokváros</skos:altLabel>
+	<skos:altLabel xml:lang="is">Höfðaborg</skos:altLabel>
+	<skos:altLabel xml:lang="zu">IKapa</skos:altLabel>
+	<skos:altLabel>Kaapstad</skos:altLabel>
+	<skos:altLabel xml:lang="af">Kaapstad</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Kaapstad</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Kaapstad</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Kaburbo</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Kapkaupunki</skos:altLabel>
+	<skos:altLabel xml:lang="et">Kaplinn</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Kapské Mesto</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Kapské Město</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Kapstad</skos:altLabel>
+	<skos:altLabel xml:lang="da">Kapstaden</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Kapstaden</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kapstadt</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kapsztad</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Keiptauna</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Keiptaunas</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Le Cap</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Lurmutur Hiria</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Tref y Penrhyn</skos:altLabel>
+	<skos:altLabel xml:lang="zu">iKapa</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Кейптаун</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кейптаун</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Кејптаун</skos:altLabel>
+	<skos:altLabel xml:lang="he">קייפטאון</skos:altLabel>
+	<skos:altLabel xml:lang="ug">كاپېتوۋن</skos:altLabel>
+	<skos:altLabel xml:lang="ar">كيب تاون</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ケープタウン</skos:altLabel>
+	<skos:altLabel xml:lang="zh">開普敦</skos:altLabel>
+	<skos:altLabel xml:lang="ko">케이프타운</skos:altLabel>
+	<skos:prefLabel>Cape Town</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370049/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-32.08333</wgs:lat>
+	<wgs:long>18.3</wgs:long>
+	<skos:altLabel>Bird</skos:altLabel>
+	<skos:altLabel>Bird Eiland</skos:altLabel>
+	<skos:altLabel>Bird Island</skos:altLabel>
+	<skos:altLabel>Penguin Islet</skos:altLabel>
+	<skos:prefLabel>Bird Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370352/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>60266</europeana:population>
+	<wgs:lat>-33.56667</wgs:lat>
+	<wgs:long>18.48333</wgs:long>
+	<skos:altLabel>Atlantis</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Атлантида</skos:altLabel>
+	<skos:prefLabel>Atlantis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6295619/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-25.77655</wgs:lat>
+	<wgs:long>28.17573</wgs:long>
+	<skos:prefLabel>Voortrekker Monument</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6615374/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>-33.99534</wgs:lat>
+	<wgs:long>24.11495</wgs:long>
+	<skos:prefLabel>H.G. Fourcade's Witte Els Bosch homestead</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7302465/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>-25.96716</wgs:lat>
+	<wgs:long>27.66245</wgs:long>
+	<skos:prefLabel>Cradle of Human Kind</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7303922/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-28.88185</wgs:lat>
+	<wgs:long>27.9317</wgs:long>
+	<skos:prefLabel>Khomokhoana Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7536108/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>-26.14944</wgs:lat>
+	<wgs:long>28.04083</wgs:long>
+	<skos:prefLabel>Liliesleaf Farm</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7668958/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/953987/"/>
+	<europeana:country>ZA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-34.03111</wgs:lat>
+	<wgs:long>18.41889</wgs:long>
+	<skos:prefLabel>Groot Constantia</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 356 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

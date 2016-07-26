@@ -67,6 +67,7 @@
         <module>metis-identifiers</module>
         <module>metis-validation</module>
         <module>metis-pandora</module>
+        <module>metis-enrichment</module>
     </modules>
     <repositories>
         <repository>

@@ -1,0 +1,1672 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AF_LS
+Description: Selected fields pulled from Geonames about LS done on Mon May 23 21:16:17 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/932011/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>158144</europeana:population>
+	<wgs:lat>-29.5</wgs:lat>
+	<wgs:long>28.66667</wgs:long>
+	<skos:altLabel xml:lang="fr">District de Thaba-Tseka</skos:altLabel>
+	<skos:altLabel xml:lang="id">Distrik Thaba-Tseka</skos:altLabel>
+	<skos:altLabel xml:lang="es">Distrito de Thaba-Tseka</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Thaba-Tseka</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Thaba-Tseka</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Thaba-Tseka</skos:altLabel>
+	<skos:altLabel>Thaba-Tseka</skos:altLabel>
+	<skos:altLabel xml:lang="en">Thaba-Tseka</skos:altLabel>
+	<skos:altLabel xml:lang="en">Thaba-Tseka District</skos:altLabel>
+	<skos:altLabel>Thaba-Tseka District</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ターバ・ツェーカ県</skos:altLabel>
+	<skos:prefLabel>Thaba-Tseka District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/932183/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>24130</europeana:population>
+	<wgs:lat>-30.40001</wgs:lat>
+	<wgs:long>27.70027</wgs:long>
+	<skos:altLabel>Moyeni</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Quthing</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Quthing</skos:altLabel>
+	<skos:altLabel xml:lang="en">Quthing</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Quthing</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Цгутинг</skos:altLabel>
+	<skos:prefLabel>Quthing</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/932184/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>228800</europeana:population>
+	<wgs:lat>-30.41667</wgs:lat>
+	<wgs:long>28</wgs:long>
+	<skos:altLabel xml:lang="fr">District de Quthing</skos:altLabel>
+	<skos:altLabel xml:lang="id">Distrik Quthing</skos:altLabel>
+	<skos:altLabel xml:lang="es">Distrito de Quthing</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Quthing</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Quthing</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Quthing</skos:altLabel>
+	<skos:altLabel>Quthing</skos:altLabel>
+	<skos:altLabel xml:lang="en">Quthing</skos:altLabel>
+	<skos:altLabel xml:lang="en">Quthing District</skos:altLabel>
+	<skos:altLabel>Quthing District</skos:altLabel>
+	<skos:altLabel xml:lang="ja">クティング県</skos:altLabel>
+	<skos:prefLabel>Quthing District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/932218/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>25573</europeana:population>
+	<wgs:lat>-30.11537</wgs:lat>
+	<wgs:long>28.68936</wgs:long>
+	<skos:altLabel xml:lang="pt">Qacha's Nek</skos:altLabel>
+	<skos:altLabel xml:lang="en">Qacha's Nek</skos:altLabel>
+	<skos:altLabel>Qachas Nek Camp</skos:altLabel>
+	<skos:altLabel>Qachasnek Camp</skos:altLabel>
+	<skos:altLabel>Qacha’s Neck</skos:altLabel>
+	<skos:altLabel>Qacha’s Nek</skos:altLabel>
+	<skos:altLabel>Qacha’s Nek Residency</skos:altLabel>
+	<skos:prefLabel>Qacha’s Nek</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/932219/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-30</wgs:lat>
+	<wgs:long>28.75</wgs:long>
+	<skos:altLabel>Qachaʼs Nek</skos:altLabel>
+	<skos:altLabel>Qacha’s Nek</skos:altLabel>
+	<skos:altLabel>Qacha’s Nek District</skos:altLabel>
+	<skos:altLabel>Quachasnek</skos:altLabel>
+	<skos:prefLabel>Qacha’s Nek District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/932418/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>149044</europeana:population>
+	<wgs:lat>-29.33333</wgs:lat>
+	<wgs:long>29</wgs:long>
+	<skos:altLabel>Mokhotlong</skos:altLabel>
+	<skos:altLabel>Mokhotlong District</skos:altLabel>
+	<skos:prefLabel>Mokhotlong District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/932438/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>28310</europeana:population>
+	<wgs:lat>-30.15137</wgs:lat>
+	<wgs:long>27.47691</wgs:long>
+	<skos:altLabel xml:lang="pt">Mohale's Hoek</skos:altLabel>
+	<skos:altLabel xml:lang="en">Mohale's Hoek</skos:altLabel>
+	<skos:altLabel>Mohale’s Hoek</skos:altLabel>
+	<skos:prefLabel>Mohale’s Hoek</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/932439/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-30.16667</wgs:lat>
+	<wgs:long>27.66667</wgs:long>
+	<skos:altLabel>Mohales Hoek</skos:altLabel>
+	<skos:altLabel>Mohaleʼs Hoek</skos:altLabel>
+	<skos:altLabel>Mohale’s Hoek District</skos:altLabel>
+	<skos:prefLabel>Mohale’s Hoek District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/932505/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>118355</europeana:population>
+	<wgs:lat>-29.31667</wgs:lat>
+	<wgs:long>27.48333</wgs:long>
+	<skos:altLabel xml:lang="id">Maseru</skos:altLabel>
+	<skos:altLabel xml:lang="en">Maseru</skos:altLabel>
+	<skos:altLabel xml:lang="de">Maseru</skos:altLabel>
+	<skos:altLabel xml:lang="es">Maseru</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Maseru</skos:altLabel>
+	<skos:altLabel xml:lang="io">Maseru</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Maseru</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Maseru</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Maseru</skos:altLabel>
+	<skos:altLabel xml:lang="da">Maseru</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Maseru</skos:altLabel>
+	<skos:altLabel xml:lang="it">Maseru</skos:altLabel>
+	<skos:altLabel xml:lang="no">Maseru</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Maseru</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Maseru</skos:altLabel>
+	<skos:altLabel xml:lang="la">Maseru</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Maseru</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Maseru</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Maseru</skos:altLabel>
+	<skos:altLabel>Maseru</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μασερού</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Масеру</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Масеру</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Масеру</skos:altLabel>
+	<skos:altLabel xml:lang="he">מסרו</skos:altLabel>
+	<skos:altLabel xml:lang="fa">ماسرو</skos:altLabel>
+	<skos:altLabel xml:lang="ar">ماسيرو</skos:altLabel>
+	<skos:altLabel xml:lang="th">มาเซรู</skos:altLabel>
+	<skos:altLabel xml:lang="am">መሴሩ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">マセル</skos:altLabel>
+	<skos:altLabel xml:lang="zh">马塞卢</skos:altLabel>
+	<skos:altLabel xml:lang="ko">마세루</skos:altLabel>
+	<skos:prefLabel>Maseru</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/932506/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>316155</europeana:population>
+	<wgs:lat>-29.5</wgs:lat>
+	<wgs:long>28</wgs:long>
+	<skos:altLabel>Maseru</skos:altLabel>
+	<skos:altLabel>Maseru District</skos:altLabel>
+	<skos:prefLabel>Maseru District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/932521/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>32117</europeana:population>
+	<wgs:lat>-28.88333</wgs:lat>
+	<wgs:long>27.9</wgs:long>
+	<skos:prefLabel>Maputsoe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/932614/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>57059</europeana:population>
+	<wgs:lat>-29.823</wgs:lat>
+	<wgs:long>27.23744</wgs:long>
+	<skos:altLabel xml:lang="de">Mafeteng</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Mafeteng</skos:altLabel>
+	<skos:altLabel xml:lang="en">Mafeteng</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Mafeteng</skos:altLabel>
+	<skos:altLabel>Mafeteng</skos:altLabel>
+	<skos:prefLabel>Mafeteng</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/932615/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>351601</europeana:population>
+	<wgs:lat>-29.83333</wgs:lat>
+	<wgs:long>27.91667</wgs:long>
+	<skos:altLabel>Mafeteng</skos:altLabel>
+	<skos:altLabel>Mafeteng District</skos:altLabel>
+	<skos:prefLabel>Mafeteng District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/932692/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255146/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>1919552</europeana:population>
+	<wgs:lat>-29.5</wgs:lat>
+	<wgs:long>28.25</wgs:long>
+	<skos:altLabel>Basoetoland</skos:altLabel>
+	<skos:altLabel>Colony of Basutoland</skos:altLabel>
+	<skos:altLabel>Kingdom of Lesotho</skos:altLabel>
+	<skos:altLabel>LS</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Leosóta</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Lesotas</skos:altLabel>
+	<skos:altLabel xml:lang="id">Lesotho</skos:altLabel>
+	<skos:altLabel xml:lang="es">Lesotho</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Lesotho</skos:altLabel>
+	<skos:altLabel xml:lang="da">Lesotho</skos:altLabel>
+	<skos:altLabel xml:lang="et">Lesotho</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Lesotho</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Lesotho</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Lesotho</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Lesotho</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Lesotho</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Lesotho</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Lesotho</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Lesotho</skos:altLabel>
+	<skos:altLabel xml:lang="de">Lesotho</skos:altLabel>
+	<skos:altLabel xml:lang="en">Lesotho</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Lesotho</skos:altLabel>
+	<skos:altLabel xml:lang="it">Lesotho</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Lesotho</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Lesotho</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Lesotho</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Lesotho</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Lesotho</skos:altLabel>
+	<skos:altLabel xml:lang="af">Lesotho</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Lesotho</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Lesotho</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Lesotho</skos:altLabel>
+	<skos:altLabel xml:lang="no">Lesotho</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Lesotho</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Lesotho</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Lesotho</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Lesotho</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Lesotho</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Lesotho</skos:altLabel>
+	<skos:altLabel xml:lang="se">Lesotho</skos:altLabel>
+	<skos:altLabel xml:lang="la">Lesothum</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Lesoto</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Lesoto</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Lesoto</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Lesoto</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Lesoto</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Lesoto</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Lesoto</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Lesoto</skos:altLabel>
+	<skos:altLabel xml:lang="es">Lesoto</skos:altLabel>
+	<skos:altLabel xml:lang="an">Lesoto</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Lesoto</skos:altLabel>
+	<skos:altLabel xml:lang="io">Lesoto</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Lesoto</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Lesoto</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Lesoto</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Lesoto</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Lesoto</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Lesoto - Lesotho</skos:altLabel>
+	<skos:altLabel>Lesuto</skos:altLabel>
+	<skos:altLabel xml:lang="is">Lesótó</skos:altLabel>
+	<skos:altLabel xml:lang="so">Losooto</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Lê-xô-thô</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Lê-xô-thô (Lesotho)</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Sutuvän</skos:altLabel>
+	<skos:altLabel xml:lang="el">Λεσόθο</skos:altLabel>
+	<skos:altLabel xml:lang="el">Λεσότο</skos:altLabel>
+	<skos:altLabel xml:lang="be">Лесота</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Лесото</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Лесото</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Лесото</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Лесото</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Лесото</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Лесото</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Лешото</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Լեսոտո</skos:altLabel>
+	<skos:altLabel xml:lang="he">לסוטו</skos:altLabel>
+	<skos:altLabel xml:lang="he">לסותו</skos:altLabel>
+	<skos:altLabel xml:lang="fa">لسوتو</skos:altLabel>
+	<skos:altLabel xml:lang="ar">ليسوتو</skos:altLabel>
+	<skos:altLabel xml:lang="ur">لیسوتھو</skos:altLabel>
+	<skos:altLabel xml:lang="ug">لېسوتو</skos:altLabel>
+	<skos:altLabel xml:lang="hi">लेसोथो</skos:altLabel>
+	<skos:altLabel xml:lang="bn">লেসোথো</skos:altLabel>
+	<skos:altLabel xml:lang="ta">லெசோதோ</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ലെസോത്തോ</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศเลโซโท</skos:altLabel>
+	<skos:altLabel xml:lang="th">เลโซโท</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ເລໂຊໂທ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ལེ་སོ་ཐོ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ლესოთო</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ლესოტო</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሌሶቶ</skos:altLabel>
+	<skos:altLabel xml:lang="km">លើសូតូ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">レソト</skos:altLabel>
+	<skos:altLabel xml:lang="ja">レソト王国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">莱索托</skos:altLabel>
+	<skos:altLabel xml:lang="ko">레소토</skos:altLabel>
+	<skos:prefLabel>Kingdom of Lesotho</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/932698/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>47675</europeana:population>
+	<wgs:lat>-28.87185</wgs:lat>
+	<wgs:long>28.04501</wgs:long>
+	<skos:altLabel>Hlotse</skos:altLabel>
+	<skos:altLabel xml:lang="en">Hlotse</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Hlotse</skos:altLabel>
+	<skos:altLabel xml:lang="de">Hlotse</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Hlotse</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Leribe</skos:altLabel>
+	<skos:altLabel>Leribe</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Лерибе</skos:altLabel>
+	<skos:prefLabel>Leribe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/932700/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>414314</europeana:population>
+	<wgs:lat>-29.03651</wgs:lat>
+	<wgs:long>28.25266</wgs:long>
+	<skos:altLabel xml:lang="fr">District de Leribe</skos:altLabel>
+	<skos:altLabel xml:lang="es">Distrito de Leribe</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Dystrykt Leribe</skos:altLabel>
+	<skos:altLabel xml:lang="de">Leribe</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Leribe</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Leribe</skos:altLabel>
+	<skos:altLabel>Leribe</skos:altLabel>
+	<skos:altLabel xml:lang="en">Leribe</skos:altLabel>
+	<skos:altLabel xml:lang="en">Leribe District</skos:altLabel>
+	<skos:altLabel>Leribe District</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Leriben alue</skos:altLabel>
+	<skos:altLabel xml:lang="ja">レリベ県</skos:altLabel>
+	<skos:prefLabel>Leribe District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/932886/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>16330</europeana:population>
+	<wgs:lat>-28.76659</wgs:lat>
+	<wgs:long>28.24936</wgs:long>
+	<skos:altLabel xml:lang="de">Butha-Buthe</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Butha-Buthe</skos:altLabel>
+	<skos:altLabel xml:lang="en">Butha-Buthe</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Butha-Buthe</skos:altLabel>
+	<skos:altLabel>Butha-Buthe</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бута-Бутэ</skos:altLabel>
+	<skos:prefLabel>Butha-Buthe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/932888/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>188480</europeana:population>
+	<wgs:lat>-28.83333</wgs:lat>
+	<wgs:long>28.5</wgs:long>
+	<skos:altLabel xml:lang="de">Butha-Buthe</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Butha-Buthe</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Butha-Buthe</skos:altLabel>
+	<skos:altLabel xml:lang="en">Butha-Buthe</skos:altLabel>
+	<skos:altLabel>Butha-Buthe</skos:altLabel>
+	<skos:altLabel xml:lang="en">Butha-Buthe District</skos:altLabel>
+	<skos:altLabel>Butha-Buthe District</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Butha-Buthen alue</skos:altLabel>
+	<skos:altLabel xml:lang="fr">District de Butha-Buthe</skos:altLabel>
+	<skos:altLabel xml:lang="es">Distrito de Butha-Buthe</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Dystrykt Butha-Buthe</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ブータ・ブーテ県</skos:altLabel>
+	<skos:prefLabel>Butha-Buthe District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/932932/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>66863</europeana:population>
+	<wgs:lat>-29.16667</wgs:lat>
+	<wgs:long>27.91667</wgs:long>
+	<skos:altLabel xml:lang="fi">Berea</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Berea</skos:altLabel>
+	<skos:altLabel xml:lang="de">Berea</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Berea</skos:altLabel>
+	<skos:altLabel xml:lang="en">Berea</skos:altLabel>
+	<skos:altLabel>Berea</skos:altLabel>
+	<skos:altLabel xml:lang="en">Berea District</skos:altLabel>
+	<skos:altLabel>Berea District</skos:altLabel>
+	<skos:altLabel xml:lang="fr">District de Berea</skos:altLabel>
+	<skos:altLabel xml:lang="es">Distrito de Berea</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Dystrykt Berea</skos:altLabel>
+	<skos:altLabel>Teyateyaneng</skos:altLabel>
+	<skos:altLabel>Yeyateyaneng</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ベレア県</skos:altLabel>
+	<skos:prefLabel>Berea District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7303921/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-28.97315</wgs:lat>
+	<wgs:long>27.91805</wgs:long>
+	<skos:prefLabel>Hleoheng Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7303930/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.0372</wgs:lat>
+	<wgs:long>28.1395</wgs:long>
+	<skos:prefLabel>Fenyane Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7303947/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.1727</wgs:lat>
+	<wgs:long>28.41955</wgs:long>
+	<skos:prefLabel>Limamarela Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7303948/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-28.64355</wgs:lat>
+	<wgs:long>28.4769</wgs:long>
+	<skos:prefLabel>Makhunoane Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7303989/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-28.85855</wgs:lat>
+	<wgs:long>28.10585</wgs:long>
+	<skos:prefLabel>Linare Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7303993/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.0251</wgs:lat>
+	<wgs:long>28.5679</wgs:long>
+	<skos:prefLabel>Kao Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7304028/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.8488</wgs:lat>
+	<wgs:long>27.9941</wgs:long>
+	<skos:prefLabel>Semonkong Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7304095/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-28.93435</wgs:lat>
+	<wgs:long>28.02335</wgs:long>
+	<skos:prefLabel>Litjotjela Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7304116/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.11915</wgs:lat>
+	<wgs:long>28.0256</wgs:long>
+	<skos:prefLabel>Mapoteng Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7304186/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-28.91983</wgs:lat>
+	<wgs:long>28.2383</wgs:long>
+	<skos:prefLabel>Malaoaneng Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7304192/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-28.7802</wgs:lat>
+	<wgs:long>28.20605</wgs:long>
+	<skos:prefLabel>Maisa-Phoka Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7304288/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.2525</wgs:lat>
+	<wgs:long>27.74335</wgs:long>
+	<skos:prefLabel>Senekane Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7304338/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.1931</wgs:lat>
+	<wgs:long>27.6279</wgs:long>
+	<skos:prefLabel>Kanana Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7304375/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.01615</wgs:lat>
+	<wgs:long>27.9981</wgs:long>
+	<skos:prefLabel>Koeneng Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7304421/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.36275</wgs:lat>
+	<wgs:long>27.63195</wgs:long>
+	<skos:prefLabel>Qiloane Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7304523/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.15565</wgs:lat>
+	<wgs:long>28.1119</wgs:long>
+	<skos:prefLabel>Makeoana Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7305887/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.15415</wgs:lat>
+	<wgs:long>27.77305</wgs:long>
+	<skos:prefLabel>Maluba-lube Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7337506/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.25965</wgs:lat>
+	<wgs:long>27.8462</wgs:long>
+	<skos:prefLabel>Motanasela Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7432583/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.1255</wgs:lat>
+	<wgs:long>27.88005</wgs:long>
+	<skos:prefLabel>Phuthiatsana Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7497843/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.2147</wgs:lat>
+	<wgs:long>27.9138</wgs:long>
+	<skos:prefLabel>Tebe-Tebe Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7498396/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-28.7243</wgs:lat>
+	<wgs:long>28.406</wgs:long>
+	<skos:prefLabel>Likila Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7504624/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-28.81</wgs:lat>
+	<wgs:long>28.3977</wgs:long>
+	<skos:prefLabel>Linakeng Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7506739/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-28.75355</wgs:lat>
+	<wgs:long>28.2582</wgs:long>
+	<skos:prefLabel>Lipelaneng Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7506778/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-28.78335</wgs:lat>
+	<wgs:long>28.49545</wgs:long>
+	<skos:prefLabel>Moteng Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7506844/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-28.61855</wgs:lat>
+	<wgs:long>28.618</wgs:long>
+	<skos:prefLabel>Liqobong Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521317/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-28.6898</wgs:lat>
+	<wgs:long>28.50945</wgs:long>
+	<skos:prefLabel>Ntelle Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521337/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-28.92775</wgs:lat>
+	<wgs:long>28.59635</wgs:long>
+	<skos:prefLabel>Sekhobe Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521378/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-28.76135</wgs:lat>
+	<wgs:long>28.3355</wgs:long>
+	<skos:prefLabel>Tsa-le-Moleka Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521472/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-28.99415</wgs:lat>
+	<wgs:long>27.8215</wgs:long>
+	<skos:prefLabel>Manka Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521538/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-28.9796</wgs:lat>
+	<wgs:long>28.3017</wgs:long>
+	<skos:prefLabel>Matlameng Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521734/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-28.8858</wgs:lat>
+	<wgs:long>28.29275</wgs:long>
+	<skos:prefLabel>Menkhoaneng Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521814/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-28.94995</wgs:lat>
+	<wgs:long>28.1044</wgs:long>
+	<skos:prefLabel>Motati Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521873/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.1543</wgs:lat>
+	<wgs:long>28.53255</wgs:long>
+	<skos:prefLabel>Mphorosane Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521916/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.00975</wgs:lat>
+	<wgs:long>28.2577</wgs:long>
+	<skos:prefLabel>Pitseng Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7522002/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-28.8066</wgs:lat>
+	<wgs:long>28.14005</wgs:long>
+	<skos:prefLabel>Sephokong Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7522039/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-28.94895</wgs:lat>
+	<wgs:long>28.148</wgs:long>
+	<skos:prefLabel>Serupane Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7522115/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.21535</wgs:lat>
+	<wgs:long>28.617</wgs:long>
+	<skos:prefLabel>Seshote Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7522131/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.04265</wgs:lat>
+	<wgs:long>27.7438</wgs:long>
+	<skos:prefLabel>Tsoili-Tsoili Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7522153/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.4652</wgs:lat>
+	<wgs:long>28.0979</wgs:long>
+	<skos:prefLabel>Likalaneng Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7522184/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.53345</wgs:lat>
+	<wgs:long>27.4088</wgs:long>
+	<skos:prefLabel>Lilala Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7522229/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.66415</wgs:lat>
+	<wgs:long>27.85765</wgs:long>
+	<skos:prefLabel>Makheka Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7522244/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.6208</wgs:lat>
+	<wgs:long>27.53445</wgs:long>
+	<skos:prefLabel>Makhoarane Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7522255/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.6482</wgs:lat>
+	<wgs:long>27.7338</wgs:long>
+	<skos:prefLabel>Makhalaneng Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7522488/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.7557</wgs:lat>
+	<wgs:long>27.719</wgs:long>
+	<skos:prefLabel>Ribaneng Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7522489/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932506/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-29.69998</wgs:lat>
+	<wgs:long>27.72572</wgs:long>
+	<skos:prefLabel>Makhaleng Constituency</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7522522/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.6968</wgs:lat>
+	<wgs:long>28.12065</wgs:long>
+	<skos:prefLabel>Makolopetsane Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7531223/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.47395</wgs:lat>
+	<wgs:long>27.7325</wgs:long>
+	<skos:prefLabel>Manonyane Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7533654/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.2788</wgs:lat>
+	<wgs:long>27.5243</wgs:long>
+	<skos:prefLabel>Mabote Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7534414/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.3827</wgs:lat>
+	<wgs:long>27.5377</wgs:long>
+	<skos:prefLabel>Abia Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7534447/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.3663</wgs:lat>
+	<wgs:long>27.5381</wgs:long>
+	<skos:prefLabel>Lithabaneng Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7534507/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.36774</wgs:lat>
+	<wgs:long>27.515</wgs:long>
+	<skos:prefLabel>Lithoteng Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7534558/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.3136</wgs:lat>
+	<wgs:long>27.5216</wgs:long>
+	<skos:prefLabel>Motimposo Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7534650/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.3358</wgs:lat>
+	<wgs:long>27.498</wgs:long>
+	<skos:prefLabel>Qoaling Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7534704/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.31119</wgs:lat>
+	<wgs:long>27.50009</wgs:long>
+	<skos:prefLabel>Stadium Area Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7534758/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.30642</wgs:lat>
+	<wgs:long>27.47505</wgs:long>
+	<skos:prefLabel>Maseru Central Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7535365/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.4643</wgs:lat>
+	<wgs:long>27.4971</wgs:long>
+	<skos:prefLabel>Mazenod Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7535463/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.51435</wgs:lat>
+	<wgs:long>27.6445</wgs:long>
+	<skos:prefLabel>Mohlakeng Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7535490/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.5049</wgs:lat>
+	<wgs:long>27.8694</wgs:long>
+	<skos:prefLabel>Nyakosoba Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7535509/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.383</wgs:lat>
+	<wgs:long>27.78935</wgs:long>
+	<skos:prefLabel>Ratau Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7535562/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.83707</wgs:lat>
+	<wgs:long>28.13187</wgs:long>
+	<skos:prefLabel>Telle Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7535615/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-30.29425</wgs:lat>
+	<wgs:long>27.4912</wgs:long>
+	<skos:prefLabel>Khoelenya Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7535643/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.9769</wgs:lat>
+	<wgs:long>28.1387</wgs:long>
+	<skos:prefLabel>Likhutloaneng Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7535660/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-30.09435</wgs:lat>
+	<wgs:long>27.4191</wgs:long>
+	<skos:prefLabel>Mashaleng Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7535671/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.94815</wgs:lat>
+	<wgs:long>28.31815</wgs:long>
+	<skos:prefLabel>Nkau Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7535705/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-30.2683</wgs:lat>
+	<wgs:long>27.6813</wgs:long>
+	<skos:prefLabel>Mootsinyane Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7535761/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-30.20425</wgs:lat>
+	<wgs:long>27.78915</wgs:long>
+	<skos:prefLabel>Phamong Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7535894/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.94495</wgs:lat>
+	<wgs:long>28.45775</wgs:long>
+	<skos:prefLabel>Qabane Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7535953/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.9275</wgs:lat>
+	<wgs:long>27.84345</wgs:long>
+	<skos:prefLabel>Qhobeng Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7535969/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-30.0796</wgs:lat>
+	<wgs:long>27.78925</wgs:long>
+	<skos:prefLabel>Qobong Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7535988/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.9752</wgs:lat>
+	<wgs:long>27.9656</wgs:long>
+	<skos:prefLabel>Seroto Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7536016/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.98375</wgs:lat>
+	<wgs:long>27.2793</wgs:long>
+	<skos:prefLabel>Siloe Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7536064/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-30.17025</wgs:lat>
+	<wgs:long>27.58835</wgs:long>
+	<skos:prefLabel>Teke Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7536088/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-30.02365</wgs:lat>
+	<wgs:long>27.5505</wgs:long>
+	<skos:prefLabel>Thaba-Mokhele Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7536110/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.12435</wgs:lat>
+	<wgs:long>29.11265</wgs:long>
+	<skos:prefLabel>Khalahali Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7536121/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.2796</wgs:lat>
+	<wgs:long>28.7778</wgs:long>
+	<skos:prefLabel>Khubelu Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7536128/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-30.0803</wgs:lat>
+	<wgs:long>28.3105</wgs:long>
+	<skos:prefLabel>Patlong Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7536137/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.4737</wgs:lat>
+	<wgs:long>28.95285</wgs:long>
+	<skos:prefLabel>Linakaneng Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7536151/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.2928</wgs:lat>
+	<wgs:long>29.04835</wgs:long>
+	<skos:prefLabel>Liphamola Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7536155/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.1793</wgs:lat>
+	<wgs:long>28.88305</wgs:long>
+	<skos:prefLabel>Mapholaneng Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576012/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.43995</wgs:lat>
+	<wgs:long>28.8759</wgs:long>
+	<skos:prefLabel>Marung Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576034/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.3545</wgs:lat>
+	<wgs:long>29.2188</wgs:long>
+	<skos:prefLabel>Mateanong Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576068/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.17005</wgs:lat>
+	<wgs:long>28.6572</wgs:long>
+	<skos:prefLabel>Matsoku Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576131/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.0921</wgs:lat>
+	<wgs:long>28.99805</wgs:long>
+	<skos:prefLabel>Molika-Liko Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576175/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.23825</wgs:lat>
+	<wgs:long>29.12525</wgs:long>
+	<skos:prefLabel>Moremoholo Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576227/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.0469</wgs:lat>
+	<wgs:long>28.91005</wgs:long>
+	<skos:prefLabel>Pae-La-Itlhatsoa Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576294/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.2593</wgs:lat>
+	<wgs:long>28.94895</wgs:long>
+	<skos:prefLabel>Popa Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576315/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.35485</wgs:lat>
+	<wgs:long>28.91105</wgs:long>
+	<skos:prefLabel>Rafolatsane Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576363/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.3593</wgs:lat>
+	<wgs:long>29.0999</wgs:long>
+	<skos:prefLabel>Sakeng Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576407/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.39665</wgs:lat>
+	<wgs:long>29.06815</wgs:long>
+	<skos:prefLabel>Tekeseleng Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576478/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.9234</wgs:lat>
+	<wgs:long>28.98245</wgs:long>
+	<skos:prefLabel>Khomo-Phatšoa Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576586/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-30.0954</wgs:lat>
+	<wgs:long>28.66345</wgs:long>
+	<skos:prefLabel>Letloepe Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576622/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-30.0128</wgs:lat>
+	<wgs:long>28.5465</wgs:long>
+	<skos:prefLabel>Maseepho Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576659/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.84485</wgs:lat>
+	<wgs:long>28.8738</wgs:long>
+	<skos:prefLabel>Matebeng Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576746/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-30.04475</wgs:lat>
+	<wgs:long>28.86375</wgs:long>
+	<skos:prefLabel>Ramatseliso Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576880/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-30.04855</wgs:lat>
+	<wgs:long>28.6856</wgs:long>
+	<skos:prefLabel>Ratsoleli Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576976/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.973</wgs:lat>
+	<wgs:long>28.8188</wgs:long>
+	<skos:prefLabel>Thaba-Litšoene Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7577035/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.908</wgs:lat>
+	<wgs:long>28.7526</wgs:long>
+	<skos:prefLabel>Mosenekeng Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7596836/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.88975</wgs:lat>
+	<wgs:long>28.66055</wgs:long>
+	<skos:prefLabel>Thaba-Khubelu Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7601869/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-30.10275</wgs:lat>
+	<wgs:long>28.46235</wgs:long>
+	<skos:prefLabel>White Hill Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7601922/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-30.36895</wgs:lat>
+	<wgs:long>27.81755</wgs:long>
+	<skos:prefLabel>Ha Nkoebe Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7601951/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-30.54748</wgs:lat>
+	<wgs:long>27.7446</wgs:long>
+	<skos:prefLabel>Likhohlong Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7602001/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-30.3954</wgs:lat>
+	<wgs:long>27.70705</wgs:long>
+	<skos:prefLabel>Liphakoe Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7602143/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-30.42395</wgs:lat>
+	<wgs:long>27.66715</wgs:long>
+	<skos:prefLabel>Matsatseng Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7602170/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-30.16116</wgs:lat>
+	<wgs:long>27.99042</wgs:long>
+	<skos:prefLabel>Mkhono Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7602493/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-30.28505</wgs:lat>
+	<wgs:long>27.9621</wgs:long>
+	<skos:prefLabel>Mokotjomela Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7602530/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-30.22455</wgs:lat>
+	<wgs:long>28.16985</wgs:long>
+	<skos:prefLabel>Mphaki Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7602647/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-30.45455</wgs:lat>
+	<wgs:long>27.80965</wgs:long>
+	<skos:prefLabel>Qomoqomong Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7602709/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-30.10285</wgs:lat>
+	<wgs:long>28.18665</wgs:long>
+	<skos:prefLabel>Seforong Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7603044/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-30.4461</wgs:lat>
+	<wgs:long>27.9861</wgs:long>
+	<skos:prefLabel>Tsatsane Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7603114/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.44345</wgs:lat>
+	<wgs:long>28.7175</wgs:long>
+	<skos:prefLabel>Bobete Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7603162/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.28525</wgs:lat>
+	<wgs:long>28.39085</wgs:long>
+	<skos:prefLabel>Bokong Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7603236/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.40895</wgs:lat>
+	<wgs:long>28.5616</wgs:long>
+	<skos:prefLabel>Khohlo-Ntso Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7626244/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.76625</wgs:lat>
+	<wgs:long>28.39075</wgs:long>
+	<skos:prefLabel>Lesobeng Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7626392/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.606</wgs:lat>
+	<wgs:long>28.1754</wgs:long>
+	<skos:prefLabel>Malehloana Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7626478/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.69755</wgs:lat>
+	<wgs:long>28.6948</wgs:long>
+	<skos:prefLabel>Mohlanapeng Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7626499/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.6354</wgs:lat>
+	<wgs:long>28.885</wgs:long>
+	<skos:prefLabel>MonyetLeng Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7626662/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.4259</wgs:lat>
+	<wgs:long>28.2552</wgs:long>
+	<skos:prefLabel>Mphe-Lebeko</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7626685/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.55545</wgs:lat>
+	<wgs:long>28.90415</wgs:long>
+	<skos:prefLabel>Rapoleboea Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7626700/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.7439</wgs:lat>
+	<wgs:long>28.83525</wgs:long>
+	<skos:prefLabel>Sehonghong Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7626797/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.31195</wgs:lat>
+	<wgs:long>28.64</wgs:long>
+	<skos:prefLabel>Senotong Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7626820/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.71695</wgs:lat>
+	<wgs:long>28.32595</wgs:long>
+	<skos:prefLabel>Thaba-Kholo Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7627072/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.5326</wgs:lat>
+	<wgs:long>28.57765</wgs:long>
+	<skos:prefLabel>Thaban'a Mahlanya Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7627220/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.95675</wgs:lat>
+	<wgs:long>27.4237</wgs:long>
+	<skos:prefLabel>Koti-Se-Phola Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7627391/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.85115</wgs:lat>
+	<wgs:long>27.2378</wgs:long>
+	<skos:prefLabel>Makaota Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7627494/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.87475</wgs:lat>
+	<wgs:long>27.56345</wgs:long>
+	<skos:prefLabel>Malakeng Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7627546/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.79945</wgs:lat>
+	<wgs:long>27.294</wgs:long>
+	<skos:prefLabel>Makholane Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7627624/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.8918</wgs:lat>
+	<wgs:long>27.45</wgs:long>
+	<skos:prefLabel>Malumeng Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628428/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.6331</wgs:lat>
+	<wgs:long>27.33705</wgs:long>
+	<skos:prefLabel>Mamants'O Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7644861/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.7626</wgs:lat>
+	<wgs:long>27.6141</wgs:long>
+	<skos:prefLabel>Monyake Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7644890/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.7827</wgs:lat>
+	<wgs:long>27.4592</wgs:long>
+	<skos:prefLabel>Mathula Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7645445/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.6186</wgs:lat>
+	<wgs:long>27.1726</wgs:long>
+	<skos:prefLabel>Metsi-Maholo Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7645815/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.77925</wgs:lat>
+	<wgs:long>27.1286</wgs:long>
+	<skos:prefLabel>Qibing Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7645958/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.8992</wgs:lat>
+	<wgs:long>27.6629</wgs:long>
+	<skos:prefLabel>Ramoetsana Community</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7646432/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/932692/"/>
+	<europeana:country>LS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>-29.69655</wgs:lat>
+	<wgs:long>27.5239</wgs:long>
+	<skos:prefLabel>Tajane Community</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 152 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

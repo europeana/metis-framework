@@ -1,0 +1,32 @@
+ SELECT 
+  o.ObjectNumber, 
+  o.ObjectID, 
+  o.DateBegin, 
+  o.DateEnd, 
+  o.ObjectName, 
+  o.Dated, 
+  o.Title AS TitleObject, 
+  o.Medium, 
+  o.Description, 
+  t.TitleTypeID, 
+  t.Title, 
+  tt.TitleType, 
+  rt.RoleType, 
+  r.Role 
+ FROM 
+  kit.dbo.dbo_Objects AS o, 
+  kit.dbo.dbo_ObjTitles AS t, 
+  kit.dbo.dbo_TitleTypes AS tt, 
+  kit.dbo.dbo_ConXrefs AS cx, 
+  kit.dbo.dbo_Roles AS r, 
+  kit.dbo.dbo_RoleTypes AS rt
+ WHERE 
+  CuratorApproved=1 
+  And o.PublicAccess=1 
+  And IsVirtual=0 
+  And (o.DateBegin&lt;&gt;0 Or o.DateEnd&lt;&gt;0) 
+  And t.ObjectID=o.ObjectID 
+  And tt.TitleTypeID=t.TitleTypeID 
+  And o.ObjectID=cx.ID 
+  And cx.RoleID=r.RoleID 
+  And r.RoleTypeID=rt.RoleTypeID;

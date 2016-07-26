@@ -1,0 +1,1014 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AS_SG
+Description: Selected fields pulled from Geonames about SG done on Mon May 23 21:13:38 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880157/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.43306</wgs:lat>
+	<wgs:long>104.05583</wgs:long>
+	<skos:altLabel>Pulau Unam</skos:altLabel>
+	<skos:altLabel>Pulau Unum</skos:altLabel>
+	<skos:prefLabel>Pulau Unum</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880161/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.23278</wgs:lat>
+	<wgs:long>103.75639</wgs:long>
+	<skos:prefLabel>Pulau Ular</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880162/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.41194</wgs:lat>
+	<wgs:long>103.96389</wgs:long>
+	<skos:altLabel>Pulau Ubin</skos:altLabel>
+	<skos:prefLabel>Pulau Ubin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880197/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.22389</wgs:lat>
+	<wgs:long>103.86083</wgs:long>
+	<skos:altLabel>Kusu Island</skos:altLabel>
+	<skos:altLabel>Peak Island</skos:altLabel>
+	<skos:altLabel>Pulau Tembakul</skos:altLabel>
+	<skos:prefLabel>Pulau Tembakul</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880202/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.23111</wgs:lat>
+	<wgs:long>103.83917</wgs:long>
+	<skos:altLabel>Penyabong</skos:altLabel>
+	<skos:altLabel>Poelau Sekoeker</skos:altLabel>
+	<skos:altLabel>Pulau Penyabong</skos:altLabel>
+	<skos:altLabel>Pulau Tekukor</skos:altLabel>
+	<skos:prefLabel>Pulau Tekukor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880203/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.41667</wgs:lat>
+	<wgs:long>104.02306</wgs:long>
+	<skos:altLabel>Pulau Tekong Kechil</skos:altLabel>
+	<skos:prefLabel>Pulau Tekong Kechil</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880204/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.41667</wgs:lat>
+	<wgs:long>104.05583</wgs:long>
+	<skos:altLabel>Pulau Tekong</skos:altLabel>
+	<skos:altLabel>Pulau Tekong Besar</skos:altLabel>
+	<skos:prefLabel>Pulau Tekong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880231/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.2075</wgs:lat>
+	<wgs:long>103.72056</wgs:long>
+	<skos:altLabel>Poelau Soedong</skos:altLabel>
+	<skos:altLabel>Pulau Sudong</skos:altLabel>
+	<skos:prefLabel>Pulau Sudong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880232/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.21361</wgs:lat>
+	<wgs:long>103.835</wgs:long>
+	<skos:altLabel>Pulau Subar Laut</skos:altLabel>
+	<skos:altLabel>South Sister</skos:altLabel>
+	<skos:prefLabel>Pulau Subar Laut</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880233/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.21639</wgs:lat>
+	<wgs:long>103.8325</wgs:long>
+	<skos:altLabel>North Sister</skos:altLabel>
+	<skos:altLabel>Pulau Subar Darat</skos:altLabel>
+	<skos:prefLabel>Pulau Subar Darat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880249/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.36667</wgs:lat>
+	<wgs:long>103.8</wgs:long>
+	<skos:altLabel>Singapore</skos:altLabel>
+	<skos:altLabel>Singapore Island</skos:altLabel>
+	<skos:prefLabel>Singapore Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880251/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255147/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>4701069</europeana:population>
+	<wgs:lat>1.36667</wgs:lat>
+	<wgs:long>103.8</wgs:long>
+	<skos:altLabel xml:lang="pt">Cingapura</skos:altLabel>
+	<skos:altLabel>Republic of Singapore</skos:altLabel>
+	<skos:altLabel>SG</skos:altLabel>
+	<skos:altLabel xml:lang="sm">Sigapoa</skos:altLabel>
+	<skos:altLabel xml:lang="af">Singapoer</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Singapor</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Singapor</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Singapor</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Singapor</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Singapore</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Singapore</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Singapore</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Singapore</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Singapore</skos:altLabel>
+	<skos:altLabel xml:lang="da">Singapore</skos:altLabel>
+	<skos:altLabel xml:lang="en">Singapore</skos:altLabel>
+	<skos:altLabel xml:lang="it">Singapore</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Singapore</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Singapore</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Singapore</skos:altLabel>
+	<skos:altLabel xml:lang="no">Singapore</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Singapore</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Singapore</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Singapore</skos:altLabel>
+	<skos:altLabel xml:lang="li">Singapore</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Singapore</skos:altLabel>
+	<skos:altLabel xml:lang="se">Singapore</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Singapori</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Singapour</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Singapour</skos:altLabel>
+	<skos:altLabel xml:lang="mg">Singapour</skos:altLabel>
+	<skos:altLabel xml:lang="es">Singapur</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Singapur</skos:altLabel>
+	<skos:altLabel xml:lang="de">Singapur</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Singapur</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Singapur</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Singapur</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Singapur</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Singapur</skos:altLabel>
+	<skos:altLabel xml:lang="et">Singapur</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Singapur</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Singapur</skos:altLabel>
+	<skos:altLabel xml:lang="an">Singapur</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Singapur</skos:altLabel>
+	<skos:altLabel xml:lang="io">Singapur</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Singapur</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Singapur - 新加坡</skos:altLabel>
+	<skos:altLabel xml:lang="id">Singapura</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Singapura</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Singapura</skos:altLabel>
+	<skos:altLabel xml:lang="la">Singapura</skos:altLabel>
+	<skos:altLabel xml:lang="to">Singapura</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Singapuro</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Singapurän</skos:altLabel>
+	<skos:altLabel xml:lang="is">Singapúr</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Singapûr</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Singapūra</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Singapūras</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Singeapór</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Szingapúr</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Xin-ga-po</skos:altLabel>
+	<skos:altLabel xml:lang="el">Σιγκαπούρη</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Сингапур</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Сингапур</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сингапур</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Сингапур</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Сингапур</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Сингапур</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Сінгапур</skos:altLabel>
+	<skos:altLabel xml:lang="be">Сінгапур</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Сінґапур</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Սինգապուր</skos:altLabel>
+	<skos:altLabel xml:lang="he">סינגפור</skos:altLabel>
+	<skos:altLabel xml:lang="ar">سنغافورة</skos:altLabel>
+	<skos:altLabel xml:lang="fa">سنگاپور</skos:altLabel>
+	<skos:altLabel xml:lang="ug">سىنگاپور</skos:altLabel>
+	<skos:altLabel xml:lang="hi">सिंगापुर</skos:altLabel>
+	<skos:altLabel xml:lang="mr">सिंगापुर</skos:altLabel>
+	<skos:altLabel xml:lang="mr">सिंगापूर</skos:altLabel>
+	<skos:altLabel xml:lang="bn">সিঙ্গাপুর</skos:altLabel>
+	<skos:altLabel xml:lang="ta">சிங்கப்பூர்</skos:altLabel>
+	<skos:altLabel xml:lang="kn">ಸಿಂಗಪುರ</skos:altLabel>
+	<skos:altLabel xml:lang="ml">സിംഗപ്പുര്‍</skos:altLabel>
+	<skos:altLabel xml:lang="ml">സിംഗപ്പൂര്‍</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศสิงคโปร์</skos:altLabel>
+	<skos:altLabel xml:lang="th">สิงคโปร์</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ສິງກະໂປ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">སིངྒ་པུར།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">სინგაპური</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሲንጋፖር</skos:altLabel>
+	<skos:altLabel xml:lang="km">សិង្ហបុរី</skos:altLabel>
+	<skos:altLabel xml:lang="ja">シンガポール</skos:altLabel>
+	<skos:altLabel xml:lang="zh">新加坡</skos:altLabel>
+	<skos:altLabel xml:lang="ko">싱가포르</skos:altLabel>
+	<skos:prefLabel>Republic of Singapore</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880252/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>3547809</europeana:population>
+	<wgs:lat>1.28967</wgs:lat>
+	<wgs:long>103.85007</wgs:long>
+	<skos:altLabel xml:lang="en">Singapore</skos:altLabel>
+	<skos:altLabel xml:lang="it">Singapore</skos:altLabel>
+	<skos:altLabel xml:lang="da">Singapore</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Singapore</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Singapore</skos:altLabel>
+	<skos:altLabel>Singapore City</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Singapour</skos:altLabel>
+	<skos:altLabel xml:lang="de">Singapur</skos:altLabel>
+	<skos:altLabel xml:lang="es">Singapur</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Singapura</skos:altLabel>
+	<skos:altLabel>Tumasik</skos:altLabel>
+	<skos:altLabel xml:lang="el">Σιγκαπούρη</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сингапур</skos:altLabel>
+	<skos:altLabel xml:lang="th">สิงค์โปร</skos:altLabel>
+	<skos:prefLabel>Singapore</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880263/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.23028</wgs:lat>
+	<wgs:long>103.85417</wgs:long>
+	<skos:altLabel>Pulau Renget</skos:altLabel>
+	<skos:altLabel>Pulau Renggit Besar</skos:altLabel>
+	<skos:altLabel>Pulau Seringat</skos:altLabel>
+	<skos:altLabel>Pulo Renget Besar</skos:altLabel>
+	<skos:prefLabel>Pulau Seringat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880264/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.2775</wgs:lat>
+	<wgs:long>103.7275</wgs:long>
+	<skos:altLabel>Poelau Seraja</skos:altLabel>
+	<skos:altLabel>Pulau Seraya</skos:altLabel>
+	<skos:prefLabel>Pulau Seraya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880270/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.40917</wgs:lat>
+	<wgs:long>103.92389</wgs:long>
+	<skos:altLabel>Coney Island</skos:altLabel>
+	<skos:altLabel>Pulau Serangoon</skos:altLabel>
+	<skos:prefLabel>Pulau Serangoon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880272/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLT"/>
+	<wgs:lat>1.25</wgs:lat>
+	<wgs:long>103.82667</wgs:long>
+	<skos:altLabel>Poelau Belakangmati</skos:altLabel>
+	<skos:altLabel>Pulau Blakang Mati</skos:altLabel>
+	<skos:altLabel>Sentosa</skos:altLabel>
+	<skos:altLabel>Sentosa Island</skos:altLabel>
+	<skos:prefLabel>Sentosa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880276/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.17111</wgs:lat>
+	<wgs:long>103.73528</wgs:long>
+	<skos:altLabel>Barn-eiland</skos:altLabel>
+	<skos:altLabel>Pulau Senang</skos:altLabel>
+	<skos:prefLabel>Pulau Senang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880277/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.41278</wgs:lat>
+	<wgs:long>104.03167</wgs:long>
+	<skos:prefLabel>Pulau Semechek</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880284/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.20667</wgs:lat>
+	<wgs:long>103.76028</wgs:long>
+	<skos:altLabel>Mangrove-eiland</skos:altLabel>
+	<skos:altLabel>Pulau Semakau</skos:altLabel>
+	<skos:prefLabel>Pulau Semakau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880293/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.44278</wgs:lat>
+	<wgs:long>103.86222</wgs:long>
+	<skos:prefLabel>Pulau Seletar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880296/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.25944</wgs:lat>
+	<wgs:long>103.81833</wgs:long>
+	<skos:prefLabel>Pulau Selegu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880298/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.40444</wgs:lat>
+	<wgs:long>103.98806</wgs:long>
+	<skos:altLabel>Pulau Sekudu</skos:altLabel>
+	<skos:prefLabel>Pulau Sekudu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880300/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.28333</wgs:lat>
+	<wgs:long>103.73333</wgs:long>
+	<skos:prefLabel>Pulau Seburus Luar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880301/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.26667</wgs:lat>
+	<wgs:long>103.73333</wgs:long>
+	<skos:prefLabel>Pulau Seburus Dalam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880302/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.20583</wgs:lat>
+	<wgs:long>103.795</wgs:long>
+	<skos:altLabel>Middle Island</skos:altLabel>
+	<skos:altLabel>Pulau Sebarok</skos:altLabel>
+	<skos:prefLabel>Pulau Sebarok</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880305/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.15944</wgs:lat>
+	<wgs:long>103.74056</wgs:long>
+	<skos:altLabel>Coney Islet</skos:altLabel>
+	<skos:altLabel>Pulau Satumu</skos:altLabel>
+	<skos:prefLabel>Pulau Satumu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880308/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.43417</wgs:lat>
+	<wgs:long>103.685</wgs:long>
+	<skos:prefLabel>Pulau Sarimbun</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880311/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.395</wgs:lat>
+	<wgs:long>104.06639</wgs:long>
+	<skos:altLabel>Pulau Sanyongkong</skos:altLabel>
+	<skos:altLabel>Pulau Sejungkong</skos:altLabel>
+	<skos:altLabel>Sunjungkong</skos:altLabel>
+	<skos:prefLabel>Pulau Sanyongkong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880313/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLT"/>
+	<wgs:lat>1.30333</wgs:lat>
+	<wgs:long>103.69694</wgs:long>
+	<skos:prefLabel>Pulau Samulun</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880316/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.21639</wgs:lat>
+	<wgs:long>103.70694</wgs:long>
+	<skos:prefLabel>Pulau Salu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880321/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.25917</wgs:lat>
+	<wgs:long>103.70417</wgs:long>
+	<skos:altLabel>Poelau Sekra-Laoet</skos:altLabel>
+	<skos:altLabel>Pulau Sakra</skos:altLabel>
+	<skos:prefLabel>Pulau Sakra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880322/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.22222</wgs:lat>
+	<wgs:long>103.855</wgs:long>
+	<skos:altLabel>East Saint John Island</skos:altLabel>
+	<skos:altLabel>Lazarus Island</skos:altLabel>
+	<skos:altLabel>Pulau Sakijang Pelepah</skos:altLabel>
+	<skos:prefLabel>Pulau Sakijang Pelepah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880323/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.21889</wgs:lat>
+	<wgs:long>103.84806</wgs:long>
+	<skos:altLabel>Bandera Sakijang</skos:altLabel>
+	<skos:altLabel>Pulau Sakijang Bendera</skos:altLabel>
+	<skos:altLabel>Saint John’s Island</skos:altLabel>
+	<skos:altLabel>West Saint John</skos:altLabel>
+	<skos:altLabel>West Saint John Island</skos:altLabel>
+	<skos:prefLabel>Pulau Sakijang Bendera</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880324/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.20722</wgs:lat>
+	<wgs:long>103.77806</wgs:long>
+	<skos:altLabel>Poelau Siking</skos:altLabel>
+	<skos:altLabel>Pulau Sakeng</skos:altLabel>
+	<skos:prefLabel>Pulau Sakeng</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880325/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.40056</wgs:lat>
+	<wgs:long>104.025</wgs:long>
+	<skos:prefLabel>Pulau Sajahat Kechil</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880326/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.40111</wgs:lat>
+	<wgs:long>104.02194</wgs:long>
+	<skos:prefLabel>Pulau Sajahat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880327/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>1.21667</wgs:lat>
+	<wgs:long>103.85</wgs:long>
+	<skos:prefLabel>Saint John Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880336/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.26028</wgs:lat>
+	<wgs:long>103.81472</wgs:long>
+	<skos:prefLabel>Pulau Renggis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880379/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.28528</wgs:lat>
+	<wgs:long>103.68833</wgs:long>
+	<skos:altLabel>Poelau Pisi</skos:altLabel>
+	<skos:altLabel>Pulau Pesek</skos:altLabel>
+	<skos:prefLabel>Pulau Pesek</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880384/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.39806</wgs:lat>
+	<wgs:long>103.66139</wgs:long>
+	<skos:prefLabel>Pulau Pergam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880400/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.18639</wgs:lat>
+	<wgs:long>103.72528</wgs:long>
+	<skos:altLabel>Alligator-eiland</skos:altLabel>
+	<skos:altLabel>Pulau Pawai</skos:altLabel>
+	<skos:prefLabel>Pulau Pawai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880414/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.26861</wgs:lat>
+	<wgs:long>103.68861</wgs:long>
+	<skos:prefLabel>Tanjong Pangkong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880451/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.28</wgs:lat>
+	<wgs:long>103.71667</wgs:long>
+	<skos:prefLabel>Pulau Meskol</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880452/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.28833</wgs:lat>
+	<wgs:long>103.72278</wgs:long>
+	<skos:prefLabel>Pulau Mesemut Laut</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880453/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.285</wgs:lat>
+	<wgs:long>103.72194</wgs:long>
+	<skos:prefLabel>Pulau Mesemut Darat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880455/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.28639</wgs:lat>
+	<wgs:long>103.71222</wgs:long>
+	<skos:altLabel>Ayer Limau</skos:altLabel>
+	<skos:altLabel>Poelau Airlimau</skos:altLabel>
+	<skos:altLabel>Pulau Merlimau</skos:altLabel>
+	<skos:prefLabel>Pulau Merlimau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880458/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.33333</wgs:lat>
+	<wgs:long>103.63333</wgs:long>
+	<skos:altLabel>Pulau Kampong</skos:altLabel>
+	<skos:altLabel>Pulau Merawang</skos:altLabel>
+	<skos:prefLabel>Pulau Merawang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880513/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.40361</wgs:lat>
+	<wgs:long>103.94917</wgs:long>
+	<skos:prefLabel>Pulau Ketam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880633/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.21528</wgs:lat>
+	<wgs:long>103.78667</wgs:long>
+	<skos:altLabel>Pulau Jong</skos:altLabel>
+	<skos:prefLabel>Pulau Jong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880659/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.26389</wgs:lat>
+	<wgs:long>103.81194</wgs:long>
+	<skos:altLabel>Pulau Hantu</skos:altLabel>
+	<skos:altLabel>Pulau Keppel</skos:altLabel>
+	<skos:prefLabel>Pulau Keppel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880660/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.22472</wgs:lat>
+	<wgs:long>103.74861</wgs:long>
+	<skos:prefLabel>Pulau Hantu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880697/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLT"/>
+	<wgs:lat>1.30306</wgs:lat>
+	<wgs:long>103.71556</wgs:long>
+	<skos:prefLabel>Pulau Damar Laut</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880732/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.23444</wgs:lat>
+	<wgs:long>103.74556</wgs:long>
+	<skos:altLabel>Poelau Bosing</skos:altLabel>
+	<skos:altLabel>Pulau Busing</skos:altLabel>
+	<skos:prefLabel>Pulau Busing</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880733/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.23889</wgs:lat>
+	<wgs:long>103.84667</wgs:long>
+	<skos:altLabel>Buran Darat</skos:altLabel>
+	<skos:altLabel>Pulau Buran</skos:altLabel>
+	<skos:prefLabel>Pulau Buran</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880738/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.45056</wgs:lat>
+	<wgs:long>103.72528</wgs:long>
+	<skos:prefLabel>Pulau Buloh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880740/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.2275</wgs:lat>
+	<wgs:long>103.76528</wgs:long>
+	<skos:altLabel>Poelau Boekoem-Ketjil</skos:altLabel>
+	<skos:altLabel>Pulau Bukom Kechil</skos:altLabel>
+	<skos:altLabel>Pulau Bukum Kechil</skos:altLabel>
+	<skos:prefLabel>Pulau Bukum Kechil</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880743/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.23389</wgs:lat>
+	<wgs:long>103.76639</wgs:long>
+	<skos:altLabel>Freshwater Island</skos:altLabel>
+	<skos:altLabel>Pulau Bukom</skos:altLabel>
+	<skos:altLabel>Pulau Bukum</skos:altLabel>
+	<skos:altLabel>Zoetwater-eiland</skos:altLabel>
+	<skos:prefLabel>Pulau Bukum</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880752/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.28444</wgs:lat>
+	<wgs:long>103.70389</wgs:long>
+	<skos:prefLabel>Pulau Buaya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880758/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLT"/>
+	<wgs:lat>1.25944</wgs:lat>
+	<wgs:long>103.8325</wgs:long>
+	<skos:altLabel>Pulau Brani</skos:altLabel>
+	<skos:prefLabel>Pulau Brani</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880767/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.16444</wgs:lat>
+	<wgs:long>103.74222</wgs:long>
+	<skos:altLabel>Pulau Biola</skos:altLabel>
+	<skos:altLabel>Rabbit Islet</skos:altLabel>
+	<skos:prefLabel>Pulau Biola</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880775/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.18944</wgs:lat>
+	<wgs:long>103.73694</wgs:long>
+	<skos:prefLabel>Pulau Berkas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880777/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLT"/>
+	<wgs:lat>1.25306</wgs:lat>
+	<wgs:long>103.83806</wgs:long>
+	<skos:altLabel>Pulau Berhala Reping</skos:altLabel>
+	<skos:altLabel>Tanjong Berhala</skos:altLabel>
+	<skos:prefLabel>Pulau Berhala Reping</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880787/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.33028</wgs:lat>
+	<wgs:long>104.4075</wgs:long>
+	<skos:altLabel>Horsburgh</skos:altLabel>
+	<skos:altLabel>Pedera Branca Horsburgh</skos:altLabel>
+	<skos:altLabel>Pedra Branca</skos:altLabel>
+	<skos:altLabel>Pulau Batu Puteh</skos:altLabel>
+	<skos:prefLabel>Pulau Batu Puteh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880801/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.25861</wgs:lat>
+	<wgs:long>103.70778</wgs:long>
+	<skos:prefLabel>Pulau Bakau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880805/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.36472</wgs:lat>
+	<wgs:long>103.64917</wgs:long>
+	<skos:altLabel>Pulau Bajau</skos:altLabel>
+	<skos:prefLabel>Pulau Bajau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880810/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.26778</wgs:lat>
+	<wgs:long>103.71639</wgs:long>
+	<skos:altLabel>Poelau Airmerbali</skos:altLabel>
+	<skos:altLabel>Pulau Ayer Merbau</skos:altLabel>
+	<skos:prefLabel>Pulau Ayer Merbau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880815/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.27694</wgs:lat>
+	<wgs:long>103.70056</wgs:long>
+	<skos:prefLabel>Pulau Ayer Chawan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1880821/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.28833</wgs:lat>
+	<wgs:long>103.69417</wgs:long>
+	<skos:prefLabel>Anak Pulau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1881621/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.2775</wgs:lat>
+	<wgs:long>103.68139</wgs:long>
+	<skos:prefLabel>Pulau Pesek Kecil</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1881642/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.28194</wgs:lat>
+	<wgs:long>103.76278</wgs:long>
+	<skos:prefLabel>Pulau Retan Laut</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1881650/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.225</wgs:lat>
+	<wgs:long>103.77</wgs:long>
+	<skos:altLabel>Pulau Anak Bukom</skos:altLabel>
+	<skos:altLabel>Pulau Anak Bukum</skos:altLabel>
+	<skos:prefLabel>Pulau Anak Bukum</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1882045/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.22694</wgs:lat>
+	<wgs:long>103.84778</wgs:long>
+	<skos:prefLabel>Pulau Seringat Kecil</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1882144/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.21444</wgs:lat>
+	<wgs:long>103.83556</wgs:long>
+	<skos:prefLabel>The Sisters</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1882314/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>1.41778</wgs:lat>
+	<wgs:long>103.75694</wgs:long>
+	<skos:altLabel>Kranji War Memorial</skos:altLabel>
+	<skos:prefLabel>Kranji War Memorial</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1882491/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.43611</wgs:lat>
+	<wgs:long>104.06694</wgs:long>
+	<skos:prefLabel>Pulau Damien</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1882718/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.28972</wgs:lat>
+	<wgs:long>103.84167</wgs:long>
+	<skos:prefLabel>Pulau Saigon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1882743/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.2475</wgs:lat>
+	<wgs:long>103.84472</wgs:long>
+	<skos:prefLabel>Duran Darat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1888673/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.22083</wgs:lat>
+	<wgs:long>103.78056</wgs:long>
+	<skos:prefLabel>South Bukom</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6951478/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>1.28694</wgs:lat>
+	<wgs:long>103.855</wgs:long>
+	<skos:prefLabel>Merlion</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7535954/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>1.29868</wgs:lat>
+	<wgs:long>103.85367</wgs:long>
+	<skos:altLabel>Central Singapore</skos:altLabel>
+	<skos:prefLabel>Central Singapore Community Development Council</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7535955/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>1.31421</wgs:lat>
+	<wgs:long>103.85822</wgs:long>
+	<skos:altLabel>North East</skos:altLabel>
+	<skos:prefLabel>North East Community Development Region</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7535956/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>1.30683</wgs:lat>
+	<wgs:long>103.88698</wgs:long>
+	<skos:altLabel>South East</skos:altLabel>
+	<skos:prefLabel>South East Community Development Council</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7535957/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>1.31464</wgs:lat>
+	<wgs:long>103.83007</wgs:long>
+	<skos:altLabel>South West</skos:altLabel>
+	<skos:prefLabel>South West Community Development Council</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7535958/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1880251/"/>
+	<europeana:country>SG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>1.29868</wgs:lat>
+	<wgs:long>103.81986</wgs:long>
+	<skos:altLabel>North West</skos:altLabel>
+	<skos:prefLabel>North West Community Development Council</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 84 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

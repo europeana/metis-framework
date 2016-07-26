@@ -1,0 +1,35 @@
+            ------
+            Converter: Museum of Asian Ceramics
+            ------
+ 
+
+ This is a converter of the dataset of the 
+ {{{http://www.aziatischekeramiek.nl} Museum of Asian Ceramics}}.
+ 
+Source files
+ 
+ {{{https://annocultor.svn.sourceforge.net/svnroot/annocultor/demos/converters/aziatischekeramiek/} Parent directory for source files}}
+ in AnnoCultor source repository.
+ 
+Data 
+
+ In this dataset we have 2676 records. 
+ 
+Analysis
+ 
+ Here is the 
+ {{{http://annocultor.svn.sourceforge.net/viewvc/annocultor/demos/converters/aziatischekeramiek/doc/analysis.html} analysis}}
+ produced by the AnnoCultor Analyser run over the whole dataset.
+  
+Converter
+
+ The 
+ {{{https://annocultor.svn.sourceforge.net/svnroot/annocultor/demos/converters/aziatischekeramiek/profile/profile.xml} converter in XML}}
+ illustrates a number of AnnoCultor features:
+ 
+ * basic converter
+ 
+Report
+
+ The {{{http://annocultor.svn.sourceforge.net/viewvc/annocultor/demos/converters/aziatischekeramiek/doc/ak_ak/index.html} conversion report}}
+ gives some statistics on how successful was the converter on the whole dataset. 

@@ -1,0 +1,32 @@
+
+	<!--
+		This file defines most common parameters used in demo converters. 
+		It is an XML fragment, and it should be included in xconverters using 
+		<!ENTITY parameters SYSTEM "../../parameters.xml">
+
+		Accordingly, this file has neither XML nor DOCTYPE declarations and assumes that 
+		the ac namespace is properly defined in the including document.
+	-->
+<ac:Parameter>
+	<ac:name>ANNOCULTOR_VOCABULARY_DIR</ac:name>
+	<ac:value>vocabularies</ac:value>
+</ac:Parameter>
+<ac:Parameter>
+	<ac:name>ANNOCULTOR_TMP_DIR</ac:name>
+	<ac:value>tmp</ac:value>
+</ac:Parameter>
+<ac:Parameter>
+	<ac:name>ANNOCULTOR_INPUT_DIR</ac:name>
+	<ac:value>input_source/EU/</ac:value>
+</ac:Parameter>
+<ac:Parameter>
+	<ac:name>ANNOCULTOR_OUTPUT_DIR</ac:name>
+	<ac:value>output_rdf</ac:value>
+</ac:Parameter>
+<ac:Parameter>
+	<ac:name>ANNOCULTOR_DOC_DIR</ac:name>
+	<ac:value>doc</ac:value>
+</ac:Parameter>
+  
+  
+  

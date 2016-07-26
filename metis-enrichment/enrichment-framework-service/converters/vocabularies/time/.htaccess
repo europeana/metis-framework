@@ -1,0 +1,13 @@
+#<FilesMatch "^.*$">
+#Content-Type text/html; charset=utf-8
+#</FilesMatch>
+
+#RewriteEngine On
+#RewriteRule ^(.+)$ $1 [T=text/html] 
+
+RewriteEngine on
+RewriteBase /
+RewriteCond %{HTTP_ACCEPT} application/xhtml\+xml
+RewriteCond %{HTTP_ACCEPT} !application/xhtml\+xml\s*;\s*q=0
+RewriteCond %{THE_REQUEST} HTTP/1\.1
+RewriteRule .* - [T=application/xhtml+xml]

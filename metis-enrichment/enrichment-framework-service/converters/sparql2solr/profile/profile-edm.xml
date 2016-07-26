@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rdf:RDF [
+    <!ENTITY rdf 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
+    <!ENTITY rdfs 'http://www.w3.org/2000/01/rdf-schema#'>
+    <!ENTITY ac 'http://annocultor.eu/converter/'>
+
+    <!ENTITY convert_all_records '-1'>
+    <!ENTITY parameters SYSTEM '/../../parameters.xml'> 
+    <!ENTITY files SYSTEM '/copy-of-files.xml'> 
+    
+]>
+<rdf:RDF xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://annocultor.eu/schema/XConverter.xsd" xmlns:ac="http://annocultor.eu/converter/"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xmlns:europeana="europeana_" 
+  xmlns:Skos="skos_" 
+  xmlns:Wgs="wgs_" 
+  xmlns:Dcterms="dcterms_" 
+  xmlns:Period="period_" 
+  xmlns:Dc="dc_" 
+  
+  >
+  <ac:Profile ac:institution="Europeana project" ac:publisherId="000" ac:versionAnnoCultor="2.3" rdf:about="Skos2Solr" ac:namespace="ac">
+    <ac:parameters rdf:parseType="Collection">
+      <ac:Parameter>
+        <ac:name>ANNOCULTOR_VOCABULARY_DIR</ac:name>
+        <ac:value>vocabularies</ac:value>
+      </ac:Parameter>
+      <ac:Parameter>
+        <ac:name>ANNOCULTOR_TMP_DIR</ac:name>
+        <ac:value>tmp</ac:value>
+      </ac:Parameter>
+      <ac:Parameter>
+        <ac:name>ANNOCULTOR_INPUT_DIR</ac:name>
+        <ac:value>../vocabularies/</ac:value>
+      </ac:Parameter>
+      <ac:Parameter>
+        <ac:name>ANNOCULTOR_OUTPUT_DIR</ac:name>
+        <ac:value>output_rdf</ac:value>
+      </ac:Parameter>
+      <ac:Parameter>
+        <ac:name>ANNOCULTOR_DOC_DIR</ac:name>
+        <ac:value>doc</ac:value>
+      </ac:Parameter>
+    </ac:parameters>
+
+    <ac:repositories rdf:parseType="Collection">
+      <ac:Repository rdf:about="sparql2solr">
+        <ac:datasources rdf:parseType="Collection">
+          <ac:SparqlDataSource>
+            <ac:sparqlQuery> 
+			  <![CDATA[
+					    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+                        SELECT ?id ?property ?value
+                        WHERE {
+                           ?id ?property ?value
+                        } ORDER BY ?id 
+              ]]>
+            </ac:sparqlQuery>
+            &files;
+          </ac:SparqlDataSource>
+        </ac:datasources>
+        <ac:destinations rdf:parseType="Collection">
+          <ac:SolrServer rdf:about="Solr">
+            <ac:url>http://localhost:8983/solr</ac:url>
+            <ac:schema>http://localhost:8983/solr/admin/file/?file=schema.xml</ac:schema>
+          </ac:SolrServer>
+        </ac:destinations>
+        <ac:objectRules rdf:parseType="Collection">
+          <ac:ObjectRule rdf:about="subjectRule">
+            <ac:recordSeparator></ac:recordSeparator>
+            <ac:recordIdentifier>id</ac:recordIdentifier>
+            <ac:recordInformalIdentifier>value</ac:recordInformalIdentifier>
+            <ac:listeners rdf:parseType="Collection">
+              <ac:OnPreCondition>
+                <ac:java>
+                  <![CDATA[
+                                    
+        subjectRule.assumeQualifiedLocalRecordIdentifier();
+
+        sourceDataObject.addValue(new Path("collectionName"), new XmlValue(System.getenv("EDM_COLLECTION")));
+        sourceDataObject.addValue(new Path("edm_class"), new XmlValue(System.getenv("EDM_CLASS")));
+        sourceDataObject.addValue(new Path("type"), new XmlValue(System.getenv("EDM_CLASS")));
+        sourceDataObject.addValue(new Path("identifier"), new XmlValue(sourceDataObject.getFirstValue(new Path("id")).getValue()));
+
+        sourceDataObject.addValue(new Path("completeness"), new XmlValue("10"));
+
+        final Map<String, String> rdf2solr = new HashMap<String, String>();
+        rdf2solr.put(environment.getNamespaces().getUri("skos") + "prefLabel", "prefLabel");
+        rdf2solr.put(environment.getNamespaces().getUri("skos") + "altLabel", "altLabel");
+        rdf2solr.put(environment.getNamespaces().getUri("skos") + "broader", "broader");
+        rdf2solr.put(environment.getNamespaces().getUri("ac_time") + "beginDate", "begin");
+        rdf2solr.put(environment.getNamespaces().getUri("ac_time") + "endDate", "end");
+        rdf2solr.put(environment.getNamespaces().getUri("skos") + "broader", "broader");
+        rdf2solr.put(environment.getNamespaces().getUri("dcterms") + "isPartOf", "isPartOf");
+        rdf2solr.put(environment.getNamespaces().getUri("wgs") + "lat", "lat");
+        rdf2solr.put(environment.getNamespaces().getUri("wgs") + "long", "long");
+        rdf2solr.put(environment.getNamespaces().getUri("europeana") + "population", "population");
+        rdf2solr.put(environment.getNamespaces().getUri("europeana") + "division", "division");
+        rdf2solr.put(environment.getNamespaces().getUri("europeana") + "country", "country");
+        rdf2solr.put(environment.getNamespaces().getUri("europeana") + "completeness", "completeness");
+        
+        String propertyUri = sourceDataObject.getFirstValue(new Path("property")).getValue();        
+        if (rdf2solr.containsKey(propertyUri)) {
+            XmlValue propertyValue = sourceDataObject.getFirstValue(new Path("value"));
+            sourceDataObject.addValue(new Path(rdf2solr.get(propertyUri)), propertyValue);
+            // System.out.println(sourceDataObject);
+            return true;
+        }
+        return sourceDataObject.getFirstValue(new Path("id")).getValue().startsWith("http://annocultor.eu");
+                ]]>
+                </ac:java>
+              </ac:OnPreCondition>
+            </ac:listeners>
+
+
+            <ac:propertyRules>
+            
+              <!-- Envelope -->
+              <ac:eu.annocultor.rules.BatchRule-autoPropNames>
+                <ac:rule rdf:datatype="ac:Rule">
+                  <ac:eu.annocultor.rules.RenameLiteralPropertyRule-template>
+                    <ac:dstGraph rdf:datatype="ac:Graph">Solr</ac:dstGraph>
+                  </ac:eu.annocultor.rules.RenameLiteralPropertyRule-template>
+                </ac:rule>
+                <ac:dstNamespace rdf:datatype="ac:Namespace">europeana</ac:dstNamespace>
+                <ac:srcPath rdf:datatype="ac:Path">collectionName</ac:srcPath>
+                <ac:srcPath rdf:datatype="ac:Path">edm_class</ac:srcPath>
+                <ac:srcPath rdf:datatype="ac:Path">type</ac:srcPath>
+              </ac:eu.annocultor.rules.BatchRule-autoPropNames>
+
+              <ac:RenameLiteralPropertyRule-default>
+                <ac:srcPath rdf:datatype="ac:Path">id</ac:srcPath>
+                <ac:dstProperty rdf:datatype="ac:Property">europeana_uri</ac:dstProperty>
+                <ac:dstGraph rdf:datatype="ac:Graph">Solr</ac:dstGraph>
+                <ac:listeners rdf:parseType="Collection">
+                     <ac:OnInvocation>
+                         <ac:java>
+                            String uri = DigestUtils.md5Hex(sourceTriple.getValue().getValue()).toUpperCase();
+                            uri = "http://www.europeana.eu/resolve/term/"
+                            + System.getenv("EDM_COLLECTION_NICK") + "/" + uri;
+                              return sourceTriple.changeValue(new LiteralValue(uri));
+                         </ac:java>
+                      </ac:OnInvocation>
+                </ac:listeners>
+              </ac:RenameLiteralPropertyRule-default>
+
+              <!-- SKOS -->
+              <ac:eu.annocultor.rules.BatchRule-autoPropNames>
+                <ac:rule rdf:datatype="ac:Rule">
+                  <ac:eu.annocultor.rules.RenameLiteralPropertyRule-template>
+                    <ac:dstGraph rdf:datatype="ac:Graph">Solr</ac:dstGraph>
+                  </ac:eu.annocultor.rules.RenameLiteralPropertyRule-template>
+                </ac:rule>
+                <ac:dstNamespace rdf:datatype="ac:Namespace">ac</ac:dstNamespace>
+                <ac:srcPath rdf:datatype="ac:Path">broader</ac:srcPath>
+                <ac:srcPath rdf:datatype="ac:Path">prefLabel</ac:srcPath>
+                <ac:srcPath rdf:datatype="ac:Path">altLabel</ac:srcPath>
+                
+                <ac:listeners rdf:parseType="Collection">
+                  <ac:OnInit>
+                     <ac:java>
+                     setDstNamespace(factory.makeNamespace("Skos"));
+                     </ac:java>
+                  </ac:OnInit>
+                 </ac:listeners>
+              </ac:eu.annocultor.rules.BatchRule-autoPropNames>
+
+              <!-- Place -->
+              <ac:eu.annocultor.rules.BatchRule-autoPropNames>
+                <ac:rule rdf:datatype="ac:Rule">
+                  <ac:eu.annocultor.rules.RenameLiteralPropertyRule-template>
+                    <ac:dstGraph rdf:datatype="ac:Graph">Solr</ac:dstGraph>
+                  </ac:eu.annocultor.rules.RenameLiteralPropertyRule-template>
+                </ac:rule>
+                <ac:dstNamespace rdf:datatype="ac:Namespace">ac</ac:dstNamespace>
+                <ac:srcPath rdf:datatype="ac:Path">lat</ac:srcPath>
+                <ac:srcPath rdf:datatype="ac:Path">long</ac:srcPath>
+                 
+                <ac:listeners rdf:parseType="Collection">
+                  <ac:OnInit>
+                     <ac:java>
+                     setDstNamespace(factory.makeNamespace("Wgs"));
+                     </ac:java>
+                  </ac:OnInit>
+                 </ac:listeners>
+              </ac:eu.annocultor.rules.BatchRule-autoPropNames>
+
+              <!-- DC -->
+              <ac:eu.annocultor.rules.BatchRule-autoPropNames>
+                <ac:rule rdf:datatype="ac:Rule">
+                  <ac:eu.annocultor.rules.RenameLiteralPropertyRule-template>
+                    <ac:dstGraph rdf:datatype="ac:Graph">Solr</ac:dstGraph>
+                  </ac:eu.annocultor.rules.RenameLiteralPropertyRule-template>
+                </ac:rule>
+                <ac:dstNamespace rdf:datatype="ac:Namespace">ac</ac:dstNamespace>
+                <ac:srcPath rdf:datatype="ac:Path">identifier</ac:srcPath>
+                
+                <ac:listeners rdf:parseType="Collection">
+                  <ac:OnInit>
+                     <ac:java>
+                     setDstNamespace(factory.makeNamespace("Dc"));
+                     </ac:java>
+                  </ac:OnInit>
+                 </ac:listeners>
+              </ac:eu.annocultor.rules.BatchRule-autoPropNames>
+
+              <!-- DC Terms -->
+              <ac:eu.annocultor.rules.BatchRule-autoPropNames>
+                <ac:rule rdf:datatype="ac:Rule">
+                  <ac:eu.annocultor.rules.RenameLiteralPropertyRule-template>
+                    <ac:dstGraph rdf:datatype="ac:Graph">Solr</ac:dstGraph>
+                  </ac:eu.annocultor.rules.RenameLiteralPropertyRule-template>
+                </ac:rule>
+                <ac:dstNamespace rdf:datatype="ac:Namespace">ac</ac:dstNamespace>
+                <ac:srcPath rdf:datatype="ac:Path">isPartOf</ac:srcPath>
+                
+                <ac:listeners rdf:parseType="Collection">
+                  <ac:OnInit>
+                     <ac:java>
+                     setDstNamespace(factory.makeNamespace("Dcterms"));
+                     </ac:java>
+                  </ac:OnInit>
+                 </ac:listeners>
+              </ac:eu.annocultor.rules.BatchRule-autoPropNames>
+
+              <!-- TimeSpan -->
+              <ac:eu.annocultor.rules.BatchRule-autoPropNames>
+                <ac:rule rdf:datatype="ac:Rule">
+                  <ac:eu.annocultor.rules.RenameLiteralPropertyRule-template>
+                    <ac:dstGraph rdf:datatype="ac:Graph">Solr</ac:dstGraph>
+                  </ac:eu.annocultor.rules.RenameLiteralPropertyRule-template>
+                </ac:rule>
+                <ac:dstNamespace rdf:datatype="ac:Namespace">ac</ac:dstNamespace>
+                <ac:srcPath rdf:datatype="ac:Path">begin</ac:srcPath>
+                <ac:srcPath rdf:datatype="ac:Path">end</ac:srcPath>
+                
+                <ac:listeners rdf:parseType="Collection">
+                  <ac:OnInit>
+                     <ac:java>
+                     setDstNamespace(factory.makeNamespace("Period"));
+                     </ac:java>
+                  </ac:OnInit>
+                 </ac:listeners>
+              </ac:eu.annocultor.rules.BatchRule-autoPropNames>
+
+              <!-- Term -->
+              <ac:eu.annocultor.rules.BatchRule-autoPropNames>
+                <ac:rule rdf:datatype="ac:Rule">
+                  <ac:eu.annocultor.rules.RenameLiteralPropertyRule-template>
+                    <ac:dstGraph rdf:datatype="ac:Graph">Solr</ac:dstGraph>
+                  </ac:eu.annocultor.rules.RenameLiteralPropertyRule-template>
+                </ac:rule>
+                <ac:dstNamespace rdf:datatype="ac:Namespace">ac</ac:dstNamespace>
+                <ac:srcPath rdf:datatype="ac:Path">country</ac:srcPath>
+                <ac:srcPath rdf:datatype="ac:Path">division</ac:srcPath>
+                <ac:srcPath rdf:datatype="ac:Path">population</ac:srcPath>
+                <ac:srcPath rdf:datatype="ac:Path">completeness</ac:srcPath>
+                
+                <ac:listeners rdf:parseType="Collection">
+                  <ac:OnInit>
+                     <ac:java>
+                     setDstNamespace(factory.makeNamespace("europeana"));
+                     //setDstNamespace(factory.makeNamespace(System.getenv("EDM_CLASS")));
+                     </ac:java>
+                  </ac:OnInit>
+                 </ac:listeners>
+              </ac:eu.annocultor.rules.BatchRule-autoPropNames>
+
+            </ac:propertyRules>
+          </ac:ObjectRule>
+        </ac:objectRules>
+        <ac:maxRecordsToConvert>&convert_all_records;</ac:maxRecordsToConvert>
+      </ac:Repository>
+    </ac:repositories>
+  </ac:Profile>
+</rdf:RDF>

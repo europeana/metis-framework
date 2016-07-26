@@ -1,0 +1,65 @@
+            ------
+            Tutorial: Vocabularies
+            ------
+ 
+
+What are they
+
+	Vocabularies are lists (or hierarchies) of terms with associated codes. 
+	In AnnoCultor we assume that they are represented in RDF and are queried with SPARQL.
+	
+	Object and property conversion rules allow restructuring source data in XML or SQL query
+	result into some dat model represented in RDF. This allows processing data,
+	originally represented in diferent formats, in a uniform way.
+	
+	Vocabulary lookup rules alow enriching the data with links to terms from vocabularies.
+	For example, all <<<Paris>>>, <<<Parijs>>>, and <<<Parigi>>> refer to the same city
+	with Geonames code 2988507 that stands for... yes, Paris. AnnoCultor allows
+	loading a vocabulary, extracting the map between labels and codes, and
+	looking up certain fields (places, categories, people) in vocabularies.
+		
+Loading a vocabulary
+
+  To do vocabulary lookup we need to create a map between term labels that may
+  occur in the data and their codes.
+  
+  Let us look at the example:
+  
++---------------------------------------------------------------------------------------+
+ <ac:vocabularies rdf:parseType="Collection">
+   <ac:VocabularyOfTerms rdf:about="terms">
+     <ac:comment>Custom vocabulary</ac:comment>
+     <ac:file>thesaurus.rdf</ac:file>
+     <ac:sparqlQuery>
+       SELECT ?code ?label 
+       WHERE 
+       {
+        ?code &lt;http://www.w3.org/2008/05/skos#prefLabel&gt; ?label
+       }
+     </ac:sparqlQuery>
+     <ac:listeners rdf:parseType="Collection"> 
+       <ac:OnNormaliseLabel>
+         <ac:java>
+            return label.toLowerCase();
+         </ac:java>
+       </ac:OnNormaliseLabel>
+     </ac:listeners>
+   </ac:VocabularyOfTerms>
+ </ac:vocabularies>  
++---------------------------------------------------------------------------------------+
+	
+	Here vocabulary is stored in file <<<thesaurus.rdf>>>, and there are RDF resources
+	that correspond to vocabulary codes, and they have property <<<skos:prefLabel>>> holding 
+	term preferred labels. The SPARQL query gets the map <<<code-label>>> used to look these terms up.
+	
+	Custom queries should always return pairs <<<code-label>>>. 	
+	
+	In the example we realize that the case of labels from the vocabulary differ 
+	from the case of terms used in the dataset. 
+	We fix this by creating a listener <<<OnNormaliseLabel>>> that
+	converts them all to lower case.
+
+How to get fun
+
+  In progress.
+  

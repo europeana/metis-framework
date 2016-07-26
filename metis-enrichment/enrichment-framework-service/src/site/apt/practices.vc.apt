@@ -1,0 +1,22 @@
+            ------
+            Best practices: version control
+            ------
+ 
+ It is highly recommended to have version control on output (RDF) files and perform conversion incrementally.
+ The following workflow is proven to be a good practice:
+ 
+ * change converter
+ 
+ * convert
+ 
+ * examine diffs on RDF files
+ 
+ * commit RDF files.
+ 
+ Typically, a change in converters is small in terms of source code,
+ but it makes changes all over the data, in various places. It is very difficult to 
+ oversee these changes, especially in datasets with millions records.
+ 
+ It makes sense to work in small steps, and do one thing at a time. 
+ Then the changes are easier to check with diff on the output RDF files.
+ 

@@ -1,0 +1,3702 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: EU_HU
+Description: Selected fields pulled from Geonames about HU done on Mon May 23 21:12:37 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/714464/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13542</europeana:population>
+	<wgs:lat>47.8</wgs:lat>
+	<wgs:long>21.68333</wgs:long>
+	<skos:altLabel>Új Fejertó</skos:altLabel>
+	<skos:altLabel>Újfehértó</skos:altLabel>
+	<skos:prefLabel>Újfehértó</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/714504/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10016</europeana:population>
+	<wgs:lat>47.1</wgs:lat>
+	<wgs:long>20.75</wgs:long>
+	<skos:altLabel>Túrkeve</skos:altLabel>
+	<skos:prefLabel>Túrkeve</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/714581/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>22770</europeana:population>
+	<wgs:lat>47.18333</wgs:lat>
+	<wgs:long>20.41667</wgs:long>
+	<skos:altLabel>Törökszenimiklós</skos:altLabel>
+	<skos:altLabel>Törökszentmiklós</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Тороксентмиклош</skos:altLabel>
+	<skos:prefLabel>Törökszentmiklós</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/714692/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13631</europeana:population>
+	<wgs:lat>47.96667</wgs:lat>
+	<wgs:long>21.35</wgs:long>
+	<skos:altLabel>Tiszavasvári</skos:altLabel>
+	<skos:prefLabel>Tiszavasvári</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/714697/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17294</europeana:population>
+	<wgs:lat>47.93333</wgs:lat>
+	<wgs:long>21.08333</wgs:long>
+	<skos:altLabel>Leninváros</skos:altLabel>
+	<skos:altLabel>Tiszaszederken</skos:altLabel>
+	<skos:altLabel>Tiszaszederkény</skos:altLabel>
+	<skos:altLabel>Tiszaújváros</skos:altLabel>
+	<skos:prefLabel>Tiszaújváros</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/714754/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11745</europeana:population>
+	<wgs:lat>46.93333</wgs:lat>
+	<wgs:long>20.1</wgs:long>
+	<skos:altLabel>Okecie</skos:altLabel>
+	<skos:altLabel>Tiszakécske</skos:altLabel>
+	<skos:altLabel>Ó-hecske</skos:altLabel>
+	<skos:altLabel>Ókeske</skos:altLabel>
+	<skos:altLabel>Ókécske</skos:altLabel>
+	<skos:altLabel>Újkécske</skos:altLabel>
+	<skos:prefLabel>Tiszakécske</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/714772/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12000</europeana:population>
+	<wgs:lat>47.61667</wgs:lat>
+	<wgs:long>20.76667</wgs:long>
+	<skos:altLabel>Tiszafiired</skos:altLabel>
+	<skos:altLabel>Tiszafüred</skos:altLabel>
+	<skos:altLabel>Tiszaszőllős</skos:altLabel>
+	<skos:altLabel>Tiszaszőlős</skos:altLabel>
+	<skos:prefLabel>Tiszafüred</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/714774/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11873</europeana:population>
+	<wgs:lat>46.98333</wgs:lat>
+	<wgs:long>20.25</wgs:long>
+	<skos:altLabel>Tiszaföldvár</skos:altLabel>
+	<skos:prefLabel>Tiszaföldvár</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/715126/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>75474</europeana:population>
+	<wgs:lat>47.18333</wgs:lat>
+	<wgs:long>20.2</wgs:long>
+	<skos:altLabel xml:lang="en">Szolnok</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Szolnok</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Szolnok</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Szolnok</skos:altLabel>
+	<skos:altLabel xml:lang="de">Szolnok</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Szolnok</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Szolnok</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Szolnok</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Szolnok</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Szolnok</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Szolnok</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Szolnok</skos:altLabel>
+	<skos:altLabel>Szolnok</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сольнок</skos:altLabel>
+	<skos:prefLabel>Szolnok</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/715302/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10046</europeana:population>
+	<wgs:lat>48.16667</wgs:lat>
+	<wgs:long>21.2</wgs:long>
+	<skos:altLabel>Ond</skos:altLabel>
+	<skos:altLabel>Szerencs</skos:altLabel>
+	<skos:prefLabel>Szerencs</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/715338/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>30495</europeana:population>
+	<wgs:lat>46.65</wgs:lat>
+	<wgs:long>20.26667</wgs:long>
+	<skos:prefLabel>Szentes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/715429/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>164883</europeana:population>
+	<wgs:lat>46.253</wgs:lat>
+	<wgs:long>20.14824</wgs:long>
+	<skos:altLabel>Algyő</skos:altLabel>
+	<skos:altLabel>Gyála</skos:altLabel>
+	<skos:altLabel>Gyálarét</skos:altLabel>
+	<skos:altLabel>Kiskundorozsma</skos:altLabel>
+	<skos:altLabel>Segedin</skos:altLabel>
+	<skos:altLabel>Seghedin</skos:altLabel>
+	<skos:altLabel xml:lang="de">Szegedin</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Szeghed</skos:altLabel>
+	<skos:altLabel>Szőreg</skos:altLabel>
+	<skos:altLabel>Tápé</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Сегед</skos:altLabel>
+	<skos:prefLabel>Szeged</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/715466/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18170</europeana:population>
+	<wgs:lat>46.86667</wgs:lat>
+	<wgs:long>20.55</wgs:long>
+	<skos:altLabel xml:lang="sk">Sarvaš</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Szarvas</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Szarvas</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Szarvas</skos:altLabel>
+	<skos:altLabel xml:lang="de">Szarvas</skos:altLabel>
+	<skos:altLabel xml:lang="en">Szarvas</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Szarvas</skos:altLabel>
+	<skos:altLabel>Szarvas</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сарваш</skos:altLabel>
+	<skos:prefLabel>Szarvas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/715593/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>576054</europeana:population>
+	<wgs:lat>48</wgs:lat>
+	<wgs:long>22.16667</wgs:long>
+	<skos:altLabel>Szabolcs-Szatmar County</skos:altLabel>
+	<skos:altLabel>Szabolcs-Szatmár Megye</skos:altLabel>
+	<skos:altLabel xml:lang="de">Szabolcs-Szatmár-Bereg</skos:altLabel>
+	<skos:altLabel xml:lang="en">Szabolcs-Szatmár-Bereg</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Szabolcs-Szatmár-Bereg</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Szabolcs-Szatmár-Bereg</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Szabolcs-Szatmár-Bereg</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Szabolcs-Szatmár-Bereg</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Szabolcs-Szatmár-Bereg</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Szabolcs-Szatmár-Bereg</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Szabolcs-Szatmár-Bereg</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Szabolcs-Szatmár-Bereg</skos:altLabel>
+	<skos:altLabel xml:lang="it">Szabolcs-Szatmár-Bereg</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Szabolcs-Szatmár-Bereg</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Szabolcs-Szatmár-Bereg</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Szabolcs-Szatmár-Bereg</skos:altLabel>
+	<skos:altLabel>Szabolcs-Szatmár-Bereg</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Szabolcs-Szatmár-Bereg megye</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Саболч-Сатмар-Берег</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сабольч-Сатмар-Берег</skos:altLabel>
+	<skos:altLabel xml:lang="zh">索博爾奇-索特馬爾-貝拉格州</skos:altLabel>
+	<skos:prefLabel>Szabolcs-Szatmár-Bereg megye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/715802/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>46.7</wgs:lat>
+	<wgs:long>20.16667</wgs:long>
+	<skos:prefLabel>Serház-sziget</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/715839/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18052</europeana:population>
+	<wgs:lat>48.4</wgs:lat>
+	<wgs:long>21.66667</wgs:long>
+	<skos:altLabel>Károlyfalva</skos:altLabel>
+	<skos:altLabel>Nové Mesto Pod Šiatrom</skos:altLabel>
+	<skos:altLabel>Rudabányácska</skos:altLabel>
+	<skos:altLabel>Satoraijaujhely</skos:altLabel>
+	<skos:altLabel>Széphalom</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Sátoraljaújhely</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Sátoraljaújhely</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Sátoraljaújhely</skos:altLabel>
+	<skos:altLabel xml:lang="de">Sátoraljaújhely</skos:altLabel>
+	<skos:altLabel xml:lang="en">Sátoraljaújhely</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Sátoraljaújhely</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Sátoraljaújhely</skos:altLabel>
+	<skos:altLabel>Sátoraljaújhely</skos:altLabel>
+	<skos:altLabel>Újhely</skos:altLabel>
+	<skos:prefLabel>Sátoraljaújhely</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/715867/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14478</europeana:population>
+	<wgs:lat>48.31667</wgs:lat>
+	<wgs:long>21.58333</wgs:long>
+	<skos:altLabel>Brodroghalász</skos:altLabel>
+	<skos:altLabel>Sárospatak</skos:altLabel>
+	<skos:altLabel>Végardó</skos:altLabel>
+	<skos:prefLabel>Sárospatak</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/715888/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10698</europeana:population>
+	<wgs:lat>46.75</wgs:lat>
+	<wgs:long>21.38333</wgs:long>
+	<skos:prefLabel>Sarkad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/715945/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13125</europeana:population>
+	<wgs:lat>48.21667</wgs:lat>
+	<wgs:long>20.71667</wgs:long>
+	<skos:altLabel>Sajószentpéter</skos:altLabel>
+	<skos:prefLabel>Sajószentpéter</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/716301/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15990</europeana:population>
+	<wgs:lat>47.31667</wgs:lat>
+	<wgs:long>21.11667</wgs:long>
+	<skos:altLabel>Püspökladány</skos:altLabel>
+	<skos:prefLabel>Püspökladány</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/716671/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>38476</europeana:population>
+	<wgs:lat>48.21667</wgs:lat>
+	<wgs:long>20.3</wgs:long>
+	<skos:altLabel>Bolyok</skos:altLabel>
+	<skos:altLabel>Center</skos:altLabel>
+	<skos:altLabel>Hodoscsépány</skos:altLabel>
+	<skos:altLabel>Sajóvárkony</skos:altLabel>
+	<skos:altLabel>Susa</skos:altLabel>
+	<skos:altLabel>Szentsimon</skos:altLabel>
+	<skos:altLabel>Uraj</skos:altLabel>
+	<skos:altLabel>Ózd</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Озд</skos:altLabel>
+	<skos:prefLabel>Ózd</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/716736/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>31373</europeana:population>
+	<wgs:lat>46.56667</wgs:lat>
+	<wgs:long>20.66667</wgs:long>
+	<skos:altLabel>Orosháza</skos:altLabel>
+	<skos:altLabel>Orosházi</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Орошхаза</skos:altLabel>
+	<skos:prefLabel>Orosháza</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/716935/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>116298</europeana:population>
+	<wgs:lat>47.95539</wgs:lat>
+	<wgs:long>21.71671</wgs:long>
+	<skos:altLabel>Nyírszőllős</skos:altLabel>
+	<skos:altLabel>Nyírszőlős</skos:altLabel>
+	<skos:altLabel>Oros</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ньиредьхаза</skos:altLabel>
+	<skos:prefLabel>Nyíregyháza</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/716948/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13434</europeana:population>
+	<wgs:lat>47.83333</wgs:lat>
+	<wgs:long>22.13333</wgs:long>
+	<skos:altLabel>Nyírbátor</skos:altLabel>
+	<skos:prefLabel>Nyírbátor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/717281/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10796</europeana:population>
+	<wgs:lat>47.87491</wgs:lat>
+	<wgs:long>21.84082</wgs:long>
+	<skos:altLabel>Kiskálló</skos:altLabel>
+	<skos:prefLabel>Nagykálló</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/717582/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>172637</europeana:population>
+	<wgs:lat>48.1</wgs:lat>
+	<wgs:long>20.78333</wgs:long>
+	<skos:altLabel>Bükkszentlászló</skos:altLabel>
+	<skos:altLabel xml:lang="id">Miskolc</skos:altLabel>
+	<skos:altLabel xml:lang="en">Miskolc</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Miskolc</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Miskolc</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Miskolc</skos:altLabel>
+	<skos:altLabel xml:lang="de">Miskolc</skos:altLabel>
+	<skos:altLabel xml:lang="es">Miskolc</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Miskolc</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Miskolc</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Miskolc</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Miskolc</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Miskolc</skos:altLabel>
+	<skos:altLabel xml:lang="it">Miskolc</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Miskolc</skos:altLabel>
+	<skos:altLabel xml:lang="no">Miskolc</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Miskolc</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Miskolc</skos:altLabel>
+	<skos:altLabel>Miskolcz</skos:altLabel>
+	<skos:altLabel>Miskole</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Miszkolc</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Miškolca</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Мишколц</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Мишкольц</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ミシュコルツ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">米什科尔茨</skos:altLabel>
+	<skos:prefLabel>Miskolc</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/717635/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19168</europeana:population>
+	<wgs:lat>47</wgs:lat>
+	<wgs:long>20.63333</wgs:long>
+	<skos:altLabel>Mezötúr</skos:altLabel>
+	<skos:altLabel>Mezőtúr</skos:altLabel>
+	<skos:prefLabel>Mezőtúr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/717652/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17701</europeana:population>
+	<wgs:lat>47.81667</wgs:lat>
+	<wgs:long>20.58333</wgs:long>
+	<skos:altLabel>Mezőkövesd</skos:altLabel>
+	<skos:prefLabel>Mezőkövesd</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/717669/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11306</europeana:population>
+	<wgs:lat>46.81667</wgs:lat>
+	<wgs:long>21.03333</wgs:long>
+	<skos:altLabel>Mezőberény</skos:altLabel>
+	<skos:prefLabel>Mezőberény</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/717771/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18718</europeana:population>
+	<wgs:lat>47.95528</wgs:lat>
+	<wgs:long>22.32348</wgs:long>
+	<skos:altLabel>Mátészalka</skos:altLabel>
+	<skos:prefLabel>Mátészalka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/717902/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>25135</europeana:population>
+	<wgs:lat>46.21667</wgs:lat>
+	<wgs:long>20.48333</wgs:long>
+	<skos:altLabel>Makó</skos:altLabel>
+	<skos:prefLabel>Makó</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/718030/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>48.01667</wgs:lat>
+	<wgs:long>21.06667</wgs:long>
+	<skos:prefLabel>Luci Sziget</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/718160/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>48.03333</wgs:lat>
+	<wgs:long>20.75</wgs:long>
+	<skos:prefLabel>Leányvár</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/718739/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18190</europeana:population>
+	<wgs:lat>48.21667</wgs:lat>
+	<wgs:long>22.08333</wgs:long>
+	<skos:altLabel>Kisvárda</skos:altLabel>
+	<skos:prefLabel>Kisvárda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/718744/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12661</europeana:population>
+	<wgs:lat>47.21667</wgs:lat>
+	<wgs:long>20.76667</wgs:long>
+	<skos:altLabel>Kisújszállás</skos:altLabel>
+	<skos:prefLabel>Kisújszállás</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/719311/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>32396</europeana:population>
+	<wgs:lat>48.25</wgs:lat>
+	<wgs:long>20.63333</wgs:long>
+	<skos:altLabel>Kazincbarcika</skos:altLabel>
+	<skos:altLabel>Sajókazinc</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Казинцбарцика</skos:altLabel>
+	<skos:prefLabel>Kazincbarcika</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/719404/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>22370</europeana:population>
+	<wgs:lat>47.31667</wgs:lat>
+	<wgs:long>20.93333</wgs:long>
+	<skos:altLabel>Karcag</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Карцаге</skos:altLabel>
+	<skos:prefLabel>Karcag</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/719637/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>403622</europeana:population>
+	<wgs:lat>47.25</wgs:lat>
+	<wgs:long>20.5</wgs:long>
+	<skos:altLabel xml:lang="de">Jász-Nagykun-Szolnok</skos:altLabel>
+	<skos:altLabel xml:lang="en">Jász-Nagykun-Szolnok</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Jász-Nagykun-Szolnok</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Jász-Nagykun-Szolnok</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Jász-Nagykun-Szolnok</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Jász-Nagykun-Szolnok</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Jász-Nagykun-Szolnok</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Jász-Nagykun-Szolnok</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Jász-Nagykun-Szolnok</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Jász-Nagykun-Szolnok</skos:altLabel>
+	<skos:altLabel xml:lang="it">Jász-Nagykun-Szolnok</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Jász-Nagykun-Szolnok</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Jász-Nagykun-Szolnok</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Jász-Nagykun-Szolnok</skos:altLabel>
+	<skos:altLabel>Jász-Nagykun-Szolnok</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Jász-Nagykun-Szolnok megye</skos:altLabel>
+	<skos:altLabel>Szolnok County</skos:altLabel>
+	<skos:altLabel>Szolnok Megye</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Яс-Надкун-Солнок</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Яс-Надькун-Сольнок</skos:altLabel>
+	<skos:altLabel xml:lang="zh">加茲-納傑孔-索爾諾克州</skos:altLabel>
+	<skos:prefLabel>Jász-Nagykun-Szolnok megye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/719819/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255148/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>9930000</europeana:population>
+	<wgs:lat>47</wgs:lat>
+	<wgs:long>20</wgs:long>
+	<skos:altLabel xml:lang="hu">A Magyar Köztársaság</skos:altLabel>
+	<skos:altLabel xml:lang="hu">A Magyar Népköztársaság</skos:altLabel>
+	<skos:altLabel xml:lang="gd">An Ungair</skos:altLabel>
+	<skos:altLabel xml:lang="ga">An Ungáir</skos:altLabel>
+	<skos:altLabel>HU</skos:altLabel>
+	<skos:altLabel xml:lang="so">Hangeri</skos:altLabel>
+	<skos:altLabel xml:lang="id">Hongaria</skos:altLabel>
+	<skos:altLabel xml:lang="li">Hongarieë</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Hongarije</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Hongarije</skos:altLabel>
+	<skos:altLabel xml:lang="af">Hongarye</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Hongria</skos:altLabel>
+	<skos:altLabel>Hongrie</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Hongrie</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Hung-ga-ri</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Hung-ga-ri (Hungary)</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Hungari</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Hungari</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Hungari</skos:altLabel>
+	<skos:altLabel xml:lang="id">Hungaria</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Hungaria</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Hungaria</skos:altLabel>
+	<skos:altLabel xml:lang="br">Hungaria</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Hungaria</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Hungaria</skos:altLabel>
+	<skos:altLabel xml:lang="io">Hungaria</skos:altLabel>
+	<skos:altLabel xml:lang="la">Hungaria</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Hungario</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Hungarujo</skos:altLabel>
+	<skos:altLabel xml:lang="en">Hungary</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Hungary</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Hungary</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Hungary</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Hungria</skos:altLabel>
+	<skos:altLabel xml:lang="es">Hungría</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Hungría</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Hungría - Magyarország</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Hwngari</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Macaristan</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Macaristan</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Macarän</skos:altLabel>
+	<skos:altLabel xml:lang="az">Macarıstan</skos:altLabel>
+	<skos:altLabel>Madjarska</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Madžarska</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Magyar Köztársaság</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Magyar Népköztársaság</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Magyarország</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Magyarsuyu</skos:altLabel>
+	<skos:altLabel>Maďarsko</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Maďarsko</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Maďarsko</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Mađarska</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Mađarska</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Mađarska</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Ongri</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Ongria</skos:altLabel>
+	<skos:altLabel xml:lang="an">Ongría</skos:altLabel>
+	<skos:altLabel xml:lang="en">Republic of Hungary</skos:altLabel>
+	<skos:altLabel xml:lang="et">Ungari</skos:altLabel>
+	<skos:altLabel xml:lang="na">Ungari</skos:altLabel>
+	<skos:altLabel>Ungaria</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Ungaria</skos:altLabel>
+	<skos:altLabel>Ungarn</skos:altLabel>
+	<skos:altLabel xml:lang="da">Ungarn</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Ungarn</skos:altLabel>
+	<skos:altLabel xml:lang="de">Ungarn</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Ungarn</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Ungarn</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Ungarn</skos:altLabel>
+	<skos:altLabel xml:lang="no">Ungarn</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Ungerija</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Ungern</skos:altLabel>
+	<skos:altLabel>Ungheria</skos:altLabel>
+	<skos:altLabel xml:lang="it">Ungheria</skos:altLabel>
+	<skos:altLabel xml:lang="is">Ungverjaland</skos:altLabel>
+	<skos:altLabel xml:lang="se">Ungár</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Ungārija</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Unkari</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Vengrija</skos:altLabel>
+	<skos:altLabel xml:lang="uz">Vengriya</skos:altLabel>
+	<skos:altLabel>Wegry</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Węgry</skos:altLabel>
+	<skos:altLabel xml:lang="gv">Yn Ungaar</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ουγγαρία</skos:altLabel>
+	<skos:altLabel xml:lang="cv">Венгри</skos:altLabel>
+	<skos:altLabel xml:lang="os">Венгри</skos:altLabel>
+	<skos:altLabel xml:lang="ky">Венгрия</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Венгрия</skos:altLabel>
+	<skos:altLabel xml:lang="be">Венгрыя</skos:altLabel>
+	<skos:altLabel xml:lang="be">Вугоршчына</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Мађарска</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Маҷористон</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Угорщина</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Унгария</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Унгария</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Унгарија</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Հունգարիա</skos:altLabel>
+	<skos:altLabel xml:lang="yi">אונגארן</skos:altLabel>
+	<skos:altLabel xml:lang="he">הונגריה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">المجر</skos:altLabel>
+	<skos:altLabel xml:lang="fa">مجارستان</skos:altLabel>
+	<skos:altLabel xml:lang="ps">مجارستان</skos:altLabel>
+	<skos:altLabel xml:lang="ar">مجر</skos:altLabel>
+	<skos:altLabel xml:lang="ar">هنغاريا</skos:altLabel>
+	<skos:altLabel xml:lang="ps">هنګري</skos:altLabel>
+	<skos:altLabel xml:lang="ur">ہنگری</skos:altLabel>
+	<skos:altLabel xml:lang="ug">ۋېنگرىيە</skos:altLabel>
+	<skos:altLabel xml:lang="hi">हंगरी</skos:altLabel>
+	<skos:altLabel xml:lang="sa">हंगरी</skos:altLabel>
+	<skos:altLabel xml:lang="mr">हंगेरी</skos:altLabel>
+	<skos:altLabel xml:lang="ne">हंगेरी</skos:altLabel>
+	<skos:altLabel xml:lang="bn">হাঙ্গেরি</skos:altLabel>
+	<skos:altLabel xml:lang="bn">হাঙ্গেরী</skos:altLabel>
+	<skos:altLabel xml:lang="ta">ஹங்கேரி</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ഹംഗറി</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศฮังการี</skos:altLabel>
+	<skos:altLabel xml:lang="th">ฮังการี</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ຮົງກາຣີ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཧངྒ་རི།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">უნგრეთი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሀንጋሪ</skos:altLabel>
+	<skos:altLabel xml:lang="km">ហុងគ្រី</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ハンガリー</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ハンガリー共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">匈牙利</skos:altLabel>
+	<skos:altLabel xml:lang="ko">헝가리</skos:altLabel>
+	<skos:prefLabel>Republic of Hungary</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/719965/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>47485</europeana:population>
+	<wgs:lat>46.41667</wgs:lat>
+	<wgs:long>20.33333</wgs:long>
+	<skos:altLabel xml:lang="ru">Ходмезевашархей</skos:altLabel>
+	<skos:prefLabel>Hódmezővásárhely</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/720002/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>319460</europeana:population>
+	<wgs:lat>47.83333</wgs:lat>
+	<wgs:long>20.25</wgs:long>
+	<skos:altLabel>Heves</skos:altLabel>
+	<skos:altLabel>Heves County</skos:altLabel>
+	<skos:prefLabel>Heves megye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/720006/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11311</europeana:population>
+	<wgs:lat>47.6</wgs:lat>
+	<wgs:long>20.28333</wgs:long>
+	<skos:altLabel>Heves</skos:altLabel>
+	<skos:prefLabel>Heves</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/720276/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23496</europeana:population>
+	<wgs:lat>47.45</wgs:lat>
+	<wgs:long>21.4</wgs:long>
+	<skos:altLabel>Hajdúszoboszló</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Хайдусобосло</skos:altLabel>
+	<skos:prefLabel>Hajdúszoboszló</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/720280/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10854</europeana:population>
+	<wgs:lat>47.6</wgs:lat>
+	<wgs:long>21.76667</wgs:long>
+	<skos:altLabel>Hajdúsámson</skos:altLabel>
+	<skos:prefLabel>Hajdúsámson</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/720284/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18032</europeana:population>
+	<wgs:lat>47.85</wgs:lat>
+	<wgs:long>21.43333</wgs:long>
+	<skos:altLabel>Hajdúnánás</skos:altLabel>
+	<skos:prefLabel>Hajdúnánás</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/720287/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12892</europeana:population>
+	<wgs:lat>47.68333</wgs:lat>
+	<wgs:long>21.66667</wgs:long>
+	<skos:altLabel>Hajdúhadház</skos:altLabel>
+	<skos:prefLabel>Hajdúhadház</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/720292/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>31957</europeana:population>
+	<wgs:lat>47.66667</wgs:lat>
+	<wgs:long>21.51667</wgs:long>
+	<skos:altLabel>Hajdúböszörmény</skos:altLabel>
+	<skos:prefLabel>Hajdúböszörmény</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/720293/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>545641</europeana:population>
+	<wgs:lat>47.41667</wgs:lat>
+	<wgs:long>21.5</wgs:long>
+	<skos:altLabel>Hajdu-Bihar County</skos:altLabel>
+	<skos:altLabel xml:lang="de">Hajdú-Bihar</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Hajdú-Bihar</skos:altLabel>
+	<skos:altLabel xml:lang="it">Hajdú-Bihar</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Hajdú-Bihar</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Hajdú-Bihar</skos:altLabel>
+	<skos:altLabel xml:lang="en">Hajdú-Bihar</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Hajdú-Bihar</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Hajdú-Bihar</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Hajdú-Bihar</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Hajdú-Bihar</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Hajdú-Bihar</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Hajdú-Bihar</skos:altLabel>
+	<skos:altLabel>Hajdú-Bihar</skos:altLabel>
+	<skos:altLabel xml:lang="id">Hajdú-Bihar</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Hajdú-Bihar megye</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Хайду-Бихар</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Хайду-Бихар</skos:altLabel>
+	<skos:altLabel xml:lang="zh">豪伊杜-比豪爾州</skos:altLabel>
+	<skos:prefLabel>Hajdú-Bihar megye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/720334/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>32269</europeana:population>
+	<wgs:lat>46.65</wgs:lat>
+	<wgs:long>21.28333</wgs:long>
+	<skos:altLabel xml:lang="ro">Giula</skos:altLabel>
+	<skos:altLabel xml:lang="de">Gyula</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Gyula</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Gyula</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Gyula</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Gyula</skos:altLabel>
+	<skos:altLabel xml:lang="en">Gyula</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Gyula</skos:altLabel>
+	<skos:altLabel>Gyula</skos:altLabel>
+	<skos:altLabel>Gyulavári</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Дьюла</skos:altLabel>
+	<skos:prefLabel>Gyula</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/720364/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15194</europeana:population>
+	<wgs:lat>46.93333</wgs:lat>
+	<wgs:long>20.83333</wgs:long>
+	<skos:altLabel>Endrőd</skos:altLabel>
+	<skos:altLabel>Gyoma</skos:altLabel>
+	<skos:altLabel>Gyomaendrőd</skos:altLabel>
+	<skos:prefLabel>Gyomaendrőd</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/721124/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>47.76667</wgs:lat>
+	<wgs:long>21</wgs:long>
+	<skos:prefLabel>Erdősziget</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/721239/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>56647</europeana:population>
+	<wgs:lat>47.90265</wgs:lat>
+	<wgs:long>20.37329</wgs:long>
+	<skos:altLabel xml:lang="de">Eger</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Eger</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Eger</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Eger</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Eger</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Eger</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Eger</skos:altLabel>
+	<skos:altLabel xml:lang="en">Eger</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Eger</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Eger</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Eger</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Eger</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Eger</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Eger</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Eger</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Egera</skos:altLabel>
+	<skos:altLabel xml:lang="de">Erlau</skos:altLabel>
+	<skos:altLabel>Jager</skos:altLabel>
+	<skos:altLabel>Szarvaskő</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Эгер</skos:altLabel>
+	<skos:altLabel xml:lang="fa">اگر</skos:altLabel>
+	<skos:altLabel xml:lang="ja">エゲル</skos:altLabel>
+	<skos:prefLabel>Eger</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/721246/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11037</europeana:population>
+	<wgs:lat>48.3</wgs:lat>
+	<wgs:long>20.73333</wgs:long>
+	<skos:altLabel>Balajt</skos:altLabel>
+	<skos:altLabel>Edelény</skos:altLabel>
+	<skos:altLabel>Ládbesenyő</skos:altLabel>
+	<skos:prefLabel>Edelény</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/721472/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>204124</europeana:population>
+	<wgs:lat>47.53333</wgs:lat>
+	<wgs:long>21.63333</wgs:long>
+	<skos:altLabel xml:lang="id">Debrecen</skos:altLabel>
+	<skos:altLabel xml:lang="es">Debrecen</skos:altLabel>
+	<skos:altLabel xml:lang="de">Debrecen</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Debrecen</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Debrecen</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Debrecen</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Debrecen</skos:altLabel>
+	<skos:altLabel xml:lang="it">Debrecen</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Debrecen</skos:altLabel>
+	<skos:altLabel xml:lang="no">Debrecen</skos:altLabel>
+	<skos:altLabel xml:lang="en">Debrecen</skos:altLabel>
+	<skos:altLabel xml:lang="da">Debrecen</skos:altLabel>
+	<skos:altLabel xml:lang="et">Debrecen</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Debrecen</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Debrecen</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Debrecen</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Debrecen</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Debrecena</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Debreczyn</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Debreţin</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ντέμπρετσεν</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Дебрецен</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Дебрецен</skos:altLabel>
+	<skos:altLabel xml:lang="he">דברצן</skos:altLabel>
+	<skos:altLabel xml:lang="ja">デブレツェン</skos:altLabel>
+	<skos:altLabel xml:lang="ko">데브레첸</skos:altLabel>
+	<skos:prefLabel>Debrecen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/721589/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>423751</europeana:population>
+	<wgs:lat>46.41667</wgs:lat>
+	<wgs:long>20.25</wgs:long>
+	<skos:altLabel>Csongrad County</skos:altLabel>
+	<skos:altLabel>Csongrád</skos:altLabel>
+	<skos:prefLabel>Csongrád megye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/721592/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18580</europeana:population>
+	<wgs:lat>46.7</wgs:lat>
+	<wgs:long>20.15</wgs:long>
+	<skos:altLabel>Csongrád</skos:altLabel>
+	<skos:prefLabel>Csongrád</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/722064/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>718951</europeana:population>
+	<wgs:lat>48.25</wgs:lat>
+	<wgs:long>21</wgs:long>
+	<skos:altLabel>Borsod-Abauj Zemplen County</skos:altLabel>
+	<skos:altLabel xml:lang="de">Borsod-Abaúj-Zemplén</skos:altLabel>
+	<skos:altLabel xml:lang="en">Borsod-Abaúj-Zemplén</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Borsod-Abaúj-Zemplén</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Borsod-Abaúj-Zemplén</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Borsod-Abaúj-Zemplén</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Borsod-Abaúj-Zemplén</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Borsod-Abaúj-Zemplén</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Borsod-Abaúj-Zemplén</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Borsod-Abaúj-Zemplén</skos:altLabel>
+	<skos:altLabel xml:lang="it">Borsod-Abaúj-Zemplén</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Borsod-Abaúj-Zemplén</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Borsod-Abaúj-Zemplén</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Borsod-Abaúj-Zemplén</skos:altLabel>
+	<skos:altLabel>Borsod-Abaúj-Zemplén</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Borsod-Abaúj-Zemplén megye</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Боршод-Абауй-Земплен</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Боршод-Абауй-Земплен</skos:altLabel>
+	<skos:altLabel xml:lang="zh">包爾紹德-奧包烏伊-曾普倫州</skos:altLabel>
+	<skos:prefLabel>Borsod-Abaúj-Zemplén megye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/722324/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16090</europeana:population>
+	<wgs:lat>47.21667</wgs:lat>
+	<wgs:long>21.55</wgs:long>
+	<skos:altLabel>Berettyóújfalu</skos:altLabel>
+	<skos:prefLabel>Berettyóújfalu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/722433/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>382190</europeana:population>
+	<wgs:lat>46.75</wgs:lat>
+	<wgs:long>21</wgs:long>
+	<skos:altLabel>Bekes County</skos:altLabel>
+	<skos:altLabel>Békés</skos:altLabel>
+	<skos:altLabel>Békés Vármegye</skos:altLabel>
+	<skos:prefLabel>Békés megye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/722437/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>65206</europeana:population>
+	<wgs:lat>46.68333</wgs:lat>
+	<wgs:long>21.1</wgs:long>
+	<skos:altLabel xml:lang="sk">Békešská Čaba</skos:altLabel>
+	<skos:altLabel xml:lang="en">Békéscsaba</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Békéscsaba</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Békéscsaba</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Békéscsaba</skos:altLabel>
+	<skos:altLabel xml:lang="de">Békéscsaba</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Békéscsaba</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Békéscsaba</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Békéscsaba</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Békéscsaba</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Békéscsaba</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Békéscsaba</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Békéscsaba</skos:altLabel>
+	<skos:altLabel xml:lang="id">Békéscsaba</skos:altLabel>
+	<skos:altLabel>Békéscsaba</skos:altLabel>
+	<skos:altLabel>Gerla</skos:altLabel>
+	<skos:altLabel>Mezőmegyer</skos:altLabel>
+	<skos:altLabel>Nagymajor</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бекешчаба</skos:altLabel>
+	<skos:prefLabel>Békéscsaba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/722439/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21198</europeana:population>
+	<wgs:lat>46.76667</wgs:lat>
+	<wgs:long>21.13333</wgs:long>
+	<skos:altLabel xml:lang="pl">Békés</skos:altLabel>
+	<skos:altLabel xml:lang="en">Békés</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Békés</skos:altLabel>
+	<skos:altLabel xml:lang="de">Békés</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Békés</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Békés</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Békés</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Békés</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Békés</skos:altLabel>
+	<skos:altLabel xml:lang="it">Békés</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Békés</skos:altLabel>
+	<skos:altLabel>Békés</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Békés megye</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Comitatul Békés</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бекеш</skos:altLabel>
+	<skos:prefLabel>Békés</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/722636/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18012</europeana:population>
+	<wgs:lat>47.61667</wgs:lat>
+	<wgs:long>21.35</wgs:long>
+	<skos:altLabel>Balmazújváros</skos:altLabel>
+	<skos:prefLabel>Balmazújváros</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/723030/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16342</europeana:population>
+	<wgs:lat>47.18333</wgs:lat>
+	<wgs:long>20</wgs:long>
+	<skos:prefLabel>Abony</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042613/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>293443</europeana:population>
+	<wgs:lat>46.66667</wgs:lat>
+	<wgs:long>16.83333</wgs:long>
+	<skos:altLabel xml:lang="ro">Comitatul Zala</skos:altLabel>
+	<skos:altLabel xml:lang="id">Zala</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Zala</skos:altLabel>
+	<skos:altLabel xml:lang="es">Zala</skos:altLabel>
+	<skos:altLabel xml:lang="en">Zala</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Zala</skos:altLabel>
+	<skos:altLabel xml:lang="it">Zala</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Zala</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Zala</skos:altLabel>
+	<skos:altLabel xml:lang="de">Zala</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Zala</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Zala</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Zala</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Zala</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Zala</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Zala</skos:altLabel>
+	<skos:altLabel>Zala</skos:altLabel>
+	<skos:altLabel>Zala County</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Zala megye</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Зала</skos:altLabel>
+	<skos:altLabel xml:lang="zh">佐洛州</skos:altLabel>
+	<skos:prefLabel>Zala megye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042638/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>61898</europeana:population>
+	<wgs:lat>46.84</wgs:lat>
+	<wgs:long>16.84389</wgs:long>
+	<skos:altLabel xml:lang="de">Zalaegerszeg</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Zalaegerszeg</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Zalaegerszeg</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Zalaegerszeg</skos:altLabel>
+	<skos:altLabel xml:lang="en">Zalaegerszeg</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Zalaegerszeg</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Zalaegerszeg</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Zalaegerszeg</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Zalaegerszeg</skos:altLabel>
+	<skos:altLabel xml:lang="it">Zalaegerszeg</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Zalaegerszeg</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Zalaegerszeg</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Zalaegerszeg</skos:altLabel>
+	<skos:altLabel>Zalaegerszeg</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Залаэгерсег</skos:altLabel>
+	<skos:prefLabel>Zalaegerszeg</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042925/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>363706</europeana:population>
+	<wgs:lat>47.16667</wgs:lat>
+	<wgs:long>17.66667</wgs:long>
+	<skos:altLabel>Veszprem County</skos:altLabel>
+	<skos:altLabel>Veszprém</skos:altLabel>
+	<skos:prefLabel>Veszprém megye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042929/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>62023</europeana:population>
+	<wgs:lat>47.09327</wgs:lat>
+	<wgs:long>17.91149</wgs:long>
+	<skos:altLabel xml:lang="ro">Comitatul Veszprém</skos:altLabel>
+	<skos:altLabel>Gyulafirátót</skos:altLabel>
+	<skos:altLabel>Kádárta</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Vesprém</skos:altLabel>
+	<skos:altLabel>Vessprém</skos:altLabel>
+	<skos:altLabel xml:lang="de">Veszprim</skos:altLabel>
+	<skos:altLabel xml:lang="en">Veszprém</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Veszprém</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Veszprém</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Veszprém</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Veszprém</skos:altLabel>
+	<skos:altLabel xml:lang="de">Veszprém</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Veszprém</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Veszprém</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Veszprém</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Veszprém</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Veszprém</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Veszprém</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Veszprém</skos:altLabel>
+	<skos:altLabel xml:lang="it">Veszprém</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Veszprém</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Veszprém</skos:altLabel>
+	<skos:altLabel xml:lang="id">Veszprém</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Veszprém megye</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Веспрем</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Веспрем</skos:altLabel>
+	<skos:altLabel xml:lang="zh">維斯普雷姆州</skos:altLabel>
+	<skos:prefLabel>Veszprém</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042968/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11087</europeana:population>
+	<wgs:lat>47.65</wgs:lat>
+	<wgs:long>19.28333</wgs:long>
+	<skos:altLabel>Veresegyház</skos:altLabel>
+	<skos:prefLabel>Veresegyház</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3043019/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19327</europeana:population>
+	<wgs:lat>47.4</wgs:lat>
+	<wgs:long>19.28333</wgs:long>
+	<skos:prefLabel>Vecsés</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3043047/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>263251</europeana:population>
+	<wgs:lat>47.16667</wgs:lat>
+	<wgs:long>16.75</wgs:long>
+	<skos:altLabel xml:lang="ro">Comitatul Vas</skos:altLabel>
+	<skos:altLabel xml:lang="de">Vas</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Vas</skos:altLabel>
+	<skos:altLabel xml:lang="it">Vas</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Vas</skos:altLabel>
+	<skos:altLabel xml:lang="en">Vas</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Vas</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Vas</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Vas</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Vas</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Vas</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Vas</skos:altLabel>
+	<skos:altLabel>Vas</skos:altLabel>
+	<skos:altLabel>Vas County</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Vas megye</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Železna županija</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Ваш</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ваш</skos:altLabel>
+	<skos:altLabel xml:lang="zh">沃什州</skos:altLabel>
+	<skos:prefLabel>Vas megye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3043095/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21299</europeana:population>
+	<wgs:lat>47.2</wgs:lat>
+	<wgs:long>18.13333</wgs:long>
+	<skos:prefLabel>Várpalota</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3043264/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>47.88333</wgs:lat>
+	<wgs:long>19.55</wgs:long>
+	<skos:prefLabel>Vadászkastély</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3043293/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>35108</europeana:population>
+	<wgs:lat>47.78333</wgs:lat>
+	<wgs:long>19.13333</wgs:long>
+	<skos:altLabel xml:lang="es">Vac</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Vác</skos:altLabel>
+	<skos:altLabel xml:lang="en">Vác</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Vác</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Vác</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Vác</skos:altLabel>
+	<skos:altLabel xml:lang="de">Vác</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Vác</skos:altLabel>
+	<skos:altLabel xml:lang="it">Vác</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Vác</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Vác</skos:altLabel>
+	<skos:altLabel>Vác</skos:altLabel>
+	<skos:altLabel>Vácz</skos:altLabel>
+	<skos:altLabel xml:lang="de">Waitzen</skos:altLabel>
+	<skos:prefLabel>Vác</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3043356/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10232</europeana:population>
+	<wgs:lat>47.38333</wgs:lat>
+	<wgs:long>19.35</wgs:long>
+	<skos:prefLabel>Üllő</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3043449/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>47.86667</wgs:lat>
+	<wgs:long>17.51667</wgs:long>
+	<skos:prefLabel>Új-sziget</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3043778/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11658</europeana:population>
+	<wgs:lat>47.42931</wgs:lat>
+	<wgs:long>18.91356</wgs:long>
+	<skos:altLabel xml:lang="de">Grossturwall</skos:altLabel>
+	<skos:altLabel xml:lang="de">Großturwall</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Török-bálint</skos:altLabel>
+	<skos:prefLabel>Törökbálint</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3043801/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>47.73333</wgs:lat>
+	<wgs:long>17.78333</wgs:long>
+	<skos:prefLabel>Tordai-sziget</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3043845/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>240966</europeana:population>
+	<wgs:lat>46.5</wgs:lat>
+	<wgs:long>18.58333</wgs:long>
+	<skos:altLabel>Tolna</skos:altLabel>
+	<skos:altLabel>Tolna County</skos:altLabel>
+	<skos:prefLabel>Tolna megye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3043849/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12011</europeana:population>
+	<wgs:lat>46.43333</wgs:lat>
+	<wgs:long>18.78333</wgs:long>
+	<skos:altLabel>Tolma</skos:altLabel>
+	<skos:altLabel>Tolna</skos:altLabel>
+	<skos:prefLabel>Tolna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3043860/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10164</europeana:population>
+	<wgs:lat>47.32178</wgs:lat>
+	<wgs:long>18.96249</wgs:long>
+	<skos:prefLabel>Tököl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3044070/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>47.75</wgs:lat>
+	<wgs:long>18.65</wgs:long>
+	<skos:prefLabel>Táti-sziget</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3044082/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>70541</europeana:population>
+	<wgs:lat>47.56667</wgs:lat>
+	<wgs:long>18.41667</wgs:long>
+	<skos:altLabel xml:lang="de">Tatabánya</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tatabánya</skos:altLabel>
+	<skos:altLabel xml:lang="es">Tatabánya</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Tatabánya</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Tatabánya</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Tatabánya</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Tatabánya</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Tatabánya</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Tatabánya</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Tatabánya</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Tatabánya</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Tatabánya</skos:altLabel>
+	<skos:altLabel>Tatabánya</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Татабанья</skos:altLabel>
+	<skos:prefLabel>Tatabánya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3044083/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23868</europeana:population>
+	<wgs:lat>47.65</wgs:lat>
+	<wgs:long>18.31667</wgs:long>
+	<skos:altLabel xml:lang="pl">Tata</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tata</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Tata</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Tata</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Tata</skos:altLabel>
+	<skos:altLabel xml:lang="de">Tata</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Tata</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Tata</skos:altLabel>
+	<skos:altLabel>Tata</skos:altLabel>
+	<skos:altLabel>Tatatóváros</skos:altLabel>
+	<skos:altLabel>Ágostyán</skos:altLabel>
+	<skos:prefLabel>Tata</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3044141/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17598</europeana:population>
+	<wgs:lat>46.88333</wgs:lat>
+	<wgs:long>17.43333</wgs:long>
+	<skos:altLabel>Tapolca</skos:altLabel>
+	<skos:altLabel>Tapolcza</skos:altLabel>
+	<skos:altLabel>Tapolezai</skos:altLabel>
+	<skos:prefLabel>Tapolca</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3044310/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>79534</europeana:population>
+	<wgs:lat>47.23088</wgs:lat>
+	<wgs:long>16.62155</wgs:long>
+	<skos:altLabel>Gyöngyöshermán</skos:altLabel>
+	<skos:altLabel>Herény</skos:altLabel>
+	<skos:altLabel>Kámon</skos:altLabel>
+	<skos:altLabel>Olad</skos:altLabel>
+	<skos:altLabel>Perint</skos:altLabel>
+	<skos:altLabel>Sabaria</skos:altLabel>
+	<skos:altLabel>Savaria</skos:altLabel>
+	<skos:altLabel xml:lang="de">Steinamanger</skos:altLabel>
+	<skos:altLabel>Szentkirály</skos:altLabel>
+	<skos:altLabel>Szombatehly</skos:altLabel>
+	<skos:altLabel xml:lang="en">Szombathely</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Szombathely</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Szombathely</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Szombathely</skos:altLabel>
+	<skos:altLabel xml:lang="de">Szombathely</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Szombathely</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Szombathely</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Szombathely</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Szombathely</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Szombathely</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Szombathely</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Szombathely</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Szombathely</skos:altLabel>
+	<skos:altLabel>Szombatnely</skos:altLabel>
+	<skos:altLabel>Zanat</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сомбатхей</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ソンバトヘイ</skos:altLabel>
+	<skos:prefLabel>Szombathely</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3044469/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11267</europeana:population>
+	<wgs:lat>46.05</wgs:lat>
+	<wgs:long>17.8</wgs:long>
+	<skos:altLabel>Szigetvár</skos:altLabel>
+	<skos:prefLabel>Szigetvár</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3044475/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>24874</europeana:population>
+	<wgs:lat>47.35</wgs:lat>
+	<wgs:long>19.05</wgs:long>
+	<skos:altLabel>Szigentmiklos</skos:altLabel>
+	<skos:altLabel>Szigetsentmiklos</skos:altLabel>
+	<skos:altLabel>Szigetszentmiklós</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сигетсентмиклош</skos:altLabel>
+	<skos:prefLabel>Szigetszentmiklós</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3044487/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13092</europeana:population>
+	<wgs:lat>47.33333</wgs:lat>
+	<wgs:long>19</wgs:long>
+	<skos:altLabel>Horthyliget</skos:altLabel>
+	<skos:altLabel>Szigethalom</skos:altLabel>
+	<skos:altLabel>Szilágyitelep</skos:altLabel>
+	<skos:prefLabel>Szigethalom</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3044679/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>47.71667</wgs:lat>
+	<wgs:long>19.11667</wgs:long>
+	<skos:altLabel>Szent Endre szigete</skos:altLabel>
+	<skos:altLabel>Szent Endre-sziget</skos:altLabel>
+	<skos:altLabel>Szentendrei-sziget</skos:altLabel>
+	<skos:prefLabel>Szentendrei-sziget</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3044681/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23606</europeana:population>
+	<wgs:lat>47.66943</wgs:lat>
+	<wgs:long>19.07561</wgs:long>
+	<skos:altLabel xml:lang="de">Sankt Andrä</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Szentendre</skos:altLabel>
+	<skos:altLabel xml:lang="en">Szentendre</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Szentendre</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Szentendre</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Szentendre</skos:altLabel>
+	<skos:altLabel xml:lang="de">Szentendre</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Szentendre</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Szentendre</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Szentendre</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сентендре</skos:altLabel>
+	<skos:prefLabel>Szentendre</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3044760/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>34174</europeana:population>
+	<wgs:lat>46.35</wgs:lat>
+	<wgs:long>18.71667</wgs:long>
+	<skos:altLabel xml:lang="de">Szekszárd</skos:altLabel>
+	<skos:altLabel xml:lang="en">Szekszárd</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Szekszárd</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Szekszárd</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Szekszárd</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Szekszárd</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Szekszárd</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Szekszárd</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Szekszárd</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Szekszárd</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Szekszárd</skos:altLabel>
+	<skos:altLabel>Szekszárd</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сексард</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Сексард</skos:altLabel>
+	<skos:prefLabel>Szekszárd</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3044774/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>101600</europeana:population>
+	<wgs:lat>47.18995</wgs:lat>
+	<wgs:long>18.41034</wgs:long>
+	<skos:altLabel xml:lang="la">Alba Regia</skos:altLabel>
+	<skos:altLabel xml:lang="it">Albareale</skos:altLabel>
+	<skos:altLabel xml:lang="de">Stuhlweißenburg</skos:altLabel>
+	<skos:altLabel xml:lang="de">Székesfehérvár</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Székesfehérvár</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Székesfehérvár</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Székesfehérvár</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Székesfehérvár</skos:altLabel>
+	<skos:altLabel xml:lang="en">Székesfehérvár</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Székesfehérvár</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Székesfehérvár</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Székesfehérvár</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Székesfehérvár</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Székesfehérvár</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Székesfehérvár</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Székesfehérvár</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Секешфехервар</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Секешфехервар</skos:altLabel>
+	<skos:altLabel xml:lang="ja">セーケシュフェヘールヴァール</skos:altLabel>
+	<skos:altLabel xml:lang="zh">塞克什白堡</skos:altLabel>
+	<skos:prefLabel>Székesfehérvár</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3044821/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17566</europeana:population>
+	<wgs:lat>47.33333</wgs:lat>
+	<wgs:long>18.93333</wgs:long>
+	<skos:prefLabel>Százhalombatta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3044942/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>46.98333</wgs:lat>
+	<wgs:long>18.95</wgs:long>
+	<skos:prefLabel>Szalki Sziget</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3045190/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>57210</europeana:population>
+	<wgs:lat>47.68333</wgs:lat>
+	<wgs:long>16.6</wgs:long>
+	<skos:altLabel>Scarabantia</skos:altLabel>
+	<skos:altLabel>Scarbantia</skos:altLabel>
+	<skos:altLabel xml:lang="en">Sopron</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Sopron</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Sopron</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Sopron</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Sopron</skos:altLabel>
+	<skos:altLabel xml:lang="de">Sopron</skos:altLabel>
+	<skos:altLabel xml:lang="br">Sopron</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Sopron</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Sopron</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Sopron</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Sopron</skos:altLabel>
+	<skos:altLabel xml:lang="it">Sopron</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Sopron</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Sopron</skos:altLabel>
+	<skos:altLabel>Szorpron</skos:altLabel>
+	<skos:altLabel xml:lang="de">Ödenburg</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Шопрон</skos:altLabel>
+	<skos:altLabel xml:lang="he">שופרון</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ショプロン</skos:altLabel>
+	<skos:altLabel xml:lang="ko">쇼프론</skos:altLabel>
+	<skos:prefLabel>Sopron</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3045226/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>328496</europeana:population>
+	<wgs:lat>46.41667</wgs:lat>
+	<wgs:long>17.58333</wgs:long>
+	<skos:altLabel>Somogy</skos:altLabel>
+	<skos:altLabel>Somogy County</skos:altLabel>
+	<skos:prefLabel>Somogy megye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3045292/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>47.8</wgs:lat>
+	<wgs:long>18.98333</wgs:long>
+	<skos:prefLabel>Sólyom-sziget</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3045332/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23028</europeana:population>
+	<wgs:lat>46.9</wgs:lat>
+	<wgs:long>18.05</wgs:long>
+	<skos:altLabel>Balatonkiliti</skos:altLabel>
+	<skos:altLabel>Balatonújhely</skos:altLabel>
+	<skos:altLabel xml:lang="de">Siófok</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Siófok</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Siófok</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Siófok</skos:altLabel>
+	<skos:altLabel xml:lang="en">Siófok</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Siófok</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Siófok</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Siófok</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Siófok</skos:altLabel>
+	<skos:altLabel>Siófok</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Шиофок</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Шиофок</skos:altLabel>
+	<skos:altLabel xml:lang="ja">シオーフォク</skos:altLabel>
+	<skos:prefLabel>Siófok</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3045364/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10180</europeana:population>
+	<wgs:lat>45.85528</wgs:lat>
+	<wgs:long>18.29861</wgs:long>
+	<skos:altLabel>Máriagyůd</skos:altLabel>
+	<skos:altLabel>Siklós</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Шиклош</skos:altLabel>
+	<skos:prefLabel>Siklós</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3045487/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15343</europeana:population>
+	<wgs:lat>47.25395</wgs:lat>
+	<wgs:long>16.93525</wgs:long>
+	<skos:altLabel>Savar</skos:altLabel>
+	<skos:prefLabel>Sárvár</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3045564/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13424</europeana:population>
+	<wgs:lat>46.88692</wgs:lat>
+	<wgs:long>18.62041</wgs:long>
+	<skos:altLabel>Pusztaegres</skos:altLabel>
+	<skos:altLabel>Sárszentmiklós</skos:altLabel>
+	<skos:prefLabel>Sárbogárd</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3045643/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>39640</europeana:population>
+	<wgs:lat>48.09872</wgs:lat>
+	<wgs:long>19.80303</wgs:long>
+	<skos:altLabel>Baglyasalja</skos:altLabel>
+	<skos:altLabel>Shalgo Tar'yan</skos:altLabel>
+	<skos:altLabel>Zagyvapálfalva</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Шальготарьян</skos:altLabel>
+	<skos:prefLabel>Salgótarján</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3046230/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14917</europeana:population>
+	<wgs:lat>47.65</wgs:lat>
+	<wgs:long>19.03333</wgs:long>
+	<skos:prefLabel>Pomáz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3046340/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13150</europeana:population>
+	<wgs:lat>47.61386</wgs:lat>
+	<wgs:long>18.90893</wgs:long>
+	<skos:prefLabel>Pilisvörösvár</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3046355/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11102</europeana:population>
+	<wgs:lat>47.28333</wgs:lat>
+	<wgs:long>19.55</wgs:long>
+	<skos:prefLabel>Pilis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3046431/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1176550</europeana:population>
+	<wgs:lat>47.41667</wgs:lat>
+	<wgs:long>19.33333</wgs:long>
+	<skos:altLabel>Pest</skos:altLabel>
+	<skos:altLabel>Pest County</skos:altLabel>
+	<skos:prefLabel>Pest megye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3046526/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>156649</europeana:population>
+	<wgs:lat>46.08333</wgs:lat>
+	<wgs:long>18.23333</wgs:long>
+	<skos:altLabel xml:lang="it">Cinquechiese</skos:altLabel>
+	<skos:altLabel>Fuenfkirchen</skos:altLabel>
+	<skos:altLabel>Fünfkirchen</skos:altLabel>
+	<skos:altLabel xml:lang="de">Fünfkirchen</skos:altLabel>
+	<skos:altLabel>Hird</skos:altLabel>
+	<skos:altLabel>Magyarürügy</skos:altLabel>
+	<skos:altLabel>Meced Sabolc</skos:altLabel>
+	<skos:altLabel>Mecek Sabolc</skos:altLabel>
+	<skos:altLabel>Mecsekalja</skos:altLabel>
+	<skos:altLabel>Mecsekszabolcs</skos:altLabel>
+	<skos:altLabel>Málom</skos:altLabel>
+	<skos:altLabel>Nadapipad</skos:altLabel>
+	<skos:altLabel>Nadarpad</skos:altLabel>
+	<skos:altLabel>Nagyárpád</skos:altLabel>
+	<skos:altLabel>Patacs</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Pecz</skos:altLabel>
+	<skos:altLabel>Peçuy-</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Pečuh</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Päťkostolie</skos:altLabel>
+	<skos:altLabel xml:lang="es">Pécs</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Pécs</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Pécs</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Pécs</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Pécs</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Pécs</skos:altLabel>
+	<skos:altLabel xml:lang="en">Pécs</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Pécs</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Pécs</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Pécs</skos:altLabel>
+	<skos:altLabel xml:lang="no">Pécs</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Pécs</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Pécs</skos:altLabel>
+	<skos:altLabel xml:lang="it">Pécs</skos:altLabel>
+	<skos:altLabel xml:lang="id">Pécs</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Pēča</skos:altLabel>
+	<skos:altLabel>Quinque Ecclesiae</skos:altLabel>
+	<skos:altLabel>Rácváros</skos:altLabel>
+	<skos:altLabel>Somogy</skos:altLabel>
+	<skos:altLabel>Vasas</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Печ</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Печ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ペーチ</skos:altLabel>
+	<skos:prefLabel>Pécs</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3046531/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13193</europeana:population>
+	<wgs:lat>47.48333</wgs:lat>
+	<wgs:long>19.35</wgs:long>
+	<skos:prefLabel>Pécel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3046580/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10119</europeana:population>
+	<wgs:lat>47.91667</wgs:lat>
+	<wgs:long>19.7</wgs:long>
+	<skos:altLabel>Hasznos</skos:altLabel>
+	<skos:altLabel>Pásztó</skos:altLabel>
+	<skos:prefLabel>Pásztó</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3046619/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>76000</europeana:population>
+	<wgs:lat>47.9126</wgs:lat>
+	<wgs:long>19.97709</wgs:long>
+	<skos:altLabel xml:lang="en">Paradsasvar</skos:altLabel>
+	<skos:altLabel>Üreghuta</skos:altLabel>
+	<skos:altLabel>Üveghuta</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Парадшашвар</skos:altLabel>
+	<skos:prefLabel>Parádsasvár</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3046630/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>47.66667</wgs:lat>
+	<wgs:long>19.08333</wgs:long>
+	<skos:prefLabel>Pap-sziget</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3046686/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>32990</europeana:population>
+	<wgs:lat>47.33333</wgs:lat>
+	<wgs:long>17.46667</wgs:long>
+	<skos:altLabel>Borsosgyőr</skos:altLabel>
+	<skos:altLabel>Kéttornyúlak</skos:altLabel>
+	<skos:altLabel>Pápa</skos:altLabel>
+	<skos:altLabel>Tapolcafő</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Папы</skos:altLabel>
+	<skos:prefLabel>Pápa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3046698/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>46.16667</wgs:lat>
+	<wgs:long>18.88333</wgs:long>
+	<skos:altLabel>Pandur</skos:altLabel>
+	<skos:altLabel>Pandur-sziget</skos:altLabel>
+	<skos:prefLabel>Pandur-sziget</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3046712/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>47.58333</wgs:lat>
+	<wgs:long>19.08333</wgs:long>
+	<skos:prefLabel>Palotai Sziget</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3046768/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20638</europeana:population>
+	<wgs:lat>46.63333</wgs:lat>
+	<wgs:long>18.86667</wgs:long>
+	<skos:altLabel>Dunakömlőd</skos:altLabel>
+	<skos:altLabel>Paks</skos:altLabel>
+	<skos:prefLabel>Paks</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3046888/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20271</europeana:population>
+	<wgs:lat>47.48333</wgs:lat>
+	<wgs:long>18.31667</wgs:long>
+	<skos:altLabel>Oroszlány</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Орослане</skos:altLabel>
+	<skos:prefLabel>Oroszlány</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3046972/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>47.91667</wgs:lat>
+	<wgs:long>17.43333</wgs:long>
+	<skos:prefLabel>Öreg-szigetek</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3047120/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>46.65</wgs:lat>
+	<wgs:long>18.95</wgs:long>
+	<skos:altLabel>Ordas-sziget</skos:altLabel>
+	<skos:altLabel>Ordasi-sziget</skos:altLabel>
+	<skos:prefLabel>Ordasi-sziget</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3047210/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>47.55362</wgs:lat>
+	<wgs:long>19.0548</wgs:long>
+	<skos:altLabel>Hajógyár-Sziget</skos:altLabel>
+	<skos:altLabel>Nagy Sziget</skos:altLabel>
+	<skos:prefLabel>Óbudai-sziget</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3047303/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>47.76667</wgs:lat>
+	<wgs:long>18.68333</wgs:long>
+	<skos:altLabel>Nyáros-sziget</skos:altLabel>
+	<skos:altLabel>Nyárosi-sziget</skos:altLabel>
+	<skos:prefLabel>Nyáros-sziget</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3047348/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>213030</europeana:population>
+	<wgs:lat>48</wgs:lat>
+	<wgs:long>19.58333</wgs:long>
+	<skos:altLabel>Nograd County</skos:altLabel>
+	<skos:altLabel>Nógrád</skos:altLabel>
+	<skos:prefLabel>Nógrád megye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3047367/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>47.55527</wgs:lat>
+	<wgs:long>19.06918</wgs:long>
+	<skos:altLabel xml:lang="hu">Szúnyog-sziget</skos:altLabel>
+	<skos:prefLabel>Nép-sziget</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3047529/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>47.13333</wgs:lat>
+	<wgs:long>18.88333</wgs:long>
+	<skos:prefLabel>Nagy-sziget</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3047530/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>47.01667</wgs:lat>
+	<wgs:long>18.96667</wgs:long>
+	<skos:altLabel>Nagy-sziget</skos:altLabel>
+	<skos:altLabel>Rácalmási Nagysziget</skos:altLabel>
+	<skos:prefLabel>Nagy-sziget</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3047587/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>47.8</wgs:lat>
+	<wgs:long>17.63333</wgs:long>
+	<skos:altLabel>Nagy-Patkó</skos:altLabel>
+	<skos:altLabel>Nagypatkó-sziget</skos:altLabel>
+	<skos:prefLabel>Nagy-Patkó</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3047651/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>26711</europeana:population>
+	<wgs:lat>47.03333</wgs:lat>
+	<wgs:long>19.78333</wgs:long>
+	<skos:prefLabel>Nagykőrös</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3047669/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13322</europeana:population>
+	<wgs:lat>47.41667</wgs:lat>
+	<wgs:long>19.75</wgs:long>
+	<skos:altLabel>Nagykáta</skos:altLabel>
+	<skos:prefLabel>Nagykáta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3047679/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>50823</europeana:population>
+	<wgs:lat>46.45347</wgs:lat>
+	<wgs:long>16.99104</wgs:long>
+	<skos:altLabel>Bagola</skos:altLabel>
+	<skos:altLabel>Bagolasánc</skos:altLabel>
+	<skos:altLabel>Bajcsa</skos:altLabel>
+	<skos:altLabel>Gross Kanischa</skos:altLabel>
+	<skos:altLabel>Grosz Kanischa</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Kanije</skos:altLabel>
+	<skos:altLabel>Korpavár</skos:altLabel>
+	<skos:altLabel>Miklósfa</skos:altLabel>
+	<skos:altLabel xml:lang="en">Nagykanizsa</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Nagykanizsa</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Nagykanizsa</skos:altLabel>
+	<skos:altLabel xml:lang="de">Nagykanizsa</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Nagykanizsa</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Nagykanizsa</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Nagykanizsa</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Nagykanizsa</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Nagykanizsa</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Nagykanizsa</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Nagykanizsa</skos:altLabel>
+	<skos:altLabel>Somogyszentmiklós</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Надканижа</skos:altLabel>
+	<skos:prefLabel>Nagykanizsa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3047752/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>47.73333</wgs:lat>
+	<wgs:long>17.86667</wgs:long>
+	<skos:prefLabel>Nagy-Erebe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3047819/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11843</europeana:population>
+	<wgs:lat>46.22961</wgs:lat>
+	<wgs:long>17.35788</wgs:long>
+	<skos:altLabel>Bodvica</skos:altLabel>
+	<skos:altLabel>Henész</skos:altLabel>
+	<skos:altLabel>Kivadár</skos:altLabel>
+	<skos:prefLabel>Nagyatád</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3047896/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>30359</europeana:population>
+	<wgs:lat>47.86667</wgs:lat>
+	<wgs:long>17.28333</wgs:long>
+	<skos:altLabel>Altenburg</skos:altLabel>
+	<skos:altLabel>Magyaróvár</skos:altLabel>
+	<skos:altLabel>Moson</skos:altLabel>
+	<skos:altLabel xml:lang="en">Mosonmagyaróvár</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Mosonmagyaróvár</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Mosonmagyaróvár</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Mosonmagyaróvár</skos:altLabel>
+	<skos:altLabel xml:lang="de">Mosonmagyaróvár</skos:altLabel>
+	<skos:altLabel xml:lang="it">Mosonmagyaróvár</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Mosonmagyaróvár</skos:altLabel>
+	<skos:altLabel>Mosonmagyaróvár</skos:altLabel>
+	<skos:altLabel xml:lang="de">Ungarisch Altenburg</skos:altLabel>
+	<skos:altLabel xml:lang="de">Wieselburg</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Мошонмадьяровар</skos:altLabel>
+	<skos:altLabel xml:lang="ja">モションマジャルオーヴァール</skos:altLabel>
+	<skos:prefLabel>Mosonmagyaróvár</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3047905/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>46.16667</wgs:lat>
+	<wgs:long>18.88333</wgs:long>
+	<skos:prefLabel>Móricz-sziget</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3047927/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14690</europeana:population>
+	<wgs:lat>47.38333</wgs:lat>
+	<wgs:long>18.2</wgs:long>
+	<skos:altLabel>Mór</skos:altLabel>
+	<skos:prefLabel>Mór</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3047942/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21720</europeana:population>
+	<wgs:lat>47.35</wgs:lat>
+	<wgs:long>19.45</wgs:long>
+	<skos:prefLabel>Monor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3047967/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18711</europeana:population>
+	<wgs:lat>45.99306</wgs:lat>
+	<wgs:long>18.68306</wgs:long>
+	<skos:altLabel xml:lang="pl">Mohacz</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Mohač</skos:altLabel>
+	<skos:altLabel xml:lang="de">Mohács</skos:altLabel>
+	<skos:altLabel xml:lang="en">Mohács</skos:altLabel>
+	<skos:altLabel xml:lang="no">Mohács</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Mohács</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Mohács</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Mohács</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Mohács</skos:altLabel>
+	<skos:altLabel>Mohács</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Мохач</skos:altLabel>
+	<skos:prefLabel>Mohács</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3047993/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>47.75</wgs:lat>
+	<wgs:long>18.41667</wgs:long>
+	<skos:altLabel xml:lang="hu">Mocsi-sziget</skos:altLabel>
+	<skos:prefLabel>Mocsi-sziget</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3048091/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>47.83333</wgs:lat>
+	<wgs:long>19.03333</wgs:long>
+	<skos:prefLabel>Migazzi-kastély</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3048434/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>47.53333</wgs:lat>
+	<wgs:long>19.05</wgs:long>
+	<skos:altLabel>Margaret Island</skos:altLabel>
+	<skos:altLabel>Margit-sziget</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Nyulak szigete</skos:altLabel>
+	<skos:prefLabel>Margit-sziget</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3048456/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12344</europeana:population>
+	<wgs:lat>46.58333</wgs:lat>
+	<wgs:long>17.41667</wgs:long>
+	<skos:prefLabel>Marcali</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3048630/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10144</europeana:population>
+	<wgs:lat>47.45</wgs:lat>
+	<wgs:long>19.36667</wgs:long>
+	<skos:prefLabel>Maglód</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3048652/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>47.81667</wgs:lat>
+	<wgs:long>17.61667</wgs:long>
+	<skos:prefLabel>Madarász-sziget</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3048673/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>47.61667</wgs:lat>
+	<wgs:long>19.08333</wgs:long>
+	<skos:prefLabel>Luppa-sziget</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3049002/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11034</europeana:population>
+	<wgs:lat>47.01667</wgs:lat>
+	<wgs:long>19.55</wgs:long>
+	<skos:prefLabel>Lajosmizse</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3049029/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>47.81667</wgs:lat>
+	<wgs:long>17.56667</wgs:long>
+	<skos:prefLabel>Laci-sziget</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3049366/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11500</europeana:population>
+	<wgs:lat>47.38333</wgs:lat>
+	<wgs:long>16.55</wgs:long>
+	<skos:altLabel>Güns</skos:altLabel>
+	<skos:altLabel>Kőszeg</skos:altLabel>
+	<skos:prefLabel>Kőszeg</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3049381/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>47.75</wgs:lat>
+	<wgs:long>18.68333</wgs:long>
+	<skos:prefLabel>Körtvélyes-sziget</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3049430/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12368</europeana:population>
+	<wgs:lat>47.01096</wgs:lat>
+	<wgs:long>16.60596</wgs:long>
+	<skos:prefLabel>Körmend</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3049512/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>26924</europeana:population>
+	<wgs:lat>46.19278</wgs:lat>
+	<wgs:long>18.26494</wgs:long>
+	<skos:prefLabel>Komló</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3049518/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>315036</europeana:population>
+	<wgs:lat>47.58333</wgs:lat>
+	<wgs:long>18.33333</wgs:long>
+	<skos:altLabel>Komarom County</skos:altLabel>
+	<skos:altLabel>Komárom Megye</skos:altLabel>
+	<skos:altLabel xml:lang="de">Komárom-Esztergom</skos:altLabel>
+	<skos:altLabel xml:lang="en">Komárom-Esztergom</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Komárom-Esztergom</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Komárom-Esztergom</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Komárom-Esztergom</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Komárom-Esztergom</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Komárom-Esztergom</skos:altLabel>
+	<skos:altLabel xml:lang="it">Komárom-Esztergom</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Komárom-Esztergom</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Komárom-Esztergom</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Komárom-Esztergom</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Komárom-Esztergom</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Komárom-Esztergom</skos:altLabel>
+	<skos:altLabel>Komárom-Esztergom</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Komárom-Esztergom megye</skos:altLabel>
+	<skos:altLabel xml:lang="it">Komárom-Strigonio</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Комаром-Естергом</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Комаром-Эстергом</skos:altLabel>
+	<skos:altLabel xml:lang="zh">科馬羅姆-埃斯泰爾戈姆州</skos:altLabel>
+	<skos:prefLabel>Komárom-Esztergom megye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3049519/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19646</europeana:population>
+	<wgs:lat>47.73333</wgs:lat>
+	<wgs:long>18.11667</wgs:long>
+	<skos:altLabel xml:lang="de">Komorn</skos:altLabel>
+	<skos:altLabel xml:lang="de">Komárom</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Komárom</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Komárom</skos:altLabel>
+	<skos:altLabel xml:lang="it">Komárom</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Komárom</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Komárom</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Komárom</skos:altLabel>
+	<skos:altLabel xml:lang="en">Komárom</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Komárom</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Komárom</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Komárom</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Komárom</skos:altLabel>
+	<skos:altLabel>Komárom</skos:altLabel>
+	<skos:altLabel>Komáromújváros</skos:altLabel>
+	<skos:altLabel>Szőny</skos:altLabel>
+	<skos:altLabel>Ujszony</skos:altLabel>
+	<skos:altLabel>Újváros</skos:altLabel>
+	<skos:altLabel xml:lang="ja">コマーロム</skos:altLabel>
+	<skos:prefLabel>Komárom</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3049549/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>47.74475</wgs:lat>
+	<wgs:long>17.76318</wgs:long>
+	<skos:prefLabel>Kolera-sziget</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3049875/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11955</europeana:population>
+	<wgs:lat>46.49028</wgs:lat>
+	<wgs:long>19.74</wgs:long>
+	<skos:prefLabel>Kiskunmajsa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3049880/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>29354</europeana:population>
+	<wgs:lat>46.43139</wgs:lat>
+	<wgs:long>19.4875</wgs:long>
+	<skos:altLabel>Kiskunhalas</skos:altLabel>
+	<skos:altLabel>Kiskunhalos</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кишкунхалаш</skos:altLabel>
+	<skos:prefLabel>Kiskunhalas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3049885/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>31720</europeana:population>
+	<wgs:lat>46.71361</wgs:lat>
+	<wgs:long>19.85222</wgs:long>
+	<skos:prefLabel>Kiskunfélegyháza</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3049896/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15091</europeana:population>
+	<wgs:lat>46.62056</wgs:lat>
+	<wgs:long>19.28861</wgs:long>
+	<skos:altLabel>Kiskőrös</skos:altLabel>
+	<skos:prefLabel>Kiskőrös</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3050212/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21534</europeana:population>
+	<wgs:lat>46.76667</wgs:lat>
+	<wgs:long>17.25</wgs:long>
+	<skos:altLabel>Keszthely</skos:altLabel>
+	<skos:altLabel>Keszthelyi</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кестхей</skos:altLabel>
+	<skos:prefLabel>Keszthely</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3050290/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10986</europeana:population>
+	<wgs:lat>47.54757</wgs:lat>
+	<wgs:long>19.26247</wgs:long>
+	<skos:altLabel xml:lang="hu">Kerepestarcsa</skos:altLabel>
+	<skos:prefLabel>Kistarcsa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3050434/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>109847</europeana:population>
+	<wgs:lat>46.90618</wgs:lat>
+	<wgs:long>19.69128</wgs:long>
+	<skos:altLabel>Hetény</skos:altLabel>
+	<skos:altLabel>Hetényegyháza</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kecskemét</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Kecskemét</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Kecskemét</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kecskemét</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kecskemét</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Kecskemét</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Kecskemét</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Kecskemét</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Kecskemét</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Kecskemét</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Kecskemét</skos:altLabel>
+	<skos:altLabel xml:lang="it">Kecskemét</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Кечкемет</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кечкемет</skos:altLabel>
+	<skos:altLabel xml:lang="zh">凯奇凯梅特</skos:altLabel>
+	<skos:prefLabel>Kecskemét</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3050594/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10661</europeana:population>
+	<wgs:lat>47.6</wgs:lat>
+	<wgs:long>17.03333</wgs:long>
+	<skos:altLabel>Capuvar</skos:altLabel>
+	<skos:altLabel>Kapuvár</skos:altLabel>
+	<skos:prefLabel>Kapuvár</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3050616/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>67746</europeana:population>
+	<wgs:lat>46.36667</wgs:lat>
+	<wgs:long>17.8</wgs:long>
+	<skos:altLabel>Kaposfüred</skos:altLabel>
+	<skos:altLabel>Kaposszentjakab</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kaposvár</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Kaposvár</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Kaposvár</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kaposvár</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Kaposvár</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kaposvár</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Kaposvár</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Kaposvár</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Kaposvár</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Kaposvár</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Kaposvár</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Kaposvár</skos:altLabel>
+	<skos:altLabel>Toponár</skos:altLabel>
+	<skos:altLabel>Töröcske</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Капошвар</skos:altLabel>
+	<skos:altLabel xml:lang="ja">カポシュヴァール</skos:altLabel>
+	<skos:prefLabel>Kaposvár</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3050719/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18242</europeana:population>
+	<wgs:lat>46.52639</wgs:lat>
+	<wgs:long>18.98583</wgs:long>
+	<skos:altLabel>Kalocsa</skos:altLabel>
+	<skos:prefLabel>Kalocsa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3050907/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>27835</europeana:population>
+	<wgs:lat>47.5</wgs:lat>
+	<wgs:long>19.91667</wgs:long>
+	<skos:altLabel>Jászberény</skos:altLabel>
+	<skos:prefLabel>Jászberény</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3051077/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10754</europeana:population>
+	<wgs:lat>47.53333</wgs:lat>
+	<wgs:long>19.4</wgs:long>
+	<skos:prefLabel>Isaszeg</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3051537/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>47.81667</wgs:lat>
+	<wgs:long>18.8</wgs:long>
+	<skos:altLabel>Helemba-sziget</skos:altLabel>
+	<skos:altLabel>Helembai Sziget</skos:altLabel>
+	<skos:prefLabel>Helemba-sziget</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3051621/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>22710</europeana:population>
+	<wgs:lat>47.66667</wgs:lat>
+	<wgs:long>19.68333</wgs:long>
+	<skos:altLabel>Hatvan</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Хатван</skos:altLabel>
+	<skos:prefLabel>Hatvan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3051679/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>47.39806</wgs:lat>
+	<wgs:long>19.02506</wgs:long>
+	<skos:altLabel>Haros Island</skos:altLabel>
+	<skos:prefLabel>Háros-sziget</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3051926/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>46.16667</wgs:lat>
+	<wgs:long>18.9</wgs:long>
+	<skos:prefLabel>Gyuri-sziget</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3051977/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>442667</europeana:population>
+	<wgs:lat>47.66667</wgs:lat>
+	<wgs:long>17.25</wgs:long>
+	<skos:altLabel xml:lang="gl">Gyor-Moson-Sopron</skos:altLabel>
+	<skos:altLabel>Gyor-Sopron County</skos:altLabel>
+	<skos:altLabel xml:lang="de">Győr-Moson-Sopron</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Győr-Moson-Sopron</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Győr-Moson-Sopron</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Győr-Moson-Sopron</skos:altLabel>
+	<skos:altLabel xml:lang="en">Győr-Moson-Sopron</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Győr-Moson-Sopron</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Győr-Moson-Sopron</skos:altLabel>
+	<skos:altLabel xml:lang="it">Győr-Moson-Sopron</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Győr-Moson-Sopron</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Győr-Moson-Sopron</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Győr-Moson-Sopron</skos:altLabel>
+	<skos:altLabel>Győr-Moson-Sopron</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Győr-Moson-Sopron megye</skos:altLabel>
+	<skos:altLabel>Győr-Sopron Megye</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Дьор-Мошон-Шопрон</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Дьёр-Мошон-Шопрон</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ジェール・モション・ショプロン県</skos:altLabel>
+	<skos:altLabel xml:lang="zh">傑爾-莫松-肖普朗州</skos:altLabel>
+	<skos:prefLabel>Győr-Moson-Sopron megye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3052009/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>128265</europeana:population>
+	<wgs:lat>47.68333</wgs:lat>
+	<wgs:long>17.63512</wgs:long>
+	<skos:altLabel>Gyirmót</skos:altLabel>
+	<skos:altLabel xml:lang="en">Győr</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Győr</skos:altLabel>
+	<skos:altLabel xml:lang="de">Győr</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Győr</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Győr</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Győr</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Győr</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Győr</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Győr</skos:altLabel>
+	<skos:altLabel xml:lang="et">Győr</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Győr</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Győr</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Győr</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Győr</skos:altLabel>
+	<skos:altLabel xml:lang="it">Győr</skos:altLabel>
+	<skos:altLabel>Győrszentiván</skos:altLabel>
+	<skos:altLabel>Ménfőcsanak</skos:altLabel>
+	<skos:altLabel>Pinnyéd</skos:altLabel>
+	<skos:altLabel xml:lang="de">Raab</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Дьор</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ジェール</skos:altLabel>
+	<skos:prefLabel>Győr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3052031/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>46.83333</wgs:lat>
+	<wgs:long>17.2</wgs:long>
+	<skos:prefLabel>Gyöngyösi Csárda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3052040/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>32938</europeana:population>
+	<wgs:lat>47.78333</wgs:lat>
+	<wgs:long>19.93333</wgs:long>
+	<skos:altLabel>Gyöngyös</skos:altLabel>
+	<skos:prefLabel>Gyöngyös</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3052045/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14155</europeana:population>
+	<wgs:lat>47.41667</wgs:lat>
+	<wgs:long>19.4</wgs:long>
+	<skos:prefLabel>Gyömrő</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3052101/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21937</europeana:population>
+	<wgs:lat>47.38333</wgs:lat>
+	<wgs:long>19.23333</wgs:long>
+	<skos:prefLabel>Gyál</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3052236/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>32374</europeana:population>
+	<wgs:lat>47.6</wgs:lat>
+	<wgs:long>19.36667</wgs:long>
+	<skos:altLabel xml:lang="en">Gödöllő</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Gödöllő</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Gödöllő</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Gödöllő</skos:altLabel>
+	<skos:altLabel xml:lang="de">Gödöllő</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Gödöllő</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Gödöllő</skos:altLabel>
+	<skos:altLabel>Gödöllő</skos:altLabel>
+	<skos:altLabel>Gödölö</skos:altLabel>
+	<skos:prefLabel>Gödöllő</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3052241/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15874</europeana:population>
+	<wgs:lat>47.7</wgs:lat>
+	<wgs:long>19.13333</wgs:long>
+	<skos:altLabel>Alsógöd</skos:altLabel>
+	<skos:altLabel>Felsőgöd</skos:altLabel>
+	<skos:altLabel>Göd</skos:altLabel>
+	<skos:prefLabel>Göd</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3052363/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>47.81667</wgs:lat>
+	<wgs:long>17.55</wgs:long>
+	<skos:prefLabel>Gazdák Szigetei</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3052450/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>45.93333</wgs:lat>
+	<wgs:long>18.78333</wgs:long>
+	<skos:prefLabel>Gabriella-sziget</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3052542/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16770</europeana:population>
+	<wgs:lat>47.61667</wgs:lat>
+	<wgs:long>19.2</wgs:long>
+	<skos:prefLabel>Fót</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3052741/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>46.81667</wgs:lat>
+	<wgs:long>18.93333</wgs:long>
+	<skos:prefLabel>Felső Sziget</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3052994/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>46.78333</wgs:lat>
+	<wgs:long>17.38333</wgs:long>
+	<skos:prefLabel>Fekete-Kastély</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3053028/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>428711</europeana:population>
+	<wgs:lat>47.16667</wgs:lat>
+	<wgs:long>18.58333</wgs:long>
+	<skos:altLabel>Fejer County</skos:altLabel>
+	<skos:altLabel xml:lang="de">Fejér</skos:altLabel>
+	<skos:altLabel xml:lang="en">Fejér</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Fejér</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Fejér</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Fejér</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Fejér</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Fejér</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Fejér</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Fejér</skos:altLabel>
+	<skos:altLabel xml:lang="it">Fejér</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Fejér</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Fejér</skos:altLabel>
+	<skos:altLabel>Fejér</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Fejér megye</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Фейер</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Фейер</skos:altLabel>
+	<skos:altLabel xml:lang="zh">費耶爾州</skos:altLabel>
+	<skos:prefLabel>Fejér megye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3053163/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>28785</europeana:population>
+	<wgs:lat>47.8</wgs:lat>
+	<wgs:long>18.75</wgs:long>
+	<skos:altLabel xml:lang="id">Esztergom</skos:altLabel>
+	<skos:altLabel xml:lang="en">Esztergom</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Esztergom</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Esztergom</skos:altLabel>
+	<skos:altLabel xml:lang="no">Esztergom</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Esztergom</skos:altLabel>
+	<skos:altLabel xml:lang="de">Esztergom</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Esztergom</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Esztergom</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Esztergom</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Esztergom</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Esztergom</skos:altLabel>
+	<skos:altLabel xml:lang="es">Esztergom</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Esztergom</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Esztergom</skos:altLabel>
+	<skos:altLabel xml:lang="it">Esztergom</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Esztergom</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Esztergom</skos:altLabel>
+	<skos:altLabel>Esztergom</skos:altLabel>
+	<skos:altLabel xml:lang="de">Gran</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Ostrihom</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Ostrzyhom</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Ostřihom</skos:altLabel>
+	<skos:altLabel>Pilisszentlélek</skos:altLabel>
+	<skos:altLabel xml:lang="it">Strigonio</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Strigoniu</skos:altLabel>
+	<skos:altLabel xml:lang="la">Strigonium</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Эстергом</skos:altLabel>
+	<skos:altLabel xml:lang="ja">エステルゴム</skos:altLabel>
+	<skos:altLabel xml:lang="zh">艾斯特根</skos:altLabel>
+	<skos:altLabel xml:lang="ko">에스테르곰</skos:altLabel>
+	<skos:prefLabel>Esztergom</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3053174/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>47.11667</wgs:lat>
+	<wgs:long>17.78333</wgs:long>
+	<skos:prefLabel>Esegvár</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3053281/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>62408</europeana:population>
+	<wgs:lat>47.36667</wgs:lat>
+	<wgs:long>18.93333</wgs:long>
+	<skos:altLabel xml:lang="hu">Hamzsabég</skos:altLabel>
+	<skos:altLabel xml:lang="de">Érd</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Érd</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Érd</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Érd</skos:altLabel>
+	<skos:altLabel xml:lang="en">Érd</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Érd</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Érd</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Érd</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Érd</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Érd</skos:altLabel>
+	<skos:altLabel>Érd</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Эрд</skos:altLabel>
+	<skos:prefLabel>Érd</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3053294/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>47.25</wgs:lat>
+	<wgs:long>18.91667</wgs:long>
+	<skos:altLabel>Eötvös Szobor</skos:altLabel>
+	<skos:prefLabel>Eötvös-emlékmű</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3053438/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>50084</europeana:population>
+	<wgs:lat>46.98333</wgs:lat>
+	<wgs:long>18.93333</wgs:long>
+	<skos:altLabel>Dunapentele</skos:altLabel>
+	<skos:altLabel xml:lang="en">Dunaújváros</skos:altLabel>
+	<skos:altLabel xml:lang="da">Dunaújváros</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Dunaújváros</skos:altLabel>
+	<skos:altLabel xml:lang="de">Dunaújváros</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Dunaújváros</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Dunaújváros</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Dunaújváros</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Dunaújváros</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Dunaújváros</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Dunaújváros</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Dunaújváros</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Dunaújváros</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Dunaújváros</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Dunaújváros</skos:altLabel>
+	<skos:altLabel>Stalinvaros</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Sztálinváros</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Дунауйварош</skos:altLabel>
+	<skos:altLabel xml:lang="zh">多瑙新城</skos:altLabel>
+	<skos:prefLabel>Dunaújváros</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3053446/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>47.71667</wgs:lat>
+	<wgs:long>17.6</wgs:long>
+	<skos:prefLabel>Duna-sziget</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3053476/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>30246</europeana:population>
+	<wgs:lat>47.63333</wgs:lat>
+	<wgs:long>19.13333</wgs:long>
+	<skos:prefLabel>Dunakeszi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3053485/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16973</europeana:population>
+	<wgs:lat>47.35</wgs:lat>
+	<wgs:long>19.08333</wgs:long>
+	<skos:prefLabel>Dunaharaszti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3053562/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12658</europeana:population>
+	<wgs:lat>47.71667</wgs:lat>
+	<wgs:long>18.73333</wgs:long>
+	<skos:altLabel>Dorog</skos:altLabel>
+	<skos:prefLabel>Dorog</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3053590/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20748</europeana:population>
+	<wgs:lat>46.38333</wgs:lat>
+	<wgs:long>18.11667</wgs:long>
+	<skos:altLabel>Dombóvár</skos:altLabel>
+	<skos:prefLabel>Dombóvár</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3053836/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16590</europeana:population>
+	<wgs:lat>47.18333</wgs:lat>
+	<wgs:long>19.31667</wgs:long>
+	<skos:altLabel>Dabas</skos:altLabel>
+	<skos:altLabel>Gyón</skos:altLabel>
+	<skos:altLabel>Sári</skos:altLabel>
+	<skos:prefLabel>Dabas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3053918/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10825</europeana:population>
+	<wgs:lat>47.61667</wgs:lat>
+	<wgs:long>17.25</wgs:long>
+	<skos:prefLabel>Csorna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3054066/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>46.68333</wgs:lat>
+	<wgs:long>17.31667</wgs:long>
+	<skos:prefLabel>Csillagvár</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3054266/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>47.25</wgs:lat>
+	<wgs:long>18.95</wgs:long>
+	<skos:altLabel>Cepel Island</skos:altLabel>
+	<skos:altLabel>Csepel Island</skos:altLabel>
+	<skos:altLabel>Csepel-sziget</skos:altLabel>
+	<skos:altLabel>Czepel Island</skos:altLabel>
+	<skos:prefLabel>Csepel-sziget</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3054502/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>45.96667</wgs:lat>
+	<wgs:long>18.71667</wgs:long>
+	<skos:altLabel>Cigány-zátony</skos:altLabel>
+	<skos:altLabel>Cigányzáton</skos:altLabel>
+	<skos:prefLabel>Cigány-zátony</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3054533/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11421</europeana:population>
+	<wgs:lat>47.25</wgs:lat>
+	<wgs:long>17.15</wgs:long>
+	<skos:altLabel xml:lang="hu">Celldömölk</skos:altLabel>
+	<skos:altLabel>Celldömölk</skos:altLabel>
+	<skos:altLabel>Czelldömölk</skos:altLabel>
+	<skos:altLabel>Izsákfa</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Kiscell</skos:altLabel>
+	<skos:altLabel xml:lang="de">Klein Zell</skos:altLabel>
+	<skos:altLabel xml:lang="de">Klein-Zell</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kleinzell</skos:altLabel>
+	<skos:prefLabel>Celldömölk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3054543/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>39287</europeana:population>
+	<wgs:lat>47.16667</wgs:lat>
+	<wgs:long>19.8</wgs:long>
+	<skos:altLabel>Cegléd</skos:altLabel>
+	<skos:altLabel>Czegled</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Цеглед</skos:altLabel>
+	<skos:prefLabel>Cegléd</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3054638/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1696128</europeana:population>
+	<wgs:lat>47.5</wgs:lat>
+	<wgs:long>19.08333</wgs:long>
+	<skos:altLabel>Budapest</skos:altLabel>
+	<skos:prefLabel>Budapest főváros</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3054643/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>1696128</europeana:population>
+	<wgs:lat>47.49801</wgs:lat>
+	<wgs:long>19.03991</wgs:long>
+	<skos:altLabel xml:lang="nl">Boedapest</skos:altLabel>
+	<skos:altLabel xml:lang="id">Budapest</skos:altLabel>
+	<skos:altLabel xml:lang="de">Budapest</skos:altLabel>
+	<skos:altLabel xml:lang="es">Budapest</skos:altLabel>
+	<skos:altLabel xml:lang="da">Budapest</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Budapest</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Budapest</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Budapest</skos:altLabel>
+	<skos:altLabel xml:lang="io">Budapest</skos:altLabel>
+	<skos:altLabel xml:lang="it">Budapest</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Budapest</skos:altLabel>
+	<skos:altLabel xml:lang="no">Budapest</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Budapest</skos:altLabel>
+	<skos:altLabel xml:lang="en">Budapest</skos:altLabel>
+	<skos:altLabel xml:lang="an">Budapest</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Budapest</skos:altLabel>
+	<skos:altLabel xml:lang="et">Budapest</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Budapest</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Budapest</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Budapest</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Budapest</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Budapest</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Budapest</skos:altLabel>
+	<skos:altLabel xml:lang="rm">Budapest</skos:altLabel>
+	<skos:altLabel xml:lang="br">Budapest</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Budapesta</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Budapeste</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Budapesti</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Budapeszt</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Budapeŝto</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Budapeşte</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Budapešta</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Budapeštas</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Budapešť</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Budapešť</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Budapèst</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Budimpešta</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Budimpešta</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Budimpešta</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Budimpešta</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Búdaipeist</skos:altLabel>
+	<skos:altLabel xml:lang="is">Búdapest</skos:altLabel>
+	<skos:altLabel xml:lang="el">Βουδαπέστη</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Будапешт</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Будапешт</skos:altLabel>
+	<skos:altLabel xml:lang="cv">Будапешт</skos:altLabel>
+	<skos:altLabel xml:lang="os">Будапешт</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Будапеща</skos:altLabel>
+	<skos:altLabel xml:lang="be">Будапэшт</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Будимпешта</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Բուդապեշտ</skos:altLabel>
+	<skos:altLabel xml:lang="he">בודפשט</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بودابست</skos:altLabel>
+	<skos:altLabel xml:lang="fa">بوداپست</skos:altLabel>
+	<skos:altLabel xml:lang="ug">بۇداپېشت</skos:altLabel>
+	<skos:altLabel xml:lang="mr">बुडापेस्ट</skos:altLabel>
+	<skos:altLabel xml:lang="th">บูดาเปสต์</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ბუდაპეშტი</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ブダペスト</skos:altLabel>
+	<skos:altLabel xml:lang="zh">布达佩斯</skos:altLabel>
+	<skos:altLabel xml:lang="ko">부다페스트</skos:altLabel>
+	<skos:prefLabel>Budapest</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3054646/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>25089</europeana:population>
+	<wgs:lat>47.46181</wgs:lat>
+	<wgs:long>18.95845</wgs:long>
+	<skos:prefLabel>Budaörs</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3054648/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13248</europeana:population>
+	<wgs:lat>47.51667</wgs:lat>
+	<wgs:long>18.93333</wgs:long>
+	<skos:altLabel>Budakeszi</skos:altLabel>
+	<skos:prefLabel>Budakeszi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3054809/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14184</europeana:population>
+	<wgs:lat>46.29921</wgs:lat>
+	<wgs:long>18.53024</wgs:long>
+	<skos:altLabel>Bonyhád</skos:altLabel>
+	<skos:prefLabel>Bonyhád</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3055030/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11072</europeana:population>
+	<wgs:lat>47.48333</wgs:lat>
+	<wgs:long>18.63333</wgs:long>
+	<skos:prefLabel>Bicske</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3055287/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14214</europeana:population>
+	<wgs:lat>47.96667</wgs:lat>
+	<wgs:long>19.83333</wgs:long>
+	<skos:altLabel>Bátonyterenye</skos:altLabel>
+	<skos:altLabel>Kisterenye</skos:altLabel>
+	<skos:altLabel>Nagybátony</skos:altLabel>
+	<skos:altLabel>Szúpatak</skos:altLabel>
+	<skos:prefLabel>Bátonyterenye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3055368/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12116</europeana:population>
+	<wgs:lat>45.96</wgs:lat>
+	<wgs:long>17.45861</wgs:long>
+	<skos:altLabel>Barcs</skos:altLabel>
+	<skos:altLabel>Drávaszentes</skos:altLabel>
+	<skos:altLabel>Somogy Tarnocza</skos:altLabel>
+	<skos:altLabel>Somogytarnóca</skos:altLabel>
+	<skos:prefLabel>Barcs</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3055399/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>398215</europeana:population>
+	<wgs:lat>46.08333</wgs:lat>
+	<wgs:long>18.25</wgs:long>
+	<skos:altLabel>Baranya</skos:altLabel>
+	<skos:altLabel>Baranya County</skos:altLabel>
+	<skos:prefLabel>Baranya megye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3055566/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13055</europeana:population>
+	<wgs:lat>46.95</wgs:lat>
+	<wgs:long>17.88333</wgs:long>
+	<skos:altLabel>Balatonfüred</skos:altLabel>
+	<skos:prefLabel>Balatonfüred</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3055601/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17541</europeana:population>
+	<wgs:lat>48.08333</wgs:lat>
+	<wgs:long>19.3</wgs:long>
+	<skos:altLabel>Balassagyarmat</skos:altLabel>
+	<skos:altLabel>Ipolyszög</skos:altLabel>
+	<skos:prefLabel>Balassagyarmat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3055685/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>37714</europeana:population>
+	<wgs:lat>46.18333</wgs:lat>
+	<wgs:long>18.96667</wgs:long>
+	<skos:altLabel xml:lang="pl">Baja</skos:altLabel>
+	<skos:altLabel xml:lang="en">Baja</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Baja</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Baja</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Baja</skos:altLabel>
+	<skos:altLabel xml:lang="de">Baja</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Baja</skos:altLabel>
+	<skos:altLabel xml:lang="it">Baja</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Baja</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Baja</skos:altLabel>
+	<skos:altLabel>Baja</skos:altLabel>
+	<skos:altLabel>Baya</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Байя</skos:altLabel>
+	<skos:prefLabel>Baja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3055744/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>536290</europeana:population>
+	<wgs:lat>46.5</wgs:lat>
+	<wgs:long>19.41667</wgs:long>
+	<skos:altLabel xml:lang="de">Bács-Kiskun</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Bács-Kiskun</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Bács-Kiskun</skos:altLabel>
+	<skos:altLabel xml:lang="it">Bács-Kiskun</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Bács-Kiskun</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Bács-Kiskun</skos:altLabel>
+	<skos:altLabel xml:lang="es">Bács-Kiskun</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bács-Kiskun</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Bács-Kiskun</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Bács-Kiskun</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Bács-Kiskun</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Bács-Kiskun</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Bács-Kiskun</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Bács-Kiskun</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Bács-Kiskun</skos:altLabel>
+	<skos:altLabel>Bács-Kiskun</skos:altLabel>
+	<skos:altLabel>Bács-Kiskun County</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Bács-Kiskun megye</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Бач-Кишкун</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бач-Кишкун</skos:altLabel>
+	<skos:altLabel xml:lang="zh">巴奇-基什孔州</skos:altLabel>
+	<skos:prefLabel>Bács-Kiskun megye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3056044/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>47.74194</wgs:lat>
+	<wgs:long>18.38583</wgs:long>
+	<skos:prefLabel>Alsó-sziget</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3056045/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>46.76667</wgs:lat>
+	<wgs:long>18.96667</wgs:long>
+	<skos:prefLabel>Alsó Sziget</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3056326/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11864</europeana:population>
+	<wgs:lat>47.25</wgs:lat>
+	<wgs:long>19.61667</wgs:long>
+	<skos:altLabel>Alberti</skos:altLabel>
+	<skos:altLabel>Albertirsa</skos:altLabel>
+	<skos:altLabel>Irsa</skos:altLabel>
+	<skos:prefLabel>Albertirsa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3056357/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>31407</europeana:population>
+	<wgs:lat>47.1</wgs:lat>
+	<wgs:long>17.56667</wgs:long>
+	<skos:altLabel xml:lang="pl">Ajka</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ajka</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Ajka</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Ajka</skos:altLabel>
+	<skos:altLabel xml:lang="de">Ajka</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Ajka</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Ajka</skos:altLabel>
+	<skos:altLabel>Ajka</skos:altLabel>
+	<skos:altLabel>Ajkarendek</skos:altLabel>
+	<skos:altLabel>Bakonygyepes</skos:altLabel>
+	<skos:altLabel>Csékút</skos:altLabel>
+	<skos:altLabel>Padrag</skos:altLabel>
+	<skos:altLabel>Padragkút</skos:altLabel>
+	<skos:altLabel>Tósok</skos:altLabel>
+	<skos:altLabel>Tósokberénd</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Айка</skos:altLabel>
+	<skos:prefLabel>Ajka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6694175/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>47.22968</wgs:lat>
+	<wgs:long>16.60046</wgs:long>
+	<skos:prefLabel>Felszabadulási-emlékmű</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6694217/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.TMPL"/>
+	<wgs:lat>47.2253</wgs:lat>
+	<wgs:long>16.60446</wgs:long>
+	<skos:prefLabel>Kálvária templom</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6694218/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.TMPL"/>
+	<wgs:lat>47.2225</wgs:lat>
+	<wgs:long>16.6142</wgs:long>
+	<skos:prefLabel>Szalézi templom</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6694221/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.CSTL"/>
+	<wgs:lat>47.22516</wgs:lat>
+	<wgs:long>16.6056</wgs:long>
+	<skos:prefLabel>Bagolyvár</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6942354/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>201000</europeana:population>
+	<wgs:lat>47.06053</wgs:lat>
+	<wgs:long>21.92734</wgs:long>
+	<skos:prefLabel>Nagyvárad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7284823/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3054643/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>56544</europeana:population>
+	<wgs:lat>47.49192</wgs:lat>
+	<wgs:long>19.01493</wgs:long>
+	<skos:prefLabel>Budapest XII. kerület</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7284824/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3054643/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>139049</europeana:population>
+	<wgs:lat>47.47603</wgs:lat>
+	<wgs:long>19.03605</wgs:long>
+	<skos:prefLabel>Budapest XI. kerület</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7284825/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3054643/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>61576</europeana:population>
+	<wgs:lat>47.48299</wgs:lat>
+	<wgs:long>19.06591</wgs:long>
+	<skos:prefLabel>Budapest IX. kerület</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7284826/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3054643/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>82222</europeana:population>
+	<wgs:lat>47.48919</wgs:lat>
+	<wgs:long>19.07012</wgs:long>
+	<skos:prefLabel>Budapest VIII. kerület</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7284827/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3054643/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>62530</europeana:population>
+	<wgs:lat>47.50045</wgs:lat>
+	<wgs:long>19.06875</wgs:long>
+	<skos:prefLabel>Budapest VII. kerület</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7284828/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3054643/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>42120</europeana:population>
+	<wgs:lat>47.50369</wgs:lat>
+	<wgs:long>19.06583</wgs:long>
+	<skos:prefLabel>Budapest VI. kerület</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7284829/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3054643/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>120148</europeana:population>
+	<wgs:lat>47.5183</wgs:lat>
+	<wgs:long>19.10789</wgs:long>
+	<skos:prefLabel>Budapest XIV. kerület</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7284830/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3054643/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>113531</europeana:population>
+	<wgs:lat>47.52978</wgs:lat>
+	<wgs:long>19.08068</wgs:long>
+	<skos:prefLabel>Budapest XIII. kerület</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7284831/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3054643/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>98374</europeana:population>
+	<wgs:lat>47.56182</wgs:lat>
+	<wgs:long>19.08909</wgs:long>
+	<skos:prefLabel>Budapest IV. kerület</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7284832/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3053476/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>80218</europeana:population>
+	<wgs:lat>47.56263</wgs:lat>
+	<wgs:long>19.11681</wgs:long>
+	<skos:prefLabel>Budapest XV. kerület</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7284833/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3053971/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>68484</europeana:population>
+	<wgs:lat>47.51482</wgs:lat>
+	<wgs:long>19.17028</wgs:long>
+	<skos:prefLabel>Budapest XVI. kerület</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7284834/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3054643/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>79270</europeana:population>
+	<wgs:lat>47.4791</wgs:lat>
+	<wgs:long>19.15835</wgs:long>
+	<skos:prefLabel>Budapest X. kerület</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7284835/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3054643/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>61610</europeana:population>
+	<wgs:lat>47.45293</wgs:lat>
+	<wgs:long>19.14943</wgs:long>
+	<skos:prefLabel>Budapest XIX. kerület</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7284836/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3052101/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>93225</europeana:population>
+	<wgs:lat>47.44417</wgs:lat>
+	<wgs:long>19.17595</wgs:long>
+	<skos:prefLabel>Budapest XVIII. kerület</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7284837/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3053485/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>20387</europeana:population>
+	<wgs:lat>47.39788</wgs:lat>
+	<wgs:long>19.11492</wgs:long>
+	<skos:prefLabel>Budapest XXIII. kerület</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7284838/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3054643/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>50499</europeana:population>
+	<wgs:lat>47.42698</wgs:lat>
+	<wgs:long>19.04016</wgs:long>
+	<skos:prefLabel>Budapest XXII. kerület</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7284839/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3054643/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>76339</europeana:population>
+	<wgs:lat>47.43047</wgs:lat>
+	<wgs:long>19.07098</wgs:long>
+	<skos:prefLabel>Budapest XXI. kerület</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7284840/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3054643/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>63371</europeana:population>
+	<wgs:lat>47.43674</wgs:lat>
+	<wgs:long>19.10093</wgs:long>
+	<skos:prefLabel>Budapest XX. kerület</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7284841/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3053876/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>78250</europeana:population>
+	<wgs:lat>47.47997</wgs:lat>
+	<wgs:long>19.25388</wgs:long>
+	<skos:prefLabel>Budapest XVII. kerület</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7284842/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3054643/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>123723</europeana:population>
+	<wgs:lat>47.54157</wgs:lat>
+	<wgs:long>19.04501</wgs:long>
+	<skos:prefLabel>Budapest III. kerület</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7284843/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3054643/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>88729</europeana:population>
+	<wgs:lat>47.51291</wgs:lat>
+	<wgs:long>19.03184</wgs:long>
+	<skos:prefLabel>Budapest II. kerület</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7284844/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3054643/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>24728</europeana:population>
+	<wgs:lat>47.49705</wgs:lat>
+	<wgs:long>19.03961</wgs:long>
+	<skos:prefLabel>Budapest I. kerület</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7287894/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.OPRA"/>
+	<wgs:lat>47.50294</wgs:lat>
+	<wgs:long>19.05842</wgs:long>
+	<skos:prefLabel>Hungarian State Opera House</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7302919/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.CSTL"/>
+	<wgs:lat>47.49611</wgs:lat>
+	<wgs:long>19.03972</wgs:long>
+	<skos:prefLabel>Buda Castle</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7303974/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.TMPL"/>
+	<wgs:lat>47.49583</wgs:lat>
+	<wgs:long>19.06083</wgs:long>
+	<skos:prefLabel>Dohány Street Synagogue</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7603250/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/719819/"/>
+	<europeana:country>HU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>47.36667</wgs:lat>
+	<wgs:long>18.93333</wgs:long>
+	<skos:altLabel xml:lang="hu">Érd Megyei Város</skos:altLabel>
+	<skos:prefLabel>Érd Megyei Város</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 245 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

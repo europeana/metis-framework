@@ -1,0 +1,3585 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AF_ET
+Description: Selected fields pulled from Geonames about ET done on Mon May 23 21:16:12 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/325542/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.25</wgs:lat>
+	<wgs:long>40.33333</wgs:long>
+	<skos:altLabel>Raia</skos:altLabel>
+	<skos:altLabel>Raya and Kobo</skos:altLabel>
+	<skos:altLabel>Raya na K’obo Āwraja</skos:altLabel>
+	<skos:prefLabel>Raya na K’obo Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/325579/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>49416</europeana:population>
+	<wgs:lat>7.93333</wgs:lat>
+	<wgs:long>38.71667</wgs:long>
+	<skos:altLabel>Ziway</skos:altLabel>
+	<skos:altLabel>Zwai</skos:altLabel>
+	<skos:altLabel>Zway</skos:altLabel>
+	<skos:prefLabel>Ziway</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/325780/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>36292</europeana:population>
+	<wgs:lat>6.75</wgs:lat>
+	<wgs:long>38.41667</wgs:long>
+	<skos:altLabel>Agraria</skos:altLabel>
+	<skos:altLabel>Dalle</skos:altLabel>
+	<skos:altLabel>Irgalem</skos:altLabel>
+	<skos:altLabel>Yirga ‘Alem</skos:altLabel>
+	<skos:altLabel>Yirgalem</skos:altLabel>
+	<skos:altLabel>Ābosto</skos:altLabel>
+	<skos:prefLabel>Yirga ‘Alem</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/325809/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>10.16667</wgs:lat>
+	<wgs:long>40.25</wgs:long>
+	<skos:altLabel>Yifat and Timuga</skos:altLabel>
+	<skos:altLabel>Yifat na T’imuga Āwraja</skos:altLabel>
+	<skos:prefLabel>Yifat na T’imuga Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/325869/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>8.83333</wgs:lat>
+	<wgs:long>39.33333</wgs:long>
+	<skos:altLabel>Carraiu</skos:altLabel>
+	<skos:altLabel>Yerer and Karayu</skos:altLabel>
+	<skos:altLabel>Yerer and Kereyu</skos:altLabel>
+	<skos:altLabel>Yerer na Kereyu Āwraja</skos:altLabel>
+	<skos:altLabel>Yerer-kereyu</skos:altLabel>
+	<skos:prefLabel>Yerer na Kereyu Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/325917/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>11.75</wgs:lat>
+	<wgs:long>40</wgs:long>
+	<skos:altLabel>Ieggiu Galla</skos:altLabel>
+	<skos:altLabel>Yeju Āwraja</skos:altLabel>
+	<skos:prefLabel>Yeju Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/326036/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17819</europeana:population>
+	<wgs:lat>4.88333</wgs:lat>
+	<wgs:long>38.08333</wgs:long>
+	<skos:altLabel>Iavello</skos:altLabel>
+	<skos:altLabel>Yabēlo</skos:altLabel>
+	<skos:altLabel>Yavello</skos:altLabel>
+	<skos:altLabel>Yavelo</skos:altLabel>
+	<skos:altLabel>Yeabelo</skos:altLabel>
+	<skos:altLabel>Yābalo</skos:altLabel>
+	<skos:prefLabel>Yabēlo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/326206/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>26813</europeana:population>
+	<wgs:lat>11.91667</wgs:lat>
+	<wgs:long>37.7</wgs:long>
+	<skos:altLabel>Wereta</skos:altLabel>
+	<skos:altLabel>Wereta (2)</skos:altLabel>
+	<skos:altLabel>Werota</skos:altLabel>
+	<skos:altLabel>Worota</skos:altLabel>
+	<skos:altLabel>Worrota</skos:altLabel>
+	<skos:prefLabel>Werota</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/326258/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>10.66667</wgs:lat>
+	<wgs:long>39.5</wgs:long>
+	<skos:altLabel>Ware Ilu</skos:altLabel>
+	<skos:altLabel>Were Īlu Āwraja</skos:altLabel>
+	<skos:prefLabel>Were Īlu Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/326260/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>11</wgs:lat>
+	<wgs:long>39.16667</wgs:long>
+	<skos:altLabel>Uorra</skos:altLabel>
+	<skos:altLabel>Warehimeno</skos:altLabel>
+	<skos:altLabel>Were Hīmeno Āwraja</skos:altLabel>
+	<skos:prefLabel>Were Hīmeno Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/326281/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>7.5</wgs:lat>
+	<wgs:long>46</wgs:long>
+	<skos:altLabel>Welwel and Warder</skos:altLabel>
+	<skos:altLabel>Werdēr Āwraja</skos:altLabel>
+	<skos:prefLabel>Werdēr Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/326308/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17120</europeana:population>
+	<wgs:lat>8.45</wgs:lat>
+	<wgs:long>39.28333</wgs:long>
+	<skos:altLabel>Uongi</skos:altLabel>
+	<skos:altLabel>Wenjī</skos:altLabel>
+	<skos:altLabel>Wonji</skos:altLabel>
+	<skos:prefLabel>Wenjī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/326321/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12945</europeana:population>
+	<wgs:lat>6.6</wgs:lat>
+	<wgs:long>38.41667</wgs:long>
+	<skos:altLabel>Uondo</skos:altLabel>
+	<skos:altLabel>Wando</skos:altLabel>
+	<skos:altLabel>Wendo</skos:altLabel>
+	<skos:altLabel>Wondo</skos:altLabel>
+	<skos:prefLabel>Wendo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/326350/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>11.5</wgs:lat>
+	<wgs:long>40</wgs:long>
+	<skos:altLabel>Uollo</skos:altLabel>
+	<skos:altLabel>Wallo</skos:altLabel>
+	<skos:altLabel>Welo</skos:altLabel>
+	<skos:altLabel>Welo Kifle Hāger</skos:altLabel>
+	<skos:altLabel>Wollo</skos:altLabel>
+	<skos:altLabel>Wolloo</skos:altLabel>
+	<skos:prefLabel>Welo Kifle Hāger</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/326423/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/444188/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.83333</wgs:lat>
+	<wgs:long>37.66667</wgs:long>
+	<skos:altLabel>Ualeita</skos:altLabel>
+	<skos:altLabel>Uolamo</skos:altLabel>
+	<skos:altLabel>Uollamo</skos:altLabel>
+	<skos:altLabel>Walāmo</skos:altLabel>
+	<skos:altLabel>Welamo</skos:altLabel>
+	<skos:altLabel>Welamo Āwraja</skos:altLabel>
+	<skos:altLabel>Welayita Āwraja</skos:altLabel>
+	<skos:altLabel>Wolamo</skos:altLabel>
+	<skos:prefLabel>Welayita Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/326493/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13.75</wgs:lat>
+	<wgs:long>37</wgs:long>
+	<skos:altLabel>Uoghera</skos:altLabel>
+	<skos:altLabel>Wegera Āwraja</skos:altLabel>
+	<skos:prefLabel>Wegera Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/326561/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>9.33333</wgs:lat>
+	<wgs:long>41.5</wgs:long>
+	<skos:altLabel>Webera Āwraja</skos:altLabel>
+	<skos:altLabel>Wobera</skos:altLabel>
+	<skos:prefLabel>Webera Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/326704/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>11.58333</wgs:lat>
+	<wgs:long>39</wgs:long>
+	<skos:altLabel>Uadla</skos:altLabel>
+	<skos:altLabel>Wadla Delanta Āwraja</skos:altLabel>
+	<skos:prefLabel>Wadla Delanta Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/326743/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>7.5</wgs:lat>
+	<wgs:long>41.25</wgs:long>
+	<skos:altLabel>Wabi</skos:altLabel>
+	<skos:altLabel>Wabē Āwraja</skos:altLabel>
+	<skos:prefLabel>Wabē Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/326957/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.16667</wgs:lat>
+	<wgs:long>37.76667</wgs:long>
+	<skos:altLabel>Isola Ogagio</skos:altLabel>
+	<skos:altLabel>Ogajo</skos:altLabel>
+	<skos:altLabel>Ogajo Island</skos:altLabel>
+	<skos:altLabel>Ugayo Desēt</skos:altLabel>
+	<skos:prefLabel>Ugayo Desēt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/327234/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10531</europeana:population>
+	<wgs:lat>8.66667</wgs:lat>
+	<wgs:long>38.21667</wgs:long>
+	<skos:altLabel>Masno Gabado</skos:altLabel>
+	<skos:altLabel>Tulu Bolo</skos:altLabel>
+	<skos:prefLabel>Tulu Bolo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/327580/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13.5</wgs:lat>
+	<wgs:long>39.5</wgs:long>
+	<skos:altLabel>Tegrē</skos:altLabel>
+	<skos:altLabel>Tigrai</skos:altLabel>
+	<skos:altLabel>Tigray</skos:altLabel>
+	<skos:altLabel>Tigray Kifle Hāger</skos:altLabel>
+	<skos:altLabel>Tigrē</skos:altLabel>
+	<skos:prefLabel>Tigray Kifle Hāger</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/327601/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>7.75</wgs:lat>
+	<wgs:long>40</wgs:long>
+	<skos:prefLabel>T’īcho Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/327694/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>24169</europeana:population>
+	<wgs:lat>7.2</wgs:lat>
+	<wgs:long>35.45</wgs:long>
+	<skos:altLabel>Tippi</skos:altLabel>
+	<skos:altLabel>Tēpī</skos:altLabel>
+	<skos:prefLabel>Tēpī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/327739/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13.5</wgs:lat>
+	<wgs:long>39</wgs:long>
+	<skos:altLabel>Tembien</skos:altLabel>
+	<skos:altLabel>Tembēn Āwraja</skos:altLabel>
+	<skos:prefLabel>Tembēn Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/327816/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>9.5</wgs:lat>
+	<wgs:long>39.66667</wgs:long>
+	<skos:altLabel>Bulga</skos:altLabel>
+	<skos:altLabel>Tegulet and Bulga</skos:altLabel>
+	<skos:altLabel>Tegulet na Bulga Āwraja</skos:altLabel>
+	<skos:prefLabel>Tegulet na Bulga Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/327934/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.86667</wgs:lat>
+	<wgs:long>37.5</wgs:long>
+	<skos:altLabel>Isola Tana</skos:altLabel>
+	<skos:altLabel>Tana</skos:altLabel>
+	<skos:altLabel>Tana Chircos</skos:altLabel>
+	<skos:altLabel>Tana Island</skos:altLabel>
+	<skos:prefLabel>Tana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/328007/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.98333</wgs:lat>
+	<wgs:long>38.88333</wgs:long>
+	<skos:altLabel>Isola Tadeccia</skos:altLabel>
+	<skos:altLabel>Taddeccia</skos:altLabel>
+	<skos:altLabel>Tadecha</skos:altLabel>
+	<skos:prefLabel>Tadecha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/328156/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>8.41667</wgs:lat>
+	<wgs:long>35.75</wgs:long>
+	<skos:altLabel>Sor and Gabba</skos:altLabel>
+	<skos:altLabel>Sor and Geba</skos:altLabel>
+	<skos:altLabel>Sor and Gebba</skos:altLabel>
+	<skos:altLabel>Sor na Geba Āwraja</skos:altLabel>
+	<skos:prefLabel>Sor na Geba Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/328316/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10089</europeana:population>
+	<wgs:lat>8.31667</wgs:lat>
+	<wgs:long>39.48333</wgs:long>
+	<skos:altLabel>Seri</skos:altLabel>
+	<skos:altLabel>Serē</skos:altLabel>
+	<skos:altLabel>Siri</skos:altLabel>
+	<skos:altLabel>Siriè</skos:altLabel>
+	<skos:altLabel>Sirre</skos:altLabel>
+	<skos:altLabel>Sīrē</skos:altLabel>
+	<skos:altLabel>Sīrē (2)</skos:altLabel>
+	<skos:prefLabel>Sīrē</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/328354/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13.25</wgs:lat>
+	<wgs:long>38.25</wgs:long>
+	<skos:altLabel>Semien</skos:altLabel>
+	<skos:altLabel>Semēn</skos:altLabel>
+	<skos:altLabel>Simian</skos:altLabel>
+	<skos:altLabel>Simyen</skos:altLabel>
+	<skos:altLabel>Simēn Āwraja</skos:altLabel>
+	<skos:prefLabel>Simēn Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/328433/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>5</wgs:lat>
+	<wgs:long>39</wgs:long>
+	<skos:altLabel>Galla Sidamo</skos:altLabel>
+	<skos:altLabel>Sedama</skos:altLabel>
+	<skos:altLabel>Sedamo</skos:altLabel>
+	<skos:altLabel>Sidamo Province</skos:altLabel>
+	<skos:altLabel>Sidamo-Borana</skos:altLabel>
+	<skos:altLabel>Siddama</skos:altLabel>
+	<skos:altLabel>Sidāmo</skos:altLabel>
+	<skos:altLabel>Sīdamo Kifle Hāger</skos:altLabel>
+	<skos:prefLabel>Sīdamo Kifle Hāger</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/328435/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.75</wgs:lat>
+	<wgs:long>38.5</wgs:long>
+	<skos:altLabel>Sidamo</skos:altLabel>
+	<skos:altLabel>Sīdama Āwraja</skos:altLabel>
+	<skos:prefLabel>Sīdama Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/328577/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>9</wgs:lat>
+	<wgs:long>39</wgs:long>
+	<skos:altLabel>Scioa</skos:altLabel>
+	<skos:altLabel>Shawā</skos:altLabel>
+	<skos:altLabel>Shewa</skos:altLabel>
+	<skos:altLabel>Shewa Kifle Hāger</skos:altLabel>
+	<skos:altLabel>Shoa</skos:altLabel>
+	<skos:prefLabel>Shewa Kifle Hāger</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/328591/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>14.33333</wgs:lat>
+	<wgs:long>38</wgs:long>
+	<skos:altLabel>Scire</skos:altLabel>
+	<skos:altLabel>Sherē Āwraja</skos:altLabel>
+	<skos:altLabel>Shire</skos:altLabel>
+	<skos:prefLabel>Sherē Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/328689/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>85871</europeana:population>
+	<wgs:lat>7.2</wgs:lat>
+	<wgs:long>38.6</wgs:long>
+	<skos:altLabel>Sciasciamanna</skos:altLabel>
+	<skos:altLabel>Sciasciamanne</skos:altLabel>
+	<skos:altLabel>Shashamana</skos:altLabel>
+	<skos:altLabel>Shashamane</skos:altLabel>
+	<skos:altLabel xml:lang="en">Shashamane</skos:altLabel>
+	<skos:altLabel xml:lang="es">Shashamane</skos:altLabel>
+	<skos:altLabel>Shashamanna</skos:altLabel>
+	<skos:altLabel>Shashamanni</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Shashamané</skos:altLabel>
+	<skos:altLabel xml:lang="de">Shashemene</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Shashemene</skos:altLabel>
+	<skos:altLabel>Shashemenē</skos:altLabel>
+	<skos:altLabel>Shāshamani</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሻሸመኔ</skos:altLabel>
+	<skos:prefLabel>Shashemenē</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/328709/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15354</europeana:population>
+	<wgs:lat>9.56667</wgs:lat>
+	<wgs:long>37.1</wgs:long>
+	<skos:altLabel>Sciambo</skos:altLabel>
+	<skos:altLabel>Shambo</skos:altLabel>
+	<skos:altLabel>Shambu</skos:altLabel>
+	<skos:altLabel>Shembo</skos:altLabel>
+	<skos:altLabel>Shembu</skos:altLabel>
+	<skos:prefLabel>Shambu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/328716/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>34078</europeana:population>
+	<wgs:lat>5.75</wgs:lat>
+	<wgs:long>38.91667</wgs:long>
+	<skos:altLabel>Shakīso</skos:altLabel>
+	<skos:prefLabel>Shakīso</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/328946/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>9.83333</wgs:lat>
+	<wgs:long>38.5</wgs:long>
+	<skos:altLabel>Salale</skos:altLabel>
+	<skos:altLabel>Selalē Āwraja</skos:altLabel>
+	<skos:prefLabel>Selalē Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/328961/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.5</wgs:lat>
+	<wgs:long>39</wgs:long>
+	<skos:altLabel>Sek’ot’a Āwraja</skos:altLabel>
+	<skos:altLabel>Wag</skos:altLabel>
+	<skos:prefLabel>Sek’ot’a Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/329114/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19533</europeana:population>
+	<wgs:lat>8.91667</wgs:lat>
+	<wgs:long>38.61667</wgs:long>
+	<skos:altLabel>Sebeta</skos:altLabel>
+	<skos:prefLabel>Sebeta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/329586/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20679</europeana:population>
+	<wgs:lat>12.01667</wgs:lat>
+	<wgs:long>39.63333</wgs:long>
+	<skos:prefLabel>Robīt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/329681/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.66667</wgs:lat>
+	<wgs:long>40.33333</wgs:long>
+	<skos:prefLabel>Raya na Āzebo Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/329682/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.66667</wgs:lat>
+	<wgs:long>40.33333</wgs:long>
+	<skos:prefLabel>Raya and Azebo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/330120/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20166</europeana:population>
+	<wgs:lat>9.5</wgs:lat>
+	<wgs:long>35.5</wgs:long>
+	<skos:altLabel>Najo</skos:altLabel>
+	<skos:altLabel>Nedjo</skos:altLabel>
+	<skos:altLabel>Neggio</skos:altLabel>
+	<skos:altLabel>Nego</skos:altLabel>
+	<skos:altLabel>Nejo</skos:altLabel>
+	<skos:altLabel>Neju</skos:altLabel>
+	<skos:prefLabel>Nejo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/330186/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>213995</europeana:population>
+	<wgs:lat>8.55</wgs:lat>
+	<wgs:long>39.26667</wgs:long>
+	<skos:altLabel>Adama</skos:altLabel>
+	<skos:altLabel>Hadama</skos:altLabel>
+	<skos:altLabel>Nazareth</skos:altLabel>
+	<skos:altLabel>Nazreth</skos:altLabel>
+	<skos:altLabel>Nazrēt</skos:altLabel>
+	<skos:prefLabel>Nazrēt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/330199/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.91667</wgs:lat>
+	<wgs:long>37.26667</wgs:long>
+	<skos:altLabel>Dak’</skos:altLabel>
+	<skos:altLabel>Daq</skos:altLabel>
+	<skos:altLabel>Dech Island</skos:altLabel>
+	<skos:altLabel>Dek Island</skos:altLabel>
+	<skos:altLabel>Isola Dec</skos:altLabel>
+	<skos:altLabel>Isola Dek</skos:altLabel>
+	<skos:altLabel>Nargadaga Desēt</skos:altLabel>
+	<skos:prefLabel>Nargadaga Desēt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/330424/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>10.83333</wgs:lat>
+	<wgs:long>38.16667</wgs:long>
+	<skos:prefLabel>Mot’a Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/330491/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>34547</europeana:population>
+	<wgs:lat>8.6</wgs:lat>
+	<wgs:long>39.11667</wgs:long>
+	<skos:altLabel>Maggio</skos:altLabel>
+	<skos:altLabel>Moccia</skos:altLabel>
+	<skos:altLabel>Modjo</skos:altLabel>
+	<skos:altLabel>Moggio</skos:altLabel>
+	<skos:altLabel>Mojjio</skos:altLabel>
+	<skos:altLabel>Mojjo</skos:altLabel>
+	<skos:altLabel>Mojo</skos:altLabel>
+	<skos:prefLabel>Mojo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/330526/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>7.5</wgs:lat>
+	<wgs:long>35.5</wgs:long>
+	<skos:altLabel>Mocha Āwraja</skos:altLabel>
+	<skos:altLabel>Mocia</skos:altLabel>
+	<skos:prefLabel>Mocha Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/330534/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14002</europeana:population>
+	<wgs:lat>6.98333</wgs:lat>
+	<wgs:long>35.58333</wgs:long>
+	<skos:altLabel>Mesan</skos:altLabel>
+	<skos:altLabel>Mizan</skos:altLabel>
+	<skos:altLabel>Mizan Tafari</skos:altLabel>
+	<skos:altLabel>Mizon Teferi</skos:altLabel>
+	<skos:altLabel>Mīzan Teferī</skos:altLabel>
+	<skos:prefLabel>Mīzan Teferī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/330548/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.18333</wgs:lat>
+	<wgs:long>37.56667</wgs:long>
+	<skos:altLabel>Isola Metraa</skos:altLabel>
+	<skos:altLabel>Isola Mitraa</skos:altLabel>
+	<skos:altLabel>Mitraa</skos:altLabel>
+	<skos:altLabel>Mitraa Island</skos:altLabel>
+	<skos:prefLabel>Mitraa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/330764/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>29648</europeana:population>
+	<wgs:lat>8.3</wgs:lat>
+	<wgs:long>35.58333</wgs:long>
+	<skos:altLabel>Mattu</skos:altLabel>
+	<skos:altLabel>Mettu</skos:altLabel>
+	<skos:altLabel>Metu</skos:altLabel>
+	<skos:prefLabel>Metu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/330790/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>11</wgs:lat>
+	<wgs:long>36</wgs:long>
+	<skos:prefLabel>Metekel Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/330811/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23403</europeana:population>
+	<wgs:lat>8.9</wgs:lat>
+	<wgs:long>39.91667</wgs:long>
+	<skos:altLabel>Matahārā</skos:altLabel>
+	<skos:altLabel>Metahāra</skos:altLabel>
+	<skos:altLabel>Metehara</skos:altLabel>
+	<skos:prefLabel>Metahāra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/330915/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>10.16667</wgs:lat>
+	<wgs:long>38.83333</wgs:long>
+	<skos:altLabel>Marabetie</skos:altLabel>
+	<skos:altLabel>Merha Bete</skos:altLabel>
+	<skos:altLabel>Merhābēte Āwraja</skos:altLabel>
+	<skos:prefLabel>Merhābēte Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/330960/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>10.33333</wgs:lat>
+	<wgs:long>39.66667</wgs:long>
+	<skos:altLabel>Mens</skos:altLabel>
+	<skos:altLabel>Menz and Gishe</skos:altLabel>
+	<skos:altLabel>Menz and Yifat</skos:altLabel>
+	<skos:altLabel>Menz na Gishē Āwraja</skos:altLabel>
+	<skos:prefLabel>Menz na Gishē Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/331038/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>25239</europeana:population>
+	<wgs:lat>9.8</wgs:lat>
+	<wgs:long>35.1</wgs:long>
+	<skos:altLabel>Mandi</skos:altLabel>
+	<skos:altLabel>Mendī</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Менди</skos:altLabel>
+	<skos:prefLabel>Mendī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/331039/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.5</wgs:lat>
+	<wgs:long>40.5</wgs:long>
+	<skos:altLabel>Fasil</skos:altLabel>
+	<skos:altLabel>Mendeyo Āwraja</skos:altLabel>
+	<skos:prefLabel>Mendeyo Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/331058/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>9.16667</wgs:lat>
+	<wgs:long>39.5</wgs:long>
+	<skos:altLabel>Menagesha Āwraja</skos:altLabel>
+	<skos:altLabel>Mennagesha</skos:altLabel>
+	<skos:prefLabel>Menagesha Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/331180/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>215546</europeana:population>
+	<wgs:lat>13.49667</wgs:lat>
+	<wgs:long>39.47528</wgs:long>
+	<skos:altLabel>Macalle</skos:altLabel>
+	<skos:altLabel>Makale</skos:altLabel>
+	<skos:altLabel>Makalle</skos:altLabel>
+	<skos:altLabel>Maqalle</skos:altLabel>
+	<skos:altLabel>Maqalē</skos:altLabel>
+	<skos:altLabel>Mek’elē</skos:altLabel>
+	<skos:prefLabel>Mek’elē</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/331416/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>27186</europeana:population>
+	<wgs:lat>12.7875</wgs:lat>
+	<wgs:long>39.54222</wgs:long>
+	<skos:altLabel>Mai Ceu</skos:altLabel>
+	<skos:altLabel>Mai Chio</skos:altLabel>
+	<skos:altLabel>Mai Ciò</skos:altLabel>
+	<skos:altLabel>Mai Keu</skos:altLabel>
+	<skos:altLabel>Maichew</skos:altLabel>
+	<skos:altLabel>Maitchew</skos:altLabel>
+	<skos:altLabel>Maych’awu</skos:altLabel>
+	<skos:altLabel>Maych’ew</skos:altLabel>
+	<skos:prefLabel>Maych’ew</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/331677/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6</wgs:lat>
+	<wgs:long>35.5</wgs:long>
+	<skos:altLabel>Magi and Golda</skos:altLabel>
+	<skos:altLabel>Maji and Goldiya</skos:altLabel>
+	<skos:altLabel>Maji and Guldia</skos:altLabel>
+	<skos:altLabel>Maji and Guldiya</skos:altLabel>
+	<skos:altLabel>Maji-Guldiya</skos:altLabel>
+	<skos:altLabel>Majī na Goldīya Āwraja</skos:altLabel>
+	<skos:prefLabel>Majī na Goldīya Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/331982/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>8.16667</wgs:lat>
+	<wgs:long>37</wgs:long>
+	<skos:altLabel>Limmu</skos:altLabel>
+	<skos:altLabel>Līmu Āwraja</skos:altLabel>
+	<skos:prefLabel>Līmu Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/332029/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.33333</wgs:lat>
+	<wgs:long>38</wgs:long>
+	<skos:prefLabel>Lībo Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/332129/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11398</europeana:population>
+	<wgs:lat>6.86667</wgs:lat>
+	<wgs:long>38.45</wgs:long>
+	<skos:altLabel>Leku</skos:altLabel>
+	<skos:altLabel>Locu</skos:altLabel>
+	<skos:prefLabel>Leku</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/332136/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>9.33333</wgs:lat>
+	<wgs:long>36.66667</wgs:long>
+	<skos:altLabel>Leka</skos:altLabel>
+	<skos:altLabel>Lēk’a Āwraja</skos:altLabel>
+	<skos:prefLabel>Lēk’a Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/332234/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12</wgs:lat>
+	<wgs:long>39</wgs:long>
+	<skos:prefLabel>Lasta Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/332265/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.16667</wgs:lat>
+	<wgs:long>37.86667</wgs:long>
+	<skos:altLabel>Lagama</skos:altLabel>
+	<skos:altLabel>Langama</skos:altLabel>
+	<skos:altLabel>Langama Island</skos:altLabel>
+	<skos:prefLabel>Langama</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/332274/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.51667</wgs:lat>
+	<wgs:long>38.43333</wgs:long>
+	<skos:altLabel>Isola Lumina</skos:altLabel>
+	<skos:altLabel>Lamina</skos:altLabel>
+	<skos:prefLabel>Lamina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/332288/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11152</europeana:population>
+	<wgs:lat>12.03333</wgs:lat>
+	<wgs:long>39.03333</wgs:long>
+	<skos:altLabel xml:lang="da">Klippekirkerne i Lalibela</skos:altLabel>
+	<skos:altLabel>Labibela</skos:altLabel>
+	<skos:altLabel xml:lang="de">Lalibela</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Lalibela</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Lalibela</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Lalibela</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Lalibela</skos:altLabel>
+	<skos:altLabel xml:lang="en">Lalibela</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Lalibela</skos:altLabel>
+	<skos:altLabel xml:lang="it">Lalibela</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Lalibela</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Lalibela</skos:altLabel>
+	<skos:altLabel>Lalībela</skos:altLabel>
+	<skos:altLabel>Lālibalā</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Лалибела</skos:altLabel>
+	<skos:altLabel xml:lang="am">ላሊበላ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">拉利貝拉</skos:altLabel>
+	<skos:prefLabel>Lalībela</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/332528/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.93333</wgs:lat>
+	<wgs:long>38.85</wgs:long>
+	<skos:altLabel>Debra Tseyon</skos:altLabel>
+	<skos:altLabel>Kulu Gudo Desēt</skos:altLabel>
+	<skos:altLabel>Mount Zion</skos:altLabel>
+	<skos:altLabel>Tullo Guddo</skos:altLabel>
+	<skos:altLabel>Tullu Guddu</skos:altLabel>
+	<skos:altLabel>Tulugudu</skos:altLabel>
+	<skos:prefLabel>Kulu Gudo Desēt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/332540/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>7</wgs:lat>
+	<wgs:long>37</wgs:long>
+	<skos:altLabel>Gullo and Conta</skos:altLabel>
+	<skos:altLabel>Kulo Konta Āwraja</skos:altLabel>
+	<skos:altLabel>Kulu Konta</skos:altLabel>
+	<skos:prefLabel>Kulo Konta Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/332746/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>30633</europeana:population>
+	<wgs:lat>12.50583</wgs:lat>
+	<wgs:long>39.52278</wgs:long>
+	<skos:altLabel>Koram</skos:altLabel>
+	<skos:altLabel>Korem</skos:altLabel>
+	<skos:altLabel>Kworam</skos:altLabel>
+	<skos:altLabel>Quaram</skos:altLabel>
+	<skos:altLabel>Quoram</skos:altLabel>
+	<skos:altLabel>Quoram Vecchia</skos:altLabel>
+	<skos:altLabel>Quorem</skos:altLabel>
+	<skos:prefLabel>Korem</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/332880/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>25614</europeana:population>
+	<wgs:lat>7.31667</wgs:lat>
+	<wgs:long>38.08333</wgs:long>
+	<skos:altLabel>Alaba</skos:altLabel>
+	<skos:altLabel>Alaba Kolito</skos:altLabel>
+	<skos:altLabel>Colito</skos:altLabel>
+	<skos:altLabel>Golito</skos:altLabel>
+	<skos:altLabel>Goluto</skos:altLabel>
+	<skos:altLabel>K’olīto</skos:altLabel>
+	<skos:altLabel>Ālaba K’ulīto</skos:altLabel>
+	<skos:prefLabel>K’olīto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/332898/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>10.75</wgs:lat>
+	<wgs:long>37.16667</wgs:long>
+	<skos:altLabel>Damot</skos:altLabel>
+	<skos:altLabel>Kola Dega Damot Āwraja</skos:altLabel>
+	<skos:altLabel>Kola Diga Damot</skos:altLabel>
+	<skos:prefLabel>Kola Dega Damot Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/333103/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>27854</europeana:population>
+	<wgs:lat>5.88333</wgs:lat>
+	<wgs:long>38.98333</wgs:long>
+	<skos:altLabel>Adola</skos:altLabel>
+	<skos:altLabel>Angedi</skos:altLabel>
+	<skos:altLabel>Kibre Mengist</skos:altLabel>
+	<skos:prefLabel>Kibre Mengist</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/333105/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.65</wgs:lat>
+	<wgs:long>37.36667</wgs:long>
+	<skos:altLabel>Chevraan</skos:altLabel>
+	<skos:altLabel>Kebran</skos:altLabel>
+	<skos:altLabel>Kibran</skos:altLabel>
+	<skos:prefLabel>Kibran</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/333356/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23861</europeana:population>
+	<wgs:lat>10.71667</wgs:lat>
+	<wgs:long>39.86667</wgs:long>
+	<skos:altLabel>Cascim</skos:altLabel>
+	<skos:altLabel>Kassebie</skos:altLabel>
+	<skos:altLabel>Kemissie</skos:altLabel>
+	<skos:altLabel>Kemisē</skos:altLabel>
+	<skos:altLabel>Kemsē</skos:altLabel>
+	<skos:prefLabel>Kemisē</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/333373/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>93605</europeana:population>
+	<wgs:lat>11.08333</wgs:lat>
+	<wgs:long>39.73333</wgs:long>
+	<skos:altLabel>Cambolcia</skos:altLabel>
+	<skos:altLabel>Combolcha</skos:altLabel>
+	<skos:altLabel>Combolcia</skos:altLabel>
+	<skos:altLabel>Kambolchā</skos:altLabel>
+	<skos:altLabel>Kembolcha</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kembolcha</skos:altLabel>
+	<skos:altLabel>Kombolcah</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kombolcha</skos:altLabel>
+	<skos:altLabel>Kombolcha</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Комбольча</skos:altLabel>
+	<skos:prefLabel>Kombolcha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/333384/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>7.5</wgs:lat>
+	<wgs:long>37.75</wgs:long>
+	<skos:altLabel>Cambata</skos:altLabel>
+	<skos:altLabel>Gambata</skos:altLabel>
+	<skos:altLabel>Kambata</skos:altLabel>
+	<skos:altLabel>Kembata</skos:altLabel>
+	<skos:altLabel>Kembata and Hadiya</skos:altLabel>
+	<skos:altLabel>Kembata na Hadīya Āwraja</skos:altLabel>
+	<skos:prefLabel>Kembata na Hadīya Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/333414/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>9</wgs:lat>
+	<wgs:long>34.83333</wgs:long>
+	<skos:altLabel>Kelem</skos:altLabel>
+	<skos:altLabel>K’ēlem Āwraja</skos:altLabel>
+	<skos:prefLabel>K’ēlem Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/333433/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>5.5</wgs:lat>
+	<wgs:long>45</wgs:long>
+	<skos:prefLabel>K’elafo Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/333465/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>7</wgs:lat>
+	<wgs:long>36.5</wgs:long>
+	<skos:altLabel>Caffa</skos:altLabel>
+	<skos:altLabel>Caffa Jimma</skos:altLabel>
+	<skos:altLabel>Gimma</skos:altLabel>
+	<skos:altLabel>Gomara</skos:altLabel>
+	<skos:altLabel>Jimma</skos:altLabel>
+	<skos:altLabel>Jimā</skos:altLabel>
+	<skos:altLabel>Kaffa</skos:altLabel>
+	<skos:altLabel>Kaffa-Jimma</skos:altLabel>
+	<skos:altLabel>Kafā</skos:altLabel>
+	<skos:altLabel>Kefa</skos:altLabel>
+	<skos:altLabel>Kefa Kifle Hāger</skos:altLabel>
+	<skos:altLabel>Keffa</skos:altLabel>
+	<skos:prefLabel>Kefa Kifle Hāger</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/333466/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>7</wgs:lat>
+	<wgs:long>36.25</wgs:long>
+	<skos:altLabel>Caffa</skos:altLabel>
+	<skos:altLabel>Kefa Āwraja</skos:altLabel>
+	<skos:prefLabel>Kefa Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/333515/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>7</wgs:lat>
+	<wgs:long>44</wgs:long>
+	<skos:altLabel>Kebre Dehar</skos:altLabel>
+	<skos:altLabel>K’ebrī Dehar Āwraja</skos:altLabel>
+	<skos:prefLabel>K’ebrī Dehar Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/333624/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>10.83333</wgs:lat>
+	<wgs:long>40</wgs:long>
+	<skos:altLabel>Kalu</skos:altLabel>
+	<skos:altLabel>K’alu Āwraja</skos:altLabel>
+	<skos:prefLabel>K’alu Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/333750/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>32115</europeana:population>
+	<wgs:lat>5.65</wgs:lat>
+	<wgs:long>36.65</wgs:long>
+	<skos:altLabel>Jinka</skos:altLabel>
+	<skos:prefLabel>Jinka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/333766/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>7.66667</wgs:lat>
+	<wgs:long>37</wgs:long>
+	<skos:prefLabel>Jīma Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/333772/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>128306</europeana:population>
+	<wgs:lat>7.66667</wgs:lat>
+	<wgs:long>36.83333</wgs:long>
+	<skos:altLabel>Djimma</skos:altLabel>
+	<skos:altLabel>Gima</skos:altLabel>
+	<skos:altLabel>Gimma</skos:altLabel>
+	<skos:altLabel>Jimma</skos:altLabel>
+	<skos:altLabel>Jīma</skos:altLabel>
+	<skos:prefLabel>Jīma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/333793/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>9.25</wgs:lat>
+	<wgs:long>43</wgs:long>
+	<skos:prefLabel>Jijiga Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/333795/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>56821</europeana:population>
+	<wgs:lat>9.35</wgs:lat>
+	<wgs:long>42.8</wgs:long>
+	<skos:altLabel>Djigdjiga</skos:altLabel>
+	<skos:altLabel>Dzhidzhiga</skos:altLabel>
+	<skos:altLabel>Giggiga</skos:altLabel>
+	<skos:altLabel>Giggigga</skos:altLabel>
+	<skos:altLabel>Jigjiga</skos:altLabel>
+	<skos:altLabel>Jigjigga</skos:altLabel>
+	<skos:altLabel>Jijiga</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Джиджига</skos:altLabel>
+	<skos:prefLabel>Jijiga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/333827/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>9.16667</wgs:lat>
+	<wgs:long>37.75</wgs:long>
+	<skos:altLabel>Jibat and Mecha</skos:altLabel>
+	<skos:altLabel>Jibat na Mēch’a Āwraja</skos:altLabel>
+	<skos:prefLabel>Jibat na Mēch’a Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/333884/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>5.83333</wgs:lat>
+	<wgs:long>39</wgs:long>
+	<skos:altLabel>Giam Giam</skos:altLabel>
+	<skos:altLabel>Jemjem Āwraja</skos:altLabel>
+	<skos:prefLabel>Jemjem Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/334054/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.33333</wgs:lat>
+	<wgs:long>39.7</wgs:long>
+	<skos:altLabel>Ist’īfanos</skos:altLabel>
+	<skos:altLabel>Saint Stephen</skos:altLabel>
+	<skos:prefLabel>Ist’īfanos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/334216/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13</wgs:lat>
+	<wgs:long>40.5</wgs:long>
+	<skos:altLabel>Enderta</skos:altLabel>
+	<skos:altLabel>Inderta Āwraja</skos:altLabel>
+	<skos:prefLabel>Inderta Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/334227/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>50078</europeana:population>
+	<wgs:lat>14.10307</wgs:lat>
+	<wgs:long>38.28289</wgs:long>
+	<skos:altLabel>Enda Salassie</skos:altLabel>
+	<skos:altLabel>Enda Selassie</skos:altLabel>
+	<skos:altLabel>Enda Selassye</skos:altLabel>
+	<skos:altLabel>Enda Sellassie</skos:altLabel>
+	<skos:altLabel>Endā Selāsē</skos:altLabel>
+	<skos:altLabel>Inda Selassie</skos:altLabel>
+	<skos:altLabel>Inda Silasē</skos:altLabel>
+	<skos:altLabel>Shirē Inda Silasē</skos:altLabel>
+	<skos:altLabel>Ynda Syllase</skos:altLabel>
+	<skos:prefLabel>Inda Silasē</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/334335/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>7.5</wgs:lat>
+	<wgs:long>35</wgs:long>
+	<skos:altLabel>Gore</skos:altLabel>
+	<skos:altLabel>Ilu Baboor</skos:altLabel>
+	<skos:altLabel>Īlubabor</skos:altLabel>
+	<skos:altLabel>Īlubabor Kifle Hāger</skos:altLabel>
+	<skos:prefLabel>Īlubabor Kifle Hāger</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/334529/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12442</europeana:population>
+	<wgs:lat>8.15</wgs:lat>
+	<wgs:long>39.35</wgs:long>
+	<skos:altLabel>Hurruta</skos:altLabel>
+	<skos:altLabel>Huruta</skos:altLabel>
+	<skos:altLabel>Huruta (1)</skos:altLabel>
+	<skos:altLabel>Uruta Mariam</skos:altLabel>
+	<skos:prefLabel>Huruta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/334573/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13.76138</wgs:lat>
+	<wgs:long>40.5074</wgs:long>
+	<skos:altLabel>Hulet</skos:altLabel>
+	<skos:altLabel>Hulet Awlailo</skos:altLabel>
+	<skos:altLabel>Hulet Āwlalo Āwraja</skos:altLabel>
+	<skos:prefLabel>Hulet Āwlalo Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/334614/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>9.83333</wgs:lat>
+	<wgs:long>36.66667</wgs:long>
+	<skos:altLabel>Horo and Gudru</skos:altLabel>
+	<skos:altLabel>Horo and Guduru Āwraja</skos:altLabel>
+	<skos:altLabel>Horo na Gudru Āwraja</skos:altLabel>
+	<skos:prefLabel>Horo na Gudru Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/334700/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12295</europeana:population>
+	<wgs:lat>9.21667</wgs:lat>
+	<wgs:long>41.1</wgs:long>
+	<skos:prefLabel>Hīrna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/334827/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>7.83333</wgs:lat>
+	<wgs:long>38.5</wgs:long>
+	<skos:altLabel>Haikoch and Butajira</skos:altLabel>
+	<skos:altLabel>Haikoch and Butajirra</skos:altLabel>
+	<skos:altLabel>Hayikoch and Butajira</skos:altLabel>
+	<skos:altLabel>Haykoch and Buta Jira</skos:altLabel>
+	<skos:altLabel>Hayqoch and Butajira</skos:altLabel>
+	<skos:altLabel>Hāyik’och na Butajīra Āwraja</skos:altLabel>
+	<skos:altLabel>Hāyk’och na Butajīra</skos:altLabel>
+	<skos:prefLabel>Hāyik’och na Butajīra Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/334844/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>12.23333</wgs:lat>
+	<wgs:long>37.28333</wgs:long>
+	<skos:prefLabel>Hāwilt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/335029/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>9</wgs:lat>
+	<wgs:long>42.16667</wgs:long>
+	<skos:altLabel>Harar Zuria</skos:altLabel>
+	<skos:altLabel>Harer</skos:altLabel>
+	<skos:altLabel>Harer-Zurya</skos:altLabel>
+	<skos:altLabel>Harrar and Hārargē</skos:altLabel>
+	<skos:altLabel>Hārer Zurīya Āwraja</skos:altLabel>
+	<skos:prefLabel>Hārer Zurīya Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/335033/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>9.5</wgs:lat>
+	<wgs:long>41.5</wgs:long>
+	<skos:altLabel>Harar</skos:altLabel>
+	<skos:altLabel>Hararaghe</skos:altLabel>
+	<skos:altLabel>Harer</skos:altLabel>
+	<skos:altLabel>Harrar</skos:altLabel>
+	<skos:altLabel>Hārarge</skos:altLabel>
+	<skos:altLabel>Hārergē</skos:altLabel>
+	<skos:altLabel>Hārergē Kifle Hāger</skos:altLabel>
+	<skos:prefLabel>Hārergē Kifle Hāger</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/335035/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>90218</europeana:population>
+	<wgs:lat>9.30944</wgs:lat>
+	<wgs:long>42.12583</wgs:long>
+	<skos:altLabel xml:lang="de">Harar</skos:altLabel>
+	<skos:altLabel xml:lang="en">Harar</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Harar</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Harar</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Harar</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Harar</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Harer</skos:altLabel>
+	<skos:altLabel xml:lang="et">Harer</skos:altLabel>
+	<skos:altLabel>Harrar</skos:altLabel>
+	<skos:altLabel>Hārar</skos:altLabel>
+	<skos:altLabel>Hārer</skos:altLabel>
+	<skos:altLabel>Kharer</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሐረር</skos:altLabel>
+	<skos:prefLabel>Hārer</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/335288/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>43920</europeana:population>
+	<wgs:lat>8.98333</wgs:lat>
+	<wgs:long>37.85</wgs:long>
+	<skos:altLabel>Agere Hiywet</skos:altLabel>
+	<skos:altLabel>Hagere Hiwot</skos:altLabel>
+	<skos:altLabel>Hagere Hiywot</skos:altLabel>
+	<skos:altLabel>Hagere-Hiywer</skos:altLabel>
+	<skos:altLabel>Hāgere Hiywet</skos:altLabel>
+	<skos:altLabel>Āmbo</skos:altLabel>
+	<skos:prefLabel>Hāgere Hiywet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/335344/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>8.5</wgs:lat>
+	<wgs:long>41</wgs:long>
+	<skos:prefLabel>Habro Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/335427/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>8.5</wgs:lat>
+	<wgs:long>42.5</wgs:long>
+	<skos:altLabel>Gursim</skos:altLabel>
+	<skos:altLabel>Gursum Āwraja</skos:altLabel>
+	<skos:prefLabel>Gursum Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/335733/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12569</europeana:population>
+	<wgs:lat>8.96667</wgs:lat>
+	<wgs:long>37.76667</wgs:long>
+	<skos:prefLabel>Guder</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/335941/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>8</wgs:lat>
+	<wgs:long>35.66667</wgs:long>
+	<skos:prefLabel>Gore Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/336011/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.5</wgs:lat>
+	<wgs:long>37</wgs:long>
+	<skos:altLabel>Bagemdir</skos:altLabel>
+	<skos:altLabel>Baggyemdr</skos:altLabel>
+	<skos:altLabel>Bagēmder</skos:altLabel>
+	<skos:altLabel>Bege Meder</skos:altLabel>
+	<skos:altLabel>Begemder</skos:altLabel>
+	<skos:altLabel>Begemedir</skos:altLabel>
+	<skos:altLabel>Beghemeder</skos:altLabel>
+	<skos:altLabel>Begēmdir</skos:altLabel>
+	<skos:altLabel>Begēmdir na Simēn</skos:altLabel>
+	<skos:altLabel>Gondar</skos:altLabel>
+	<skos:altLabel>Gondar Province</skos:altLabel>
+	<skos:altLabel>Gonder</skos:altLabel>
+	<skos:altLabel>Gonder Kifle Hāger</skos:altLabel>
+	<skos:prefLabel>Gonder Kifle Hāger</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/336013/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13.16667</wgs:lat>
+	<wgs:long>37</wgs:long>
+	<skos:prefLabel>Gonder Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/336014/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>153914</europeana:population>
+	<wgs:lat>12.6</wgs:lat>
+	<wgs:long>37.46667</wgs:long>
+	<skos:altLabel>Gondar</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Gondar</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Gondar</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Gondar</skos:altLabel>
+	<skos:altLabel xml:lang="en">Gondar</skos:altLabel>
+	<skos:altLabel xml:lang="it">Gondar</skos:altLabel>
+	<skos:altLabel xml:lang="es">Gondar</skos:altLabel>
+	<skos:altLabel xml:lang="de">Gonder</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Gonder</skos:altLabel>
+	<skos:altLabel>Gonder</skos:altLabel>
+	<skos:altLabel>Gwender</skos:altLabel>
+	<skos:altLabel>Gwonder</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гондар</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гондэр</skos:altLabel>
+	<skos:altLabel xml:lang="he">גונדר</skos:altLabel>
+	<skos:altLabel xml:lang="am">ጎንደር</skos:altLabel>
+	<skos:altLabel xml:lang="zh">貢德爾</skos:altLabel>
+	<skos:prefLabel>Gonder</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/336164/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>11</wgs:lat>
+	<wgs:long>37</wgs:long>
+	<skos:altLabel>Goggiam</skos:altLabel>
+	<skos:altLabel>Gojam</skos:altLabel>
+	<skos:altLabel>Gojam Kifle Hāger</skos:altLabel>
+	<skos:altLabel>Gojjam</skos:altLabel>
+	<skos:altLabel>Gojjiam</skos:altLabel>
+	<skos:altLabel>Gwejam</skos:altLabel>
+	<skos:altLabel>Gwojjam</skos:altLabel>
+	<skos:prefLabel>Gojam Kifle Hāger</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/336219/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.16667</wgs:lat>
+	<wgs:long>36.5</wgs:long>
+	<skos:prefLabel>Gofa Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/336257/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.5</wgs:lat>
+	<wgs:long>43</wgs:long>
+	<skos:prefLabel>Godē Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/336350/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>34369</europeana:population>
+	<wgs:lat>7.01667</wgs:lat>
+	<wgs:long>39.98333</wgs:long>
+	<skos:altLabel>Goba</skos:altLabel>
+	<skos:altLabel>Gobbà</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гоба</skos:altLabel>
+	<skos:prefLabel>Goba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/336372/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>38394</europeana:population>
+	<wgs:lat>8.53333</wgs:lat>
+	<wgs:long>37.98333</wgs:long>
+	<skos:altLabel>Chitu</skos:altLabel>
+	<skos:altLabel>Ghion</skos:altLabel>
+	<skos:altLabel>Gion</skos:altLabel>
+	<skos:altLabel>Giyon</skos:altLabel>
+	<skos:altLabel>Guyon</skos:altLabel>
+	<skos:altLabel>Ualiso</skos:altLabel>
+	<skos:altLabel>Uolisò</skos:altLabel>
+	<skos:altLabel>Waliso</skos:altLabel>
+	<skos:altLabel>Walliso</skos:altLabel>
+	<skos:altLabel>Walso</skos:altLabel>
+	<skos:altLabel>Welso</skos:altLabel>
+	<skos:altLabel>Welīso</skos:altLabel>
+	<skos:altLabel>Woliso</skos:altLabel>
+	<skos:altLabel>Wolisso</skos:altLabel>
+	<skos:altLabel>Wolliso</skos:altLabel>
+	<skos:prefLabel>Giyon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/336454/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16757</europeana:population>
+	<wgs:lat>7.13333</wgs:lat>
+	<wgs:long>40.7</wgs:long>
+	<skos:altLabel>Ghigner</skos:altLabel>
+	<skos:altLabel>Ghiignir</skos:altLabel>
+	<skos:altLabel>Ghimir</skos:altLabel>
+	<skos:altLabel>Ghinner</skos:altLabel>
+	<skos:altLabel>Ghinnir</skos:altLabel>
+	<skos:altLabel>Ginnīr</skos:altLabel>
+	<skos:altLabel>Gīnīr</skos:altLabel>
+	<skos:prefLabel>Gīnīr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/336483/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.83333</wgs:lat>
+	<wgs:long>35</wgs:long>
+	<skos:altLabel>Ghimira</skos:altLabel>
+	<skos:altLabel>Gīmīra Āwraja</skos:altLabel>
+	<skos:prefLabel>Gīmīra Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/336492/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>9.5</wgs:lat>
+	<wgs:long>35.41667</wgs:long>
+	<skos:prefLabel>Gīmbī Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/336496/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>31809</europeana:population>
+	<wgs:lat>9.16667</wgs:lat>
+	<wgs:long>35.83333</wgs:long>
+	<skos:altLabel>Gembi</skos:altLabel>
+	<skos:altLabel>Ghimbi</skos:altLabel>
+	<skos:altLabel>Gīmbī</skos:altLabel>
+	<skos:prefLabel>Gīmbī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/336526/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10736</europeana:population>
+	<wgs:lat>5.65</wgs:lat>
+	<wgs:long>37.36667</wgs:long>
+	<skos:altLabel>Ghidole</skos:altLabel>
+	<skos:altLabel>Ghidolie</skos:altLabel>
+	<skos:altLabel>Gīdolē</skos:altLabel>
+	<skos:prefLabel>Gīdolē</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/336529/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.38333</wgs:lat>
+	<wgs:long>37.91667</wgs:long>
+	<skos:altLabel>Gīdīcho Desēt</skos:altLabel>
+	<skos:altLabel>Hano</skos:altLabel>
+	<skos:altLabel>Isola Ghidicciò</skos:altLabel>
+	<skos:prefLabel>Gīdīcho Desēt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/336684/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.16667</wgs:lat>
+	<wgs:long>37.18333</wgs:long>
+	<skos:altLabel>Ghelila Zacarias</skos:altLabel>
+	<skos:altLabel>Ghelila Zacarias Island</skos:altLabel>
+	<skos:altLabel>Isola Ghelila Zacarios</skos:altLabel>
+	<skos:altLabel>Isola Ghelilà Zacarias</skos:altLabel>
+	<skos:prefLabel>Ghelila Zacarias</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/336745/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11279</europeana:population>
+	<wgs:lat>10.16639</wgs:lat>
+	<wgs:long>40.64528</wgs:long>
+	<skos:altLabel>Gauani</skos:altLabel>
+	<skos:altLabel>Gawāni</skos:altLabel>
+	<skos:altLabel>Gewanē</skos:altLabel>
+	<skos:altLabel>Gewanī</skos:altLabel>
+	<skos:prefLabel>Gewanē</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/336751/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.08333</wgs:lat>
+	<wgs:long>37.76667</wgs:long>
+	<skos:altLabel>Gatame</skos:altLabel>
+	<skos:altLabel>Gatame Island</skos:altLabel>
+	<skos:altLabel>Gatami</skos:altLabel>
+	<skos:altLabel>Get’emē Desēt</skos:altLabel>
+	<skos:prefLabel>Get’emē Desēt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/336931/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23753</europeana:population>
+	<wgs:lat>9.06667</wgs:lat>
+	<wgs:long>38.5</wgs:long>
+	<skos:altLabel>Genet</skos:altLabel>
+	<skos:altLabel>Gennet</skos:altLabel>
+	<skos:altLabel>Holata</skos:altLabel>
+	<skos:altLabel>Holeta</skos:altLabel>
+	<skos:altLabel>Holetta</skos:altLabel>
+	<skos:altLabel>Hollatta</skos:altLabel>
+	<skos:altLabel>Holotā</skos:altLabel>
+	<skos:altLabel>Oletta</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Женя</skos:altLabel>
+	<skos:prefLabel>Genet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/336950/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.75</wgs:lat>
+	<wgs:long>39.25</wgs:long>
+	<skos:prefLabel>Genalē Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/336996/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.91667</wgs:lat>
+	<wgs:long>38.75</wgs:long>
+	<skos:altLabel>Galilee</skos:altLabel>
+	<skos:altLabel>Galīla</skos:altLabel>
+	<skos:altLabel>Gelīla Desēt</skos:altLabel>
+	<skos:altLabel>Ghelila</skos:altLabel>
+	<skos:altLabel>Isola Celila</skos:altLabel>
+	<skos:altLabel>Isola Chelila</skos:altLabel>
+	<skos:prefLabel>Gelīla Desēt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/337010/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16065</europeana:population>
+	<wgs:lat>8.81667</wgs:lat>
+	<wgs:long>40.51667</wgs:long>
+	<skos:altLabel>Galamso</skos:altLabel>
+	<skos:altLabel>Gelemso</skos:altLabel>
+	<skos:altLabel>Ghelemsò</skos:altLabel>
+	<skos:prefLabel>Gelemso</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/337014/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>5</wgs:lat>
+	<wgs:long>36.25</wgs:long>
+	<skos:altLabel>Galeb</skos:altLabel>
+	<skos:altLabel>Geleb</skos:altLabel>
+	<skos:altLabel>Geleb and Hamer Baco</skos:altLabel>
+	<skos:altLabel>Geleb and Hamerbako</skos:altLabel>
+	<skos:altLabel>Geleb na Hāmer Bako Āwraja</skos:altLabel>
+	<skos:altLabel>Gheleba</skos:altLabel>
+	<skos:prefLabel>Geleb na Hāmer Bako Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/337104/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6</wgs:lat>
+	<wgs:long>38.16667</wgs:long>
+	<skos:altLabel>Derasa</skos:altLabel>
+	<skos:altLabel>Derassa</skos:altLabel>
+	<skos:altLabel>Gede’o Āwraja</skos:altLabel>
+	<skos:prefLabel>Gede’o Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/337152/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16583</europeana:population>
+	<wgs:lat>9.8</wgs:lat>
+	<wgs:long>38.4</wgs:long>
+	<skos:altLabel>Cuyu</skos:altLabel>
+	<skos:altLabel>Gabra Guracha</skos:altLabel>
+	<skos:altLabel>Gabre Guracha</skos:altLabel>
+	<skos:altLabel>Gebre Guracha</skos:altLabel>
+	<skos:altLabel>Kuyu</skos:altLabel>
+	<skos:prefLabel>Gebre Guracha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/337203/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>11.5</wgs:lat>
+	<wgs:long>38.5</wgs:long>
+	<skos:altLabel>Gaint</skos:altLabel>
+	<skos:altLabel>Gayint Āwraja</skos:altLabel>
+	<skos:altLabel>Gaynt</skos:altLabel>
+	<skos:prefLabel>Gayint Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/337285/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>5.66667</wgs:lat>
+	<wgs:long>37.33333</wgs:long>
+	<skos:prefLabel>Gardula Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/337318/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>8.5</wgs:lat>
+	<wgs:long>41.75</wgs:long>
+	<skos:altLabel>Gara Muleta Āwraja</skos:altLabel>
+	<skos:altLabel>Garamuleta</skos:altLabel>
+	<skos:prefLabel>Gara Muleta Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/337389/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>5.75</wgs:lat>
+	<wgs:long>37</wgs:long>
+	<skos:altLabel>Bacò Gamò</skos:altLabel>
+	<skos:altLabel>Bako Gamu</skos:altLabel>
+	<skos:altLabel>Bako Goumma</skos:altLabel>
+	<skos:altLabel>Bako-Gamo</skos:altLabel>
+	<skos:altLabel>Gamo Gofa</skos:altLabel>
+	<skos:altLabel>Gamo Gofa Kifle Hāger</skos:altLabel>
+	<skos:altLabel>Gamu-Gofa</skos:altLabel>
+	<skos:altLabel>Gemu Gofa</skos:altLabel>
+	<skos:altLabel>Gemu Goffa</skos:altLabel>
+	<skos:altLabel>Gemu Gwefa</skos:altLabel>
+	<skos:prefLabel>Gamo Gofa Kifle Hāger</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/337391/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.33333</wgs:lat>
+	<wgs:long>37.5</wgs:long>
+	<skos:altLabel>Gamo Āwraja</skos:altLabel>
+	<skos:altLabel>Gemu</skos:altLabel>
+	<skos:prefLabel>Gamo Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/337403/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>8</wgs:lat>
+	<wgs:long>34.16667</wgs:long>
+	<skos:prefLabel>Gambēla Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/337405/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>42366</europeana:population>
+	<wgs:lat>8.25</wgs:lat>
+	<wgs:long>34.58333</wgs:long>
+	<skos:altLabel>Gambeila</skos:altLabel>
+	<skos:altLabel>Gambela Post</skos:altLabel>
+	<skos:altLabel>Gambella</skos:altLabel>
+	<skos:altLabel>Gambēla</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гамбеле</skos:altLabel>
+	<skos:prefLabel>Gambēla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/337616/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.95</wgs:lat>
+	<wgs:long>38.88333</wgs:long>
+	<skos:prefLabel>Funduro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/337712/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23463</europeana:population>
+	<wgs:lat>10.7</wgs:lat>
+	<wgs:long>37.26667</wgs:long>
+	<skos:altLabel>Fenote Selam</skos:altLabel>
+	<skos:altLabel>Finote Selam</skos:altLabel>
+	<skos:prefLabel>Finote Selam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/337771/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>25758</europeana:population>
+	<wgs:lat>9.8</wgs:lat>
+	<wgs:long>38.73333</wgs:long>
+	<skos:altLabel>Fechē</skos:altLabel>
+	<skos:altLabel>Ficce</skos:altLabel>
+	<skos:altLabel>Fice</skos:altLabel>
+	<skos:altLabel>Fichē</skos:altLabel>
+	<skos:altLabel>Fitche</skos:altLabel>
+	<skos:prefLabel>Fichē</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/337853/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>33429</europeana:population>
+	<wgs:lat>6.3</wgs:lat>
+	<wgs:long>36.88333</wgs:long>
+	<skos:altLabel>Felege Neway</skos:altLabel>
+	<skos:altLabel>Felege Niway</skos:altLabel>
+	<skos:altLabel>Sawla Felege Neway</skos:altLabel>
+	<skos:prefLabel>Felege Neway</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/337996/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255146/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>88013491</europeana:population>
+	<wgs:lat>8</wgs:lat>
+	<wgs:long>38</wgs:long>
+	<skos:altLabel>Abessinien</skos:altLabel>
+	<skos:altLabel>Abissinia</skos:altLabel>
+	<skos:altLabel>Abyssinia</skos:altLabel>
+	<skos:altLabel>Abyssinie</skos:altLabel>
+	<skos:altLabel xml:lang="la">Aethiopia</skos:altLabel>
+	<skos:altLabel xml:lang="ga">An Aetóip</skos:altLabel>
+	<skos:altLabel>ET</skos:altLabel>
+	<skos:altLabel xml:lang="az">Efiopiya</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Eitiopia</skos:altLabel>
+	<skos:altLabel>El Habesha</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Ethiopi</skos:altLabel>
+	<skos:altLabel xml:lang="id">Ethiopia</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ethiopia</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Ethiopia</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Ethiopia</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Ethiopia</skos:altLabel>
+	<skos:altLabel xml:lang="na">Ethiopia</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Ethiopia</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Ethiopia</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ethiopia</skos:altLabel>
+	<skos:altLabel xml:lang="af">Ethiopië</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Ethiopië</skos:altLabel>
+	<skos:altLabel xml:lang="li">Ethiopië</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Etijopja</skos:altLabel>
+	<skos:altLabel xml:lang="et">Etioopia</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Etiopi</skos:altLabel>
+	<skos:altLabel>Etiopia</skos:altLabel>
+	<skos:altLabel xml:lang="id">Etiopia</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Etiopia</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Etiopia</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Etiopia</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Etiopia</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Etiopia</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Etiopia</skos:altLabel>
+	<skos:altLabel xml:lang="it">Etiopia</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Etiopia</skos:altLabel>
+	<skos:altLabel xml:lang="io">Etiopia</skos:altLabel>
+	<skos:altLabel xml:lang="an">Etiopia</skos:altLabel>
+	<skos:altLabel xml:lang="no">Etiopia</skos:altLabel>
+	<skos:altLabel xml:lang="rm">Etiopia</skos:altLabel>
+	<skos:altLabel xml:lang="mg">Etiopia</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Etiopia</skos:altLabel>
+	<skos:altLabel xml:lang="se">Etiopia</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Etiopia</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Etiopie</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Etiopien</skos:altLabel>
+	<skos:altLabel xml:lang="da">Etiopien</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Etiopija</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Etiopija</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Etiopija</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Etiopija</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Etiopija</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Etiopija</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Etiopio</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Etiopujo</skos:altLabel>
+	<skos:altLabel xml:lang="ln">Etiopya</skos:altLabel>
+	<skos:altLabel xml:lang="es">Etiopía</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Etiopía</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Etiopía - Ityop'iya</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Etiyopya</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Etiòpia</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Etiópia</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Etiópia</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Etiópia</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Etyopi</skos:altLabel>
+	<skos:altLabel xml:lang="is">Eþíópía</skos:altLabel>
+	<skos:altLabel xml:lang="en">Federal Democratic Republic of Ethiopia</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Habsyah</skos:altLabel>
+	<skos:altLabel>Hibreteseb’āwīt Ītyop’iya</skos:altLabel>
+	<skos:altLabel xml:lang="kg">Itiopia</skos:altLabel>
+	<skos:altLabel xml:lang="so">Itoobbiya</skos:altLabel>
+	<skos:altLabel xml:lang="so">Itoobiya</skos:altLabel>
+	<skos:altLabel xml:lang="om">Itoophiyaa</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Lätiopän</skos:altLabel>
+	<skos:altLabel xml:lang="aa">Otobbia</skos:altLabel>
+	<skos:altLabel>People’s Democratic Republic of Ethiopia</skos:altLabel>
+	<skos:altLabel>Socialist Ethiopia</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Uhabeshi</skos:altLabel>
+	<skos:altLabel xml:lang="am">YeĪtyop’iya Fēdēralawī Dēmokrasīyawī Rīpeblīk</skos:altLabel>
+	<skos:altLabel xml:lang="am">YeĪtyop’iya Hizbawī Dīmokrasīyawī Rīpublīk</skos:altLabel>
+	<skos:altLabel>Ye’ Etiyop’iya Niguse Negast Mengist</skos:altLabel>
+	<skos:altLabel>Äthiopien</skos:altLabel>
+	<skos:altLabel xml:lang="de">Äthiopien</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Éthiopie</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ê-ti-ô-pi-a</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ê-ti-ô-pi-a (Ethiopia)</skos:altLabel>
+	<skos:altLabel>Ītyop’yā</skos:altLabel>
+	<skos:altLabel xml:lang="el">Αιθιοπία</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Етиопия</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Етиопија</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Етиопија</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Ефіопія</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Этиупия</skos:altLabel>
+	<skos:altLabel xml:lang="be">Этыёпія</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Эфиопия</skos:altLabel>
+	<skos:altLabel xml:lang="be">Эфіопія</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Եթովպիա</skos:altLabel>
+	<skos:altLabel xml:lang="he">אתיופיה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">إثيوبيا</skos:altLabel>
+	<skos:altLabel xml:lang="ug">ئېفىئوپىيە</skos:altLabel>
+	<skos:altLabel xml:lang="fa">اتیوپی</skos:altLabel>
+	<skos:altLabel xml:lang="ar">اثيوبيا</skos:altLabel>
+	<skos:altLabel xml:lang="ur">ایتھوپیا</skos:altLabel>
+	<skos:altLabel xml:lang="ps">اېتوپيا</skos:altLabel>
+	<skos:altLabel xml:lang="ps">حبشه</skos:altLabel>
+	<skos:altLabel xml:lang="hi">इथियोपिया</skos:altLabel>
+	<skos:altLabel xml:lang="sa">ईथ्योपिया</skos:altLabel>
+	<skos:altLabel xml:lang="bn">ইথিওপিয়া</skos:altLabel>
+	<skos:altLabel xml:lang="bn">ইফিওপিয়া</skos:altLabel>
+	<skos:altLabel xml:lang="ta">எதியோப்பியா</skos:altLabel>
+	<skos:altLabel xml:lang="ml">എത്യോപ്യ</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศเอธิโอเปีย</skos:altLabel>
+	<skos:altLabel xml:lang="th">เอธิโอเปีย</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ເອທິໂອເປຍ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཨི་ཐིའོ་པི་ཡ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ეთიოპია</skos:altLabel>
+	<skos:altLabel xml:lang="am">ኢትዮጵያ</skos:altLabel>
+	<skos:altLabel xml:lang="km">អេត្យូពី</skos:altLabel>
+	<skos:altLabel xml:lang="ja">エチオピア</skos:altLabel>
+	<skos:altLabel xml:lang="zh">埃塞俄比亚</skos:altLabel>
+	<skos:altLabel xml:lang="ko">에티오피아</skos:altLabel>
+	<skos:altLabel xml:lang="ko">이디오피아</skos:altLabel>
+	<skos:prefLabel>Federal Democratic Republic of Ethiopia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/338145/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>5.5</wgs:lat>
+	<wgs:long>42.83333</wgs:long>
+	<skos:prefLabel>Ēl Kerē Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/338554/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>26370</europeana:population>
+	<wgs:lat>11.73611</wgs:lat>
+	<wgs:long>41.08528</wgs:long>
+	<skos:altLabel>Dubtī</skos:altLabel>
+	<skos:altLabel>Dufty</skos:altLabel>
+	<skos:altLabel>Duftī</skos:altLabel>
+	<skos:prefLabel>Dubtī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/338726/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23116</europeana:population>
+	<wgs:lat>6.98333</wgs:lat>
+	<wgs:long>39.18333</wgs:long>
+	<skos:altLabel>Dodola</skos:altLabel>
+	<skos:altLabel>Dodolla</skos:altLabel>
+	<skos:altLabel>Dodolo</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Додола</skos:altLabel>
+	<skos:prefLabel>Dodola</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/338829/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>10.25</wgs:lat>
+	<wgs:long>42.16667</wgs:long>
+	<skos:altLabel>Dire Dawa</skos:altLabel>
+	<skos:altLabel>Dire Dawa and Gurgura</skos:altLabel>
+	<skos:altLabel>Dirē Dawa na Īsa na Gurgura Āwraja</skos:altLabel>
+	<skos:altLabel>Isa and Gurgura Dire Dawa</skos:altLabel>
+	<skos:prefLabel>Dirē Dawa na Īsa na Gurgura Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/338832/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>252279</europeana:population>
+	<wgs:lat>9.59306</wgs:lat>
+	<wgs:long>41.86611</wgs:long>
+	<skos:altLabel>Daredawa</skos:altLabel>
+	<skos:altLabel>Dirdabò</skos:altLabel>
+	<skos:altLabel>Dire Daba</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Dire Daua</skos:altLabel>
+	<skos:altLabel xml:lang="id">Dire Dawa</skos:altLabel>
+	<skos:altLabel xml:lang="de">Dire Dawa</skos:altLabel>
+	<skos:altLabel xml:lang="en">Dire Dawa</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Dire Dawa</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Dire Dawa</skos:altLabel>
+	<skos:altLabel xml:lang="es">Dire Dawa</skos:altLabel>
+	<skos:altLabel xml:lang="et">Dire Dawa</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Dire Dawa</skos:altLabel>
+	<skos:altLabel>Dire Dewa</skos:altLabel>
+	<skos:altLabel>Direaoua</skos:altLabel>
+	<skos:altLabel>Dirediua</skos:altLabel>
+	<skos:altLabel>Diré-Daoua</skos:altLabel>
+	<skos:altLabel>Dirē Dawa</skos:altLabel>
+	<skos:altLabel>D’ire Daua</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Диредавы</skos:altLabel>
+	<skos:altLabel xml:lang="he">דירה דאווה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">ديرة داوا</skos:altLabel>
+	<skos:altLabel xml:lang="am">ድሬዳዋ</skos:altLabel>
+	<skos:altLabel xml:lang="ko">디레 다와</skos:altLabel>
+	<skos:prefLabel>Dirē Dawa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/338998/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>47021</europeana:population>
+	<wgs:lat>6.41667</wgs:lat>
+	<wgs:long>38.31667</wgs:long>
+	<skos:altLabel>Dilla</skos:altLabel>
+	<skos:altLabel>Dīla</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Дила</skos:altLabel>
+	<skos:prefLabel>Dīla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/339215/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>11.25</wgs:lat>
+	<wgs:long>39.58333</wgs:long>
+	<skos:altLabel>Dese</skos:altLabel>
+	<skos:altLabel>Dese Zuria</skos:altLabel>
+	<skos:altLabel>Desē Zurīya Āwraja</skos:altLabel>
+	<skos:prefLabel>Desē Zurīya Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/339219/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>136056</europeana:population>
+	<wgs:lat>11.13333</wgs:lat>
+	<wgs:long>39.63333</wgs:long>
+	<skos:altLabel>Dasē</skos:altLabel>
+	<skos:altLabel xml:lang="de">Dese</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Desje</skos:altLabel>
+	<skos:altLabel>Dessa</skos:altLabel>
+	<skos:altLabel>Dessi</skos:altLabel>
+	<skos:altLabel>Dessie</skos:altLabel>
+	<skos:altLabel xml:lang="en">Dessie</skos:altLabel>
+	<skos:altLabel>Dessye</skos:altLabel>
+	<skos:altLabel>Desē</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Desė</skos:altLabel>
+	<skos:prefLabel>Desē</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/339448/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>26748</europeana:population>
+	<wgs:lat>8.53333</wgs:lat>
+	<wgs:long>34.8</wgs:long>
+	<skos:altLabel>Dambidollo</skos:altLabel>
+	<skos:altLabel>Dambidolo</skos:altLabel>
+	<skos:altLabel>Dembi Doilo</skos:altLabel>
+	<skos:altLabel>Dembidollo</skos:altLabel>
+	<skos:altLabel>Dembilollo</skos:altLabel>
+	<skos:altLabel>Dembī Dolo</skos:altLabel>
+	<skos:altLabel>Saio</skos:altLabel>
+	<skos:prefLabel>Dembī Dolo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/339487/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.5</wgs:lat>
+	<wgs:long>40</wgs:long>
+	<skos:prefLabel>Dēlo Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/339551/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11739</europeana:population>
+	<wgs:lat>10.16667</wgs:lat>
+	<wgs:long>38.13333</wgs:long>
+	<skos:altLabel>Degen</skos:altLabel>
+	<skos:altLabel>Dejen</skos:altLabel>
+	<skos:altLabel>Dingab</skos:altLabel>
+	<skos:prefLabel>Dejen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/339593/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>8</wgs:lat>
+	<wgs:long>44</wgs:long>
+	<skos:altLabel>Daghabur</skos:altLabel>
+	<skos:altLabel>Degahabur</skos:altLabel>
+	<skos:altLabel>Degeh Bur Āwraja</skos:altLabel>
+	<skos:altLabel>Degh Bur</skos:altLabel>
+	<skos:prefLabel>Degeh Bur Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/339666/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>104215</europeana:population>
+	<wgs:lat>8.75</wgs:lat>
+	<wgs:long>38.98333</wgs:long>
+	<skos:altLabel>Biscioftù</skos:altLabel>
+	<skos:altLabel>Bishoftu</skos:altLabel>
+	<skos:altLabel>Debra Zeit</skos:altLabel>
+	<skos:altLabel>Debre Zeit</skos:altLabel>
+	<skos:altLabel>Debre Zeyit</skos:altLabel>
+	<skos:altLabel>Debre Zeyt</skos:altLabel>
+	<skos:prefLabel>Debre Zeyit</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/339671/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10579</europeana:population>
+	<wgs:lat>10.66667</wgs:lat>
+	<wgs:long>38.16667</wgs:long>
+	<skos:altLabel>Dabra Wark’</skos:altLabel>
+	<skos:altLabel>Dabra-Warq</skos:altLabel>
+	<skos:altLabel>Debra Uerch</skos:altLabel>
+	<skos:altLabel>Debra Uorc</skos:altLabel>
+	<skos:altLabel>Debra Uorch</skos:altLabel>
+	<skos:altLabel>Debra Uork</skos:altLabel>
+	<skos:altLabel>Debra Wark</skos:altLabel>
+	<skos:altLabel>Debra Werk</skos:altLabel>
+	<skos:altLabel>Debra Work</skos:altLabel>
+	<skos:altLabel>Debre Werk’</skos:altLabel>
+	<skos:prefLabel>Debre Werk’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/339685/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>11.75</wgs:lat>
+	<wgs:long>37.83333</wgs:long>
+	<skos:prefLabel>Debre Tabor Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/339686/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>32659</europeana:population>
+	<wgs:lat>11.85</wgs:lat>
+	<wgs:long>38.01667</wgs:long>
+	<skos:altLabel>Dabra-Tābor</skos:altLabel>
+	<skos:altLabel>Debra Tabor</skos:altLabel>
+	<skos:altLabel>Debre Tabor</skos:altLabel>
+	<skos:altLabel>Samara</skos:altLabel>
+	<skos:prefLabel>Debre Tabor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/339690/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.9</wgs:lat>
+	<wgs:long>38.76667</wgs:long>
+	<skos:altLabel>Debra Sina</skos:altLabel>
+	<skos:altLabel>Debre Sīna</skos:altLabel>
+	<skos:altLabel>Mount Sinai</skos:altLabel>
+	<skos:prefLabel>Debre Sīna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/339703/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.61667</wgs:lat>
+	<wgs:long>37.38333</wgs:long>
+	<skos:altLabel>Debra Maryam</skos:altLabel>
+	<skos:altLabel>Debre Maryam</skos:altLabel>
+	<skos:prefLabel>Debre Maryam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/339707/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>10.25</wgs:lat>
+	<wgs:long>37.66667</wgs:long>
+	<skos:prefLabel>Debre Mark’os Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/339708/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>59920</europeana:population>
+	<wgs:lat>10.35</wgs:lat>
+	<wgs:long>37.73333</wgs:long>
+	<skos:altLabel>Dabra Mārko’s</skos:altLabel>
+	<skos:altLabel>Dabra-7ārqos</skos:altLabel>
+	<skos:altLabel>Debra Marcos</skos:altLabel>
+	<skos:altLabel>Debra Markos</skos:altLabel>
+	<skos:altLabel>Debre Marcos</skos:altLabel>
+	<skos:altLabel>Debre Mark’os</skos:altLabel>
+	<skos:altLabel>Moncorer</skos:altLabel>
+	<skos:altLabel>Monkorer</skos:altLabel>
+	<skos:prefLabel>Debre Mark’os</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/339734/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>57787</europeana:population>
+	<wgs:lat>9.68333</wgs:lat>
+	<wgs:long>39.53333</wgs:long>
+	<skos:altLabel>Dabra Berham</skos:altLabel>
+	<skos:altLabel>Dabra-Berhān</skos:altLabel>
+	<skos:altLabel>Debra Berham</skos:altLabel>
+	<skos:altLabel>Debra Berhan</skos:altLabel>
+	<skos:altLabel>Debra Birhan</skos:altLabel>
+	<skos:altLabel>Debra Brehan</skos:altLabel>
+	<skos:altLabel>Debre Berhan</skos:altLabel>
+	<skos:altLabel>Debre Birhan</skos:altLabel>
+	<skos:prefLabel>Debre Birhan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/339823/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>24700</europeana:population>
+	<wgs:lat>13.15611</wgs:lat>
+	<wgs:long>37.89806</wgs:long>
+	<skos:altLabel>Dabārk’</skos:altLabel>
+	<skos:altLabel>Dabārq</skos:altLabel>
+	<skos:altLabel>Davark</skos:altLabel>
+	<skos:altLabel>Debarec</skos:altLabel>
+	<skos:altLabel>Debarech</skos:altLabel>
+	<skos:altLabel>Debarek</skos:altLabel>
+	<skos:altLabel>Debark’</skos:altLabel>
+	<skos:altLabel>Devark</skos:altLabel>
+	<skos:altLabel>Dibark</skos:altLabel>
+	<skos:prefLabel>Debark’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/339949/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.16667</wgs:lat>
+	<wgs:long>37.75</wgs:long>
+	<skos:altLabel>Darato</skos:altLabel>
+	<skos:altLabel>Darato Island</skos:altLabel>
+	<skos:altLabel>Isola Marato</skos:altLabel>
+	<skos:prefLabel>Darato</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/339990/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.76667</wgs:lat>
+	<wgs:long>37.55</wgs:long>
+	<skos:altLabel>Dano</skos:altLabel>
+	<skos:altLabel>Dano Island</skos:altLabel>
+	<skos:prefLabel>Dano</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/340033/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.18333</wgs:lat>
+	<wgs:long>37.75</wgs:long>
+	<skos:altLabel>Dana</skos:altLabel>
+	<skos:altLabel>Dana Island</skos:altLabel>
+	<skos:prefLabel>Dana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/340034/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.95</wgs:lat>
+	<wgs:long>37.63333</wgs:long>
+	<skos:altLabel>Dana</skos:altLabel>
+	<skos:altLabel>Dana Island</skos:altLabel>
+	<skos:prefLabel>Dana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/340261/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.9</wgs:lat>
+	<wgs:long>37.31667</wgs:long>
+	<skos:altLabel>Daga Island</skos:altLabel>
+	<skos:altLabel>Isola Daga</skos:altLabel>
+	<skos:altLabel>Isola Dega</skos:altLabel>
+	<skos:altLabel>daga</skos:altLabel>
+	<skos:prefLabel>daga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/340358/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11544</europeana:population>
+	<wgs:lat>12.98417</wgs:lat>
+	<wgs:long>37.765</wgs:long>
+	<skos:altLabel>Dabat</skos:altLabel>
+	<skos:altLabel>Dabat (2)</skos:altLabel>
+	<skos:altLabel>Dahat</skos:altLabel>
+	<skos:prefLabel>Dabat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/340770/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.5</wgs:lat>
+	<wgs:long>36.5</wgs:long>
+	<skos:altLabel>Childa</skos:altLabel>
+	<skos:altLabel>Ch’ilga Āwraja</skos:altLabel>
+	<skos:prefLabel>Ch’ilga Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/340782/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>7.75</wgs:lat>
+	<wgs:long>39</wgs:long>
+	<skos:prefLabel>Ch’ilalo Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/340860/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>9.75</wgs:lat>
+	<wgs:long>41</wgs:long>
+	<skos:altLabel xml:lang="sh">Adal and Garaguracha Chercher</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Adal and Isa</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Chercher and Adal and Gara Guracha</skos:altLabel>
+	<skos:altLabel>Ch’erch’er na Ādal na Gara Guracha Āwraja</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Essa, and Andolisse Adal</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Isa and Gara Guracha Awraja Adal</skos:altLabel>
+	<skos:prefLabel>Ch’erch’er na Ādal na Gara Guracha Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/341021/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>8.25</wgs:lat>
+	<wgs:long>38</wgs:long>
+	<skos:altLabel>Chebo and Gurage</skos:altLabel>
+	<skos:altLabel>Ch’ēbo na Guragē Āwraja</skos:altLabel>
+	<skos:altLabel>Guraghe</skos:altLabel>
+	<skos:prefLabel>Ch’ēbo na Guragē Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/341297/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>30502</europeana:population>
+	<wgs:lat>8.11667</wgs:lat>
+	<wgs:long>38.36667</wgs:long>
+	<skos:altLabel>Butajera</skos:altLabel>
+	<skos:altLabel>Butajīra</skos:altLabel>
+	<skos:altLabel>Butlagira</skos:altLabel>
+	<skos:altLabel>Buttagira</skos:altLabel>
+	<skos:prefLabel>Butajīra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/341397/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>22038</europeana:population>
+	<wgs:lat>10.7</wgs:lat>
+	<wgs:long>37.06667</wgs:long>
+	<skos:altLabel>Burie</skos:altLabel>
+	<skos:altLabel>Burye</skos:altLabel>
+	<skos:altLabel>Burē</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Буря</skos:altLabel>
+	<skos:prefLabel>Burē</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/341434/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>8.16667</wgs:lat>
+	<wgs:long>36.33333</wgs:long>
+	<skos:altLabel>Bunno</skos:altLabel>
+	<skos:altLabel>Buno</skos:altLabel>
+	<skos:altLabel>Buno Bedelē Āwraja</skos:altLabel>
+	<skos:prefLabel>Buno Bedelē Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/341663/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>10.83333</wgs:lat>
+	<wgs:long>38.75</wgs:long>
+	<skos:altLabel>Borena and Saynt</skos:altLabel>
+	<skos:altLabel>Borena Āwraja</skos:altLabel>
+	<skos:prefLabel>Borena Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/341664/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>4.66667</wgs:lat>
+	<wgs:long>40</wgs:long>
+	<skos:altLabel>Borena Āwraja</skos:altLabel>
+	<skos:altLabel>Borenea</skos:altLabel>
+	<skos:prefLabel>Borena Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/341742/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18973</europeana:population>
+	<wgs:lat>7.28333</wgs:lat>
+	<wgs:long>36.23333</wgs:long>
+	<skos:altLabel>Bonga</skos:altLabel>
+	<skos:altLabel>Bonga (1)</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бонга</skos:altLabel>
+	<skos:prefLabel>Bonga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/341877/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>32997</europeana:population>
+	<wgs:lat>6.96667</wgs:lat>
+	<wgs:long>37.86667</wgs:long>
+	<skos:altLabel>Boditti</skos:altLabel>
+	<skos:altLabel>Boditu</skos:altLabel>
+	<skos:altLabel>Bodity</skos:altLabel>
+	<skos:altLabel>Bodītī</skos:altLabel>
+	<skos:prefLabel>Bodītī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/342189/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>10.5</wgs:lat>
+	<wgs:long>38.25</wgs:long>
+	<skos:prefLabel>Bichena Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/342190/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16411</europeana:population>
+	<wgs:lat>10.45</wgs:lat>
+	<wgs:long>38.2</wgs:long>
+	<skos:altLabel>Bechanā</skos:altLabel>
+	<skos:altLabel>Biccena</skos:altLabel>
+	<skos:altLabel>Bichana</skos:altLabel>
+	<skos:altLabel>Bichena</skos:altLabel>
+	<skos:prefLabel>Bichena</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/342559/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17526</europeana:population>
+	<wgs:lat>8.9</wgs:lat>
+	<wgs:long>40.78333</wgs:long>
+	<skos:altLabel>Bedessa</skos:altLabel>
+	<skos:altLabel>Bedēsa</skos:altLabel>
+	<skos:prefLabel>Bedēsa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/342567/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20293</europeana:population>
+	<wgs:lat>8.456</wgs:lat>
+	<wgs:long>36.35302</wgs:long>
+	<skos:altLabel>Beddele</skos:altLabel>
+	<skos:altLabel>Bedelle</skos:altLabel>
+	<skos:altLabel>Bedelli</skos:altLabel>
+	<skos:altLabel>Bedelē</skos:altLabel>
+	<skos:prefLabel>Bedelē</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/342641/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19260</europeana:population>
+	<wgs:lat>11.18333</wgs:lat>
+	<wgs:long>40.01667</wgs:long>
+	<skos:altLabel>Batia</skos:altLabel>
+	<skos:altLabel>Batie</skos:altLabel>
+	<skos:altLabel>Batī</skos:altLabel>
+	<skos:prefLabel>Batī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/342817/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6</wgs:lat>
+	<wgs:long>41.5</wgs:long>
+	<skos:altLabel>Balē</skos:altLabel>
+	<skos:altLabel>Balē Kifle Hāger</skos:altLabel>
+	<skos:altLabel>Mendebo Province</skos:altLabel>
+	<skos:prefLabel>Balē Kifle Hāger</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/342856/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17872</europeana:population>
+	<wgs:lat>5.78333</wgs:lat>
+	<wgs:long>36.56667</wgs:long>
+	<skos:altLabel>Bachio</skos:altLabel>
+	<skos:altLabel>Baco</skos:altLabel>
+	<skos:altLabel>Baka</skos:altLabel>
+	<skos:altLabel>Bako</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бако</skos:altLabel>
+	<skos:prefLabel>Bako</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/342875/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.08333</wgs:lat>
+	<wgs:long>37.05</wgs:long>
+	<skos:altLabel>Bahita</skos:altLabel>
+	<skos:altLabel>Bata</skos:altLabel>
+	<skos:altLabel>Bata Island</skos:altLabel>
+	<skos:prefLabel>Bahita</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/342883/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>11.41667</wgs:lat>
+	<wgs:long>37.25</wgs:long>
+	<skos:altLabel>Bahar Dar Province</skos:altLabel>
+	<skos:altLabel>Bahir Dar Āwraja</skos:altLabel>
+	<skos:altLabel>Bahirdar</skos:altLabel>
+	<skos:prefLabel>Bahir Dar Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/342884/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>168899</europeana:population>
+	<wgs:lat>11.6</wgs:lat>
+	<wgs:long>37.38333</wgs:long>
+	<skos:altLabel>Babardur Georgis</skos:altLabel>
+	<skos:altLabel>Bahar</skos:altLabel>
+	<skos:altLabel>Bahar Dar</skos:altLabel>
+	<skos:altLabel xml:lang="de">Bahar Dar</skos:altLabel>
+	<skos:altLabel>Bahar Dar Ghiorghis</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Baher Dar</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bahir Dar</skos:altLabel>
+	<skos:altLabel xml:lang="es">Bahir Dar</skos:altLabel>
+	<skos:altLabel xml:lang="it">Bahir Dar</skos:altLabel>
+	<skos:altLabel>Bahir Dar</skos:altLabel>
+	<skos:altLabel>Bahr Dar</skos:altLabel>
+	<skos:altLabel>Bahrdar Giyergio</skos:altLabel>
+	<skos:altLabel>Bahrdar Giyorgis</skos:altLabel>
+	<skos:altLabel>Bāherdār-Giyorgis</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бахр-Дар</skos:altLabel>
+	<skos:altLabel xml:lang="he">בהר דר</skos:altLabel>
+	<skos:prefLabel>Bahir Dar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/343092/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>11.5</wgs:lat>
+	<wgs:long>41.5</wgs:long>
+	<skos:prefLabel>Āwsa Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/343134/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11415</europeana:population>
+	<wgs:lat>8.98333</wgs:lat>
+	<wgs:long>40.16667</wgs:long>
+	<skos:altLabel>Auasc</skos:altLabel>
+	<skos:altLabel>Āwash</skos:altLabel>
+	<skos:prefLabel>Āwash</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/343137/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>133097</europeana:population>
+	<wgs:lat>7.05</wgs:lat>
+	<wgs:long>38.46667</wgs:long>
+	<skos:altLabel xml:lang="fi">Awasa</skos:altLabel>
+	<skos:altLabel xml:lang="en">Awasa</skos:altLabel>
+	<skos:altLabel>Awassa</skos:altLabel>
+	<skos:altLabel xml:lang="de">Awassa</skos:altLabel>
+	<skos:altLabel>Hawassa</skos:altLabel>
+	<skos:altLabel>Āwasa</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Авасе</skos:altLabel>
+	<skos:altLabel xml:lang="he">אוושה</skos:altLabel>
+	<skos:prefLabel>Āwasa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/343291/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<europeana:population>605284</europeana:population>
+	<wgs:lat>10</wgs:lat>
+	<wgs:long>34.5</wgs:long>
+	<skos:altLabel>Asosa and Benishangul</skos:altLabel>
+	<skos:altLabel>Asosa and Benshangul</skos:altLabel>
+	<skos:altLabel>Asosa-Beni Shangul</skos:altLabel>
+	<skos:altLabel>Beni Sciangul</skos:altLabel>
+	<skos:altLabel>Sciangalla</skos:altLabel>
+	<skos:altLabel>Āsosa na Benshangul Āwraja</skos:altLabel>
+	<skos:altLabel>Āsosa Āwraja</skos:altLabel>
+	<skos:prefLabel>Āsosa na Benshangul Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/343292/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>30512</europeana:population>
+	<wgs:lat>10.06667</wgs:lat>
+	<wgs:long>34.53333</wgs:long>
+	<skos:prefLabel>Āsosa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/343402/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>30772</europeana:population>
+	<wgs:lat>9.08333</wgs:lat>
+	<wgs:long>40.86667</wgs:long>
+	<skos:altLabel>Asba Littorio</skos:altLabel>
+	<skos:altLabel>Asbar Tafari</skos:altLabel>
+	<skos:altLabel>Asbatafari</skos:altLabel>
+	<skos:altLabel>Asbe Taferi</skos:altLabel>
+	<skos:altLabel>Asbe Tefen</skos:altLabel>
+	<skos:altLabel>Asebe Tafari</skos:altLabel>
+	<skos:altLabel>Āsbe Teferī</skos:altLabel>
+	<skos:altLabel>Āsebe Teferī</skos:altLabel>
+	<skos:prefLabel>Āsbe Teferī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/343409/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20342</europeana:population>
+	<wgs:lat>11.56361</wgs:lat>
+	<wgs:long>41.43944</wgs:long>
+	<skos:altLabel>Aisaita</skos:altLabel>
+	<skos:altLabel>Asaita</skos:altLabel>
+	<skos:altLabel>Asayta</skos:altLabel>
+	<skos:altLabel>Assayita</skos:altLabel>
+	<skos:altLabel>Āsayita</skos:altLabel>
+	<skos:altLabel>Āysa’īta</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Асайита</skos:altLabel>
+	<skos:prefLabel>Asaita</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/343413/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23790</europeana:population>
+	<wgs:lat>7.1</wgs:lat>
+	<wgs:long>39.2</wgs:long>
+	<skos:altLabel>Āsasa</skos:altLabel>
+	<skos:prefLabel>Āsasa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/343450/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>7.5</wgs:lat>
+	<wgs:long>39.5</wgs:long>
+	<skos:altLabel>Arssi Administrative Region</skos:altLabel>
+	<skos:altLabel>Arussi</skos:altLabel>
+	<skos:altLabel>Arussi-Bale</skos:altLabel>
+	<skos:altLabel>Ārsī</skos:altLabel>
+	<skos:altLabel>Ārsī Kifle Hāger</skos:altLabel>
+	<skos:altLabel>Ārusī</skos:altLabel>
+	<skos:prefLabel>Ārsī Kifle Hāger</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/343507/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>8.83333</wgs:lat>
+	<wgs:long>36.33333</wgs:long>
+	<skos:altLabel>Argio</skos:altLabel>
+	<skos:altLabel>Ārjo Āwraja</skos:altLabel>
+	<skos:prefLabel>Ārjo Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/343567/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>5</wgs:lat>
+	<wgs:long>38.16667</wgs:long>
+	<skos:prefLabel>Ārēro Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/343593/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>33150</europeana:population>
+	<wgs:lat>7.06667</wgs:lat>
+	<wgs:long>37.7</wgs:long>
+	<skos:altLabel>Ancheto</skos:altLabel>
+	<skos:altLabel>Areka Ancheto</skos:altLabel>
+	<skos:altLabel>Āreka</skos:altLabel>
+	<skos:prefLabel>Āreka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/343663/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>69622</europeana:population>
+	<wgs:lat>6.03333</wgs:lat>
+	<wgs:long>37.55</wgs:long>
+	<skos:altLabel>Arba Mench</skos:altLabel>
+	<skos:altLabel>Arba Mintch</skos:altLabel>
+	<skos:altLabel>Gantar</skos:altLabel>
+	<skos:altLabel>Minghi</skos:altLabel>
+	<skos:altLabel>Ārba Minch’</skos:altLabel>
+	<skos:prefLabel>Ārba Minch’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/343670/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>8.25</wgs:lat>
+	<wgs:long>40</wgs:long>
+	<skos:altLabel>Gugu</skos:altLabel>
+	<skos:altLabel>Ārba Gugu Āwraja</skos:altLabel>
+	<skos:prefLabel>Ārba Gugu Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/344083/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>11.58333</wgs:lat>
+	<wgs:long>40</wgs:long>
+	<skos:altLabel>Abassel</skos:altLabel>
+	<skos:altLabel>Ambassel</skos:altLabel>
+	<skos:altLabel>Āmbasel Āwraja</skos:altLabel>
+	<skos:prefLabel>Āmbasel Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/344243/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.33333</wgs:lat>
+	<wgs:long>37.83333</wgs:long>
+	<skos:altLabel>Uolighe</skos:altLabel>
+	<skos:altLabel>Uolighe Island</skos:altLabel>
+	<skos:altLabel>Ālgē Desēt</skos:altLabel>
+	<skos:prefLabel>Ālgē Desēt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/344418/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>14.16667</wgs:lat>
+	<wgs:long>38.66667</wgs:long>
+	<skos:altLabel>Axum</skos:altLabel>
+	<skos:altLabel>Āksum Āwraja</skos:altLabel>
+	<skos:prefLabel>Āksum Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/344420/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>41249</europeana:population>
+	<wgs:lat>14.12448</wgs:lat>
+	<wgs:long>38.72444</wgs:long>
+	<skos:altLabel>Akesum</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Aksoum</skos:altLabel>
+	<skos:altLabel xml:lang="de">Aksum</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Aksum</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Aksum</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Aksum</skos:altLabel>
+	<skos:altLabel xml:lang="es">Aksum</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Aksum</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Aksum</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Aksum</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Aksum</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Aksum</skos:altLabel>
+	<skos:altLabel xml:lang="no">Aksum</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Aksumo</skos:altLabel>
+	<skos:altLabel>Axum</skos:altLabel>
+	<skos:altLabel xml:lang="it">Axum</skos:altLabel>
+	<skos:altLabel xml:lang="en">Axum</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Axum</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Axum</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Axum</skos:altLabel>
+	<skos:altLabel>Āksum</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Аксум</skos:altLabel>
+	<skos:altLabel xml:lang="ar">أكسوم</skos:altLabel>
+	<skos:altLabel xml:lang="am">አክሱም</skos:altLabel>
+	<skos:prefLabel>Āksum</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/344597/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.11667</wgs:lat>
+	<wgs:long>37.76667</wgs:long>
+	<skos:altLabel>Aghise</skos:altLabel>
+	<skos:altLabel>Aghise Island</skos:altLabel>
+	<skos:prefLabel>Aghise</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/344609/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>11.25</wgs:lat>
+	<wgs:long>36.75</wgs:long>
+	<skos:altLabel>Agaume</skos:altLabel>
+	<skos:altLabel>Āgew Midir Āwraja</skos:altLabel>
+	<skos:prefLabel>Āgew Midir Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/344620/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>22105</europeana:population>
+	<wgs:lat>5.63333</wgs:lat>
+	<wgs:long>38.23333</wgs:long>
+	<skos:altLabel>Agere Mariam</skos:altLabel>
+	<skos:altLabel>Aghere Mariam</skos:altLabel>
+	<skos:altLabel>Alge</skos:altLabel>
+	<skos:altLabel>Alghe</skos:altLabel>
+	<skos:altLabel>Algheremariam</skos:altLabel>
+	<skos:altLabel>Algā</skos:altLabel>
+	<skos:altLabel>Hagere Mariam</skos:altLabel>
+	<skos:altLabel>Āgere Maryam</skos:altLabel>
+	<skos:prefLabel>Āgere Maryam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/344661/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>28268</europeana:population>
+	<wgs:lat>7.85</wgs:lat>
+	<wgs:long>36.65</wgs:long>
+	<skos:altLabel>Aggarò</skos:altLabel>
+	<skos:altLabel>Āgaro</skos:altLabel>
+	<skos:prefLabel>Āgaro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/344676/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>14.25</wgs:lat>
+	<wgs:long>39.83333</wgs:long>
+	<skos:prefLabel>Āgamē Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/344709/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.2325</wgs:lat>
+	<wgs:long>40.90333</wgs:long>
+	<skos:altLabel>Franchetti Island</skos:altLabel>
+	<skos:altLabel>Āfrēra Desēt</skos:altLabel>
+	<skos:prefLabel>Āfrēra Desēt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/344796/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>14.16667</wgs:lat>
+	<wgs:long>39.16667</wgs:long>
+	<skos:prefLabel>Ādwa Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/344923/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>22522</europeana:population>
+	<wgs:lat>12.11667</wgs:lat>
+	<wgs:long>37.78333</wgs:long>
+	<skos:altLabel>Addis Zaman</skos:altLabel>
+	<skos:altLabel>Addis Zemen</skos:altLabel>
+	<skos:altLabel>Ādīs Zemen</skos:altLabel>
+	<skos:prefLabel>Ādīs Zemen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/344979/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>2757729</europeana:population>
+	<wgs:lat>9.02497</wgs:lat>
+	<wgs:long>38.74689</wgs:long>
+	<skos:altLabel xml:lang="id">Addis Ababa</skos:altLabel>
+	<skos:altLabel xml:lang="en">Addis Ababa</skos:altLabel>
+	<skos:altLabel xml:lang="da">Addis Ababa</skos:altLabel>
+	<skos:altLabel xml:lang="io">Addis Ababa</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Addis Ababa</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Addis Ababa</skos:altLabel>
+	<skos:altLabel>Addis Abbaba</skos:altLabel>
+	<skos:altLabel>Addis Abeba</skos:altLabel>
+	<skos:altLabel xml:lang="de">Addis Abeba</skos:altLabel>
+	<skos:altLabel xml:lang="es">Addis Abeba</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Addis Abeba</skos:altLabel>
+	<skos:altLabel xml:lang="it">Addis Abeba</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Addis Abeba</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Addis Abeba</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Addis Abeba</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Addis Abeba</skos:altLabel>
+	<skos:altLabel xml:lang="la">Addis Abeba</skos:altLabel>
+	<skos:altLabel xml:lang="mg">Addis Abeba</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Addis Abeba</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Addis Abeba</skos:altLabel>
+	<skos:altLabel xml:lang="et">Addis Abeba</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Addis Abeba</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Addis Abeba</skos:altLabel>
+	<skos:altLabel xml:lang="no">Addis Abeba</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Addis-Abeba</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Addisz-Abeba</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Adis Abeba</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Adis Abeba</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Adis Abeba</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Adis Abeba</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Adis Abeba</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Adis-Abebo</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Adisabeba</skos:altLabel>
+	<skos:altLabel xml:lang="es">Adís Abeba</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Adís Abeba - አዲስ አበባ</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Adís Abeba - አዲስ ፡ አበባ</skos:altLabel>
+	<skos:altLabel xml:lang="la">Neanthopolis</skos:altLabel>
+	<skos:altLabel xml:lang="am">Ādīs Ābeba</skos:altLabel>
+	<skos:altLabel xml:lang="el">Αντίς Αμπέμπα</skos:altLabel>
+	<skos:altLabel xml:lang="os">Аддис-Абебæ</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Аддис-Абеба</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Аддіс-Абеба</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Адис Абеба</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Ադիս Աբեբա</skos:altLabel>
+	<skos:altLabel xml:lang="he">אדיס אבבה</skos:altLabel>
+	<skos:altLabel xml:lang="fa">آدیس آبابا</skos:altLabel>
+	<skos:altLabel xml:lang="ar">أديس أبابا</skos:altLabel>
+	<skos:altLabel xml:lang="ug">ئەددىس -ئەبىبە</skos:altLabel>
+	<skos:altLabel xml:lang="mr">अदिस अबाबा</skos:altLabel>
+	<skos:altLabel xml:lang="am">አዲስ አበባ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">アディスアベバ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">阿迪斯阿貝巴</skos:altLabel>
+	<skos:altLabel xml:lang="ko">아디스아바바</skos:altLabel>
+	<skos:prefLabel>Addis Ababa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/345353/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>22946</europeana:population>
+	<wgs:lat>11.26667</wgs:lat>
+	<wgs:long>37.48333</wgs:long>
+	<skos:altLabel>Addiet</skos:altLabel>
+	<skos:altLabel>Addiet Canna</skos:altLabel>
+	<skos:altLabel>Ādēt</skos:altLabel>
+	<skos:prefLabel>Ādēt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/345704/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15258</europeana:population>
+	<wgs:lat>9.98333</wgs:lat>
+	<wgs:long>39.98333</wgs:long>
+	<skos:altLabel>Abomsa</skos:altLabel>
+	<skos:altLabel>Abonsa</skos:altLabel>
+	<skos:prefLabel>Abomsa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/444178/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>9</wgs:lat>
+	<wgs:long>38.75</wgs:long>
+	<skos:altLabel>Ādīs Ābeba</skos:altLabel>
+	<skos:altLabel xml:lang="am">Ādīs Ābeba Āstedader</skos:altLabel>
+	<skos:prefLabel>Ādīs Ābeba Āstedader</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/444179/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1454366</europeana:population>
+	<wgs:lat>12</wgs:lat>
+	<wgs:long>41.5</wgs:long>
+	<skos:altLabel xml:lang="en">Afar Regional State</skos:altLabel>
+	<skos:altLabel xml:lang="en">The State of Afar</skos:altLabel>
+	<skos:altLabel>Āfar</skos:altLabel>
+	<skos:altLabel xml:lang="am">Āfar Kilil</skos:altLabel>
+	<skos:prefLabel>Āfar Kilil</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/444180/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>11.5</wgs:lat>
+	<wgs:long>38.5</wgs:long>
+	<skos:altLabel xml:lang="en">Amhara Regional State</skos:altLabel>
+	<skos:altLabel xml:lang="en">The State of Amhara</skos:altLabel>
+	<skos:altLabel>Āmara</skos:altLabel>
+	<skos:altLabel xml:lang="am">Āmara Kilil</skos:altLabel>
+	<skos:prefLabel>Āmara Kilil</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/444181/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>11</wgs:lat>
+	<wgs:long>35.5</wgs:long>
+	<skos:altLabel xml:lang="en">Beneshangual Gumz Regional State</skos:altLabel>
+	<skos:altLabel>Bīnshangul Gumuz</skos:altLabel>
+	<skos:altLabel xml:lang="am">Bīnshangul Gumuz Kilil</skos:altLabel>
+	<skos:altLabel xml:lang="en">The State of Benshangul/Gumuz</skos:altLabel>
+	<skos:prefLabel>Bīnshangul Gumuz Kilil</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/444182/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>9.5</wgs:lat>
+	<wgs:long>42</wgs:long>
+	<skos:altLabel>Dirē Dawa</skos:altLabel>
+	<skos:altLabel xml:lang="am">Dirē Dawa Āstedader</skos:altLabel>
+	<skos:prefLabel>Dirē Dawa Āstedader</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/444183/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>7.83333</wgs:lat>
+	<wgs:long>34.5</wgs:long>
+	<skos:altLabel xml:lang="en">Gambela Regional State</skos:altLabel>
+	<skos:altLabel>Gambēla Hizboch</skos:altLabel>
+	<skos:altLabel xml:lang="am">Gambēla Hizboch Kilil</skos:altLabel>
+	<skos:altLabel xml:lang="en">The State of Gambela Peoples</skos:altLabel>
+	<skos:prefLabel>Gambēla Hizboch Kilil</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/444184/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>9.25</wgs:lat>
+	<wgs:long>42.16667</wgs:long>
+	<skos:altLabel xml:lang="en">Harari Regional State</skos:altLabel>
+	<skos:altLabel>Hārerī Hizb</skos:altLabel>
+	<skos:altLabel xml:lang="am">Hārerī Hizb Kilil</skos:altLabel>
+	<skos:altLabel xml:lang="en">The State of Harari People</skos:altLabel>
+	<skos:prefLabel>Hārerī Hizb Kilil</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/444185/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>8</wgs:lat>
+	<wgs:long>39</wgs:long>
+	<skos:altLabel xml:lang="en">Oromia Regional State</skos:altLabel>
+	<skos:altLabel>Oromīya</skos:altLabel>
+	<skos:altLabel xml:lang="am">Oromīya Kilil</skos:altLabel>
+	<skos:altLabel xml:lang="en">The State of Oromia</skos:altLabel>
+	<skos:prefLabel>Oromīya Kilil</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/444186/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>7</wgs:lat>
+	<wgs:long>44</wgs:long>
+	<skos:altLabel xml:lang="en">Somalia Regional State</skos:altLabel>
+	<skos:altLabel>Sumalē</skos:altLabel>
+	<skos:altLabel xml:lang="am">Sumalē Kilil</skos:altLabel>
+	<skos:altLabel xml:lang="en">The State of Somalia</skos:altLabel>
+	<skos:prefLabel>Sumalē Kilil</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/444187/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>14.16667</wgs:lat>
+	<wgs:long>38.83333</wgs:long>
+	<skos:altLabel xml:lang="en">The State of Tigray</skos:altLabel>
+	<skos:altLabel>Tigray</skos:altLabel>
+	<skos:altLabel xml:lang="am">Tigray Kilil</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tigray Regional State</skos:altLabel>
+	<skos:prefLabel>Tigray Kilil</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/444188/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>6.25</wgs:lat>
+	<wgs:long>37</wgs:long>
+	<skos:altLabel xml:lang="en">Nationalities and Peoples, The State of Southern Nations</skos:altLabel>
+	<skos:altLabel xml:lang="en">Southern Nations and Nationalities Peoples Regional State</skos:altLabel>
+	<skos:altLabel>YeDebub Bihēroch Bihēreseboch na Hizboch</skos:altLabel>
+	<skos:altLabel xml:lang="am">YeDebub Bihēroch Bihēreseboch na Hizboch Kilil</skos:altLabel>
+	<skos:prefLabel>YeDebub Bihēroch Bihēreseboch na Hizboch Kilil</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7646394/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>12.57</wgs:lat>
+	<wgs:long>40.3</wgs:long>
+	<skos:prefLabel>Pemba District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648476/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>1356342</europeana:population>
+	<wgs:lat>7.35778</wgs:lat>
+	<wgs:long>38.48499</wgs:long>
+	<skos:prefLabel>East Shewa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648477/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>8</wgs:lat>
+	<wgs:long>38.66667</wgs:long>
+	<skos:prefLabel>Misraq Shewa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648478/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>8</wgs:lat>
+	<wgs:long>38.67</wgs:long>
+	<skos:prefLabel>Misraq Shewa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648522/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>10.66667</wgs:lat>
+	<wgs:long>34.83333</wgs:long>
+	<skos:prefLabel>Sherkole</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648556/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>11.41667</wgs:lat>
+	<wgs:long>37.16667</wgs:long>
+	<skos:prefLabel>Mecha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648846/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>6.09037</wgs:lat>
+	<wgs:long>36.99303</wgs:long>
+	<skos:prefLabel>Southern Nations, Nationalities and Peoples Region (SNNPR)</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649232/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>7.15872</wgs:lat>
+	<wgs:long>35.828</wgs:long>
+	<skos:prefLabel>Chena Woreda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649239/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>6.5</wgs:lat>
+	<wgs:long>35.75</wgs:long>
+	<skos:prefLabel>Meinit Woreda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649242/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>5.91667</wgs:lat>
+	<wgs:long>35.66667</wgs:long>
+	<skos:prefLabel>Dizi Woreda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649244/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>8.75</wgs:lat>
+	<wgs:long>38.66667</wgs:long>
+	<skos:prefLabel>Alem Gena Woreda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649247/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>8.33333</wgs:lat>
+	<wgs:long>38.66667</wgs:long>
+	<skos:prefLabel>Sodo Woreda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667865/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>8.0977</wgs:lat>
+	<wgs:long>35.8606</wgs:long>
+	<skos:prefLabel>Illubabor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667866/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>10.34852</wgs:lat>
+	<wgs:long>41.89975</wgs:long>
+	<skos:prefLabel>Shinile</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667867/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>8.60553</wgs:lat>
+	<wgs:long>40.77844</wgs:long>
+	<skos:prefLabel>West Harerghe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667868/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>12.96033</wgs:lat>
+	<wgs:long>39.52831</wgs:long>
+	<skos:prefLabel>Southern Tigray</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667869/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>7.45347</wgs:lat>
+	<wgs:long>38.2119</wgs:long>
+	<skos:prefLabel>Alaba Special Wereda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667870/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>7.27039</wgs:lat>
+	<wgs:long>37.77887</wgs:long>
+	<skos:prefLabel>Kembata Alaba Tembaro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667871/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>7.76048</wgs:lat>
+	<wgs:long>37.12599</wgs:long>
+	<skos:prefLabel>Jimma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667940/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>7.75</wgs:lat>
+	<wgs:long>37.08333</wgs:long>
+	<skos:prefLabel>Kersa Woreda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667942/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>8.33333</wgs:lat>
+	<wgs:long>37</wgs:long>
+	<skos:prefLabel>Limmu Sakka Woreda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667943/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>7.5</wgs:lat>
+	<wgs:long>36.08333</wgs:long>
+	<skos:prefLabel>Seka Chekorsa Woreda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667962/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>7.33333</wgs:lat>
+	<wgs:long>36.16667</wgs:long>
+	<skos:prefLabel>Ginbo Woreda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667963/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>6.83333</wgs:lat>
+	<wgs:long>36.16667</wgs:long>
+	<skos:prefLabel>Decha Woreda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667964/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/337996/"/>
+	<europeana:country>ET</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>6.91667</wgs:lat>
+	<wgs:long>35.16667</wgs:long>
+	<skos:prefLabel>Bench Woreda</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 261 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

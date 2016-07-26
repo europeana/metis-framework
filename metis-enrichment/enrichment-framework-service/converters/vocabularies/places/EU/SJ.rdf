@@ -1,0 +1,3840 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: EU_SJ
+Description: Selected fields pulled from Geonames about SJ done on Mon May 23 21:12:51 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/607010/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>77.38333</wgs:lat>
+	<wgs:long>22.16667</wgs:long>
+	<skos:altLabel>Ziegler Island</skos:altLabel>
+	<skos:altLabel>Zieglerøya</skos:altLabel>
+	<skos:prefLabel>Zieglerøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607013/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>78.26667</wgs:lat>
+	<wgs:long>22.61667</wgs:long>
+	<skos:altLabel>Zeil Islands</skos:altLabel>
+	<skos:altLabel>Zeiløyane</skos:altLabel>
+	<skos:prefLabel>Zeiløyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607022/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.05</wgs:lat>
+	<wgs:long>20.5</wgs:long>
+	<skos:altLabel>Isle Guillaume</skos:altLabel>
+	<skos:altLabel>Isle Thumb Point</skos:altLabel>
+	<skos:altLabel>Isola di Guglielmo</skos:altLabel>
+	<skos:altLabel>King William Island</skos:altLabel>
+	<skos:altLabel>Tommøya</skos:altLabel>
+	<skos:altLabel>Vilhelmsøya</skos:altLabel>
+	<skos:altLabel>Viljamsøya</skos:altLabel>
+	<skos:altLabel>Waajgats Eyland</skos:altLabel>
+	<skos:altLabel>Waygat Island</skos:altLabel>
+	<skos:altLabel>WilhelmInsel</skos:altLabel>
+	<skos:altLabel>Wilhelmøya</skos:altLabel>
+	<skos:altLabel>William I Island</skos:altLabel>
+	<skos:altLabel>William Island</skos:altLabel>
+	<skos:prefLabel>Wilhelmøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607029/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>79.21667</wgs:lat>
+	<wgs:long>20.11667</wgs:long>
+	<skos:altLabel xml:lang="de">Insel von Otter</skos:altLabel>
+	<skos:altLabel>Otter Islands</skos:altLabel>
+	<skos:altLabel>Otterøya</skos:altLabel>
+	<skos:altLabel>Von Otterøyane</skos:altLabel>
+	<skos:prefLabel>Von Otterøyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607038/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80.8</wgs:lat>
+	<wgs:long>20.36667</wgs:long>
+	<skos:altLabel>Klein-Tafeleiland</skos:altLabel>
+	<skos:altLabel>Lilla Taffelön</skos:altLabel>
+	<skos:altLabel>Lille Table Island</skos:altLabel>
+	<skos:altLabel>Lille Taffeløya</skos:altLabel>
+	<skos:altLabel>Little Table Island</skos:altLabel>
+	<skos:altLabel>Malyye Stolovyji</skos:altLabel>
+	<skos:altLabel>Vesle Tavleøya</skos:altLabel>
+	<skos:prefLabel>Vesle Tavleøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607047/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>77.08333</wgs:lat>
+	<wgs:long>22</wgs:long>
+	<skos:altLabel>Duizend Eilanden</skos:altLabel>
+	<skos:altLabel>Een Menigte van Eylandjes</skos:altLabel>
+	<skos:altLabel>Hopeless Islands</skos:altLabel>
+	<skos:altLabel>Laag Gebrooken Landt</skos:altLabel>
+	<skos:altLabel>Le Mille Isole</skos:altLabel>
+	<skos:altLabel>Low Brocken Ground</skos:altLabel>
+	<skos:altLabel>Low Broken Land</skos:altLabel>
+	<skos:altLabel>Mille-Iles</skos:altLabel>
+	<skos:altLabel>Niedriges und Versunkenes Land</skos:altLabel>
+	<skos:altLabel>Pays Bas et Noyé</skos:altLabel>
+	<skos:altLabel>Tausend Inseln</skos:altLabel>
+	<skos:altLabel>Terres Basses et Coupées</skos:altLabel>
+	<skos:altLabel>The Thousand Islands</skos:altLabel>
+	<skos:altLabel>Tuhat-saaret</skos:altLabel>
+	<skos:altLabel>Tusen Islands</skos:altLabel>
+	<skos:altLabel>Tusenöarne</skos:altLabel>
+	<skos:altLabel>Tusenøyan</skos:altLabel>
+	<skos:altLabel>Tusenøyane</skos:altLabel>
+	<skos:altLabel>Tusind Øer</skos:altLabel>
+	<skos:altLabel>Tusinde Øer</skos:altLabel>
+	<skos:altLabel>Tysjacj Ostrovov</skos:altLabel>
+	<skos:prefLabel>Tusenøyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607051/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.93333</wgs:lat>
+	<wgs:long>21.41667</wgs:long>
+	<skos:altLabel>Torkildsen Island</skos:altLabel>
+	<skos:altLabel>Torkildsenøya</skos:altLabel>
+	<skos:altLabel>Torküdsen</skos:altLabel>
+	<skos:prefLabel>Torkildsenøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607056/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.96667</wgs:lat>
+	<wgs:long>21.63333</wgs:long>
+	<skos:altLabel>Tobiesen Island</skos:altLabel>
+	<skos:altLabel>Tobiesenøya</skos:altLabel>
+	<skos:prefLabel>Tobiesenøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607058/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.76667</wgs:lat>
+	<wgs:long>28.66667</wgs:long>
+	<skos:altLabel>Tirpitz Island</skos:altLabel>
+	<skos:altLabel>Tirpitzøya</skos:altLabel>
+	<skos:prefLabel>Tirpitzøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607063/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>78.13333</wgs:lat>
+	<wgs:long>20.83333</wgs:long>
+	<skos:altLabel>Islands Thomas Smith</skos:altLabel>
+	<skos:altLabel>Smith Inseln</skos:altLabel>
+	<skos:altLabel>Smiths Iles</skos:altLabel>
+	<skos:altLabel>Thomas Smiths Öar</skos:altLabel>
+	<skos:altLabel>Thomas Smithøyane</skos:altLabel>
+	<skos:altLabel>Thomasøyane</skos:altLabel>
+	<skos:prefLabel>Thomas Smithøyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607065/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80.73333</wgs:lat>
+	<wgs:long>20.46667</wgs:long>
+	<skos:altLabel>Isola della Tavola</skos:altLabel>
+	<skos:altLabel>Stolovyi Ostrov</skos:altLabel>
+	<skos:altLabel>Table Island</skos:altLabel>
+	<skos:altLabel>Taffel Ön</skos:altLabel>
+	<skos:altLabel>Tavleøya</skos:altLabel>
+	<skos:prefLabel>Tavleøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607066/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80.2</wgs:lat>
+	<wgs:long>25.83333</wgs:long>
+	<skos:prefLabel>Tandbergøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607068/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.71667</wgs:lat>
+	<wgs:long>26.5</wgs:long>
+	<skos:altLabel>Det Svenske Forland</skos:altLabel>
+	<skos:altLabel>Fastiisöen</skos:altLabel>
+	<skos:altLabel>Giles-Land</skos:altLabel>
+	<skos:altLabel>Isola del Ghiaccio Forte</skos:altLabel>
+	<skos:altLabel>Promontoire Suédois</skos:altLabel>
+	<skos:altLabel>Schwedisches Vorland</skos:altLabel>
+	<skos:altLabel>Svenska Förlandet</skos:altLabel>
+	<skos:altLabel>Svenskeöya</skos:altLabel>
+	<skos:altLabel>Svenskøya</skos:altLabel>
+	<skos:altLabel>Swedish Foreland</skos:altLabel>
+	<skos:prefLabel>Svenskøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607072/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255148/"/>
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.TERR"/>
+	<europeana:population>2550</europeana:population>
+	<wgs:lat>78</wgs:lat>
+	<wgs:long>20</wgs:long>
+	<skos:altLabel xml:lang="fi">Huippuvuoret ja Jan Mayen</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Ilhas Svalbard e Jan Mayen</skos:altLabel>
+	<skos:altLabel xml:lang="es">Islas Svalbard y Jan Mayen</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Spitsbergen en Jan Mayen</skos:altLabel>
+	<skos:altLabel>Svalbard Archipelago</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Svalbard a Jan Mayen</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Svalbard a Jan Mayen</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Svalbard a Jan Mayern</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Svalbard agus Jan Mayen</skos:altLabel>
+	<skos:altLabel xml:lang="id">Svalbard and Jan Mayen</skos:altLabel>
+	<skos:altLabel xml:lang="en">Svalbard and Jan Mayen</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Svalbard and Jan Mayen</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Svalbard and Jan Mayen</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Svalbard e Jan Mayen</skos:altLabel>
+	<skos:altLabel xml:lang="it">Svalbard e Jan Mayen</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Svalbard et Jan Mayen</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Svalbard eta Jan Mayen uharteak</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Svalbard i Jan Mayen</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Svalbard i Jan Mayen</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Svalbard i Wyspy Jan Mayen</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Svalbard in otoki Jan Mayen</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Svalbard ir Jan Mayen</skos:altLabel>
+	<skos:altLabel xml:lang="et">Svalbard ja Jan Mayen</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Svalbard och Jan Mayen</skos:altLabel>
+	<skos:altLabel xml:lang="da">Svalbard og Jan Mayen</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Svalbard og Jan Mayen</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Svalbard og Jan Mayen</skos:altLabel>
+	<skos:altLabel xml:lang="de">Svalbard und Jan-Mayen</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Svalbard ve Jan Mayen</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Svalbard và Jan Mayen</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Svalbard és Jan Mayen</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Svalbard şi Jan Mayen</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Svalbardo kaj Jan-Majen-insulo</skos:altLabel>
+	<skos:altLabel xml:lang="is">Svalbarði og Jan Mayen</skos:altLabel>
+	<skos:altLabel xml:lang="se">Svalbárdda ja Jan Mayen</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Svalbāras arhipelāgs un Jana Majena sala</skos:altLabel>
+	<skos:altLabel xml:lang="el">Νήσοι Σβάλμπαρ και Γιαν Μαγιέν</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Свалбард и Јан Мајен</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Свалбард и Жан Мијен Острови</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Свалбард и Ян Майен</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Свалбард і Ян Майєн, острови</skos:altLabel>
+	<skos:altLabel xml:lang="be">Свальбард (Паўночна-Усходняя Зямля) і Ян-Маен</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Шпицберген и Ян-Майен</skos:altLabel>
+	<skos:altLabel xml:lang="he">סוולברד וג'אן מאין</skos:altLabel>
+	<skos:altLabel xml:lang="fa">اسوالبارد و جان ماین</skos:altLabel>
+	<skos:altLabel xml:lang="ar">سفالبارد وجان مايان</skos:altLabel>
+	<skos:altLabel xml:lang="hi">स्वालबार्ड एंड जान मेयन</skos:altLabel>
+	<skos:altLabel xml:lang="bn">স্বালবার্ড ও জান মেয়েন</skos:altLabel>
+	<skos:altLabel xml:lang="th">สฟาลบาร์และแจนมาเยน</skos:altLabel>
+	<skos:altLabel xml:lang="am">የስቫልባርድ እና ዣን ማየን ደሴቶች</skos:altLabel>
+	<skos:altLabel xml:lang="ja">スバールバル諸島とヤンマイエン島</skos:altLabel>
+	<skos:altLabel xml:lang="zh">斯瓦尔巴和扬马延</skos:altLabel>
+	<skos:altLabel xml:lang="ko">스발비드 군도</skos:altLabel>
+	<skos:prefLabel>Svalbard and Jan Mayen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607073/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.98333</wgs:lat>
+	<wgs:long>27.33333</wgs:long>
+	<skos:altLabel>Sucai Isola</skos:altLabel>
+	<skos:altLabel>Sucaiøya</skos:altLabel>
+	<skos:prefLabel>Sucaiøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607078/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80.13333</wgs:lat>
+	<wgs:long>27.83333</wgs:long>
+	<skos:altLabel>Big Island</skos:altLabel>
+	<skos:altLabel>Grande Ile</skos:altLabel>
+	<skos:altLabel>Great High Island</skos:altLabel>
+	<skos:altLabel>Great Insel</skos:altLabel>
+	<skos:altLabel>Great Island</skos:altLabel>
+	<skos:altLabel>Groot Hoog Eyland</skos:altLabel>
+	<skos:altLabel>Grosse Insel</skos:altLabel>
+	<skos:altLabel>Hohe Insel</skos:altLabel>
+	<skos:altLabel>Isle Haute et Montagne de Glace</skos:altLabel>
+	<skos:altLabel>Isola Grande</skos:altLabel>
+	<skos:altLabel>Isola Great</skos:altLabel>
+	<skos:altLabel>Stor-ce</skos:altLabel>
+	<skos:altLabel>Store Ö</skos:altLabel>
+	<skos:altLabel>Storo Island</skos:altLabel>
+	<skos:altLabel>Storøen</skos:altLabel>
+	<skos:altLabel>Storøya</skos:altLabel>
+	<skos:prefLabel>Storøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607092/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80.41667</wgs:lat>
+	<wgs:long>24.21667</wgs:long>
+	<skos:altLabel>Söre Repsøya</skos:altLabel>
+	<skos:altLabel>Søre Repøya</skos:altLabel>
+	<skos:prefLabel>Søre Repøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607093/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80.48333</wgs:lat>
+	<wgs:long>20.2</wgs:long>
+	<skos:altLabel>Sondre Castrénoya</skos:altLabel>
+	<skos:altLabel>Søre Castrénøya</skos:altLabel>
+	<skos:prefLabel>Søre Castrénøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607095/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.88333</wgs:lat>
+	<wgs:long>27.33333</wgs:long>
+	<skos:altLabel>Sneholmen</skos:altLabel>
+	<skos:altLabel>Snøholmen</skos:altLabel>
+	<skos:prefLabel>Snøholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607102/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>80.71667</wgs:lat>
+	<wgs:long>20.75</wgs:long>
+	<skos:altLabel>7 Broeders</skos:altLabel>
+	<skos:altLabel>7 Eylanden</skos:altLabel>
+	<skos:altLabel>Le Sette Isole</skos:altLabel>
+	<skos:altLabel>Les Sept Iles</skos:altLabel>
+	<skos:altLabel>Seitsens</skos:altLabel>
+	<skos:altLabel>Sem Ostrovov</skos:altLabel>
+	<skos:altLabel>Shefferdes Orcades</skos:altLabel>
+	<skos:altLabel>Sieben Eylanden</skos:altLabel>
+	<skos:altLabel>Sieben Inseln</skos:altLabel>
+	<skos:altLabel>Sju Öarne</skos:altLabel>
+	<skos:altLabel>Sjuøyan</skos:altLabel>
+	<skos:altLabel>Sjuøyane</skos:altLabel>
+	<skos:altLabel>Syv Öerne</skos:altLabel>
+	<skos:altLabel>Syvöer</skos:altLabel>
+	<skos:altLabel>Syvöyan</skos:altLabel>
+	<skos:altLabel>The Seven Islands</skos:altLabel>
+	<skos:altLabel>Zeven Eilanden</skos:altLabel>
+	<skos:prefLabel>Sjuøyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607104/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.91667</wgs:lat>
+	<wgs:long>21.5</wgs:long>
+	<skos:altLabel>Simonsen Island</skos:altLabel>
+	<skos:altLabel>Simonsenøya</skos:altLabel>
+	<skos:prefLabel>Simonsenøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607110/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80.35</wgs:lat>
+	<wgs:long>21.36667</wgs:long>
+	<skos:altLabel>Scoresby Island</skos:altLabel>
+	<skos:altLabel>Scoresbys Ö</skos:altLabel>
+	<skos:altLabel>Scoresbyøya</skos:altLabel>
+	<skos:altLabel>Storbai-øya</skos:altLabel>
+	<skos:prefLabel>Scoresbyøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607114/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80.43333</wgs:lat>
+	<wgs:long>26</wgs:long>
+	<skos:altLabel>Schübeler Island</skos:altLabel>
+	<skos:altLabel>Schübelerøya</skos:altLabel>
+	<skos:altLabel>Schübler Island</skos:altLabel>
+	<skos:prefLabel>Schübelerøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607118/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80.25</wgs:lat>
+	<wgs:long>25.6</wgs:long>
+	<skos:altLabel>Sars Island</skos:altLabel>
+	<skos:altLabel>Sarsholmen</skos:altLabel>
+	<skos:prefLabel>Sarsholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607121/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>80.28333</wgs:lat>
+	<wgs:long>21.23333</wgs:long>
+	<skos:altLabel>Sabine Islands</skos:altLabel>
+	<skos:altLabel>Sabiner Island</skos:altLabel>
+	<skos:altLabel>Sabineøyane</skos:altLabel>
+	<skos:altLabel>Sabine’s Öar</skos:altLabel>
+	<skos:prefLabel>Sabineøyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607125/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>77.78333</wgs:lat>
+	<wgs:long>25.2</wgs:long>
+	<skos:altLabel>Rekis-øyane</skos:altLabel>
+	<skos:altLabel>Rijck Isse Eijlanden</skos:altLabel>
+	<skos:altLabel>Rijk Yse Islands</skos:altLabel>
+	<skos:altLabel>Ryck Ises Eylanden</skos:altLabel>
+	<skos:altLabel>Ryk Ises Eylanden</skos:altLabel>
+	<skos:altLabel>Ryk Isles</skos:altLabel>
+	<skos:altLabel>Ryk Yseøyane</skos:altLabel>
+	<skos:altLabel>Ryke Yse Islands</skos:altLabel>
+	<skos:altLabel>Ryke Yse-Eilanden</skos:altLabel>
+	<skos:altLabel>Ryke Yses Öar</skos:altLabel>
+	<skos:altLabel>Ryke Yseøyane</skos:altLabel>
+	<skos:altLabel>Rykisse Eylanden</skos:altLabel>
+	<skos:altLabel>Rykissen Eilanden</skos:altLabel>
+	<skos:altLabel>Rækis-øyan</skos:altLabel>
+	<skos:altLabel>Witches Land</skos:altLabel>
+	<skos:prefLabel>Ryke Yseøyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607127/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>77.3</wgs:lat>
+	<wgs:long>21.23333</wgs:long>
+	<skos:altLabel>Russeholmen</skos:altLabel>
+	<skos:altLabel>Russö</skos:altLabel>
+	<skos:prefLabel>Russeholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607131/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80.81667</wgs:lat>
+	<wgs:long>20.4</wgs:long>
+	<skos:altLabel>Ross Island</skos:altLabel>
+	<skos:altLabel>Rossøya</skos:altLabel>
+	<skos:prefLabel>Rossøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607134/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>78.93333</wgs:lat>
+	<wgs:long>21.5</wgs:long>
+	<skos:altLabel>Römbäks Islands</skos:altLabel>
+	<skos:altLabel>Rönnbäck Inseln</skos:altLabel>
+	<skos:altLabel>Rønnbeckøyane</skos:altLabel>
+	<skos:prefLabel>Rønnbeckøyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607136/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.88333</wgs:lat>
+	<wgs:long>28.75</wgs:long>
+	<skos:altLabel>Röhss Island</skos:altLabel>
+	<skos:altLabel>Röhss Ö</skos:altLabel>
+	<skos:altLabel>Röhssøya</skos:altLabel>
+	<skos:prefLabel>Röhssøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607144/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>80.45</wgs:lat>
+	<wgs:long>24.21667</wgs:long>
+	<skos:altLabel>Reps Islands</skos:altLabel>
+	<skos:altLabel>Repsøyan</skos:altLabel>
+	<skos:altLabel>Repøyane</skos:altLabel>
+	<skos:prefLabel>Repøyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607150/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80.2</wgs:lat>
+	<wgs:long>26.08333</wgs:long>
+	<skos:altLabel>Kap Von Otter</skos:altLabel>
+	<skos:altLabel>Rasch Island</skos:altLabel>
+	<skos:altLabel>Raschøya</skos:altLabel>
+	<skos:altLabel>Von Otter Island</skos:altLabel>
+	<skos:altLabel>Von Otters Ö</skos:altLabel>
+	<skos:prefLabel>Raschøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607153/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.91667</wgs:lat>
+	<wgs:long>21.5</wgs:long>
+	<skos:altLabel>Onale Island</skos:altLabel>
+	<skos:altLabel>Qvale Island</skos:altLabel>
+	<skos:altLabel>Qvaleøya</skos:altLabel>
+	<skos:prefLabel>Qvaleøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607164/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>80.7</wgs:lat>
+	<wgs:long>20.7</wgs:long>
+	<skos:altLabel>Hooy Berg</skos:altLabel>
+	<skos:altLabel>Phipps Ö</skos:altLabel>
+	<skos:altLabel>Phippsøya</skos:altLabel>
+	<skos:prefLabel>Phippsøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607167/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.03333</wgs:lat>
+	<wgs:long>21.5</wgs:long>
+	<skos:altLabel>Peschel Island</skos:altLabel>
+	<skos:altLabel>Pescheløya</skos:altLabel>
+	<skos:prefLabel>Pescheløya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607168/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.3</wgs:lat>
+	<wgs:long>20.61667</wgs:long>
+	<skos:altLabel>Perthes Island</skos:altLabel>
+	<skos:altLabel>Perthesøya</skos:altLabel>
+	<skos:prefLabel>Perthesøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607174/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80.61667</wgs:lat>
+	<wgs:long>20.66667</wgs:long>
+	<skos:altLabel>Parryn Saari</skos:altLabel>
+	<skos:altLabel>Parryøya</skos:altLabel>
+	<skos:altLabel>Taaffelbergh</skos:altLabel>
+	<skos:altLabel>Tafel Berg</skos:altLabel>
+	<skos:prefLabel>Parryøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607187/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80.48333</wgs:lat>
+	<wgs:long>24.13333</wgs:long>
+	<skos:altLabel>Nordre Repsøya</skos:altLabel>
+	<skos:altLabel>Nordre Repøya</skos:altLabel>
+	<skos:altLabel>Rheenen Eijland</skos:altLabel>
+	<skos:altLabel>’t Reene Eyland</skos:altLabel>
+	<skos:prefLabel>Nordre Repøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607188/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80.5</wgs:lat>
+	<wgs:long>20.26667</wgs:long>
+	<skos:altLabel>Castréns ö</skos:altLabel>
+	<skos:altLabel>Ile Bastrén</skos:altLabel>
+	<skos:altLabel>Nordre Castrénøya</skos:altLabel>
+	<skos:prefLabel>Nordre Castrénøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607197/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.8</wgs:lat>
+	<wgs:long>22.4</wgs:long>
+	<skos:altLabel>Côtes du Nord-Est</skos:altLabel>
+	<skos:altLabel>Het Land van Noord Oosten</skos:altLabel>
+	<skos:altLabel>Het Noord Ooster Land</skos:altLabel>
+	<skos:altLabel>Kaillismaa</skos:altLabel>
+	<skos:altLabel>Le Pais du Nord Est</skos:altLabel>
+	<skos:altLabel>Nord Östliches Land</skos:altLabel>
+	<skos:altLabel>Nordaustirlanoðioð</skos:altLabel>
+	<skos:altLabel>Nordaustland</skos:altLabel>
+	<skos:altLabel xml:lang="no">Nordaustlandet</skos:altLabel>
+	<skos:altLabel xml:lang="en">Nordaustlandet</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Nordaustlandet</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Nordaustlandet</skos:altLabel>
+	<skos:altLabel>Nordaustlandet</skos:altLabel>
+	<skos:altLabel>Nordost Land</skos:altLabel>
+	<skos:altLabel xml:lang="de">Nordostland</skos:altLabel>
+	<skos:altLabel>Nordostlandet</skos:altLabel>
+	<skos:altLabel>North East Land</skos:altLabel>
+	<skos:altLabel>Serovychodni Zeme</skos:altLabel>
+	<skos:altLabel>Severo Wostočnaja Zemlja</skos:altLabel>
+	<skos:altLabel>Sir Thomas Smyths Iland</skos:altLabel>
+	<skos:altLabel>Smyths Lant</skos:altLabel>
+	<skos:altLabel>Soud-Westland</skos:altLabel>
+	<skos:altLabel>Sud-Osten-Land</skos:altLabel>
+	<skos:altLabel>Terre de Sud-Oüest</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Ziemia Północno-Wschodnia</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ノールアウストランネ島</skos:altLabel>
+	<skos:altLabel xml:lang="ko">노르아우스틀라네 섬</skos:altLabel>
+	<skos:prefLabel>Nordaustlandet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607200/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80.6</wgs:lat>
+	<wgs:long>20.5</wgs:long>
+	<skos:altLabel>Nelsons-ö</skos:altLabel>
+	<skos:altLabel>Nelsonøya</skos:altLabel>
+	<skos:prefLabel>Nelsonøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607203/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.93333</wgs:lat>
+	<wgs:long>21.18333</wgs:long>
+	<skos:altLabel>Nedrevaag Island</skos:altLabel>
+	<skos:altLabel>Nedrevag Island</skos:altLabel>
+	<skos:altLabel>Nedrevågøya</skos:altLabel>
+	<skos:prefLabel>Nedrevågøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607215/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>77.16667</wgs:lat>
+	<wgs:long>22.71667</wgs:long>
+	<skos:altLabel>Menke Islands</skos:altLabel>
+	<skos:altLabel>Menkeøyane</skos:altLabel>
+	<skos:prefLabel>Menkeøyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607217/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>77.16667</wgs:lat>
+	<wgs:long>21.5</wgs:long>
+	<skos:altLabel>Meinicke Inseln</skos:altLabel>
+	<skos:altLabel>Meinickeøyane</skos:altLabel>
+	<skos:prefLabel>Meinickeøyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607219/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80.66667</wgs:lat>
+	<wgs:long>21.21667</wgs:long>
+	<skos:altLabel>Martens Ö</skos:altLabel>
+	<skos:altLabel>Martensøya</skos:altLabel>
+	<skos:altLabel>Martins Island</skos:altLabel>
+	<skos:altLabel>Mortens Ö</skos:altLabel>
+	<skos:prefLabel>Martensøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607224/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.91667</wgs:lat>
+	<wgs:long>20.88333</wgs:long>
+	<skos:altLabel>Mack Island</skos:altLabel>
+	<skos:altLabel>Mackøya</skos:altLabel>
+	<skos:prefLabel>Mackøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607227/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.86667</wgs:lat>
+	<wgs:long>28.75</wgs:long>
+	<skos:altLabel>Lyckholm Island</skos:altLabel>
+	<skos:altLabel>Lyckholms Ö</skos:altLabel>
+	<skos:altLabel>Lyckholmøya</skos:altLabel>
+	<skos:prefLabel>Lyckholmøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607233/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80.11667</wgs:lat>
+	<wgs:long>22.25</wgs:long>
+	<skos:altLabel>Long Island</skos:altLabel>
+	<skos:altLabel>Semkat Insel</skos:altLabel>
+	<skos:prefLabel>Long Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607252/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.03333</wgs:lat>
+	<wgs:long>21.03333</wgs:long>
+	<skos:altLabel>Dove</skos:altLabel>
+	<skos:altLabel>Ehrenberg</skos:altLabel>
+	<skos:altLabel>Isle Jäderin</skos:altLabel>
+	<skos:altLabel>Koner Island</skos:altLabel>
+	<skos:altLabel>Lange</skos:altLabel>
+	<skos:altLabel>Langeøya</skos:altLabel>
+	<skos:altLabel>Langøya</skos:altLabel>
+	<skos:prefLabel>Langeøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607253/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.61667</wgs:lat>
+	<wgs:long>20.16667</wgs:long>
+	<skos:altLabel>Lamont Island</skos:altLabel>
+	<skos:altLabel>Lamontøya</skos:altLabel>
+	<skos:prefLabel>Lamontøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607255/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80.13333</wgs:lat>
+	<wgs:long>32.58333</wgs:long>
+	<skos:altLabel>Commander Gillies’ Land</skos:altLabel>
+	<skos:altLabel>Commandeur Giles Land</skos:altLabel>
+	<skos:altLabel>Giles-maa</skos:altLabel>
+	<skos:altLabel>Giles’ White Island</skos:altLabel>
+	<skos:altLabel>Gilles Land</skos:altLabel>
+	<skos:altLabel>Gillis’s Land</skos:altLabel>
+	<skos:altLabel>Hvidøen</skos:altLabel>
+	<skos:altLabel>Hvita Ön</skos:altLabel>
+	<skos:altLabel>Hvitoya</skos:altLabel>
+	<skos:altLabel>Ile Blanche</skos:altLabel>
+	<skos:altLabel>Isola Bianca</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kvitøya</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Kvitøya</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Kvitøya</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kvitøya</skos:altLabel>
+	<skos:altLabel xml:lang="no">Kvitøya</skos:altLabel>
+	<skos:altLabel>Kvitøya</skos:altLabel>
+	<skos:altLabel>New Iceland</skos:altLabel>
+	<skos:altLabel>Ny Island</skos:altLabel>
+	<skos:altLabel>Ostrov Belyj</skos:altLabel>
+	<skos:altLabel>Valkoinen Saari</skos:altLabel>
+	<skos:altLabel>Vidö</skos:altLabel>
+	<skos:altLabel>Vitön</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Vitön</skos:altLabel>
+	<skos:altLabel>White Island</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Wyspa Biała</skos:altLabel>
+	<skos:prefLabel>Kvitøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607258/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.6</wgs:lat>
+	<wgs:long>20.5</wgs:long>
+	<skos:altLabel>Hvalrosøen</skos:altLabel>
+	<skos:altLabel>Kvalrossøya</skos:altLabel>
+	<skos:altLabel>Seahorse Island</skos:altLabel>
+	<skos:altLabel>Wallross Island</skos:altLabel>
+	<skos:altLabel>Walrussen Eylandt</skos:altLabel>
+	<skos:altLabel>Île du Narwhal</skos:altLabel>
+	<skos:prefLabel>Kvalrossøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607262/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.65</wgs:lat>
+	<wgs:long>21.33333</wgs:long>
+	<skos:altLabel>Ils Alexéew</skos:altLabel>
+	<skos:altLabel>Kükenthal-Insel</skos:altLabel>
+	<skos:altLabel>Kükenthalvøya</skos:altLabel>
+	<skos:altLabel>Kükenthaløya</skos:altLabel>
+	<skos:prefLabel>Kükenthaløya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607271/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.91667</wgs:lat>
+	<wgs:long>28.66667</wgs:long>
+	<skos:altLabel>Bjørneøen</skos:altLabel>
+	<skos:altLabel>Gilesøen</skos:altLabel>
+	<skos:altLabel>Gillis Land</skos:altLabel>
+	<skos:altLabel>Jena Insel</skos:altLabel>
+	<skos:altLabel>King Charles Island</skos:altLabel>
+	<skos:altLabel>Kong Karl-Land</skos:altLabel>
+	<skos:altLabel>Kongsøya</skos:altLabel>
+	<skos:altLabel>Kung Karls Ö</skos:altLabel>
+	<skos:prefLabel>Kongsøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607272/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>77.3</wgs:lat>
+	<wgs:long>21.36667</wgs:long>
+	<skos:altLabel>Iles du Roi Louis</skos:altLabel>
+	<skos:altLabel>Isole del Re Luigi</skos:altLabel>
+	<skos:altLabel>Kong Ludvigøyane</skos:altLabel>
+	<skos:altLabel>Konung Ludwigs-Öarna</skos:altLabel>
+	<skos:altLabel>König Ludwig Inseln</skos:altLabel>
+	<skos:altLabel>Ludwig Phillips Ö</skos:altLabel>
+	<skos:altLabel>Russøyan</skos:altLabel>
+	<skos:altLabel>Ryss-Öarna</skos:altLabel>
+	<skos:prefLabel>Kong Ludvigøyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607273/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>78.83333</wgs:lat>
+	<wgs:long>28</wgs:long>
+	<skos:altLabel>Giles-Land</skos:altLabel>
+	<skos:altLabel>Gruppo delle Wiches</skos:altLabel>
+	<skos:altLabel>Iles Wilhe</skos:altLabel>
+	<skos:altLabel>Iles du Roi-Charles</skos:altLabel>
+	<skos:altLabel>King Charles Islands</skos:altLabel>
+	<skos:altLabel>King Charles Land</skos:altLabel>
+	<skos:altLabel>King Karl Islands</skos:altLabel>
+	<skos:altLabel>Kong Karl Land</skos:altLabel>
+	<skos:altLabel>Kong Karls Land</skos:altLabel>
+	<skos:altLabel>Kung Karls Land</skos:altLabel>
+	<skos:altLabel>Kunningas Kaarlen Maa</skos:altLabel>
+	<skos:altLabel>König Karl Land</skos:altLabel>
+	<skos:altLabel>König Karl’s Inseln</skos:altLabel>
+	<skos:altLabel>Terra de Re Carlo</skos:altLabel>
+	<skos:altLabel>Terre du Roi Charles</skos:altLabel>
+	<skos:altLabel>Wyches Islands</skos:altLabel>
+	<skos:altLabel>Zemlja Korolja Karla</skos:altLabel>
+	<skos:altLabel>le Isole Wiches</skos:altLabel>
+	<skos:prefLabel>Kong Karls Land</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607280/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.6</wgs:lat>
+	<wgs:long>20.66667</wgs:long>
+	<skos:altLabel>Buchan Inseln</skos:altLabel>
+	<skos:altLabel>Isle des Phoques</skos:altLabel>
+	<skos:altLabel>Kobbeøerne</skos:altLabel>
+	<skos:altLabel>Kobbeøya</skos:altLabel>
+	<skos:altLabel>Robben Eyland</skos:altLabel>
+	<skos:altLabel>Seal Island</skos:altLabel>
+	<skos:altLabel>Île des Chiens Marins</skos:altLabel>
+	<skos:prefLabel>Kobbeøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607282/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79</wgs:lat>
+	<wgs:long>21.66667</wgs:long>
+	<skos:altLabel>Klöden Island</skos:altLabel>
+	<skos:altLabel>Klödenøya</skos:altLabel>
+	<skos:prefLabel>Klödenøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607284/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80.23333</wgs:lat>
+	<wgs:long>25.66667</wgs:long>
+	<skos:altLabel>Kjerulf Island</skos:altLabel>
+	<skos:altLabel>Kjerulføya</skos:altLabel>
+	<skos:prefLabel>Kjerulføya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607285/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79</wgs:lat>
+	<wgs:long>21.5</wgs:long>
+	<skos:altLabel>Kiepert Island</skos:altLabel>
+	<skos:altLabel>Kiepertøya</skos:altLabel>
+	<skos:altLabel>Sivertøya</skos:altLabel>
+	<skos:prefLabel>Kiepertøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607286/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.86667</wgs:lat>
+	<wgs:long>27.9</wgs:long>
+	<skos:altLabel>Kennedy Island</skos:altLabel>
+	<skos:altLabel>Kennedys Ö</skos:altLabel>
+	<skos:altLabel>Kennedyøya</skos:altLabel>
+	<skos:prefLabel>Kennedyøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607289/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80.65</wgs:lat>
+	<wgs:long>25</wgs:long>
+	<skos:altLabel>Charles XII Island</skos:altLabel>
+	<skos:altLabel>Karl XII Øya</skos:altLabel>
+	<skos:altLabel>Karl XII Øyane</skos:altLabel>
+	<skos:altLabel>Karl XII-øya</skos:altLabel>
+	<skos:altLabel>La Terre Charles</skos:altLabel>
+	<skos:altLabel>Outger Reps Island</skos:altLabel>
+	<skos:altLabel>Vlak Eyland</skos:altLabel>
+	<skos:prefLabel>Karl XII-øya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607291/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.26667</wgs:lat>
+	<wgs:long>21.13333</wgs:long>
+	<skos:altLabel>Carl Alexander Island</skos:altLabel>
+	<skos:altLabel>Karl Alexanderøya</skos:altLabel>
+	<skos:prefLabel>Karl Alexanderøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607296/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>78.2</wgs:lat>
+	<wgs:long>20.5</wgs:long>
+	<skos:altLabel>Jakimovičøyane</skos:altLabel>
+	<skos:altLabel>Îles Jakimovitch</skos:altLabel>
+	<skos:prefLabel>Jakimovičøyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607305/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.91667</wgs:lat>
+	<wgs:long>21.41667</wgs:long>
+	<skos:altLabel>Isaksen Island</skos:altLabel>
+	<skos:altLabel>Isaksenøya</skos:altLabel>
+	<skos:prefLabel>Isaksenøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607314/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>76.58972</wgs:lat>
+	<wgs:long>25.265</wgs:long>
+	<skos:altLabel>Hoffnungs Island</skos:altLabel>
+	<skos:altLabel>Hoffnungs-Insel</skos:altLabel>
+	<skos:altLabel>Hoop Eylant</skos:altLabel>
+	<skos:altLabel>Hoopen Eylandt</skos:altLabel>
+	<skos:altLabel>Hooren Baij</skos:altLabel>
+	<skos:altLabel>Hope Island</skos:altLabel>
+	<skos:altLabel>Hopen</skos:altLabel>
+	<skos:altLabel>Hopps-ön</skos:altLabel>
+	<skos:altLabel>Isle Esperance</skos:altLabel>
+	<skos:altLabel>Isola della Speranza</skos:altLabel>
+	<skos:altLabel>Isole Speranza</skos:altLabel>
+	<skos:altLabel>Morskaya Loshad’</skos:altLabel>
+	<skos:altLabel>Nadezhda Ostrov</skos:altLabel>
+	<skos:altLabel>Ostrov Nadezhdy</skos:altLabel>
+	<skos:altLabel>Ostrov Nadeždy</skos:altLabel>
+	<skos:altLabel>Seahorse Island</skos:altLabel>
+	<skos:altLabel>Seepferd Island</skos:altLabel>
+	<skos:altLabel>Verlaten Eylant</skos:altLabel>
+	<skos:altLabel>Visch-Eylandt</skos:altLabel>
+	<skos:altLabel>Walross Island</skos:altLabel>
+	<skos:altLabel>l’ile d’ Esperance</skos:altLabel>
+	<skos:altLabel>l’isola Hope</skos:altLabel>
+	<skos:altLabel>’t Verlaten Eylandt</skos:altLabel>
+	<skos:prefLabel>Hopen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607323/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>78.53333</wgs:lat>
+	<wgs:long>20.16667</wgs:long>
+	<skos:altLabel>Henckel Inseln</skos:altLabel>
+	<skos:altLabel>Henckeløyane</skos:altLabel>
+	<skos:prefLabel>Henckeløyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607327/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.78333</wgs:lat>
+	<wgs:long>28.66667</wgs:long>
+	<skos:altLabel>Helgoland Island</skos:altLabel>
+	<skos:altLabel>Helgolandön</skos:altLabel>
+	<skos:altLabel>Helgolandøya</skos:altLabel>
+	<skos:prefLabel>Helgolandøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607335/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>76.93333</wgs:lat>
+	<wgs:long>21.33333</wgs:long>
+	<skos:altLabel>High Rock</skos:altLabel>
+	<skos:altLabel>Hochstein</skos:altLabel>
+	<skos:altLabel>Hoher Fels</skos:altLabel>
+	<skos:altLabel>Husøya</skos:altLabel>
+	<skos:altLabel>Håøya</skos:altLabel>
+	<skos:altLabel>Høy Roks</skos:altLabel>
+	<skos:altLabel>Rocher Elevé</skos:altLabel>
+	<skos:prefLabel>Håøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607339/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>77.28333</wgs:lat>
+	<wgs:long>23.16667</wgs:long>
+	<skos:altLabel>Abbots Island</skos:altLabel>
+	<skos:altLabel>Halbmond Island</skos:altLabel>
+	<skos:altLabel>Half Moon Island</skos:altLabel>
+	<skos:altLabel>Halve Maans Eyland</skos:altLabel>
+	<skos:altLabel>Halvemaens Eyland</skos:altLabel>
+	<skos:altLabel>Halvmåneøya</skos:altLabel>
+	<skos:altLabel>Helluemaens Isole</skos:altLabel>
+	<skos:altLabel>Ile de la Demi Lune</skos:altLabel>
+	<skos:altLabel>Isle de la Demie Lune</skos:altLabel>
+	<skos:altLabel>Witches Island</skos:altLabel>
+	<skos:prefLabel>Halvmåneøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607355/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>79.86667</wgs:lat>
+	<wgs:long>27.25</wgs:long>
+	<skos:altLabel>Frosne Öer</skos:altLabel>
+	<skos:altLabel>Frostøyane</skos:altLabel>
+	<skos:altLabel>Frozen Islands</skos:altLabel>
+	<skos:altLabel>Östöerne</skos:altLabel>
+	<skos:prefLabel>Frostøyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607359/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.26667</wgs:lat>
+	<wgs:long>21.11667</wgs:long>
+	<skos:altLabel>Franzøya</skos:altLabel>
+	<skos:altLabel>Friedrich Franz Island</skos:altLabel>
+	<skos:prefLabel>Franzøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607361/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80.45</wgs:lat>
+	<wgs:long>26.13333</wgs:long>
+	<skos:altLabel>Foyen’s Island</skos:altLabel>
+	<skos:altLabel>Foyn Island</skos:altLabel>
+	<skos:altLabel>Foynøya</skos:altLabel>
+	<skos:altLabel>Walrus Eyland</skos:altLabel>
+	<skos:prefLabel>Foynøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607364/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80.23333</wgs:lat>
+	<wgs:long>25.66667</wgs:long>
+	<skos:altLabel>Fearnley Island</skos:altLabel>
+	<skos:altLabel>Fearnleyholmen</skos:altLabel>
+	<skos:prefLabel>Fearnleyholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607367/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80.16667</wgs:lat>
+	<wgs:long>26</wgs:long>
+	<skos:altLabel>Esmark Island</skos:altLabel>
+	<skos:altLabel>Esmarkøya</skos:altLabel>
+	<skos:prefLabel>Esmarkøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607371/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.56667</wgs:lat>
+	<wgs:long>20.83333</wgs:long>
+	<skos:altLabel>Angel Island</skos:altLabel>
+	<skos:altLabel>Engel Island</skos:altLabel>
+	<skos:altLabel>Engeløya</skos:altLabel>
+	<skos:prefLabel>Engeløya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607383/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>77.75</wgs:lat>
+	<wgs:long>22.5</wgs:long>
+	<skos:altLabel>Alekseevskij Ostrov</skos:altLabel>
+	<skos:altLabel>Alexeyiewskoy Ostrow</skos:altLabel>
+	<skos:altLabel>Edge Island</skos:altLabel>
+	<skos:altLabel>Edge Øy</skos:altLabel>
+	<skos:altLabel>Edges Iland</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Edgeøya</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Edgeøya</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Edgeøya</skos:altLabel>
+	<skos:altLabel xml:lang="en">Edgeøya</skos:altLabel>
+	<skos:altLabel xml:lang="no">Edgeøya</skos:altLabel>
+	<skos:altLabel>Edgeøya</skos:altLabel>
+	<skos:altLabel>Edgoy</skos:altLabel>
+	<skos:altLabel>Gerrits Eyland</skos:altLabel>
+	<skos:altLabel>Het Stans Voorland</skos:altLabel>
+	<skos:altLabel>Ile de Rix</skos:altLabel>
+	<skos:altLabel>Isle du Sud Est</skos:altLabel>
+	<skos:altLabel>Maloy Broun</skos:altLabel>
+	<skos:altLabel>Malyj Broun</skos:altLabel>
+	<skos:altLabel>Nieu Lant</skos:altLabel>
+	<skos:altLabel>Onbekende Cust</skos:altLabel>
+	<skos:altLabel>Ost Spitsbergen</skos:altLabel>
+	<skos:altLabel>Ost-Land</skos:altLabel>
+	<skos:altLabel>Ost-Spitzbergen</skos:altLabel>
+	<skos:altLabel>Petit Spizbergue</skos:altLabel>
+	<skos:altLabel>South East Land</skos:altLabel>
+	<skos:altLabel>Staats Vorland</skos:altLabel>
+	<skos:altLabel>Standforland</skos:altLabel>
+	<skos:altLabel>Stans Foreland</skos:altLabel>
+	<skos:altLabel>Stats Vorland</skos:altLabel>
+	<skos:altLabel>Suyd-Ooster-Land</skos:altLabel>
+	<skos:altLabel>Sydost Land</skos:altLabel>
+	<skos:altLabel>Söraust-Landet</skos:altLabel>
+	<skos:altLabel>Süd-ostliches Eyland</skos:altLabel>
+	<skos:altLabel>Terre des Etats</skos:altLabel>
+	<skos:altLabel>Whales Wiches Landt</skos:altLabel>
+	<skos:altLabel>Witches Island</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Wyspa Edge'a</skos:altLabel>
+	<skos:altLabel>Zuyd Ooster Eyland van Spitsbergen</skos:altLabel>
+	<skos:altLabel xml:lang="ko">에드게외위아 섬</skos:altLabel>
+	<skos:prefLabel>Edgeøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607390/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80.63333</wgs:lat>
+	<wgs:long>25</wgs:long>
+	<skos:altLabel>Drabanten</skos:altLabel>
+	<skos:altLabel>The Lifeguard</skos:altLabel>
+	<skos:altLabel>Trabant</skos:altLabel>
+	<skos:prefLabel>Drabanten</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607401/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>77.38333</wgs:lat>
+	<wgs:long>22.23333</wgs:long>
+	<skos:altLabel>Delitsch Island</skos:altLabel>
+	<skos:altLabel>Delitschøya</skos:altLabel>
+	<skos:prefLabel>Delitschøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607402/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79</wgs:lat>
+	<wgs:long>21</wgs:long>
+	<skos:altLabel>Deegen Island</skos:altLabel>
+	<skos:altLabel>Deegenøya</skos:altLabel>
+	<skos:prefLabel>Deegenøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607403/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80.23333</wgs:lat>
+	<wgs:long>25.66667</wgs:long>
+	<skos:altLabel>Danielssen Island</skos:altLabel>
+	<skos:altLabel>Danielssenøya</skos:altLabel>
+	<skos:prefLabel>Danielssenøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607410/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80.5</wgs:lat>
+	<wgs:long>20</wgs:long>
+	<skos:altLabel>Chermside Island</skos:altLabel>
+	<skos:altLabel>Chermsideøya</skos:altLabel>
+	<skos:altLabel>Chermside’s ø</skos:altLabel>
+	<skos:altLabel>Nordkapøya</skos:altLabel>
+	<skos:prefLabel>Chermsideøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607412/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>80.5</wgs:lat>
+	<wgs:long>20.23333</wgs:long>
+	<skos:altLabel>Castréns Öar</skos:altLabel>
+	<skos:altLabel>Castrénøyane</skos:altLabel>
+	<skos:prefLabel>Castrénøyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607414/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.91667</wgs:lat>
+	<wgs:long>21.33333</wgs:long>
+	<skos:altLabel>Carlsen Island</skos:altLabel>
+	<skos:altLabel>Carlsenøya</skos:altLabel>
+	<skos:prefLabel>Carlsenøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607420/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>77.16667</wgs:lat>
+	<wgs:long>21.5</wgs:long>
+	<skos:altLabel>Bruhns Island</skos:altLabel>
+	<skos:altLabel>Bruhnsøya</skos:altLabel>
+	<skos:prefLabel>Bruhnsøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607423/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80.45</wgs:lat>
+	<wgs:long>25.96667</wgs:long>
+	<skos:altLabel>Broch Island</skos:altLabel>
+	<skos:altLabel>Brochøya</skos:altLabel>
+	<skos:altLabel>Brock’s Island</skos:altLabel>
+	<skos:prefLabel>Brochøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607429/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>77.06667</wgs:lat>
+	<wgs:long>22.41667</wgs:long>
+	<skos:prefLabel>Brækmoholmane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607431/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>77.23333</wgs:lat>
+	<wgs:long>21.83333</wgs:long>
+	<skos:altLabel>Bölsche Island</skos:altLabel>
+	<skos:altLabel>Bölscheøya</skos:altLabel>
+	<skos:prefLabel>Bölscheøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607432/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80.23333</wgs:lat>
+	<wgs:long>25.66667</wgs:long>
+	<skos:altLabel>Boeck-Insel</skos:altLabel>
+	<skos:altLabel>Boeckøya</skos:altLabel>
+	<skos:prefLabel>Boeckøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607444/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>77.5</wgs:lat>
+	<wgs:long>20.5</wgs:long>
+	<skos:altLabel>Beare Islands</skos:altLabel>
+	<skos:altLabel>Bjørnholmane</skos:altLabel>
+	<skos:prefLabel>Bjørnholmane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607452/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.33333</wgs:lat>
+	<wgs:long>20.5</wgs:long>
+	<skos:altLabel>Berghaus Island</skos:altLabel>
+	<skos:altLabel>Berghausøya</skos:altLabel>
+	<skos:prefLabel>Berghausøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607457/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.31667</wgs:lat>
+	<wgs:long>20.78333</wgs:long>
+	<skos:altLabel>Behm Insel</skos:altLabel>
+	<skos:altLabel>Behmøya</skos:altLabel>
+	<skos:prefLabel>Behmøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607460/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>79.01667</wgs:lat>
+	<wgs:long>21.25</wgs:long>
+	<skos:altLabel>Bastian Insel</skos:altLabel>
+	<skos:altLabel>Bastianøyane</skos:altLabel>
+	<skos:altLabel>Bastion Island</skos:altLabel>
+	<skos:altLabel>Bastions-Øyan</skos:altLabel>
+	<skos:prefLabel>Bastianøyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607463/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.45</wgs:lat>
+	<wgs:long>21.25</wgs:long>
+	<skos:altLabel>Barents Island</skos:altLabel>
+	<skos:altLabel>Barents Land</skos:altLabel>
+	<skos:altLabel>Barents Øy</skos:altLabel>
+	<skos:altLabel>Barents-Maa</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Barentszeiland</skos:altLabel>
+	<skos:altLabel xml:lang="en">Barentsøya</skos:altLabel>
+	<skos:altLabel xml:lang="no">Barentsøya</skos:altLabel>
+	<skos:altLabel xml:lang="de">Barentsøya</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Barentsøya</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Barentsøya</skos:altLabel>
+	<skos:altLabel>Barentsøya</skos:altLabel>
+	<skos:altLabel>Berensland</skos:altLabel>
+	<skos:altLabel>Bären-Island</skos:altLabel>
+	<skos:altLabel>Lorentzland</skos:altLabel>
+	<skos:altLabel>South East Land</skos:altLabel>
+	<skos:altLabel>Sydostland</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Wyspa Barentsa</skos:altLabel>
+	<skos:altLabel>Zuyd Ooster Land</skos:altLabel>
+	<skos:altLabel xml:lang="el">Νήσος Μπάρεντς</skos:altLabel>
+	<skos:altLabel xml:lang="ko">바렌트쇠위아 섬</skos:altLabel>
+	<skos:prefLabel>Barentsøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607471/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>77.16667</wgs:lat>
+	<wgs:long>21.5</wgs:long>
+	<skos:altLabel>Arendts Island</skos:altLabel>
+	<skos:altLabel>Arendtsøya</skos:altLabel>
+	<skos:prefLabel>Arendtsøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607472/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.65</wgs:lat>
+	<wgs:long>26.66667</wgs:long>
+	<skos:altLabel>Antarctic Island</skos:altLabel>
+	<skos:altLabel>Antarctics ö</skos:altLabel>
+	<skos:altLabel>Antarcticøya</skos:altLabel>
+	<skos:prefLabel>Antarcticøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607478/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>78.31667</wgs:lat>
+	<wgs:long>20.58333</wgs:long>
+	<skos:altLabel>Anderson Inseln</skos:altLabel>
+	<skos:altLabel>Anderssons Öar</skos:altLabel>
+	<skos:altLabel>Anderssonøyane</skos:altLabel>
+	<skos:altLabel>Seal Islands</skos:altLabel>
+	<skos:prefLabel>Anderssonøyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607482/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80.36667</wgs:lat>
+	<wgs:long>24.75</wgs:long>
+	<skos:altLabel>Alpini Island</skos:altLabel>
+	<skos:altLabel>Alpiniøya</skos:altLabel>
+	<skos:altLabel>Isola degli Alpini</skos:altLabel>
+	<skos:prefLabel>Alpiniøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607483/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.63333</wgs:lat>
+	<wgs:long>21.33333</wgs:long>
+	<skos:altLabel>Aleksejevøya</skos:altLabel>
+	<skos:altLabel>Ils Alexéev</skos:altLabel>
+	<skos:prefLabel>Aleksejevøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607489/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79</wgs:lat>
+	<wgs:long>30.25</wgs:long>
+	<skos:altLabel>Abels Ø</skos:altLabel>
+	<skos:altLabel>Abeløya</skos:altLabel>
+	<skos:prefLabel>Abeløya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/607490/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>77.36667</wgs:lat>
+	<wgs:long>23.2</wgs:long>
+	<skos:altLabel>Abbots Islands</skos:altLabel>
+	<skos:altLabel>Abbots-Inseln</skos:altLabel>
+	<skos:altLabel>Abbotøyane</skos:altLabel>
+	<skos:altLabel>Ilots Abbot</skos:altLabel>
+	<skos:prefLabel>Abbotøyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/798830/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>76.95</wgs:lat>
+	<wgs:long>22</wgs:long>
+	<skos:prefLabel>Tiholmane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/798833/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>77</wgs:lat>
+	<wgs:long>22</wgs:long>
+	<skos:prefLabel>Lurøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/798835/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>76.96667</wgs:lat>
+	<wgs:long>22.2</wgs:long>
+	<skos:prefLabel>Schareholmane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/798845/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>77.28333</wgs:lat>
+	<wgs:long>21.31667</wgs:long>
+	<skos:prefLabel>Ækongen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/826948/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>79.91667</wgs:lat>
+	<wgs:long>27.56667</wgs:long>
+	<skos:prefLabel>Kaldøyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/826953/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80.23333</wgs:lat>
+	<wgs:long>25.3</wgs:long>
+	<skos:prefLabel>Dyna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/826963/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80.13333</wgs:lat>
+	<wgs:long>22.31667</wgs:long>
+	<skos:prefLabel>Erkna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/826966/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80.11667</wgs:lat>
+	<wgs:long>22</wgs:long>
+	<skos:prefLabel>Galten</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/827033/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.17917</wgs:lat>
+	<wgs:long>20.76667</wgs:long>
+	<skos:prefLabel>Brimulen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/827109/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.99167</wgs:lat>
+	<wgs:long>21.43333</wgs:long>
+	<skos:prefLabel>Geograføya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2727783/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>79.8</wgs:lat>
+	<wgs:long>10.6</wgs:long>
+	<skos:altLabel>Aussen Islands</skos:altLabel>
+	<skos:altLabel>Ilots du Large</skos:altLabel>
+	<skos:altLabel>Oterholman</skos:altLabel>
+	<skos:altLabel>Outer Islets</skos:altLabel>
+	<skos:altLabel>Ytterholmane</skos:altLabel>
+	<skos:altLabel>Ytterholmarna</skos:altLabel>
+	<skos:prefLabel>Ytterholmane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2727791/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.86667</wgs:lat>
+	<wgs:long>11.63333</wgs:long>
+	<skos:altLabel>Bear Island</skos:altLabel>
+	<skos:altLabel>Beare Iland</skos:altLabel>
+	<skos:altLabel>Demie Norwege</skos:altLabel>
+	<skos:altLabel>Half Noorwegen</skos:altLabel>
+	<skos:altLabel>Ile des Norwégiens</skos:altLabel>
+	<skos:altLabel>Ile des Oyes</skos:altLabel>
+	<skos:altLabel>Kleine Norskö</skos:altLabel>
+	<skos:altLabel>Oestliche Norwegische Insel</skos:altLabel>
+	<skos:altLabel>Outer Norway Island</skos:altLabel>
+	<skos:altLabel>Seeuwsche Eylandt</skos:altLabel>
+	<skos:altLabel>Seeuwse Island</skos:altLabel>
+	<skos:altLabel>Ytre Norskøya</skos:altLabel>
+	<skos:altLabel>Östra Norskön</skos:altLabel>
+	<skos:prefLabel>Ytre Norskøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2727822/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>79.33333</wgs:lat>
+	<wgs:long>19.25</wgs:long>
+	<skos:altLabel>Iles Wijkander</skos:altLabel>
+	<skos:altLabel>Wijkanderøyane</skos:altLabel>
+	<skos:prefLabel>Wijkanderøyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2727863/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80.61667</wgs:lat>
+	<wgs:long>19.55</wgs:long>
+	<skos:altLabel>Walden Island</skos:altLabel>
+	<skos:altLabel>Walden Ö</skos:altLabel>
+	<skos:altLabel>Waldens Island</skos:altLabel>
+	<skos:altLabel>Waldenøya</skos:altLabel>
+	<skos:prefLabel>Waldenøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2727869/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.4</wgs:lat>
+	<wgs:long>19.98333</wgs:long>
+	<skos:altLabel>Ile de Wahlenberg</skos:altLabel>
+	<skos:altLabel>Wahlbergs ö</skos:altLabel>
+	<skos:altLabel>Wahlbergøya</skos:altLabel>
+	<skos:prefLabel>Wahlbergøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2727891/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.98333</wgs:lat>
+	<wgs:long>18.16667</wgs:long>
+	<skos:altLabel>Visingsøya</skos:altLabel>
+	<skos:altLabel>Visingøya</skos:altLabel>
+	<skos:prefLabel>Visingøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2727949/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.45</wgs:lat>
+	<wgs:long>16.23333</wgs:long>
+	<skos:altLabel>Lilla Gåsön</skos:altLabel>
+	<skos:altLabel>Vesle Gåsøya</skos:altLabel>
+	<skos:prefLabel>Vesle Gåsøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2728009/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>76.53333</wgs:lat>
+	<wgs:long>16.5</wgs:long>
+	<skos:prefLabel>Vardeholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2728031/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>79.31667</wgs:lat>
+	<wgs:long>19.58333</wgs:long>
+	<skos:altLabel>Iles Waygat</skos:altLabel>
+	<skos:altLabel>Isle de Waeygats</skos:altLabel>
+	<skos:altLabel>Stræde-øyan</skos:altLabel>
+	<skos:altLabel>Syd Waygats öar</skos:altLabel>
+	<skos:altLabel>Südwaygat Inseln</skos:altLabel>
+	<skos:altLabel>Vaigattøyane</skos:altLabel>
+	<skos:altLabel>Waygats Islands</skos:altLabel>
+	<skos:prefLabel>Vaigattøyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2728038/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>74.48333</wgs:lat>
+	<wgs:long>18.76667</wgs:long>
+	<skos:prefLabel>Utstein</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2728043/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>76.48333</wgs:lat>
+	<wgs:long>16.5</wgs:long>
+	<skos:prefLabel>Utburden</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2728047/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>78.38333</wgs:lat>
+	<wgs:long>11.55</wgs:long>
+	<skos:altLabel>Urmston Islets</skos:altLabel>
+	<skos:altLabel>Urmstonholmane</skos:altLabel>
+	<skos:prefLabel>Urmstonholmane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2728086/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>78.35</wgs:lat>
+	<wgs:long>14.7</wgs:long>
+	<skos:altLabel>Kol-öarne</skos:altLabel>
+	<skos:altLabel>Tvillingholmane</skos:altLabel>
+	<skos:altLabel>Twin Rocks</skos:altLabel>
+	<skos:prefLabel>Tvillingholmane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2728089/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>78.21667</wgs:lat>
+	<wgs:long>12.96667</wgs:long>
+	<skos:prefLabel>Tviholmane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2728134/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.33333</wgs:lat>
+	<wgs:long>12.83333</wgs:long>
+	<skos:prefLabel>Tromsøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2728224/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>79.53333</wgs:lat>
+	<wgs:long>18.83333</wgs:long>
+	<skos:altLabel>Iles Duim</skos:altLabel>
+	<skos:altLabel>Steyl Eyland</skos:altLabel>
+	<skos:altLabel>Tommeløyane</skos:altLabel>
+	<skos:altLabel>Tommøya</skos:altLabel>
+	<skos:prefLabel>Tommeløyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2728228/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80.23333</wgs:lat>
+	<wgs:long>18.78333</wgs:long>
+	<skos:altLabel>Isle Tombola</skos:altLabel>
+	<skos:altLabel>Tomboloøya</skos:altLabel>
+	<skos:prefLabel>Tomboloøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2728233/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>76.55667</wgs:lat>
+	<wgs:long>16.32333</wgs:long>
+	<skos:altLabel>Ile des Deux Croix</skos:altLabel>
+	<skos:altLabel>Tokorsø</skos:altLabel>
+	<skos:altLabel>Tokrossøya</skos:altLabel>
+	<skos:prefLabel>Tokrossøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2728237/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>74.4</wgs:lat>
+	<wgs:long>19.21667</wgs:long>
+	<skos:altLabel>Tobiesenholmen</skos:altLabel>
+	<skos:altLabel>Tobiesenøya</skos:altLabel>
+	<skos:prefLabel>Tobiesenholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2728269/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>77.18333</wgs:lat>
+	<wgs:long>14.45</wgs:long>
+	<skos:prefLabel>Thorkelsenholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2728298/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80</wgs:lat>
+	<wgs:long>18.5</wgs:long>
+	<skos:prefLabel>Teltøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2728489/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.93333</wgs:lat>
+	<wgs:long>12.23333</wgs:long>
+	<skos:altLabel>Davis Island</skos:altLabel>
+	<skos:altLabel>Stor Island</skos:altLabel>
+	<skos:altLabel>Storholmen</skos:altLabel>
+	<skos:prefLabel>Storholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2728496/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>77.05</wgs:lat>
+	<wgs:long>14.96667</wgs:long>
+	<skos:altLabel>Stora Dunön</skos:altLabel>
+	<skos:altLabel>Store Dunøya</skos:altLabel>
+	<skos:altLabel>Storøya</skos:altLabel>
+	<skos:prefLabel>Store Dunøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2728507/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>76.53333</wgs:lat>
+	<wgs:long>16.41667</wgs:long>
+	<skos:altLabel>Stjernø</skos:altLabel>
+	<skos:altLabel>Stjernøya</skos:altLabel>
+	<skos:prefLabel>Stjernøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2728512/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>77.56667</wgs:lat>
+	<wgs:long>15.01667</wgs:long>
+	<skos:altLabel>Sterneck Island</skos:altLabel>
+	<skos:altLabel>Sterneckøya</skos:altLabel>
+	<skos:altLabel>Tennøya</skos:altLabel>
+	<skos:prefLabel>Sterneckøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2728536/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>74.4</wgs:lat>
+	<wgs:long>19.21667</wgs:long>
+	<skos:prefLabel>Steinkjerholmane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2728538/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>78.35</wgs:lat>
+	<wgs:long>12.63333</wgs:long>
+	<skos:altLabel>Steinholman</skos:altLabel>
+	<skos:altLabel>Steinholmane</skos:altLabel>
+	<skos:prefLabel>Steinholmane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2728547/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.55</wgs:lat>
+	<wgs:long>18.83333</wgs:long>
+	<skos:altLabel>Het Steyl Eyland</skos:altLabel>
+	<skos:altLabel>Steiløya</skos:altLabel>
+	<skos:prefLabel>Steiløya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2728550/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.83333</wgs:lat>
+	<wgs:long>11.53333</wgs:long>
+	<skos:altLabel>Duck Island</skos:altLabel>
+	<skos:altLabel>Hvidø</skos:altLabel>
+	<skos:altLabel>Hvitholmen</skos:altLabel>
+	<skos:altLabel>Steggholmen</skos:altLabel>
+	<skos:prefLabel>Steggholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2728551/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>74.4</wgs:lat>
+	<wgs:long>18.91667</wgs:long>
+	<skos:prefLabel>Steggholmane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2728556/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>79.68333</wgs:lat>
+	<wgs:long>13.63333</wgs:long>
+	<skos:altLabel>Iles de la Station</skos:altLabel>
+	<skos:altLabel>Stasjonsøyane</skos:altLabel>
+	<skos:altLabel>Stations Øyan</skos:altLabel>
+	<skos:altLabel>Stations-Insel</skos:altLabel>
+	<skos:prefLabel>Stasjonsøyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2728560/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>74.35</wgs:lat>
+	<wgs:long>19.06667</wgs:long>
+	<skos:prefLabel>Stappen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2728570/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>77.96667</wgs:lat>
+	<wgs:long>13.61667</wgs:long>
+	<skos:altLabel>Stabban</skos:altLabel>
+	<skos:altLabel>Stabbane</skos:altLabel>
+	<skos:prefLabel>Stabbane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2728573/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.75</wgs:lat>
+	<wgs:long>16</wgs:long>
+	<skos:altLabel>Bolschoy Broun</skos:altLabel>
+	<skos:altLabel>Das Westland</skos:altLabel>
+	<skos:altLabel>Grand Spizbergue</skos:altLabel>
+	<skos:altLabel>Grossspitzbergen</skos:altLabel>
+	<skos:altLabel>Het Eyland Spitsbergen</skos:altLabel>
+	<skos:altLabel>Länsi-Huippuvuoret</skos:altLabel>
+	<skos:altLabel>Spitsbergen</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Spitzberg</skos:altLabel>
+	<skos:altLabel>Spitzberg Ouest</skos:altLabel>
+	<skos:altLabel>West Island</skos:altLabel>
+	<skos:altLabel>West Spitsbergen</skos:altLabel>
+	<skos:altLabel>West Spitzbergen</skos:altLabel>
+	<skos:altLabel>West-Spetsbergen</skos:altLabel>
+	<skos:altLabel>Westinsel</skos:altLabel>
+	<skos:prefLabel>Spitsbergen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2728593/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.31667</wgs:lat>
+	<wgs:long>11.63333</wgs:long>
+	<skos:altLabel>Sørøya</skos:altLabel>
+	<skos:altLabel>Süd-Insel</skos:altLabel>
+	<skos:prefLabel>Sørøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2728602/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>76.5</wgs:lat>
+	<wgs:long>16.56667</wgs:long>
+	<skos:altLabel>Ile du Grand Duc Constantin</skos:altLabel>
+	<skos:altLabel>Južnaija Ostrova</skos:altLabel>
+	<skos:altLabel>L’île du Cap Sud</skos:altLabel>
+	<skos:altLabel>Ostrov Velikago Knjaza Konstantina</skos:altLabel>
+	<skos:altLabel>Ronde Klip Insel</skos:altLabel>
+	<skos:altLabel>South Cape Island</skos:altLabel>
+	<skos:altLabel>Storø</skos:altLabel>
+	<skos:altLabel>Storøen</skos:altLabel>
+	<skos:altLabel>Sydkapøya</skos:altLabel>
+	<skos:altLabel>Sørkap Øya</skos:altLabel>
+	<skos:altLabel>Sørkappøya</skos:altLabel>
+	<skos:prefLabel>Sørkappøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2728605/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>76.45</wgs:lat>
+	<wgs:long>16.63333</wgs:long>
+	<skos:altLabel>South Cape Islands</skos:altLabel>
+	<skos:altLabel>Syd Cap Æerna</skos:altLabel>
+	<skos:altLabel>Sydkapholman</skos:altLabel>
+	<skos:altLabel>Sydkapøerne</skos:altLabel>
+	<skos:altLabel>Sørkapholmane</skos:altLabel>
+	<skos:altLabel>Sørkappholmane</skos:altLabel>
+	<skos:altLabel>Sørkapøyan</skos:altLabel>
+	<skos:prefLabel>Sørkappholmane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2728612/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>76.45</wgs:lat>
+	<wgs:long>16.65</wgs:long>
+	<skos:prefLabel>Sørholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2728626/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.96667</wgs:lat>
+	<wgs:long>18.25</wgs:long>
+	<skos:altLabel>Isle Ryssön</skos:altLabel>
+	<skos:altLabel>Stora Russön</skos:altLabel>
+	<skos:altLabel>Stora Ryssön</skos:altLabel>
+	<skos:altLabel>Søre Russøya</skos:altLabel>
+	<skos:prefLabel>Søre Russøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2728635/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>77.05</wgs:lat>
+	<wgs:long>15.01667</wgs:long>
+	<skos:altLabel>Søre Dunøya</skos:altLabel>
+	<skos:altLabel>Sørøya</skos:altLabel>
+	<skos:prefLabel>Søre Dunøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2728701/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.41667</wgs:lat>
+	<wgs:long>19.66667</wgs:long>
+	<skos:altLabel>Smitt Island</skos:altLabel>
+	<skos:altLabel>Smittøya</skos:altLabel>
+	<skos:prefLabel>Smittøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2728754/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>74.36667</wgs:lat>
+	<wgs:long>19.05</wgs:long>
+	<skos:prefLabel>Skrøslingen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2728780/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>77.3</wgs:lat>
+	<wgs:long>14.13333</wgs:long>
+	<skos:altLabel>Rundholmen</skos:altLabel>
+	<skos:altLabel>Skjoldholmen</skos:altLabel>
+	<skos:prefLabel>Skjoldholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2728809/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>77.16667</wgs:lat>
+	<wgs:long>14.53333</wgs:long>
+	<skos:prefLabel>Skarvholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2728811/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>76.46667</wgs:lat>
+	<wgs:long>16.53333</wgs:long>
+	<skos:prefLabel>Skårungen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2728842/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>77.75</wgs:lat>
+	<wgs:long>14.25</wgs:long>
+	<skos:altLabel>Sinkholmen</skos:altLabel>
+	<skos:altLabel>Zinkholman</skos:altLabel>
+	<skos:prefLabel>Sinkholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2728855/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.93333</wgs:lat>
+	<wgs:long>12.33333</wgs:long>
+	<skos:altLabel>Ile Sigrid</skos:altLabel>
+	<skos:altLabel>Sigrid Island</skos:altLabel>
+	<skos:altLabel>Sigridholmen</skos:altLabel>
+	<skos:prefLabel>Sigridholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2728923/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>76.95</wgs:lat>
+	<wgs:long>15.8</wgs:long>
+	<skos:prefLabel>Schønningholmane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2728959/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>77.86667</wgs:lat>
+	<wgs:long>13.61667</wgs:long>
+	<skos:altLabel>Green Ilands</skos:altLabel>
+	<skos:altLabel>Sankt Hans Islets</skos:altLabel>
+	<skos:altLabel>Sankt Hansholman</skos:altLabel>
+	<skos:altLabel>Sankt Hansholmane</skos:altLabel>
+	<skos:altLabel>Santhansholman</skos:altLabel>
+	<skos:altLabel>les Îles Saint-Jean</skos:altLabel>
+	<skos:prefLabel>Sankt Hansholmane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2728999/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>79.96667</wgs:lat>
+	<wgs:long>18.16667</wgs:long>
+	<skos:altLabel>Isola di Rys</skos:altLabel>
+	<skos:altLabel>Russøyane</skos:altLabel>
+	<skos:altLabel>Ryss Islands</skos:altLabel>
+	<skos:altLabel>Ryssöarne</skos:altLabel>
+	<skos:altLabel>île Russe</skos:altLabel>
+	<skos:prefLabel>Russøyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729000/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.95</wgs:lat>
+	<wgs:long>18.25</wgs:long>
+	<skos:altLabel>Russøya</skos:altLabel>
+	<skos:altLabel>Russøyane</skos:altLabel>
+	<skos:prefLabel>Russøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729027/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.95</wgs:lat>
+	<wgs:long>12.3</wgs:long>
+	<skos:altLabel>Rund Island</skos:altLabel>
+	<skos:altLabel>Rundholmen</skos:altLabel>
+	<skos:prefLabel>Rundholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729058/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.1</wgs:lat>
+	<wgs:long>19.98333</wgs:long>
+	<skos:altLabel>Roon Island</skos:altLabel>
+	<skos:altLabel>Roonøya</skos:altLabel>
+	<skos:prefLabel>Roonøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729082/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.9</wgs:lat>
+	<wgs:long>11.51667</wgs:long>
+	<skos:altLabel>Andrée Island</skos:altLabel>
+	<skos:altLabel>Dunderøya</skos:altLabel>
+	<skos:altLabel>Risen</skos:altLabel>
+	<skos:prefLabel>Risen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729087/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80.05</wgs:lat>
+	<wgs:long>18.11667</wgs:long>
+	<skos:altLabel>Isle Ringertz</skos:altLabel>
+	<skos:altLabel>Ringertzøya</skos:altLabel>
+	<skos:prefLabel>Ringertzøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729119/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>76.48333</wgs:lat>
+	<wgs:long>16.68333</wgs:long>
+	<skos:prefLabel>Revleholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729130/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.66667</wgs:lat>
+	<wgs:long>16.96667</wgs:long>
+	<skos:prefLabel>Retrettøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729143/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>77.7</wgs:lat>
+	<wgs:long>14.76667</wgs:long>
+	<skos:prefLabel>Reirmarka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729147/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>77.75</wgs:lat>
+	<wgs:long>14.26667</wgs:long>
+	<skos:altLabel>Reiniusøyane</skos:altLabel>
+	<skos:altLabel>Reinius’ Öar</skos:altLabel>
+	<skos:prefLabel>Reiniusøyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729148/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>77.5</wgs:lat>
+	<wgs:long>14.56667</wgs:long>
+	<skos:altLabel>Ilot</skos:altLabel>
+	<skos:altLabel>Reen Eijlandt</skos:altLabel>
+	<skos:altLabel>Reinholmen</skos:altLabel>
+	<skos:altLabel>Rheen Eylandt</skos:altLabel>
+	<skos:altLabel>Training Squadron Island</skos:altLabel>
+	<skos:altLabel>Übungs Geschwader-Insel</skos:altLabel>
+	<skos:prefLabel>Reinholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729205/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.25</wgs:lat>
+	<wgs:long>15.58333</wgs:long>
+	<skos:altLabel>Ile Ræstad</skos:altLabel>
+	<skos:altLabel>Ræstadholmen</skos:altLabel>
+	<skos:prefLabel>Ræstadholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729214/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>77.1</wgs:lat>
+	<wgs:long>15.05</wgs:long>
+	<skos:prefLabel>Pyttholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729238/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.53333</wgs:lat>
+	<wgs:long>11.16667</wgs:long>
+	<skos:altLabel>Avant Terre</skos:altLabel>
+	<skos:altLabel>Black Pointe Ile</skos:altLabel>
+	<skos:altLabel>Black-Point Ile</skos:altLabel>
+	<skos:altLabel>Carls-öen</skos:altLabel>
+	<skos:altLabel>Das Voorland</skos:altLabel>
+	<skos:altLabel>Foreland</skos:altLabel>
+	<skos:altLabel>Forlandsøen</skos:altLabel>
+	<skos:altLabel>Het Voorlandt</skos:altLabel>
+	<skos:altLabel>Island Charles</skos:altLabel>
+	<skos:altLabel>Isle Caroli</skos:altLabel>
+	<skos:altLabel>Isle de Vorland</skos:altLabel>
+	<skos:altLabel>Isle de Worland</skos:altLabel>
+	<skos:altLabel>Isola de Kijn</skos:altLabel>
+	<skos:altLabel>Isola del Principe Carlo</skos:altLabel>
+	<skos:altLabel>King Charles Foreland</skos:altLabel>
+	<skos:altLabel>Prince Charles Foreland</skos:altLabel>
+	<skos:altLabel>Prince Charles Foreland-Saari</skos:altLabel>
+	<skos:altLabel>Prince Charles his Iland</skos:altLabel>
+	<skos:altLabel>Prinds Karls Forland</skos:altLabel>
+	<skos:altLabel>Prins Karls Forland</skos:altLabel>
+	<skos:altLabel>Prinz Karl Foreland</skos:altLabel>
+	<skos:altLabel>Prinz-Carl-Vorgebirge</skos:altLabel>
+	<skos:altLabel>Promontoire du Prince Charles</skos:altLabel>
+	<skos:altLabel>Promontorio</skos:altLabel>
+	<skos:altLabel>Spitsbergen Voorland</skos:altLabel>
+	<skos:altLabel>T’Voer Landt Carolus</skos:altLabel>
+	<skos:altLabel>l’Isle de Prince Charles</skos:altLabel>
+	<skos:altLabel>’t Lang Eylandt</skos:altLabel>
+	<skos:altLabel>’t Langh Eijlandt</skos:altLabel>
+	<skos:prefLabel>Prins Karls Forland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729239/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.91667</wgs:lat>
+	<wgs:long>12</wgs:long>
+	<skos:altLabel>Isle Prince Heinrich</skos:altLabel>
+	<skos:altLabel>Isolotto Principe Enrico</skos:altLabel>
+	<skos:altLabel>Prins Heinrichøya</skos:altLabel>
+	<skos:altLabel>Prinz-Heinrich-Insel</skos:altLabel>
+	<skos:prefLabel>Prins Heinrichøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729273/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>78.21667</wgs:lat>
+	<wgs:long>11.96667</wgs:long>
+	<skos:altLabel>Iles Plankeholme</skos:altLabel>
+	<skos:altLabel>Plankeholman</skos:altLabel>
+	<skos:altLabel>Plankeholmane</skos:altLabel>
+	<skos:prefLabel>Plankeholmane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729338/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>77.56667</wgs:lat>
+	<wgs:long>15</wgs:long>
+	<skos:altLabel>Parma Felsen</skos:altLabel>
+	<skos:altLabel>Parmaholmen</skos:altLabel>
+	<skos:prefLabel>Parmaholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729339/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>74.36667</wgs:lat>
+	<wgs:long>19.03333</wgs:long>
+	<skos:prefLabel>Parholmane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729351/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.31667</wgs:lat>
+	<wgs:long>19.68333</wgs:long>
+	<skos:altLabel>Iles Palander</skos:altLabel>
+	<skos:altLabel>Palander Island</skos:altLabel>
+	<skos:altLabel>Palanderøya</skos:altLabel>
+	<skos:prefLabel>Palanderøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729355/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>74.51667</wgs:lat>
+	<wgs:long>19.1</wgs:long>
+	<skos:prefLabel>Padda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729387/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>80</wgs:lat>
+	<wgs:long>18.5</wgs:long>
+	<skos:prefLabel>Oskarøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729401/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.86667</wgs:lat>
+	<wgs:long>11.3</wgs:long>
+	<skos:altLabel>Örnen Island</skos:altLabel>
+	<skos:altLabel>Örnenøya</skos:altLabel>
+	<skos:prefLabel>Örnenøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729423/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>77.23333</wgs:lat>
+	<wgs:long>14.26667</wgs:long>
+	<skos:prefLabel>Olsholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729446/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>77.4</wgs:lat>
+	<wgs:long>13.98333</wgs:long>
+	<skos:prefLabel>Oddholmane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729448/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.91667</wgs:lat>
+	<wgs:long>12.33333</wgs:long>
+	<skos:altLabel>Beobachtungs-Inseln</skos:altLabel>
+	<skos:altLabel>Observasjons Island</skos:altLabel>
+	<skos:altLabel>Observasjonsholmen</skos:altLabel>
+	<skos:prefLabel>Observasjonsholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729450/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.33333</wgs:lat>
+	<wgs:long>19.5</wgs:long>
+	<skos:altLabel>Öberg Island</skos:altLabel>
+	<skos:altLabel>Öbergøya</skos:altLabel>
+	<skos:prefLabel>Öbergøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729451/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.45</wgs:lat>
+	<wgs:long>19.8</wgs:long>
+	<skos:altLabel>Nyström Island</skos:altLabel>
+	<skos:altLabel>Nyströmøya</skos:altLabel>
+	<skos:prefLabel>Nyströmøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729467/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>79.85</wgs:lat>
+	<wgs:long>11.63333</wgs:long>
+	<skos:altLabel>Isole dei Norvegesi</skos:altLabel>
+	<skos:altLabel>Noren-Eilanden</skos:altLabel>
+	<skos:altLabel>Norjan Saaret</skos:altLabel>
+	<skos:altLabel>Norske Øer</skos:altLabel>
+	<skos:altLabel>Norsköarne</skos:altLabel>
+	<skos:altLabel>Norskøyane</skos:altLabel>
+	<skos:altLabel>Norways</skos:altLabel>
+	<skos:altLabel>Norweger-Inseln</skos:altLabel>
+	<skos:altLabel>Ostrova Norvezkie</skos:altLabel>
+	<skos:prefLabel>Norskøyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729476/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>79.88333</wgs:lat>
+	<wgs:long>11.5</wgs:long>
+	<skos:altLabel>Nordvestøyane</skos:altLabel>
+	<skos:altLabel>Nordvästöarna</skos:altLabel>
+	<skos:altLabel>Northwest Islands</skos:altLabel>
+	<skos:prefLabel>Nordvestøyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729481/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.31667</wgs:lat>
+	<wgs:long>19.68333</wgs:long>
+	<skos:altLabel>Nordström Island</skos:altLabel>
+	<skos:altLabel>Nordströmøya</skos:altLabel>
+	<skos:prefLabel>Nordströmøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729490/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.98333</wgs:lat>
+	<wgs:long>18.33333</wgs:long>
+	<skos:altLabel>Nordre Russøya</skos:altLabel>
+	<skos:altLabel>Norra Korsön</skos:altLabel>
+	<skos:altLabel>Norra Ryssön</skos:altLabel>
+	<skos:prefLabel>Nordre Russøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729498/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>77.15</wgs:lat>
+	<wgs:long>14.8</wgs:long>
+	<skos:prefLabel>Nordre Isøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729500/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>77.06667</wgs:lat>
+	<wgs:long>14.91667</wgs:long>
+	<skos:altLabel>Nordre Dunøya</skos:altLabel>
+	<skos:altLabel>Norra Dunön</skos:altLabel>
+	<skos:altLabel>Norøya</skos:altLabel>
+	<skos:prefLabel>Nordre Dunøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729508/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.36667</wgs:lat>
+	<wgs:long>11.53333</wgs:long>
+	<skos:altLabel>Ile Nordøya</skos:altLabel>
+	<skos:altLabel>Nord-Insel</skos:altLabel>
+	<skos:altLabel>Nordøya</skos:altLabel>
+	<skos:prefLabel>Nordøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729525/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.21667</wgs:lat>
+	<wgs:long>19.66667</wgs:long>
+	<skos:altLabel>Nordenskiöld Island</skos:altLabel>
+	<skos:altLabel>Nordenskiöldøya</skos:altLabel>
+	<skos:prefLabel>Nordenskiöldøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729584/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.16667</wgs:lat>
+	<wgs:long>19.5</wgs:long>
+	<skos:altLabel>Nauckhofføya</skos:altLabel>
+	<skos:altLabel>Nauckoff Island</skos:altLabel>
+	<skos:prefLabel>Nauckhofføya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729641/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.65</wgs:lat>
+	<wgs:long>10.93333</wgs:long>
+	<skos:altLabel>Bjørnbaiøya</skos:altLabel>
+	<skos:altLabel>Ile de la Mousse</skos:altLabel>
+	<skos:altLabel>Isle Basse</skos:altLabel>
+	<skos:altLabel>Moosinsel</skos:altLabel>
+	<skos:altLabel>Mos-eliland</skos:altLabel>
+	<skos:altLabel>Moseøya</skos:altLabel>
+	<skos:altLabel>Moss Island</skos:altLabel>
+	<skos:altLabel>Mossøen</skos:altLabel>
+	<skos:altLabel>Niedrige Insel</skos:altLabel>
+	<skos:prefLabel>Moseøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729670/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80.01667</wgs:lat>
+	<wgs:long>14.5</wgs:long>
+	<skos:altLabel>Ile Moffen</skos:altLabel>
+	<skos:altLabel>Iles des Verdiers</skos:altLabel>
+	<skos:altLabel>Maffen Ø</skos:altLabel>
+	<skos:altLabel>Mappen Ø</skos:altLabel>
+	<skos:altLabel>Moffen</skos:altLabel>
+	<skos:altLabel>Moffen Eylandt</skos:altLabel>
+	<skos:altLabel>Moffen Saari</skos:altLabel>
+	<skos:altLabel>Moffin Island</skos:altLabel>
+	<skos:altLabel>Muffen Eyland</skos:altLabel>
+	<skos:altLabel>Muffen-saari</skos:altLabel>
+	<skos:altLabel>Muffin’s Island</skos:altLabel>
+	<skos:altLabel>Mufs Island</skos:altLabel>
+	<skos:altLabel>Walrus Eylandt</skos:altLabel>
+	<skos:altLabel>’t Moffen Eyland</skos:altLabel>
+	<skos:prefLabel>Moffen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729702/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.91667</wgs:lat>
+	<wgs:long>12</wgs:long>
+	<skos:altLabel>Miethe Isle</skos:altLabel>
+	<skos:altLabel>Mietheholmen</skos:altLabel>
+	<skos:altLabel>Mietheinsel</skos:altLabel>
+	<skos:prefLabel>Mietheholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729705/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.33333</wgs:lat>
+	<wgs:long>11.6</wgs:long>
+	<skos:altLabel>Gross Insel</skos:altLabel>
+	<skos:altLabel>Ile Midtøya</skos:altLabel>
+	<skos:altLabel>Midterøya</skos:altLabel>
+	<skos:altLabel>Midtøya</skos:altLabel>
+	<skos:altLabel>Stor Øya</skos:altLabel>
+	<skos:prefLabel>Midtøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729706/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.91667</wgs:lat>
+	<wgs:long>12.33333</wgs:long>
+	<skos:altLabel>Mid Island</skos:altLabel>
+	<skos:altLabel>Midtholmen</skos:altLabel>
+	<skos:prefLabel>Midtholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729716/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.66667</wgs:lat>
+	<wgs:long>10.75</wgs:long>
+	<skos:altLabel>Inch Mickery</skos:altLabel>
+	<skos:altLabel>Mickeryholmen</skos:altLabel>
+	<skos:prefLabel>Mickeryholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729722/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>76.55</wgs:lat>
+	<wgs:long>16.41667</wgs:long>
+	<skos:altLabel>Medholme</skos:altLabel>
+	<skos:altLabel>Meskjeret</skos:altLabel>
+	<skos:prefLabel>Meskjeret</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729734/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>74.36667</wgs:lat>
+	<wgs:long>19.2</wgs:long>
+	<skos:altLabel>Burgomaster Islet</skos:altLabel>
+	<skos:altLabel>Meholmen</skos:altLabel>
+	<skos:prefLabel>Meholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729754/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>74.48333</wgs:lat>
+	<wgs:long>18.78333</wgs:long>
+	<skos:prefLabel>Matholmane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729781/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>78.33333</wgs:lat>
+	<wgs:long>12.81667</wgs:long>
+	<skos:prefLabel>Marineholmane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729788/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>77.68333</wgs:lat>
+	<wgs:long>14.81667</wgs:long>
+	<skos:altLabel>Lilleöen</skos:altLabel>
+	<skos:altLabel>Little Akselöya</skos:altLabel>
+	<skos:altLabel>Maria Ön</skos:altLabel>
+	<skos:altLabel>Mariaholmen</skos:altLabel>
+	<skos:altLabel>Södra Axelön</skos:altLabel>
+	<skos:prefLabel>Mariaholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729805/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.2</wgs:lat>
+	<wgs:long>19.91667</wgs:long>
+	<skos:altLabel>Malmgren Island</skos:altLabel>
+	<skos:altLabel>Malmgrenøya</skos:altLabel>
+	<skos:prefLabel>Malmgrenøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729808/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.33333</wgs:lat>
+	<wgs:long>12.03333</wgs:long>
+	<skos:altLabel>Malme Øy</skos:altLabel>
+	<skos:altLabel>Malmeskjeret</skos:altLabel>
+	<skos:altLabel>Walker Rock</skos:altLabel>
+	<skos:prefLabel>Malmeskjeret</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729816/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>79.61667</wgs:lat>
+	<wgs:long>13.5</wgs:long>
+	<skos:altLabel>Iles des Mouettes</skos:altLabel>
+	<skos:altLabel>Maake Öyan</skos:altLabel>
+	<skos:altLabel>Måkeøyane</skos:altLabel>
+	<skos:altLabel>Möven Inseln</skos:altLabel>
+	<skos:prefLabel>Måkeøyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729817/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>74.36667</wgs:lat>
+	<wgs:long>19.2</wgs:long>
+	<skos:altLabel>Guld Eiland</skos:altLabel>
+	<skos:altLabel>Guleholmen</skos:altLabel>
+	<skos:altLabel>Gull Eiland</skos:altLabel>
+	<skos:altLabel>Gull-Iland</skos:altLabel>
+	<skos:altLabel>Gullholmen</skos:altLabel>
+	<skos:altLabel>Meeuvenklip</skos:altLabel>
+	<skos:altLabel>Måkeholmen</skos:altLabel>
+	<skos:prefLabel>Måkeholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729856/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80.05</wgs:lat>
+	<wgs:long>16.16667</wgs:long>
+	<skos:altLabel>Lous Isle</skos:altLabel>
+	<skos:altLabel>Luizen Eilandt</skos:altLabel>
+	<skos:altLabel>Lusholmen</skos:altLabel>
+	<skos:altLabel>Luysen Eylandt</skos:altLabel>
+	<skos:altLabel>Riff</skos:altLabel>
+	<skos:prefLabel>Lusholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729888/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>78.93333</wgs:lat>
+	<wgs:long>12.3</wgs:long>
+	<skos:altLabel>Iles Lovén</skos:altLabel>
+	<skos:altLabel>Kingsbayøyan</skos:altLabel>
+	<skos:altLabel>Kongsøyane</skos:altLabel>
+	<skos:altLabel>Lovéeinseln</skos:altLabel>
+	<skos:altLabel>Lovéeninseln</skos:altLabel>
+	<skos:altLabel>Lovén Øyan</skos:altLabel>
+	<skos:altLabel>Lovénøyane</skos:altLabel>
+	<skos:prefLabel>Lovénøyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729964/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.75</wgs:lat>
+	<wgs:long>10.93333</wgs:long>
+	<skos:altLabel>Deadman Island</skos:altLabel>
+	<skos:altLabel>Deadman’s Island</skos:altLabel>
+	<skos:altLabel>Dodemans Eylandt</skos:altLabel>
+	<skos:altLabel>Doodemans Eylandt</skos:altLabel>
+	<skos:altLabel>Doodmans Eylandt</skos:altLabel>
+	<skos:altLabel>Dødmandsholmen</skos:altLabel>
+	<skos:altLabel>Het Dootmannen Eylant</skos:altLabel>
+	<skos:altLabel>Ilot de l’ Homme Mort</skos:altLabel>
+	<skos:altLabel>Isola dell’ Vomo Morto</skos:altLabel>
+	<skos:altLabel>Isóla del’ Uomo Morte</skos:altLabel>
+	<skos:altLabel>Likholmen</skos:altLabel>
+	<skos:altLabel>Ostrove Mrtvého Musč</skos:altLabel>
+	<skos:altLabel>Todter Mannes Eyland</skos:altLabel>
+	<skos:altLabel>Totemann-Insel</skos:altLabel>
+	<skos:altLabel>l’Ile des Morts</skos:altLabel>
+	<skos:prefLabel>Likholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729988/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>79.58333</wgs:lat>
+	<wgs:long>12.73333</wgs:long>
+	<skos:altLabel>Lerner Øyan</skos:altLabel>
+	<skos:altLabel>Lerner-Inseln</skos:altLabel>
+	<skos:altLabel>Lernerøyane</skos:altLabel>
+	<skos:prefLabel>Lernerøyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729989/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.48333</wgs:lat>
+	<wgs:long>19.66667</wgs:long>
+	<skos:altLabel>Lemström Island</skos:altLabel>
+	<skos:altLabel>Lemströmøya</skos:altLabel>
+	<skos:prefLabel>Lemströmøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2729995/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.93333</wgs:lat>
+	<wgs:long>12.31667</wgs:long>
+	<skos:altLabel>Leir Island</skos:altLabel>
+	<skos:altLabel>Leirholmen</skos:altLabel>
+	<skos:altLabel>Lerholmen</skos:altLabel>
+	<skos:prefLabel>Leirholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2730064/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80.3</wgs:lat>
+	<wgs:long>18.5</wgs:long>
+	<skos:altLabel>Flachinsel</skos:altLabel>
+	<skos:altLabel>Isle Basse</skos:altLabel>
+	<skos:altLabel>Lav Island</skos:altLabel>
+	<skos:altLabel>Lave Ø</skos:altLabel>
+	<skos:altLabel>Lavøya</skos:altLabel>
+	<skos:altLabel>Low Island</skos:altLabel>
+	<skos:altLabel>Låg Ön</skos:altLabel>
+	<skos:altLabel>Lågøya</skos:altLabel>
+	<skos:altLabel>Niedrige Island</skos:altLabel>
+	<skos:altLabel>’t Lage Eyland</skos:altLabel>
+	<skos:prefLabel>Lågøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2730076/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>74.41667</wgs:lat>
+	<wgs:long>18.86667</wgs:long>
+	<skos:prefLabel>Lågholmane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2730131/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80</wgs:lat>
+	<wgs:long>18.5</wgs:long>
+	<skos:altLabel>Hval-ön</skos:altLabel>
+	<skos:altLabel>Hvalöarna</skos:altLabel>
+	<skos:altLabel>Hwal ön</skos:altLabel>
+	<skos:altLabel>Ile des Baleines</skos:altLabel>
+	<skos:altLabel>Kvaløya</skos:altLabel>
+	<skos:altLabel>Velrybji Ostrov</skos:altLabel>
+	<skos:altLabel>Walfisch Insel</skos:altLabel>
+	<skos:altLabel>Whale Island</skos:altLabel>
+	<skos:prefLabel>Kvaløya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2730164/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.96667</wgs:lat>
+	<wgs:long>18.16667</wgs:long>
+	<skos:altLabel>Korön</skos:altLabel>
+	<skos:altLabel>Krossøya</skos:altLabel>
+	<skos:altLabel>Ytterön</skos:altLabel>
+	<skos:prefLabel>Krossøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2730180/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.95</wgs:lat>
+	<wgs:long>18.41667</wgs:long>
+	<skos:prefLabel>Krokøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2730182/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>76.5</wgs:lat>
+	<wgs:long>16.46667</wgs:long>
+	<skos:prefLabel>Krokholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2730219/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>76.51667</wgs:lat>
+	<wgs:long>16.48333</wgs:long>
+	<skos:prefLabel>Konstantinholmane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2730273/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.26667</wgs:lat>
+	<wgs:long>11.98333</wgs:long>
+	<skos:altLabel>Isle Kohn</skos:altLabel>
+	<skos:altLabel>Kohnøya</skos:altLabel>
+	<skos:prefLabel>Kohnøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2730292/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>76.5</wgs:lat>
+	<wgs:long>16.48333</wgs:long>
+	<skos:prefLabel>Knattholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2730303/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.86667</wgs:lat>
+	<wgs:long>11.5</wgs:long>
+	<skos:altLabel>Clifted Rock</skos:altLabel>
+	<skos:altLabel>Cloven Cliff</skos:altLabel>
+	<skos:altLabel>De Kloofde Klip</skos:altLabel>
+	<skos:altLabel>Die Gespalten Klippe</skos:altLabel>
+	<skos:altLabel>Ecueil Fourchu</skos:altLabel>
+	<skos:altLabel>Gekloofde-klip</skos:altLabel>
+	<skos:altLabel>Gespouwene Klip</skos:altLabel>
+	<skos:altLabel>Klaaven Kliff</skos:altLabel>
+	<skos:altLabel>Klaaven Klipp</skos:altLabel>
+	<skos:altLabel>Kliften Rock</skos:altLabel>
+	<skos:altLabel>Klip met de Kloof</skos:altLabel>
+	<skos:altLabel>Kloofde Clip</skos:altLabel>
+	<skos:altLabel>Klovningen</skos:altLabel>
+	<skos:altLabel>Kløven Klip</skos:altLabel>
+	<skos:altLabel>Meule de Foin</skos:altLabel>
+	<skos:altLabel>Rocher Fendu</skos:altLabel>
+	<skos:altLabel>Rocherfourchu</skos:altLabel>
+	<skos:altLabel>Saddle Iland</skos:altLabel>
+	<skos:altLabel>The Saddle</skos:altLabel>
+	<skos:altLabel>’t Eylant Met de Kloof</skos:altLabel>
+	<skos:altLabel>’t Eylant Met de Kof</skos:altLabel>
+	<skos:prefLabel>Klovningen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2730350/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>77.7</wgs:lat>
+	<wgs:long>14.83333</wgs:long>
+	<skos:prefLabel>Kilskjera</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2730364/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>74.35</wgs:lat>
+	<wgs:long>19.08333</wgs:long>
+	<skos:altLabel>Keilhaus Ö</skos:altLabel>
+	<skos:altLabel>Keilhaus Øy</skos:altLabel>
+	<skos:altLabel>Keilhauøya</skos:altLabel>
+	<skos:prefLabel>Keilhauøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2730386/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>78.3</wgs:lat>
+	<wgs:long>12.91667</wgs:long>
+	<skos:prefLabel>Kanonkulene</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2730410/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.95</wgs:lat>
+	<wgs:long>12.28333</wgs:long>
+	<skos:altLabel>Ile Jutta</skos:altLabel>
+	<skos:altLabel>Jutta Island</skos:altLabel>
+	<skos:altLabel>Juttaholmen</skos:altLabel>
+	<skos:altLabel>Maples Island</skos:altLabel>
+	<skos:altLabel>Rødholmen</skos:altLabel>
+	<skos:prefLabel>Juttaholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2730432/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>78.25</wgs:lat>
+	<wgs:long>15.5</wgs:long>
+	<skos:altLabel>Jermaks Varde</skos:altLabel>
+	<skos:altLabel>Jermakstøtta</skos:altLabel>
+	<skos:prefLabel>Jermakstøtta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2730495/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>77.11667</wgs:lat>
+	<wgs:long>14.86667</wgs:long>
+	<skos:prefLabel>Isøyskjera</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2730496/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>77.13333</wgs:lat>
+	<wgs:long>14.81667</wgs:long>
+	<skos:prefLabel>Isøykalven</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2730497/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>77.13333</wgs:lat>
+	<wgs:long>14.83333</wgs:long>
+	<skos:altLabel>Eis Iles</skos:altLabel>
+	<skos:altLabel>Ice Islands</skos:altLabel>
+	<skos:altLabel>Iles Glace</skos:altLabel>
+	<skos:altLabel>Is-øarne</skos:altLabel>
+	<skos:altLabel>Isøyane</skos:altLabel>
+	<skos:prefLabel>Isøyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2730535/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.91667</wgs:lat>
+	<wgs:long>12.31667</wgs:long>
+	<skos:altLabel>Inner Island</skos:altLabel>
+	<skos:altLabel>Innerholmen</skos:altLabel>
+	<skos:prefLabel>Innerholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2730543/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>74.38333</wgs:lat>
+	<wgs:long>19.2</wgs:long>
+	<skos:prefLabel>Ingebrigtsenøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2730547/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.98333</wgs:lat>
+	<wgs:long>18.33333</wgs:long>
+	<skos:altLabel>Indre Russøya</skos:altLabel>
+	<skos:altLabel>Inre Ryssön</skos:altLabel>
+	<skos:altLabel>Lille A. Ryssön</skos:altLabel>
+	<skos:altLabel>Morensons ö</skos:altLabel>
+	<skos:altLabel>Morensön</skos:altLabel>
+	<skos:prefLabel>Indre Russøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2730548/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.85</wgs:lat>
+	<wgs:long>11.6</wgs:long>
+	<skos:altLabel>Gaasen Eyland</skos:altLabel>
+	<skos:altLabel>Gansen Eyland</skos:altLabel>
+	<skos:altLabel>Goose Island</skos:altLabel>
+	<skos:altLabel>Grosse Norskö</skos:altLabel>
+	<skos:altLabel>Ile des Norvegiens Numéro Deux</skos:altLabel>
+	<skos:altLabel>Indre Norskøya</skos:altLabel>
+	<skos:altLabel>Inner Norway Island</skos:altLabel>
+	<skos:altLabel>Stora Norskön</skos:altLabel>
+	<skos:prefLabel>Indre Norskøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2730609/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.33333</wgs:lat>
+	<wgs:long>19.5</wgs:long>
+	<skos:altLabel>Holmgren Island</skos:altLabel>
+	<skos:altLabel>Holmgrenøya</skos:altLabel>
+	<skos:prefLabel>Holmgrenøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2730616/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>74.45</wgs:lat>
+	<wgs:long>18.83333</wgs:long>
+	<skos:prefLabel>Holmengrå</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2730679/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.55</wgs:lat>
+	<wgs:long>12.23333</wgs:long>
+	<skos:altLabel>Hermansen Island</skos:altLabel>
+	<skos:altLabel>Hermansenøya</skos:altLabel>
+	<skos:altLabel>May Island</skos:altLabel>
+	<skos:altLabel>Rövarholmen</skos:altLabel>
+	<skos:altLabel>Sant Jonsbayøya</skos:altLabel>
+	<skos:prefLabel>Hermansenøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2730723/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>74.51667</wgs:lat>
+	<wgs:long>19.15</wgs:long>
+	<skos:prefLabel>Havhestholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2730735/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>74.35</wgs:lat>
+	<wgs:long>19.06667</wgs:long>
+	<skos:prefLabel>Håsteinen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2730750/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80.16667</wgs:lat>
+	<wgs:long>19</wgs:long>
+	<skos:prefLabel>Hansøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2730814/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>79.03333</wgs:lat>
+	<wgs:long>16.23333</wgs:long>
+	<skos:altLabel>Gyllensköld Islands</skos:altLabel>
+	<skos:altLabel>Gyllensköldholmane</skos:altLabel>
+	<skos:prefLabel>Gyllensköldholmane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2730816/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>79.7</wgs:lat>
+	<wgs:long>19.91667</wgs:long>
+	<skos:altLabel>Gelden Islands</skos:altLabel>
+	<skos:altLabel>Gyldénøyane</skos:altLabel>
+	<skos:altLabel>Isles Gyldén</skos:altLabel>
+	<skos:prefLabel>Gyldénøyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2730838/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.31667</wgs:lat>
+	<wgs:long>12.83333</wgs:long>
+	<skos:altLabel>Gudrun Øy</skos:altLabel>
+	<skos:altLabel>Gudrunholmen</skos:altLabel>
+	<skos:prefLabel>Gudrunholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2730851/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>76.98333</wgs:lat>
+	<wgs:long>16.05</wgs:long>
+	<skos:prefLabel>Grusholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2730908/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80.01667</wgs:lat>
+	<wgs:long>18.5</wgs:long>
+	<skos:altLabel>Gråön</skos:altLabel>
+	<skos:altLabel>Gråøya</skos:altLabel>
+	<skos:prefLabel>Gråøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2730925/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>77.28333</wgs:lat>
+	<wgs:long>14.15</wgs:long>
+	<skos:prefLabel>Gråholmane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2730995/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>78.98333</wgs:lat>
+	<wgs:long>12.28333</wgs:long>
+	<skos:altLabel>Deer Bay Island</skos:altLabel>
+	<skos:altLabel>Gerd Island</skos:altLabel>
+	<skos:altLabel>Gerd Øy</skos:altLabel>
+	<skos:altLabel>Gerdøyane</skos:altLabel>
+	<skos:prefLabel>Gerdøyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731020/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>78.45</wgs:lat>
+	<wgs:long>16.21667</wgs:long>
+	<skos:altLabel>Gaasøen</skos:altLabel>
+	<skos:altLabel>Goose Islands</skos:altLabel>
+	<skos:altLabel>Gänse-Inseln</skos:altLabel>
+	<skos:altLabel>Gåsöarne</skos:altLabel>
+	<skos:altLabel>Gåsøyane</skos:altLabel>
+	<skos:altLabel>Iles des Oies</skos:altLabel>
+	<skos:prefLabel>Gåsøyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731022/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.85</wgs:lat>
+	<wgs:long>11.66667</wgs:long>
+	<skos:altLabel>Ganzen-Eiland</skos:altLabel>
+	<skos:altLabel>Gåsholmen</skos:altLabel>
+	<skos:prefLabel>Gåsholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731043/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>78.3</wgs:lat>
+	<wgs:long>12.85</wgs:long>
+	<skos:prefLabel>Galeiholmane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731063/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.81667</wgs:lat>
+	<wgs:long>11.4</wgs:long>
+	<skos:altLabel>Foul Island</skos:altLabel>
+	<skos:altLabel>Fowl Island</skos:altLabel>
+	<skos:altLabel>Fuggeløya</skos:altLabel>
+	<skos:altLabel>Fugløya</skos:altLabel>
+	<skos:altLabel>Noorweegen</skos:altLabel>
+	<skos:prefLabel>Fugløya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731067/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>79.8</wgs:lat>
+	<wgs:long>11.31667</wgs:long>
+	<skos:altLabel>Archipel</skos:altLabel>
+	<skos:altLabel>Archipelage</skos:altLabel>
+	<skos:altLabel>De Arssypel</skos:altLabel>
+	<skos:altLabel>Fowl Skerries</skos:altLabel>
+	<skos:altLabel>Fugleskjera</skos:altLabel>
+	<skos:altLabel>d’ Arsypelle</skos:altLabel>
+	<skos:prefLabel>Fugleskjera</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731068/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.85</wgs:lat>
+	<wgs:long>11.33333</wgs:long>
+	<skos:altLabel>Birds Song</skos:altLabel>
+	<skos:altLabel>Bird’s Sound</skos:altLabel>
+	<skos:altLabel>Branta Bernicla</skos:altLabel>
+	<skos:altLabel>Canto d’Vccelli</skos:altLabel>
+	<skos:altLabel>Chant de l’Oiseau</skos:altLabel>
+	<skos:altLabel>Chant des Oiseaux</skos:altLabel>
+	<skos:altLabel>De Vogel Sang</skos:altLabel>
+	<skos:altLabel>De Voghelsangh</skos:altLabel>
+	<skos:altLabel>Fugelsang</skos:altLabel>
+	<skos:altLabel>Fuggelsang</skos:altLabel>
+	<skos:altLabel>Fuglesangen</skos:altLabel>
+	<skos:altLabel>Island Vogelsand</skos:altLabel>
+	<skos:altLabel>Rotgans Eylandt</skos:altLabel>
+	<skos:altLabel>Vogel Sang</skos:altLabel>
+	<skos:altLabel>Vogele Sanck</skos:altLabel>
+	<skos:altLabel>Vogelsanck</skos:altLabel>
+	<skos:altLabel>Vogelsang-Saaresta</skos:altLabel>
+	<skos:altLabel>Vogelzang</skos:altLabel>
+	<skos:prefLabel>Fuglesangen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731077/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.56667</wgs:lat>
+	<wgs:long>10.93333</wgs:long>
+	<skos:altLabel>Bird Island</skos:altLabel>
+	<skos:altLabel>Fuggeløya</skos:altLabel>
+	<skos:altLabel>Fugleholmen</skos:altLabel>
+	<skos:altLabel>Vogel-Insel</skos:altLabel>
+	<skos:prefLabel>Fugleholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731091/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.26667</wgs:lat>
+	<wgs:long>13.75</wgs:long>
+	<skos:prefLabel>Frontholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731094/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.33333</wgs:lat>
+	<wgs:long>19.5</wgs:long>
+	<skos:altLabel>Frisch Island</skos:altLabel>
+	<skos:altLabel>Frischøya</skos:altLabel>
+	<skos:prefLabel>Frischøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731096/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>79.31667</wgs:lat>
+	<wgs:long>19.65</wgs:long>
+	<skos:altLabel>Fries Islands</skos:altLabel>
+	<skos:altLabel>Friesøyane</skos:altLabel>
+	<skos:prefLabel>Friesøyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731103/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>78.31667</wgs:lat>
+	<wgs:long>12.85</wgs:long>
+	<skos:prefLabel>Fregattholmane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731115/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>80.23333</wgs:lat>
+	<wgs:long>18.55</wgs:long>
+	<skos:altLabel>Framtidsöarna</skos:altLabel>
+	<skos:altLabel>Framtidsøyane</skos:altLabel>
+	<skos:prefLabel>Framtidsøyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731132/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>79.58333</wgs:lat>
+	<wgs:long>19.33333</wgs:long>
+	<skos:altLabel>Eyland</skos:altLabel>
+	<skos:altLabel>Foster Islands</skos:altLabel>
+	<skos:altLabel>Fosterøyan</skos:altLabel>
+	<skos:altLabel>Fosterøyane</skos:altLabel>
+	<skos:altLabel>Het Groot Eyland</skos:altLabel>
+	<skos:altLabel>Het Vuyl Eyland</skos:altLabel>
+	<skos:prefLabel>Fosterøyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731150/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>78.33333</wgs:lat>
+	<wgs:long>11.58333</wgs:long>
+	<skos:altLabel>Edinburgh Isles</skos:altLabel>
+	<skos:altLabel>Edinburgh Öyan</skos:altLabel>
+	<skos:altLabel>Forlandsøyan</skos:altLabel>
+	<skos:altLabel>Forlandsøyane</skos:altLabel>
+	<skos:altLabel>Förlandsöarna</skos:altLabel>
+	<skos:altLabel>Iles du Foreland</skos:altLabel>
+	<skos:prefLabel>Forlandsøyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731160/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.55</wgs:lat>
+	<wgs:long>18</wgs:long>
+	<skos:altLabel>Fass Island</skos:altLabel>
+	<skos:altLabel>Foot Island</skos:altLabel>
+	<skos:altLabel>Foottøya</skos:altLabel>
+	<skos:altLabel>Foott’s Island</skos:altLabel>
+	<skos:altLabel>Fuss-Insel</skos:altLabel>
+	<skos:altLabel>Het Eyland Nevens de Reene Fioerd</skos:altLabel>
+	<skos:altLabel>Isle Foott</skos:altLabel>
+	<skos:prefLabel>Foottøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731180/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80.03333</wgs:lat>
+	<wgs:long>18</wgs:long>
+	<skos:altLabel>Flundren</skos:altLabel>
+	<skos:altLabel>Flyndra</skos:altLabel>
+	<skos:prefLabel>Flyndra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731209/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.65</wgs:lat>
+	<wgs:long>14.6</wgs:long>
+	<skos:altLabel>Chert Island</skos:altLabel>
+	<skos:altLabel>Flintholmen</skos:altLabel>
+	<skos:prefLabel>Flintholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731225/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>77.15</wgs:lat>
+	<wgs:long>14.66667</wgs:long>
+	<skos:prefLabel>Flatholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731232/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>76.45</wgs:lat>
+	<wgs:long>16.8</wgs:long>
+	<skos:prefLabel>Flakskjeret</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731238/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>77.06667</wgs:lat>
+	<wgs:long>15</wgs:long>
+	<skos:prefLabel>Fjørholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731263/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.7</wgs:lat>
+	<wgs:long>10.61667</wgs:long>
+	<skos:altLabel>Fidra Rocks</skos:altLabel>
+	<skos:altLabel>Fidrasteinen</skos:altLabel>
+	<skos:altLabel>Frida Rock</skos:altLabel>
+	<skos:prefLabel>Fidrasteinen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731342/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>79.96667</wgs:lat>
+	<wgs:long>16.83333</wgs:long>
+	<skos:altLabel>Aeoli Kors</skos:altLabel>
+	<skos:altLabel>Croix Aeolus</skos:altLabel>
+	<skos:altLabel>Croix d’ Aelos</skos:altLabel>
+	<skos:altLabel>Eoluskrossen</skos:altLabel>
+	<skos:prefLabel>Eoluskrossen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731343/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.25</wgs:lat>
+	<wgs:long>19.5</wgs:long>
+	<skos:altLabel>Enwalløya</skos:altLabel>
+	<skos:altLabel>Isle Envall</skos:altLabel>
+	<skos:prefLabel>Enwalløya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731353/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>77.01667</wgs:lat>
+	<wgs:long>15.95</wgs:long>
+	<skos:altLabel>Bird Rock</skos:altLabel>
+	<skos:altLabel>Emo Inseln</skos:altLabel>
+	<skos:altLabel>Emoholmane</skos:altLabel>
+	<skos:prefLabel>Emoholmane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731354/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>74.51667</wgs:lat>
+	<wgs:long>18.93333</wgs:long>
+	<skos:altLabel>Emmaholmane</skos:altLabel>
+	<skos:altLabel>Emmas Öar</skos:altLabel>
+	<skos:prefLabel>Emmaholmane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731399/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>77.6</wgs:lat>
+	<wgs:long>14.93333</wgs:long>
+	<skos:altLabel>Eholmen</skos:altLabel>
+	<skos:altLabel>Ile des Eders</skos:altLabel>
+	<skos:altLabel>Ile des Eiders</skos:altLabel>
+	<skos:prefLabel>Eholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731433/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>77.05</wgs:lat>
+	<wgs:long>14.96667</wgs:long>
+	<skos:altLabel>Daunen-Inseln</skos:altLabel>
+	<skos:altLabel>Down Islands</skos:altLabel>
+	<skos:altLabel>Dunn-Island</skos:altLabel>
+	<skos:altLabel>Dunøarne</skos:altLabel>
+	<skos:altLabel>Dunøyan</skos:altLabel>
+	<skos:altLabel>Dunøyane</skos:altLabel>
+	<skos:altLabel>Horensundsøerne</skos:altLabel>
+	<skos:altLabel>Horn Sound Islands</skos:altLabel>
+	<skos:altLabel>Hornsundøerne</skos:altLabel>
+	<skos:altLabel>Untuva</skos:altLabel>
+	<skos:altLabel>Îles Dunen</skos:altLabel>
+	<skos:altLabel>Îles Dunes</skos:altLabel>
+	<skos:altLabel>Îles du Duvet</skos:altLabel>
+	<skos:prefLabel>Dunøyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731440/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>77.48333</wgs:lat>
+	<wgs:long>13.9</wgs:long>
+	<skos:altLabel>Dunderholmane</skos:altLabel>
+	<skos:altLabel>Dunderholme</skos:altLabel>
+	<skos:prefLabel>Dunderholmane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731468/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>74.48333</wgs:lat>
+	<wgs:long>18.78333</wgs:long>
+	<skos:prefLabel>Drangane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731476/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>79.56667</wgs:lat>
+	<wgs:long>11.06667</wgs:long>
+	<skos:altLabel>Doncker Islands</skos:altLabel>
+	<skos:altLabel>Donkerholmane</skos:altLabel>
+	<skos:altLabel>Jan Donker</skos:altLabel>
+	<skos:altLabel>Zieten-Klippe</skos:altLabel>
+	<skos:prefLabel>Donkerholmane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731483/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>79.81667</wgs:lat>
+	<wgs:long>18.38333</wgs:long>
+	<skos:altLabel>Dolomittøyane</skos:altLabel>
+	<skos:altLabel>Iles Dolomite</skos:altLabel>
+	<skos:prefLabel>Dolomittøyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731492/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.8</wgs:lat>
+	<wgs:long>10.65</wgs:long>
+	<skos:altLabel>Devils Island</skos:altLabel>
+	<skos:altLabel>Djevleøya</skos:altLabel>
+	<skos:altLabel>Duyvels Eyland</skos:altLabel>
+	<skos:altLabel>Teufels-Insel</skos:altLabel>
+	<skos:prefLabel>Djevleøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731499/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.91667</wgs:lat>
+	<wgs:long>12.33333</wgs:long>
+	<skos:altLabel>Dietrich Island</skos:altLabel>
+	<skos:altLabel>Dietricholmen</skos:altLabel>
+	<skos:prefLabel>Dietricholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731513/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80</wgs:lat>
+	<wgs:long>18.16667</wgs:long>
+	<skos:altLabel>Depotön</skos:altLabel>
+	<skos:altLabel>Depotøya</skos:altLabel>
+	<skos:altLabel>Dépot Holm</skos:altLabel>
+	<skos:prefLabel>Depotøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731547/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.7</wgs:lat>
+	<wgs:long>10.93333</wgs:long>
+	<skos:altLabel>Danaeyju</skos:altLabel>
+	<skos:altLabel>Danes Island</skos:altLabel>
+	<skos:altLabel>Danish Island</skos:altLabel>
+	<skos:altLabel>Danskeøya</skos:altLabel>
+	<skos:altLabel>Danskön</skos:altLabel>
+	<skos:altLabel>Danskøya</skos:altLabel>
+	<skos:altLabel>Datskija Ostrova</skos:altLabel>
+	<skos:altLabel>Deenes Eiland</skos:altLabel>
+	<skos:altLabel>Deensche Eyl</skos:altLabel>
+	<skos:altLabel>Denen-Eiland</skos:altLabel>
+	<skos:altLabel>Dánsky Ostrov</skos:altLabel>
+	<skos:altLabel>Ile des Danois</skos:altLabel>
+	<skos:altLabel>Isle de Deens</skos:altLabel>
+	<skos:altLabel>Isola dei Danesi</skos:altLabel>
+	<skos:altLabel>Isola del Golfo</skos:altLabel>
+	<skos:altLabel>Tanskan</skos:altLabel>
+	<skos:prefLabel>Danskøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731570/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.81667</wgs:lat>
+	<wgs:long>11.56667</wgs:long>
+	<skos:altLabel>Cummingøya</skos:altLabel>
+	<skos:altLabel>Ile Cumming</skos:altLabel>
+	<skos:altLabel>Phipps Island</skos:altLabel>
+	<skos:prefLabel>Cummingøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731581/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.68333</wgs:lat>
+	<wgs:long>14.71667</wgs:long>
+	<skos:altLabel>Cora Island</skos:altLabel>
+	<skos:altLabel>Coraholmen</skos:altLabel>
+	<skos:prefLabel>Coraholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731735/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.3</wgs:lat>
+	<wgs:long>14.01667</wgs:long>
+	<skos:altLabel>Breiddholmen</skos:altLabel>
+	<skos:altLabel>Eiderholmen</skos:altLabel>
+	<skos:altLabel>Ejderholmen</skos:altLabel>
+	<skos:altLabel>Ile des Eiders</skos:altLabel>
+	<skos:altLabel>Latitude Island</skos:altLabel>
+	<skos:prefLabel>Breiddholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731751/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>76.46667</wgs:lat>
+	<wgs:long>16.51667</wgs:long>
+	<skos:altLabel>Bratholme</skos:altLabel>
+	<skos:altLabel>Brattholmen</skos:altLabel>
+	<skos:prefLabel>Brattholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731827/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.98333</wgs:lat>
+	<wgs:long>12.1</wgs:long>
+	<skos:altLabel xml:lang="no">Blomstrandhalvøya</skos:altLabel>
+	<skos:altLabel>Blomstrands Halvø</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Blomstrandshalvön</skos:altLabel>
+	<skos:altLabel>Blomstrand’s Mound</skos:altLabel>
+	<skos:altLabel>Marble Island</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Presqu'ile Blomstrand</skos:altLabel>
+	<skos:prefLabel>Blomstrandhalvøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731865/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>74.41667</wgs:lat>
+	<wgs:long>19</wgs:long>
+	<skos:altLabel>Bear Island</skos:altLabel>
+	<skos:altLabel>Beare Island</skos:altLabel>
+	<skos:altLabel>Beeren Eylandt</skos:altLabel>
+	<skos:altLabel>Beernland</skos:altLabel>
+	<skos:altLabel>Beren Eylant</skos:altLabel>
+	<skos:altLabel>Bern Land</skos:altLabel>
+	<skos:altLabel>Berneiland</skos:altLabel>
+	<skos:altLabel>Bernt Eiland</skos:altLabel>
+	<skos:altLabel>Bernt Øyland</skos:altLabel>
+	<skos:altLabel>Beyren Eylandt</skos:altLabel>
+	<skos:altLabel>Bjerne</skos:altLabel>
+	<skos:altLabel>Bjorn Island</skos:altLabel>
+	<skos:altLabel>Bjornaya</skos:altLabel>
+	<skos:altLabel>Bjørn-Øen</skos:altLabel>
+	<skos:altLabel>Bjørne-Øen</skos:altLabel>
+	<skos:altLabel>Bjørnøi</skos:altLabel>
+	<skos:altLabel>Bjørnøya</skos:altLabel>
+	<skos:altLabel>Bähren Island</skos:altLabel>
+	<skos:altLabel>Bären Insel</skos:altLabel>
+	<skos:altLabel>Bæren Eiland</skos:altLabel>
+	<skos:altLabel>Bæren Ø</skos:altLabel>
+	<skos:altLabel>Cherie-Iland</skos:altLabel>
+	<skos:altLabel>Cherry Island</skos:altLabel>
+	<skos:altLabel>Chirri Ilant</skos:altLabel>
+	<skos:altLabel>Isle des Oiseaux</skos:altLabel>
+	<skos:altLabel>Isle des Ours</skos:altLabel>
+	<skos:altLabel>Isola dell’ Orso</skos:altLabel>
+	<skos:altLabel>Karhusaari</skos:altLabel>
+	<skos:altLabel>Le Beren Eylandt</skos:altLabel>
+	<skos:altLabel>Medvežnago Ostrova</skos:altLabel>
+	<skos:altLabel>Nebel-Insel</skos:altLabel>
+	<skos:altLabel>Paese di Bern</skos:altLabel>
+	<skos:altLabel>T’ Veere Eylandt</skos:altLabel>
+	<skos:altLabel>Ursi Insula</skos:altLabel>
+	<skos:altLabel>Ursorum Insulam</skos:altLabel>
+	<skos:altLabel>Verre Eiland</skos:altLabel>
+	<skos:altLabel>Ysle Tueere</skos:altLabel>
+	<skos:altLabel>l’Isola de gli Orsi</skos:altLabel>
+	<skos:altLabel>’t Viercandt Eyelandt</skos:altLabel>
+	<skos:prefLabel>Bjørnøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731866/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.13333</wgs:lat>
+	<wgs:long>16.2</wgs:long>
+	<skos:prefLabel>Bjørnnesholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731934/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.31667</wgs:lat>
+	<wgs:long>19.33333</wgs:long>
+	<skos:altLabel>Berggren Island</skos:altLabel>
+	<skos:altLabel>Berggrenøya</skos:altLabel>
+	<skos:altLabel>Isle Bergren</skos:altLabel>
+	<skos:prefLabel>Berggrenøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731943/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>77.75</wgs:lat>
+	<wgs:long>14.25</wgs:long>
+	<skos:prefLabel>Bellsundholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731977/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>80.18333</wgs:lat>
+	<wgs:long>18.3</wgs:long>
+	<skos:prefLabel>Basisøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2731991/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>77.56667</wgs:lat>
+	<wgs:long>15</wgs:long>
+	<skos:altLabel>Bardi Felsen</skos:altLabel>
+	<skos:altLabel>Bardiholmen</skos:altLabel>
+	<skos:prefLabel>Bardiholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2732045/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>77.16667</wgs:lat>
+	<wgs:long>14.8</wgs:long>
+	<skos:prefLabel>Aurholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2732119/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>79.66667</wgs:lat>
+	<wgs:long>13.33333</wgs:long>
+	<skos:altLabel>Ande Øyan</skos:altLabel>
+	<skos:altLabel>Andøyane</skos:altLabel>
+	<skos:altLabel>Enten Islands</skos:altLabel>
+	<skos:altLabel>Iles des Canards</skos:altLabel>
+	<skos:altLabel>Malmgren Islands</skos:altLabel>
+	<skos:altLabel>Skaiersbaiøyan</skos:altLabel>
+	<skos:prefLabel>Andøyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2732120/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>74.38333</wgs:lat>
+	<wgs:long>19.21667</wgs:long>
+	<skos:altLabel>Andersson Öy</skos:altLabel>
+	<skos:altLabel>Anderssonøya</skos:altLabel>
+	<skos:prefLabel>Anderssonøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2732123/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.75</wgs:lat>
+	<wgs:long>10.83333</wgs:long>
+	<skos:altLabel>Amster Eiland</skos:altLabel>
+	<skos:altLabel>Amsterdamsche Eylandt</skos:altLabel>
+	<skos:altLabel>Amsterdamøya</skos:altLabel>
+	<skos:altLabel>Eylandt Amsterdammer</skos:altLabel>
+	<skos:altLabel>Hackluyt-Insel</skos:altLabel>
+	<skos:altLabel>Hollander Island</skos:altLabel>
+	<skos:altLabel>Hollandts Eylandt</skos:altLabel>
+	<skos:altLabel>Ile de l’ Hollandois</skos:altLabel>
+	<skos:altLabel>Ile d’ Amsterdam</skos:altLabel>
+	<skos:altLabel>Mauritius Island</skos:altLabel>
+	<skos:altLabel>New Amsterdam Island</skos:altLabel>
+	<skos:prefLabel>Amsterdamøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2732138/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>74.35</wgs:lat>
+	<wgs:long>19.11667</wgs:long>
+	<skos:prefLabel>Alkeholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2732152/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.73333</wgs:lat>
+	<wgs:long>11.03333</wgs:long>
+	<skos:altLabel>Albertön</skos:altLabel>
+	<skos:altLabel>Albertøya</skos:altLabel>
+	<skos:prefLabel>Albertøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2732162/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>77.71667</wgs:lat>
+	<wgs:long>14.71667</wgs:long>
+	<skos:altLabel>Akseløya</skos:altLabel>
+	<skos:altLabel>Axel Saaret</skos:altLabel>
+	<skos:altLabel>Axels Öar</skos:altLabel>
+	<skos:altLabel>Hovedöen</skos:altLabel>
+	<skos:altLabel>Norra Axelön</skos:altLabel>
+	<skos:altLabel>Stora Axelon</skos:altLabel>
+	<skos:prefLabel>Akseløya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2732172/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>78.2</wgs:lat>
+	<wgs:long>13.03333</wgs:long>
+	<skos:prefLabel>Agskjera</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3041879/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>70.91667</wgs:lat>
+	<wgs:long>-8.83333</wgs:long>
+	<skos:prefLabel>Sør-Jan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3041918/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>71.06667</wgs:lat>
+	<wgs:long>-8.16667</wgs:long>
+	<skos:prefLabel>Nord-Jan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3041963/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>70.98333</wgs:lat>
+	<wgs:long>-8.5</wgs:long>
+	<skos:altLabel>Hudsons Tutches</skos:altLabel>
+	<skos:altLabel>Isle de Richelieu</skos:altLabel>
+	<skos:altLabel>Jan Mayen</skos:altLabel>
+	<skos:altLabel>Mauritius</skos:altLabel>
+	<skos:altLabel>Mr. Joris Eylandt</skos:altLabel>
+	<skos:altLabel>Mr. Joris al Jan Mayen Eylandt</skos:altLabel>
+	<skos:altLabel>Pico</skos:altLabel>
+	<skos:altLabel>Saint Maurice</skos:altLabel>
+	<skos:altLabel>Sir Thomas Smith’s Island</skos:altLabel>
+	<skos:altLabel>Svalbard</skos:altLabel>
+	<skos:altLabel>Trinity Island</skos:altLabel>
+	<skos:altLabel>Tutches</skos:altLabel>
+	<skos:altLabel>Young’s Foreland</skos:altLabel>
+	<skos:prefLabel>Jan Mayen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3041964/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>70.98333</wgs:lat>
+	<wgs:long>-8.5</wgs:long>
+	<skos:prefLabel>Jan Mayen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3246397/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>78.98333</wgs:lat>
+	<wgs:long>12.3</wgs:long>
+	<skos:prefLabel>Søre Gerdøya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3246399/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>79</wgs:lat>
+	<wgs:long>12.11667</wgs:long>
+	<skos:prefLabel>Breøyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3246402/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.06667</wgs:lat>
+	<wgs:long>11.66667</wgs:long>
+	<skos:prefLabel>Guissezholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3246429/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.65</wgs:lat>
+	<wgs:long>10.73333</wgs:long>
+	<skos:prefLabel>Skorpa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3246445/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>79.68333</wgs:lat>
+	<wgs:long>13.33333</wgs:long>
+	<skos:prefLabel>Ringholmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521757/">
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>2500</europeana:population>
+	<wgs:lat>78.15706</wgs:lat>
+	<wgs:long>15.86426</wgs:long>
+	<skos:prefLabel>Svalbard</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7535695/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041964/"/>
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>71.00802</wgs:lat>
+	<wgs:long>-8.37708</wgs:long>
+	<skos:prefLabel>Jan Mayen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7535696/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/7521757/"/>
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>78.0529</wgs:lat>
+	<wgs:long>17.70996</wgs:long>
+	<skos:prefLabel>Spitsbergen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7535697/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/7521757/"/>
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>76.57561</wgs:lat>
+	<wgs:long>25.19714</wgs:long>
+	<skos:prefLabel>Hopen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7535698/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/7521757/"/>
+	<europeana:country>SJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>74.44347</wgs:lat>
+	<wgs:long>19.00635</wgs:long>
+	<skos:prefLabel>Bjørnøya</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 319 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

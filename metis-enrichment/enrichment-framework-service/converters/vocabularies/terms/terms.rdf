@@ -1,0 +1,238 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE rdf:RDF [
+<!ENTITY rdf 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
+<!ENTITY rdfs 'http://www.w3.org/2000/01/rdf-schema#'>
+<!ENTITY aat 'http://e-culture.multimedian.nl/ns/getty/aat#'>
+<!ENTITY vp 'http://e-culture.multimedian.nl/ns/getty/vp#'>
+<!ENTITY skos   'http://www.w3.org/2004/02/skos/core#'>
+
+]>
+
+
+<!-- 
+
+ Copyright 2005-2009 the original author or authors.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ 
+ This file is a part of AnnoCultor demos, see
+ 
+     http://annocultor.sourceforge.net 
+
+ This file contains a sample of several AAT records converted into RDF.
+ The original data was taken from GETTY
+
+     http://www.getty.edu/research/conducting_research/vocabularies/aat/  
+
+
+ The conversion was done by the MultimediaN e-Culture project
+
+     http://e-culture.multimedian.nl
+ 
+ This file is provided for illustration purposes only.    
+ -->
+
+
+<rdf:RDF
+  xmlns:rdf="&rdf;"
+  xmlns:rdfs="&rdfs;"
+  xmlns:tgn="&aat;"
+  xmlns:vp="&vp;"
+  xmlns:aat="&aat;"
+      xmlns:skos        ="&skos;"
+  
+>
+
+<rdf:Property rdf:about="&vp;labelPreferred.Singular">
+  <rdfs:subPropertyOf rdf:resource="&vp;labelPreferred"/>
+</rdf:Property>
+
+<rdf:Description rdf:about="http://e-culture.multimedian.nl/ns/getty/aat#300041405">
+	<rdf:type rdf:resource="http://e-culture.multimedian.nl/ns/getty/aat#Concept"/>
+	<rdfs:label>300041405</rdfs:label>
+	<vp:labelPreferred.Singular xml:lang="nl">houtsnede</vp:labelPreferred.Singular>
+	<skos:prefLabel xml:lang="nl">houtsneden</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">woodcuts</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://e-culture.multimedian.nl/ns/getty/aat#3000porselein">
+	<rdf:type rdf:resource="http://e-culture.multimedian.nl/ns/getty/aat#Concept"/>
+	<rdfs:label>3000porselein</rdfs:label>
+	<skos:prefLabel xml:lang="nl">Porselein</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://e-culture.multimedian.nl/ns/getty/aat#3000aardewerk">
+	<rdf:type rdf:resource="http://e-culture.multimedian.nl/ns/getty/aat#Concept"/>
+	<rdfs:label>3000aardewerk</rdfs:label>
+	<skos:prefLabel xml:lang="nl">aardewerk</skos:prefLabel>
+</rdf:Description>
+
+
+<!--
+
+These are French labels to some of the AAT concepts added by Anna Tordai
+witin the e-Culture project.
+
+-->
+
+    <aat:Concept rdf:about="&aat;300020251"
+        vp:id="300020251">
+        <skos:prefLabel xml:lang="fr">Acgyptien</skos:prefLabel>
+        <skos:altLabel xml:lang="fr">Egyptien</skos:altLabel>
+    </aat:Concept>
+
+    <aat:Concept rdf:about="&aat;300047261"
+        vp:id="300047261">
+        <skos:altLabel xml:lang="fr">camAce</skos:altLabel>
+        <skos:prefLabel xml:lang="fr">camAces</skos:prefLabel>
+    </aat:Concept>
+
+    <aat:Concept rdf:about="&aat;300201964"
+        vp:id="300201964">
+        <skos:prefLabel xml:lang="fr">gemmes</skos:prefLabel>        
+    </aat:Concept>
+
+    <aat:Concept rdf:about="&aat;300028877"
+        vp:id="300028877">
+        <skos:altLabel xml:lang="fr">sceau</skos:altLabel>  
+        <skos:prefLabel xml:lang="fr">sceaux</skos:prefLabel> 
+    </aat:Concept>
+
+    <aat:Concept rdf:about="&aat;300014063"
+        vp:id="300014063">
+        <skos:prefLabel xml:lang="fr">textiles</skos:prefLabel>
+    </aat:Concept>
+
+    <aat:Concept rdf:about="&aat;300047230"
+        vp:id="300047230">
+        <skos:prefLabel xml:lang="fr">reliefs</skos:prefLabel>
+    </aat:Concept>
+
+    <aat:Concept rdf:about="&aat;300033618"
+        vp:id="300033618">
+        <skos:prefLabel xml:lang="fr">peintures</skos:prefLabel>
+        <skos:altLabel xml:lang="fr">peinture</skos:altLabel>
+    </aat:Concept>
+
+    <aat:Concept rdf:about="&aat;300037680"
+        vp:id="300037680">
+        <skos:prefLabel xml:lang="fr">meubles</skos:prefLabel>
+    </aat:Concept>
+
+    <aat:Concept rdf:about="&aat;300033936"
+        vp:id="300033936">
+        <skos:prefLabel xml:lang="fr">miniatures</skos:prefLabel>
+    </aat:Concept>
+
+    <aat:Concept rdf:about="&aat;300207870"
+        vp:id="300207870">
+        <skos:prefLabel xml:lang="fr">instruments de mesure</skos:prefLabel>
+    </aat:Concept>
+
+    <aat:Concept rdf:about="&aat;300234126"
+        vp:id="300234126">
+        <skos:prefLabel xml:lang="">objets funAcraires</skos:prefLabel>
+        <skos:altLabel xml:lang="fr">objet funAcraire</skos:altLabel>
+    </aat:Concept>  
+
+    <aat:Concept rdf:about="&aat;300036926"
+        vp:id="300036926">
+        <skos:prefLabel xml:lang="fr">armes</skos:prefLabel>
+    </aat:Concept>
+
+    <aat:Concept rdf:about="&aat;300046025"
+        vp:id="300046025">
+        <skos:prefLabel xml:lang="fr">mAcdailles</skos:prefLabel>
+        <skos:altLabel xml:lang="fr">mAcdaille</skos:altLabel>
+    </aat:Concept>
+
+    <aat:Concept rdf:about="&aat;300077354"
+        vp:id="300077354">
+        <skos:prefLabel xml:lang="fr">mAcdaillons</skos:prefLabel>
+        <skos:altLabel xml:lang="fr">mAcdaillon</skos:altLabel>
+    </aat:Concept>
+
+
+    <aat:Concept rdf:about="&aat;300033973"
+        vp:id="300033973">
+        <skos:prefLabel xml:lang="fr">dessins</skos:prefLabel>
+    </aat:Concept>
+
+    <aat:Concept rdf:about="&aat;300076922"
+        vp:id="300076922">
+        <skos:prefLabel>pastels</skos:prefLabel>
+    </aat:Concept>
+
+    <aat:Concept rdf:about="&aat;300261068"
+        vp:id="300261068">
+        <skos:prefLabel xml:lang="fr">parures</skos:prefLabel>
+    </aat:Concept>
+
+    <aat:Concept rdf:about="&aat;300209286"
+        vp:id="300209286">
+        <skos:prefLabel xml:lang="fr">bijoux</skos:prefLabel>
+    </aat:Concept>
+
+    <aat:Concept rdf:about="&aat;300230823"
+        vp:id="300230823">
+        <skos:prefLabel xml:lang="fr">amulettes</skos:prefLabel>
+    </aat:Concept>
+
+    <aat:Concept rdf:about="&aat;300193015"
+        vp:id="300193015">
+        <skos:prefLabel xml:lang="fr">vaisselles</skos:prefLabel>
+    </aat:Concept>
+
+    <aat:Concept rdf:about="&aat;300047600"
+        vp:id="300047600">
+        <skos:prefLabel xml:lang="fr">statues</skos:prefLabel>
+    </aat:Concept>
+
+    <aat:Concept rdf:about="&aat;300047455"
+        vp:id="300047455">
+        <skos:prefLabel xml:lang="fr">figurines</skos:prefLabel>
+    </aat:Concept>
+
+    <aat:GuideTerm rdf:about="&aat;300163292"
+        vp:id="300163292">
+        <skos:prefLabel xml:lang="fr">instruments de chauffage</skos:prefLabel>
+    </aat:GuideTerm>
+
+    <aat:Concept rdf:about="&aat;300037581"
+        vp:id="300037581">
+        <skos:prefLabel xml:lang="fr">instruments d'Acclairage</skos:prefLabel>
+    </aat:Concept>
+
+
+    <aat:GuideTerm rdf:about="&aat;300167850"
+        vp:id="300167850">
+        <skos:prefLabel xml:lang="fr">instruments du peintre</skos:prefLabel>
+    </aat:GuideTerm>
+
+
+<!--
+
+These are French labels to some of the AAT concepts added by Borys Omelayenko
+who has no knowledge of French, witin the e-Culture project.
+
+-->
+
+    <aat:Concept rdf:about="&aat;300020251"
+        vp:id="300020251">
+        <skos:prefLabel xml:lang="fr">Acgyptien</skos:prefLabel>
+        <skos:altLabel xml:lang="fr">Egyptien</skos:altLabel>
+    </aat:Concept>
+
+
+
+</rdf:RDF>

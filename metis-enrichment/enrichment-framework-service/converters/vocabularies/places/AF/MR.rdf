@@ -1,0 +1,670 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AF_MR
+Description: Selected fields pulled from Geonames about MR done on Mon May 23 21:16:18 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/2375587/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2378080/"/>
+	<europeana:country>MR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.86667</wgs:lat>
+	<wgs:long>-16.3</wgs:long>
+	<skos:prefLabel>Île Zira</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2375742/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2378080/"/>
+	<europeana:country>MR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>269946</europeana:population>
+	<wgs:lat>17.97528</wgs:lat>
+	<wgs:long>-14.73444</wgs:long>
+	<skos:altLabel xml:lang="fr">Région du Trarza</skos:altLabel>
+	<skos:altLabel>Sixième Région</skos:altLabel>
+	<skos:altLabel>Trarza</skos:altLabel>
+	<skos:altLabel>VI</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Wilaya de Trarza</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Wilaya du Trarza</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Wilāyat at Tarārzah</skos:altLabel>
+	<skos:altLabel>ولاية اترارزة</skos:altLabel>
+	<skos:altLabel>ولاية الترارزة</skos:altLabel>
+	<skos:prefLabel>Wilaya du Trarza</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2375989/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2378080/"/>
+	<europeana:country>MR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>63306</europeana:population>
+	<wgs:lat>24</wgs:lat>
+	<wgs:long>-9</wgs:long>
+	<skos:altLabel>Onzième Région</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Région du Tiris Zemmour</skos:altLabel>
+	<skos:altLabel>Tiris Zemmour</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Wilaya de Tiris Zemmour</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Wilaya du Tiris Zemmour</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Wilāyat Tīris Zumūr</skos:altLabel>
+	<skos:altLabel>XI</skos:altLabel>
+	<skos:altLabel>ولاية تيرس زمور</skos:altLabel>
+	<skos:prefLabel>Wilaya du Tiris Zemmour</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2376191/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2378080/"/>
+	<europeana:country>MR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.73006</wgs:lat>
+	<wgs:long>-16.40132</wgs:long>
+	<skos:altLabel>Et Tîdra</skos:altLabel>
+	<skos:altLabel>Île Tidra</skos:altLabel>
+	<skos:prefLabel>Et Tîdra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2376551/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2378080/"/>
+	<europeana:country>MR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>64808</europeana:population>
+	<wgs:lat>18.69667</wgs:lat>
+	<wgs:long>-10.2075</wgs:long>
+	<skos:altLabel>IX</skos:altLabel>
+	<skos:altLabel>Neuvième Région</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Région du Tagant</skos:altLabel>
+	<skos:altLabel>Tagant</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Wilaya du Tagant</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Wilāyat Takānat</skos:altLabel>
+	<skos:altLabel>ولاية تكانت</skos:altLabel>
+	<skos:prefLabel>Wilaya du Tagant</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2377060/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2378080/"/>
+	<europeana:country>MR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>20.7</wgs:lat>
+	<wgs:long>-16.66667</wgs:long>
+	<skos:prefLabel>Île des Pélicans</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2377449/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2378080/"/>
+	<europeana:country>MR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>709856</europeana:population>
+	<wgs:lat>18.1</wgs:lat>
+	<wgs:long>-15.95</wgs:long>
+	<skos:altLabel xml:lang="fr">District de Nouakchott</skos:altLabel>
+	<skos:altLabel>Nouakchott</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Nuwākshūţ</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Wilaya de Nouakchott</skos:altLabel>
+	<skos:altLabel>نواكشوط ولاية</skos:altLabel>
+	<skos:altLabel>ولاية انواكشوط</skos:altLabel>
+	<skos:prefLabel>District de Nouakchott</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2377450/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2378080/"/>
+	<europeana:country>MR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>661400</europeana:population>
+	<wgs:lat>18.10033</wgs:lat>
+	<wgs:long>-15.94975</wgs:long>
+	<skos:altLabel xml:lang="pl">Nawakszut</skos:altLabel>
+	<skos:altLabel>Nouakchat</skos:altLabel>
+	<skos:altLabel>Nouakchot</skos:altLabel>
+	<skos:altLabel xml:lang="id">Nouakchott</skos:altLabel>
+	<skos:altLabel xml:lang="en">Nouakchott</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Nouakchott</skos:altLabel>
+	<skos:altLabel xml:lang="io">Nouakchott</skos:altLabel>
+	<skos:altLabel xml:lang="it">Nouakchott</skos:altLabel>
+	<skos:altLabel xml:lang="no">Nouakchott</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Nouakchott</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Nouakchott</skos:altLabel>
+	<skos:altLabel xml:lang="de">Nouakchott</skos:altLabel>
+	<skos:altLabel xml:lang="da">Nouakchott</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Nouakchott</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Nouakchott</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Nouakchott</skos:altLabel>
+	<skos:altLabel xml:lang="et">Nouakchott</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Nouakchott</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Nouakchott</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Nouakchott</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Nouakchott</skos:altLabel>
+	<skos:altLabel xml:lang="es">Nuakchott</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Nuakšotas</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Nävakjut</skos:altLabel>
+	<skos:altLabel xml:lang="is">Núaksjott</skos:altLabel>
+	<skos:altLabel xml:lang="el">Νουαξότ</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Нуакшот</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Нуакшот</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Нуакшот</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Նուակշոտ</skos:altLabel>
+	<skos:altLabel xml:lang="he">נואקשוט</skos:altLabel>
+	<skos:altLabel xml:lang="fa">نوآ‌کشوت</skos:altLabel>
+	<skos:altLabel xml:lang="ar">نواكشوط</skos:altLabel>
+	<skos:altLabel xml:lang="am">ኑዋክሾት</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ヌアクショット</skos:altLabel>
+	<skos:altLabel xml:lang="zh">努瓦克肖特</skos:altLabel>
+	<skos:altLabel xml:lang="ko">누악쇼트</skos:altLabel>
+	<skos:prefLabel>Nouakchott</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2377457/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2378080/"/>
+	<europeana:country>MR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>72337</europeana:population>
+	<wgs:lat>20.90024</wgs:lat>
+	<wgs:long>-17.03361</wgs:long>
+	<skos:altLabel xml:lang="pl">Nawazibu</skos:altLabel>
+	<skos:altLabel xml:lang="en">Nouadhibou</skos:altLabel>
+	<skos:altLabel xml:lang="de">Nouadhibou</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Nouadhibou</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Nouadhibou</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Nouadhibou</skos:altLabel>
+	<skos:altLabel xml:lang="it">Nouadhibou</skos:altLabel>
+	<skos:altLabel>Nouadhibou</skos:altLabel>
+	<skos:altLabel>Nouâdhibou</skos:altLabel>
+	<skos:altLabel>Nuadibu</skos:altLabel>
+	<skos:altLabel xml:lang="es">Nuadibú</skos:altLabel>
+	<skos:altLabel>Port Ettienne</skos:altLabel>
+	<skos:altLabel>Port-Étienne</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Нуадибу</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Нуадибу</skos:altLabel>
+	<skos:altLabel xml:lang="he">נואדיבו</skos:altLabel>
+	<skos:prefLabel>Nouâdhibou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2378080/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2378080/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255146/"/>
+	<europeana:country>MR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>3205060</europeana:population>
+	<wgs:lat>20</wgs:lat>
+	<wgs:long>-12</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Jumhūrīyah al Islāmīyah al Mūrītānīyah</skos:altLabel>
+	<skos:altLabel xml:lang="ga">An Mharatáin</skos:altLabel>
+	<skos:altLabel xml:lang="en">Islamic Republic of Mauritania</skos:altLabel>
+	<skos:altLabel>La Mauritanie</skos:altLabel>
+	<skos:altLabel>MR</skos:altLabel>
+	<skos:altLabel>Mauretania</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Mauretania</skos:altLabel>
+	<skos:altLabel xml:lang="la">Mauretania</skos:altLabel>
+	<skos:altLabel xml:lang="se">Mauretania</skos:altLabel>
+	<skos:altLabel>Mauretanien</skos:altLabel>
+	<skos:altLabel xml:lang="de">Mauretanien</skos:altLabel>
+	<skos:altLabel xml:lang="da">Mauretanien</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Mauretanien</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Mauretanija</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Mauretánie</skos:altLabel>
+	<skos:altLabel xml:lang="et">Mauritaania</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Mauritani</skos:altLabel>
+	<skos:altLabel xml:lang="es">Mauritania</skos:altLabel>
+	<skos:altLabel xml:lang="id">Mauritania</skos:altLabel>
+	<skos:altLabel xml:lang="en">Mauritania</skos:altLabel>
+	<skos:altLabel xml:lang="it">Mauritania</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Mauritania</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Mauritania</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Mauritania</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Mauritania</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Mauritania</skos:altLabel>
+	<skos:altLabel xml:lang="an">Mauritania</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Mauritania</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Mauritania</skos:altLabel>
+	<skos:altLabel xml:lang="io">Mauritania</skos:altLabel>
+	<skos:altLabel xml:lang="no">Mauritania</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Mauritania</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Mauritania</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Mauritania</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Mauritania</skos:altLabel>
+	<skos:altLabel>Mauritanian Islamic Republic</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Mauritanie</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Mauritanie</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Mauritanija</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Mauritanija</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Mauritanija</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Mauritanija</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Mauritanië</skos:altLabel>
+	<skos:altLabel xml:lang="af">Mauritanië</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Mauritània</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Mauritània</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Mauritánia</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Mauritánia</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Mauritánie</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Mauritânia</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Mauritän</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Mauritānija</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Mavretanija</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Mawritania</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Mawritanja</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Maŭritanio</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Maŭritanujo</skos:altLabel>
+	<skos:altLabel xml:lang="ff">Moritani</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Moritani</skos:altLabel>
+	<skos:altLabel xml:lang="wa">Moritanreye</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Moritanya</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Morîtanya</skos:altLabel>
+	<skos:altLabel xml:lang="af">Mouritanië</skos:altLabel>
+	<skos:altLabel xml:lang="so">Muritaaniya</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Muritanya</skos:altLabel>
+	<skos:altLabel xml:lang="is">Máritanía</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Móritania</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Mô-ri-ta-ni</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Mô-ri-ta-ni-a (Mauritania)</skos:altLabel>
+	<skos:altLabel>République Islamique Mauritanienne</skos:altLabel>
+	<skos:altLabel>République Islamique de Mauritanie</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μαυριτανία</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Мавритания</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Мавритания</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Мавритания</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Мавританија</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Мавританія</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Мауританија</skos:altLabel>
+	<skos:altLabel xml:lang="be">Маўрытанія</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Մավրիտանիա</skos:altLabel>
+	<skos:altLabel xml:lang="he">מאוריטניה</skos:altLabel>
+	<skos:altLabel xml:lang="fa">ماوریتانیا</skos:altLabel>
+	<skos:altLabel xml:lang="ug">ماۋرىتانىيە</skos:altLabel>
+	<skos:altLabel xml:lang="ar">موريتانيا</skos:altLabel>
+	<skos:altLabel xml:lang="fa">موریتانی</skos:altLabel>
+	<skos:altLabel xml:lang="ur">موریطانیہ</skos:altLabel>
+	<skos:altLabel xml:lang="hi">मॉरिटानिया</skos:altLabel>
+	<skos:altLabel xml:lang="hi">मोरीतानिया</skos:altLabel>
+	<skos:altLabel xml:lang="bn">মউরিতানিয়া</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศมอริเตเนีย</skos:altLabel>
+	<skos:altLabel xml:lang="th">มอริเตเนีย</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ມໍລິກທາເນຍ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">མཽ་རི་ཏ་ནི་ཡ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">მავრიტანია</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሞሪታኒያ</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሞሪቴኒያ</skos:altLabel>
+	<skos:altLabel xml:lang="km">ម៉ូរីតានី</skos:altLabel>
+	<skos:altLabel xml:lang="ja">モーリタニア</skos:altLabel>
+	<skos:altLabel xml:lang="ja">モーリタニア・イスラム共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">毛里塔尼亚</skos:altLabel>
+	<skos:altLabel xml:lang="ko">모리타니</skos:altLabel>
+	<skos:prefLabel>Islamic Republic of Mauritania</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2378097/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2378080/"/>
+	<europeana:country>MR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>20.65</wgs:lat>
+	<wgs:long>-16.48333</wgs:long>
+	<skos:altLabel>Isla Margarita</skos:altLabel>
+	<skos:altLabel>Île Marguerite</skos:altLabel>
+	<skos:prefLabel>Île Marguerite</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2378536/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2378080/"/>
+	<europeana:country>MR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.70286</wgs:lat>
+	<wgs:long>-16.4847</wgs:long>
+	<skos:altLabel>Kîji</skos:altLabel>
+	<skos:altLabel>Île Kiji</skos:altLabel>
+	<skos:prefLabel>Kîji</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2378543/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2378080/"/>
+	<europeana:country>MR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>20.01545</wgs:lat>
+	<wgs:long>-16.29638</wgs:long>
+	<skos:altLabel>Iles Kiaone</skos:altLabel>
+	<skos:altLabel>Île Kiaone-Ouest</skos:altLabel>
+	<skos:prefLabel>Île Kiaone-Ouest</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2378544/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2378080/"/>
+	<europeana:country>MR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>20.01667</wgs:lat>
+	<wgs:long>-16.28333</wgs:long>
+	<skos:prefLabel>Île Kiaone-Est</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2378882/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2378080/"/>
+	<europeana:country>MR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.85</wgs:lat>
+	<wgs:long>-16.38333</wgs:long>
+	<skos:altLabel>Île Iouik</skos:altLabel>
+	<skos:altLabel>Île Iwili</skos:altLabel>
+	<skos:prefLabel>Île Iouik</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2378903/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2378080/"/>
+	<europeana:country>MR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>20.0625</wgs:lat>
+	<wgs:long>-15.06833</wgs:long>
+	<skos:altLabel>Douzième Région</skos:altLabel>
+	<skos:altLabel>Inchiri</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Région de l'Inchiri</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Wilaya de l'Inchiri</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Wilāyat Īnshīrī</skos:altLabel>
+	<skos:altLabel>XII</skos:altLabel>
+	<skos:altLabel>ولاية إينشيري</skos:altLabel>
+	<skos:prefLabel>Wilaya de l'Inchiri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2379024/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2378080/"/>
+	<europeana:country>MR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>243246</europeana:population>
+	<wgs:lat>16.5</wgs:lat>
+	<wgs:long>-10</wgs:long>
+	<skos:altLabel>Cecle du Hodh Occidental</skos:altLabel>
+	<skos:altLabel>Deuxième Region</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Hodh el Gharbi</skos:altLabel>
+	<skos:altLabel>II</skos:altLabel>
+	<skos:altLabel>Number 2</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Région du Hodh El Gharbi</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Wilaya du Hodh el Gharbi</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Wilaya du Hodh el Gharby</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Wilāyat al Ḩawḑ al Gharbī</skos:altLabel>
+	<skos:altLabel>ولاية الحوض الغربي</skos:altLabel>
+	<skos:prefLabel>Wilaya du Hodh el Gharbi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2379025/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2378080/"/>
+	<europeana:country>MR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>298625</europeana:population>
+	<wgs:lat>19</wgs:lat>
+	<wgs:long>-7.25</wgs:long>
+	<skos:altLabel>Cercle de Néma</skos:altLabel>
+	<skos:altLabel>Cercle du Hodh-Oriental</skos:altLabel>
+	<skos:altLabel>Hodh ech Chargui</skos:altLabel>
+	<skos:altLabel>I</skos:altLabel>
+	<skos:altLabel>Number 1</skos:altLabel>
+	<skos:altLabel>Première Région</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Région du Hodh Ech Chargui</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Wilaya du Hodh Charghi</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Wilaya du Hodh ech Chargui</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Wilāyat al Ḩawḑ ash Sharqī</skos:altLabel>
+	<skos:altLabel>ولاية الحوض الشرقي</skos:altLabel>
+	<skos:prefLabel>Wilaya du Hodh ech Chargui</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2379216/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2378080/"/>
+	<europeana:country>MR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>219674</europeana:population>
+	<wgs:lat>15.38111</wgs:lat>
+	<wgs:long>-12.35556</wgs:long>
+	<skos:altLabel>Dixième Région</skos:altLabel>
+	<skos:altLabel>Guidimaka</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Région du Guidimaka</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Wilaya du Guidimagha</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Wilaya du Guidimagka</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Wilaya du Guidimaka</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Wilaya du Guidimakha</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Wilāyat Kīdī Māghah</skos:altLabel>
+	<skos:altLabel>X</skos:altLabel>
+	<skos:altLabel>ولاية كيدي ماغة</skos:altLabel>
+	<skos:prefLabel>Wilaya du Guidimaka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2379371/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2378080/"/>
+	<europeana:country>MR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>19.71269</wgs:lat>
+	<wgs:long>-16.34851</wgs:long>
+	<skos:altLabel>Gouchara</skos:altLabel>
+	<skos:altLabel>Goûchna</skos:altLabel>
+	<skos:prefLabel>Goûchna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2379384/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2378080/"/>
+	<europeana:country>MR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>274337</europeana:population>
+	<wgs:lat>16.05333</wgs:lat>
+	<wgs:long>-12.82444</wgs:long>
+	<skos:altLabel>Cercle du Gorgol</skos:altLabel>
+	<skos:altLabel>Gorgol</skos:altLabel>
+	<skos:altLabel>IV</skos:altLabel>
+	<skos:altLabel>Number 4</skos:altLabel>
+	<skos:altLabel>Quatrième Region</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Région du Gorgol</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Wilaya du Gorgol</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Wilāyat Kūrkūl</skos:altLabel>
+	<skos:altLabel>ولاية كركول</skos:altLabel>
+	<skos:prefLabel>Wilaya du Gorgol</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2379650/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2378080/"/>
+	<europeana:country>MR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.03333</wgs:lat>
+	<wgs:long>-17.01667</wgs:long>
+	<skos:prefLabel>Île de l’ Étoile</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2380426/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2378080/"/>
+	<europeana:country>MR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>80181</europeana:population>
+	<wgs:lat>20.94833</wgs:lat>
+	<wgs:long>-16.23361</wgs:long>
+	<skos:altLabel>Be du Lévrier</skos:altLabel>
+	<skos:altLabel>Cercle de la Baie du Lévrier</skos:altLabel>
+	<skos:altLabel>Dakhlet Nouadhibou</skos:altLabel>
+	<skos:altLabel>Huitième Région</skos:altLabel>
+	<skos:altLabel>Nouadibou Region</skos:altLabel>
+	<skos:altLabel>Number 8</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Région de Dakhlet Nouadhibou</skos:altLabel>
+	<skos:altLabel>VIII</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Wilaya de Dakhlet Nouadhibou</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Wilāyat Dākhlat Nuwādhībū</skos:altLabel>
+	<skos:altLabel>ولاية داخلت انواذيبو</skos:altLabel>
+	<skos:altLabel>ولاية داخلت نواذيبو</skos:altLabel>
+	<skos:prefLabel>Wilaya de Dakhlet Nouadhibou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2380522/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2378080/"/>
+	<europeana:country>MR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>20.05</wgs:lat>
+	<wgs:long>-16.26667</wgs:long>
+	<skos:altLabel>Île Chikchit</skos:altLabel>
+	<skos:altLabel>Île Chikchitt</skos:altLabel>
+	<skos:prefLabel>Île Chikchit</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2380635/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2378080/"/>
+	<europeana:country>MR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>256827</europeana:population>
+	<wgs:lat>17.63139</wgs:lat>
+	<wgs:long>-13.41028</wgs:long>
+	<skos:altLabel>Brakna</skos:altLabel>
+	<skos:altLabel>Cinquième Région</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Région du Brakna</skos:altLabel>
+	<skos:altLabel>V</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Wilaya du Brakna</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Wilāyat al Barāknah</skos:altLabel>
+	<skos:altLabel>ولاية البراكنة</skos:altLabel>
+	<skos:altLabel>ولاية لبراكنة</skos:altLabel>
+	<skos:prefLabel>Wilaya du Brakna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2381344/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2378080/"/>
+	<europeana:country>MR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>285142</europeana:population>
+	<wgs:lat>16.59556</wgs:lat>
+	<wgs:long>-11.90917</wgs:long>
+	<skos:altLabel>Assaba</skos:altLabel>
+	<skos:altLabel>III</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Région de l'Assaba</skos:altLabel>
+	<skos:altLabel>Région d’ El ’Açâba</skos:altLabel>
+	<skos:altLabel>Troisième Région</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Wilaya de l'Assaba</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Wilāyat al ‘Aşşābah</skos:altLabel>
+	<skos:altLabel>ولاية العصابة</skos:altLabel>
+	<skos:altLabel>ولاية لعصابة</skos:altLabel>
+	<skos:prefLabel>Wilaya de l'Assaba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2381426/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2378080/"/>
+	<europeana:country>MR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>20.63333</wgs:lat>
+	<wgs:long>-16.46667</wgs:long>
+	<skos:prefLabel>Île d’ Arguin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2381436/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2378080/"/>
+	<europeana:country>MR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.93619</wgs:lat>
+	<wgs:long>-16.52476</wgs:long>
+	<skos:prefLabel>Île Arel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2381448/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2378080/"/>
+	<europeana:country>MR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>20.61667</wgs:lat>
+	<wgs:long>-16.48333</wgs:long>
+	<skos:altLabel>Île de l’ Ardent</skos:altLabel>
+	<skos:altLabel>Île d’ Argent</skos:altLabel>
+	<skos:prefLabel>Île de l’ Ardent</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2381972/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2378080/"/>
+	<europeana:country>MR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>59670</europeana:population>
+	<wgs:lat>20.50222</wgs:lat>
+	<wgs:long>-10.07111</wgs:long>
+	<skos:altLabel>Adrar</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Région de l'Adrar</skos:altLabel>
+	<skos:altLabel>Septième Région</skos:altLabel>
+	<skos:altLabel>VII</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Wilaya de l'Adrar</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Wilāyat Ādrār</skos:altLabel>
+	<skos:altLabel>ولاية آدرار</skos:altLabel>
+	<skos:prefLabel>Wilaya de l'Adrar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2596029/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2378080/"/>
+	<europeana:country>MR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.08944</wgs:lat>
+	<wgs:long>-16.45833</wgs:long>
+	<skos:prefLabel>Île aux Bois</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6920286/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2378080/"/>
+	<europeana:country>MR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>18.69283</wgs:lat>
+	<wgs:long>-15.61642</wgs:long>
+	<skos:prefLabel>Moutoûnsi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7506876/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2378080/"/>
+	<europeana:country>MR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.85762</wgs:lat>
+	<wgs:long>-16.38929</wgs:long>
+	<skos:prefLabel>En Nâyer</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7506877/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2378080/"/>
+	<europeana:country>MR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.87501</wgs:lat>
+	<wgs:long>-16.2803</wgs:long>
+	<skos:prefLabel>Aouâtîl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7506929/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2378080/"/>
+	<europeana:country>MR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.78238</wgs:lat>
+	<wgs:long>-16.33207</wgs:long>
+	<skos:prefLabel>Ajoueïr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7506930/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2378080/"/>
+	<europeana:country>MR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.64373</wgs:lat>
+	<wgs:long>-16.48292</wgs:long>
+	<skos:prefLabel>Toûfeṭ</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7506931/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2378080/"/>
+	<europeana:country>MR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.62948</wgs:lat>
+	<wgs:long>-16.47298</wgs:long>
+	<skos:prefLabel>Chedded</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 36 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

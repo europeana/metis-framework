@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: NA_BB
+Description: Selected fields pulled from Geonames about BB done on Mon May 23 21:14:18 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/3373551/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3374084/"/>
+	<europeana:country>BB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>11850</europeana:population>
+	<wgs:lat>13.18333</wgs:lat>
+	<wgs:long>-59.58333</wgs:long>
+	<skos:altLabel>Saint Thomas</skos:altLabel>
+	<skos:prefLabel>Saint Thomas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3373553/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3374084/"/>
+	<europeana:country>BB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>20944</europeana:population>
+	<wgs:lat>13.11667</wgs:lat>
+	<wgs:long>-59.46667</wgs:long>
+	<skos:altLabel>Saint Philip</skos:altLabel>
+	<skos:prefLabel>Saint Philip</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3373554/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3374084/"/>
+	<europeana:country>BB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>11544</europeana:population>
+	<wgs:lat>13.25</wgs:lat>
+	<wgs:long>-59.61667</wgs:long>
+	<skos:altLabel>Saint Peter</skos:altLabel>
+	<skos:altLabel>Saint Peters</skos:altLabel>
+	<skos:prefLabel>Saint Peter</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3373557/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3374084/"/>
+	<europeana:country>BB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>99609</europeana:population>
+	<wgs:lat>13.11667</wgs:lat>
+	<wgs:long>-59.6</wgs:long>
+	<skos:altLabel>Saint Michael</skos:altLabel>
+	<skos:prefLabel>Saint Michael</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3373565/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3374084/"/>
+	<europeana:country>BB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>9706</europeana:population>
+	<wgs:lat>13.3</wgs:lat>
+	<wgs:long>-59.61667</wgs:long>
+	<skos:altLabel>Saint Lucy</skos:altLabel>
+	<skos:prefLabel>Saint Lucy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3373568/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3374084/"/>
+	<europeana:country>BB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>7764</europeana:population>
+	<wgs:lat>13.2</wgs:lat>
+	<wgs:long>-59.53333</wgs:long>
+	<skos:altLabel>Saint Joseph</skos:altLabel>
+	<skos:prefLabel>Saint Joseph</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3373569/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3374084/"/>
+	<europeana:country>BB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>10421</europeana:population>
+	<wgs:lat>13.16667</wgs:lat>
+	<wgs:long>-59.48333</wgs:long>
+	<skos:altLabel>Saint John</skos:altLabel>
+	<skos:prefLabel>Saint John</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3373570/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3374084/"/>
+	<europeana:country>BB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>21454</europeana:population>
+	<wgs:lat>13.21667</wgs:lat>
+	<wgs:long>-59.61667</wgs:long>
+	<skos:altLabel>Saint James</skos:altLabel>
+	<skos:prefLabel>Saint James</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3373572/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3374084/"/>
+	<europeana:country>BB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>18287</europeana:population>
+	<wgs:lat>13.13333</wgs:lat>
+	<wgs:long>-59.53333</wgs:long>
+	<skos:altLabel>Saint George</skos:altLabel>
+	<skos:prefLabel>Saint George</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3373580/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3374084/"/>
+	<europeana:country>BB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>6436</europeana:population>
+	<wgs:lat>13.23333</wgs:lat>
+	<wgs:long>-59.56667</wgs:long>
+	<skos:altLabel>Saint Andrew</skos:altLabel>
+	<skos:altLabel>Saint Andrews</skos:altLabel>
+	<skos:prefLabel>Saint Andrew</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3373632/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3374084/"/>
+	<europeana:country>BB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.1</wgs:lat>
+	<wgs:long>-59.63333</wgs:long>
+	<skos:altLabel>Pelican Island</skos:altLabel>
+	<skos:altLabel>Pelican Islet</skos:altLabel>
+	<skos:prefLabel>Pelican Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3373936/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3374084/"/>
+	<europeana:country>BB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.16667</wgs:lat>
+	<wgs:long>-59.45</wgs:long>
+	<skos:altLabel>Culpepper Island</skos:altLabel>
+	<skos:prefLabel>Culpepper Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3373988/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3374084/"/>
+	<europeana:country>BB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>48119</europeana:population>
+	<wgs:lat>13.08333</wgs:lat>
+	<wgs:long>-59.53333</wgs:long>
+	<skos:altLabel>Christ Church</skos:altLabel>
+	<skos:altLabel>Christchurch</skos:altLabel>
+	<skos:prefLabel>Christ Church</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3374036/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3374084/"/>
+	<europeana:country>BB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>98511</europeana:population>
+	<wgs:lat>13.1</wgs:lat>
+	<wgs:long>-59.61667</wgs:long>
+	<skos:altLabel xml:lang="id">Bridgetown</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bridgetown</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Bridgetown</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Bridgetown</skos:altLabel>
+	<skos:altLabel xml:lang="io">Bridgetown</skos:altLabel>
+	<skos:altLabel xml:lang="no">Bridgetown</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Bridgetown</skos:altLabel>
+	<skos:altLabel xml:lang="de">Bridgetown</skos:altLabel>
+	<skos:altLabel xml:lang="es">Bridgetown</skos:altLabel>
+	<skos:altLabel xml:lang="da">Bridgetown</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Bridgetown</skos:altLabel>
+	<skos:altLabel xml:lang="it">Bridgetown</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Bridgetown</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Bridgetown</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Bridgetown</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Bridgetown</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Bridgetown</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Bridgetown</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Bridgetown</skos:altLabel>
+	<skos:altLabel xml:lang="el">Bridgetown</skos:altLabel>
+	<skos:altLabel>Bridgetown</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Bridžtaunas</skos:altLabel>
+	<skos:altLabel>The Bridge Town</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бриджтаун</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Бриџтаун</skos:altLabel>
+	<skos:altLabel xml:lang="he">ברידג'טאון</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بريدج تاون</skos:altLabel>
+	<skos:altLabel xml:lang="am">ብርጅታውን</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ブリッジタウン</skos:altLabel>
+	<skos:altLabel xml:lang="zh">布里奇敦</skos:altLabel>
+	<skos:altLabel xml:lang="ko">브리지타운</skos:altLabel>
+	<skos:prefLabel>Bridgetown</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3374084/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3374084/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255149/"/>
+	<europeana:country>BB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>285653</europeana:population>
+	<wgs:lat>13.16667</wgs:lat>
+	<wgs:long>-59.53333</wgs:long>
+	<skos:altLabel>BB</skos:altLabel>
+	<skos:altLabel xml:lang="so">Baarbadoos</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Barbada</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Barbade</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Barbadeän</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Barbado</skos:altLabel>
+	<skos:altLabel>Barbadoes</skos:altLabel>
+	<skos:altLabel xml:lang="es">Barbados</skos:altLabel>
+	<skos:altLabel xml:lang="id">Barbados</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Barbados</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Barbados</skos:altLabel>
+	<skos:altLabel xml:lang="de">Barbados</skos:altLabel>
+	<skos:altLabel xml:lang="en">Barbados</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Barbados</skos:altLabel>
+	<skos:altLabel xml:lang="da">Barbados</skos:altLabel>
+	<skos:altLabel xml:lang="et">Barbados</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Barbados</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Barbados</skos:altLabel>
+	<skos:altLabel xml:lang="it">Barbados</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Barbados</skos:altLabel>
+	<skos:altLabel xml:lang="is">Barbados</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Barbados</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Barbados</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Barbados</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Barbados</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Barbados</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Barbados</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Barbados</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Barbados</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Barbados</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Barbados</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Barbados</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Barbados</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Barbados</skos:altLabel>
+	<skos:altLabel xml:lang="na">Barbados</skos:altLabel>
+	<skos:altLabel xml:lang="no">Barbados</skos:altLabel>
+	<skos:altLabel xml:lang="an">Barbados</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Barbados</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Barbados</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Barbados</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Barbados</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Barbados</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Barbados</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Barbados</skos:altLabel>
+	<skos:altLabel xml:lang="io">Barbados</skos:altLabel>
+	<skos:altLabel xml:lang="se">Barbados</skos:altLabel>
+	<skos:altLabel>Barbados</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Barbadosa</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Barbadosas</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Barbadosi</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Barbadós</skos:altLabel>
+	<skos:altLabel xml:lang="wa">Barbåde</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Bác-ba-đốt</skos:altLabel>
+	<skos:altLabel>Colony of Barbados</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μπαρμπάντος</skos:altLabel>
+	<skos:altLabel xml:lang="be">Барбадас</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Барбадос</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Барбадос</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Барбадос</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Барбадос</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Барбадос</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Բարբադոս</skos:altLabel>
+	<skos:altLabel xml:lang="he">ברבדוס</skos:altLabel>
+	<skos:altLabel xml:lang="fa">باربادوس</skos:altLabel>
+	<skos:altLabel xml:lang="ug">باربادوس</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بربادوس</skos:altLabel>
+	<skos:altLabel xml:lang="hi">बारबाडोस</skos:altLabel>
+	<skos:altLabel xml:lang="ks">बार्बाडोस</skos:altLabel>
+	<skos:altLabel xml:lang="sa">बार्बाडोस</skos:altLabel>
+	<skos:altLabel xml:lang="bn">বার্বাডোস</skos:altLabel>
+	<skos:altLabel xml:lang="ta">பார்படோஸ்</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ബാര്‍ബഡോസ്</skos:altLabel>
+	<skos:altLabel xml:lang="th">บาร์เบโดส</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศบาร์เบโดส</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ບາບາຄັອດ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">བཱརྦ་ཌོས྄།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ბარბადოსი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ባርቤዶስ</skos:altLabel>
+	<skos:altLabel xml:lang="km">បារបាដូស</skos:altLabel>
+	<skos:altLabel xml:lang="ja">バルバドス</skos:altLabel>
+	<skos:altLabel xml:lang="zh">巴巴多斯</skos:altLabel>
+	<skos:altLabel xml:lang="ko">바베이도스</skos:altLabel>
+	<skos:prefLabel>Barbados</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3374085/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3374084/"/>
+	<europeana:country>BB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.16667</wgs:lat>
+	<wgs:long>-59.55</wgs:long>
+	<skos:prefLabel>Barbados</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 15 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

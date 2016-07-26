@@ -1,0 +1,709 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dbpedia="http://dbpedia.org/ontology/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: dbpedia.world.war.one
+Description: Selection from DBPedia WorldWar I: battles 
+Extracted from http://dbpedia.org/snorql/ 
+Original data is distributed under the GNU General Public License
+
+ -->
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Balkans_Campaign_%28World_War_I%29">
+	<skos:prefLabel xml:lang="nl">Balkanfront</skos:prefLabel>
+	<skos:prefLabel xml:lang="fi">Balkanin taistelut (ensimmäinen maailmansota)</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Balkans Campaign (World War I)</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Campagna dei Balcani (prima guerra mondiale)</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Campanha Balcânica</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Frente Balcánico (Primera Guerra Mundial)</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Балканский театр военных действий Первой мировой войны</skos:prefLabel>
+    <skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Attack_on_Orleans">
+	<skos:prefLabel xml:lang="en">Attack on Orleans</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Adriatic_Campaign_of_World_War_I">
+	<skos:prefLabel xml:lang="en">Adriatic Campaign of World War I</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Ukrainian_War_of_Independence">
+	<skos:prefLabel xml:lang="pt">Guerra de Independência da Ucrânia</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Ukrainian War of Independence</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Украинская революция 1917—1921</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/European_theatre_of_World_War_I">
+	<skos:prefLabel xml:lang="es">Europa en la Primera Guerra Mundial</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">European theatre of World War I</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Teatro europeo (1914-1918)</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Italian_Campaign_%28World_War_I%29">
+	<skos:prefLabel xml:lang="pt">Campanha Italiana</skos:prefLabel>
+	<skos:prefLabel xml:lang="no">Den italienske fronten under første verdenskrig</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Frente Italiano (Primera Guerra Mundial)</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Fronte italiano (prima guerra mondiale)</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Italiaans front (Eerste Wereldoorlog)</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Italian Campaign (World War I)</skos:prefLabel>
+	<skos:prefLabel xml:lang="fi">Italian rintama (ensimmäinen maailmansota)</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Italienska fronten under första världskriget</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Итальянский фронт Первой мировой войны</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">イタリア戦線 (第一次世界大戦)</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">意大利战役 (第一次世界大战)</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Baralong_Incidents">
+	<skos:prefLabel xml:lang="en">Baralong Incidents</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Случай с «Баралонгом»</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Night_action_at_the_Battle_of_Jutland">
+	<skos:prefLabel xml:lang="en">Night action at the Battle of Jutland</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_the_Nek">
+	<skos:prefLabel xml:lang="en">Battle of the Nek</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Armenian_resistance_%281914%E2%80%931918%29">
+	<skos:prefLabel xml:lang="en">Armenian resistance (1914–1918)</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Resistencia armenia (1914-1918)</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_Pozi%C3%A8res">
+	<skos:prefLabel xml:lang="en">Battle of Pozières</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Action_of_16_January_1916">
+	<skos:prefLabel xml:lang="en">Action of 16 January 1916</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_Jutland">
+	<skos:prefLabel xml:lang="pt">Batalha da Jutlândia</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Batalla de Jutlandia</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Battaglia dello Jutland</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Battle of Jutland</skos:prefLabel>
+	<skos:prefLabel xml:lang="fi">Skagerrakin taistelu</skos:prefLabel>
+	<skos:prefLabel xml:lang="no">Slaget ved Jylland</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Slaget vid Jylland</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Zeeslag bij Jutland</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Ютландское сражение</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">ユトランド沖海戦</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">日德兰海战</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Seventh_Battle_of_the_Isonzo">
+	<skos:prefLabel xml:lang="it">Settima battaglia dell'Isonzo</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Seventh Battle of the Isonzo</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Седьмая битва при Изонцо</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">第七次イゾンツォの戦い</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Action_of_8_May_1918">
+	<skos:prefLabel xml:lang="en">Action of 8 May 1918</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_Penang">
+	<skos:prefLabel xml:lang="en">Battle of Penang</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Бой у Пенанга</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_Dogger_Bank_%281915%29">
+	<skos:prefLabel xml:lang="fr">Bataille de Dogger Bank</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Batalla del Banco Dogger (1915)</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Battaglia di Dogger Bank</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Battle of Dogger Bank (1915)</skos:prefLabel>
+	<skos:prefLabel xml:lang="fi">Doggermatalikon taistelu</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Slag bij de Doggersbank (1915)</skos:prefLabel>
+	<skos:prefLabel xml:lang="no">Slaget ved Doggerbank (1915)</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Slaget vid Doggers bankar (1915)</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Сражение у Доггер-банки (1915)</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">ドッガー・バンク海戦</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Second_Battle_of_Heligoland_Bight">
+	<skos:prefLabel xml:lang="sv">Andra slaget vid Helgolandsbukten</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Second Battle of Heligoland Bight</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Tweede slag bij Helgoland</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Второе сражение при Гельголанде</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">第二次赫尔戈兰海战</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Action_of_16_March_1917">
+	<skos:prefLabel xml:lang="en">Action of 16 March 1917</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Eastern_Front_%28World_War_I%29">
+	<skos:prefLabel xml:lang="en">Eastern Front (World War I)</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Frente Oriental (Primeira Guerra Mundial)</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Frente Oriental (Primera Guerra Mundial)</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Fronte orientale (prima guerra mondiale)</skos:prefLabel>
+	<skos:prefLabel xml:lang="fi">Itärintama (ensimmäinen maailmansota)</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Oostfront (Eerste Wereldoorlog)</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Östfronten under första världskriget</skos:prefLabel>
+	<skos:prefLabel xml:lang="no">Østfronten (første verdenskrig)</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Восточный фронт Первой мировой войны</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">东方战线 (第一次世界大战)</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">東部戦線 (第一次世界大戦)</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_Dujaila">
+	<skos:prefLabel xml:lang="en">Battle of Dujaila</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_Moreuil_Wood">
+	<skos:prefLabel xml:lang="en">Battle of Moreuil Wood</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_Kilimanjaro">
+	<skos:prefLabel xml:lang="en">Battle of Kilimanjaro</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_Trindade">
+	<skos:prefLabel xml:lang="en">Battle of Trindade</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/First_Battle_of_Gaza">
+	<skos:prefLabel xml:lang="en">First Battle of Gaza</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_Cape_Sarych">
+	<skos:prefLabel xml:lang="fr">Bataille du cap Sarytch</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Battle of Cape Sarych</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Бой у мыса Сарыч</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">サールィチ岬の海戦</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/First_Battle_of_Krithia">
+	<skos:prefLabel xml:lang="en">First Battle of Krithia</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Первая битва за Критии</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_Durazzo_%281915%29">
+	<skos:prefLabel xml:lang="en">Battle of Durazzo (1915)</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Slag bij Durazzo</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_Mahiwa">
+	<skos:prefLabel xml:lang="en">Battle of Mahiwa</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_Dogger_Bank_%281916%29">
+	<skos:prefLabel xml:lang="en">Battle of Dogger Bank (1916)</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">ドッガー・バンク海戦 (1916年)</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_Lone_Pine">
+	<skos:prefLabel xml:lang="en">Battle of Lone Pine</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_Ambos_Nogales">
+	<skos:prefLabel xml:lang="en">Battle of Ambos Nogales</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_Megiddo_%281918%29">
+	<skos:prefLabel xml:lang="pt">Batalha de Megiddo (1918)</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Batalla de Megido (1918)</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Battle of Megiddo (1918)</skos:prefLabel>
+	<skos:prefLabel xml:lang="fi">Megiddon taistelu (1918)</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">メギッドの戦い</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Action_of_10_March_1917">
+	<skos:prefLabel xml:lang="en">Action of 10 March 1917</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_Scimitar_Hill">
+	<skos:prefLabel xml:lang="en">Battle of Scimitar Hill</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Action_of_15_August_1917">
+	<skos:prefLabel xml:lang="en">Action of 15 August 1917</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Second_Battle_of_Gaza">
+	<skos:prefLabel xml:lang="en">Second Battle of Gaza</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_Ch%C3%A2teau-Thierry_%281918%29">
+	<skos:prefLabel xml:lang="it">Battaglia di Château-Thierry (1918)</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Battle of Château-Thierry (1918)</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_Charleroi">
+	<skos:prefLabel xml:lang="pt">Batalha de Charleroi</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Battle of Charleroi</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Битва при Шарлеруа</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_Beersheba_%281917%29">
+	<skos:prefLabel xml:lang="en">Battle of Beersheba (1917)</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Slaget vid Beersheba, 1917</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Битва за Беэр-Шеву (1917)</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Action_of_19_August_1916">
+	<skos:prefLabel xml:lang="en">Action of 19 August 1916</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Bombardment_of_Yarmouth_and_Lowestoft">
+	<skos:prefLabel xml:lang="en">Bombardment of Yarmouth and Lowestoft</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Action_of_17_November_1917">
+	<skos:prefLabel xml:lang="en">Action of 17 November 1917</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/High_Wood">
+	<skos:prefLabel xml:lang="en">High Wood</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Armenian%E2%80%93Azerbaijani_War">
+	<skos:prefLabel xml:lang="en">Armenian–Azerbaijani War</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Guerra Armenio-Azerí</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Guerra Armeno-Azeri</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Guerra armeno-azera</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Армяно-азербайджанская война (1918—1920)</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Attacks_on_North_America_during_World_War_I">
+	<skos:prefLabel xml:lang="en">Attacks on North America during World War I</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Action_of_18_June_1918">
+	<skos:prefLabel xml:lang="en">Action of 18 June 1918</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Raid_on_Yarmouth">
+	<skos:prefLabel xml:lang="en">Raid on Yarmouth</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Набег на Ярмут</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">ヤーマス襲撃</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Action_of_29_February_1916">
+	<skos:prefLabel xml:lang="en">Action of 29 February 1916</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Finnish_Civil_War">
+	<skos:prefLabel xml:lang="no">Den finske borgerkrigen</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Finnish Civil War</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Finse Burgeroorlog</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Finska inbördeskriget</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Guerra Civil Finlandesa</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Guerra civil finlandesa</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Guerra civile finlandese</skos:prefLabel>
+	<skos:prefLabel xml:lang="fi">Suomen sisällissota</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Гражданская война в Финляндии</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">フィンランド内戦</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">芬蘭內戰</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Landing_at_Cape_Helles">
+	<skos:prefLabel xml:lang="en">Landing at Cape Helles</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Высадка на мысе Геллес</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_Jassin">
+	<skos:prefLabel xml:lang="it">Battaglia di Jassin</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Battle of Jassin</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_Jerusalem_%281917%29">
+	<skos:prefLabel xml:lang="en">Battle of Jerusalem (1917)</skos:prefLabel>
+	<skos:prefLabel xml:lang="fi">Jerusalemin taistelu (1917)</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Slag om Jeruzalem</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Битва за Иерусалим (1917)</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_Mount_Ortigara">
+	<skos:prefLabel xml:lang="it">Battaglia del Monte Ortigara</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Battle of Mount Ortigara</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Битва при Монте-Ортигара</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">オルティガーラ山の戦い</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_Chunuk_Bair">
+	<skos:prefLabel xml:lang="en">Battle of Chunuk Bair</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_the_Gulf_of_Riga">
+	<skos:prefLabel xml:lang="en">Battle of the Gulf of Riga</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Оборона Рижского залива</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Action_of_4_April_1918">
+	<skos:prefLabel xml:lang="en">Action of 4 April 1918</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_Kisaki">
+	<skos:prefLabel xml:lang="en">Battle of Kisaki</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Action_of_17_March_1917">
+	<skos:prefLabel xml:lang="en">Action of 17 March 1917</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Operation_Hush">
+	<skos:prefLabel xml:lang="en">Operation Hush</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_Rio_de_Oro">
+	<skos:prefLabel xml:lang="en">Battle of Rio de Oro</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_the_Falkland_Islands">
+	<skos:prefLabel xml:lang="fr">Bataille des Falklands</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Batalla de las islas Malvinas</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Battaglia delle Isole Falklands</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Battle of the Falkland Islands</skos:prefLabel>
+	<skos:prefLabel xml:lang="fi">Falklandsaarten taistelu</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Slag bij de Falklands</skos:prefLabel>
+	<skos:prefLabel xml:lang="no">Slaget ved Falklandsøyene</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Фолклендский бой</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">フォークランド沖海戦</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_Coronel">
+	<skos:prefLabel xml:lang="fr">Bataille de Coronel</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Batalha de Coronel</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Batalla de Coronel</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Battaglia di Coronel</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Battle of Coronel</skos:prefLabel>
+	<skos:prefLabel xml:lang="fi">Coronelin meritaistelu</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Slag bij Coronel</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Сражение при Коронеле</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">コロネル沖海戦</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Fanning_Raid">
+	<skos:prefLabel xml:lang="en">Fanning Raid</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Western_Front_%28World_War_I%29">
+	<skos:prefLabel xml:lang="es">Frente Occidental (Primera Guerra Mundial)</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Frente Ocidental (Primeira Guerra Mundial)</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Fronte occidentale (prima guerra mondiale)</skos:prefLabel>
+	<skos:prefLabel xml:lang="fi">Länsirintama (ensimmäinen maailmansota)</skos:prefLabel>
+	<skos:prefLabel xml:lang="no">Vestfronten (første verdenskrig)</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Västfronten under första världskriget</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Western Front (World War I)</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Westfront (Eerste Wereldoorlog)</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Западный фронт Первой мировой войны</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">西方戰線 (第一次世界大戰)</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">西部戦線 (第一次世界大戦)</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_Fromelles">
+	<skos:prefLabel xml:lang="es">Batalla de Fromelles</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Battle of Fromelles</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_El_Buggar_Ridge">
+	<skos:prefLabel xml:lang="en">Battle of El Buggar Ridge</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Eighth_Battle_of_the_Isonzo">
+	<skos:prefLabel xml:lang="en">Eighth Battle of the Isonzo</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Ottava battaglia dell'Isonzo</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Восьмая битва при Изонцо</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">第八次イゾンツォの戦い</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_Mughar_Ridge">
+	<skos:prefLabel xml:lang="en">Battle of Mughar Ridge</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/First_Ostend_Raid">
+	<skos:prefLabel xml:lang="en">First Ostend Raid</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">第1次オーステンデ襲撃</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_Durazzo_%281918%29">
+	<skos:prefLabel xml:lang="en">Battle of Durazzo (1918)</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/U-boat_Campaign_%28World_War_I%29">
+	<skos:prefLabel xml:lang="fr">Bataille de l'Atlantique (1917)</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Battaglia dell'Atlantico (1914-1918)</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Eerste Slag om de Atlantische Oceaan</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">U-boat Campaign (World War I)</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Битва за Атлантику (1914—1918)</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Landing_at_Suvla_Bay">
+	<skos:prefLabel xml:lang="en">Landing at Suvla Bay</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Высадка в заливе Сувла</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_the_Strait_of_Otranto_%281917%29">
+	<skos:prefLabel xml:lang="it">Battaglia del Canale d'Otranto (1917)</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Battle of the Strait of Otranto (1917)</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">オトラント海峡海戦 (1917年)</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Action_of_15_October_1917">
+	<skos:prefLabel xml:lang="en">Action of 15 October 1917</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_off_Noordhinder_Bank">
+	<skos:prefLabel xml:lang="en">Battle off Noordhinder Bank</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_Cocos">
+	<skos:prefLabel xml:lang="en">Battle of Cocos</skos:prefLabel>
+	<skos:prefLabel xml:lang="fr">Combat des îles Cocos</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Basmachi_movement">
+	<skos:prefLabel xml:lang="en">Basmachi movement</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Basmatjirevolten</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Basmatsjiopstand</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Revolta dos Basmachi</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Revuelta de los Basmachi</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Rivolta dei Basmachi</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Басмачество</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">バスマチ蜂起</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">巴斯玛奇运动</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_Doiran">
+	<skos:prefLabel xml:lang="en">Battle of Doiran</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Slag bij Doiran</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_Ardahan">
+	<skos:prefLabel xml:lang="it">Battaglia di Ardahan</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Battle of Ardahan</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Битва при Ардагане</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_Krithia_Vineyard">
+	<skos:prefLabel xml:lang="en">Battle of Krithia Vineyard</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Naval_operations_in_the_Dardanelles_Campaign">
+	<skos:prefLabel xml:lang="en">Naval operations in the Dardanelles Campaign</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Operazioni navali nei Dardanelli (1914-1915)</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">加里波利海战</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Middle_Eastern_theatre_of_World_War_I">
+	<skos:prefLabel xml:lang="es">Frente del Medio Oriente (Primera Guerra Mundial)</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Middle Eastern theatre of World War I</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Teatro de operações do Oriente Médio na Primeira Guerra Mundial</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Teatro del Medio Oriente (1914-1918)</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Ближневосточный театр военных действий Первой мировой войны</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">中東戦線 (第一次世界大戦)</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_Tanga">
+	<skos:prefLabel xml:lang="es">Batalla de Tanga</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Battaglia di Tanga</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Battle of Tanga</skos:prefLabel>
+	<skos:prefLabel xml:lang="no">Slaget ved Tanga</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">タンガの戦い</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_Heligoland_Bight">
+	<skos:prefLabel xml:lang="fr">Bataille de Heligoland (1914)</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Battle of Heligoland Bight</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Första slaget vid Helgolandsbukten</skos:prefLabel>
+	<skos:prefLabel xml:lang="fi">Helgolandin taistelu (1914)</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Slag bij Helgoland</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Сражение в Гельголандской бухте</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">ヘルゴラント・バイト海戦</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_Skra-di-Legen">
+	<skos:prefLabel xml:lang="en">Battle of Skra-di-Legen</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Битва при Скра-ди-Леген</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Action_of_21_May_1918">
+	<skos:prefLabel xml:lang="en">Action of 21 May 1918</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Action_of_5_September_1918">
+	<skos:prefLabel xml:lang="en">Action of 5 September 1918</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_Sarikamish">
+	<skos:prefLabel xml:lang="es">Batalla de Sarıkamış</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Battaglia di Sarıkamış</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Battle of Sarikamish</skos:prefLabel>
+	<skos:prefLabel xml:lang="fi">Sarıkamışin taistelu</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Сарыкамышское сражение</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Pursuit_of_Goeben_and_Breslau">
+	<skos:prefLabel xml:lang="nl">Achtervolging van SMS Goeben en SMS Breslau</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Pursuit of Goeben and Breslau</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Прорыв «Гебена» и «Бреслау»</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">ゲーベン追跡戦</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Second_Battle_of_Krithia">
+	<skos:prefLabel xml:lang="en">Second Battle of Krithia</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Second_Ostend_Raid">
+	<skos:prefLabel xml:lang="en">Second Ostend Raid</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/African_theatre_of_World_War_I">
+	<skos:prefLabel xml:lang="en">African theatre of World War I</skos:prefLabel>
+	<skos:prefLabel xml:lang="fi">Afrikan ja Tyynenmeren taistelut (ensimmäinen maailmansota)</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Teatro africano (1914-1918)</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Африканский театр военных действий Первой мировой войны</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">アフリカ戦線 (第一次世界大戦)</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Action_of_22_September_1914">
+	<skos:prefLabel xml:lang="en">Action of 22 September 1914</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_%C3%85land_Islands">
+	<skos:prefLabel xml:lang="fr">Bataille de l'île de Gotland</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Battle of Åland Islands</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Slaget vid Gotland</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Готландский бой</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">ロシアのゴットランド島襲撃</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_Dover_Strait_%281917%29">
+	<skos:prefLabel xml:lang="en">Battle of Dover Strait (1917)</skos:prefLabel>
+	<skos:prefLabel xml:lang="fr">Raid du Pas de Calais (1917)</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">ドーバー海峡海戦 (1917年)</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Zeebrugge_Raid">
+	<skos:prefLabel xml:lang="nl">Blokkade van Zeebrugge en Oostende</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Zeebrugge Raid</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Zeebryggeräden</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">ゼーブルッヘ襲撃</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_Zanzibar_%281914%29">
+	<skos:prefLabel xml:lang="en">Battle of Zanzibar (1914)</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Бой у Занзибара (1914)</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_Gully_Ravine">
+	<skos:prefLabel xml:lang="en">Battle of Gully Ravine</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Second_Battle_of_Kirpen_Island">
+	<skos:prefLabel xml:lang="en">Second Battle of Kirpen Island</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_Dover_Strait_%281916%29">
+	<skos:prefLabel xml:lang="en">Battle of Dover Strait (1916)</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">ドーバー海峡海戦 (1916年)</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_Rufiji_Delta">
+	<skos:prefLabel xml:lang="en">Battle of Rufiji Delta</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Third_Battle_of_Krithia">
+	<skos:prefLabel xml:lang="en">Third Battle of Krithia</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Bombardment_of_Madras">
+	<skos:prefLabel xml:lang="en">Bombardment of Madras</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Бомбардировка Мадраса</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_off_Texel">
+	<skos:prefLabel xml:lang="en">Battle off Texel</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">テセル島沖海戦</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Bombardment_of_Ancona">
+	<skos:prefLabel xml:lang="en">Bombardment of Ancona</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Бомбардировка Анконы</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Operation_Albion">
+	<skos:prefLabel xml:lang="es">Operación Albión</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Operation Albion</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Operation Albion</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Операция «Альбион»</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Sixth_Battle_of_the_Isonzo">
+	<skos:prefLabel xml:lang="it">Sesta battaglia dell'Isonzo</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Sixth Battle of the Isonzo</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Шестая битва при Изонцо</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">第六次イゾンツォの戦い</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_Odessa_%281914%29">
+	<skos:prefLabel xml:lang="en">Battle of Odessa (1914)</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_M%C3%A1s_a_Tierra">
+	<skos:prefLabel xml:lang="en">Battle of Más a Tierra</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Sochi_conflict">
+	<skos:prefLabel xml:lang="es">Conflicto de Sochi</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Conflitto di Sochi</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Sochi conflict</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Sotjikonflikten</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Sotsji-conflict</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Сочинский конфликт</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Third_Battle_of_Gaza">
+	<skos:prefLabel xml:lang="en">Third Battle of Gaza</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Christmas_Uprising">
+	<skos:prefLabel xml:lang="en">Christmas Uprising</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Asian_and_Pacific_theatre_of_World_War_I">
+	<skos:prefLabel xml:lang="en">Asian and Pacific theatre of World War I</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Teatro dell'Asia e del Pacifico (1914-1918)</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Тихоокеанский театр военных действий Первой мировой войны</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Raid_on_Scarborough,_Hartlepool_and_Whitby">
+	<skos:prefLabel xml:lang="en">Raid on Scarborough, Hartlepool and Whitby</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Battle_of_Antivari">
+	<skos:prefLabel xml:lang="en">Battle of Antivari</skos:prefLabel>
+	<skos:prefLabel xml:lang="fr">Combat d'Antivari</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Action_of_4_May_1917">
+	<skos:prefLabel xml:lang="en">Action of 4 May 1917</skos:prefLabel>
+<skos:broader rdf:resource="http://dbpedia.org/resource/World_War_I"/></rdf:Description>
+<!-- Resources: 116 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

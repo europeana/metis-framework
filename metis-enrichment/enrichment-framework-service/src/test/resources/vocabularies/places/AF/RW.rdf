@@ -1,0 +1,1152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AF_RW
+Description: Selected fields pulled from Geonames about RW done on Mon May 23 21:16:22 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/49518/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255146/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>11055976</europeana:population>
+	<wgs:lat>-2</wgs:lat>
+	<wgs:long>30</wgs:long>
+	<skos:altLabel>RW</skos:altLabel>
+	<skos:altLabel xml:lang="en">Republic of Rwanda</skos:altLabel>
+	<skos:altLabel xml:lang="rw">Republika y’u Rwanda</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ru-an-đa</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ru-an-đa (Rwanda)</skos:altLabel>
+	<skos:altLabel>Ruanda</skos:altLabel>
+	<skos:altLabel xml:lang="es">Ruanda</skos:altLabel>
+	<skos:altLabel xml:lang="de">Ruanda</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Ruanda</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Ruanda</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Ruanda</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Ruanda</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Ruanda</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Ruanda</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Ruanda</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Ruanda</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Ruanda</skos:altLabel>
+	<skos:altLabel xml:lang="it">Ruanda</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Ruanda</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Ruanda</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Ruanda</skos:altLabel>
+	<skos:altLabel xml:lang="an">Ruanda</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Ruanda</skos:altLabel>
+	<skos:altLabel xml:lang="io">Ruanda</skos:altLabel>
+	<skos:altLabel xml:lang="la">Ruanda</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Ruanda</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Ruanda</skos:altLabel>
+	<skos:altLabel xml:lang="et">Ruanda</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Ruanda</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Ruanda</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Ruanda</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Ruanda - Rwanda</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Ruando</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Ruandän</skos:altLabel>
+	<skos:altLabel xml:lang="id">Rwanda</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Rwanda</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Rwanda</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Rwanda</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Rwanda</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Rwanda</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Rwanda</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Rwanda</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Rwanda</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Rwanda</skos:altLabel>
+	<skos:altLabel xml:lang="da">Rwanda</skos:altLabel>
+	<skos:altLabel xml:lang="et">Rwanda</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Rwanda</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Rwanda</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Rwanda</skos:altLabel>
+	<skos:altLabel xml:lang="af">Rwanda</skos:altLabel>
+	<skos:altLabel xml:lang="jv">Rwanda</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Rwanda</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Rwanda</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Rwanda</skos:altLabel>
+	<skos:altLabel xml:lang="rw">Rwanda</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Rwanda</skos:altLabel>
+	<skos:altLabel xml:lang="kg">Rwanda</skos:altLabel>
+	<skos:altLabel xml:lang="no">Rwanda</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Rwanda</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Rwanda</skos:altLabel>
+	<skos:altLabel xml:lang="en">Rwanda</skos:altLabel>
+	<skos:altLabel xml:lang="ln">Rwanda</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Rwanda</skos:altLabel>
+	<skos:altLabel xml:lang="se">Rwanda</skos:altLabel>
+	<skos:altLabel>Rwandese Republic</skos:altLabel>
+	<skos:altLabel>République Rwandaise</skos:altLabel>
+	<skos:altLabel xml:lang="fr">République du Rwanda</skos:altLabel>
+	<skos:altLabel>Résidence du Ruanda</skos:altLabel>
+	<skos:altLabel xml:lang="is">Rúanda</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ρουάντα</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Руанда</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Руанда</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Руанда</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Руанда</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Руанда</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Руанда</skos:altLabel>
+	<skos:altLabel xml:lang="be">Руанда</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Ռուանդա</skos:altLabel>
+	<skos:altLabel xml:lang="he">רואנדה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">رواندا</skos:altLabel>
+	<skos:altLabel xml:lang="fa">رواندا</skos:altLabel>
+	<skos:altLabel xml:lang="ur">روانڈا</skos:altLabel>
+	<skos:altLabel xml:lang="ps">روندا</skos:altLabel>
+	<skos:altLabel xml:lang="fa">روواندا</skos:altLabel>
+	<skos:altLabel xml:lang="ug">رۋاندا</skos:altLabel>
+	<skos:altLabel xml:lang="hi">रवांडा</skos:altLabel>
+	<skos:altLabel xml:lang="hi">रवाण्डा</skos:altLabel>
+	<skos:altLabel xml:lang="hi">रूआण्डा</skos:altLabel>
+	<skos:altLabel xml:lang="bn">রোয়ান্দা</skos:altLabel>
+	<skos:altLabel xml:lang="ml">റുവാണ്ട</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศรวันดา</skos:altLabel>
+	<skos:altLabel xml:lang="th">รวันดา</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ລາວັນດາ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">རུ་ཝན་ཌ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">რუანდა</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሩዋንዳ</skos:altLabel>
+	<skos:altLabel xml:lang="km">រវ៉ាន់ដា</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ルワンダ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ルワンダ共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">卢旺达</skos:altLabel>
+	<skos:altLabel xml:lang="ko">르완다</skos:altLabel>
+	<skos:prefLabel>République du Rwanda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/201365/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.92941</wgs:lat>
+	<wgs:long>29.1463</wgs:long>
+	<skos:altLabel>Ile Iwawa</skos:altLabel>
+	<skos:altLabel>Ile Waho</skos:altLabel>
+	<skos:altLabel>Île Wahu</skos:altLabel>
+	<skos:prefLabel>Île Wahu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/201375/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.08333</wgs:lat>
+	<wgs:long>29.26667</wgs:long>
+	<skos:prefLabel>Île Udushivire</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/201394/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.01389</wgs:lat>
+	<wgs:long>29.3075</wgs:long>
+	<skos:altLabel>Île Tembabagoye</skos:altLabel>
+	<skos:altLabel>Île Tembabagoyi</skos:altLabel>
+	<skos:prefLabel>Île Tembabagoye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/201398/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.25712</wgs:lat>
+	<wgs:long>29.16221</wgs:long>
+	<skos:prefLabel>Île Tarera</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/201416/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.38111</wgs:lat>
+	<wgs:long>29.06046</wgs:long>
+	<skos:prefLabel>Île Shangwe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/201418/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.85</wgs:lat>
+	<wgs:long>30.78333</wgs:long>
+	<skos:prefLabel>Île Shabalole</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/201427/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.3293</wgs:lat>
+	<wgs:long>29.006</wgs:long>
+	<skos:prefLabel>Île Sasa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/201473/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.28148</wgs:lat>
+	<wgs:long>29.1365</wgs:long>
+	<skos:prefLabel>Île Ruzi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/201519/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<europeana:population>953193</europeana:population>
+	<wgs:lat>-1.58333</wgs:lat>
+	<wgs:long>29.66667</wgs:long>
+	<skos:altLabel xml:lang="rw">Prefegitura ya Ruhengeri</skos:altLabel>
+	<skos:altLabel>Ruhengeri</skos:altLabel>
+	<skos:prefLabel>Préfecture de Ruhengeri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/201521/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>86685</europeana:population>
+	<wgs:lat>-1.49984</wgs:lat>
+	<wgs:long>29.63497</wgs:long>
+	<skos:altLabel xml:lang="es">Ruhengeri</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ruhengeri</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Ruhengeri</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Ruhengeri</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Ruhengeri</skos:altLabel>
+	<skos:altLabel>Ruhengeri</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Ruhengeris</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Рухенгери</skos:altLabel>
+	<skos:prefLabel>Ruhengeri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/201607/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.08722</wgs:lat>
+	<wgs:long>29.26472</wgs:long>
+	<skos:prefLabel>Île Nyankira</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/201625/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.82833</wgs:lat>
+	<wgs:long>29.28667</wgs:long>
+	<skos:prefLabel>Île Nyamirundi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/201709/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.82306</wgs:lat>
+	<wgs:long>29.27917</wgs:long>
+	<skos:altLabel>Île Ngarua</skos:altLabel>
+	<skos:altLabel>Île Ngarwa</skos:altLabel>
+	<skos:prefLabel>Île Ngarwa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/201750/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.2466</wgs:lat>
+	<wgs:long>29.1855</wgs:long>
+	<skos:altLabel>Ile Nusira</skos:altLabel>
+	<skos:altLabel>Île Musira</skos:altLabel>
+	<skos:altLabel>Île Muzira</skos:altLabel>
+	<skos:prefLabel>Île Muzira</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/201756/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.94194</wgs:lat>
+	<wgs:long>29.31667</wgs:long>
+	<skos:prefLabel>Île Mushinye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/201757/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.26911</wgs:lat>
+	<wgs:long>29.13639</wgs:long>
+	<skos:prefLabel>Île Mushaya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/201771/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.22582</wgs:lat>
+	<wgs:long>29.18004</wgs:long>
+	<skos:prefLabel>Île Murumbi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/201779/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.33333</wgs:lat>
+	<wgs:long>29.06667</wgs:long>
+	<skos:altLabel>Île Murgwa</skos:altLabel>
+	<skos:altLabel>Île Murwa</skos:altLabel>
+	<skos:prefLabel>Île Murwa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/201797/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.4386</wgs:lat>
+	<wgs:long>29.7872</wgs:long>
+	<skos:prefLabel>Île Munanira</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/201815/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.95352</wgs:lat>
+	<wgs:long>29.3191</wgs:long>
+	<skos:prefLabel>Île Mukanzeingoro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/201846/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.43333</wgs:lat>
+	<wgs:long>29.76667</wgs:long>
+	<skos:prefLabel>Île Mudimba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/201865/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>33832</europeana:population>
+	<wgs:lat>-2.479</wgs:lat>
+	<wgs:long>29.5564</wgs:long>
+	<skos:altLabel>Mont Nzega</skos:altLabel>
+	<skos:altLabel>Nseka</skos:altLabel>
+	<skos:altLabel>Nzega</skos:altLabel>
+	<skos:prefLabel>Nzega</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/201913/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.2322</wgs:lat>
+	<wgs:long>29.1783</wgs:long>
+	<skos:altLabel>Île Mishungo</skos:altLabel>
+	<skos:altLabel>Île Mushongo</skos:altLabel>
+	<skos:altLabel>Île Mushungwe</skos:altLabel>
+	<skos:prefLabel>Île Mushungwe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/201915/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.2197</wgs:lat>
+	<wgs:long>29.1854</wgs:long>
+	<skos:altLabel>Île Mirambo</skos:altLabel>
+	<skos:altLabel>Île Mirumba</skos:altLabel>
+	<skos:prefLabel>Île Mirambo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/201935/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.0395</wgs:lat>
+	<wgs:long>29.3391</wgs:long>
+	<skos:prefLabel>Île Mbabara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/201950/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.08111</wgs:lat>
+	<wgs:long>30.75</wgs:long>
+	<skos:altLabel>Île Malenga</skos:altLabel>
+	<skos:altLabel>Île Marenga</skos:altLabel>
+	<skos:prefLabel>Île Marenga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/201989/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.35694</wgs:lat>
+	<wgs:long>28.96472</wgs:long>
+	<skos:altLabel>Île Kimenyi</skos:altLabel>
+	<skos:altLabel>Île Kumenie</skos:altLabel>
+	<skos:prefLabel>Île Kumenie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/202010/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.95917</wgs:lat>
+	<wgs:long>29.31889</wgs:long>
+	<skos:prefLabel>Île Kishayu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/202011/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.15534</wgs:lat>
+	<wgs:long>29.21048</wgs:long>
+	<skos:altLabel>Île Kishati</skos:altLabel>
+	<skos:altLabel>Île Shyute</skos:altLabel>
+	<skos:prefLabel>Île Shyute</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/202012/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.8457</wgs:lat>
+	<wgs:long>29.2829</wgs:long>
+	<skos:altLabel>Ile Kishamwana</skos:altLabel>
+	<skos:altLabel>Île Gishamwana</skos:altLabel>
+	<skos:prefLabel>Île Gishamwana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/202025/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.28444</wgs:lat>
+	<wgs:long>29.14611</wgs:long>
+	<skos:altLabel>Île Kirehe</skos:altLabel>
+	<skos:altLabel>Île Kirehe East</skos:altLabel>
+	<skos:prefLabel>Île Kirehe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/202044/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.74028</wgs:lat>
+	<wgs:long>29.26389</wgs:long>
+	<skos:prefLabel>Île Kilwa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/202050/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.4407</wgs:lat>
+	<wgs:long>28.888</wgs:long>
+	<skos:altLabel>Île Gihaya</skos:altLabel>
+	<skos:altLabel>Île Kikaya</skos:altLabel>
+	<skos:prefLabel>Île Gihaya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/202059/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-2</wgs:lat>
+	<wgs:long>29.66667</wgs:long>
+	<skos:altLabel>Kigali</skos:altLabel>
+	<skos:altLabel xml:lang="rw">Prefegitura ya Kigali</skos:altLabel>
+	<skos:prefLabel>Kigali</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/202061/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>745261</europeana:population>
+	<wgs:lat>-1.94995</wgs:lat>
+	<wgs:long>30.05885</wgs:long>
+	<skos:altLabel>Kigale</skos:altLabel>
+	<skos:altLabel xml:lang="id">Kigali</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kigali</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Kigali</skos:altLabel>
+	<skos:altLabel xml:lang="io">Kigali</skos:altLabel>
+	<skos:altLabel xml:lang="it">Kigali</skos:altLabel>
+	<skos:altLabel xml:lang="jv">Kigali</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Kigali</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Kigali</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Kigali</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kigali</skos:altLabel>
+	<skos:altLabel xml:lang="es">Kigali</skos:altLabel>
+	<skos:altLabel xml:lang="da">Kigali</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Kigali</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kigali</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Kigali</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Kigali</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Kigali</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Kigali</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Kigali</skos:altLabel>
+	<skos:altLabel xml:lang="et">Kigali</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Kigali</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Kigali</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Kigalis</skos:altLabel>
+	<skos:altLabel xml:lang="is">Kígalí</skos:altLabel>
+	<skos:altLabel xml:lang="el">Κιγκάλι</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Кигали</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кигали</skos:altLabel>
+	<skos:altLabel xml:lang="he">קיגאלי</skos:altLabel>
+	<skos:altLabel xml:lang="am">ኪጋሊ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">キガリ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">吉佳利</skos:altLabel>
+	<skos:altLabel xml:lang="ko">키갈리</skos:altLabel>
+	<skos:prefLabel>Kigali</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/202064/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<europeana:population>484389</europeana:population>
+	<wgs:lat>-2.16667</wgs:lat>
+	<wgs:long>29.41667</wgs:long>
+	<skos:altLabel>Kibuye</skos:altLabel>
+	<skos:altLabel xml:lang="rw">Prefegitura ya Kibuye</skos:altLabel>
+	<skos:prefLabel>Préfecture de Kibuye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/202065/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>48024</europeana:population>
+	<wgs:lat>-2.0597</wgs:lat>
+	<wgs:long>29.3482</wgs:long>
+	<skos:altLabel xml:lang="lt">Kibujė</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kibuye</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Kibuye</skos:altLabel>
+	<skos:altLabel>Kibuye</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кибуе</skos:altLabel>
+	<skos:prefLabel>Kibuye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/202067/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<europeana:population>745070</europeana:population>
+	<wgs:lat>-2</wgs:lat>
+	<wgs:long>30.58333</wgs:long>
+	<skos:altLabel>Kibungo</skos:altLabel>
+	<skos:altLabel>Kibungu</skos:altLabel>
+	<skos:altLabel xml:lang="rw">Prefegitura ya Kibunga</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Préfecture de Kibungo</skos:altLabel>
+	<skos:prefLabel>Prefegitura ya Kibungo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/202068/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>46240</europeana:population>
+	<wgs:lat>-2.16444</wgs:lat>
+	<wgs:long>30.54194</wgs:long>
+	<skos:altLabel>Kibungu</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кибунго</skos:altLabel>
+	<skos:prefLabel>Kibungo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/202146/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.8531</wgs:lat>
+	<wgs:long>29.2841</wgs:long>
+	<skos:altLabel>Ile Kakoi</skos:altLabel>
+	<skos:altLabel>Île Gakoyi</skos:altLabel>
+	<skos:prefLabel>Île Gakoyi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/202189/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.3846</wgs:lat>
+	<wgs:long>28.9329</wgs:long>
+	<skos:prefLabel>Île Ishwa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/202193/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.4392</wgs:lat>
+	<wgs:long>28.896</wgs:long>
+	<skos:prefLabel>Île Ireba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/202195/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.9858</wgs:lat>
+	<wgs:long>29.30564</wgs:long>
+	<skos:prefLabel>Île Ikibiti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/202197/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.90016</wgs:lat>
+	<wgs:long>30.74478</wgs:long>
+	<skos:prefLabel>Île Ihema</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/202201/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.3973</wgs:lat>
+	<wgs:long>28.9059</wgs:long>
+	<skos:altLabel>Île Gombo</skos:altLabel>
+	<skos:altLabel>Île Nkombo</skos:altLabel>
+	<skos:prefLabel>Île Nkombo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/202216/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<europeana:population>886273</europeana:population>
+	<wgs:lat>-2</wgs:lat>
+	<wgs:long>29.58333</wgs:long>
+	<skos:altLabel>Gitarama</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Préfecture de Gitarama</skos:altLabel>
+	<skos:prefLabel>Prefegitura ya Gitarama</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/202217/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA2"/>
+	<europeana:population>87613</europeana:population>
+	<wgs:lat>-2.07444</wgs:lat>
+	<wgs:long>29.75667</wgs:long>
+	<skos:altLabel xml:lang="es">Gitarama</skos:altLabel>
+	<skos:altLabel xml:lang="en">Gitarama</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Gitarama</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Gitarama</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Gitarama</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гитараме</skos:altLabel>
+	<skos:prefLabel>Gitarama</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/202223/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.42611</wgs:lat>
+	<wgs:long>28.89361</wgs:long>
+	<skos:prefLabel>Île Gisimba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/202231/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<europeana:population>928979</europeana:population>
+	<wgs:lat>-1.75</wgs:lat>
+	<wgs:long>29.5</wgs:long>
+	<skos:altLabel>Gisenyi</skos:altLabel>
+	<skos:altLabel>Kisenyi</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Préfecture de Gisenyi</skos:altLabel>
+	<skos:prefLabel>Prefegitura ya Gisenyi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/202238/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<europeana:population>510176</europeana:population>
+	<wgs:lat>-2.5</wgs:lat>
+	<wgs:long>29.5</wgs:long>
+	<skos:altLabel>Gikongoro</skos:altLabel>
+	<skos:altLabel>Nyanza</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Préfecture de Gikongoro</skos:altLabel>
+	<skos:prefLabel>Prefegitura ya Gikongoro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/202248/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.26578</wgs:lat>
+	<wgs:long>29.15277</wgs:long>
+	<skos:prefLabel>Île Gibeye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/202313/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.8232</wgs:lat>
+	<wgs:long>29.2687</wgs:long>
+	<skos:altLabel>Ile Dumba</skos:altLabel>
+	<skos:altLabel>Île Ntumba</skos:altLabel>
+	<skos:prefLabel>Île Ntumba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/202325/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<europeana:population>653028</europeana:population>
+	<wgs:lat>-2.5</wgs:lat>
+	<wgs:long>29.16667</wgs:long>
+	<skos:altLabel>Cyangugu</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Préfecture de Cyangugu</skos:altLabel>
+	<skos:altLabel>Shangugu</skos:altLabel>
+	<skos:prefLabel>Prefegitura ya Cyangugu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/202326/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>63883</europeana:population>
+	<wgs:lat>-2.4846</wgs:lat>
+	<wgs:long>28.9075</wgs:long>
+	<skos:altLabel>Cyangugu</skos:altLabel>
+	<skos:altLabel>Shangugu</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сиангугу</skos:altLabel>
+	<skos:prefLabel>Cyangugu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/202905/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA2"/>
+	<europeana:population>83623</europeana:population>
+	<wgs:lat>-1.70278</wgs:lat>
+	<wgs:long>29.25639</wgs:long>
+	<skos:altLabel>Colline Gosenyi</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Gisenjis</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Gisenyi</skos:altLabel>
+	<skos:altLabel xml:lang="en">Gisenyi</skos:altLabel>
+	<skos:altLabel xml:lang="de">Gisenyi</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Gisenyi</skos:altLabel>
+	<skos:altLabel>Gosenyi</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гисеньи</skos:altLabel>
+	<skos:altLabel xml:lang="zh">吉塞尼</skos:altLabel>
+	<skos:prefLabel>Gisenyi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/203103/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<europeana:population>738689</europeana:population>
+	<wgs:lat>-2.58333</wgs:lat>
+	<wgs:long>29.58333</wgs:long>
+	<skos:altLabel>Astrida</skos:altLabel>
+	<skos:altLabel>Butare</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Préfecture de Butare</skos:altLabel>
+	<skos:prefLabel>Prefegitura ya Butare</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/203104/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>70593</europeana:population>
+	<wgs:lat>-1.5763</wgs:lat>
+	<wgs:long>30.0675</wgs:long>
+	<skos:altLabel>Biumba</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Bjumba</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Byumba</skos:altLabel>
+	<skos:altLabel xml:lang="en">Byumba</skos:altLabel>
+	<skos:altLabel>Byumba</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Биумба</skos:altLabel>
+	<skos:prefLabel>Byumba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/203112/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>89600</europeana:population>
+	<wgs:lat>-2.59667</wgs:lat>
+	<wgs:long>29.73944</wgs:long>
+	<skos:altLabel xml:lang="es">Butare</skos:altLabel>
+	<skos:altLabel xml:lang="de">Butare</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Butare</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Butare</skos:altLabel>
+	<skos:altLabel xml:lang="en">Butare</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Butare</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Butare</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Butaré</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Butarė</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бутаре</skos:altLabel>
+	<skos:prefLabel>Butare</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/203116/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-1.5</wgs:lat>
+	<wgs:long>30.16667</wgs:long>
+	<skos:altLabel>Biumba</skos:altLabel>
+	<skos:altLabel>Byumba</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Préfecture de Byumba</skos:altLabel>
+	<skos:prefLabel>Prefegitura ya Byumba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/203120/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.4487</wgs:lat>
+	<wgs:long>29.7648</wgs:long>
+	<skos:prefLabel>Île Bushongo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/203131/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.1982</wgs:lat>
+	<wgs:long>29.1929</wgs:long>
+	<skos:altLabel>Île Buku</skos:altLabel>
+	<skos:altLabel>Île Bukwi</skos:altLabel>
+	<skos:prefLabel>Île Bukwi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/203139/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.9108</wgs:lat>
+	<wgs:long>29.2666</wgs:long>
+	<skos:altLabel>Bugarura</skos:altLabel>
+	<skos:altLabel>Ile Bugarura</skos:altLabel>
+	<skos:prefLabel>Bugarura</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/203153/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.2007</wgs:lat>
+	<wgs:long>29.1812</wgs:long>
+	<skos:prefLabel>Île Biti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/203171/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.39044</wgs:lat>
+	<wgs:long>29.79386</wgs:long>
+	<skos:altLabel>Île Bihaho</skos:altLabel>
+	<skos:altLabel>Île Bihosho</skos:altLabel>
+	<skos:prefLabel>Île Bihaho</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/203180/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.4682</wgs:lat>
+	<wgs:long>29.7678</wgs:long>
+	<skos:prefLabel>Île Batutsi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/203196/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.09</wgs:lat>
+	<wgs:long>29.2587</wgs:long>
+	<skos:altLabel>Île Agashwira</skos:altLabel>
+	<skos:altLabel>Île Gashwira</skos:altLabel>
+	<skos:prefLabel>Île Gashwira</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/382905/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.07444</wgs:lat>
+	<wgs:long>29.30194</wgs:long>
+	<skos:prefLabel>Île Shangwe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/384529/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>50081</europeana:population>
+	<wgs:lat>-1.9525</wgs:lat>
+	<wgs:long>30.43778</wgs:long>
+	<skos:prefLabel>Rwamagana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/385831/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.5055</wgs:lat>
+	<wgs:long>29.7326</wgs:long>
+	<skos:altLabel>Île Icyabalihira</skos:altLabel>
+	<skos:altLabel>Île Icyabarihira</skos:altLabel>
+	<skos:prefLabel>Île Icyabalihira</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6413337/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-1.75</wgs:lat>
+	<wgs:long>30.5</wgs:long>
+	<skos:altLabel xml:lang="en">Eastern Province</skos:altLabel>
+	<skos:altLabel xml:lang="rw">Intara y’ Iburasirazuba</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Province de l'Est</skos:altLabel>
+	<skos:prefLabel>Province de l'Est</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6413338/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-1.91667</wgs:lat>
+	<wgs:long>30.08333</wgs:long>
+	<skos:altLabel>Kigali</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kigali City</skos:altLabel>
+	<skos:altLabel xml:lang="rw">Umujyi wa Kigali</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Ville de Kigali</skos:altLabel>
+	<skos:prefLabel>Ville de Kigali</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6413339/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-1.58333</wgs:lat>
+	<wgs:long>29.91667</wgs:long>
+	<skos:altLabel xml:lang="rw">Intara y’ Amajyaruguru</skos:altLabel>
+	<skos:altLabel xml:lang="en">Northern Province</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Province du Nord</skos:altLabel>
+	<skos:prefLabel>Province du Nord</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6413340/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-2.16667</wgs:lat>
+	<wgs:long>29.33333</wgs:long>
+	<skos:altLabel xml:lang="rw">Intara y’ Iburengerazuba</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Province de l'Ouest</skos:altLabel>
+	<skos:altLabel xml:lang="en">Western Province</skos:altLabel>
+	<skos:prefLabel>Province de l'Ouest</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6413341/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-2.33333</wgs:lat>
+	<wgs:long>29.66667</wgs:long>
+	<skos:altLabel xml:lang="rw">Intara y’ Amajyepfo</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Province du Sud</skos:altLabel>
+	<skos:altLabel xml:lang="en">Southern Province</skos:altLabel>
+	<skos:prefLabel>Province du Sud</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6997898/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.8187</wgs:lat>
+	<wgs:long>29.2788</wgs:long>
+	<skos:prefLabel>Île Nyarugwa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6997901/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.8244</wgs:lat>
+	<wgs:long>29.2871</wgs:long>
+	<skos:prefLabel>Île Nyantima</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6997960/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.8677</wgs:lat>
+	<wgs:long>29.2856</wgs:long>
+	<skos:prefLabel>Île Kabuhongo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6998057/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.9093</wgs:lat>
+	<wgs:long>29.2815</wgs:long>
+	<skos:prefLabel>Île Senyamakoma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6998118/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.9378</wgs:lat>
+	<wgs:long>29.3188</wgs:long>
+	<skos:prefLabel>Île Ubushinya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7032658/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.4236</wgs:lat>
+	<wgs:long>28.8927</wgs:long>
+	<skos:prefLabel>Île Bweramata</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7582271/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.4346</wgs:lat>
+	<wgs:long>29.7594</wgs:long>
+	<skos:prefLabel>Île Cyuzo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7590560/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.4154</wgs:lat>
+	<wgs:long>30.6575</wgs:long>
+	<skos:prefLabel>Ile Kakili</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7591422/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.6494</wgs:lat>
+	<wgs:long>30.7813</wgs:long>
+	<skos:prefLabel>Kita</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7591502/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.6581</wgs:lat>
+	<wgs:long>30.7959</wgs:long>
+	<skos:prefLabel>Île Shango</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7662294/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.0379</wgs:lat>
+	<wgs:long>29.3517</wgs:long>
+	<skos:prefLabel>Île Sejema</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7662316/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.0444</wgs:lat>
+	<wgs:long>29.3338</wgs:long>
+	<skos:prefLabel>Île Mukundo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7662323/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.0508</wgs:lat>
+	<wgs:long>29.3229</wgs:long>
+	<skos:prefLabel>Île Mpangara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7662406/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.0853</wgs:lat>
+	<wgs:long>29.2687</wgs:long>
+	<skos:prefLabel>Île Nyarugaba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7662413/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.0878</wgs:lat>
+	<wgs:long>29.2646</wgs:long>
+	<skos:prefLabel>Île Uwinyange</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7663162/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/49518/"/>
+	<europeana:country>RW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.2638</wgs:lat>
+	<wgs:long>30.8392</wgs:long>
+	<skos:prefLabel>Izinga</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 90 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

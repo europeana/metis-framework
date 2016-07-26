@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: EU_MC
+Description: Selected fields pulled from Geonames about MC done on Mon May 23 21:12:41 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/2992741/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2993457/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2993458/"/>
+	<europeana:country>MC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>16012</europeana:population>
+	<wgs:lat>43.74965</wgs:lat>
+	<wgs:long>7.43701</wgs:long>
+	<skos:altLabel xml:lang="en">Monte Carlo</skos:altLabel>
+	<skos:altLabel xml:lang="is">Monte Karló</skos:altLabel>
+	<skos:altLabel xml:lang="es">Montecarlo</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Montecarlo</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Монте-Карло</skos:altLabel>
+	<skos:prefLabel>Monte-Carlo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2993457/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2993457/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255148/"/>
+	<europeana:country>MC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>32965</europeana:population>
+	<wgs:lat>43.73141</wgs:lat>
+	<wgs:long>7.41903</wgs:long>
+	<skos:altLabel>MC</skos:altLabel>
+	<skos:altLabel xml:lang="id">Monaco</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Monaco</skos:altLabel>
+	<skos:altLabel xml:lang="de">Monaco</skos:altLabel>
+	<skos:altLabel xml:lang="en">Monaco</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Monaco</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Monaco</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Monaco</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Monaco</skos:altLabel>
+	<skos:altLabel xml:lang="da">Monaco</skos:altLabel>
+	<skos:altLabel xml:lang="et">Monaco</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Monaco</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Monaco</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Monaco</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Monaco</skos:altLabel>
+	<skos:altLabel xml:lang="it">Monaco</skos:altLabel>
+	<skos:altLabel xml:lang="af">Monaco</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Monaco</skos:altLabel>
+	<skos:altLabel xml:lang="na">Monaco</skos:altLabel>
+	<skos:altLabel xml:lang="no">Monaco</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Monaco</skos:altLabel>
+	<skos:altLabel xml:lang="an">Monaco</skos:altLabel>
+	<skos:altLabel xml:lang="li">Monaco</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Monaco</skos:altLabel>
+	<skos:altLabel xml:lang="br">Monaco</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Monaco</skos:altLabel>
+	<skos:altLabel xml:lang="se">Monaco</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Monacó</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Monakas</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Monako</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Monako</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Monako</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Monako</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Monako</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Monako</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Monako</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Monako</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Monako</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Monako</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Monako</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Monako</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Monako</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Monako</skos:altLabel>
+	<skos:altLabel xml:lang="io">Monako</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Monako</skos:altLabel>
+	<skos:altLabel xml:lang="id">Monako</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Monako</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Monako</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Monakän</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Monegue</skos:altLabel>
+	<skos:altLabel xml:lang="la">Monoecus</skos:altLabel>
+	<skos:altLabel xml:lang="so">Moonako</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Munaku</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Mònaco</skos:altLabel>
+	<skos:altLabel xml:lang="es">Mónaco</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Mónaco</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Mónaco - Monaco</skos:altLabel>
+	<skos:altLabel xml:lang="is">Mónakó</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Mónegue</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Mô-na-cô</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Mônaco</skos:altLabel>
+	<skos:altLabel xml:lang="es">Principado de Mónaco</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Principat de Mònaco</skos:altLabel>
+	<skos:altLabel xml:lang="it">Principato di Monaco</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Principauté de Monaco</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μονακό</skos:altLabel>
+	<skos:altLabel xml:lang="be">Манака</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Монако</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Монако</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Монако</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Монако</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Монако</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Монако</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Մոնակո</skos:altLabel>
+	<skos:altLabel xml:lang="he">מונאקו</skos:altLabel>
+	<skos:altLabel xml:lang="ur">مناکو</skos:altLabel>
+	<skos:altLabel xml:lang="ar">موناكو</skos:altLabel>
+	<skos:altLabel xml:lang="ug">موناكو</skos:altLabel>
+	<skos:altLabel xml:lang="fa">موناکو</skos:altLabel>
+	<skos:altLabel xml:lang="ur">موناکو</skos:altLabel>
+	<skos:altLabel xml:lang="hi">मोनाको</skos:altLabel>
+	<skos:altLabel xml:lang="ne">मोनाको</skos:altLabel>
+	<skos:altLabel xml:lang="hi">मोनैको</skos:altLabel>
+	<skos:altLabel xml:lang="bn">মোনাকো</skos:altLabel>
+	<skos:altLabel xml:lang="ta">மொனாகோ</skos:altLabel>
+	<skos:altLabel xml:lang="ta">மொனாக்கோ</skos:altLabel>
+	<skos:altLabel xml:lang="ml">മൊണോക്കൊ</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศโมนาโก</skos:altLabel>
+	<skos:altLabel xml:lang="th">โมนาโก</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ໂມນາໂກ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">མོ་ན་ཀོ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">მონაკო</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሞናኮ</skos:altLabel>
+	<skos:altLabel xml:lang="km">ម៉ូណាកូ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">モナコ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">摩纳哥</skos:altLabel>
+	<skos:altLabel xml:lang="ko">모나코</skos:altLabel>
+	<skos:prefLabel>Principality of Monaco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2993458/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2993457/"/>
+	<europeana:country>MC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>32965</europeana:population>
+	<wgs:lat>43.73333</wgs:lat>
+	<wgs:long>7.41667</wgs:long>
+	<skos:altLabel xml:lang="de">Monaco</skos:altLabel>
+	<skos:altLabel xml:lang="en">Monaco</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Monaco</skos:altLabel>
+	<skos:altLabel xml:lang="it">Monaco</skos:altLabel>
+	<skos:altLabel xml:lang="da">Monaco</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Monaco</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Monaco</skos:altLabel>
+	<skos:altLabel>Monaco</skos:altLabel>
+	<skos:altLabel>Monaco-Ville</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Monako</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Mònaco</skos:altLabel>
+	<skos:altLabel xml:lang="es">Mónaco</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Mónaco</skos:altLabel>
+	<skos:altLabel xml:lang="is">Mónakó</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μονακό</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Монако</skos:altLabel>
+	<skos:prefLabel>Monaco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3009937/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2993457/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2993458/"/>
+	<europeana:country>MC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>12167</europeana:population>
+	<wgs:lat>43.73333</wgs:lat>
+	<wgs:long>7.41667</wgs:long>
+	<skos:altLabel>Condamine</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Condamine</skos:altLabel>
+	<skos:altLabel>La Condamine</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ла-Кондамин</skos:altLabel>
+	<skos:prefLabel>La Condamine</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3319178/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2993457/"/>
+	<europeana:country>MC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>43.73216</wgs:lat>
+	<wgs:long>7.41981</wgs:long>
+	<skos:altLabel xml:lang="es">Comuna de Mónaco</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Comú de Mònaco</skos:altLabel>
+	<skos:prefLabel>Commune de Monaco</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 4 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

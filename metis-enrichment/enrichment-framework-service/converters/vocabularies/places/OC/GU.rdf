@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: OC_GU
+Description: Selected fields pulled from Geonames about GU done on Mon May 23 21:17:11 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038440/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.40028</wgs:lat>
+	<wgs:long>144.65694</wgs:long>
+	<skos:prefLabel>Pelagi Islets</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038478/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1549</europeana:population>
+	<wgs:lat>13.4625</wgs:lat>
+	<wgs:long>144.65778</wgs:long>
+	<skos:prefLabel>Piti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038555/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>6995</europeana:population>
+	<wgs:lat>13.41694</wgs:lat>
+	<wgs:long>144.63722</wgs:long>
+	<skos:prefLabel>Santa Rita</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038590/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>2863</europeana:population>
+	<wgs:lat>13.45833</wgs:lat>
+	<wgs:long>144.75889</wgs:long>
+	<skos:prefLabel>Sinajana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038652/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>3644</europeana:population>
+	<wgs:lat>13.34194</wgs:lat>
+	<wgs:long>144.745</wgs:long>
+	<skos:prefLabel>Talofofo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038659/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11254</europeana:population>
+	<wgs:lat>13.48389</wgs:lat>
+	<wgs:long>144.77667</wgs:long>
+	<skos:prefLabel>Tamuning</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038661/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>18118</europeana:population>
+	<wgs:lat>13.50944</wgs:lat>
+	<wgs:long>144.77472</wgs:long>
+	<skos:prefLabel>Tamuning</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038663/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.24389</wgs:lat>
+	<wgs:long>144.69861</wgs:long>
+	<skos:prefLabel>Tangon Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038739/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>857</europeana:population>
+	<wgs:lat>13.30556</wgs:lat>
+	<wgs:long>144.62139</wgs:long>
+	<skos:prefLabel>Umatac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038796/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>21878</europeana:population>
+	<wgs:lat>13.57472</wgs:lat>
+	<wgs:long>144.92944</wgs:long>
+	<skos:prefLabel>Yigo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038811/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>6896</europeana:population>
+	<wgs:lat>13.39167</wgs:lat>
+	<wgs:long>144.76</wgs:long>
+	<skos:prefLabel>Yona</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038812/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.37833</wgs:lat>
+	<wgs:long>144.64806</wgs:long>
+	<skos:prefLabel>Yona Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4043396/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>2324</europeana:population>
+	<wgs:lat>13.23611</wgs:lat>
+	<wgs:long>144.65361</wgs:long>
+	<skos:prefLabel>Merizo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4043416/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>14451</europeana:population>
+	<wgs:lat>13.44306</wgs:lat>
+	<wgs:long>144.82472</wgs:long>
+	<skos:prefLabel>Mangilao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4043462/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.30528</wgs:lat>
+	<wgs:long>144.65278</wgs:long>
+	<skos:prefLabel>Lalas Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4043524/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>13.46472</wgs:lat>
+	<wgs:long>144.74278</wgs:long>
+	<skos:prefLabel>Agana Heights</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4043531/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.24889</wgs:lat>
+	<wgs:long>144.72889</wgs:long>
+	<skos:prefLabel>Guijen Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4043542/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.44444</wgs:lat>
+	<wgs:long>144.73667</wgs:long>
+	<skos:altLabel xml:lang="oc">Categoria:Guam</skos:altLabel>
+	<skos:altLabel xml:lang="id">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="es">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="de">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="no">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="en">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="af">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="da">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="et">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="io">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="it">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="se">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="la">Guama</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Guamas</skos:altLabel>
+	<skos:altLabel xml:lang="ch">Guåhån</skos:altLabel>
+	<skos:altLabel xml:lang="is">Gvam</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Gvamo</skos:altLabel>
+	<skos:altLabel xml:lang="os">Гуам</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Гуам</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гуам</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Гуам</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Гуам</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Ґуам</skos:altLabel>
+	<skos:altLabel xml:lang="he">גואם</skos:altLabel>
+	<skos:altLabel xml:lang="ar">غوام</skos:altLabel>
+	<skos:altLabel xml:lang="ta">குவாம்</skos:altLabel>
+	<skos:altLabel xml:lang="th">กวม</skos:altLabel>
+	<skos:altLabel xml:lang="ja">グアム</skos:altLabel>
+	<skos:altLabel xml:lang="zh">關島</skos:altLabel>
+	<skos:altLabel xml:lang="ko">괌</skos:altLabel>
+	<skos:prefLabel>Guam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4043582/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.34</wgs:lat>
+	<wgs:long>144.63</wgs:long>
+	<skos:prefLabel>Facpi Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4043614/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>6573</europeana:population>
+	<wgs:lat>13.43333</wgs:lat>
+	<wgs:long>144.77778</wgs:long>
+	<skos:prefLabel>Chalan-Pago-Ordot</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4043679/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.2675</wgs:lat>
+	<wgs:long>144.74139</wgs:long>
+	<skos:prefLabel>Asgon Point</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4043691/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>2038</europeana:population>
+	<wgs:lat>13.47611</wgs:lat>
+	<wgs:long>144.71611</wgs:long>
+	<skos:prefLabel>Asan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4043707/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.35639</wgs:lat>
+	<wgs:long>144.63417</wgs:long>
+	<skos:prefLabel>Anae</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4043709/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.37944</wgs:lat>
+	<wgs:long>144.64417</wgs:long>
+	<skos:prefLabel>Alutom</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4043719/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.24611</wgs:lat>
+	<wgs:long>144.71417</wgs:long>
+	<skos:prefLabel>Agrigan Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4043725/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>5839</europeana:population>
+	<wgs:lat>13.35611</wgs:lat>
+	<wgs:long>144.63389</wgs:long>
+	<skos:prefLabel>Agat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4043813/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.49139</wgs:lat>
+	<wgs:long>144.76778</wgs:long>
+	<skos:prefLabel>Alupat Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4043816/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.LIBR"/>
+	<wgs:lat>13.38333</wgs:lat>
+	<wgs:long>144.65722</wgs:long>
+	<skos:prefLabel>Agat Public Library</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4043857/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.24306</wgs:lat>
+	<wgs:long>144.70361</wgs:long>
+	<skos:prefLabel>Asgadao Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4043877/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>47910</europeana:population>
+	<wgs:lat>13.59028</wgs:lat>
+	<wgs:long>144.83111</wgs:long>
+	<skos:prefLabel>Dededo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4043881/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.37611</wgs:lat>
+	<wgs:long>144.64778</wgs:long>
+	<skos:prefLabel>Bangi Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4043882/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.23861</wgs:lat>
+	<wgs:long>144.6725</wgs:long>
+	<skos:prefLabel>Babe Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4043885/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>8306</europeana:population>
+	<wgs:lat>13.47278</wgs:lat>
+	<wgs:long>144.80444</wgs:long>
+	<skos:prefLabel>Barrigada</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4043904/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.46056</wgs:lat>
+	<wgs:long>144.67417</wgs:long>
+	<skos:prefLabel>Cabras Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4043907/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.47889</wgs:lat>
+	<wgs:long>144.70306</wgs:long>
+	<skos:prefLabel>Camel Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4043909/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>40000</europeana:population>
+	<wgs:lat>13.51528</wgs:lat>
+	<wgs:long>144.83611</wgs:long>
+	<skos:prefLabel>Dededo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4043930/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.23611</wgs:lat>
+	<wgs:long>144.64889</wgs:long>
+	<skos:prefLabel>Cocos Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4043957/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.24194</wgs:lat>
+	<wgs:long>144.70611</wgs:long>
+	<skos:prefLabel>Fofos Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4043988/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255151/"/>
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.TERR"/>
+	<europeana:population>168564</europeana:population>
+	<wgs:lat>13.44444</wgs:lat>
+	<wgs:long>144.73667</wgs:long>
+	<skos:altLabel xml:lang="id">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="da">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="de">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="en">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="es">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="et">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="it">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="se">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Guam</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Guama</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Guamas</skos:altLabel>
+	<skos:altLabel xml:lang="is">Gvam</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Gvamo</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Gwam</skos:altLabel>
+	<skos:altLabel xml:lang="el">Γκουάμ</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Гвам</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Гуам</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гуам</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Гуам</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Ґуам</skos:altLabel>
+	<skos:altLabel xml:lang="he">גואם</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جوام</skos:altLabel>
+	<skos:altLabel xml:lang="fa">گوام</skos:altLabel>
+	<skos:altLabel xml:lang="hi">गुआम</skos:altLabel>
+	<skos:altLabel xml:lang="bn">গুয়াম</skos:altLabel>
+	<skos:altLabel xml:lang="th">กวม</skos:altLabel>
+	<skos:altLabel xml:lang="ka">გუამი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ጉዋም</skos:altLabel>
+	<skos:altLabel xml:lang="ja">グアム</skos:altLabel>
+	<skos:altLabel xml:lang="zh">关岛</skos:altLabel>
+	<skos:altLabel xml:lang="ko">괌</skos:altLabel>
+	<skos:prefLabel>Territory of Guam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4044002/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.LIBR"/>
+	<wgs:lat>13.46917</wgs:lat>
+	<wgs:long>144.75139</wgs:long>
+	<skos:prefLabel>Guam Territorial Law Library</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4044019/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>13.475</wgs:lat>
+	<wgs:long>144.74861</wgs:long>
+	<skos:prefLabel>Hagåtña</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4044041/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>3273</europeana:population>
+	<wgs:lat>13.27861</wgs:lat>
+	<wgs:long>144.75722</wgs:long>
+	<skos:prefLabel>Inarajan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4044097/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13.60278</wgs:lat>
+	<wgs:long>144.86111</wgs:long>
+	<skos:prefLabel>Machanao (historical)</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4044130/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.4125</wgs:lat>
+	<wgs:long>144.64361</wgs:long>
+	<skos:prefLabel>Neye Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4044148/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>7044</europeana:population>
+	<wgs:lat>13.46944</wgs:lat>
+	<wgs:long>144.77083</wgs:long>
+	<skos:prefLabel>Mongmong-Toto-Maite</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4045152/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.LIBR"/>
+	<wgs:lat>13.47139</wgs:lat>
+	<wgs:long>144.75139</wgs:long>
+	<skos:prefLabel>Nieves M Flores Memorial Library</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4045169/">
+	<europeana:country>GU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.44583</wgs:lat>
+	<wgs:long>144.61639</wgs:long>
+	<skos:prefLabel>Orote Island</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 46 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

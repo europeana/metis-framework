@@ -1,0 +1,35 @@
+            ------
+            DataSource: XML
+            ------
+ 
+ XML files should be identified by a file name pattern. 
+ There may be many files per datasource. 
+ They will be processed one after another.
+
+ Example:
+  
++------------------------------------------------------------------+
+<ac:XmlDataSource>
+   <ac:file>*.xml</ac:file>
+   <ac:file>/additional/*.xml</ac:file>
+</ac:XmlDataSource>
++------------------------------------------------------------------+
+
+ In the object rule a record separator should be used. 
+ In the following example XML tag <<<mynamespace:record>>> separates records,
+ each identified by an <<<id>>> attribute with a unique code.
+ If this code is absent (that is an error), then tag <<<label>>>
+ is used to help to find the problematic record. 
+                    
++------------------------------------------------------------------+
+<ac:objectRules rdf:parseType="Collection">
+   <ac:ObjectRule rdf:about="recordRule">
+   <ac:recordSeparator>mynamespace:record</ac:recordSeparator>
+   <ac:recordIdentifier>mynamespace:record[@id]</ac:recordIdentifier>
+   <ac:recordInformalIdentifier>mynamespace:record/label</ac:recordInformalIdentifier>
+   <ac:propertyRules>
+    ...
+   </ac:propertyRules>
+</ac:ObjectRule>
++------------------------------------------------------------------+
+

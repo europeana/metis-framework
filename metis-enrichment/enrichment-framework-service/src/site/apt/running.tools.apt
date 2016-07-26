@@ -1,0 +1,21 @@
+            ------
+            Running: Tools
+            ------
+ 
+
+Providing AnnoCultor with <<<tools.jar>>>?
+
+ During conversion, AnnoCultor parses the XML file with custom converter, 
+ generates Java code out of it, and then tries to compile and run it.
+ To compile it relies on the Java compiler class <<<com.sun.tools.javac.Main>>>
+ typically provided as a part of JDK, file <<<tools.jar>>>
+ The exact location of this class depends on the platform and VM.
+ 
+ The demos should successfully run on most platforms. However,
+ if AnnoCultor cannot find class <<<com.sun.tools.javac.Main>>> then there is   
+ a possibility to specify its location in environment variable 
+ <<<ANNOCULTOR_TOOLS_JAR>>>.
+ 
+ For example, on Windows
+ <<<set ANNOCULTOR_TOOLS_JAR=%JAVA_HOME%/jre/lib/tools.jar>>>
+ 

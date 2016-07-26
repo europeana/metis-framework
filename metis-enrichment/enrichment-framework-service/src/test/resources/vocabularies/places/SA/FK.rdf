@@ -1,0 +1,2146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: SA_FK
+Description: Selected fields pulled from Geonames about FK done on Mon May 23 21:15:13 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426614/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52.01667</wgs:lat>
+	<wgs:long>-59.66667</wgs:long>
+	<skos:altLabel>Isla Wolf</skos:altLabel>
+	<skos:altLabel>Wolfe Island</skos:altLabel>
+	<skos:prefLabel>Wolfe Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426626/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.23333</wgs:lat>
+	<wgs:long>-59.76667</wgs:long>
+	<skos:prefLabel>White Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426629/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-51.88333</wgs:lat>
+	<wgs:long>-58.88333</wgs:long>
+	<skos:prefLabel>Whig Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426633/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.78333</wgs:lat>
+	<wgs:long>-59.63333</wgs:long>
+	<skos:altLabel>Isla West Swan</skos:altLabel>
+	<skos:altLabel>West Swan Island</skos:altLabel>
+	<skos:prefLabel>West Swan Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426636/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.96667</wgs:lat>
+	<wgs:long>-59.81667</wgs:long>
+	<skos:altLabel>Isla Oeste</skos:altLabel>
+	<skos:altLabel>Islote West</skos:altLabel>
+	<skos:altLabel>West Island</skos:altLabel>
+	<skos:altLabel>West Islet</skos:altLabel>
+	<skos:prefLabel>West Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426638/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.83333</wgs:lat>
+	<wgs:long>-60</wgs:long>
+	<skos:altLabel>Gran Malvina</skos:altLabel>
+	<skos:altLabel>Isla Malvina del Oeste</skos:altLabel>
+	<skos:altLabel>Malvina del Oeste</skos:altLabel>
+	<skos:altLabel>West Falkland</skos:altLabel>
+	<skos:altLabel>West Falkland Island</skos:altLabel>
+	<skos:prefLabel>West Falkland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426641/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52</wgs:lat>
+	<wgs:long>-59.8</wgs:long>
+	<skos:altLabel>Islote Wedge</skos:altLabel>
+	<skos:altLabel>Wedge Islet</skos:altLabel>
+	<skos:prefLabel>Wedge Islet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426656/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-51.86667</wgs:lat>
+	<wgs:long>-59.63333</wgs:long>
+	<skos:altLabel>Islas Tyssen</skos:altLabel>
+	<skos:altLabel>Tyssen Islands</skos:altLabel>
+	<skos:prefLabel>Tyssen Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426662/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-51.66667</wgs:lat>
+	<wgs:long>-57.71667</wgs:long>
+	<skos:altLabel>Islas Tussac</skos:altLabel>
+	<skos:altLabel>Port William Islands</skos:altLabel>
+	<skos:altLabel>Tussac Islands</skos:altLabel>
+	<skos:altLabel>William Islets</skos:altLabel>
+	<skos:prefLabel>Tussac Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426663/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.96667</wgs:lat>
+	<wgs:long>-58.6</wgs:long>
+	<skos:prefLabel>Tussac Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426664/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.78333</wgs:lat>
+	<wgs:long>-58.18333</wgs:long>
+	<skos:altLabel>Isla Tussac</skos:altLabel>
+	<skos:altLabel>Tussac Island</skos:altLabel>
+	<skos:prefLabel>Tussac Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426665/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.36667</wgs:lat>
+	<wgs:long>-59.95</wgs:long>
+	<skos:prefLabel>Tussac Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426667/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52.11667</wgs:lat>
+	<wgs:long>-58.9</wgs:long>
+	<skos:altLabel>Islote Turn</skos:altLabel>
+	<skos:altLabel>Turn Islet</skos:altLabel>
+	<skos:prefLabel>Turn Islet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426670/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-52.13333</wgs:lat>
+	<wgs:long>-58.7</wgs:long>
+	<skos:altLabel>Islas Triste</skos:altLabel>
+	<skos:altLabel>Triste Islands</skos:altLabel>
+	<skos:prefLabel>Triste Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426682/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.78333</wgs:lat>
+	<wgs:long>-59.56667</wgs:long>
+	<skos:altLabel>Isla Swan</skos:altLabel>
+	<skos:altLabel>Swan Island</skos:altLabel>
+	<skos:prefLabel>Swan Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426694/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52.16667</wgs:lat>
+	<wgs:long>-59.7</wgs:long>
+	<skos:altLabel>Isla Speedwell</skos:altLabel>
+	<skos:altLabel>Isla Águila</skos:altLabel>
+	<skos:altLabel>Speedwell Island</skos:altLabel>
+	<skos:prefLabel>Speedwell Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426700/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-52.18333</wgs:lat>
+	<wgs:long>-58.98333</wgs:long>
+	<skos:altLabel>Islas Sisters</skos:altLabel>
+	<skos:altLabel>Sisters</skos:altLabel>
+	<skos:prefLabel>Sisters</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426705/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52.08333</wgs:lat>
+	<wgs:long>-59</wgs:long>
+	<skos:altLabel>Isla Shell</skos:altLabel>
+	<skos:altLabel>Shell Island</skos:altLabel>
+	<skos:prefLabel>Shell Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426711/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52.21667</wgs:lat>
+	<wgs:long>-58.65</wgs:long>
+	<skos:altLabel>Roca Shag</skos:altLabel>
+	<skos:altLabel>Shag Rock</skos:altLabel>
+	<skos:prefLabel>Shag Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426712/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.4</wgs:lat>
+	<wgs:long>-58.28333</wgs:long>
+	<skos:altLabel>Islote Shag</skos:altLabel>
+	<skos:altLabel>Little Shag Island</skos:altLabel>
+	<skos:altLabel>Shag Islet</skos:altLabel>
+	<skos:prefLabel>Little Shag Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426715/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-51.85</wgs:lat>
+	<wgs:long>-58.95</wgs:long>
+	<skos:prefLabel>Seccomb Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426721/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52.03333</wgs:lat>
+	<wgs:long>-58.6</wgs:long>
+	<skos:altLabel>Isla Seal</skos:altLabel>
+	<skos:altLabel>Seal Island</skos:altLabel>
+	<skos:prefLabel>Seal Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426722/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.91667</wgs:lat>
+	<wgs:long>-58.51667</wgs:long>
+	<skos:altLabel>Isla Seal</skos:altLabel>
+	<skos:altLabel>Seal Island</skos:altLabel>
+	<skos:prefLabel>Seal Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426725/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-52.41667</wgs:lat>
+	<wgs:long>-59</wgs:long>
+	<skos:altLabel>Islas Sea Lion</skos:altLabel>
+	<skos:altLabel>Islas de Leones Marinos</skos:altLabel>
+	<skos:altLabel>Islas de los Leones Marinos</skos:altLabel>
+	<skos:altLabel>Sea Lion Islands</skos:altLabel>
+	<skos:prefLabel>Sea Lion Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426726/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.93333</wgs:lat>
+	<wgs:long>-58.71667</wgs:long>
+	<skos:altLabel>Isla León Marino</skos:altLabel>
+	<skos:altLabel>Isla Sea Lion</skos:altLabel>
+	<skos:altLabel>Sea Lion Island</skos:altLabel>
+	<skos:prefLabel>Sea Lion Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426728/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.85</wgs:lat>
+	<wgs:long>-58.93333</wgs:long>
+	<skos:altLabel>Isla Scott</skos:altLabel>
+	<skos:altLabel>Scott Island</skos:altLabel>
+	<skos:prefLabel>Scott Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426732/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.86667</wgs:lat>
+	<wgs:long>-59.61667</wgs:long>
+	<skos:prefLabel>Sandy Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426734/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52.18333</wgs:lat>
+	<wgs:long>-58.78333</wgs:long>
+	<skos:altLabel>Isla Sandy Bay</skos:altLabel>
+	<skos:altLabel>Sandy Bay Island</skos:altLabel>
+	<skos:prefLabel>Sandy Bay Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426738/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.91667</wgs:lat>
+	<wgs:long>-59.63333</wgs:long>
+	<skos:altLabel>Isla Sandbar</skos:altLabel>
+	<skos:altLabel>Sandbar Island</skos:altLabel>
+	<skos:prefLabel>Sandbar Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426743/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-51.95</wgs:lat>
+	<wgs:long>-58.66667</wgs:long>
+	<skos:altLabel>Islas Samuel</skos:altLabel>
+	<skos:altLabel>Samuel Islands</skos:altLabel>
+	<skos:prefLabel>Samuel Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426750/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52.05</wgs:lat>
+	<wgs:long>-59.71667</wgs:long>
+	<skos:altLabel>Isla Ruggles</skos:altLabel>
+	<skos:altLabel>Ruggles Island</skos:altLabel>
+	<skos:prefLabel>Ruggles Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426755/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-52.15</wgs:lat>
+	<wgs:long>-59.36667</wgs:long>
+	<skos:prefLabel>Round Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426756/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.55</wgs:lat>
+	<wgs:long>-58.1</wgs:long>
+	<skos:prefLabel>Round Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426765/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.41667</wgs:lat>
+	<wgs:long>-59.6</wgs:long>
+	<skos:altLabel>Isla de Rio</skos:altLabel>
+	<skos:altLabel>River Island</skos:altLabel>
+	<skos:prefLabel>River Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426771/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.98333</wgs:lat>
+	<wgs:long>-58.48333</wgs:long>
+	<skos:altLabel>Isla Reef</skos:altLabel>
+	<skos:altLabel>Reef Island</skos:altLabel>
+	<skos:prefLabel>Reef Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426773/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.45</wgs:lat>
+	<wgs:long>-58.31667</wgs:long>
+	<skos:prefLabel>Rat Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426778/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.85</wgs:lat>
+	<wgs:long>-58.95</wgs:long>
+	<skos:altLabel>Isla Rabbit</skos:altLabel>
+	<skos:altLabel>Rabbit Island</skos:altLabel>
+	<skos:prefLabel>Rabbit Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426779/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.5</wgs:lat>
+	<wgs:long>-59.03333</wgs:long>
+	<skos:prefLabel>Rabbit Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426794/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52.31667</wgs:lat>
+	<wgs:long>-59.3</wgs:long>
+	<skos:prefLabel>Porpoise Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426801/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.8</wgs:lat>
+	<wgs:long>-58.2</wgs:long>
+	<skos:altLabel>Isla Pleasant</skos:altLabel>
+	<skos:altLabel>Pleasant Island</skos:altLabel>
+	<skos:prefLabel>Pleasant Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426808/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.98333</wgs:lat>
+	<wgs:long>-58.46667</wgs:long>
+	<skos:altLabel>Isla Phillimore</skos:altLabel>
+	<skos:altLabel>Phillimore Island</skos:altLabel>
+	<skos:prefLabel>Phillimore Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426817/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.3</wgs:lat>
+	<wgs:long>-59.58333</wgs:long>
+	<skos:altLabel>Isla Pebble</skos:altLabel>
+	<skos:altLabel>Isla de Borbón</skos:altLabel>
+	<skos:altLabel>Isla de Pebble</skos:altLabel>
+	<skos:altLabel>Pebble Island</skos:altLabel>
+	<skos:prefLabel>Pebble Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426819/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.55</wgs:lat>
+	<wgs:long>-58.06667</wgs:long>
+	<skos:altLabel>Islote Peat</skos:altLabel>
+	<skos:altLabel>Peat Island</skos:altLabel>
+	<skos:altLabel>Peat Islet</skos:altLabel>
+	<skos:prefLabel>Peat Islet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426821/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.36667</wgs:lat>
+	<wgs:long>-59.83333</wgs:long>
+	<skos:altLabel>Isla Passage</skos:altLabel>
+	<skos:altLabel>Passage Island</skos:altLabel>
+	<skos:prefLabel>Passage Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426830/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-51.58333</wgs:lat>
+	<wgs:long>-59.18333</wgs:long>
+	<skos:altLabel>North West Islands</skos:altLabel>
+	<skos:altLabel>North West Islets</skos:altLabel>
+	<skos:prefLabel>North West Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426832/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.73333</wgs:lat>
+	<wgs:long>-59.5</wgs:long>
+	<skos:altLabel>Isla North Swan</skos:altLabel>
+	<skos:altLabel>North Swan Island</skos:altLabel>
+	<skos:prefLabel>North Swan Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426833/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52.13333</wgs:lat>
+	<wgs:long>-58.85</wgs:long>
+	<skos:altLabel>Isla North Point</skos:altLabel>
+	<skos:altLabel>Isla Punta Norte</skos:altLabel>
+	<skos:altLabel>North Point Island</skos:altLabel>
+	<skos:prefLabel>North Point Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426836/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52</wgs:lat>
+	<wgs:long>-59.13333</wgs:long>
+	<skos:altLabel>Isla North</skos:altLabel>
+	<skos:altLabel>North Island</skos:altLabel>
+	<skos:prefLabel>North Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426850/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.38333</wgs:lat>
+	<wgs:long>-59.7</wgs:long>
+	<skos:prefLabel>Narrow Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426857/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52.11667</wgs:lat>
+	<wgs:long>-58.61667</wgs:long>
+	<skos:altLabel>Isla Motley</skos:altLabel>
+	<skos:altLabel>Motley Island</skos:altLabel>
+	<skos:prefLabel>Motley Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426872/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52.21667</wgs:lat>
+	<wgs:long>-59.6</wgs:long>
+	<skos:altLabel>Isla Central</skos:altLabel>
+	<skos:altLabel>Isla Mid</skos:altLabel>
+	<skos:altLabel>Mid Island</skos:altLabel>
+	<skos:prefLabel>Mid Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426876/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.95</wgs:lat>
+	<wgs:long>-58.46667</wgs:long>
+	<skos:altLabel>Isla Middle</skos:altLabel>
+	<skos:altLabel>Isla del Medio</skos:altLabel>
+	<skos:altLabel>Middle Island</skos:altLabel>
+	<skos:prefLabel>Middle Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426877/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.4</wgs:lat>
+	<wgs:long>-59.7</wgs:long>
+	<skos:altLabel>Isla Middle</skos:altLabel>
+	<skos:altLabel>Middle Island</skos:altLabel>
+	<skos:prefLabel>Middle Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426907/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.55</wgs:lat>
+	<wgs:long>-58.06667</wgs:long>
+	<skos:altLabel>Hog Island</skos:altLabel>
+	<skos:altLabel>Isla Larga</skos:altLabel>
+	<skos:altLabel>Isla Long</skos:altLabel>
+	<skos:altLabel>Isle Brûlée</skos:altLabel>
+	<skos:altLabel>Isle aux Pinguins</skos:altLabel>
+	<skos:altLabel>Long Island</skos:altLabel>
+	<skos:altLabel>Poulet Island</skos:altLabel>
+	<skos:prefLabel>Long Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426910/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52.03333</wgs:lat>
+	<wgs:long>-58.5</wgs:long>
+	<skos:altLabel>Isla Bougainville</skos:altLabel>
+	<skos:altLabel>Isla Lively</skos:altLabel>
+	<skos:altLabel>Lively Island</skos:altLabel>
+	<skos:altLabel>Volunteer Island</skos:altLabel>
+	<skos:prefLabel>Lively Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426912/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52.13333</wgs:lat>
+	<wgs:long>-58.96667</wgs:long>
+	<skos:altLabel>Isla Chica</skos:altLabel>
+	<skos:altLabel>Isla Little</skos:altLabel>
+	<skos:altLabel>Little Island</skos:altLabel>
+	<skos:prefLabel>Little Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426913/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52.23333</wgs:lat>
+	<wgs:long>-59.25</wgs:long>
+	<skos:altLabel>Isla Little Harbour</skos:altLabel>
+	<skos:altLabel>Little Harbour Island</skos:altLabel>
+	<skos:prefLabel>Little Harbour Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426914/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.8</wgs:lat>
+	<wgs:long>-58.05</wgs:long>
+	<skos:prefLabel>Little East Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426919/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52.13333</wgs:lat>
+	<wgs:long>-59</wgs:long>
+	<skos:altLabel>Isla Large</skos:altLabel>
+	<skos:altLabel>Large Island</skos:altLabel>
+	<skos:prefLabel>Large Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426928/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-52</wgs:lat>
+	<wgs:long>-58.51667</wgs:long>
+	<skos:prefLabel>Kidney Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426929/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.61667</wgs:lat>
+	<wgs:long>-57.75</wgs:long>
+	<skos:altLabel>Hayes Island</skos:altLabel>
+	<skos:altLabel>Isla Celebroña</skos:altLabel>
+	<skos:altLabel>Isla Kidney</skos:altLabel>
+	<skos:altLabel>Kidney Island</skos:altLabel>
+	<skos:prefLabel>Kidney Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426932/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.26667</wgs:lat>
+	<wgs:long>-59.88333</wgs:long>
+	<skos:altLabel>Islote Keppel</skos:altLabel>
+	<skos:altLabel>Keppel Islet</skos:altLabel>
+	<skos:prefLabel>Keppel Islet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426933/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.33333</wgs:lat>
+	<wgs:long>-59.95</wgs:long>
+	<skos:altLabel>Isla Keppel</skos:altLabel>
+	<skos:altLabel>Isla Vigía</skos:altLabel>
+	<skos:altLabel>Isla de la Vigia</skos:altLabel>
+	<skos:altLabel>Keppel Island</skos:altLabel>
+	<skos:prefLabel>Keppel Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426938/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52.11667</wgs:lat>
+	<wgs:long>-59.01667</wgs:long>
+	<skos:altLabel>Islote Kelp</skos:altLabel>
+	<skos:altLabel>Kelp Islet</skos:altLabel>
+	<skos:prefLabel>Kelp Islet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426939/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-51.86667</wgs:lat>
+	<wgs:long>-58.2</wgs:long>
+	<skos:altLabel>Islas Kelp</skos:altLabel>
+	<skos:altLabel>Kelp Islands</skos:altLabel>
+	<skos:prefLabel>Kelp Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426940/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52.2</wgs:lat>
+	<wgs:long>-59.25</wgs:long>
+	<skos:altLabel>Isla Kelp</skos:altLabel>
+	<skos:altLabel>Kelp Island</skos:altLabel>
+	<skos:prefLabel>Kelp Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426967/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.53333</wgs:lat>
+	<wgs:long>-58.08333</wgs:long>
+	<skos:altLabel>Hog Island</skos:altLabel>
+	<skos:altLabel>Isla Hog</skos:altLabel>
+	<skos:prefLabel>Hog Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426970/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.53333</wgs:lat>
+	<wgs:long>-58.35</wgs:long>
+	<skos:prefLabel>High Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426971/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.8</wgs:lat>
+	<wgs:long>-59.46667</wgs:long>
+	<skos:altLabel>High Cliff Island</skos:altLabel>
+	<skos:altLabel>Isla High Cliff</skos:altLabel>
+	<skos:prefLabel>High Cliff Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426977/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.83333</wgs:lat>
+	<wgs:long>-58.95</wgs:long>
+	<skos:altLabel>Hare Island</skos:altLabel>
+	<skos:altLabel>Isla Hare</skos:altLabel>
+	<skos:prefLabel>Hare Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426979/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-52.23333</wgs:lat>
+	<wgs:long>-59.28333</wgs:long>
+	<skos:altLabel>Harbour Islands</skos:altLabel>
+	<skos:altLabel>Islas Harbour</skos:altLabel>
+	<skos:prefLabel>Harbour Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426982/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52.18333</wgs:lat>
+	<wgs:long>-58.86667</wgs:long>
+	<skos:altLabel>Halt Island</skos:altLabel>
+	<skos:altLabel>Isla Halt</skos:altLabel>
+	<skos:prefLabel>Halt Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426985/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.95</wgs:lat>
+	<wgs:long>-58.75</wgs:long>
+	<skos:prefLabel>Gull Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426988/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.96667</wgs:lat>
+	<wgs:long>-58.5</wgs:long>
+	<skos:altLabel>Green Island</skos:altLabel>
+	<skos:altLabel>Isla Green</skos:altLabel>
+	<skos:prefLabel>Green Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426989/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.55</wgs:lat>
+	<wgs:long>-58.26667</wgs:long>
+	<skos:prefLabel>Green Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426990/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52.06667</wgs:lat>
+	<wgs:long>-59.06667</wgs:long>
+	<skos:altLabel>Great Island</skos:altLabel>
+	<skos:altLabel>Isla Great</skos:altLabel>
+	<skos:prefLabel>Great Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426991/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.96667</wgs:lat>
+	<wgs:long>-59.66667</wgs:long>
+	<skos:altLabel>Great Island</skos:altLabel>
+	<skos:altLabel>Isla Grande</skos:altLabel>
+	<skos:altLabel>Isla Great</skos:altLabel>
+	<skos:prefLabel>Great Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426994/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.21667</wgs:lat>
+	<wgs:long>-59.9</wgs:long>
+	<skos:prefLabel>Government Islet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3426999/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.35</wgs:lat>
+	<wgs:long>-59.73333</wgs:long>
+	<skos:altLabel>Golding Island</skos:altLabel>
+	<skos:altLabel>Isla Golding</skos:altLabel>
+	<skos:prefLabel>Golding Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3427005/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52.31667</wgs:lat>
+	<wgs:long>-59.75</wgs:long>
+	<skos:altLabel>George Island</skos:altLabel>
+	<skos:altLabel>Isla George</skos:altLabel>
+	<skos:altLabel>Isla Jorge</skos:altLabel>
+	<skos:prefLabel>George Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3427033/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-52.23333</wgs:lat>
+	<wgs:long>-59.3</wgs:long>
+	<skos:altLabel>Fanny Islets</skos:altLabel>
+	<skos:altLabel>Islotes Fanny</skos:altLabel>
+	<skos:prefLabel>Fanny Islets</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3427034/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.48333</wgs:lat>
+	<wgs:long>-59.06667</wgs:long>
+	<skos:altLabel>Fanning Island</skos:altLabel>
+	<skos:altLabel>Isla Tussac</skos:altLabel>
+	<skos:altLabel>Tussac Island</skos:altLabel>
+	<skos:prefLabel>Fanning Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3427040/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-51.75</wgs:lat>
+	<wgs:long>-59</wgs:long>
+	<skos:altLabel>Falkland Islands (Islas Malvinas)</skos:altLabel>
+	<skos:altLabel xml:lang="en">Falklands</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Iles Malouines</skos:altLabel>
+	<skos:altLabel xml:lang="es">Islas Malvinas</skos:altLabel>
+	<skos:prefLabel>Falkland Islands (Islas Malvinas)</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3427047/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.88333</wgs:lat>
+	<wgs:long>-58.3</wgs:long>
+	<skos:prefLabel>Elephant Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3427048/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-52.11667</wgs:lat>
+	<wgs:long>-59.83333</wgs:long>
+	<skos:altLabel>Cayos Elephant</skos:altLabel>
+	<skos:altLabel>Elephant Cays</skos:altLabel>
+	<skos:prefLabel>Elephant Cays</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3427058/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.78333</wgs:lat>
+	<wgs:long>-58.06667</wgs:long>
+	<skos:altLabel>East Island</skos:altLabel>
+	<skos:altLabel>Isla East</skos:altLabel>
+	<skos:altLabel>Isla del Este</skos:altLabel>
+	<skos:prefLabel>East Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3427059/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.36667</wgs:lat>
+	<wgs:long>-59.63333</wgs:long>
+	<skos:altLabel>East Island</skos:altLabel>
+	<skos:altLabel>Isla del Este</skos:altLabel>
+	<skos:prefLabel>East Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3427061/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.91667</wgs:lat>
+	<wgs:long>-59</wgs:long>
+	<skos:altLabel>East Falkland</skos:altLabel>
+	<skos:altLabel>East Falkland Island</skos:altLabel>
+	<skos:altLabel>Isla Malvina del Este</skos:altLabel>
+	<skos:altLabel>Isla Soledad</skos:altLabel>
+	<skos:altLabel>Malvina del Este</skos:altLabel>
+	<skos:prefLabel>East Falkland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3427063/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.46667</wgs:lat>
+	<wgs:long>-58.38333</wgs:long>
+	<skos:prefLabel>Ear Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3427070/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.36667</wgs:lat>
+	<wgs:long>-59.88333</wgs:long>
+	<skos:prefLabel>Dry Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3427082/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.9</wgs:lat>
+	<wgs:long>-58.35</wgs:long>
+	<skos:altLabel>Direction Islet</skos:altLabel>
+	<skos:altLabel>Islote Dirección</skos:altLabel>
+	<skos:altLabel>Islote Direction</skos:altLabel>
+	<skos:prefLabel>Direction Islet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3427100/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.6</wgs:lat>
+	<wgs:long>-57.78333</wgs:long>
+	<skos:altLabel>Bird Island</skos:altLabel>
+	<skos:altLabel>Cochon Island</skos:altLabel>
+	<skos:altLabel>Isla Pájaros</skos:altLabel>
+	<skos:altLabel>Kelp Island</skos:altLabel>
+	<skos:prefLabel>Cochon Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3427101/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52.01667</wgs:lat>
+	<wgs:long>-59.73333</wgs:long>
+	<skos:altLabel>Clump Islet</skos:altLabel>
+	<skos:altLabel>Islote Clump</skos:altLabel>
+	<skos:prefLabel>Clump Islet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3427114/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.95</wgs:lat>
+	<wgs:long>-58.56667</wgs:long>
+	<skos:altLabel>Centre Island</skos:altLabel>
+	<skos:altLabel>Isla Centro</skos:altLabel>
+	<skos:prefLabel>Centre Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3427115/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.43333</wgs:lat>
+	<wgs:long>-58.28333</wgs:long>
+	<skos:altLabel>Centre Island</skos:altLabel>
+	<skos:altLabel>Isla Centre</skos:altLabel>
+	<skos:prefLabel>Centre Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3427118/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.53333</wgs:lat>
+	<wgs:long>-59.15</wgs:long>
+	<skos:altLabel>Cat Islet</skos:altLabel>
+	<skos:altLabel>Islote Cat</skos:altLabel>
+	<skos:prefLabel>Cat Islet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3427132/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52.01667</wgs:lat>
+	<wgs:long>-59.83333</wgs:long>
+	<skos:altLabel>Calista Island</skos:altLabel>
+	<skos:altLabel>Isla Calista</skos:altLabel>
+	<skos:prefLabel>Calista Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3427134/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52.06667</wgs:lat>
+	<wgs:long>-59.05</wgs:long>
+	<skos:altLabel>Button Island</skos:altLabel>
+	<skos:altLabel>Isla Button</skos:altLabel>
+	<skos:prefLabel>Button Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3427137/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52.01667</wgs:lat>
+	<wgs:long>-59.18333</wgs:long>
+	<skos:altLabel>Burnt Island</skos:altLabel>
+	<skos:altLabel>Isla Burnt</skos:altLabel>
+	<skos:prefLabel>Burnt Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3427138/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.86667</wgs:lat>
+	<wgs:long>-58.26667</wgs:long>
+	<skos:altLabel>Burnt Island</skos:altLabel>
+	<skos:altLabel>Isla Burnt</skos:altLabel>
+	<skos:prefLabel>Burnt Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3427144/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52.28333</wgs:lat>
+	<wgs:long>-59.33333</wgs:long>
+	<skos:altLabel>Bull Islet</skos:altLabel>
+	<skos:altLabel>Islote Bull</skos:altLabel>
+	<skos:prefLabel>Bull Islet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3427147/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.33333</wgs:lat>
+	<wgs:long>-59.65</wgs:long>
+	<skos:prefLabel>Broken Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3427162/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.46667</wgs:lat>
+	<wgs:long>-58.48333</wgs:long>
+	<skos:prefLabel>Bobs Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3427169/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52.26667</wgs:lat>
+	<wgs:long>-59.53333</wgs:long>
+	<skos:prefLabel>Blind Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3427170/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52.21667</wgs:lat>
+	<wgs:long>-58.88333</wgs:long>
+	<skos:altLabel>Bleaker Island</skos:altLabel>
+	<skos:altLabel>Isla Bleaker</skos:altLabel>
+	<skos:altLabel>Isla Maria</skos:altLabel>
+	<skos:altLabel>Long Island</skos:altLabel>
+	<skos:prefLabel>Bleaker Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3427179/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-51.9</wgs:lat>
+	<wgs:long>-58.78333</wgs:long>
+	<skos:altLabel>Becher Islands</skos:altLabel>
+	<skos:altLabel>Beecher Islands</skos:altLabel>
+	<skos:prefLabel>Becher Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3427180/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52.91667</wgs:lat>
+	<wgs:long>-59.2</wgs:long>
+	<skos:altLabel>Beauchêne</skos:altLabel>
+	<skos:altLabel>Beauchêne Island</skos:altLabel>
+	<skos:altLabel>Ile Beauchesne</skos:altLabel>
+	<skos:altLabel>Isla Beauchêne</skos:altLabel>
+	<skos:prefLabel>Beauchêne Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3427187/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52.36667</wgs:lat>
+	<wgs:long>-59.66667</wgs:long>
+	<skos:altLabel>Barren Island</skos:altLabel>
+	<skos:altLabel>Isla Barren</skos:altLabel>
+	<skos:altLabel>Isla Pelada</skos:altLabel>
+	<skos:prefLabel>Barren Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3427190/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-51.86667</wgs:lat>
+	<wgs:long>-58.91667</wgs:long>
+	<skos:altLabel>Arrow Islands</skos:altLabel>
+	<skos:altLabel>Islas Arrow</skos:altLabel>
+	<skos:prefLabel>Arrow Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3427194/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52.18333</wgs:lat>
+	<wgs:long>-59.6</wgs:long>
+	<skos:prefLabel>Anchor Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3473342/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52</wgs:lat>
+	<wgs:long>-58.35</wgs:long>
+	<skos:prefLabel>North East Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3473356/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.25</wgs:lat>
+	<wgs:long>-59.86667</wgs:long>
+	<skos:prefLabel>Pebble Islet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3473359/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.4</wgs:lat>
+	<wgs:long>-58.31667</wgs:long>
+	<skos:prefLabel>Big Shag Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3473624/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.53333</wgs:lat>
+	<wgs:long>-58.1</wgs:long>
+	<skos:prefLabel>Gull Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3473750/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52.01667</wgs:lat>
+	<wgs:long>-59.81667</wgs:long>
+	<skos:prefLabel>Wedge Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3473751/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.85</wgs:lat>
+	<wgs:long>-59.76667</wgs:long>
+	<skos:prefLabel>Hill Gap Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3473754/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52.13333</wgs:lat>
+	<wgs:long>-59.78333</wgs:long>
+	<skos:prefLabel>Stinker Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3473762/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52.23333</wgs:lat>
+	<wgs:long>-59.58333</wgs:long>
+	<skos:prefLabel>Flores Harbour Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3473765/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52.26667</wgs:lat>
+	<wgs:long>-59.68333</wgs:long>
+	<skos:prefLabel>Annie Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3473804/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.35</wgs:lat>
+	<wgs:long>-59.81667</wgs:long>
+	<skos:prefLabel>Box Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3474414/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255150/"/>
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLD"/>
+	<europeana:population>2638</europeana:population>
+	<wgs:lat>-51.75</wgs:lat>
+	<wgs:long>-59.16667</wgs:long>
+	<skos:altLabel xml:lang="en">Colony of the Falkland Islands</skos:altLabel>
+	<skos:altLabel>FK</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Falkland Adaları</skos:altLabel>
+	<skos:altLabel xml:lang="en">Falkland Islands</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Falkland Islands</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Falkland Islands</skos:altLabel>
+	<skos:altLabel>Falkland Islands (Islas Malvinas)</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Falkland szigetek</skos:altLabel>
+	<skos:altLabel xml:lang="it">Falkland, isole</skos:altLabel>
+	<skos:altLabel xml:lang="de">Falkland-Inseln</skos:altLabel>
+	<skos:altLabel xml:lang="af">Falklandeilande</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Falklandeilanden</skos:altLabel>
+	<skos:altLabel xml:lang="et">Falklandi saared</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Falklandinsaaret</skos:altLabel>
+	<skos:altLabel xml:lang="is">Falklandseyjar</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Falklandski Otoci</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Falklandsko otočje</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Falklandské ostrovy</skos:altLabel>
+	<skos:altLabel xml:lang="se">Falklandsullot</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Falklandsöarna</skos:altLabel>
+	<skos:altLabel xml:lang="da">Falklandsøerne</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Falklandsøyane (Malvinas)</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Falklandsøyene (Malvinas)</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Falklandy</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Falklandy (Malwiny)</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Folklenda (Malvinu) salas</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Folklendo salos</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Ilhas Malvinas (Falkland)</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Illas Malvinas</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Illes Malvines</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Insulele Falkland</skos:altLabel>
+	<skos:altLabel xml:lang="es">Islas Falkland (Malvinas)</skos:altLabel>
+	<skos:altLabel xml:lang="es">Islas Malvinas</skos:altLabel>
+	<skos:altLabel xml:lang="id">Kepulauan Falkland</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Malvinak</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Oileáin Fháclainne</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Quần Đảo Falkland</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Ynysoedd y Falkland</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Îles Falkland</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Îles Malouines</skos:altLabel>
+	<skos:altLabel xml:lang="el">Νησιά Φώκλαντ</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Фокландска острва</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Фокландски Острови</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Фолклендски острови</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Фолклендские о-ва</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Фолклендські острови</skos:altLabel>
+	<skos:altLabel xml:lang="be">Фолклэндскія астравы</skos:altLabel>
+	<skos:altLabel xml:lang="he">פוקלנד, איי</skos:altLabel>
+	<skos:altLabel xml:lang="ur">جزائر فاک لینڈ</skos:altLabel>
+	<skos:altLabel xml:lang="fa">جزایر فالکلند</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جزر فوكلاند</skos:altLabel>
+	<skos:altLabel xml:lang="hi">फ़ॉकलैंड द्वीप समूह (मैल्वीनाज़)</skos:altLabel>
+	<skos:altLabel xml:lang="bn">ফকল্যান্ড দ্বীপপুঞ্জ (মালভিনাস)</skos:altLabel>
+	<skos:altLabel xml:lang="th">หมู่เกาะฟอล์คแลนด์</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཕལྐ་ལནྜ་གླིང་ཕྲན།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ფალკლენდის კუნძულები</skos:altLabel>
+	<skos:altLabel xml:lang="am">የፎልክላንድ ደሴቶች</skos:altLabel>
+	<skos:altLabel xml:lang="ja">フォークランド諸島</skos:altLabel>
+	<skos:altLabel xml:lang="zh">福克兰群岛</skos:altLabel>
+	<skos:altLabel xml:lang="ko">포클랜드제도</skos:altLabel>
+	<skos:prefLabel>Falkland Islands (Islas Malvinas)</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831706/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.15</wgs:lat>
+	<wgs:long>-60.23333</wgs:long>
+	<skos:altLabel>Isla Los Hermanos</skos:altLabel>
+	<skos:altLabel>Isla Wreck</skos:altLabel>
+	<skos:altLabel>Wreck Island</skos:altLabel>
+	<skos:prefLabel>Wreck Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831714/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52.01667</wgs:lat>
+	<wgs:long>-60.25</wgs:long>
+	<skos:altLabel>Islote Whate</skos:altLabel>
+	<skos:altLabel>Whale Islet</skos:altLabel>
+	<skos:prefLabel>Whale Islet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831716/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.33333</wgs:lat>
+	<wgs:long>-60.68333</wgs:long>
+	<skos:altLabel>Albatross Island</skos:altLabel>
+	<skos:altLabel>Isla Remolinos</skos:altLabel>
+	<skos:altLabel>Isla Westpoint</skos:altLabel>
+	<skos:altLabel>Westpoint Island</skos:altLabel>
+	<skos:prefLabel>Westpoint Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831718/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52</wgs:lat>
+	<wgs:long>-60.98333</wgs:long>
+	<skos:altLabel>Isla Oeste</skos:altLabel>
+	<skos:altLabel>Islote West</skos:altLabel>
+	<skos:altLabel>West Island</skos:altLabel>
+	<skos:prefLabel>West Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831725/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.91667</wgs:lat>
+	<wgs:long>-61</wgs:long>
+	<skos:altLabel>Isla San José</skos:altLabel>
+	<skos:altLabel>Isla Weddell</skos:altLabel>
+	<skos:altLabel>Isla de San José</skos:altLabel>
+	<skos:altLabel>Swan Island</skos:altLabel>
+	<skos:altLabel>Weddell Island</skos:altLabel>
+	<skos:prefLabel>Weddell Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831729/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-51.23333</wgs:lat>
+	<wgs:long>-60.63333</wgs:long>
+	<skos:prefLabel>The Twins</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831731/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52.2</wgs:lat>
+	<wgs:long>-60.5</wgs:long>
+	<skos:altLabel>Islote Clump Norte</skos:altLabel>
+	<skos:altLabel>Northern Clump Islet</skos:altLabel>
+	<skos:altLabel>Tussac Islet</skos:altLabel>
+	<skos:prefLabel>Tussac Islet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831732/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52</wgs:lat>
+	<wgs:long>-60.95</wgs:long>
+	<skos:prefLabel>Tussac Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831736/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.55</wgs:lat>
+	<wgs:long>-60.81667</wgs:long>
+	<skos:altLabel>Isla Tercera</skos:altLabel>
+	<skos:altLabel>Third Island</skos:altLabel>
+	<skos:prefLabel>Third Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831741/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.88333</wgs:lat>
+	<wgs:long>-61.16667</wgs:long>
+	<skos:altLabel>Isla Tea</skos:altLabel>
+	<skos:altLabel>Tea Island</skos:altLabel>
+	<skos:prefLabel>Tea Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831750/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.96667</wgs:lat>
+	<wgs:long>-60.95</wgs:long>
+	<skos:altLabel>Islote Stop</skos:altLabel>
+	<skos:altLabel>Stop Islet</skos:altLabel>
+	<skos:prefLabel>Stop Islet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831758/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.03333</wgs:lat>
+	<wgs:long>-61.18333</wgs:long>
+	<skos:altLabel>Steeple Jason</skos:altLabel>
+	<skos:prefLabel>Steeple Jason</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831762/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.88333</wgs:lat>
+	<wgs:long>-61.16667</wgs:long>
+	<skos:altLabel>Isla Staats</skos:altLabel>
+	<skos:altLabel>Staate Island</skos:altLabel>
+	<skos:altLabel>Staats Island</skos:altLabel>
+	<skos:prefLabel>Staats Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831766/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.8</wgs:lat>
+	<wgs:long>-61.3</wgs:long>
+	<skos:prefLabel>Split Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831767/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.46667</wgs:lat>
+	<wgs:long>-60.68333</wgs:long>
+	<skos:altLabel>Isla Split</skos:altLabel>
+	<skos:altLabel>Split Island</skos:altLabel>
+	<skos:prefLabel>Split Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831769/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.2</wgs:lat>
+	<wgs:long>-60.86667</wgs:long>
+	<skos:altLabel>Isla Jason del Sur</skos:altLabel>
+	<skos:altLabel>South Jason</skos:altLabel>
+	<skos:prefLabel>South Jason</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831774/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.25</wgs:lat>
+	<wgs:long>-60.83333</wgs:long>
+	<skos:altLabel>Isla Fur del Sur</skos:altLabel>
+	<skos:altLabel>South Fur Island</skos:altLabel>
+	<skos:prefLabel>South Fur Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831788/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.13333</wgs:lat>
+	<wgs:long>-60.4</wgs:long>
+	<skos:altLabel>Isla Culebra</skos:altLabel>
+	<skos:altLabel>Isla Sedge</skos:altLabel>
+	<skos:altLabel>Sedge Island</skos:altLabel>
+	<skos:prefLabel>Sedge Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831789/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.56667</wgs:lat>
+	<wgs:long>-60.75</wgs:long>
+	<skos:altLabel>Isla Second</skos:altLabel>
+	<skos:altLabel>Isla Segunda</skos:altLabel>
+	<skos:altLabel>Second Island</skos:altLabel>
+	<skos:prefLabel>Second Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831790/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.93333</wgs:lat>
+	<wgs:long>-60.06667</wgs:long>
+	<skos:prefLabel>Second Flat Islet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831792/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-51.11667</wgs:lat>
+	<wgs:long>-60.78333</wgs:long>
+	<skos:prefLabel>Seal Rocks</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831793/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52</wgs:lat>
+	<wgs:long>-60.28333</wgs:long>
+	<skos:prefLabel>Sea Lion Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831796/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52</wgs:lat>
+	<wgs:long>-61.08333</wgs:long>
+	<skos:altLabel>Isla Sea Dog</skos:altLabel>
+	<skos:altLabel>Sea Dog Island</skos:altLabel>
+	<skos:prefLabel>Sea Dog Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831797/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.33333</wgs:lat>
+	<wgs:long>-60.16667</wgs:long>
+	<skos:altLabel>Isla Saunders</skos:altLabel>
+	<skos:altLabel>Isla Trinidad</skos:altLabel>
+	<skos:altLabel>Isla de la Población</skos:altLabel>
+	<skos:altLabel>Saunders Island</skos:altLabel>
+	<skos:prefLabel>Saunders Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831799/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.65</wgs:lat>
+	<wgs:long>-61.21667</wgs:long>
+	<skos:altLabel>Isla La Silla</skos:altLabel>
+	<skos:altLabel>Isla Saddle</skos:altLabel>
+	<skos:altLabel>Saddle Island</skos:altLabel>
+	<skos:prefLabel>Saddle Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831804/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.58333</wgs:lat>
+	<wgs:long>-60.71667</wgs:long>
+	<skos:altLabel>Isla Round</skos:altLabel>
+	<skos:altLabel>Round Island</skos:altLabel>
+	<skos:prefLabel>Round Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831820/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.55</wgs:lat>
+	<wgs:long>-60.48333</wgs:long>
+	<skos:altLabel>Isla Rabbit</skos:altLabel>
+	<skos:altLabel>Rabbit Island</skos:altLabel>
+	<skos:prefLabel>Rabbit Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831825/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.76667</wgs:lat>
+	<wgs:long>-61.05</wgs:long>
+	<skos:prefLabel>Quaker Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831830/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-51.2</wgs:lat>
+	<wgs:long>-60.01667</wgs:long>
+	<skos:altLabel>Cayos Port Egmont</skos:altLabel>
+	<skos:altLabel>Port Egmont Cays</skos:altLabel>
+	<skos:prefLabel>Port Egmont Cays</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831845/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.76667</wgs:lat>
+	<wgs:long>-61.13333</wgs:long>
+	<skos:altLabel>Isla Baja</skos:altLabel>
+	<skos:altLabel>Penn Island</skos:altLabel>
+	<skos:prefLabel>Penn Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831847/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.4</wgs:lat>
+	<wgs:long>-60.2</wgs:long>
+	<skos:prefLabel>Penguin Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831852/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-51.58333</wgs:lat>
+	<wgs:long>-60.75</wgs:long>
+	<skos:altLabel>Islas Passage</skos:altLabel>
+	<skos:altLabel>Islas del Pasaje</skos:altLabel>
+	<skos:altLabel>Passage Islands</skos:altLabel>
+	<skos:prefLabel>Passage Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831853/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.85</wgs:lat>
+	<wgs:long>-60.51667</wgs:long>
+	<skos:prefLabel>Outer Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831858/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.63333</wgs:lat>
+	<wgs:long>-61.21667</wgs:long>
+	<skos:altLabel>Isla Norte</skos:altLabel>
+	<skos:altLabel>Isla North</skos:altLabel>
+	<skos:altLabel>North Island</skos:altLabel>
+	<skos:prefLabel>North Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831861/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.11667</wgs:lat>
+	<wgs:long>-60.71667</wgs:long>
+	<skos:altLabel>Isla Fur del Norte</skos:altLabel>
+	<skos:altLabel>North Fur Island</skos:altLabel>
+	<skos:prefLabel>North Fur Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831868/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.7</wgs:lat>
+	<wgs:long>-61.28333</wgs:long>
+	<skos:altLabel>Isla New</skos:altLabel>
+	<skos:altLabel>Isla Nueva</skos:altLabel>
+	<skos:altLabel>Isla de Goicoechea</skos:altLabel>
+	<skos:altLabel>New Island</skos:altLabel>
+	<skos:altLabel>San Felipe Island</skos:altLabel>
+	<skos:prefLabel>New Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831874/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.63333</wgs:lat>
+	<wgs:long>-60.33333</wgs:long>
+	<skos:altLabel>Isla Middle</skos:altLabel>
+	<skos:altLabel>Middle Island</skos:altLabel>
+	<skos:prefLabel>Middle Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831881/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.78333</wgs:lat>
+	<wgs:long>-61.1</wgs:long>
+	<skos:prefLabel>Low Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831882/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.33333</wgs:lat>
+	<wgs:long>-60.45</wgs:long>
+	<skos:altLabel>Isla Baja</skos:altLabel>
+	<skos:altLabel>Isla Low</skos:altLabel>
+	<skos:altLabel>Low Island</skos:altLabel>
+	<skos:prefLabel>Low Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831886/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52.13333</wgs:lat>
+	<wgs:long>-60.75</wgs:long>
+	<skos:altLabel>Isla Knoll</skos:altLabel>
+	<skos:altLabel>Knoll Island</skos:altLabel>
+	<skos:prefLabel>Knoll Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831887/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.96667</wgs:lat>
+	<wgs:long>-60.06667</wgs:long>
+	<skos:altLabel>Islote Knob</skos:altLabel>
+	<skos:altLabel>Knob Islet</skos:altLabel>
+	<skos:prefLabel>Knob Islet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831892/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-50.96667</wgs:lat>
+	<wgs:long>-61.43333</wgs:long>
+	<skos:altLabel>Cayo Jason del Oeste</skos:altLabel>
+	<skos:altLabel>Isla Rasa</skos:altLabel>
+	<skos:altLabel>Jason West Cay</skos:altLabel>
+	<skos:prefLabel>Jason West Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831893/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-51.08333</wgs:lat>
+	<wgs:long>-61</wgs:long>
+	<skos:altLabel>Islas Jason</skos:altLabel>
+	<skos:altLabel>Islas Salvajes</skos:altLabel>
+	<skos:altLabel>Islas Sebaldes</skos:altLabel>
+	<skos:altLabel>Jason Islands</skos:altLabel>
+	<skos:altLabel>Sebaldine Islands</skos:altLabel>
+	<skos:prefLabel>Jason Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831894/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-50.98333</wgs:lat>
+	<wgs:long>-61.28333</wgs:long>
+	<skos:altLabel>Cayo Jason del Este</skos:altLabel>
+	<skos:altLabel>Jason East Cay</skos:altLabel>
+	<skos:prefLabel>Jason East Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831899/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.61667</wgs:lat>
+	<wgs:long>-60.41667</wgs:long>
+	<skos:altLabel>Hummock Island</skos:altLabel>
+	<skos:altLabel>Isla Hummock</skos:altLabel>
+	<skos:prefLabel>Hummock Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831907/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.78333</wgs:lat>
+	<wgs:long>-61.06667</wgs:long>
+	<skos:prefLabel>Hill Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831913/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.75</wgs:lat>
+	<wgs:long>-60.2</wgs:long>
+	<skos:prefLabel>Half Tide Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831920/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.8</wgs:lat>
+	<wgs:long>-60.53333</wgs:long>
+	<skos:altLabel>Green Island</skos:altLabel>
+	<skos:altLabel>Green Islet</skos:altLabel>
+	<skos:altLabel>Isla Green</skos:altLabel>
+	<skos:altLabel>Islote Green</skos:altLabel>
+	<skos:prefLabel>Green Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831921/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.86667</wgs:lat>
+	<wgs:long>-61.2</wgs:long>
+	<skos:prefLabel>Green Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831922/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.65</wgs:lat>
+	<wgs:long>-60.25</wgs:long>
+	<skos:prefLabel>Green Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831924/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.05</wgs:lat>
+	<wgs:long>-61.05</wgs:long>
+	<skos:altLabel>Grand Jason</skos:altLabel>
+	<skos:prefLabel>Grand Jason</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831926/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.85</wgs:lat>
+	<wgs:long>-61.16667</wgs:long>
+	<skos:altLabel>Governor Island</skos:altLabel>
+	<skos:altLabel>Isla Governor</skos:altLabel>
+	<skos:prefLabel>Governor Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831932/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-51.05</wgs:lat>
+	<wgs:long>-60.95</wgs:long>
+	<skos:prefLabel>The Fridays</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831935/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.83333</wgs:lat>
+	<wgs:long>-60.46667</wgs:long>
+	<skos:altLabel>Fox Island</skos:altLabel>
+	<skos:altLabel>Isla Fox</skos:altLabel>
+	<skos:prefLabel>Fox Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831936/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.76667</wgs:lat>
+	<wgs:long>-61.06667</wgs:long>
+	<skos:prefLabel>Fox Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831940/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.55</wgs:lat>
+	<wgs:long>-60.85</wgs:long>
+	<skos:altLabel>Fourth Island</skos:altLabel>
+	<skos:altLabel>Isla Cuarta</skos:altLabel>
+	<skos:altLabel>Isla Fourth</skos:altLabel>
+	<skos:prefLabel>Fourth Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831942/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.1</wgs:lat>
+	<wgs:long>-60.86667</wgs:long>
+	<skos:prefLabel>Flat Jason</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831943/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.95</wgs:lat>
+	<wgs:long>-60.06667</wgs:long>
+	<skos:altLabel>Flat Islet</skos:altLabel>
+	<skos:altLabel>Isla Flat</skos:altLabel>
+	<skos:prefLabel>Flat Islet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831948/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.65</wgs:lat>
+	<wgs:long>-60.66667</wgs:long>
+	<skos:altLabel>First Island</skos:altLabel>
+	<skos:altLabel>Isla San Julián</skos:altLabel>
+	<skos:prefLabel>First Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831955/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.16667</wgs:lat>
+	<wgs:long>-60.83333</wgs:long>
+	<skos:altLabel>Elephant Jason</skos:altLabel>
+	<skos:altLabel>Isla Elephant Jason</skos:altLabel>
+	<skos:altLabel>Pan de Azúcar</skos:altLabel>
+	<skos:prefLabel>Elephant Jason</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831967/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.98333</wgs:lat>
+	<wgs:long>-60.86667</wgs:long>
+	<skos:altLabel>Dyke Island</skos:altLabel>
+	<skos:altLabel>Isla Dyke</skos:altLabel>
+	<skos:prefLabel>Dyke Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831970/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.35</wgs:lat>
+	<wgs:long>-60.36667</wgs:long>
+	<skos:altLabel>Dunbar Island</skos:altLabel>
+	<skos:altLabel>Isla Dunbar</skos:altLabel>
+	<skos:prefLabel>Dunbar Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831974/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.85</wgs:lat>
+	<wgs:long>-60.5</wgs:long>
+	<skos:prefLabel>Double Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831978/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52.16667</wgs:lat>
+	<wgs:long>-60.68333</wgs:long>
+	<skos:altLabel>Cross Island</skos:altLabel>
+	<skos:altLabel>Isla Cross</skos:altLabel>
+	<skos:prefLabel>Cross Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831983/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.71667</wgs:lat>
+	<wgs:long>-61.23333</wgs:long>
+	<skos:altLabel>Coffin Island</skos:altLabel>
+	<skos:altLabel>Isla Coffin</skos:altLabel>
+	<skos:prefLabel>Coffin Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831984/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-52.23333</wgs:lat>
+	<wgs:long>-60.5</wgs:long>
+	<skos:altLabel>Clump Islands</skos:altLabel>
+	<skos:altLabel>Islotes Clump</skos:altLabel>
+	<skos:prefLabel>Clump Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831985/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52.21667</wgs:lat>
+	<wgs:long>-60.5</wgs:long>
+	<skos:altLabel>Clump Island</skos:altLabel>
+	<skos:altLabel>Islote Clump</skos:altLabel>
+	<skos:prefLabel>Clump Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831989/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.46667</wgs:lat>
+	<wgs:long>-60.55</wgs:long>
+	<skos:prefLabel>Cliff Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831990/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.91667</wgs:lat>
+	<wgs:long>-60.85</wgs:long>
+	<skos:altLabel>Circum Island</skos:altLabel>
+	<skos:altLabel>Isla Circum</skos:altLabel>
+	<skos:prefLabel>Circum Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3831997/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-51.78333</wgs:lat>
+	<wgs:long>-61.18333</wgs:long>
+	<skos:altLabel>Channel Islands</skos:altLabel>
+	<skos:altLabel>Channel Islets</skos:altLabel>
+	<skos:altLabel>Islotes Channel</skos:altLabel>
+	<skos:altLabel>Islotes del Canal</skos:altLabel>
+	<skos:prefLabel>Channel Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3832002/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.26667</wgs:lat>
+	<wgs:long>-60.55</wgs:long>
+	<skos:altLabel>Carcass Island</skos:altLabel>
+	<skos:altLabel>Isla Carcass</skos:altLabel>
+	<skos:altLabel>Isla del Rosario</skos:altLabel>
+	<skos:prefLabel>Carcass Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3832006/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.33333</wgs:lat>
+	<wgs:long>-60.43333</wgs:long>
+	<skos:prefLabel>Button Islet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3832007/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.41667</wgs:lat>
+	<wgs:long>-60.11667</wgs:long>
+	<skos:altLabel>Burnt Island</skos:altLabel>
+	<skos:altLabel>Isla Burnt</skos:altLabel>
+	<skos:prefLabel>Burnt Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3832019/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.48333</wgs:lat>
+	<wgs:long>-60.13333</wgs:long>
+	<skos:prefLabel>Bluff Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3832021/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-52.15</wgs:lat>
+	<wgs:long>-60.9</wgs:long>
+	<skos:altLabel>Bird Island</skos:altLabel>
+	<skos:altLabel>Isla Bird</skos:altLabel>
+	<skos:altLabel>Isla Pájaro</skos:altLabel>
+	<skos:prefLabel>Bird Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3832022/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-51.48333</wgs:lat>
+	<wgs:long>-60.5</wgs:long>
+	<skos:altLabel>Bense Islands</skos:altLabel>
+	<skos:altLabel>Islas Bense</skos:altLabel>
+	<skos:prefLabel>Bense Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3832024/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.83333</wgs:lat>
+	<wgs:long>-61.25</wgs:long>
+	<skos:altLabel>Beaver Island</skos:altLabel>
+	<skos:altLabel>Isla Beaver</skos:altLabel>
+	<skos:altLabel>Isla San Rafael</skos:altLabel>
+	<skos:prefLabel>Beaver Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3832030/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.76667</wgs:lat>
+	<wgs:long>-61.08333</wgs:long>
+	<skos:prefLabel>Barclay Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3832032/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.76667</wgs:lat>
+	<wgs:long>-60.93333</wgs:long>
+	<skos:altLabel>Bald Island</skos:altLabel>
+	<skos:altLabel>Isla Bald</skos:altLabel>
+	<skos:altLabel>Isla de la Baliza</skos:altLabel>
+	<skos:prefLabel>Bald Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3832034/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-52.21667</wgs:lat>
+	<wgs:long>-60.45</wgs:long>
+	<skos:altLabel>Arch Islands</skos:altLabel>
+	<skos:altLabel>Islas Arch</skos:altLabel>
+	<skos:altLabel>Islotes Franceses</skos:altLabel>
+	<skos:prefLabel>Arch Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3949789/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-52.18333</wgs:lat>
+	<wgs:long>-60.75</wgs:long>
+	<skos:prefLabel>Ten Shilling Bay Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3965417/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.70833</wgs:lat>
+	<wgs:long>-61.23333</wgs:long>
+	<skos:prefLabel>Cliff Knob Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3965418/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.725</wgs:lat>
+	<wgs:long>-61.26667</wgs:long>
+	<skos:prefLabel>Beef Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3965422/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.85</wgs:lat>
+	<wgs:long>-61.2</wgs:long>
+	<skos:prefLabel>Rookery Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3965430/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-51.86667</wgs:lat>
+	<wgs:long>-60.86667</wgs:long>
+	<skos:prefLabel>Harbour Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3965435/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-51.975</wgs:lat>
+	<wgs:long>-60.55</wgs:long>
+	<skos:prefLabel>Double Creek Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3965436/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.65</wgs:lat>
+	<wgs:long>-60.3</wgs:long>
+	<skos:prefLabel>Gid’s Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3965544/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.58333</wgs:lat>
+	<wgs:long>-60.3</wgs:long>
+	<skos:prefLabel>Turkey Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3965576/">
+	<europeana:country>FK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-51.48333</wgs:lat>
+	<wgs:long>-60.5</wgs:long>
+	<skos:prefLabel>Little Bense</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 209 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

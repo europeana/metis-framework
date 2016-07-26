@@ -1,0 +1,600 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: NA_VG
+Description: Selected fields pulled from Geonames about VG done on Mon May 23 21:14:43 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577304/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.5</wgs:lat>
+	<wgs:long>-64.43333</wgs:long>
+	<skos:prefLabel>West Seal Dog</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577310/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.48333</wgs:lat>
+	<wgs:long>-64.46667</wgs:long>
+	<skos:prefLabel>West Dog</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577322/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>18.33333</wgs:lat>
+	<wgs:long>-64.75</wgs:long>
+	<skos:altLabel xml:lang="es">Islas Vírgenes</skos:altLabel>
+	<skos:altLabel>Las Islas de las Vírgenes</skos:altLabel>
+	<skos:altLabel>Las Víergenes</skos:altLabel>
+	<skos:altLabel>Les Vierges</skos:altLabel>
+	<skos:altLabel>Virgin Islands</skos:altLabel>
+	<skos:altLabel>Îles des Vierges</skos:altLabel>
+	<skos:prefLabel>Virgin Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577323/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>18</wgs:lat>
+	<wgs:long>-64.66667</wgs:long>
+	<skos:prefLabel>Virgin Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577325/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.5</wgs:lat>
+	<wgs:long>-64.4</wgs:long>
+	<skos:altLabel>Spanish Town</skos:altLabel>
+	<skos:altLabel>Virgin Gorda</skos:altLabel>
+	<skos:altLabel>Virgin Gorda Island</skos:altLabel>
+	<skos:prefLabel>Virgin Gorda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577342/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.45</wgs:lat>
+	<wgs:long>-64.6</wgs:long>
+	<skos:altLabel xml:lang="de">Tortola</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Tortola</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Tortola</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tortola</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Tortola</skos:altLabel>
+	<skos:altLabel>Tortola</skos:altLabel>
+	<skos:altLabel>Tortola Island</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Тортола</skos:altLabel>
+	<skos:altLabel xml:lang="he">טורטולה</skos:altLabel>
+	<skos:altLabel xml:lang="ja">トルトラ島</skos:altLabel>
+	<skos:prefLabel>Tortola</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577347/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>18.45</wgs:lat>
+	<wgs:long>-64.8</wgs:long>
+	<skos:prefLabel>Tobago Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577397/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>18.5</wgs:lat>
+	<wgs:long>-64.43333</wgs:long>
+	<skos:altLabel>Little Seal Dogs</skos:altLabel>
+	<skos:altLabel>Seal Dogs</skos:altLabel>
+	<skos:prefLabel>Seal Dogs</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577399/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.46667</wgs:lat>
+	<wgs:long>-64.51667</wgs:long>
+	<skos:prefLabel>Scrub Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577402/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.43333</wgs:lat>
+	<wgs:long>-64.7</wgs:long>
+	<skos:prefLabel>Sandy Spit</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577404/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.43333</wgs:lat>
+	<wgs:long>-64.71667</wgs:long>
+	<skos:prefLabel>Sandy Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577410/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.38333</wgs:lat>
+	<wgs:long>-64.51667</wgs:long>
+	<skos:prefLabel>Salt Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577445/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.5</wgs:lat>
+	<wgs:long>-64.36667</wgs:long>
+	<skos:prefLabel>Prickly Pear Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577455/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.36667</wgs:lat>
+	<wgs:long>-64.58333</wgs:long>
+	<skos:altLabel>Peter Island</skos:altLabel>
+	<skos:altLabel>Peters Island</skos:altLabel>
+	<skos:prefLabel>Peter Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577457/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.33333</wgs:lat>
+	<wgs:long>-64.61667</wgs:long>
+	<skos:prefLabel>Pelican Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577458/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLT"/>
+	<wgs:lat>18.45</wgs:lat>
+	<wgs:long>-64.71667</wgs:long>
+	<skos:prefLabel>Pelican Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577479/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.33333</wgs:lat>
+	<wgs:long>-64.61667</wgs:long>
+	<skos:altLabel>Norman Island</skos:altLabel>
+	<skos:altLabel>Normands Island</skos:altLabel>
+	<skos:prefLabel>Norman Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577482/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.52682</wgs:lat>
+	<wgs:long>-64.35843</wgs:long>
+	<skos:altLabel>Necker Island</skos:altLabel>
+	<skos:altLabel>Necker Islet</skos:altLabel>
+	<skos:prefLabel>Necker Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577484/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLT"/>
+	<wgs:lat>18.4</wgs:lat>
+	<wgs:long>-64.63333</wgs:long>
+	<skos:altLabel>Nannie Cay</skos:altLabel>
+	<skos:altLabel>Nanny Cay</skos:altLabel>
+	<skos:prefLabel>Nanny Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577494/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.5</wgs:lat>
+	<wgs:long>-64.38333</wgs:long>
+	<skos:prefLabel>Mosquito Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577505/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.45</wgs:lat>
+	<wgs:long>-64.51667</wgs:long>
+	<skos:prefLabel>Marina Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577536/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.43333</wgs:lat>
+	<wgs:long>-64.85</wgs:long>
+	<skos:altLabel xml:lang="sh">Little Tobago</skos:altLabel>
+	<skos:altLabel>Little Tobago Island</skos:altLabel>
+	<skos:prefLabel>Little Tobago Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577537/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.43333</wgs:lat>
+	<wgs:long>-64.85</wgs:long>
+	<skos:altLabel>Little Tobago Island</skos:altLabel>
+	<skos:prefLabel>Little Tobago</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577538/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.38173</wgs:lat>
+	<wgs:long>-64.71445</wgs:long>
+	<skos:prefLabel>Little Thatch Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577540/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.45</wgs:lat>
+	<wgs:long>-64.71667</wgs:long>
+	<skos:altLabel>Little Jost Van Dyke</skos:altLabel>
+	<skos:altLabel>Little Jost Van Dyke Island</skos:altLabel>
+	<skos:altLabel>Little Jost Van Dykes</skos:altLabel>
+	<skos:altLabel>Little Van Dyke</skos:altLabel>
+	<skos:altLabel>Little Van Dykes</skos:altLabel>
+	<skos:prefLabel>Little Jost Van Dyke Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577544/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.43333</wgs:lat>
+	<wgs:long>-64.53333</wgs:long>
+	<skos:prefLabel>Little Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577547/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.45</wgs:lat>
+	<wgs:long>-64.53333</wgs:long>
+	<skos:prefLabel>Little Camanoe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577553/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.71667</wgs:lat>
+	<wgs:long>-64.3</wgs:long>
+	<skos:altLabel>Little Anegada</skos:altLabel>
+	<skos:altLabel>Little Anegada Island</skos:altLabel>
+	<skos:prefLabel>Little Anegada Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577566/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.46667</wgs:lat>
+	<wgs:long>-64.75</wgs:long>
+	<skos:altLabel>Jost Van Dyke</skos:altLabel>
+	<skos:altLabel>Jost Van Dyke Island</skos:altLabel>
+	<skos:altLabel>Jost Van Dykes</skos:altLabel>
+	<skos:prefLabel>Jost Van Dyke Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577604/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.48333</wgs:lat>
+	<wgs:long>-64.56667</wgs:long>
+	<skos:altLabel>Guana Island</skos:altLabel>
+	<skos:altLabel>Guano Island</skos:altLabel>
+	<skos:prefLabel>Guana Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577609/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.45</wgs:lat>
+	<wgs:long>-64.7</wgs:long>
+	<skos:prefLabel>Green Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577610/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.45</wgs:lat>
+	<wgs:long>-64.8</wgs:long>
+	<skos:altLabel>Great Tobago</skos:altLabel>
+	<skos:altLabel>Great Tobago Island</skos:altLabel>
+	<skos:altLabel>Tobago</skos:altLabel>
+	<skos:altLabel>Tobago Island</skos:altLabel>
+	<skos:prefLabel>Great Tobago Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577611/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.38333</wgs:lat>
+	<wgs:long>-64.71667</wgs:long>
+	<skos:altLabel>Great Thatch</skos:altLabel>
+	<skos:altLabel>Great Thatch Cay</skos:altLabel>
+	<skos:altLabel>Great Thatch Island</skos:altLabel>
+	<skos:altLabel>Great Thatch Islet</skos:altLabel>
+	<skos:altLabel>Thatch Island</skos:altLabel>
+	<skos:prefLabel>Great Thatch Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577618/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.48333</wgs:lat>
+	<wgs:long>-64.45</wgs:long>
+	<skos:prefLabel>Great Dog</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577621/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.48333</wgs:lat>
+	<wgs:long>-64.53333</wgs:long>
+	<skos:altLabel>Cammanoes Island</skos:altLabel>
+	<skos:altLabel>Great Camano</skos:altLabel>
+	<skos:altLabel>Great Camanoe</skos:altLabel>
+	<skos:altLabel>Great Camanoe Island</skos:altLabel>
+	<skos:prefLabel>Great Camanoe Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577627/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.4</wgs:lat>
+	<wgs:long>-64.46667</wgs:long>
+	<skos:prefLabel>Ginger Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577632/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.5</wgs:lat>
+	<wgs:long>-64.45</wgs:long>
+	<skos:prefLabel>George Dog</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577637/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.38333</wgs:lat>
+	<wgs:long>-64.7</wgs:long>
+	<skos:prefLabel>Frenchmans Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577647/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.41667</wgs:lat>
+	<wgs:long>-64.45</wgs:long>
+	<skos:altLabel>Fallen Jerusalem</skos:altLabel>
+	<skos:altLabel>Old Jerusalem</skos:altLabel>
+	<skos:prefLabel>Fallen Jerusalem</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577650/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.51046</wgs:lat>
+	<wgs:long>-64.35825</wgs:long>
+	<skos:prefLabel>Eustatia Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577652/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.5</wgs:lat>
+	<wgs:long>-64.43333</wgs:long>
+	<skos:prefLabel>East Seal Dog</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577658/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>18.48333</wgs:lat>
+	<wgs:long>-64.46667</wgs:long>
+	<skos:altLabel>Dog Islands</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Illes Dog</skos:altLabel>
+	<skos:altLabel>The Dogs</skos:altLabel>
+	<skos:prefLabel>Dog Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577662/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.43333</wgs:lat>
+	<wgs:long>-64.71667</wgs:long>
+	<skos:prefLabel>Diamond Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577669/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.36667</wgs:lat>
+	<wgs:long>-64.56667</wgs:long>
+	<skos:prefLabel>Dead Chest</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577682/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.36667</wgs:lat>
+	<wgs:long>-64.5</wgs:long>
+	<skos:prefLabel>Cooper Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577689/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.48333</wgs:lat>
+	<wgs:long>-64.45</wgs:long>
+	<skos:prefLabel>Cockroach Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577714/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.41667</wgs:lat>
+	<wgs:long>-64.55</wgs:long>
+	<skos:prefLabel>Buck Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577718/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255149/"/>
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLD"/>
+	<europeana:population>21730</europeana:population>
+	<wgs:lat>18.5</wgs:lat>
+	<wgs:long>-64.5</wgs:long>
+	<skos:altLabel xml:lang="is">Bresku Jómfrúreyjar</skos:altLabel>
+	<skos:altLabel xml:lang="is">Bresku jómfrúaeyjar</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Brit Virgin-szigetek</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Britaj Virgulininsuloj</skos:altLabel>
+	<skos:altLabel xml:lang="en">British Virgin Islands</skos:altLabel>
+	<skos:altLabel xml:lang="ms">British Virgin Islands</skos:altLabel>
+	<skos:altLabel xml:lang="mt">British Virgin Islands</skos:altLabel>
+	<skos:altLabel>British Virgin Islands</skos:altLabel>
+	<skos:altLabel xml:lang="da">Britiske Jomfruøer</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Britse Maagdeneilanden</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Britské Panenské ostrovy</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Brittiläiset Neitsytsaaret</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Brittiska Jungfruöarna</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Britu Virdžīnas</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Brytyjskie Wyspy Dziewicze</skos:altLabel>
+	<skos:altLabel>Colony of the Virgin Islands</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Deviški otoki (britanski)</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Djevičanska Otočja, Britanska</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Ilhas Virgens Britânicas</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Illas Virxes Británicas</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Illes Verges Britàniques</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Insulele Virgine, Britanice</skos:altLabel>
+	<skos:altLabel xml:lang="es">Islas Vírgenes</skos:altLabel>
+	<skos:altLabel xml:lang="es">Islas Vírgenes Británicas</skos:altLabel>
+	<skos:altLabel xml:lang="it">Isole Vergini (britanniche)</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Jomfruøyane, britisk</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Jomfruøyene (britisk)</skos:altLabel>
+	<skos:altLabel xml:lang="de">Jungfern-Inseln (Britisch)</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Mergelių salos (Britų)</skos:altLabel>
+	<skos:altLabel xml:lang="et">Neitsisaared, Briti</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Oileáin Bhriotanacha na Maighdean</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Panenské ostrovy, Britské</skos:altLabel>
+	<skos:altLabel>Presidency of Virgin Islands</skos:altLabel>
+	<skos:altLabel>VG</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Virgin Adaları, İngiliz</skos:altLabel>
+	<skos:altLabel>Virgin Islands</skos:altLabel>
+	<skos:altLabel>Virgin Islands Presidency</skos:altLabel>
+	<skos:altLabel xml:lang="id">Virgin Islands, Inggris</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Virginia uharteak (Erresuma Batua)</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Ynysoedd Prydeinig y Wyryf</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Îles Vierges</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Îles Vierges britanniques</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Đảo Virgin, thuộc Anh</skos:altLabel>
+	<skos:altLabel xml:lang="el">Βρετανικές Παρθένοι Νήσοι</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Британски Вирджински Острови</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Британски Девствени Острови</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Виргинские о-ва, Великобритания</skos:altLabel>
+	<skos:altLabel xml:lang="be">Віргінскія астравы</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Вірґінські острови Великобританії</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Девичанска острва, Биртанска</skos:altLabel>
+	<skos:altLabel xml:lang="he">בתולה, איי (בריטיים)</skos:altLabel>
+	<skos:altLabel xml:lang="ur">جزائر ورجن، برٹش</skos:altLabel>
+	<skos:altLabel xml:lang="fa">جزایر ویرجین انگلستان</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جزر فرجين البريطانية</skos:altLabel>
+	<skos:altLabel xml:lang="hi">ब्रिटिश वर्जिन आईलैंडस्</skos:altLabel>
+	<skos:altLabel xml:lang="bn">ব্রিটিশ ভার্জিন দ্বীপপুঞ্জ</skos:altLabel>
+	<skos:altLabel xml:lang="th">บริทิชเวอร์จินไอส์แลนด์</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ບຣິທິດເວີຈິນໄອແລນ</skos:altLabel>
+	<skos:altLabel xml:lang="am">የእንግሊዝ ድንግል ደሴቶች</skos:altLabel>
+	<skos:altLabel xml:lang="zh">维尔京群岛，英属</skos:altLabel>
+	<skos:altLabel xml:lang="ja">英領バージン諸島</skos:altLabel>
+	<skos:altLabel xml:lang="ko">영국령 버진군도</skos:altLabel>
+	<skos:prefLabel>British Virgin Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577754/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.43333</wgs:lat>
+	<wgs:long>-64.53333</wgs:long>
+	<skos:prefLabel>Bellamy Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577756/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.45</wgs:lat>
+	<wgs:long>-64.51667</wgs:long>
+	<skos:prefLabel>Beef Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577778/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.75</wgs:lat>
+	<wgs:long>-64.33333</wgs:long>
+	<skos:altLabel xml:lang="fr">Anegada</skos:altLabel>
+	<skos:altLabel xml:lang="en">Anegada</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Anegada</skos:altLabel>
+	<skos:altLabel xml:lang="de">Anegada</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Anegada</skos:altLabel>
+	<skos:altLabel>Anegada</skos:altLabel>
+	<skos:altLabel>Drowned Island</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Анегада</skos:altLabel>
+	<skos:altLabel xml:lang="he">אנגאדה</skos:altLabel>
+	<skos:altLabel xml:lang="ja">アネガダ島</skos:altLabel>
+	<skos:prefLabel>Anegada</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3740102/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.34472</wgs:lat>
+	<wgs:long>-64.59583</wgs:long>
+	<skos:prefLabel>Key Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3740108/">
+	<europeana:country>VG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.42556</wgs:lat>
+	<wgs:long>-64.61778</wgs:long>
+	<skos:altLabel>Little Wickam’s Cay</skos:altLabel>
+	<skos:altLabel>Little Wickham’s Cay</skos:altLabel>
+	<skos:prefLabel>Little Wickham’s Cay</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 52 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

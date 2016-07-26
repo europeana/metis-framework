@@ -1,0 +1,1412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AF_BF
+Description: Selected fields pulled from Geonames about BF done on Mon May 23 21:16:08 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/2353169/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930708/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>213112</europeana:population>
+	<wgs:lat>11.58333</wgs:lat>
+	<wgs:long>-1</wgs:long>
+	<skos:altLabel>Zoundwéogo</skos:altLabel>
+	<skos:prefLabel>Province du Zoundwéogo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2353197/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA2"/>
+	<europeana:population>23892</europeana:population>
+	<wgs:lat>12.24889</wgs:lat>
+	<wgs:long>-0.61583</wgs:long>
+	<skos:altLabel>Zorgo</skos:altLabel>
+	<skos:altLabel>Zorogo</skos:altLabel>
+	<skos:prefLabel>Zorgho</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2353257/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>12703</europeana:population>
+	<wgs:lat>12.58222</wgs:lat>
+	<wgs:long>-1.29833</wgs:long>
+	<skos:altLabel>Zimaré</skos:altLabel>
+	<skos:altLabel>Zinarié</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Ziniaré</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ziniaré</skos:altLabel>
+	<skos:altLabel xml:lang="de">Ziniaré</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Ziniaré</skos:altLabel>
+	<skos:altLabel>Ziniaré</skos:altLabel>
+	<skos:prefLabel>Ziniaré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2353568/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930711/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>483491</europeana:population>
+	<wgs:lat>13.58333</wgs:lat>
+	<wgs:long>-2.41667</wgs:long>
+	<skos:altLabel>Yatenga</skos:altLabel>
+	<skos:prefLabel>Province du Yatenga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2353688/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA2"/>
+	<europeana:population>22904</europeana:population>
+	<wgs:lat>12.96667</wgs:lat>
+	<wgs:long>-2.26667</wgs:long>
+	<skos:altLabel xml:lang="de">Yako</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Yako</skos:altLabel>
+	<skos:altLabel xml:lang="en">Yako</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Яко</skos:altLabel>
+	<skos:prefLabel>Yako</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2354176/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA2"/>
+	<europeana:population>17590</europeana:population>
+	<wgs:lat>13.06667</wgs:lat>
+	<wgs:long>-3.06667</wgs:long>
+	<skos:altLabel xml:lang="fr">Tougan</skos:altLabel>
+	<skos:altLabel xml:lang="de">Tougan</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tougan</skos:altLabel>
+	<skos:altLabel>Tugan</skos:altLabel>
+	<skos:prefLabel>Tougan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2354265/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA2"/>
+	<europeana:population>12401</europeana:population>
+	<wgs:lat>12.76667</wgs:lat>
+	<wgs:long>-2.88333</wgs:long>
+	<skos:prefLabel>Toma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2354349/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA2"/>
+	<europeana:population>19131</europeana:population>
+	<wgs:lat>13.76667</wgs:lat>
+	<wgs:long>-2.06667</wgs:long>
+	<skos:prefLabel>Titao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2354675/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>37658</europeana:population>
+	<wgs:lat>11.78</wgs:lat>
+	<wgs:long>-0.36972</wgs:long>
+	<skos:altLabel xml:lang="en">Tenkodogo</skos:altLabel>
+	<skos:altLabel xml:lang="de">Tenkodogo</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Tenkodogo</skos:altLabel>
+	<skos:altLabel>Tenkodogo</skos:altLabel>
+	<skos:prefLabel>Tenkodogo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2354771/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930709/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>261117</europeana:population>
+	<wgs:lat>12</wgs:lat>
+	<wgs:long>1.75</wgs:long>
+	<skos:altLabel>Tapoa</skos:altLabel>
+	<skos:prefLabel>Province de la Tapoa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2355211/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930701/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>217896</europeana:population>
+	<wgs:lat>13.25</wgs:lat>
+	<wgs:long>-3</wgs:long>
+	<skos:altLabel>Sourou</skos:altLabel>
+	<skos:prefLabel>Province du Sourou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2355248/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930713/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>285722</europeana:population>
+	<wgs:lat>14.33333</wgs:lat>
+	<wgs:long>-1.25</wgs:long>
+	<skos:altLabel>Soum</skos:altLabel>
+	<skos:prefLabel>Province du Soum</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2355404/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA2"/>
+	<europeana:population>10385</europeana:population>
+	<wgs:lat>12.18333</wgs:lat>
+	<wgs:long>-4.08333</wgs:long>
+	<skos:altLabel>Salanso</skos:altLabel>
+	<skos:altLabel>Solenso</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Solenzo</skos:altLabel>
+	<skos:altLabel xml:lang="en">Solenzo</skos:altLabel>
+	<skos:prefLabel>Solenzo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2355474/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930707/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>169834</europeana:population>
+	<wgs:lat>11.33333</wgs:lat>
+	<wgs:long>-2.25</wgs:long>
+	<skos:altLabel>Sissili</skos:altLabel>
+	<skos:prefLabel>Province de la Sissili</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2355737/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930713/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>232425</europeana:population>
+	<wgs:lat>13.91667</wgs:lat>
+	<wgs:long>-0.16667</wgs:long>
+	<skos:altLabel>Séno</skos:altLabel>
+	<skos:prefLabel>Province du Séno</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2355914/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930706/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>482013</europeana:population>
+	<wgs:lat>13.25</wgs:lat>
+	<wgs:long>-1.08333</wgs:long>
+	<skos:altLabel>Sanmatenga</skos:altLabel>
+	<skos:prefLabel>Province du Sanmatenga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2355930/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930707/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>270924</europeana:population>
+	<wgs:lat>12.16667</wgs:lat>
+	<wgs:long>-2.66667</wgs:long>
+	<skos:altLabel>Sanguié</skos:altLabel>
+	<skos:prefLabel>Province du Sanguié</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2356228/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA2"/>
+	<europeana:population>37535</europeana:population>
+	<wgs:lat>12.31667</wgs:lat>
+	<wgs:long>-2.46667</wgs:long>
+	<skos:altLabel xml:lang="fi">Réo</skos:altLabel>
+	<skos:altLabel xml:lang="en">Réo</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Рео</skos:altLabel>
+	<skos:prefLabel>Réo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2356386/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930714/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>221200</europeana:population>
+	<wgs:lat>10.25</wgs:lat>
+	<wgs:long>-3.41667</wgs:long>
+	<skos:altLabel>Poni</skos:altLabel>
+	<skos:prefLabel>Province du Poni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2356454/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA2"/>
+	<europeana:population>17924</europeana:population>
+	<wgs:lat>11.16972</wgs:lat>
+	<wgs:long>-1.145</wgs:long>
+	<skos:altLabel xml:lang="en">Pô</skos:altLabel>
+	<skos:altLabel xml:lang="de">Pô</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Pô</skos:altLabel>
+	<skos:prefLabel>Pô</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2356667/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930711/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>12.91667</wgs:lat>
+	<wgs:long>-2.16667</wgs:long>
+	<skos:altLabel>Passore</skos:altLabel>
+	<skos:prefLabel>Province du Passoré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2356982/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930713/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>146017</europeana:population>
+	<wgs:lat>14.66667</wgs:lat>
+	<wgs:long>-0.33333</wgs:long>
+	<skos:altLabel>Oudalan</skos:altLabel>
+	<skos:prefLabel>Province de l' Oudalan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2356983/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930712/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>224640</europeana:population>
+	<wgs:lat>12.58333</wgs:lat>
+	<wgs:long>-1.41667</wgs:long>
+	<skos:altLabel>Oubritenga</skos:altLabel>
+	<skos:prefLabel>Province d' Oubritenga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2357012/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA2"/>
+	<europeana:population>10103</europeana:population>
+	<wgs:lat>11.50333</wgs:lat>
+	<wgs:long>0.05722</wgs:long>
+	<skos:altLabel>Ouargay</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ouargaye</skos:altLabel>
+	<skos:altLabel xml:lang="de">Ouargaye</skos:altLabel>
+	<skos:prefLabel>Ouargaye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2357043/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>61096</europeana:population>
+	<wgs:lat>13.58278</wgs:lat>
+	<wgs:long>-2.42158</wgs:long>
+	<skos:altLabel xml:lang="de">Ouahigouya</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Ouahigouya</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ouahigouya</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Ouahigouya</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Ouahigouya</skos:altLabel>
+	<skos:altLabel>Ouahigouya</skos:altLabel>
+	<skos:altLabel>Waiguya</skos:altLabel>
+	<skos:prefLabel>Ouahigouya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2357048/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>1086505</europeana:population>
+	<wgs:lat>12.36423</wgs:lat>
+	<wgs:long>-1.53834</wgs:long>
+	<skos:altLabel>Ouagadouga</skos:altLabel>
+	<skos:altLabel xml:lang="id">Ouagadougou</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ouagadougou</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Ouagadougou</skos:altLabel>
+	<skos:altLabel xml:lang="io">Ouagadougou</skos:altLabel>
+	<skos:altLabel xml:lang="it">Ouagadougou</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Ouagadougou</skos:altLabel>
+	<skos:altLabel xml:lang="no">Ouagadougou</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Ouagadougou</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Ouagadougou</skos:altLabel>
+	<skos:altLabel xml:lang="de">Ouagadougou</skos:altLabel>
+	<skos:altLabel xml:lang="da">Ouagadougou</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Ouagadougou</skos:altLabel>
+	<skos:altLabel xml:lang="is">Ouagadougou</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Ouagadougou</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Ouagadougou</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Ouagadougou</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Ouagadougou</skos:altLabel>
+	<skos:altLabel xml:lang="et">Ouagadougou</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ouagadougou</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Ouagadougou</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Ouagadougou</skos:altLabel>
+	<skos:altLabel>Uagadougou</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Uagadugu</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Uagadugu</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Uagaduguo</skos:altLabel>
+	<skos:altLabel xml:lang="es">Uagadugú</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Vagadugu</skos:altLabel>
+	<skos:altLabel>Wagadugu</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Wagadugu</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Wagadugu</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ουαγκαντούγκου</skos:altLabel>
+	<skos:altLabel xml:lang="cv">Уагадугу</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Уагадугу</skos:altLabel>
+	<skos:altLabel xml:lang="he">ואגאדוגו</skos:altLabel>
+	<skos:altLabel xml:lang="fa">اوآگادوگو</skos:altLabel>
+	<skos:altLabel xml:lang="ar">واغادوغو</skos:altLabel>
+	<skos:altLabel xml:lang="am">ዋጋዱጉ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ワガドゥグー</skos:altLabel>
+	<skos:altLabel xml:lang="zh">瓦加杜古</skos:altLabel>
+	<skos:altLabel xml:lang="ko">와가두구</skos:altLabel>
+	<skos:prefLabel>Ouagadougou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2357163/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA2"/>
+	<europeana:population>29048</europeana:population>
+	<wgs:lat>12.73333</wgs:lat>
+	<wgs:long>-3.86667</wgs:long>
+	<skos:altLabel xml:lang="en">Nouna</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Nouna</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Nouna</skos:altLabel>
+	<skos:prefLabel>Nouna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2357548/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930708/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>145749</europeana:population>
+	<wgs:lat>11.25</wgs:lat>
+	<wgs:long>-1.25</wgs:long>
+	<skos:altLabel>Nahouri</skos:altLabel>
+	<skos:altLabel>Province du Naouri</skos:altLabel>
+	<skos:prefLabel>Province du Nahouri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2357611/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930706/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>270909</europeana:population>
+	<wgs:lat>13.25</wgs:lat>
+	<wgs:long>-0.58333</wgs:long>
+	<skos:altLabel>Namentenga</skos:altLabel>
+	<skos:altLabel>Province du Namentinga</skos:altLabel>
+	<skos:prefLabel>Province du Namentenga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2357858/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930701/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>273309</europeana:population>
+	<wgs:lat>12.25</wgs:lat>
+	<wgs:long>-3.41667</wgs:long>
+	<skos:altLabel>Mouhoun</skos:altLabel>
+	<skos:prefLabel>Province du Mouhoun</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2358100/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>15173</europeana:population>
+	<wgs:lat>11.66361</wgs:lat>
+	<wgs:long>-1.07306</wgs:long>
+	<skos:prefLabel>Manga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2358382/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA2"/>
+	<europeana:population>26884</europeana:population>
+	<wgs:lat>11.1</wgs:lat>
+	<wgs:long>-2.1</wgs:long>
+	<skos:altLabel xml:lang="en">Léo</skos:altLabel>
+	<skos:altLabel xml:lang="de">Léo</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Léo</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Лев</skos:altLabel>
+	<skos:prefLabel>Léo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2358700/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930705/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>280024</europeana:population>
+	<wgs:lat>12</wgs:lat>
+	<wgs:long>-0.16667</wgs:long>
+	<skos:altLabel>Kouritenga</skos:altLabel>
+	<skos:altLabel>Province du Kourittenga</skos:altLabel>
+	<skos:prefLabel>Province du Kouritenga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2358738/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA2"/>
+	<europeana:population>32052</europeana:population>
+	<wgs:lat>12.17944</wgs:lat>
+	<wgs:long>-0.35167</wgs:long>
+	<skos:altLabel>Kupela</skos:altLabel>
+	<skos:prefLabel>Koupéla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2358946/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>87347</europeana:population>
+	<wgs:lat>12.25</wgs:lat>
+	<wgs:long>-2.36667</wgs:long>
+	<skos:altLabel>Kondougou</skos:altLabel>
+	<skos:altLabel xml:lang="de">Koudougou</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Koudougou</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Koudougou</skos:altLabel>
+	<skos:altLabel xml:lang="en">Koudougou</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Koudougou</skos:altLabel>
+	<skos:altLabel>Koudougou</skos:altLabel>
+	<skos:altLabel>Kudugu</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кудугу</skos:altLabel>
+	<skos:prefLabel>Koudougou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2359027/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930701/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>249923</europeana:population>
+	<wgs:lat>12.91667</wgs:lat>
+	<wgs:long>-3.83333</wgs:long>
+	<skos:altLabel>Kossi</skos:altLabel>
+	<skos:prefLabel>Province de la Kossi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2359142/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA2"/>
+	<europeana:population>26338</europeana:population>
+	<wgs:lat>13.32583</wgs:lat>
+	<wgs:long>-1.53472</wgs:long>
+	<skos:altLabel xml:lang="de">Kongoussi</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Kongoussi</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Kongoussi</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kongoussi</skos:altLabel>
+	<skos:prefLabel>Kongoussi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2359209/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930703/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>261738</europeana:population>
+	<wgs:lat>10.33333</wgs:lat>
+	<wgs:long>-4.41667</wgs:long>
+	<skos:altLabel>Comoé</skos:altLabel>
+	<skos:altLabel>Komoé</skos:altLabel>
+	<skos:altLabel>Province de la Komoé</skos:altLabel>
+	<skos:prefLabel>Province de la Comoé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2359227/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA2"/>
+	<europeana:population>30137</europeana:population>
+	<wgs:lat>12.06556</wgs:lat>
+	<wgs:long>-1.3375</wgs:long>
+	<skos:altLabel>Kombisiri</skos:altLabel>
+	<skos:altLabel>Kombissiguiri</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kombissiri</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Kombissiri</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Kombissiri</skos:altLabel>
+	<skos:prefLabel>Kombissiri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2359317/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>25958</europeana:population>
+	<wgs:lat>12.18972</wgs:lat>
+	<wgs:long>-1.88556</wgs:long>
+	<skos:altLabel>Kokolgho</skos:altLabel>
+	<skos:altLabel>Kokologo</skos:altLabel>
+	<skos:prefLabel>Kokologo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2359569/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930710/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>221733</europeana:population>
+	<wgs:lat>11.41667</wgs:lat>
+	<wgs:long>-5</wgs:long>
+	<skos:altLabel>Kènèdougou</skos:altLabel>
+	<skos:altLabel>Kénédougou</skos:altLabel>
+	<skos:prefLabel>Province du Kénédougou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2359608/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>39229</europeana:population>
+	<wgs:lat>13.09167</wgs:lat>
+	<wgs:long>-1.08444</wgs:long>
+	<skos:altLabel>Kaya</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кая</skos:altLabel>
+	<skos:prefLabel>Kaya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2359923/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930704/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>1365958</europeana:population>
+	<wgs:lat>12.33333</wgs:lat>
+	<wgs:long>-1.5</wgs:long>
+	<skos:altLabel xml:lang="en">Kadiogo</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kadiogo</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Kadiogo</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Kadiogo</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Kadiogo</skos:altLabel>
+	<skos:altLabel xml:lang="it">Kadiogo</skos:altLabel>
+	<skos:altLabel>Kadiogo</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Prowincja Kadiogo</skos:altLabel>
+	<skos:prefLabel>Province du Kadiogo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2360073/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA2"/>
+	<europeana:population>36593</europeana:population>
+	<wgs:lat>11.5</wgs:lat>
+	<wgs:long>-3.51667</wgs:long>
+	<skos:altLabel xml:lang="fi">Houndé</skos:altLabel>
+	<skos:altLabel xml:lang="en">Houndé</skos:altLabel>
+	<skos:altLabel>Hunde</skos:altLabel>
+	<skos:prefLabel>Houndé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2360075/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930710/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>762415</europeana:population>
+	<wgs:lat>11.33333</wgs:lat>
+	<wgs:long>-4.25</wgs:long>
+	<skos:altLabel>Houet</skos:altLabel>
+	<skos:altLabel>Houé</skos:altLabel>
+	<skos:altLabel>Province du Houé</skos:altLabel>
+	<skos:prefLabel>Province du Houet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2360223/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930709/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>258192</europeana:population>
+	<wgs:lat>12.08333</wgs:lat>
+	<wgs:long>0.5</wgs:long>
+	<skos:altLabel>Gourma</skos:altLabel>
+	<skos:prefLabel>Province du Gourma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2360238/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA2"/>
+	<europeana:population>16765</europeana:population>
+	<wgs:lat>13.21667</wgs:lat>
+	<wgs:long>-2.35</wgs:long>
+	<skos:altLabel xml:lang="de">Gourcy</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Gourcy</skos:altLabel>
+	<skos:altLabel xml:lang="en">Gourcy</skos:altLabel>
+	<skos:altLabel>Goursi</skos:altLabel>
+	<skos:altLabel>Gursi</skos:altLabel>
+	<skos:prefLabel>Gourcy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2360516/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930709/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>338041</europeana:population>
+	<wgs:lat>11.83333</wgs:lat>
+	<wgs:long>0</wgs:long>
+	<skos:altLabel>Gnagna</skos:altLabel>
+	<skos:prefLabel>Province de la Gnagna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2360615/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>29076</europeana:population>
+	<wgs:lat>11.8</wgs:lat>
+	<wgs:long>-0.55056</wgs:long>
+	<skos:altLabel>Garango</skos:altLabel>
+	<skos:prefLabel>Garango</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2360627/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930712/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>289270</europeana:population>
+	<wgs:lat>12.33333</wgs:lat>
+	<wgs:long>-0.75</wgs:long>
+	<skos:altLabel>Ganzourgou</skos:altLabel>
+	<skos:prefLabel>Province du Ganzourgou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2360886/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>33910</europeana:population>
+	<wgs:lat>12.06222</wgs:lat>
+	<wgs:long>0.35778</wgs:long>
+	<skos:altLabel xml:lang="de">Fada N'Gourma</skos:altLabel>
+	<skos:altLabel xml:lang="en">Fada N'gourma</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Fada N'gourma</skos:altLabel>
+	<skos:altLabel>Fada N’Gourma</skos:altLabel>
+	<skos:altLabel>Fada-Ngourma</skos:altLabel>
+	<skos:altLabel>Fada-n-Gurma</skos:altLabel>
+	<skos:prefLabel>Fada N’Gourma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2361082/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>37806</europeana:population>
+	<wgs:lat>14.0354</wgs:lat>
+	<wgs:long>-0.0345</wgs:long>
+	<skos:altLabel>Dori</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Дори</skos:altLabel>
+	<skos:prefLabel>Dori</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2361177/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA2"/>
+	<europeana:population>22223</europeana:population>
+	<wgs:lat>14.10222</wgs:lat>
+	<wgs:long>-1.63056</wgs:long>
+	<skos:altLabel xml:lang="en">Djibo</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Djibo</skos:altLabel>
+	<skos:altLabel>Jibo</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Джибо</skos:altLabel>
+	<skos:prefLabel>Djibo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2361342/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA2"/>
+	<europeana:population>12732</europeana:population>
+	<wgs:lat>10.96667</wgs:lat>
+	<wgs:long>-3.25</wgs:long>
+	<skos:altLabel>Diebugu</skos:altLabel>
+	<skos:altLabel xml:lang="en">Diébougou</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Diébougou</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Diébougou</skos:altLabel>
+	<skos:prefLabel>Diébougou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2361373/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA2"/>
+	<europeana:population>26013</europeana:population>
+	<wgs:lat>12.07083</wgs:lat>
+	<wgs:long>1.78889</wgs:long>
+	<skos:altLabel xml:lang="en">Diapaga</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Диапага</skos:altLabel>
+	<skos:prefLabel>Diapaga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2361477/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>45341</europeana:population>
+	<wgs:lat>12.46667</wgs:lat>
+	<wgs:long>-3.46667</wgs:long>
+	<skos:altLabel>Dedugu</skos:altLabel>
+	<skos:altLabel xml:lang="de">Dédougou</skos:altLabel>
+	<skos:altLabel xml:lang="en">Dédougou</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Dédougou</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Dédougou</skos:altLabel>
+	<skos:altLabel>Dédougou</skos:altLabel>
+	<skos:prefLabel>Dédougou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2361586/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA2"/>
+	<europeana:population>11153</europeana:population>
+	<wgs:lat>11.15</wgs:lat>
+	<wgs:long>-3.06667</wgs:long>
+	<skos:prefLabel>Dano</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2361809/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255146/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>16241811</europeana:population>
+	<wgs:lat>13</wgs:lat>
+	<wgs:long>-2</wgs:long>
+	<skos:altLabel>BF</skos:altLabel>
+	<skos:altLabel xml:lang="af">Boerkina Fasso</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Boukinafaso</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Buircíne Fasó</skos:altLabel>
+	<skos:altLabel xml:lang="la">Burcina Faso</skos:altLabel>
+	<skos:altLabel>Burkina</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Burkina</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Burkina Fasas</skos:altLabel>
+	<skos:altLabel xml:lang="id">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="es">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="da">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="et">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="de">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="en">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="it">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="af">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="io">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="li">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="se">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="wo">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="an">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="na">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="no">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="ln">Burkina Faso</skos:altLabel>
+	<skos:altLabel>Burkina Faso</skos:altLabel>
+	<skos:altLabel>Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Burkina Fasso</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Burkina Fasso</skos:altLabel>
+	<skos:altLabel xml:lang="es">Burkina Fasso (Alto Volta)</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Burkinafaso</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Burkino</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Burkinän</skos:altLabel>
+	<skos:altLabel xml:lang="is">Burkína Fasó</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Burkîna Faso</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Burquina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Burquina Faso - Burkina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="bm">Burukina Faso</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Buốc-ki-na Pha-xô</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Buốc-ki-na Pha-xô (Burkina Faso)</skos:altLabel>
+	<skos:altLabel xml:lang="is">Búrkína Fasó</skos:altLabel>
+	<skos:altLabel>Republic of Upper Volta</skos:altLabel>
+	<skos:altLabel>République Voltaïque</skos:altLabel>
+	<skos:altLabel>République de Haute-Volta</skos:altLabel>
+	<skos:altLabel>Volta Republic</skos:altLabel>
+	<skos:altLabel>Volta Superior</skos:altLabel>
+	<skos:altLabel>Voltaic Republic</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μπουρκίνα Φάσο</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Буркина Фасо</skos:altLabel>
+	<skos:altLabel xml:lang="cv">Буркина Фасо</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Буркина Фасо</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Буркина Фасо</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Буркина Фасо</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Буркина Фасо</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Буркіна Фасо</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Буркіна-Фасо</skos:altLabel>
+	<skos:altLabel xml:lang="be">Буркіна-Фасо</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Բուրկինա Ֆասո</skos:altLabel>
+	<skos:altLabel xml:lang="he">בורקינה פאסו</skos:altLabel>
+	<skos:altLabel xml:lang="ur">برکینا فاسو</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بوركينا فاسو</skos:altLabel>
+	<skos:altLabel xml:lang="ps">بورکينا فاسو</skos:altLabel>
+	<skos:altLabel xml:lang="fa">بورکینا فاسو</skos:altLabel>
+	<skos:altLabel xml:lang="fa">بورکینافاسو</skos:altLabel>
+	<skos:altLabel xml:lang="ug">بۇركىنا فاسو</skos:altLabel>
+	<skos:altLabel xml:lang="hi">बर्किना फासो</skos:altLabel>
+	<skos:altLabel xml:lang="hi">बुर्किना फ़ासो</skos:altLabel>
+	<skos:altLabel xml:lang="ks">बुर्कीना-फासो</skos:altLabel>
+	<skos:altLabel xml:lang="sa">बुर्कीना-फासो</skos:altLabel>
+	<skos:altLabel xml:lang="bn">বুর্কিনা ফাসো</skos:altLabel>
+	<skos:altLabel xml:lang="ta">பர்கினோ பாஸோ</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ബുര്‍ക്കിനാ ഫാസോ</skos:altLabel>
+	<skos:altLabel xml:lang="th">บูร์กินาฟาโซ</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศบูร์กินาฟาโซ</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ເບີກິນາຟາໂຊ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">བརཀི་ན། ཕསོ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ბურკინა ფასო</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ბურკინა-ფასო</skos:altLabel>
+	<skos:altLabel xml:lang="am">ቡርኪና ፋሶ</skos:altLabel>
+	<skos:altLabel xml:lang="km">ប៊ូរគីណាហ្វាសូ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ブルキナファソ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">布吉納法索</skos:altLabel>
+	<skos:altLabel xml:lang="zh">布基纳法索</skos:altLabel>
+	<skos:altLabel xml:lang="ko">부르키나 파소</skos:altLabel>
+	<skos:altLabel xml:lang="ko">부르키나파소</skos:altLabel>
+	<skos:prefLabel>Burkina Faso</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2361845/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA2"/>
+	<europeana:population>15868</europeana:population>
+	<wgs:lat>12.66056</wgs:lat>
+	<wgs:long>-1.89222</wgs:long>
+	<skos:altLabel>Busse</skos:altLabel>
+	<skos:prefLabel>Boussé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2361946/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA2"/>
+	<europeana:population>17489</europeana:population>
+	<wgs:lat>12.6675</wgs:lat>
+	<wgs:long>-0.57583</wgs:long>
+	<skos:altLabel xml:lang="en">Boulsa</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Boulsa</skos:altLabel>
+	<skos:altLabel>Boulssa</skos:altLabel>
+	<skos:altLabel>Bulsa</skos:altLabel>
+	<skos:prefLabel>Boulsa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2361988/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930707/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>461158</europeana:population>
+	<wgs:lat>12.33333</wgs:lat>
+	<wgs:long>-2.16667</wgs:long>
+	<skos:altLabel>Boulkiemdé</skos:altLabel>
+	<skos:altLabel>Bulkiemdé</skos:altLabel>
+	<skos:prefLabel>Province du Boulkiemdé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2362006/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930705/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>455306</europeana:population>
+	<wgs:lat>11.5</wgs:lat>
+	<wgs:long>-0.5</wgs:long>
+	<skos:altLabel>Boulgou</skos:altLabel>
+	<skos:prefLabel>Province du Boulgou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2362047/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930714/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>83697</europeana:population>
+	<wgs:lat>10.83333</wgs:lat>
+	<wgs:long>-3.41667</wgs:long>
+	<skos:altLabel>Bougouriba</skos:altLabel>
+	<skos:prefLabel>Province de la Bougouriba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2362150/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA2"/>
+	<europeana:population>13157</europeana:population>
+	<wgs:lat>11.75</wgs:lat>
+	<wgs:long>-2.93333</wgs:long>
+	<skos:altLabel>Borom</skos:altLabel>
+	<skos:altLabel xml:lang="de">Boromo</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Boromo</skos:altLabel>
+	<skos:altLabel xml:lang="en">Boromo</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Boromo</skos:altLabel>
+	<skos:prefLabel>Boromo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2362344/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>360106</europeana:population>
+	<wgs:lat>11.17715</wgs:lat>
+	<wgs:long>-4.2979</wgs:long>
+	<skos:altLabel xml:lang="fi">Bobo Dioulasso</skos:altLabel>
+	<skos:altLabel xml:lang="id">Bobo-Dioulasso</skos:altLabel>
+	<skos:altLabel xml:lang="de">Bobo-Dioulasso</skos:altLabel>
+	<skos:altLabel xml:lang="es">Bobo-Dioulasso</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Bobo-Dioulasso</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bobo-Dioulasso</skos:altLabel>
+	<skos:altLabel xml:lang="it">Bobo-Dioulasso</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Bobo-Dioulasso</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Bobo-Dioulasso</skos:altLabel>
+	<skos:altLabel>Bobo-Dioulasso</skos:altLabel>
+	<skos:altLabel>Bobo-Diulasso</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Bobodjulaso</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ボボ・ディウラッソ</skos:altLabel>
+	<skos:prefLabel>Bobo-Dioulasso</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2362644/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930708/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>242054</europeana:population>
+	<wgs:lat>11.91667</wgs:lat>
+	<wgs:long>-1.5</wgs:long>
+	<skos:altLabel xml:lang="sh">Bazega</skos:altLabel>
+	<skos:altLabel>Bazèga</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Le Bazèga</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Province de Bazéga</skos:altLabel>
+	<skos:prefLabel>Province du Bazèga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2362909/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>60288</europeana:population>
+	<wgs:lat>10.63333</wgs:lat>
+	<wgs:long>-4.76667</wgs:long>
+	<skos:altLabel xml:lang="es">Banfora</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Banfora</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Banfora</skos:altLabel>
+	<skos:altLabel xml:lang="de">Banfora</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Banfora</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Banfora</skos:altLabel>
+	<skos:altLabel xml:lang="en">Banfora</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Banfora</skos:altLabel>
+	<skos:altLabel>Banfora</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Банфору</skos:altLabel>
+	<skos:prefLabel>Banfora</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2362973/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930706/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>239060</europeana:population>
+	<wgs:lat>13.5</wgs:lat>
+	<wgs:long>-1.66667</wgs:long>
+	<skos:altLabel>Bam</skos:altLabel>
+	<skos:prefLabel>Province du Bam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2577162/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>25104</europeana:population>
+	<wgs:lat>10.29917</wgs:lat>
+	<wgs:long>-3.25083</wgs:long>
+	<skos:prefLabel>Gaoua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2577164/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA2"/>
+	<europeana:population>18632</europeana:population>
+	<wgs:lat>10.94917</wgs:lat>
+	<wgs:long>-4.93417</wgs:long>
+	<skos:altLabel>Orodaro</skos:altLabel>
+	<skos:prefLabel>Orodara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597248/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930701/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>196991</europeana:population>
+	<wgs:lat>11.7</wgs:lat>
+	<wgs:long>-3.16667</wgs:long>
+	<skos:altLabel>Balé</skos:altLabel>
+	<skos:altLabel>Balé</skos:altLabel>
+	<skos:altLabel>Les Balé</skos:altLabel>
+	<skos:prefLabel>Province des Balé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597250/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930701/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>227843</europeana:population>
+	<wgs:lat>12.16667</wgs:lat>
+	<wgs:long>-4.16667</wgs:long>
+	<skos:altLabel>Banwa</skos:altLabel>
+	<skos:prefLabel>Province des Banwa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597251/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930714/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>160773</europeana:population>
+	<wgs:lat>11.08333</wgs:lat>
+	<wgs:long>-3.08333</wgs:long>
+	<skos:altLabel>Ioba</skos:altLabel>
+	<skos:prefLabel>Province du Ioba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597259/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930709/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>54885</europeana:population>
+	<wgs:lat>12.66667</wgs:lat>
+	<wgs:long>0.66667</wgs:long>
+	<skos:altLabel>Komandjari</skos:altLabel>
+	<skos:altLabel>Komondjari</skos:altLabel>
+	<skos:prefLabel>Province de la Komandjoari</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597260/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930709/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>122781</europeana:population>
+	<wgs:lat>11.41667</wgs:lat>
+	<wgs:long>0.91667</wgs:long>
+	<skos:altLabel>Kompienga</skos:altLabel>
+	<skos:prefLabel>Province de la Kompienga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597261/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930705/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>319606</europeana:population>
+	<wgs:lat>11.41667</wgs:lat>
+	<wgs:long>0.16667</wgs:long>
+	<skos:altLabel>Koulpélogo</skos:altLabel>
+	<skos:prefLabel>Province du Koulpélogo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597262/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930712/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>124554</europeana:population>
+	<wgs:lat>12.58333</wgs:lat>
+	<wgs:long>-1.8</wgs:long>
+	<skos:altLabel>Kourwéogo</skos:altLabel>
+	<skos:prefLabel>Province du Kourwéogo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597263/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930703/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>105895</europeana:population>
+	<wgs:lat>10.66667</wgs:lat>
+	<wgs:long>-5.2</wgs:long>
+	<skos:altLabel>Léraba</skos:altLabel>
+	<skos:prefLabel>Province de la Léraba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597264/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930711/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>125645</europeana:population>
+	<wgs:lat>13.91667</wgs:lat>
+	<wgs:long>-2.16667</wgs:long>
+	<skos:altLabel>Loroum</skos:altLabel>
+	<skos:prefLabel>Province du Loroum</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597265/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930701/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>149002</europeana:population>
+	<wgs:lat>12.66667</wgs:lat>
+	<wgs:long>-3</wgs:long>
+	<skos:altLabel>Nayala</skos:altLabel>
+	<skos:prefLabel>Province du Nayala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597266/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930714/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>56738</europeana:population>
+	<wgs:lat>9.83333</wgs:lat>
+	<wgs:long>-3</wgs:long>
+	<skos:altLabel>Noumbiel</skos:altLabel>
+	<skos:prefLabel>Province du Noumbièl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597267/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930710/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>172778</europeana:population>
+	<wgs:lat>11.41667</wgs:lat>
+	<wgs:long>-3.41667</wgs:long>
+	<skos:altLabel>Tui</skos:altLabel>
+	<skos:altLabel>Tuy</skos:altLabel>
+	<skos:prefLabel>Province du Tuy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597268/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930713/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>132964</europeana:population>
+	<wgs:lat>13.41667</wgs:lat>
+	<wgs:long>0.58333</wgs:long>
+	<skos:altLabel>Yagha</skos:altLabel>
+	<skos:prefLabel>Province du Yagha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597269/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930707/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>119318</europeana:population>
+	<wgs:lat>11.58333</wgs:lat>
+	<wgs:long>-1.91667</wgs:long>
+	<skos:altLabel>Ziro</skos:altLabel>
+	<skos:prefLabel>Province du Ziro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597270/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6930711/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>139784</europeana:population>
+	<wgs:lat>13.16667</wgs:lat>
+	<wgs:long>-2.16667</wgs:long>
+	<skos:altLabel>Zondoma</skos:altLabel>
+	<skos:prefLabel>Province du Zondoma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6930701/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>12.47203</wgs:lat>
+	<wgs:long>-3.47305</wgs:long>
+	<skos:prefLabel>Boucle du Mouhoun</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6930703/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>10.65015</wgs:lat>
+	<wgs:long>-4.76292</wgs:long>
+	<skos:prefLabel>Cascades</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6930704/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>12.37874</wgs:lat>
+	<wgs:long>-1.53276</wgs:long>
+	<skos:prefLabel>Centre</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6930705/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>11.78922</wgs:lat>
+	<wgs:long>-0.35706</wgs:long>
+	<skos:prefLabel>Centre-Est</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6930706/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>13.09829</wgs:lat>
+	<wgs:long>-1.0855</wgs:long>
+	<skos:prefLabel>Centre-Nord</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6930707/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>12.25488</wgs:lat>
+	<wgs:long>-2.36876</wgs:long>
+	<skos:prefLabel>Centre-Ouest</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6930708/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>11.67132</wgs:lat>
+	<wgs:long>-1.07374</wgs:long>
+	<skos:prefLabel>Centre-Sud</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6930709/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>12.06308</wgs:lat>
+	<wgs:long>0.36349</wgs:long>
+	<skos:prefLabel>Est</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6930710/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>11.20804</wgs:lat>
+	<wgs:long>-4.29634</wgs:long>
+	<skos:prefLabel>Hauts-Bassins</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6930711/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>13.58809</wgs:lat>
+	<wgs:long>-2.4212</wgs:long>
+	<skos:prefLabel>Nord</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6930712/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>12.58774</wgs:lat>
+	<wgs:long>-1.30102</wgs:long>
+	<skos:prefLabel>Plateau-Central</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6930713/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>14.03351</wgs:lat>
+	<wgs:long>-0.04575</wgs:long>
+	<skos:prefLabel>Sahel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6930714/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2361809/"/>
+	<europeana:country>BF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>10.28866</wgs:lat>
+	<wgs:long>-3.26097</wgs:long>
+	<skos:prefLabel>Sud-Ouest</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 97 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

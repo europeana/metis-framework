@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:actime="http://semium.org/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+    xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+
+AnnoCultor time ontology, manually edited list of historical periods.
+
+ -->
+
+<!-- Ancient -->
+<rdf:Description rdf:about="http://semium.org/time/neolithic">
+    <rdf:type rdf:resource="http://semium.org/time/Period"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/HistoricalPeriod"/>
+    <actime:beginDate>-9400-01-01-01-01</actime:beginDate>
+    <actime:endDate>-2300-12-31-12-31</actime:endDate>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://semium.org/time/iron_age">
+    <rdf:type rdf:resource="http://semium.org/time/Period"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/HistoricalPeriod"/>
+    <actime:beginDate>-2300-01-01-01-01</actime:beginDate>
+    <actime:endDate>-600-12-31-12-31</actime:endDate>
+</rdf:Description>
+
+
+<rdf:Description rdf:about="http://semium.org/time/bronze_age">
+    <rdf:type rdf:resource="http://semium.org/time/Period"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/HistoricalPeriod"/>
+    <actime:beginDate>-1200-01-01</actime:beginDate>
+    <actime:endDate>400-12-31</actime:endDate>
+</rdf:Description>
+
+<!-- Egypt -->
+<rdf:Description rdf:about="http://semium.org/time/egypt_predynastic">
+    <rdf:type rdf:resource="http://semium.org/time/Period"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/HistoricalPeriod"/>
+    <actime:beginDate>-01-01</actime:beginDate>
+    <actime:endDate>-12-31</actime:endDate>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://semium.org/time/egypt_earlydynastic">
+    <rdf:type rdf:resource="http://semium.org/time/Period"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/HistoricalPeriod"/>
+    <actime:beginDate>-01-01</actime:beginDate>
+    <actime:endDate>-12-31</actime:endDate>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://semium.org/time/egypt_oldkingdom">
+    <rdf:type rdf:resource="http://semium.org/time/Period"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/HistoricalPeriod"/>
+    <actime:beginDate>-01-01</actime:beginDate>
+    <actime:endDate>-12-31</actime:endDate>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://semium.org/time/egypt_first">
+    <rdf:type rdf:resource="http://semium.org/time/Period"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/HistoricalPeriod"/>
+    <actime:beginDate>-01-01</actime:beginDate>
+    <actime:endDate>-12-31</actime:endDate>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://semium.org/time/egypt_middlekingdom">
+    <rdf:type rdf:resource="http://semium.org/time/Period"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/HistoricalPeriod"/>
+    <actime:beginDate>-01-01</actime:beginDate>
+    <actime:endDate>-12-31</actime:endDate>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://semium.org/time/egypt_second">
+    <rdf:type rdf:resource="http://semium.org/time/Period"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/HistoricalPeriod"/>
+    <actime:beginDate>-01-01</actime:beginDate>
+    <actime:endDate>-12-31</actime:endDate>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://semium.org/time/egypt_newkingdom">
+    <rdf:type rdf:resource="http://semium.org/time/Period"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/HistoricalPeriod"/>
+    <actime:beginDate>-01-01</actime:beginDate>
+    <actime:endDate>-12-31</actime:endDate>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://semium.org/time/egypt_third">
+    <rdf:type rdf:resource="http://semium.org/time/Period"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/HistoricalPeriod"/>
+    <actime:beginDate>-01-01</actime:beginDate>
+    <actime:endDate>-12-31</actime:endDate>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://semium.org/time/egypt_lateperiod">
+    <rdf:type rdf:resource="http://semium.org/time/Period"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/HistoricalPeriod"/>
+    <actime:beginDate>-664-01-01</actime:beginDate>
+    <actime:endDate>-323-12-31</actime:endDate>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://semium.org/time/egypt_greekroman">
+    <rdf:type rdf:resource="http://semium.org/time/Period"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/HistoricalPeriod"/>
+    <actime:beginDate>-332-01-01</actime:beginDate>
+    <actime:endDate>395-12-31</actime:endDate>
+</rdf:Description>
+
+
+<!-- Greek -->
+<rdf:Description rdf:about="http://semium.org/time/greek_archaic">
+    <rdf:type rdf:resource="http://semium.org/time/Period"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/HistoricalPeriod"/>
+    <actime:beginDate>-800-01-01</actime:beginDate>
+    <actime:endDate>-480-12-31</actime:endDate>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://semium.org/time/greek_classical">
+    <rdf:type rdf:resource="http://semium.org/time/Period"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/HistoricalPeriod"/>
+    <actime:beginDate>-480-01-01</actime:beginDate>
+    <actime:endDate>-323-12-31</actime:endDate>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://semium.org/time/greek_hellenistic">
+    <rdf:type rdf:resource="http://semium.org/time/Period"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/HistoricalPeriod"/>
+    <actime:beginDate>-323-01-01</actime:beginDate>
+    <actime:endDate>-146-12-31</actime:endDate>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://semium.org/time/greek_roman">
+    <rdf:type rdf:resource="http://semium.org/time/Period"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/HistoricalPeriod"/>
+    <actime:beginDate>-146-01-01</actime:beginDate>
+    <actime:endDate>330-12-31</actime:endDate>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://semium.org/time/greek_antiquity">
+    <rdf:type rdf:resource="http://semium.org/time/Period"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/HistoricalPeriod"/>
+    <actime:beginDate>330-01-01</actime:beginDate>
+    <actime:endDate>529-12-31</actime:endDate>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://semium.org/time/greek_postclassical">
+    <rdf:type rdf:resource="http://semium.org/time/Period"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/HistoricalPeriod"/>
+    <actime:beginDate>529-01-01</actime:beginDate>
+    <actime:endDate>1453-12-31</actime:endDate>
+</rdf:Description>
+
+
+<!-- Roman -->
+<rdf:Description rdf:about="http://semium.org/time/roman_kingdom">
+    <rdf:type rdf:resource="http://semium.org/time/Period"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/HistoricalPeriod"/>
+    <actime:beginDate>-753-01-01</actime:beginDate>
+    <actime:endDate>-509-12-31</actime:endDate>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://semium.org/time/roman_republic">
+    <rdf:type rdf:resource="http://semium.org/time/Period"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/HistoricalPeriod"/>
+    <actime:beginDate>-509-01-01</actime:beginDate>
+    <actime:endDate>-27-12-31</actime:endDate>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://semium.org/time/roman_empire">
+    <rdf:type rdf:resource="http://semium.org/time/Period"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/HistoricalPeriod"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/00xx"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/01xx"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/02xx"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/03xx"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/04xx"/>
+    <actime:beginDate>-27-01-01</actime:beginDate>
+    <actime:endDate>476-12-31</actime:endDate>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://semium.org/time/gallic">
+    <rdf:type rdf:resource="http://semium.org/time/Period"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/HistoricalPeriod"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/02xx"/>
+    <actime:beginDate>259-01-01</actime:beginDate>
+    <actime:endDate>274-12-31</actime:endDate>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://semium.org/time/viking">
+    <rdf:type rdf:resource="http://semium.org/time/Period"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/HistoricalPeriod"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/08xx"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/09xx"/>
+    <actime:beginDate>875-01-01</actime:beginDate>
+    <actime:endDate>950-12-31</actime:endDate>
+</rdf:Description>
+
+<!-- Middle Ages -->
+<rdf:Description rdf:about="http://semium.org/time/medieval">
+	<rdf:type rdf:resource="http://semium.org/time/Period"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/HistoricalPeriod"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/04xx"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/05xx"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/06xx"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/07xx"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/08xx"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/09xx"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/10xx"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/11xx"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/12xx"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/13xx"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/14xx"/>
+    <actime:beginDate>476-01-01</actime:beginDate>
+    <actime:endDate>1453-12-31</actime:endDate>
+</rdf:Description>
+
+<!-- Modern -->
+<rdf:Description rdf:about="http://semium.org/time/early_modern">
+    <rdf:type rdf:resource="http://semium.org/time/Period"/>    
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/HistoricalPeriod"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/14xx"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/15xx"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/16xx"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/17xx"/>
+    <actime:beginDate>1492-01-01</actime:beginDate>
+    <actime:endDate>1789-12-31</actime:endDate>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://semium.org/time/modern">
+    <rdf:type rdf:resource="http://semium.org/time/Period"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/HistoricalPeriod"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/17xx_2_half"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/18xx"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/19xx"/>
+    <actime:beginDate>1789-01-01</actime:beginDate>
+    <actime:endDate>1973-12-31</actime:endDate>
+</rdf:Description>
+
+
+<rdf:Description rdf:about="http://semium.org/time/post_modern">
+    <rdf:type rdf:resource="http://semium.org/time/Period"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/HistoricalPeriod"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/20xx"/>
+    <actime:beginDate>1973-01-01</actime:beginDate>
+    <actime:endDate>2025-12-31</actime:endDate>
+</rdf:Description>
+
+<!-- French -->
+<rdf:Description rdf:about="http://semium.org/time/french_louis_14">
+    <rdf:type rdf:resource="http://semium.org/time/Period"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/HistoricalPeriod"/>
+    <actime:beginDate>1661-01-01</actime:beginDate>
+    <actime:endDate>1715-12-31</actime:endDate>
+</rdf:Description>
+<rdf:Description rdf:about="http://semium.org/time/french_louis_15">
+    <rdf:type rdf:resource="http://semium.org/time/Period"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/HistoricalPeriod"/>
+    <actime:beginDate>1723-01-01</actime:beginDate>
+    <actime:endDate>1774-12-31</actime:endDate>
+</rdf:Description>
+<rdf:Description rdf:about="http://semium.org/time/french_louis_16">
+    <rdf:type rdf:resource="http://semium.org/time/Period"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/HistoricalPeriod"/>
+    <actime:beginDate>1774-01-01</actime:beginDate>
+    <actime:endDate>1792-12-31</actime:endDate>
+</rdf:Description>
+<rdf:Description rdf:about="http://semium.org/time/french_first_empire">
+    <rdf:type rdf:resource="http://semium.org/time/Period"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/HistoricalPeriod"/>
+    <actime:beginDate>1804-01-01</actime:beginDate>
+    <actime:endDate>1814-12-31</actime:endDate>
+</rdf:Description>
+<rdf:Description rdf:about="http://semium.org/time/french_louis_philippe">
+    <rdf:type rdf:resource="http://semium.org/time/Period"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/HistoricalPeriod"/>
+    <actime:beginDate>1830-01-01</actime:beginDate>
+    <actime:endDate>1848-12-31</actime:endDate>
+</rdf:Description>
+<rdf:Description rdf:about="http://semium.org/time/french_second_republic">
+    <rdf:type rdf:resource="http://semium.org/time/Period"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/HistoricalPeriod"/>
+    <actime:beginDate>1848-01-01</actime:beginDate>
+    <actime:endDate>1851-12-31</actime:endDate>
+</rdf:Description>
+<rdf:Description rdf:about="http://semium.org/time/french_second_empire">
+    <rdf:type rdf:resource="http://semium.org/time/Period"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/HistoricalPeriod"/>
+    <actime:beginDate>1852-01-01</actime:beginDate>
+    <actime:endDate>1870-12-31</actime:endDate>
+</rdf:Description>
+<rdf:Description rdf:about="http://semium.org/time/french_third_republic">
+    <rdf:type rdf:resource="http://semium.org/time/Period"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/HistoricalPeriod"/>
+    <actime:beginDate>1870-01-01</actime:beginDate>
+    <actime:endDate>1940-12-31</actime:endDate>
+</rdf:Description>
+
+</rdf:RDF>

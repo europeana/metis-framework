@@ -1,0 +1,4514 @@
+<html xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:report="http://e-culture.multimedian.nl/ns/report#">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script type="text/javascript">    
+          function showAll() {
+          var divs = document.getElementsByTagName("div");
+          var i=0;
+          for(i=0;i<divs.length;i++)
+          {
+          divs[i].style.display="block";
+          }
+          };
+          
+          function switchState(boxID, prefix) {
+          var boxObj = document.getElementById(boxID);
+          var buttonObj = document.getElementById(boxID+"_anchor");
+          if (boxObj.style.display=="none") {
+          boxObj.style.display="block";
+          } 
+          else { 
+          boxObj.style.display="none";
+          }
+          }
+     </script><style type="text/css">
+       div.detail {
+        display: none;
+        margin-left: 2em;
+        boder: 1px solid grey;
+       }
+       p {
+          background-color:white;
+          border-top: 1px solid #EEE;
+          }
+         th {
+           background-color: #EEE;
+          font-size: 80%;
+          }
+     </style></head>
+   <body>
+      <p onclick="showAll()"><b>This is the list of properties. Click on it to see the top ten values of each property.Click here to show all top-ten lists.</b></p>
+      <p onclick="switchState('','');return false;" id="_anchor "><code><b></b></code>  
+         , total values:
+         <code></code></p>
+      <div class="detail" style="display:none;" id="">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records','');return false;" id="records_anchor "><code><b>records</b></code>  
+         , total values:
+         <code>1</code>
+         , ALL UNIQUE
+         
+      </p>
+      <div class="detail" style="display:none;" id="records">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code></code></td>
+               <td><code>1</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object','');return false;" id="records*object_anchor "><code><b>records*object</b></code>  
+         , total values:
+         <code>1</code></p>
+      <div class="detail" style="display:none;" id="records*object">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code></code></td>
+               <td><code>2676</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*Collection','');return false;" id="records*object*Collection_anchor "><code><b>records*object*Collection</b></code>  
+         , total values:
+         <code>1</code></p>
+      <div class="detail" style="display:none;" id="records*object*Collection">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>Age Looxma Ypeij</code></td>
+               <td><code>949</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*CulturalOrigin','');return false;" id="records*object*CulturalOrigin_anchor "><code><b>records*object*CulturalOrigin</b></code>  
+         , total values:
+         <code>39</code></p>
+      <div class="detail" style="display:none;" id="records*object*CulturalOrigin">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>QING</code></td>
+               <td><code>1245</code></td>
+               <td><code>34</code></td>
+            </tr>
+            <tr>
+               <td><code>Qianlong</code></td>
+               <td><code>642</code></td>
+               <td><code>17</code></td>
+            </tr>
+            <tr>
+               <td><code>Kangxi</code></td>
+               <td><code>564</code></td>
+               <td><code>15</code></td>
+            </tr>
+            <tr>
+               <td><code>MING</code></td>
+               <td><code>394</code></td>
+               <td><code>10</code></td>
+            </tr>
+            <tr>
+               <td><code>Wanli</code></td>
+               <td><code>295</code></td>
+               <td><code>8</code></td>
+            </tr>
+            <tr>
+               <td><code>Tianqi</code></td>
+               <td><code>119</code></td>
+               <td><code>3</code></td>
+            </tr>
+            <tr>
+               <td><code>Chongzhen</code></td>
+               <td><code>113</code></td>
+               <td><code>3</code></td>
+            </tr>
+            <tr>
+               <td><code>Jiaqing</code></td>
+               <td><code>65</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>Yongzheng</code></td>
+               <td><code>53</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>Guangxu</code></td>
+               <td><code>16</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>TANG</code></td>
+               <td><code>16</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>SONG</code></td>
+               <td><code>15</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Jiajing</code></td>
+               <td><code>13</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Shunzi</code></td>
+               <td><code>13</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>YUAN</code></td>
+               <td><code>8</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Yongle</code></td>
+               <td><code>6</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Zhengde</code></td>
+               <td><code>6</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Chenghua</code></td>
+               <td><code>5</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>HAN</code></td>
+               <td><code>5</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Taichang</code></td>
+               <td><code>5</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Daoguang</code></td>
+               <td><code>4</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Hongzhi</code></td>
+               <td><code>4</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Edo</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Hongxian</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Wei</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>ZES DYNASTIEËN</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Cixi</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Hongwu</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>JIN</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Jingtai</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Longqing</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Noordelijke Song</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Noordelijke Wei</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>SHANG</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Tianshun</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Westelijke Han</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Westelijke Jin</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Xuande</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Xuantong</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*Description','');return false;" id="records*object*Description_anchor "><code><b>records*object*Description</b></code>  
+         , total values:
+         <code>98</code></p>
+      <div class="detail" style="display:none;" id="records*object*Description">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>LONG VALUE (MAX 100)</code></td>
+               <td><code>2203</code></td>
+               <td><code>83</code></td>
+            </tr>
+            <tr>
+               <td><code></code></td>
+               <td><code>311</code></td>
+               <td><code>11</code></td>
+            </tr>
+            <tr>
+               <td><code>Bord gedecoreerd met het wapen van de familie De Jonge, chine de commande</code></td>
+               <td><code>4</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Bord gedecoreerd met het wapen van de familie Van Gellicum, chine de commande, imari, 1 van 4</code></td>
+               <td><code>4</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Terrine met deksel gedecoreerd met de wapens van Van Reverhorst</code></td>
+               <td><code>4</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Bord gedecoreerd met het wapen van de familie Van Herzeele, chine de commande</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Fles dan wel flesvormige vaas versierd met pioentakken, perziktakken en vogels.</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Grafplastiek in de vorm van een zittende hond.</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Kop gedecoreerd met het wapen van de familie Van Aken, chine de commande, famille rose</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Schaaltje gedecoreerd met de wapens van Van Reverhorst</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>3 kop en schotels met decor van de wapens van Van Reverhorst</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>8 kop en schotels met decor van familiewapen, chine de commande, imari</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Acht maal een kop met bijbehorende schotel.</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Afgeplatte, ronde pot met twee kleine oren en een decor van spiralen, ruiten en golflijnen.</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Amfoorvormige vaas met twee voluutachtige oren in de vorm van een slang.</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Beeldje van Kwan-Yin van Chinees porselein, met naast haar op het voetstuk een Europese monnik</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Bierpul versierd met pioenplanten; Japans blauw en wit kan met zilveren deksel.</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Bloempot dan wel pul versierd met omlopend landschapstafereel.</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Bolle, eivormige vaas met nauwe, korte hals met uitgebogen rand.</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Bolvormige pot met bolle deksel met knop.</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Bord gedecoreed met het alliantiewapen van Van Altena  en Doys, chine de commande, famille rose</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Bord gedecoreerd met de wapens van Van Reverhorst</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Bord gedecoreerd met de wapens van de familie Van Reverhorst, chine de commande / polychroom</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Bord gedecoreerd met het wapen van De Mey?, chine de commande, famille rose</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Bord gedecoreerd met het wapen van Joannes Camphuijs</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Bord gedecoreerd met het wapen van de familie Clifford, chine de commande</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Bord gedecoreerd met het wapen van de familie De Wendt, chine de commande, famille rose</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Bord gedecoreerd met het wapen van de familie Fiers, chine de commande, famille rose</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Bord gedecoreerd met het wapen van de familie Schreuder/ De la Haye, chine de commande</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Bord gedecoreerd met het wapen van de familie Van Gellicum, chine de commande, imari</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Bord gedecoreerd met het wapen van de familie Van der Linden van Slingelandt, chine de commande</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Bord gedecoreerd met het wapen van de familie Ver Huell, famille rose</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Bord met decor van familiewapen van Valckenier, chine de commande,  imari</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Bord met decor van familiewapen van Ver Huell, chine de commande, famille rose</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Bord met golvende rand verdeeld in vakken, beschilderd met planten, bloemen en vogel bij rots.</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Bord met het alliantiewapen van Van Bleijswijk en Van Hemert</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Bord met het wapen van Van Idsinga, chine de commande, famille rose</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Bord met in het decor verwerkt het wapen van de familie Pelgrom, chine de commande</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Chocoladekop met schotel en deksels met decor in onderglazuur-blauw, ijzerrood en goud.</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Diabolo vormig zoutvat. Versierd in onderglazuur-blauw met bloeiende platen</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Een kan versierd met&nbsp;twee Chinezen staande aan weerszijden van enige planten</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Een klein kommetje met strooipatroon van kleine en grote chrysantbloemen.</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Een kleine zeszijdig afgeplat pot (dekselpulletje) met decor in blauw, ijzerrood en goud.</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Eivormige fles met dunne cilindrische hals, beschilderd met bloeiende prunusboom.</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Eivormige vaas met dunne trompetvormige hals.</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Fles met korte nauwe hals, gedecoreerd met twee pauwen in veelkleurige emails op het glazuur.</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Fles, gedecoreerd in onderglazuur blauw met bloeiende planten en rennende paarden.</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Gewelfde kom, beschilderd met bloeiende takken op een rots.</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Grafplastiek in de vorm van een beenloos paard, met zadel en tuig.</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Grafplastiek in de vorm van een ronde omheining met deur waarbinnen vier schapen zijn ingeschaard.</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*Description*br','');return false;" id="records*object*Description*br_anchor "><code><b>records*object*Description*br</b></code>  
+         , total values:
+         <code>1</code></p>
+      <div class="detail" style="display:none;" id="records*object*Description*br">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>LONG VALUE (MAX 100)</code></td>
+               <td><code>68</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*Description*em','');return false;" id="records*object*Description*em_anchor "><code><b>records*object*Description*em</b></code>  
+         , total values:
+         <code>3</code></p>
+      <div class="detail" style="display:none;" id="records*object*Description*em">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>LONG VALUE (MAX 100)</code></td>
+               <td><code>18</code></td>
+               <td><code>90</code></td>
+            </tr>
+            <tr>
+               <td><code>Grote schotel met een vlakke rand. Gedecoreerd in blauw onder het glazuur met een qilin</code></td>
+               <td><code>1</code></td>
+               <td><code>5</code></td>
+            </tr>
+            <tr>
+               <td><code>Het medaillonvormig midden toont twee fenghuangs</code></td>
+               <td><code>1</code></td>
+               <td><code>5</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*Description*i','');return false;" id="records*object*Description*i_anchor "><code><b>records*object*Description*i</b></code>  
+         , total values:
+         <code>3</code></p>
+      <div class="detail" style="display:none;" id="records*object*Description*i">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>LONG VALUE (MAX 100)</code></td>
+               <td><code>7</code></td>
+               <td><code>77</code></td>
+            </tr>
+            <tr>
+               <td><code>Diep bord op voetring met spreidende wand en brede spreidende rand met bij 
+                     				     B</code></td>
+               <td><code>1</code></td>
+               <td><code>11</code></td>
+            </tr>
+            <tr>
+               <td><code>Diep bord op voetring met spreidende wand en brede spreidende rand met bij A</code></td>
+               <td><code>1</code></td>
+               <td><code>11</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*Description*p','');return false;" id="records*object*Description*p_anchor "><code><b>records*object*Description*p</b></code>  
+         , total values:
+         <code>5</code></p>
+      <div class="detail" style="display:none;" id="records*object*Description*p">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>LONG VALUE (MAX 100)</code></td>
+               <td><code>314</code></td>
+               <td><code>96</code></td>
+            </tr>
+            <tr>
+               <td><code>&nbsp;</code></td>
+               <td><code>8</code></td>
+               <td><code>2</code></td>
+            </tr>
+            <tr>
+               <td><code>Middenstuk van een schotel op voetring, versierd in onderglazuur blauw met bloemtakken.</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Op de achterkant een rij medaillons, gescheiden door streepvakken.</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Theepot gedecoreerd in encre de Chine en goud met een voorstelling van de Kruisiging.</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*Description*p*br','');return false;" id="records*object*Description*p*br_anchor "><code><b>records*object*Description*p*br</b></code>  
+         , total values:
+         <code>2</code></p>
+      <div class="detail" style="display:none;" id="records*object*Description*p*br">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>LONG VALUE (MAX 100)</code></td>
+               <td><code>62</code></td>
+               <td><code>98</code></td>
+            </tr>
+            <tr>
+               <td><code>Kom van porselein. Beschilderd met vignetten waarin een voorstelling van Venus met amoretten.</code></td>
+               <td><code>1</code></td>
+               <td><code>1</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*Description*p*em','');return false;" id="records*object*Description*p*em_anchor "><code><b>records*object*Description*p*em</b></code>  
+         , total values:
+         <code>3</code></p>
+      <div class="detail" style="display:none;" id="records*object*Description*p*em">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>LONG VALUE (MAX 100)</code></td>
+               <td><code>10</code></td>
+               <td><code>83</code></td>
+            </tr>
+            <tr>
+               <td><code>Bord op voetring met spreidende wand en brede spreidende rand. Versierd in encre de chine</code></td>
+               <td><code>1</code></td>
+               <td><code>8</code></td>
+            </tr>
+            <tr>
+               <td><code>Schotel en kop op voetring met spreidende wand. Versierd met een voorstelling in encre de Chine</code></td>
+               <td><code>1</code></td>
+               <td><code>8</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*ExtendedDescription','');return false;" id="records*object*ExtendedDescription_anchor "><code><b>records*object*ExtendedDescription</b></code>  
+         , total values:
+         <code>5</code></p>
+      <div class="detail" style="display:none;" id="records*object*ExtendedDescription">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>LONG VALUE (MAX 100)</code></td>
+               <td><code>189</code></td>
+               <td><code>75</code></td>
+            </tr>
+            <tr>
+               <td><code></code></td>
+               <td><code>56</code></td>
+               <td><code>22</code></td>
+            </tr>
+            <tr>
+               <td><code>Een rivierlandschap met watervogels is een traditionele afbeelding op kraakporselein.</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>De afbeelding van een krachtige tijger staat in China vaak symbool voor moed en waardigheid.</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Het is vooralsnog onbekend wie hier geportretteerd is.</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*ExtendedDescription*br','');return false;" id="records*object*ExtendedDescription*br_anchor "><code><b>records*object*ExtendedDescription*br</b></code>  
+         , total values:
+         <code>1</code></p>
+      <div class="detail" style="display:none;" id="records*object*ExtendedDescription*br">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>LONG VALUE (MAX 100)</code></td>
+               <td><code>29</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*ExtendedDescription*em','');return false;" id="records*object*ExtendedDescription*em_anchor "><code><b>records*object*ExtendedDescription*em</b></code>  
+         , total values:
+         <code>7</code></p>
+      <div class="detail" style="display:none;" id="records*object*ExtendedDescription*em">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>LONG VALUE (MAX 100)</code></td>
+               <td><code>15</code></td>
+               <td><code>71</code></td>
+            </tr>
+            <tr>
+               <td><code>De afgebeelde heren spelen go</code></td>
+               <td><code>1</code></td>
+               <td><code>4</code></td>
+            </tr>
+            <tr>
+               <td><code>De draak is samen met de vogel fenghuang</code></td>
+               <td><code>1</code></td>
+               <td><code>4</code></td>
+            </tr>
+            <tr>
+               <td><code>De kraanvogel is (naast de fenghuang</code></td>
+               <td><code>1</code></td>
+               <td><code>4</code></td>
+            </tr>
+            <tr>
+               <td><code>De qilin</code></td>
+               <td><code>1</code></td>
+               <td><code>4</code></td>
+            </tr>
+            <tr>
+               <td><code>Deze schotel is afkomstig uit de zo genoemde . De fenghuang</code></td>
+               <td><code>1</code></td>
+               <td><code>4</code></td>
+            </tr>
+            <tr>
+               <td><code>Deze schotel is afkomstig uit de zo genoemde Hatcher Jonk</code></td>
+               <td><code>1</code></td>
+               <td><code>4</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*ExtendedDescription*i','');return false;" id="records*object*ExtendedDescription*i_anchor "><code><b>records*object*ExtendedDescription*i</b></code>  
+         , total values:
+         <code>1</code></p>
+      <div class="detail" style="display:none;" id="records*object*ExtendedDescription*i">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>LONG VALUE (MAX 100)</code></td>
+               <td><code>2</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*ExtendedDescription*p','');return false;" id="records*object*ExtendedDescription*p_anchor "><code><b>records*object*ExtendedDescription*p</b></code>  
+         , total values:
+         <code>2</code></p>
+      <div class="detail" style="display:none;" id="records*object*ExtendedDescription*p">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>LONG VALUE (MAX 100)</code></td>
+               <td><code>47</code></td>
+               <td><code>73</code></td>
+            </tr>
+            <tr>
+               <td><code>&nbsp;</code></td>
+               <td><code>17</code></td>
+               <td><code>26</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*ExtendedDescription*p*br','');return false;" id="records*object*ExtendedDescription*p*br_anchor "><code><b>records*object*ExtendedDescription*p*br</b></code>  
+         , total values:
+         <code>1</code></p>
+      <div class="detail" style="display:none;" id="records*object*ExtendedDescription*p*br">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>LONG VALUE (MAX 100)</code></td>
+               <td><code>22</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*ExtendedDescription*p*em','');return false;" id="records*object*ExtendedDescription*p*em_anchor "><code><b>records*object*ExtendedDescription*p*em</b></code>  
+         , total values:
+         <code>2</code></p>
+      <div class="detail" style="display:none;" id="records*object*ExtendedDescription*p*em">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>LONG VALUE (MAX 100)</code></td>
+               <td><code>2</code></td>
+               <td><code>66</code></td>
+            </tr>
+            <tr>
+               <td><code>De literaten, in het Chinees, wenren</code></td>
+               <td><code>1</code></td>
+               <td><code>33</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*ExtendedDescription*p*sup','');return false;" id="records*object*ExtendedDescription*p*sup_anchor "><code><b>records*object*ExtendedDescription*p*sup</b></code>  
+         , total values:
+         <code>1</code></p>
+      <div class="detail" style="display:none;" id="records*object*ExtendedDescription*p*sup">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>LONG VALUE (MAX 100)</code></td>
+               <td><code>6</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*ExtendedDescription*sup','');return false;" id="records*object*ExtendedDescription*sup_anchor "><code><b>records*object*ExtendedDescription*sup</b></code>  
+         , total values:
+         <code>1</code></p>
+      <div class="detail" style="display:none;" id="records*object*ExtendedDescription*sup">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>LONG VALUE (MAX 100)</code></td>
+               <td><code>2</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*ExtendedDescription*table','');return false;" id="records*object*ExtendedDescription*table_anchor "><code><b>records*object*ExtendedDescription*table</b></code>  
+         , total values:
+         <code>1</code>
+         , ALL UNIQUE
+         
+      </p>
+      <div class="detail" style="display:none;" id="records*object*ExtendedDescription*table">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code></code></td>
+               <td><code>1</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*ExtendedDescription*table*tbody','');return false;" id="records*object*ExtendedDescription*table*tbody_anchor "><code><b>records*object*ExtendedDescription*table*tbody</b></code>  
+         , total values:
+         <code>1</code>
+         , ALL UNIQUE
+         
+      </p>
+      <div class="detail" style="display:none;" id="records*object*ExtendedDescription*table*tbody">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code></code></td>
+               <td><code>1</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*ExtendedDescription*table*tbody*tr','');return false;" id="records*object*ExtendedDescription*table*tbody*tr_anchor "><code><b>records*object*ExtendedDescription*table*tbody*tr</b></code>  
+         , total values:
+         <code>1</code></p>
+      <div class="detail" style="display:none;" id="records*object*ExtendedDescription*table*tbody*tr">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code></code></td>
+               <td><code>2</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*ExtendedDescription*table*tbody*tr*td','');return false;" id="records*object*ExtendedDescription*table*tbody*tr*td_anchor "><code><b>records*object*ExtendedDescription*table*tbody*tr*td</b></code>  
+         , total values:
+         <code>1</code></p>
+      <div class="detail" style="display:none;" id="records*object*ExtendedDescription*table*tbody*tr*td">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code></code></td>
+               <td><code>2</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*ExtendedDescription*table*tbody*tr*td*img','');return false;" id="records*object*ExtendedDescription*table*tbody*tr*td*img_anchor "><code><b>records*object*ExtendedDescription*table*tbody*tr*td*img</b></code>  
+         , total values:
+         <code>1</code>
+         , ALL UNIQUE
+         
+      </p>
+      <div class="detail" style="display:none;" id="records*object*ExtendedDescription*table*tbody*tr*td*img">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code></code></td>
+               <td><code>1</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*ExtendedDescription*table*tbody*tr*td*img[@alt]','');return false;" id="records*object*ExtendedDescription*table*tbody*tr*td*img[@alt]_anchor "><code><b>records*object*ExtendedDescription*table*tbody*tr*td*img[@alt]</b></code>  
+         , total values:
+         <code>1</code>
+         , ALL UNIQUE
+         
+      </p>
+      <div class="detail" style="display:none;" id="records*object*ExtendedDescription*table*tbody*tr*td*img[@alt]">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code></code></td>
+               <td><code>1</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*ExtendedDescription*table*tbody*tr*td*img[@border]','');return false;" id="records*object*ExtendedDescription*table*tbody*tr*td*img[@border]_anchor "><code><b>records*object*ExtendedDescription*table*tbody*tr*td*img[@border]</b></code>  
+         , total values:
+         <code>1</code>
+         , ALL UNIQUE
+         
+      </p>
+      <div class="detail" style="display:none;" id="records*object*ExtendedDescription*table*tbody*tr*td*img[@border]">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>0</code></td>
+               <td><code>1</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*ExtendedDescription*table*tbody*tr*td*img[@height]','');return false;" id="records*object*ExtendedDescription*table*tbody*tr*td*img[@height]_anchor "><code><b>records*object*ExtendedDescription*table*tbody*tr*td*img[@height]</b></code>  
+         , total values:
+         <code>1</code>
+         , ALL UNIQUE
+         
+      </p>
+      <div class="detail" style="display:none;" id="records*object*ExtendedDescription*table*tbody*tr*td*img[@height]">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>9</code></td>
+               <td><code>1</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*ExtendedDescription*table*tbody*tr*td*img[@hspace]','');return false;" id="records*object*ExtendedDescription*table*tbody*tr*td*img[@hspace]_anchor "><code><b>records*object*ExtendedDescription*table*tbody*tr*td*img[@hspace]</b></code>  
+         , total values:
+         <code>1</code>
+         , ALL UNIQUE
+         
+      </p>
+      <div class="detail" style="display:none;" id="records*object*ExtendedDescription*table*tbody*tr*td*img[@hspace]">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>0</code></td>
+               <td><code>1</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*ExtendedDescription*table*tbody*tr*td*img[@src]','');return false;" id="records*object*ExtendedDescription*table*tbody*tr*td*img[@src]_anchor "><code><b>records*object*ExtendedDescription*table*tbody*tr*td*img[@src]</b></code>  
+         , total values:
+         <code>1</code>
+         , ALL UNIQUE
+         
+      </p>
+      <div class="detail" style="display:none;" id="records*object*ExtendedDescription*table*tbody*tr*td*img[@src]">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>/sites/ak/contents/i001569/empty.gif</code></td>
+               <td><code>1</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*ExtendedDescription*table*tbody*tr*td*p','');return false;" id="records*object*ExtendedDescription*table*tbody*tr*td*p_anchor "><code><b>records*object*ExtendedDescription*table*tbody*tr*td*p</b></code>  
+         , total values:
+         <code>1</code>
+         , ALL UNIQUE
+         
+      </p>
+      <div class="detail" style="display:none;" id="records*object*ExtendedDescription*table*tbody*tr*td*p">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>LONG VALUE (MAX 100)</code></td>
+               <td><code>1</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*ExtendedDescription*table*tbody*tr*td*p*br','');return false;" id="records*object*ExtendedDescription*table*tbody*tr*td*p*br_anchor "><code><b>records*object*ExtendedDescription*table*tbody*tr*td*p*br</b></code>  
+         , total values:
+         <code>1</code>
+         , ALL UNIQUE
+         
+      </p>
+      <div class="detail" style="display:none;" id="records*object*ExtendedDescription*table*tbody*tr*td*p*br">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>LONG VALUE (MAX 100)</code></td>
+               <td><code>1</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*ExtendedDescription*table*tbody*tr*td[@valign]','');return false;" id="records*object*ExtendedDescription*table*tbody*tr*td[@valign]_anchor "><code><b>records*object*ExtendedDescription*table*tbody*tr*td[@valign]</b></code>  
+         , total values:
+         <code>1</code></p>
+      <div class="detail" style="display:none;" id="records*object*ExtendedDescription*table*tbody*tr*td[@valign]">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>top</code></td>
+               <td><code>3</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*ExtendedDescription*table*tbody*tr*td[@width]','');return false;" id="records*object*ExtendedDescription*table*tbody*tr*td[@width]_anchor "><code><b>records*object*ExtendedDescription*table*tbody*tr*td[@width]</b></code>  
+         , total values:
+         <code>1</code></p>
+      <div class="detail" style="display:none;" id="records*object*ExtendedDescription*table*tbody*tr*td[@width]">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>*</code></td>
+               <td><code>3</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*ExtendedDescription*table[@cellpadding]','');return false;" id="records*object*ExtendedDescription*table[@cellpadding]_anchor "><code><b>records*object*ExtendedDescription*table[@cellpadding]</b></code>  
+         , total values:
+         <code>1</code></p>
+      <div class="detail" style="display:none;" id="records*object*ExtendedDescription*table[@cellpadding]">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>0</code></td>
+               <td><code>9</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*ExtendedDescription*table[@cellspacing]','');return false;" id="records*object*ExtendedDescription*table[@cellspacing]_anchor "><code><b>records*object*ExtendedDescription*table[@cellspacing]</b></code>  
+         , total values:
+         <code>1</code></p>
+      <div class="detail" style="display:none;" id="records*object*ExtendedDescription*table[@cellspacing]">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>0</code></td>
+               <td><code>9</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*ExtendedDescription*table[@width]','');return false;" id="records*object*ExtendedDescription*table[@width]_anchor "><code><b>records*object*ExtendedDescription*table[@width]</b></code>  
+         , total values:
+         <code>1</code></p>
+      <div class="detail" style="display:none;" id="records*object*ExtendedDescription*table[@width]">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>100%</code></td>
+               <td><code>9</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*GeographicalOrigin','');return false;" id="records*object*GeographicalOrigin_anchor "><code><b>records*object*GeographicalOrigin</b></code>  
+         , total values:
+         <code>10</code></p>
+      <div class="detail" style="display:none;" id="records*object*GeographicalOrigin">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>China</code></td>
+               <td><code>2117</code></td>
+               <td><code>82</code></td>
+            </tr>
+            <tr>
+               <td><code>Japan</code></td>
+               <td><code>368</code></td>
+               <td><code>14</code></td>
+            </tr>
+            <tr>
+               <td><code>China (Jingdezhen)</code></td>
+               <td><code>29</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>Nederland (Delft)</code></td>
+               <td><code>18</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>China; Nederland (Delft)</code></td>
+               <td><code>12</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>China (zuid)</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>China (Henan)</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>China (Zhejiang, Longquan)</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>China (Henan, Qingliangsi)</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Frankrijk</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*Image','');return false;" id="records*object*Image_anchor "><code><b>records*object*Image</b></code>  
+         , total values:
+         <code>2635</code></p>
+      <div class="detail" style="display:none;" id="records*object*Image">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>LONG VALUE (MAX 100)</code></td>
+               <td><code>155</code></td>
+               <td><code>5</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000001/klein/2005J0333.jpg</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000001/klein/3585.jpg</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000001/klein/A0071.jpg</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000001/klein/A0079.jpg</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000001/klein/A0086.jpg</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000002/klein/1899.0146.B.jpg</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000002/klein/1918.0017.jpg</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000002/klein/1918.0032.jpg</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000002/klein/1945.0191.jpg</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000002/klein/1946.0662.jpg</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000002/klein/1960.0114.jpg</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000002/klein/1967.0067.jpg</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000002/klein/1970.0035.jpg</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000002/klein/1978.0018.jpg</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000002/klein/1980.0170.jpg</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000002/klein/1995.0184.jpg</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000002/klein/1996.1476.jpg</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000002/klein/1996.1476a.jpg</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000002/klein/2000.0018.jpg</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000003/klein/GMP1970_80.jpg</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000004/klein/M-NG-1977-163-W-00.jpg</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000004/klein/P-AK-NM-10230-A-00.jpg</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000004/klein/P-AK-NM-13520-00.jpg</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000001/klein/2005A0105.jpg</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000001/klein/2005A0289.jpg</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000001/klein/2005A0290.jpg</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000001/klein/2005A0291.jpg</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000001/klein/2005A0293.jpg</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000001/klein/2005A0294.jpg</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000001/klein/2005A0295.jpg</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000001/klein/2005A0296.jpg</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000001/klein/2005A0297.jpg</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000001/klein/2005A0298.jpg</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000001/klein/2005A0299.jpg</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000001/klein/2005A0300.jpg</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000001/klein/2005A0301.jpg</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000001/klein/2005A0302.jpg</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000001/klein/2005A0303.jpg</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000001/klein/2005A0304.jpg</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000001/klein/2005A0305.jpg</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000001/klein/2005A0306.jpg</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000001/klein/2005A0307.jpg</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000001/klein/2005A0309.jpg</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000001/klein/2005J0255.jpg</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000001/klein/2005J0256.jpg</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000001/klein/2005J0257.jpg</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000001/klein/2005J0258.jpg</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000001/klein/2005J0259.jpg</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>http://www.aziatischekeramiek.nl/sites/ak/collectiondata/images/i000001/klein/2005J0260.jpg</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*Keyword','');return false;" id="records*object*Keyword_anchor "><code><b>records*object*Keyword</b></code>  
+         , total values:
+         <code>417</code></p>
+      <div class="detail" style="display:none;" id="records*object*Keyword">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>Porselein</code></td>
+               <td><code>1664</code></td>
+               <td><code>17</code></td>
+            </tr>
+            <tr>
+               <td><code>Onderglazuur</code></td>
+               <td><code>951</code></td>
+               <td><code>10</code></td>
+            </tr>
+            <tr>
+               <td><code>Age Looxma Ypey</code></td>
+               <td><code>941</code></td>
+               <td><code>10</code></td>
+            </tr>
+            <tr>
+               <td><code>Kangxi</code></td>
+               <td><code>423</code></td>
+               <td><code>4</code></td>
+            </tr>
+            <tr>
+               <td><code>Kraakporselein</code></td>
+               <td><code>420</code></td>
+               <td><code>4</code></td>
+            </tr>
+            <tr>
+               <td><code>Qianlong</code></td>
+               <td><code>407</code></td>
+               <td><code>4</code></td>
+            </tr>
+            <tr>
+               <td><code>Wanli</code></td>
+               <td><code>257</code></td>
+               <td><code>2</code></td>
+            </tr>
+            <tr>
+               <td><code>Wapenporselein</code></td>
+               <td><code>239</code></td>
+               <td><code>2</code></td>
+            </tr>
+            <tr>
+               <td><code>IJzerrood</code></td>
+               <td><code>193</code></td>
+               <td><code>2</code></td>
+            </tr>
+            <tr>
+               <td><code>Ming</code></td>
+               <td><code>168</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>Glazuur</code></td>
+               <td><code>133</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>Imari porselein</code></td>
+               <td><code>130</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>Arita porselein</code></td>
+               <td><code>127</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>Bovenglazuur</code></td>
+               <td><code>122</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>Chine de commande</code></td>
+               <td><code>122</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>Opglazuur</code></td>
+               <td><code>122</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>Famille rose</code></td>
+               <td><code>115</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>Chongzhen</code></td>
+               <td><code>96</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>Tianqi</code></td>
+               <td><code>94</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>Servetwerk</code></td>
+               <td><code>88</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Fles</code></td>
+               <td><code>87</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Aardewerk</code></td>
+               <td><code>86</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Transitionporselein</code></td>
+               <td><code>83</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Famille verte</code></td>
+               <td><code>69</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Bamboe</code></td>
+               <td><code>66</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Jingdezhen</code></td>
+               <td><code>63</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Imari</code></td>
+               <td><code>61</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Encre de Chine</code></td>
+               <td><code>58</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Chenghua</code></td>
+               <td><code>42</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Lijs</code></td>
+               <td><code>40</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Lotusbloem</code></td>
+               <td><code>40</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Strikwerk</code></td>
+               <td><code>39</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Witte leeuw</code></td>
+               <td><code>35</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Vrouw (Europees)</code></td>
+               <td><code>34</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Kakiemon porselein</code></td>
+               <td><code>33</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Fenghuang</code></td>
+               <td><code>32</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Pronk</code></td>
+               <td><code>30</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Karakter</code></td>
+               <td><code>28</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Qing</code></td>
+               <td><code>28</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Scherf</code></td>
+               <td><code>27</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Yongzheng</code></td>
+               <td><code>27</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Alsemblad</code></td>
+               <td><code>26</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Blanc de chine</code></td>
+               <td><code>26</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Parel</code></td>
+               <td><code>26</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Draken</code></td>
+               <td><code>22</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Eend</code></td>
+               <td><code>21</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Jade</code></td>
+               <td><code>21</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Kronen</code></td>
+               <td><code>21</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Man (Europees)</code></td>
+               <td><code>21</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Cartouche</code></td>
+               <td><code>20</code></td>
+               <td><code>0</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*Literature','');return false;" id="records*object*Literature_anchor "><code><b>records*object*Literature</b></code>  
+         , total values:
+         <code>44</code></p>
+      <div class="detail" style="display:none;" id="records*object*Literature">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>LONG VALUE (MAX 100)</code></td>
+               <td><code>319</code></td>
+               <td><code>87</code></td>
+            </tr>
+            <tr>
+               <td><code>Kraak porcelain : a moment in the history of trade / M. Rinaldi. - Londen, 1989. - pl. 216</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Blanc de Chine; the porcelain of Têhua in Fukien / P.J. Donnelly. - Londen, 1969. - plaat 4c</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>C.J.A. Jörg, "Oosters porselein, Delfts aardewerk - wisselwerkingen", Groningen 1983, cat. nr. 135</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>C.J.A. Jörg, "Oosters porselein, Delfts aardewerk - wisselwerkingen", Groningen 1983, cat. nr. 150</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>European decoration on oriental porcelain 1700-1830 / Helen Espir. - Londen, 2005. - cat. nr 47</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>European decoration on oriental porcelain 1700-1830 / Helen Espir. - Londen, 2005. - cat. nr 53</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Ilha Formosa, the emergence of Taiwan on the world scene in the 17th century. - p. 69</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Kraak porcelain : a moment in the history of trade / M. Rinaldi. - Londen, 1989. - pl. 109</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Kraak porcelain : a moment in the history of trade / M. Rinaldi. - Londen, 1989. - pl. 110</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Kraak porcelain : a moment in the history of trade / M. Rinaldi. - Londen, 1989. - pl. 111</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Kraak porcelain : a moment in the history of trade / M. Rinaldi. - Londen, 1989. - pl. 131</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Kraak porcelain : a moment in the history of trade / M. Rinaldi. - Londen, 1989. - pl. 134</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Kraak porcelain : a moment in the history of trade / M. Rinaldi. - Londen, 1989. - pl. 137</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Kraak porcelain : a moment in the history of trade / M. Rinaldi. - Londen, 1989. - pl. 140</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Kraak porcelain : a moment in the history of trade / M. Rinaldi. - Londen, 1989. - pl. 162</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Kraak porcelain : a moment in the history of trade / M. Rinaldi. - Londen, 1989. - pl. 166</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Kraak porcelain : a moment in the history of trade / M. Rinaldi. - Londen, 1989. - pl. 188</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Kraak porcelain : a moment in the history of trade / M. Rinaldi. - Londen, 1989. - pl. 191</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Kraak porcelain : a moment in the history of trade / M. Rinaldi. - Londen, 1989. - pl. 192</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Kraak porcelain : a moment in the history of trade / M. Rinaldi. - Londen, 1989. - pl. 215</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Kraak porcelain : a moment in the history of trade / M. Rinaldi. - Londen, 1989. - pl. 223</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Kraak porcelain : a moment in the history of trade / M. Rinaldi. - Londen, 1989. - pl. 257</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Kraak porcelain : a moment in the history of trade / M. Rinaldi. - Londen, 1989. - pl. 266</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Kraak porcelain : a moment in the history of trade / M. Rinaldi. - Londen, 1989. - pl. 76</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Kraak porcelain : a moment in the history of trade / M. Rinaldi. - Londen, 1989. pl. 56</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Kraak porcelain : a moment in the history of trade / M. Rinaldi. - Londen, 1989. pl. 66</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Kraak porcelain : a moment in the history of trade / M. Rinaldi. - Londen, 1989. pl. 68</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Kraak porcelain : a moment in the history of trade / M. Rinaldi. - Londen, 1989. pl. 75</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Nederlandse kopieën van Japans porselein / C.J.A. Jörg. - In: Antiek vol 23, nr 6 (1989) 335-339</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Oosters porselein, Delfts aardewerk - wisselwerkingen / C.J.A. Jörg. - Groningen, 1983. - cat. nr 3</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Oosters porselein, Delfts aardewerk - wisselwerkingen / C.J.A. Jörg. - Groningen, 1983. - cat. nr 31</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Oosters porselein, Delfts aardewerk - wisselwerkingen / C.J.A. Jörg. - Groningen, 1983. - cat. nr 32</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Oosters porselein, Delfts aardewerk - wisselwerkingen / C.J.A. Jörg. - Groningen, 1983. - cat. nr 56</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Oosters porselein, Delfts aardewerk - wisselwerkingen / C.J.A. Jörg. - Groningen, 1983. - cat. nr 57</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Oosters porselein, Delfts aardewerk - wisselwerkingen / C.J.A. Jörg. - Groningen, 1983. - cat. nr 68</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Oosters porselein, Delfts aardewerk - wisselwerkingen / C.J.A. Jörg. - Groningen, 1983. - cat. nr 7</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Oosters porselein, Delfts aardewerk - wisselwerkingen / C.J.A. Jörg. - Groningen, 1983. - cat. nr 78</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Oosters porselein, Delfts aardewerk - wisselwerkingen / C.J.A. Jörg. - Groningen, 1983. - cat. nr 79</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Oosterse keramiek uit Groninger kollekties / C.J.A. Jörg. - Groningen, 1982. -</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Oosterse keramiek uit Groninger kollekties / C.J.A. Jörg. - Groningen, 1982. - cat. nr 34</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Oosterse keramiek uit Groninger kollekties / C.J.A. Jörg. - Groningen, 1982. - cat. nr 7</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Rinaldi 1989, p. 81, pl. 58</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Rinaldi 1989, p. 82, pl. 60</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*Material','');return false;" id="records*object*Material_anchor "><code><b>records*object*Material</b></code>  
+         , total values:
+         <code>4</code></p>
+      <div class="detail" style="display:none;" id="records*object*Material">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>Porselein</code></td>
+               <td><code>2550</code></td>
+               <td><code>96</code></td>
+            </tr>
+            <tr>
+               <td><code>Aardewerk</code></td>
+               <td><code>58</code></td>
+               <td><code>2</code></td>
+            </tr>
+            <tr>
+               <td><code>Steengoed</code></td>
+               <td><code>15</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Zilver</code></td>
+               <td><code>10</code></td>
+               <td><code>0</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*MaterialDescription','');return false;" id="records*object*MaterialDescription_anchor "><code><b>records*object*MaterialDescription</b></code>  
+         , total values:
+         <code>418</code></p>
+      <div class="detail" style="display:none;" id="records*object*MaterialDescription">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>Onderglazuur-blauw</code></td>
+               <td><code>272</code></td>
+               <td><code>15</code></td>
+            </tr>
+            <tr>
+               <td><code>onderglazuur blauw</code></td>
+               <td><code>170</code></td>
+               <td><code>9</code></td>
+            </tr>
+            <tr>
+               <td><code>Porselein, onderglazuur blauw</code></td>
+               <td><code>135</code></td>
+               <td><code>7</code></td>
+            </tr>
+            <tr>
+               <td><code>beschilderd in onderglazuur blauw</code></td>
+               <td><code>127</code></td>
+               <td><code>7</code></td>
+            </tr>
+            <tr>
+               <td><code>porselein met emails op het glazuur</code></td>
+               <td><code>96</code></td>
+               <td><code>5</code></td>
+            </tr>
+            <tr>
+               <td><code>blauw onder het glazuur</code></td>
+               <td><code>83</code></td>
+               <td><code>4</code></td>
+            </tr>
+            <tr>
+               <td><code>Onderglazuur blauw</code></td>
+               <td><code>59</code></td>
+               <td><code>3</code></td>
+            </tr>
+            <tr>
+               <td><code>onderglazuur-blauw</code></td>
+               <td><code>51</code></td>
+               <td><code>2</code></td>
+            </tr>
+            <tr>
+               <td><code>Onderglazuur-blauw, ijzerrood en goud</code></td>
+               <td><code>34</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>Japans porselein</code></td>
+               <td><code>15</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>beschilderd in onderglazuur blauw.</code></td>
+               <td><code>15</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>porselein</code></td>
+               <td><code>15</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Blauw onder het glazuur</code></td>
+               <td><code>14</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>LONG VALUE (MAX 100)</code></td>
+               <td><code>14</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>gedraaid; bovenglazuurschildering; glazuur</code></td>
+               <td><code>12</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>schildertechniek</code></td>
+               <td><code>11</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Porselein, onderglazuur blauw en ajourwerk</code></td>
+               <td><code>10</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>gedraaid; onderglazuur- en bovenglazuurschildering; glazuur</code></td>
+               <td><code>9</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Famille rose email</code></td>
+               <td><code>7</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>beschilderd in emailkleuren en goud</code></td>
+               <td><code>7</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>beschilderd in emailkleuren, rood en goud, zgn. famille verte</code></td>
+               <td><code>7</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>beschilderd in encre de chine, rood en goud</code></td>
+               <td><code>7</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>emailkleuren boven het glazuur</code></td>
+               <td><code>7</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>gedraaid; gemodelleerd; in mal gevormd; bovenglazuurschildering; polychroom</code></td>
+               <td><code>7</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>beschilderd in emailkleuren, encre de chine, rood en goud</code></td>
+               <td><code>6</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>onderglazuur blauw en emails op het glazuur</code></td>
+               <td><code>6</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>onderglazuur blauw en onderglazuur koperrood</code></td>
+               <td><code>6</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>porselein met onderglazuur blauw</code></td>
+               <td><code>6</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>roomwit glazuur</code></td>
+               <td><code>6</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Chinees porselein</code></td>
+               <td><code>5</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>beschilderd in emailkleuren, rood en goud</code></td>
+               <td><code>5</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>gedraaid; in mal gevormd; bovenglazuurschildering; glazuur</code></td>
+               <td><code>5</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>onderglazuur blauw en onderglazuur rood</code></td>
+               <td><code>5</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>onderglazuur-blauw, ijzerrood en goud</code></td>
+               <td><code>5</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Encre de chine</code></td>
+               <td><code>4</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>beschilderd in emailkleuren</code></td>
+               <td><code>4</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>beschilderd in emailkleuren en rood, zgn. famille verte</code></td>
+               <td><code>4</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>beschilderd in encre de chine en goud</code></td>
+               <td><code>4</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>beschilderd in onderglazuur blauw en bovenglazuur rood en goud</code></td>
+               <td><code>4</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>gedraaid; onderglazuurschildering; glazuur</code></td>
+               <td><code>4</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Diverse emailkleuren</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Famille verte email</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Onderglazuur-blauw, ijzerrood, goud en emailkleuren groen, geel en aubergine</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Wit glazuur</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>beschilderd in encre de chine, vleeskleurig email en goud</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>beschilderd in onderglazuur blauw en bruin</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>beschilderd in onderglazuur blauw en verguld</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>beschilderd in onderglazuur koperrood</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>gedraaid; bovenglazuurschildering; polychroom</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>gedraaid; gemodelleerd; bovenglazuurschildering; glazuur</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*Name','');return false;" id="records*object*Name_anchor "><code><b>records*object*Name</b></code>  
+         , total values:
+         <code>83</code></p>
+      <div class="detail" style="display:none;" id="records*object*Name">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>Bord</code></td>
+               <td><code>503</code></td>
+               <td><code>18</code></td>
+            </tr>
+            <tr>
+               <td><code>Schotel</code></td>
+               <td><code>407</code></td>
+               <td><code>15</code></td>
+            </tr>
+            <tr>
+               <td><code>Kom</code></td>
+               <td><code>322</code></td>
+               <td><code>12</code></td>
+            </tr>
+            <tr>
+               <td><code>Schaal</code></td>
+               <td><code>174</code></td>
+               <td><code>6</code></td>
+            </tr>
+            <tr>
+               <td><code>Kop en schotel</code></td>
+               <td><code>154</code></td>
+               <td><code>5</code></td>
+            </tr>
+            <tr>
+               <td><code>Vaas</code></td>
+               <td><code>150</code></td>
+               <td><code>5</code></td>
+            </tr>
+            <tr>
+               <td><code>Kop</code></td>
+               <td><code>109</code></td>
+               <td><code>4</code></td>
+            </tr>
+            <tr>
+               <td><code>Pot</code></td>
+               <td><code>105</code></td>
+               <td><code>3</code></td>
+            </tr>
+            <tr>
+               <td><code>Kan</code></td>
+               <td><code>102</code></td>
+               <td><code>3</code></td>
+            </tr>
+            <tr>
+               <td><code>Fles</code></td>
+               <td><code>98</code></td>
+               <td><code>3</code></td>
+            </tr>
+            <tr>
+               <td><code>Theepot</code></td>
+               <td><code>78</code></td>
+               <td><code>2</code></td>
+            </tr>
+            <tr>
+               <td><code>Plastiek</code></td>
+               <td><code>39</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>Klapmuts</code></td>
+               <td><code>31</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>Terrine</code></td>
+               <td><code>30</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>Kendi</code></td>
+               <td><code>29</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>Kraaikop</code></td>
+               <td><code>27</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>Doos</code></td>
+               <td><code>24</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Servies</code></td>
+               <td><code>15</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Kaststel</code></td>
+               <td><code>14</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Beker</code></td>
+               <td><code>12</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Grafkeramiek</code></td>
+               <td><code>12</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Sprenkelaar</code></td>
+               <td><code>11</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Zoutvat</code></td>
+               <td><code>11</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Mosterdpot</code></td>
+               <td><code>10</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Theebus</code></td>
+               <td><code>10</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Kwispedoor</code></td>
+               <td><code>9</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Bekervaas</code></td>
+               <td><code>8</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Bierpul</code></td>
+               <td><code>8</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Botervloot</code></td>
+               <td><code>8</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Pattipan</code></td>
+               <td><code>8</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Scheerbekken</code></td>
+               <td><code>8</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Theekop</code></td>
+               <td><code>8</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Wijnpot</code></td>
+               <td><code>8</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Bak</code></td>
+               <td><code>7</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Koffiepot</code></td>
+               <td><code>7</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Rolwagen</code></td>
+               <td><code>7</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Netsuke</code></td>
+               <td><code>6</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Deksel</code></td>
+               <td><code>5</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Penseelhouder</code></td>
+               <td><code>5</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Tazza</code></td>
+               <td><code>5</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Apothekerspot</code></td>
+               <td><code>4</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Inktpot</code></td>
+               <td><code>4</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Onderzetter</code></td>
+               <td><code>4</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Po</code></td>
+               <td><code>4</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Strooier</code></td>
+               <td><code>4</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Tegel</code></td>
+               <td><code>4</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Bekken</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Kraantjeskan</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Vergiet</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Blaker</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*Number','');return false;" id="records*object*Number_anchor "><code><b>records*object*Number</b></code>  
+         , total values:
+         <code>2644</code></p>
+      <div class="detail" style="display:none;" id="records*object*Number">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>0324043</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>0324031</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>1899.0146.B</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>1918.0017</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>1918.0021</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>1918.0032</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>1929.0335</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>1945.0191</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>1950.0130</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>1960.0114</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>1967.0067</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>1970.0035</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>1978.0018</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>1980.0170</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>1983.0107</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>1988.0189</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>1990.0262</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>1995.0184</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>1996.1476</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>2000.0018</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>AK-NM-13514</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>AK-NM-13520</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>GMP 1970/80</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>NG-1977-163-W</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>0000.2276</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>0000.2634</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>0000.4722</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>0002106</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>0151986</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>0152177</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>0152707</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>0152709</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>0152712</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>0152715</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>0152716</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>0152721</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>0216954</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>0216955</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>0319619</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>0319628</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>0319649</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>0319661</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>0319662</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>0319665</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>0319666</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>0319682</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>0319683</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>0319690</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>0319691</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>0319692</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*Organisation','');return false;" id="records*object*Organisation_anchor "><code><b>records*object*Organisation</b></code>  
+         , total values:
+         <code>5</code></p>
+      <div class="detail" style="display:none;" id="records*object*Organisation">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>Princessehof Leeuwarden</code></td>
+               <td><code>1171</code></td>
+               <td><code>43</code></td>
+            </tr>
+            <tr>
+               <td><code>Groninger Museum</code></td>
+               <td><code>707</code></td>
+               <td><code>26</code></td>
+            </tr>
+            <tr>
+               <td><code>Rijksmuseum Amsterdam</code></td>
+               <td><code>462</code></td>
+               <td><code>17</code></td>
+            </tr>
+            <tr>
+               <td><code>Gemeentemuseum Den Haag</code></td>
+               <td><code>334</code></td>
+               <td><code>12</code></td>
+            </tr>
+            <tr>
+               <td><code>---</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*Origin','');return false;" id="records*object*Origin_anchor "><code><b>records*object*Origin</b></code>  
+         , total values:
+         <code>85</code></p>
+      <div class="detail" style="display:none;" id="records*object*Origin">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>aankoop</code></td>
+               <td><code>50</code></td>
+               <td><code>22</code></td>
+            </tr>
+            <tr>
+               <td><code>legaat Kleyn van Willigen</code></td>
+               <td><code>17</code></td>
+               <td><code>7</code></td>
+            </tr>
+            <tr>
+               <td><code>legaat Nap</code></td>
+               <td><code>13</code></td>
+               <td><code>5</code></td>
+            </tr>
+            <tr>
+               <td><code>legaat Mello Backer</code></td>
+               <td><code>8</code></td>
+               <td><code>3</code></td>
+            </tr>
+            <tr>
+               <td><code>legaat Elings</code></td>
+               <td><code>7</code></td>
+               <td><code>3</code></td>
+            </tr>
+            <tr>
+               <td><code>Legaat Nap</code></td>
+               <td><code>6</code></td>
+               <td><code>2</code></td>
+            </tr>
+            <tr>
+               <td><code>LONG VALUE (MAX 100)</code></td>
+               <td><code>5</code></td>
+               <td><code>2</code></td>
+            </tr>
+            <tr>
+               <td><code>schenking M. Hatcher (Door Hatcher opgedoken uit het wrak van de Geldermalsen)</code></td>
+               <td><code>5</code></td>
+               <td><code>2</code></td>
+            </tr>
+            <tr>
+               <td><code>Schenking Bruining-de Waard</code></td>
+               <td><code>4</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>legaat Aldringa-Wichers</code></td>
+               <td><code>4</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>schenking Enschedé</code></td>
+               <td><code>4</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>Bruikleen Langelaan</code></td>
+               <td><code>3</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>Legaat Jansenius de Vries</code></td>
+               <td><code>3</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>Legaat Lewe van Nijenstein</code></td>
+               <td><code>3</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>Vereniging van Vrienden der Aziatische Kunst</code></td>
+               <td><code>3</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>legaat Enschedé</code></td>
+               <td><code>3</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>legaat Minke A. de Visser</code></td>
+               <td><code>3</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>bruikleen</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>bruikleen Instituut Collectie Nederland</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>legaat Arkema</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>legaat Hooghoudt-van der Wal</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>legaat Jansenius de Vries</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>legaat M.A. Visser</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>legaat Tromp-Karper</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>legaat Wreesman</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>ruiling</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>schenking</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>schenking Hatcher</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>schenking Hendriks-Bolhuis</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>schenking Hora Feith</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>schenking Kammingafonds</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Aankoop</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Afkomstig uit het wrak van het V.O.C. schip De Witte Leeuw, gezonken bij St. Helena, 1613</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Arita</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Bruikleen Museum Princessehof</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Bruikleen Vereniging van Vrienden der Aziatische Kunst</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Bruikleen uit het legaat van de collectie prof. Maartje Draak, Utrecht</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Bruikleen van de Vereniging van Vrienden der Aziatische Kunst</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Legaat Bol-Bouwman</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Legaat Dijk-Wiering</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Legaat Hooghoudt-van der Wal</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Legaat Marees van Swinderen van Allersma (Mello Backer)</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Ruiling Gemeentemuseum Den Haag</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Schenking Erven Boerema-Takens</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Schenking Hofman-Westerhof</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Schenking Jongsma</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Schenking Kunst- en Antiekhandel Blitz</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Schenking Ottema</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Schenking Veendorp-Zuidema</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>bruikleen ICN</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*Size','');return false;" id="records*object*Size_anchor "><code><b>records*object*Size</b></code>  
+         , total values:
+         <code>2357</code></p>
+      <div class="detail" style="display:none;" id="records*object*Size">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>LONG VALUE (MAX 100)</code></td>
+               <td><code>94</code></td>
+               <td><code>3</code></td>
+            </tr>
+            <tr>
+               <td><code>diameter&nbsp;22,7&nbsp;cm</code></td>
+               <td><code>7</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>diameter&nbsp;22,8&nbsp;cm</code></td>
+               <td><code>7</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>diameter&nbsp;23&nbsp;cm</code></td>
+               <td><code>7</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>diameter&nbsp;21&nbsp;cm</code></td>
+               <td><code>6</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>diameter&nbsp;22,5&nbsp;cm</code></td>
+               <td><code>6</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Diameter 21 cm</code></td>
+               <td><code>5</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>diameter&nbsp;20,5&nbsp;cm</code></td>
+               <td><code>5</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>diameter&nbsp;22,2&nbsp;cm</code></td>
+               <td><code>5</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>diameter&nbsp;23,4&nbsp;cm</code></td>
+               <td><code>5</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>hoogte&nbsp;2,1&nbsp; cm, diameter&nbsp;11,2&nbsp; cm</code></td>
+               <td><code>5</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>diameter&nbsp;23,0&nbsp;cm</code></td>
+               <td><code>4</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>diameter&nbsp;23,1&nbsp;cm</code></td>
+               <td><code>4</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>hoogte&nbsp;1,9&nbsp; cm, diameter&nbsp;9,1&nbsp; cm</code></td>
+               <td><code>4</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Diameter 20 cm</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Diameter 29,5 cm</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>diameter&nbsp;22,6&nbsp;cm</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>hoogte 2,0 cm, diameter&nbsp;6,5&nbsp;cm, diameter voetring&nbsp;3,5&nbsp;cm</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>hoogte 5,2 cm (kop), diameter 13,2 cm (schotel)</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>hoogte 9,5 cm, diameter&nbsp;9,0&nbsp;cm</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>hoogte&nbsp;11,8&nbsp; cm, diameter&nbsp;8&nbsp; cm</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>hoogte&nbsp;12,5&nbsp; cm, breedte&nbsp;24,7&nbsp; cm</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>hoogte&nbsp;18,6&nbsp; cm, diameter&nbsp;9,2&nbsp; cm</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>hoogte&nbsp;2&nbsp; cm, diameter&nbsp;22,7&nbsp; cm</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>hoogte&nbsp;4,0&nbsp;cm, lengte&nbsp;41,5&nbsp;cm</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Diameter 20,5 cm</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Diameter 28,5 cm</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Diameter 36,5 cm</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Diameter 37 cm</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Diameter 37,5 cm</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Hoogte 21 cm; diameter 14,5 cm</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Hoogte 3 cm; diameter 21 cm</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Hoogte 3,8 cm; diameter 20,5 cm</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Hoogte 4 cm; diameter 20,5 cm</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>diameter rand 28,5 cm</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>diameter rand 30 cm</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>diameter rand 32 cm</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>diameter&nbsp;12,2&nbsp;cm</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>diameter&nbsp;12&nbsp;cm</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>diameter&nbsp;16,5&nbsp;cm</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>diameter&nbsp;20,6&nbsp;cm</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>diameter&nbsp;21,1&nbsp;cm</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>diameter&nbsp;22,1&nbsp;cm</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>diameter&nbsp;23,2&nbsp;cm</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>diameter&nbsp;23,5&nbsp;cm</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>diameter&nbsp;24,5&nbsp;cm</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>diameter&nbsp;31,5&nbsp;cm</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>diameter&nbsp;32,5&nbsp;cm</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>hoogte 1,5 cm, diameter&nbsp;10,0&nbsp;cm, diameter voetring&nbsp;5,5&nbsp;cm</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>hoogte 1,5 cm, diameter&nbsp;10,0&nbsp;cm, diameter voetring&nbsp;5,8&nbsp;cm</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*Style','');return false;" id="records*object*Style_anchor "><code><b>records*object*Style</b></code>  
+         , total values:
+         <code>56</code></p>
+      <div class="detail" style="display:none;" id="records*object*Style">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>Onderglazuur blauw</code></td>
+               <td><code>477</code></td>
+               <td><code>19</code></td>
+            </tr>
+            <tr>
+               <td><code>Kraakporselein</code></td>
+               <td><code>416</code></td>
+               <td><code>16</code></td>
+            </tr>
+            <tr>
+               <td><code>Chine de Commande</code></td>
+               <td><code>316</code></td>
+               <td><code>12</code></td>
+            </tr>
+            <tr>
+               <td><code>Kangxi blauw-wit</code></td>
+               <td><code>224</code></td>
+               <td><code>8</code></td>
+            </tr>
+            <tr>
+               <td><code>Famille rose</code></td>
+               <td><code>210</code></td>
+               <td><code>8</code></td>
+            </tr>
+            <tr>
+               <td><code>Imari</code></td>
+               <td><code>195</code></td>
+               <td><code>7</code></td>
+            </tr>
+            <tr>
+               <td><code>Arita porselein</code></td>
+               <td><code>126</code></td>
+               <td><code>5</code></td>
+            </tr>
+            <tr>
+               <td><code>Overgangsporselein</code></td>
+               <td><code>84</code></td>
+               <td><code>3</code></td>
+            </tr>
+            <tr>
+               <td><code>Famille verte</code></td>
+               <td><code>80</code></td>
+               <td><code>3</code></td>
+            </tr>
+            <tr>
+               <td><code>---------</code></td>
+               <td><code>52</code></td>
+               <td><code>2</code></td>
+            </tr>
+            <tr>
+               <td><code>Blanc de chine</code></td>
+               <td><code>34</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>Kakiemon</code></td>
+               <td><code>31</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>Ming 14de en 15de eeuws blauw-wit</code></td>
+               <td><code>31</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>Grafkeramiek</code></td>
+               <td><code>23</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Chinees imari</code></td>
+               <td><code>20</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Amsterdams Bont</code></td>
+               <td><code>18</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Onderglazuur rood</code></td>
+               <td><code>15</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Polychrome emails</code></td>
+               <td><code>15</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Monochroom</code></td>
+               <td><code>13</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Encre de chine</code></td>
+               <td><code>12</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Cizhou</code></td>
+               <td><code>11</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Later 18de-eeuws blauw-wit</code></td>
+               <td><code>11</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Ming 16de eeuws blauw-wit</code></td>
+               <td><code>11</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Ming blauw-wit</code></td>
+               <td><code>8</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Swatow</code></td>
+               <td><code>8</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Bovenglazuur ijzerrood</code></td>
+               <td><code>5</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Ko-sometsuke</code></td>
+               <td><code>5</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Poeder blauw</code></td>
+               <td><code>5</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>vroeg Japans blauw-wit</code></td>
+               <td><code>5</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Yixing</code></td>
+               <td><code>4</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Celadon</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Famille noire</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Jun yao</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Ming 17de eeuws blauw-wit</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Ming porselein</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Onderglazuur blauw en onderglazuur koperrood</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Ding yao</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Hirado</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Longquan celadon</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Satsuma</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Shino</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Temmoku</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Ao-Kutani</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>China</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Email sur biscuit</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Famille jaune</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Ko-Imari</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Lakwerk op porselein</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Loodglazuur</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Mandarijnporselein</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*TextSigns','');return false;" id="records*object*TextSigns_anchor "><code><b>records*object*TextSigns</b></code>  
+         , total values:
+         <code>364</code></p>
+      <div class="detail" style="display:none;" id="records*object*TextSigns">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>geen</code></td>
+               <td><code>540</code></td>
+               <td><code>48</code></td>
+            </tr>
+            <tr>
+               <td><code>Geen</code></td>
+               <td><code>55</code></td>
+               <td><code>4</code></td>
+            </tr>
+            <tr>
+               <td><code>geen.</code></td>
+               <td><code>37</code></td>
+               <td><code>3</code></td>
+            </tr>
+            <tr>
+               <td><code>Geen.</code></td>
+               <td><code>22</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>Gemerkt met een zegelmerk.</code></td>
+               <td><code>20</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>LONG VALUE (MAX 100)</code></td>
+               <td><code>20</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>zes-karaktermerk Chenghua in een dubbele cirkel</code></td>
+               <td><code>9</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>zes-karaktermerk Kangxi in een dubbele cirkel</code></td>
+               <td><code>8</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>De onderzijde gemerkt met een artemisiablad.</code></td>
+               <td><code>4</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Guangxu (1874-1908) merk en periode in bovenglazuur rood geschilderd</code></td>
+               <td><code>4</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>artemisiablad</code></td>
+               <td><code>4</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>De onderkant gemerkt met een zes-karakter Chenghua merk binnen een dubbele cirkel.</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>De onderkant is gemerkt met een artemisiablad binnen een dubbele cirkel.</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>De onderkant is gemerkt met een vier-karakter Chenghua merk binnen een dubbele cirkel.</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Gemerkt met een paddestoel (linghzi) binnen dubbele blauwe cirkel.</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Gemerkt met een paddestoel (linghzi) binnen een dubbele blauwe cirkel.</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Gemerkt met een rozet.</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Gemerkt met een vier-karakter 'commemoration' merk.</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Hongxian (1916) nianhao zegelmerk in dubbel vierkant in bovenglazuur blauw geschilderd</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Kangxi (1662-1722) merk en periode in dubbele cirkel in onderglazuur blauw geschilderd</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>dubbele cirkel</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>het zes-karaktermerk Chenghua in een dubbele cirkel geschilderd in onderglazuur blauw</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>jade</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>zes Chinese karakters, Jiaqing, in onderglazuur blauw geschilderd</code></td>
+               <td><code>3</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Artemisiablad in een dubbele cirkel geschilderd in onderglazuur blauw</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>De onderkant is gemerkt met een bloem binnen een dubbele cirkel.</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>De onderkant is gemerkt met een bloemknop binnen een dubbele cirkel.</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>De onderkant is gemerkt met een onbekend zegelmerk binnen een dubbele cirkel.</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>De onderkant is gemerkt met een vier-karakter Chenghua merk.</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>De onderzijde gemerkt met een driepoot wierookbrander.</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>De onderzijde gemerkt met een paddestoel (lingzhi).</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>De onderzijde gemerkt met een zes-karakter Chengua merk binnen een dubbele blauwe cirkel.</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>De onderzijde is gemerkt met een zes-karakter Kangxi merk.</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Gemerkt met 'jade' binnen dubbele cirkel.</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Gemerkt met een 'oorschelp' binnen een dubbele blauwe cirkel.</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Gemerkt met een bloem binnen een dubbele blauwe cirkel.</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Gemerkt met een insect binnen een dubbele blauwe cirkel.</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Gemerkt met een paddestoel (lingzhi) binnen een dubbele blauwe cirkel.</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Guangxu (1874-1908) merk en periode in onderglazuur blauw geschilderd</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Jiaqing (1796-1820) merk en periode in zegelschrift, in onderglazuur blauw geschilderd</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Qianlong (1736-1795) merk en periode, uitgevoerd in stempelschrift geschilderd</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Yongzheng (1723-1735) merk en periode geschilderd</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>blad binnen een dubbele cirkel</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>schelp in dubbele cirkel</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>vierkant één-karaktermerk 'zhi' geschilderd in onderglazuur blauw</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>zes-karaktermerk Wanli in een dubbele cirkel geschilderd in onderglazuur blauw</code></td>
+               <td><code>2</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>A niet gemerkt, B gemerkt met een dubble cirkel.</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Aan de onderzijde een blauwe cirkel en proenmerken.</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Aan de onderzijde een blauwe cirkel en resten van proenen.</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>Alle drie de vazen zijn gemerkt met boeddhistische symbolen binnen een dubbele cirkel.</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*TimePeriod','');return false;" id="records*object*TimePeriod_anchor "><code><b>records*object*TimePeriod</b></code>  
+         , total values:
+         <code>541</code></p>
+      <div class="detail" style="display:none;" id="records*object*TimePeriod">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>1700 - 1720</code></td>
+               <td><code>178</code></td>
+               <td><code>6</code></td>
+            </tr>
+            <tr>
+               <td><code>1700 - 1700</code></td>
+               <td><code>171</code></td>
+               <td><code>6</code></td>
+            </tr>
+            <tr>
+               <td><code>1750 - 1750</code></td>
+               <td><code>71</code></td>
+               <td><code>2</code></td>
+            </tr>
+            <tr>
+               <td><code>1740 - 1760</code></td>
+               <td><code>58</code></td>
+               <td><code>2</code></td>
+            </tr>
+            <tr>
+               <td><code>circa 1700</code></td>
+               <td><code>54</code></td>
+               <td><code>2</code></td>
+            </tr>
+            <tr>
+               <td><code>1735 - 1750</code></td>
+               <td><code>52</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>1740 - 1750</code></td>
+               <td><code>52</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>1800 - 1820</code></td>
+               <td><code>51</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>1600-1625</code></td>
+               <td><code>49</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>1662 - 1722</code></td>
+               <td><code>45</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>1700 - 1725</code></td>
+               <td><code>41</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>1730 - 1750</code></td>
+               <td><code>39</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>1750 - 1775</code></td>
+               <td><code>39</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>1573 - 1619</code></td>
+               <td><code>37</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>circa 1613</code></td>
+               <td><code>32</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>1700</code></td>
+               <td><code>30</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>1740 - 1740</code></td>
+               <td><code>30</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>1725 - 1750</code></td>
+               <td><code>28</code></td>
+               <td><code>1</code></td>
+            </tr>
+            <tr>
+               <td><code>18e eeuw</code></td>
+               <td><code>26</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>1600 - 1625</code></td>
+               <td><code>25</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>1750</code></td>
+               <td><code>25</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>1736 - 1795</code></td>
+               <td><code>24</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>1680 - 1700</code></td>
+               <td><code>22</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>1735 - 1745</code></td>
+               <td><code>21</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>begin 18e eeuw</code></td>
+               <td><code>20</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>1625-1650</code></td>
+               <td><code>19</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>1680 - 1720</code></td>
+               <td><code>19</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>1720 - 1740</code></td>
+               <td><code>19</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>1750 - 1770</code></td>
+               <td><code>19</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>1700 - 1722</code></td>
+               <td><code>17</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>1760 - 1780</code></td>
+               <td><code>17</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>1775 - 1795</code></td>
+               <td><code>17</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>circa 1740</code></td>
+               <td><code>17</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>1723 - 1735</code></td>
+               <td><code>16</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>1e kwart 17e eeuw</code></td>
+               <td><code>16</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>ca 1700</code></td>
+               <td><code>16</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>1600-1650</code></td>
+               <td><code>15</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>2e helft 17e eeuw</code></td>
+               <td><code>15</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>1671 - 1690</code></td>
+               <td><code>14</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>1701 - 1720</code></td>
+               <td><code>14</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>1635 - 1645</code></td>
+               <td><code>13</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>1635-1650</code></td>
+               <td><code>13</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>1720 - 1720</code></td>
+               <td><code>13</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>1750 - 1795</code></td>
+               <td><code>13</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>1575 - 1600</code></td>
+               <td><code>12</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>1661 - 1680</code></td>
+               <td><code>12</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>1681 - 1700</code></td>
+               <td><code>12</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>1690 - 1710</code></td>
+               <td><code>12</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>960 - 1279</code></td>
+               <td><code>12</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>1600 - 1650</code></td>
+               <td><code>11</code></td>
+               <td><code>0</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('records*object*id','');return false;" id="records*object*id_anchor "><code><b>records*object*id</b></code>  
+         , total values:
+         <code>2676</code>
+         , ALL UNIQUE
+         
+      </p>
+      <div class="detail" style="display:none;" id="records*object*id">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>i000151</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000152</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000153</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000154</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000155</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000156</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000157</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000158</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000159</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000160</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000161</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000162</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000163</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000165</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000166</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000167</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000168</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000169</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000170</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000171</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000172</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000173</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000174</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000175</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000176</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000177</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000178</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000179</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000180</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000181</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000182</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000183</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000184</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000185</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000186</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000187</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000188</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000189</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000190</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000191</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000192</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000193</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000194</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000195</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000272</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000273</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000274</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000276</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000277</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+            <tr>
+               <td><code>i000278</code></td>
+               <td><code>1</code></td>
+               <td><code>0</code></td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

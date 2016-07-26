@@ -1,0 +1,3278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: EU_BA
+Description: Selected fields pulled from Geonames about BA done on Mon May 23 21:12:27 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/3186423/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13641</europeana:population>
+	<wgs:lat>44.44944</wgs:lat>
+	<wgs:long>18.64972</wgs:long>
+	<skos:prefLabel>Živinice</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3186573/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>164423</europeana:population>
+	<wgs:lat>44.20139</wgs:lat>
+	<wgs:long>17.90639</wgs:long>
+	<skos:altLabel xml:lang="de">Zenica</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Zenica</skos:altLabel>
+	<skos:altLabel xml:lang="en">Zenica</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Zenica</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Zenica</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Zenica</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Zenica</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Zenica</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Zenica</skos:altLabel>
+	<skos:altLabel xml:lang="da">Zenica</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Zenica</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Zenica</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Zenica</skos:altLabel>
+	<skos:altLabel>Zenica</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Зеница</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Зеница</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Зеница</skos:altLabel>
+	<skos:prefLabel>Zenica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3186717/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14380</europeana:population>
+	<wgs:lat>44.44583</wgs:lat>
+	<wgs:long>18.14972</wgs:long>
+	<skos:altLabel>Zavidovići</skos:altLabel>
+	<skos:prefLabel>Zavidovići</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3187609/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17890</europeana:population>
+	<wgs:lat>43.98889</wgs:lat>
+	<wgs:long>18.17806</wgs:long>
+	<skos:altLabel xml:lang="lt">Visokas</skos:altLabel>
+	<skos:altLabel xml:lang="id">Visoko</skos:altLabel>
+	<skos:altLabel xml:lang="es">Visoko</skos:altLabel>
+	<skos:altLabel xml:lang="en">Visoko</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Visoko</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Visoko</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Visoko</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Visoko</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Visoko</skos:altLabel>
+	<skos:altLabel xml:lang="no">Visoko</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Visoko</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Visoko</skos:altLabel>
+	<skos:altLabel xml:lang="de">Visoko</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Visoko</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Visoko</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Visoko</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Visoko</skos:altLabel>
+	<skos:altLabel xml:lang="it">Visoko</skos:altLabel>
+	<skos:altLabel xml:lang="ja">Visoko</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Visoko</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Visoko</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Visoko</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Visoko</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Visoko</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Visoko</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Visoko</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Visoko</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Visoko</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Visoko</skos:altLabel>
+	<skos:altLabel>Visoko</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Високо</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Високо</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ビソコ</skos:altLabel>
+	<skos:prefLabel>Visoko</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3188225/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19330</europeana:population>
+	<wgs:lat>45.18944</wgs:lat>
+	<wgs:long>15.81167</wgs:long>
+	<skos:altLabel xml:lang="de">Velika Kladuša</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Velika Kladuša</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Velika Kladuša</skos:altLabel>
+	<skos:altLabel xml:lang="en">Velika Kladuša</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Velika Kladuša</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Velika Kladuša</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Velika Kladuša</skos:altLabel>
+	<skos:altLabel>Velika Kladuša</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Велика Кладуша</skos:altLabel>
+	<skos:prefLabel>Velika Kladuša</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3188582/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>142486</europeana:population>
+	<wgs:lat>44.54278</wgs:lat>
+	<wgs:long>18.66944</wgs:long>
+	<skos:altLabel>Donja Tuzla</skos:altLabel>
+	<skos:altLabel>Soli</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tuzla</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Tuzla</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Tuzla</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Tuzla</skos:altLabel>
+	<skos:altLabel xml:lang="no">Tuzla</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Tuzla</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Tuzla</skos:altLabel>
+	<skos:altLabel xml:lang="de">Tuzla</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Tuzla</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Tuzla</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Tuzla</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Tuzla</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Tuzla</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Tuzla</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Tuzla</skos:altLabel>
+	<skos:altLabel xml:lang="da">Tuzla</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Tuzla</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Тузла</skos:altLabel>
+	<skos:prefLabel>Tuzla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3188893/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>33178</europeana:population>
+	<wgs:lat>42.71194</wgs:lat>
+	<wgs:long>18.34417</wgs:long>
+	<skos:altLabel>Trebigne</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Trebinje</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Trebinje</skos:altLabel>
+	<skos:altLabel xml:lang="da">Trebinje</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Trebinje</skos:altLabel>
+	<skos:altLabel xml:lang="de">Trebinje</skos:altLabel>
+	<skos:altLabel xml:lang="en">Trebinje</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Trebinje</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Trebinje</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Trebinje</skos:altLabel>
+	<skos:altLabel>Trebinje</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Требинье</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Требиње</skos:altLabel>
+	<skos:prefLabel>Trebinje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3188924/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>31127</europeana:population>
+	<wgs:lat>44.22667</wgs:lat>
+	<wgs:long>17.67056</wgs:long>
+	<skos:altLabel xml:lang="en">Travnik</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Travnik</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Travnik</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Travnik</skos:altLabel>
+	<skos:altLabel xml:lang="de">Travnik</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Travnik</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Travnik</skos:altLabel>
+	<skos:altLabel xml:lang="it">Travnik</skos:altLabel>
+	<skos:altLabel xml:lang="es">Travnik</skos:altLabel>
+	<skos:altLabel>Travnik</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Травник</skos:altLabel>
+	<skos:altLabel xml:lang="be">Траўнік</skos:altLabel>
+	<skos:prefLabel>Travnik</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3189884/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLL"/>
+	<europeana:population>10844</europeana:population>
+	<wgs:lat>44.93528</wgs:lat>
+	<wgs:long>16.01722</wgs:long>
+	<skos:prefLabel>Stijena</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3190837/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10738</europeana:population>
+	<wgs:lat>44.28139</wgs:lat>
+	<wgs:long>17.08389</wgs:long>
+	<skos:altLabel>Šipovo</skos:altLabel>
+	<skos:prefLabel>Šipovo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3191281/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>696731</europeana:population>
+	<wgs:lat>43.84864</wgs:lat>
+	<wgs:long>18.35644</wgs:long>
+	<skos:altLabel>Bosna-Sarai</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Sarajeva</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Sarajeva</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Sarajevas</skos:altLabel>
+	<skos:altLabel xml:lang="id">Sarajevo</skos:altLabel>
+	<skos:altLabel xml:lang="de">Sarajevo</skos:altLabel>
+	<skos:altLabel xml:lang="es">Sarajevo</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Sarajevo</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Sarajevo</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Sarajevo</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Sarajevo</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Sarajevo</skos:altLabel>
+	<skos:altLabel xml:lang="io">Sarajevo</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Sarajevo</skos:altLabel>
+	<skos:altLabel xml:lang="en">Sarajevo</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Sarajevo</skos:altLabel>
+	<skos:altLabel xml:lang="da">Sarajevo</skos:altLabel>
+	<skos:altLabel xml:lang="et">Sarajevo</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Sarajevo</skos:altLabel>
+	<skos:altLabel xml:lang="it">Sarajevo</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Sarajevo</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Sarajevo</skos:altLabel>
+	<skos:altLabel xml:lang="no">Sarajevo</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Sarajevo</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Sarajevo</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Sarajevo</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Sarajevo</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Sarajevo</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Sarajevo</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Sarajevo</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Sarajevo</skos:altLabel>
+	<skos:altLabel xml:lang="is">Sarajevo</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Sarajewo</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Saraxevo - Sarajevo</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Saraybosna</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Szarajevó</skos:altLabel>
+	<skos:altLabel>Vrh Bosna</skos:altLabel>
+	<skos:altLabel xml:lang="el">Σαράγεβο</skos:altLabel>
+	<skos:altLabel xml:lang="el">Σαράγιεβο</skos:altLabel>
+	<skos:altLabel xml:lang="el">Σαραγιεβο</skos:altLabel>
+	<skos:altLabel xml:lang="be">Сараева</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Сараево</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Сараево</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Сараево</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сараево</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Сарајево</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Սարաևո</skos:altLabel>
+	<skos:altLabel xml:lang="he">סראייבו</skos:altLabel>
+	<skos:altLabel xml:lang="ar">سراييفو</skos:altLabel>
+	<skos:altLabel xml:lang="th">ซาราเยโว</skos:altLabel>
+	<skos:altLabel xml:lang="ka">სარაევო</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሳራዬቮ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">サラエボ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">塞拉耶佛</skos:altLabel>
+	<skos:altLabel xml:lang="ko">사라예보</skos:altLabel>
+	<skos:prefLabel>Sarajevo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3191297/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13551</europeana:population>
+	<wgs:lat>44.76528</wgs:lat>
+	<wgs:long>16.66556</wgs:long>
+	<skos:altLabel>Sana</skos:altLabel>
+	<skos:altLabel xml:lang="en">Sanski Most</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Sanski Most</skos:altLabel>
+	<skos:altLabel xml:lang="de">Sanski Most</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Sanski Most</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Sanski Most</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Sanski Most</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Sanski Most</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Сански Мост</skos:altLabel>
+	<skos:prefLabel>Sanski Most</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3192236/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10006</europeana:population>
+	<wgs:lat>44.17111</wgs:lat>
+	<wgs:long>17.6575</wgs:long>
+	<skos:altLabel>Novi Travnik</skos:altLabel>
+	<skos:altLabel>Pucarevo</skos:altLabel>
+	<skos:prefLabel>Novi Travnik</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3192279/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10349</europeana:population>
+	<wgs:lat>43.82222</wgs:lat>
+	<wgs:long>17.60917</wgs:long>
+	<skos:prefLabel>Prozor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3192409/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>36347</europeana:population>
+	<wgs:lat>44.98139</wgs:lat>
+	<wgs:long>16.71306</wgs:long>
+	<skos:altLabel xml:lang="pl">Prijedor</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Prijedor</skos:altLabel>
+	<skos:altLabel xml:lang="da">Prijedor</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Prijedor</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Prijedor</skos:altLabel>
+	<skos:altLabel xml:lang="de">Prijedor</skos:altLabel>
+	<skos:altLabel xml:lang="en">Prijedor</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Prijedor</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Prijedor</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Prijedor</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Prijedor</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Приедора</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Приједор</skos:altLabel>
+	<skos:prefLabel>Prijedor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3194199/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11621</europeana:population>
+	<wgs:lat>45.01111</wgs:lat>
+	<wgs:long>18.32667</wgs:long>
+	<skos:altLabel>Vukosavlje</skos:altLabel>
+	<skos:prefLabel>Odžak</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3194724/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14737</europeana:population>
+	<wgs:lat>44.41583</wgs:lat>
+	<wgs:long>17.08611</wgs:long>
+	<skos:altLabel>Mrkonjić Grad</skos:altLabel>
+	<skos:altLabel>Varcar Vakuf</skos:altLabel>
+	<skos:prefLabel>Mrkonjić Grad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3194828/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>104518</europeana:population>
+	<wgs:lat>43.34333</wgs:lat>
+	<wgs:long>17.80806</wgs:long>
+	<skos:altLabel xml:lang="en">Mostar</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Mostar</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Mostar</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Mostar</skos:altLabel>
+	<skos:altLabel xml:lang="it">Mostar</skos:altLabel>
+	<skos:altLabel xml:lang="no">Mostar</skos:altLabel>
+	<skos:altLabel xml:lang="de">Mostar</skos:altLabel>
+	<skos:altLabel xml:lang="es">Mostar</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Mostar</skos:altLabel>
+	<skos:altLabel xml:lang="da">Mostar</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Mostar</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Mostar</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Mostar</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Mostar</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Mostar</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Mostar</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Mostar</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Mostar</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Mostar</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Mostar</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Mostar</skos:altLabel>
+	<skos:altLabel>Mostar</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Mostara</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Мостар</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Мостар</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Мостар</skos:altLabel>
+	<skos:altLabel xml:lang="be">Мостар</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Мостар</skos:altLabel>
+	<skos:altLabel xml:lang="he">מוסטאר</skos:altLabel>
+	<skos:altLabel xml:lang="ja">モスタル</skos:altLabel>
+	<skos:prefLabel>Mostar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3196410/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11748</europeana:population>
+	<wgs:lat>43.82694</wgs:lat>
+	<wgs:long>17.00778</wgs:long>
+	<skos:altLabel xml:lang="de">Livno</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Livno</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Livno</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Livno</skos:altLabel>
+	<skos:altLabel xml:lang="en">Livno</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Livno</skos:altLabel>
+	<skos:altLabel xml:lang="da">Livno</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Livno</skos:altLabel>
+	<skos:altLabel xml:lang="es">Livno</skos:altLabel>
+	<skos:altLabel>Livno</skos:altLabel>
+	<skos:altLabel xml:lang="bs">livno</skos:altLabel>
+	<skos:altLabel xml:lang="hr">livno</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Ливно</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Ливно</skos:altLabel>
+	<skos:prefLabel>Livno</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3198490/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12406</europeana:population>
+	<wgs:lat>44.12722</wgs:lat>
+	<wgs:long>18.11806</wgs:long>
+	<skos:altLabel>Kakanj</skos:altLabel>
+	<skos:prefLabel>Kakanj</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3199744/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15659</europeana:population>
+	<wgs:lat>44.88083</wgs:lat>
+	<wgs:long>18.42694</wgs:long>
+	<skos:prefLabel>Gradačac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3199779/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15758</europeana:population>
+	<wgs:lat>44.70333</wgs:lat>
+	<wgs:long>18.30972</wgs:long>
+	<skos:prefLabel>Gračanica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3200396/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17650</europeana:population>
+	<wgs:lat>43.66694</wgs:lat>
+	<wgs:long>18.97639</wgs:long>
+	<skos:altLabel xml:lang="pl">Goražde</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Goražde</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Goražde</skos:altLabel>
+	<skos:altLabel xml:lang="de">Goražde</skos:altLabel>
+	<skos:altLabel xml:lang="en">Goražde</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Goražde</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Goražde</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Goražde</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Goražde</skos:altLabel>
+	<skos:altLabel xml:lang="no">Goražde</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Горажде</skos:altLabel>
+	<skos:prefLabel>Goražde</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3200837/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14615</europeana:population>
+	<wgs:lat>43.505</wgs:lat>
+	<wgs:long>18.77861</wgs:long>
+	<skos:altLabel>Srbinje</skos:altLabel>
+	<skos:prefLabel>Foča</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3201984/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>27235</europeana:population>
+	<wgs:lat>44.73472</wgs:lat>
+	<wgs:long>18.08778</wgs:long>
+	<skos:altLabel>Doboj</skos:altLabel>
+	<skos:prefLabel>Doboj</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3202822/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21741</europeana:population>
+	<wgs:lat>44.96694</wgs:lat>
+	<wgs:long>15.94306</wgs:long>
+	<skos:altLabel xml:lang="en">Cazin</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Cazin</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Cazin</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Cazin</skos:altLabel>
+	<skos:altLabel xml:lang="de">Cazin</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Cazin</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Cazin</skos:altLabel>
+	<skos:altLabel>Cazin</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Цазин</skos:altLabel>
+	<skos:prefLabel>Cazin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3203099/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>41378</europeana:population>
+	<wgs:lat>44.05722</wgs:lat>
+	<wgs:long>17.45083</wgs:long>
+	<skos:altLabel>Bugojne</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Bugojno</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bugojno</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Bugojno</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Bugojno</skos:altLabel>
+	<skos:altLabel xml:lang="de">Bugojno</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Bugojno</skos:altLabel>
+	<skos:altLabel xml:lang="da">Bugojno</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Bugojno</skos:altLabel>
+	<skos:altLabel>Bugojno</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бугойно</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Бугојно</skos:altLabel>
+	<skos:prefLabel>Bugojno</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3203521/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>38479</europeana:population>
+	<wgs:lat>44.87278</wgs:lat>
+	<wgs:long>18.80833</wgs:long>
+	<skos:altLabel xml:lang="ru">Брчко</skos:altLabel>
+	<skos:prefLabel>Brčko</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3203653/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15193</europeana:population>
+	<wgs:lat>44.8825</wgs:lat>
+	<wgs:long>16.15139</wgs:long>
+	<skos:altLabel>Krupa</skos:altLabel>
+	<skos:altLabel>Krupa na Uni</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Босанска Крупа</skos:altLabel>
+	<skos:prefLabel>Bosanska Krupa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3203656/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13346</europeana:population>
+	<wgs:lat>45.14111</wgs:lat>
+	<wgs:long>17.25</wgs:long>
+	<skos:altLabel>Bosanska Gradiška</skos:altLabel>
+	<skos:altLabel>Gradiška</skos:altLabel>
+	<skos:altLabel>Gradiška na Savi</skos:altLabel>
+	<skos:prefLabel>Bosanska Gradiška</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3204161/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13257</europeana:population>
+	<wgs:lat>42.87194</wgs:lat>
+	<wgs:long>18.42972</wgs:long>
+	<skos:altLabel>Bilegja</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Bileća</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Bileća</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Bileća</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bileća</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Bileća</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Bileća</skos:altLabel>
+	<skos:altLabel>Bileća</skos:altLabel>
+	<skos:altLabel>Bileće</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Билећа</skos:altLabel>
+	<skos:altLabel xml:lang="he">בילצ'ה</skos:altLabel>
+	<skos:prefLabel>Bileća</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3204186/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>37692</europeana:population>
+	<wgs:lat>44.75694</wgs:lat>
+	<wgs:long>19.21611</wgs:long>
+	<skos:altLabel>Beline</skos:altLabel>
+	<skos:altLabel xml:lang="de">Bijeljina</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Bijeljina</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Bijeljina</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Bijeljina</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bijeljina</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Bijeljina</skos:altLabel>
+	<skos:altLabel xml:lang="da">Bijeljina</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Bijeljina</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Bijeljina</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Bijeljina</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Bijeljina</skos:altLabel>
+	<skos:altLabel>Bijeljina</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Биелине</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Бијељина</skos:altLabel>
+	<skos:altLabel xml:lang="he">ביילינה</skos:altLabel>
+	<skos:prefLabel>Bijeljina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3204222/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>75641</europeana:population>
+	<wgs:lat>44.81694</wgs:lat>
+	<wgs:long>15.87083</wgs:long>
+	<skos:altLabel xml:lang="nl">Bihac</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Bihaç</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bihać</skos:altLabel>
+	<skos:altLabel xml:lang="de">Bihać</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Bihać</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Bihać</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Bihać</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Bihać</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Bihać</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Bihać</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Bihać</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Bihać</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Bihać</skos:altLabel>
+	<skos:altLabel xml:lang="es">Bihać</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Bihać</skos:altLabel>
+	<skos:altLabel>Bihać</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бихач</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Бихаћ</skos:altLabel>
+	<skos:prefLabel>Bihać</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3204541/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>221106</europeana:population>
+	<wgs:lat>44.77583</wgs:lat>
+	<wgs:long>17.18556</wgs:long>
+	<skos:altLabel>Banialuca</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Banja Luka</skos:altLabel>
+	<skos:altLabel xml:lang="de">Banja Luka</skos:altLabel>
+	<skos:altLabel xml:lang="es">Banja Luka</skos:altLabel>
+	<skos:altLabel xml:lang="da">Banja Luka</skos:altLabel>
+	<skos:altLabel xml:lang="en">Banja Luka</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Banja Luka</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Banja Luka</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Banja Luka</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Banja Luka</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Banja Luka</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Banja Luka</skos:altLabel>
+	<skos:altLabel xml:lang="no">Banja Luka</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Banja Luka</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Banja Luka</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Banja Luka</skos:altLabel>
+	<skos:altLabel xml:lang="it">Banja Luka</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Banja Luka</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Banja Luka</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Banja Luka</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Banja Luka - Бања Лука</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Banyaluka</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Баня Лука</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Баня-Лука</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Бања Лука</skos:altLabel>
+	<skos:altLabel xml:lang="he">באניה לוקה</skos:altLabel>
+	<skos:altLabel xml:lang="ja">バニャ・ルカ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">巴尼亚卢卡</skos:altLabel>
+	<skos:prefLabel>Banja Luka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3210563/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.CSTL"/>
+	<wgs:lat>44.78</wgs:lat>
+	<wgs:long>16.56556</wgs:long>
+	<skos:altLabel>Kamengrad</skos:altLabel>
+	<skos:altLabel>Stari Grad</skos:altLabel>
+	<skos:prefLabel>Stari Grad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3229999/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>44</wgs:lat>
+	<wgs:long>17.58333</wgs:long>
+	<skos:altLabel>Federacija Bosne i Hercegovine</skos:altLabel>
+	<skos:altLabel xml:lang="es">Federacion de Bosnia-Herzegovina</skos:altLabel>
+	<skos:altLabel>Federation of Bosnia and Herzegovina</skos:altLabel>
+	<skos:altLabel xml:lang="en">Federation of Bosnia and Herzegovina</skos:altLabel>
+	<skos:altLabel>Muslimansko-Hrvatska Federacija</skos:altLabel>
+	<skos:prefLabel>Federation of Bosnia and Herzegovina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3230000/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>44.93333</wgs:lat>
+	<wgs:long>17.18333</wgs:long>
+	<skos:altLabel>Bosnia Serb Republic</skos:altLabel>
+	<skos:altLabel>Republika Srpska</skos:altLabel>
+	<skos:altLabel xml:lang="es">República Serbia</skos:altLabel>
+	<skos:prefLabel>Republika Srpska</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3245688/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.CSTL"/>
+	<wgs:lat>44.5375</wgs:lat>
+	<wgs:long>16.78583</wgs:long>
+	<skos:prefLabel>Tomaševića Grad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3246805/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.CSTL"/>
+	<wgs:lat>44.67222</wgs:lat>
+	<wgs:long>17.16083</wgs:long>
+	<skos:prefLabel>Zvečajgrad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3248605/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.CSTL"/>
+	<wgs:lat>44.60861</wgs:lat>
+	<wgs:long>17.13528</wgs:long>
+	<skos:prefLabel>Kula</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3259062/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.CSTL"/>
+	<wgs:lat>44.99611</wgs:lat>
+	<wgs:long>15.92556</wgs:long>
+	<skos:prefLabel>Radetina Kula</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3261458/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>44.07222</wgs:lat>
+	<wgs:long>16.82111</wgs:long>
+	<skos:prefLabel>Spomenik Ivi Loli Ribari</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3261753/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.CSTL"/>
+	<wgs:lat>44.0275</wgs:lat>
+	<wgs:long>16.82444</wgs:long>
+	<skos:prefLabel>Medvedgrad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3262430/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.CSTL"/>
+	<wgs:lat>44.28472</wgs:lat>
+	<wgs:long>17.0325</wgs:long>
+	<skos:prefLabel>Soko Grad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3265371/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>43.03167</wgs:lat>
+	<wgs:long>18.28833</wgs:long>
+	<skos:prefLabel>Ljut</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3269516/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.CSTL"/>
+	<wgs:lat>43.84167</wgs:lat>
+	<wgs:long>18.43889</wgs:long>
+	<skos:prefLabel>Bistrik Kula</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3269544/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.CSTL"/>
+	<wgs:lat>43.83528</wgs:lat>
+	<wgs:long>18.49722</wgs:long>
+	<skos:prefLabel>Stari Grad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3269935/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.CSTL"/>
+	<wgs:lat>44.68028</wgs:lat>
+	<wgs:long>16.06278</wgs:long>
+	<skos:prefLabel>Vrnograč</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3270787/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.CSTL"/>
+	<wgs:lat>43.67194</wgs:lat>
+	<wgs:long>19.11139</wgs:long>
+	<skos:prefLabel>Samobor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3275900/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.CSTL"/>
+	<wgs:lat>43.75278</wgs:lat>
+	<wgs:long>18.77861</wgs:long>
+	<skos:prefLabel>Pavlovac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3277605/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255148/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>4590000</europeana:population>
+	<wgs:lat>44.25</wgs:lat>
+	<wgs:long>17.83333</wgs:long>
+	<skos:altLabel xml:lang="ga">An Bhoisnia-Heirseagaivéin</skos:altLabel>
+	<skos:altLabel>BA</skos:altLabel>
+	<skos:altLabel xml:lang="so">Boosniya Heersigoviina</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Bosna Hersek</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Bosna Hersek</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Bosna a Hercegovina</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Bosna a Hercegovina</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Bosna a Hercegovina</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Bosna i Hercegovina</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Bosna i Hercegovina</skos:altLabel>
+	<skos:altLabel>Bosna i Hercegovina</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Bosna i Hercegovina</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Bosna in Hercegovina</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Bosna ve Hersek</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Bosna và Hercegovina</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Bosna-Hersek</skos:altLabel>
+	<skos:altLabel>Bosnia</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Bosnia - Hercegovina - Босна и Херцеговина</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Bosnia a Herzegovina</skos:altLabel>
+	<skos:altLabel>Bosnia and Hercegovina</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bosnia and Herzegovina</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Bosnia at Herzegovina</skos:altLabel>
+	<skos:altLabel xml:lang="id">Bosnia dan Herzegovina</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Bosnia dan Herzegovina</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Bosnia e Hercegovina</skos:altLabel>
+	<skos:altLabel xml:lang="io">Bosnia e Herzegovina</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Bosnia e Herzegovina</skos:altLabel>
+	<skos:altLabel xml:lang="la">Bosnia et Herzegovina</skos:altLabel>
+	<skos:altLabel xml:lang="et">Bosnia ja Hertsegoviina</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Bosnia ja Hertsegovina</skos:altLabel>
+	<skos:altLabel xml:lang="et">Bosnia ja Herzegovina</skos:altLabel>
+	<skos:altLabel xml:lang="na">Bosnia me Herzegowina</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Bosnia na Herzegovina</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Bosnia na Herzegowina</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Bosnia og Hercegovina</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Bosnia og Hercegovina</skos:altLabel>
+	<skos:altLabel xml:lang="an">Bosnia y Erzegobina</skos:altLabel>
+	<skos:altLabel xml:lang="es">Bosnia y Herzegovina</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Bosnia şi Herzegovina</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Bosnia şi Herţegovina</skos:altLabel>
+	<skos:altLabel xml:lang="it">Bosnia-Erzegovina</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Bosnia-Hercegovina</skos:altLabel>
+	<skos:altLabel xml:lang="no">Bosnia-Hercegovina</skos:altLabel>
+	<skos:altLabel xml:lang="se">Bosnia-Hercegovina</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Bosnia-Hersegovina</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Bosnia-Hertsegovina</skos:altLabel>
+	<skos:altLabel xml:lang="id">Bosnia-Herzegovina</skos:altLabel>
+	<skos:altLabel xml:lang="es">Bosnia-Herzegovina</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Bosnia-Herzegovina</skos:altLabel>
+	<skos:altLabel xml:lang="br">Bosnia-ha-Herzegovina</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Bosnie-Herzégovine</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Bosnien och Hercegovina</skos:altLabel>
+	<skos:altLabel xml:lang="de">Bosnien und Herzegowina</skos:altLabel>
+	<skos:altLabel xml:lang="da">Bosnien-Hercegovina</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Bosnien-Hercegovina</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Bosnien-Herzegowina</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Bosnija ir Hercegovina</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Bosnija un Hercegovina</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Bosnio kaj Hercegovino</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Bosnio-Hercegovino</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Bosnië Herzegovina</skos:altLabel>
+	<skos:altLabel xml:lang="li">Bosnië en Hercegovina</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Bosnië en Herzegovina</skos:altLabel>
+	<skos:altLabel xml:lang="af">Bosnië en Herzegowina</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Bosnië-Herzegovina</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Bosni–Hertsegovina</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Bosnja dhe Hercegovina</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Bosnje</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Bosnän e Härzegovän</skos:altLabel>
+	<skos:altLabel xml:lang="is">Bosnía og Hersegóvína</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Bosznia és Hercegovina</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Bosznia-Hercegovina</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Bośnia i Hercegowina</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Bożnija Ħerżegovina</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Busna-Hirsiquwina</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Bòsnia e Ercegovina</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Bòsnia i Hercegovina</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Bósnia-Herzegovina</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Bósnia-Herzegóvina</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Bô-xni-a Héc-xê-gô-vi-na</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Bô-xni-a Héc-xê-gô-vi-na (Bosnia và Herzegovina)</skos:altLabel>
+	<skos:altLabel>Narodna Republika Bosna i Hercegovina</skos:altLabel>
+	<skos:altLabel>People’s Republic of Bosnia and Hercegovina</skos:altLabel>
+	<skos:altLabel>Republic of Bosnia and Herzegovina</skos:altLabel>
+	<skos:altLabel>Republika Bosna i Hercegovina</skos:altLabel>
+	<skos:altLabel>Socialist Republic of Bosnia and Hercegovina</skos:altLabel>
+	<skos:altLabel>Socijalistička Republika Bosna i Hercegovina</skos:altLabel>
+	<skos:altLabel xml:lang="el">Βοσνία - Ερζεγοβίνη</skos:altLabel>
+	<skos:altLabel xml:lang="el">Βοσνία και Ερζεγοβίνη</skos:altLabel>
+	<skos:altLabel xml:lang="cu">Босна</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Босна и Херцеговина</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Босна и Херцеговина</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Босна и Херцеговина</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Босния</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Босния ва Ҳерсеговина</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Босния и Герцеговина</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Боснія та Герцоговина</skos:altLabel>
+	<skos:altLabel xml:lang="be">Боснія і Герцагавіна</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Боснія і Герцеґовина</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Боснія і Герцоговина</skos:altLabel>
+	<skos:altLabel xml:lang="be">Босьнія і Герцагавіна</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Բոսնիա և Հերցոգովինա</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Բոսնիա-Հերցեգովինա</skos:altLabel>
+	<skos:altLabel xml:lang="he">בוסניה והרצגובינה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">البوسنة و الهرسك</skos:altLabel>
+	<skos:altLabel xml:lang="ar">البوسنة والهرسك</skos:altLabel>
+	<skos:altLabel xml:lang="fa">بسنی و هرزگوین</skos:altLabel>
+	<skos:altLabel xml:lang="ug">بوسنىيە</skos:altLabel>
+	<skos:altLabel xml:lang="fa">بوسنی هرزگووین</skos:altLabel>
+	<skos:altLabel xml:lang="fa">بوسنی و هرزگوین</skos:altLabel>
+	<skos:altLabel xml:lang="ur">بوسنیا ہرزگوینا</skos:altLabel>
+	<skos:altLabel xml:lang="ks">बास्निया</skos:altLabel>
+	<skos:altLabel xml:lang="sa">बास्निया</skos:altLabel>
+	<skos:altLabel xml:lang="hi">बॉस्निया और हर्ज़ेगोविना</skos:altLabel>
+	<skos:altLabel xml:lang="hi">बोसनिया हर्जिगोविना</skos:altLabel>
+	<skos:altLabel xml:lang="hi">बोस्निया और हरज़ेगोविना</skos:altLabel>
+	<skos:altLabel xml:lang="ne">बोस्निया र हर्जगोविना</skos:altLabel>
+	<skos:altLabel xml:lang="bn">বসনিয়া ও হার্জেগোভিনা</skos:altLabel>
+	<skos:altLabel xml:lang="bn">বসনিয়াও হার্জেগোভিনা</skos:altLabel>
+	<skos:altLabel xml:lang="ta">பொசுனியாவும் எர்செகோவினாவும்</skos:altLabel>
+	<skos:altLabel xml:lang="ta">போஸ்னியா ஹெர்ஸிகோவினா</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ബോസ്നിയ ഹെര്‍സഗോവിന</skos:altLabel>
+	<skos:altLabel xml:lang="th">บอสเนียและเฮอร์เซโกวีนา</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศบอสเนียและเฮอร์เซโกวีนา</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ບັອດສເນຍ ແລະ ເຮີດໂກວິເນຍ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">བོསྣི་ཡ་དང་ཧརྫོ་གོ་ཝི་ན།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ბოსნია და ჰერცეგოვინა</skos:altLabel>
+	<skos:altLabel xml:lang="am">ቦስኒያ እና ሄርዞጎቪኒያ</skos:altLabel>
+	<skos:altLabel xml:lang="km">បូស្ន៉ី</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ボスニア・ヘルツェゴビナ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ボスニア・ヘルツェゴビナ共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">波斯尼亚和黑塞哥维那</skos:altLabel>
+	<skos:altLabel xml:lang="zh">波斯尼亚和黑山共和国</skos:altLabel>
+	<skos:altLabel xml:lang="ko">보스니아 헤르체고비나</skos:altLabel>
+	<skos:altLabel xml:lang="ko">보스니아헤르체고비나</skos:altLabel>
+	<skos:prefLabel>Bosnia and Herzegovina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3288266/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>42.91167</wgs:lat>
+	<wgs:long>17.59861</wgs:long>
+	<skos:prefLabel>Mali Školj</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3288267/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>42.90194</wgs:lat>
+	<wgs:long>17.62194</wgs:long>
+	<skos:prefLabel>Veliki Školj</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3291733/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>43.81639</wgs:lat>
+	<wgs:long>17.50833</wgs:long>
+	<skos:prefLabel>Luke</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3291734/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>43.81056</wgs:lat>
+	<wgs:long>17.50417</wgs:long>
+	<skos:prefLabel>Škarina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3291736/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>43.8025</wgs:lat>
+	<wgs:long>17.54083</wgs:long>
+	<skos:prefLabel>Humac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294539/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.99361</wgs:lat>
+	<wgs:long>18.36083</wgs:long>
+	<skos:altLabel>Bileća</skos:altLabel>
+	<skos:altLabel>Opština Bileća</skos:altLabel>
+	<skos:prefLabel>Opština Bileća</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294540/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.95306</wgs:lat>
+	<wgs:long>18.10889</wgs:long>
+	<skos:altLabel>Ljubinje</skos:altLabel>
+	<skos:altLabel>Opština Ljubinje</skos:altLabel>
+	<skos:prefLabel>Opština Ljubinje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294551/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>43.11944</wgs:lat>
+	<wgs:long>17.71889</wgs:long>
+	<skos:altLabel>Općina Čapljina</skos:altLabel>
+	<skos:altLabel>Čapljina</skos:altLabel>
+	<skos:prefLabel>Općina Čapljina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294557/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>43.08333</wgs:lat>
+	<wgs:long>17.88028</wgs:long>
+	<skos:altLabel>Općina Stolac</skos:altLabel>
+	<skos:altLabel>Stolac</skos:altLabel>
+	<skos:prefLabel>Općina Stolac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294558/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.18278</wgs:lat>
+	<wgs:long>18.52639</wgs:long>
+	<skos:altLabel>Gacko</skos:altLabel>
+	<skos:altLabel>Opština Gacko</skos:altLabel>
+	<skos:prefLabel>Opština Gacko</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294559/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>43.22222</wgs:lat>
+	<wgs:long>17.50056</wgs:long>
+	<skos:altLabel>Ljubuški</skos:altLabel>
+	<skos:altLabel>Općina Ljubuški</skos:altLabel>
+	<skos:prefLabel>Općina Ljubuški</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294560/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>43.23778</wgs:lat>
+	<wgs:long>17.67472</wgs:long>
+	<skos:altLabel>Općina Čitluk</skos:altLabel>
+	<skos:altLabel>Čitluk</skos:altLabel>
+	<skos:prefLabel>Općina Čitluk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294561/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.25195</wgs:lat>
+	<wgs:long>18.14701</wgs:long>
+	<skos:altLabel>Nevesinje</skos:altLabel>
+	<skos:prefLabel>Opština Nevesinje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294562/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>43.39139</wgs:lat>
+	<wgs:long>17.55194</wgs:long>
+	<skos:altLabel>Općina Široki Brijeg</skos:altLabel>
+	<skos:altLabel>Opština Lištica</skos:altLabel>
+	<skos:altLabel>Široki Brijeg</skos:altLabel>
+	<skos:prefLabel>Općina Široki Brijeg</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294563/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>43.35722</wgs:lat>
+	<wgs:long>17.35694</wgs:long>
+	<skos:altLabel>Grude</skos:altLabel>
+	<skos:altLabel>Općina Grude</skos:altLabel>
+	<skos:prefLabel>Općina Grude</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294564/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.46111</wgs:lat>
+	<wgs:long>18.43</wgs:long>
+	<skos:altLabel>Kalinovik</skos:altLabel>
+	<skos:altLabel>Opština Kalinovik</skos:altLabel>
+	<skos:prefLabel>Opština Kalinovik</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294565/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.44719</wgs:lat>
+	<wgs:long>18.77392</wgs:long>
+	<skos:altLabel>Općina Foča</skos:altLabel>
+	<skos:altLabel>Srbinje</skos:altLabel>
+	<skos:prefLabel>Opština Srbinje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294566/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.57528</wgs:lat>
+	<wgs:long>19.10556</wgs:long>
+	<skos:altLabel>Opština Čajniče</skos:altLabel>
+	<skos:altLabel>Čajniče</skos:altLabel>
+	<skos:prefLabel>Opština Čajniče</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294567/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>43.50194</wgs:lat>
+	<wgs:long>17.33389</wgs:long>
+	<skos:altLabel>Općina Posušje</skos:altLabel>
+	<skos:altLabel>Posušje</skos:altLabel>
+	<skos:prefLabel>Općina Posušje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294568/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>43.65444</wgs:lat>
+	<wgs:long>17.72111</wgs:long>
+	<skos:altLabel>Jablanica</skos:altLabel>
+	<skos:altLabel>Općina Jablanica</skos:altLabel>
+	<skos:prefLabel>Općina Jablanica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294569/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>43.62944</wgs:lat>
+	<wgs:long>17.97639</wgs:long>
+	<skos:altLabel>Konjic</skos:altLabel>
+	<skos:altLabel>Općina Konjic</skos:altLabel>
+	<skos:prefLabel>Općina Konjic</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294770/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.64556</wgs:lat>
+	<wgs:long>19.34361</wgs:long>
+	<skos:altLabel>Opština Rudo</skos:altLabel>
+	<skos:altLabel>Rudo</skos:altLabel>
+	<skos:prefLabel>Opština Rudo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294771/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>43.7</wgs:lat>
+	<wgs:long>17.25</wgs:long>
+	<skos:altLabel>Općina Tomislavgrad</skos:altLabel>
+	<skos:altLabel>Opština Duvno</skos:altLabel>
+	<skos:altLabel>Tomislavgrad</skos:altLabel>
+	<skos:prefLabel>Općina Tomislavgrad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294772/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.72167</wgs:lat>
+	<wgs:long>19.31361</wgs:long>
+	<skos:altLabel>Opština Višegrad</skos:altLabel>
+	<skos:altLabel>Višegrad</skos:altLabel>
+	<skos:altLabel>cesalj</skos:altLabel>
+	<skos:prefLabel>Opština Višegrad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294773/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.8</wgs:lat>
+	<wgs:long>18.62444</wgs:long>
+	<skos:altLabel>Opština Pale</skos:altLabel>
+	<skos:altLabel>Pale</skos:altLabel>
+	<skos:prefLabel>Opština Pale</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294774/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.83333</wgs:lat>
+	<wgs:long>19.0425</wgs:long>
+	<skos:altLabel>Opština Rogatica</skos:altLabel>
+	<skos:altLabel>Rogatica</skos:altLabel>
+	<skos:prefLabel>Opština Rogatica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294775/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>43.84306</wgs:lat>
+	<wgs:long>16.87917</wgs:long>
+	<skos:altLabel>Livno</skos:altLabel>
+	<skos:altLabel>Općina Livno</skos:altLabel>
+	<skos:prefLabel>Općina Livno</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294776/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>43.79528</wgs:lat>
+	<wgs:long>17.59694</wgs:long>
+	<skos:altLabel>Općina Prozor</skos:altLabel>
+	<skos:altLabel>Općina Prozor-Rama</skos:altLabel>
+	<skos:altLabel>Prozor</skos:altLabel>
+	<skos:altLabel>Prozor-Rama</skos:altLabel>
+	<skos:prefLabel>Općina Prozor-Rama</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294777/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>43.77111</wgs:lat>
+	<wgs:long>18.14472</wgs:long>
+	<skos:altLabel>Hadžići</skos:altLabel>
+	<skos:altLabel>Općina Hadžići</skos:altLabel>
+	<skos:prefLabel>Općina Hadžići</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294778/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>43.83056</wgs:lat>
+	<wgs:long>18.27944</wgs:long>
+	<skos:altLabel>Ilidža</skos:altLabel>
+	<skos:altLabel>Općina Ilidža</skos:altLabel>
+	<skos:altLabel>Sarajevo-Ilidža</skos:altLabel>
+	<skos:prefLabel>Općina Ilidža</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294782/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>43.85333</wgs:lat>
+	<wgs:long>18.37583</wgs:long>
+	<skos:altLabel>Novo Sarajevo</skos:altLabel>
+	<skos:altLabel>Općina Novo Sarajevo</skos:altLabel>
+	<skos:prefLabel>Općina Novo Sarajevo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294790/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>43.85194</wgs:lat>
+	<wgs:long>18.01694</wgs:long>
+	<skos:altLabel>Kreševo</skos:altLabel>
+	<skos:altLabel>Općina Kreševo</skos:altLabel>
+	<skos:prefLabel>Općina Kreševo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294796/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>43.88583</wgs:lat>
+	<wgs:long>18.40083</wgs:long>
+	<skos:altLabel>Centar</skos:altLabel>
+	<skos:altLabel>Centar-Sarajevo</skos:altLabel>
+	<skos:altLabel>Općina Centar-Sarajevo</skos:altLabel>
+	<skos:altLabel>Općina Sarajevo-Centar</skos:altLabel>
+	<skos:prefLabel>Općina Centar-Sarajevo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294804/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>43.90972</wgs:lat>
+	<wgs:long>18.34861</wgs:long>
+	<skos:altLabel>Općina Vogošća</skos:altLabel>
+	<skos:altLabel>Sarajevo-Vogošća</skos:altLabel>
+	<skos:altLabel>Vogošća</skos:altLabel>
+	<skos:prefLabel>Općina Vogošća</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294807/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>43.93333</wgs:lat>
+	<wgs:long>17.6</wgs:long>
+	<skos:altLabel>Općina Gonji Vakuf</skos:altLabel>
+	<skos:altLabel>Općina Gornji Vakuf-Uskoplje</skos:altLabel>
+	<skos:prefLabel>Općina Gornji Vakuf-Uskoplje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294809/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>43.94556</wgs:lat>
+	<wgs:long>17.885</wgs:long>
+	<skos:altLabel>Fojnica</skos:altLabel>
+	<skos:altLabel>Općina Fojnica</skos:altLabel>
+	<skos:prefLabel>Općina Fojnica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294813/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.01306</wgs:lat>
+	<wgs:long>18.42083</wgs:long>
+	<skos:altLabel>Ilijaš</skos:altLabel>
+	<skos:altLabel>Općina Ilijaš</skos:altLabel>
+	<skos:prefLabel>Općina Ilijaš</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294818/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>43.93472</wgs:lat>
+	<wgs:long>17.26167</wgs:long>
+	<skos:altLabel>Kupres</skos:altLabel>
+	<skos:altLabel>Općina Kupres</skos:altLabel>
+	<skos:prefLabel>Općina Kupres</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294822/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>43.99667</wgs:lat>
+	<wgs:long>18.13833</wgs:long>
+	<skos:altLabel>Općina Visoko</skos:altLabel>
+	<skos:altLabel>Visoko</skos:altLabel>
+	<skos:prefLabel>Općina Visoko</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294826/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.08528</wgs:lat>
+	<wgs:long>16.84167</wgs:long>
+	<skos:altLabel>Glamoč</skos:altLabel>
+	<skos:altLabel>Općina Glamoč</skos:altLabel>
+	<skos:prefLabel>Općina Glamoč</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294827/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.00667</wgs:lat>
+	<wgs:long>18.27583</wgs:long>
+	<skos:altLabel>Breza</skos:altLabel>
+	<skos:altLabel>Općina Breza</skos:altLabel>
+	<skos:prefLabel>Općina Breza</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294828/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.03444</wgs:lat>
+	<wgs:long>17.46361</wgs:long>
+	<skos:altLabel>Bugojno</skos:altLabel>
+	<skos:altLabel>Općina Bugojno</skos:altLabel>
+	<skos:prefLabel>Općina Bugojno</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294829/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.06528</wgs:lat>
+	<wgs:long>19.31611</wgs:long>
+	<skos:altLabel>Opština Srebrenica</skos:altLabel>
+	<skos:altLabel>Srebrenica</skos:altLabel>
+	<skos:prefLabel>Opština Srebrenica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294830/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.05694</wgs:lat>
+	<wgs:long>18.92833</wgs:long>
+	<skos:altLabel>Han Pijesak</skos:altLabel>
+	<skos:altLabel>Opština Han Pijesak</skos:altLabel>
+	<skos:prefLabel>Opština Han Pijesak</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294831/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.07028</wgs:lat>
+	<wgs:long>17.89444</wgs:long>
+	<skos:altLabel>Busovača</skos:altLabel>
+	<skos:altLabel>Općina Busovača</skos:altLabel>
+	<skos:prefLabel>Općina Busovača</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294832/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.1625</wgs:lat>
+	<wgs:long>18.55472</wgs:long>
+	<skos:altLabel>Olovo</skos:altLabel>
+	<skos:altLabel>Općina Olovo</skos:altLabel>
+	<skos:prefLabel>Općina Olovo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294833/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.16667</wgs:lat>
+	<wgs:long>16.41667</wgs:long>
+	<skos:altLabel>Bosansko Grahovo</skos:altLabel>
+	<skos:altLabel>Općina Bosansko Grahovo</skos:altLabel>
+	<skos:prefLabel>Općina Bosansko Grahovo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294834/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.16056</wgs:lat>
+	<wgs:long>17.38778</wgs:long>
+	<skos:altLabel>Donji Vakuf</skos:altLabel>
+	<skos:altLabel>Općina Donji Vakuf</skos:altLabel>
+	<skos:prefLabel>Općina Donji Vakuf</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294835/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.07028</wgs:lat>
+	<wgs:long>17.65861</wgs:long>
+	<skos:altLabel>Novi Travnik</skos:altLabel>
+	<skos:altLabel>Općina Novi Travnik</skos:altLabel>
+	<skos:prefLabel>Općina Novi Travnik</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294836/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.12167</wgs:lat>
+	<wgs:long>17.76778</wgs:long>
+	<skos:altLabel>Općina Vitez</skos:altLabel>
+	<skos:altLabel>Vitez</skos:altLabel>
+	<skos:prefLabel>Općina Vitez</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294837/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.15944</wgs:lat>
+	<wgs:long>18.13861</wgs:long>
+	<skos:altLabel>Kakanj</skos:altLabel>
+	<skos:altLabel>Općina Kakanj</skos:altLabel>
+	<skos:prefLabel>Općina Kakanj</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294838/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.13944</wgs:lat>
+	<wgs:long>18.34583</wgs:long>
+	<skos:altLabel>Općina Vareš</skos:altLabel>
+	<skos:altLabel>Vareš</skos:altLabel>
+	<skos:prefLabel>Općina Vareš</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294839/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.19389</wgs:lat>
+	<wgs:long>18.91</wgs:long>
+	<skos:altLabel>Opština Vlasenica</skos:altLabel>
+	<skos:altLabel>Vlasenica</skos:altLabel>
+	<skos:prefLabel>Opština Vlasenica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294860/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.57556</wgs:lat>
+	<wgs:long>16.75472</wgs:long>
+	<skos:altLabel>Ključ</skos:altLabel>
+	<skos:altLabel>Općina Ključ</skos:altLabel>
+	<skos:prefLabel>Općina Ključ</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294861/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.52917</wgs:lat>
+	<wgs:long>18.08278</wgs:long>
+	<skos:altLabel>Maglaj</skos:altLabel>
+	<skos:altLabel>Općina Maglaj</skos:altLabel>
+	<skos:prefLabel>Općina Maglaj</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294862/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.60278</wgs:lat>
+	<wgs:long>16.35194</wgs:long>
+	<skos:altLabel>Bosanski Petrovac</skos:altLabel>
+	<skos:altLabel>Općina Bosanski Petrovac</skos:altLabel>
+	<skos:prefLabel>Općina Bosanski Petrovac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294865/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.57278</wgs:lat>
+	<wgs:long>17.73194</wgs:long>
+	<skos:altLabel>Opština Teslić</skos:altLabel>
+	<skos:altLabel>Teslić</skos:altLabel>
+	<skos:prefLabel>Opština Teslić</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294867/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.62167</wgs:lat>
+	<wgs:long>17.97694</wgs:long>
+	<skos:altLabel>Općina Tešanj</skos:altLabel>
+	<skos:altLabel>Tešanj</skos:altLabel>
+	<skos:prefLabel>Općina Tešanj</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294871/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.53889</wgs:lat>
+	<wgs:long>17.5025</wgs:long>
+	<skos:altLabel>Kotor-Varoš</skos:altLabel>
+	<skos:altLabel>Opština Kotor-Varoš</skos:altLabel>
+	<skos:prefLabel>Opština Kotor-Varoš</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294873/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.62806</wgs:lat>
+	<wgs:long>18.83667</wgs:long>
+	<skos:altLabel>Lopare</skos:altLabel>
+	<skos:altLabel>Opština Lopare</skos:altLabel>
+	<skos:prefLabel>Opština Lopare</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294874/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.65167</wgs:lat>
+	<wgs:long>18.99722</wgs:long>
+	<skos:altLabel>Opština Ugljevik</skos:altLabel>
+	<skos:altLabel>Ugljevik</skos:altLabel>
+	<skos:prefLabel>Opština Ugljevik</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294879/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.72667</wgs:lat>
+	<wgs:long>18.30972</wgs:long>
+	<skos:altLabel>Gračanica</skos:altLabel>
+	<skos:altLabel>Općina Gračanica</skos:altLabel>
+	<skos:prefLabel>Općina Gračanica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294885/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.68472</wgs:lat>
+	<wgs:long>18.51139</wgs:long>
+	<skos:altLabel>Općina Srebrenik</skos:altLabel>
+	<skos:altLabel>Srebrenik</skos:altLabel>
+	<skos:prefLabel>Općina Srebrenik</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294889/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.72694</wgs:lat>
+	<wgs:long>17.41722</wgs:long>
+	<skos:altLabel>Opština Čelinac</skos:altLabel>
+	<skos:altLabel>Čelinac</skos:altLabel>
+	<skos:prefLabel>Opština Čelinac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294891/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.74694</wgs:lat>
+	<wgs:long>16.58139</wgs:long>
+	<skos:altLabel>Općina Sanski Most</skos:altLabel>
+	<skos:altLabel>Sanski Most</skos:altLabel>
+	<skos:prefLabel>Općina Sanski Most</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294893/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.73194</wgs:lat>
+	<wgs:long>17.0875</wgs:long>
+	<skos:altLabel>Banja Luka</skos:altLabel>
+	<skos:altLabel>Opština Banja Luka</skos:altLabel>
+	<skos:prefLabel>Opština Banja Luka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294894/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.75944</wgs:lat>
+	<wgs:long>18.065</wgs:long>
+	<skos:altLabel>Doboj</skos:altLabel>
+	<skos:altLabel>Opština Doboj</skos:altLabel>
+	<skos:prefLabel>Opština Doboj</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294896/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.76583</wgs:lat>
+	<wgs:long>19.15083</wgs:long>
+	<skos:altLabel>Bijeljina</skos:altLabel>
+	<skos:altLabel>Opština Bijeljina</skos:altLabel>
+	<skos:prefLabel>Opština Bijeljina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294901/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.76889</wgs:lat>
+	<wgs:long>15.99083</wgs:long>
+	<skos:altLabel>Bihać</skos:altLabel>
+	<skos:altLabel>Općina Bihać</skos:altLabel>
+	<skos:prefLabel>Općina Bihać</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294903/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>44.83333</wgs:lat>
+	<wgs:long>18.83333</wgs:long>
+	<skos:altLabel xml:lang="eo">Brcko</skos:altLabel>
+	<skos:altLabel xml:lang="da">Brcko</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Brcko</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Brcko</skos:altLabel>
+	<skos:altLabel xml:lang="es">Brcko</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Brcko</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Brcko</skos:altLabel>
+	<skos:altLabel>Brcko District</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Brčko</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Brčko</skos:altLabel>
+	<skos:altLabel xml:lang="en">Brčko</skos:altLabel>
+	<skos:altLabel xml:lang="it">Brčko</skos:altLabel>
+	<skos:altLabel xml:lang="de">Brčko</skos:altLabel>
+	<skos:altLabel xml:lang="en">Brčko District</skos:altLabel>
+	<skos:altLabel>Brčko Distrikt</skos:altLabel>
+	<skos:altLabel>Brčko Distrikt Bosne i Hercegovine</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Brčko distrikt</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Brčko distrikt</skos:altLabel>
+	<skos:altLabel xml:lang="de">Brčko-Distrikt</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Brčkói körzet</skos:altLabel>
+	<skos:altLabel xml:lang="it">Distretto di Brčko</skos:altLabel>
+	<skos:altLabel xml:lang="id">Distrik Brčko</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Distrikt Brčko</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Distrikt Brčko</skos:altLabel>
+	<skos:altLabel xml:lang="es">Distrito Brcko</skos:altLabel>
+	<skos:altLabel>Opština Brčko</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Брчко дистрикт</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Дистрикт Бръчко</skos:altLabel>
+	<skos:prefLabel>Brcko District of Bosnia and Herzegovina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294904/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.85889</wgs:lat>
+	<wgs:long>17.65278</wgs:long>
+	<skos:altLabel>Opština Prnjavor</skos:altLabel>
+	<skos:altLabel>Prnjavor</skos:altLabel>
+	<skos:prefLabel>Opština Prnjavor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294905/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.83889</wgs:lat>
+	<wgs:long>18.40611</wgs:long>
+	<skos:altLabel>Gradačac</skos:altLabel>
+	<skos:altLabel>Općina Gradačac</skos:altLabel>
+	<skos:prefLabel>Općina Gradačac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294906/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.87667</wgs:lat>
+	<wgs:long>17.33639</wgs:long>
+	<skos:altLabel>Laktaši</skos:altLabel>
+	<skos:altLabel>Opština Laktaši</skos:altLabel>
+	<skos:prefLabel>Opština Laktaši</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294907/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.885</wgs:lat>
+	<wgs:long>16.17556</wgs:long>
+	<skos:altLabel>Bosanska Krupa</skos:altLabel>
+	<skos:altLabel>Općina Bosanska Krupa</skos:altLabel>
+	<skos:prefLabel>Općina Bosanska Krupa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294908/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.98667</wgs:lat>
+	<wgs:long>15.935</wgs:long>
+	<skos:altLabel>Cazin</skos:altLabel>
+	<skos:altLabel>Općina Cazin</skos:altLabel>
+	<skos:prefLabel>Općina Cazin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294909/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.95028</wgs:lat>
+	<wgs:long>16.78722</wgs:long>
+	<skos:altLabel>Opština Prijedor</skos:altLabel>
+	<skos:altLabel>Prijedor</skos:altLabel>
+	<skos:prefLabel>Opština Prijedor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294910/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.93972</wgs:lat>
+	<wgs:long>17.91667</wgs:long>
+	<skos:altLabel>Derventa</skos:altLabel>
+	<skos:altLabel>Opština Derventa</skos:altLabel>
+	<skos:prefLabel>Opština Derventa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294911/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.91583</wgs:lat>
+	<wgs:long>18.25278</wgs:long>
+	<skos:altLabel>Modriča</skos:altLabel>
+	<skos:altLabel>Opština Modriča</skos:altLabel>
+	<skos:prefLabel>Opština Modriča</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294912/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>45.02667</wgs:lat>
+	<wgs:long>17.57194</wgs:long>
+	<skos:altLabel>Opština Srbac</skos:altLabel>
+	<skos:altLabel>Srbac</skos:altLabel>
+	<skos:prefLabel>Opština Srbac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294913/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>45.0475</wgs:lat>
+	<wgs:long>18.30444</wgs:long>
+	<skos:altLabel>Odžak</skos:altLabel>
+	<skos:altLabel>Općina Odžak</skos:altLabel>
+	<skos:prefLabel>Općina Odžak</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294914/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.99056</wgs:lat>
+	<wgs:long>18.66722</wgs:long>
+	<skos:altLabel>Općina Orašje</skos:altLabel>
+	<skos:altLabel>Orašje</skos:altLabel>
+	<skos:prefLabel>Općina Orašje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294915/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>45.03167</wgs:lat>
+	<wgs:long>16.49639</wgs:long>
+	<skos:altLabel>Bosanski Novi</skos:altLabel>
+	<skos:altLabel>Novi Grad</skos:altLabel>
+	<skos:altLabel>Općina Bosanski Novi</skos:altLabel>
+	<skos:altLabel>Opština Novi Grad</skos:altLabel>
+	<skos:prefLabel>Općina Bosanski Novi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294916/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.98361</wgs:lat>
+	<wgs:long>18.49778</wgs:long>
+	<skos:altLabel>Bosanski Šamac</skos:altLabel>
+	<skos:altLabel>Općina Bosanski Šamac</skos:altLabel>
+	<skos:altLabel>Opština Šamac</skos:altLabel>
+	<skos:altLabel>Šamac</skos:altLabel>
+	<skos:prefLabel>Općina Bosanski Šamac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294917/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>45.0575</wgs:lat>
+	<wgs:long>17.18611</wgs:long>
+	<skos:altLabel>Bosanska Gradiška</skos:altLabel>
+	<skos:altLabel>Gradiška</skos:altLabel>
+	<skos:altLabel>Općina Bosanska Gradiška</skos:altLabel>
+	<skos:altLabel>Opština Gradiška</skos:altLabel>
+	<skos:prefLabel>Općina Bosanska Gradiška</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294918/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>45.05028</wgs:lat>
+	<wgs:long>18.05889</wgs:long>
+	<skos:altLabel>Bosanski Brod</skos:altLabel>
+	<skos:altLabel>Općina Bosanski Brod</skos:altLabel>
+	<skos:altLabel>Opština Srpski Brod</skos:altLabel>
+	<skos:altLabel>Srpski Brod</skos:altLabel>
+	<skos:prefLabel>Općina Bosanski Brod</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3294919/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>45.14778</wgs:lat>
+	<wgs:long>15.96361</wgs:long>
+	<skos:altLabel>Općina Velika Kladuša</skos:altLabel>
+	<skos:altLabel>Velika Kladuša</skos:altLabel>
+	<skos:prefLabel>Općina Velika Kladuša</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3311786/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>45.01361</wgs:lat>
+	<wgs:long>16.90944</wgs:long>
+	<skos:prefLabel>Spomen Dom Mrakovica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3312696/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>42.81194</wgs:lat>
+	<wgs:long>18.44194</wgs:long>
+	<skos:prefLabel>Bobotova Glavica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3337476/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15950</europeana:population>
+	<wgs:lat>43.65194</wgs:lat>
+	<wgs:long>17.96139</wgs:long>
+	<skos:altLabel>Konjic</skos:altLabel>
+	<skos:prefLabel>Konjic</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3341899/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>43.32194</wgs:lat>
+	<wgs:long>18.63361</wgs:long>
+	<skos:altLabel>Spomenik Drugoj Dalmatinskoj Brigadi</skos:altLabel>
+	<skos:altLabel>Spomenik II (Drugoj) Dalmatinskoj Brigadi</skos:altLabel>
+	<skos:altLabel>Spomenik II Dalmatinskoj Brigadi</skos:altLabel>
+	<skos:prefLabel>Spomenik Drugoj Dalmatinskoj Brigadi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343703/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>45.05083</wgs:lat>
+	<wgs:long>16.08889</wgs:long>
+	<skos:altLabel>Bužim</skos:altLabel>
+	<skos:altLabel>Općina Bužim</skos:altLabel>
+	<skos:prefLabel>Općina Bužim</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343704/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3229999/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.73694</wgs:lat>
+	<wgs:long>16.19361</wgs:long>
+	<skos:altLabel>Bihac Canton</skos:altLabel>
+	<skos:altLabel>Kanton 1</skos:altLabel>
+	<skos:altLabel>Una-Sana Canton</skos:altLabel>
+	<skos:altLabel>Unsko-Sanski Kanton</skos:altLabel>
+	<skos:prefLabel>Unsko-Sanski Kanton</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343705/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>45.0375</wgs:lat>
+	<wgs:long>18.55</wgs:long>
+	<skos:altLabel>Bosanski Šamac</skos:altLabel>
+	<skos:altLabel>Domaljevac-Šamac</skos:altLabel>
+	<skos:altLabel>Općina Domaljevac-Šamac</skos:altLabel>
+	<skos:prefLabel>Općina Domaljevac-Šamac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343706/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3229999/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>45.04167</wgs:lat>
+	<wgs:long>18.48972</wgs:long>
+	<skos:altLabel xml:lang="it">Cantone di Posavina</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Cantó de Posavina</skos:altLabel>
+	<skos:altLabel xml:lang="es">Cantón de Posavina</skos:altLabel>
+	<skos:altLabel>Kanton 2</skos:altLabel>
+	<skos:altLabel xml:lang="id">Kanton Posavina</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kanton Posavina</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kanton Posawina</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Posavina</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Posavina</skos:altLabel>
+	<skos:altLabel>Posavina Canton</skos:altLabel>
+	<skos:altLabel xml:lang="en">Posavina Canton</skos:altLabel>
+	<skos:altLabel>Posavinski Kanton</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Posavska županija</skos:altLabel>
+	<skos:altLabel>Posavski Kanton</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Posavski kanton</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Posavski kanton</skos:altLabel>
+	<skos:altLabel>Županija Posavska</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Посавина</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Посавски кантон</skos:altLabel>
+	<skos:altLabel xml:lang="zh">波薩維納州</skos:altLabel>
+	<skos:prefLabel>Posavski Kanton</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343707/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.3925</wgs:lat>
+	<wgs:long>18.46944</wgs:long>
+	<skos:altLabel>Banovići</skos:altLabel>
+	<skos:altLabel>Općina Banovići</skos:altLabel>
+	<skos:prefLabel>Općina Banovići</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343708/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.45389</wgs:lat>
+	<wgs:long>18.84111</wgs:long>
+	<skos:altLabel>Kalesija</skos:altLabel>
+	<skos:altLabel>Općina Kalesija</skos:altLabel>
+	<skos:prefLabel>Općina Kalesija</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343709/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.25194</wgs:lat>
+	<wgs:long>18.66833</wgs:long>
+	<skos:altLabel>Kladanj</skos:altLabel>
+	<skos:altLabel>Općina Kladanj</skos:altLabel>
+	<skos:prefLabel>Općina Kladanj</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343710/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.68972</wgs:lat>
+	<wgs:long>18.68889</wgs:long>
+	<skos:altLabel>Općina Čelić</skos:altLabel>
+	<skos:altLabel>Čelić</skos:altLabel>
+	<skos:prefLabel>Općina Čelić</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343711/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.52389</wgs:lat>
+	<wgs:long>18.43778</wgs:long>
+	<skos:altLabel>Lukavac</skos:altLabel>
+	<skos:altLabel>Općina Lukavac</skos:altLabel>
+	<skos:prefLabel>Općina Lukavac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343712/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.40944</wgs:lat>
+	<wgs:long>18.6475</wgs:long>
+	<skos:altLabel>Općina Živinice</skos:altLabel>
+	<skos:altLabel>Živinice</skos:altLabel>
+	<skos:prefLabel>Općina Živinice</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343713/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.72139</wgs:lat>
+	<wgs:long>18.17861</wgs:long>
+	<skos:altLabel>Doboj Istok</skos:altLabel>
+	<skos:altLabel>Općina Doboj Istok</skos:altLabel>
+	<skos:prefLabel>Općina Doboj Istok</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343714/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.59889</wgs:lat>
+	<wgs:long>18.96806</wgs:long>
+	<skos:altLabel>Općina Teočak</skos:altLabel>
+	<skos:altLabel>Teočak</skos:altLabel>
+	<skos:prefLabel>Općina Teočak</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343715/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.53611</wgs:lat>
+	<wgs:long>18.9525</wgs:long>
+	<skos:altLabel>Općina Sapna</skos:altLabel>
+	<skos:altLabel>Sapna</skos:altLabel>
+	<skos:prefLabel>Općina Sapna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343716/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3229999/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.545</wgs:lat>
+	<wgs:long>18.60167</wgs:long>
+	<skos:altLabel xml:lang="it">Cantone di Tuzla</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Cantó de Tuzla</skos:altLabel>
+	<skos:altLabel>Kanton 3</skos:altLabel>
+	<skos:altLabel xml:lang="id">Kanton Tuzla</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kanton Tuzla</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kanton Tuzla</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Tuzla</skos:altLabel>
+	<skos:altLabel>Tuzla Canton</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tuzla Canton</skos:altLabel>
+	<skos:altLabel>Tuzla-Podrinje Canton</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Tuzlanska županija</skos:altLabel>
+	<skos:altLabel>Tuzlanski Kanton</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Tuzlanski kanton</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Tuzlanski kanton</skos:altLabel>
+	<skos:altLabel>Tuzlansko-Podrinjska Županija</skos:altLabel>
+	<skos:altLabel>Tuzlansko-Podrinjski Kanton</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Tuzlanský kanton</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Тузлански кантон</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Тузлански кантон</skos:altLabel>
+	<skos:altLabel xml:lang="zh">圖茲拉州</skos:altLabel>
+	<skos:prefLabel>Tuzlanski Kanton</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343717/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.34917</wgs:lat>
+	<wgs:long>18.225</wgs:long>
+	<skos:altLabel>Općina Zavidovići</skos:altLabel>
+	<skos:altLabel>Zavidovići</skos:altLabel>
+	<skos:prefLabel>Općina Zavidovići</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343718/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.25639</wgs:lat>
+	<wgs:long>17.9375</wgs:long>
+	<skos:altLabel>Općina Zenica</skos:altLabel>
+	<skos:altLabel>Zenica</skos:altLabel>
+	<skos:prefLabel>Općina Zenica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343719/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.41944</wgs:lat>
+	<wgs:long>17.96972</wgs:long>
+	<skos:altLabel>Općina Žepče</skos:altLabel>
+	<skos:altLabel>Žepče</skos:altLabel>
+	<skos:prefLabel>Općina Žepče</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343720/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.66778</wgs:lat>
+	<wgs:long>18.05</wgs:long>
+	<skos:altLabel>Doboj Jug</skos:altLabel>
+	<skos:altLabel>Općina Doboj Jug</skos:altLabel>
+	<skos:prefLabel>Općina Doboj Jug</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343721/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.6925</wgs:lat>
+	<wgs:long>18.01194</wgs:long>
+	<skos:altLabel>Općina Usora</skos:altLabel>
+	<skos:altLabel>Usora</skos:altLabel>
+	<skos:prefLabel>Općina Usora</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343722/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3229999/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.23</wgs:lat>
+	<wgs:long>18.19222</wgs:long>
+	<skos:altLabel xml:lang="it">Cantone di Zenica-Doboj</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Cantó de Zenica-Doboj</skos:altLabel>
+	<skos:altLabel>Kanton 4</skos:altLabel>
+	<skos:altLabel xml:lang="id">Kanton Zenica-Doboj</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kanton Zenica-Doboj</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kanton Zenica-Doboj</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Kantono Zenica-Doboj</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Zenica-Doboj</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Zenica-Doboj</skos:altLabel>
+	<skos:altLabel>Zenica-Doboj Canton</skos:altLabel>
+	<skos:altLabel xml:lang="en">Zenica-Doboj Canton</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Zenicko-dobojský kanton</skos:altLabel>
+	<skos:altLabel>Zenički-Dobojski Kanton</skos:altLabel>
+	<skos:altLabel>Zeničko-Dobojski Kanton</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Zeničko-dobojska županija</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Zeničko-dobojski kanton</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Zeničko-dobojski kanton</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Зеничко-Добойски кантон</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Зеничко-добојски кантон</skos:altLabel>
+	<skos:altLabel xml:lang="zh">澤尼察-多博伊州</skos:altLabel>
+	<skos:prefLabel>Zeničko-Dobojski Kanton</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343723/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>43.74306</wgs:lat>
+	<wgs:long>18.79361</wgs:long>
+	<skos:altLabel>Općina Pale</skos:altLabel>
+	<skos:altLabel>Pale</skos:altLabel>
+	<skos:prefLabel>Općina Pale</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343724/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>43.66417</wgs:lat>
+	<wgs:long>18.865</wgs:long>
+	<skos:altLabel>Goražde</skos:altLabel>
+	<skos:altLabel>Općina Goražde</skos:altLabel>
+	<skos:prefLabel>Općina Goražde</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343725/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>43.61278</wgs:lat>
+	<wgs:long>18.70444</wgs:long>
+	<skos:altLabel>Foča</skos:altLabel>
+	<skos:altLabel>Općina Foča</skos:altLabel>
+	<skos:prefLabel>Općina Foča</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343726/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3229999/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.65528</wgs:lat>
+	<wgs:long>18.8</wgs:long>
+	<skos:altLabel>Bosansko Podrinje Canton</skos:altLabel>
+	<skos:altLabel>Bosansko-Podrinjski Kanton</skos:altLabel>
+	<skos:altLabel>Bosnia-Podrinje Canton</skos:altLabel>
+	<skos:altLabel>Gorazde Canton</skos:altLabel>
+	<skos:altLabel>Goraždanski Kanton</skos:altLabel>
+	<skos:altLabel>Gornjedrinski Kanton</skos:altLabel>
+	<skos:altLabel>Kanton 5</skos:altLabel>
+	<skos:altLabel>Upper Drina Canton</skos:altLabel>
+	<skos:prefLabel>Bosansko-Podrinjski Kanton</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343727/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.38583</wgs:lat>
+	<wgs:long>17.41694</wgs:long>
+	<skos:altLabel>Općina Dobretići</skos:altLabel>
+	<skos:altLabel>Općina Dobrezići</skos:altLabel>
+	<skos:prefLabel>Općina Dobretići</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343731/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3229999/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.09833</wgs:lat>
+	<wgs:long>17.65556</wgs:long>
+	<skos:altLabel xml:lang="it">Cantone della Bosnia Centrale</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Cantó de Bòsnia Central</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Centraal-Bosnië</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Centraal-Bosnië][[pl:Kanton Centralna Bośnia</skos:altLabel>
+	<skos:altLabel>Central Bosnia Canton</skos:altLabel>
+	<skos:altLabel xml:lang="en">Central Bosnia Canton</skos:altLabel>
+	<skos:altLabel>Kanton 6</skos:altLabel>
+	<skos:altLabel xml:lang="id">Kanton Bosnia Tengah</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kanton Centralna Bośnia</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kanton Zentralbosnien</skos:altLabel>
+	<skos:altLabel>Srednja Bosna</skos:altLabel>
+	<skos:altLabel>Srednje-Bosanski Kanton</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Srednjobosanska županija</skos:altLabel>
+	<skos:altLabel>Srednjobosanski Kanton</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Srednjobosanski kanton</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Srednjobosanski kanton</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Středobosenský kanton</skos:altLabel>
+	<skos:altLabel>Županjia Središnja Bosna</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Среднобосненски кантон</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Средњобосански кантон</skos:altLabel>
+	<skos:altLabel xml:lang="zh">中波斯尼亞州</skos:altLabel>
+	<skos:prefLabel>Srednjobosanski Kanton</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343733/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3229999/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.45722</wgs:lat>
+	<wgs:long>17.8125</wgs:long>
+	<skos:altLabel>Hercegovačko-Neretvanska Županija</skos:altLabel>
+	<skos:altLabel>Hercegovačko-Neretvanski Kanton</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Hercegovačko-neretvanska županija</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Hercegovačko-neretvanski kanton</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Hercegovačko-neretvanski kanton</skos:altLabel>
+	<skos:altLabel>Hercegovina-Neretva Canton</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Hercegovsko-neretvanský kanton</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Herzegovina-Neretva</skos:altLabel>
+	<skos:altLabel>Herzegovina-Neretva Canton</skos:altLabel>
+	<skos:altLabel xml:lang="en">Herzegovina-Neretva Canton</skos:altLabel>
+	<skos:altLabel>Herzegovina-Neretva-Mostar Canton</skos:altLabel>
+	<skos:altLabel>Kanton 7</skos:altLabel>
+	<skos:altLabel xml:lang="id">Kanton Herzegovina-Neretva</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kanton Herzegowina-Neretva</skos:altLabel>
+	<skos:altLabel>Neretvanski Kanton</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Херцеговачко-неретвански кантон</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Херцеговско-Неретвански кантон</skos:altLabel>
+	<skos:altLabel xml:lang="zh">黑塞哥維那-涅雷特瓦州</skos:altLabel>
+	<skos:prefLabel>Hercegovačko-Neretvanski Kanton</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343736/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3229999/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.40028</wgs:lat>
+	<wgs:long>17.42389</wgs:long>
+	<skos:altLabel>Kanton 8</skos:altLabel>
+	<skos:altLabel xml:lang="id">Kanton Herzegovina Barat</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kanton West-Herzegowina</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kanton Zachodnia Hercegowina</skos:altLabel>
+	<skos:altLabel>West Herzegovina Canton</skos:altLabel>
+	<skos:altLabel xml:lang="en">West Herzegovina Canton</skos:altLabel>
+	<skos:altLabel xml:lang="nl">West-Herzegovina</skos:altLabel>
+	<skos:altLabel>Western Hercegovina Canton</skos:altLabel>
+	<skos:altLabel>Zapadna Hercegovina Canton</skos:altLabel>
+	<skos:altLabel>Zapadno-Hercegovački Kanton</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Zapadnohercegovačka županija</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Zapadnohercegovački kanton</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Zapadnohercegovački kanton</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Západohercegovský kanton</skos:altLabel>
+	<skos:altLabel>Županija Zapadno-Hercegovačka</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Западнохерцеговачки кантон</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Западнохерцеговски кантон</skos:altLabel>
+	<skos:altLabel xml:lang="zh">西黑塞哥維納州</skos:altLabel>
+	<skos:prefLabel>Zapadno-Hercegovački Kanton</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343737/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3229999/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.84333</wgs:lat>
+	<wgs:long>18.24222</wgs:long>
+	<skos:altLabel>Kanton 9</skos:altLabel>
+	<skos:altLabel xml:lang="id">Kanton Sarajevo</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kanton Sarajevo</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Kanton Sarajevo</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Kanton Sarajevo</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Kanton Sarajevo</skos:altLabel>
+	<skos:altLabel>Kanton Sarajevo</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kanton Sarajewo</skos:altLabel>
+	<skos:altLabel>Sarajevo Canton</skos:altLabel>
+	<skos:altLabel xml:lang="en">Sarajevo Canton</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Sarajevo kanton</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Sarajevo kanton</skos:altLabel>
+	<skos:altLabel>Sarajevski Kanton</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Кантон Сарајево</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Сараевски кантон</skos:altLabel>
+	<skos:prefLabel>Kanton Sarajevo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343740/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3229999/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.97861</wgs:lat>
+	<wgs:long>16.85639</wgs:long>
+	<skos:altLabel>Hercegbosanska Županija</skos:altLabel>
+	<skos:altLabel>Hercegbosanski Kanton</skos:altLabel>
+	<skos:altLabel>Hercegovačko-Bosanski Kanton</skos:altLabel>
+	<skos:altLabel>Herzeg-Bosnia Canton</skos:altLabel>
+	<skos:altLabel>Kanton 10</skos:altLabel>
+	<skos:altLabel>Livanjski Kanton</skos:altLabel>
+	<skos:altLabel>Livno Canton</skos:altLabel>
+	<skos:altLabel>Western Bosnia Canton</skos:altLabel>
+	<skos:altLabel>Zapadna Bosna Canton</skos:altLabel>
+	<skos:altLabel>Zapadnobosanski Kanton</skos:altLabel>
+	<skos:prefLabel>Hercegovačko-Bosanski Kanton</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344072/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.34111</wgs:lat>
+	<wgs:long>17.31444</wgs:long>
+	<skos:altLabel>Jajce</skos:altLabel>
+	<skos:altLabel>Općina Jajce</skos:altLabel>
+	<skos:prefLabel>Općina Jajce</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344073/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.28361</wgs:lat>
+	<wgs:long>17.64333</wgs:long>
+	<skos:altLabel>Općina Travnik</skos:altLabel>
+	<skos:altLabel>Travnik</skos:altLabel>
+	<skos:prefLabel>Općina Travnik</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344074/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>43.92889</wgs:lat>
+	<wgs:long>18.05778</wgs:long>
+	<skos:altLabel>Kiseljak</skos:altLabel>
+	<skos:altLabel>Općina Kiseljak</skos:altLabel>
+	<skos:prefLabel>Općina Kiseljak</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344075/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>42.94972</wgs:lat>
+	<wgs:long>17.73472</wgs:long>
+	<skos:altLabel>Neum</skos:altLabel>
+	<skos:altLabel>Općina Neum</skos:altLabel>
+	<skos:prefLabel>Općina Neum</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344076/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>42.78083</wgs:lat>
+	<wgs:long>18.0175</wgs:long>
+	<skos:altLabel>Općina Ravno</skos:altLabel>
+	<skos:altLabel>Ravno</skos:altLabel>
+	<skos:prefLabel>Općina Ravno</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344077/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>43.85806</wgs:lat>
+	<wgs:long>18.32</wgs:long>
+	<skos:altLabel>Novi Grad</skos:altLabel>
+	<skos:altLabel>Novi Grad Sarajevo</skos:altLabel>
+	<skos:altLabel>Općina Novi Grad Sarajevo</skos:altLabel>
+	<skos:altLabel>Sarajevo-Novi Grad</skos:altLabel>
+	<skos:prefLabel>Općina Novi Grad Sarajevo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344078/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>43.88778</wgs:lat>
+	<wgs:long>18.45083</wgs:long>
+	<skos:altLabel>Općina Stari Grad Sarajevo</skos:altLabel>
+	<skos:altLabel>Stari Grad Sarajevo</skos:altLabel>
+	<skos:prefLabel>Općina Stari Grad Sarajevo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344079/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.35861</wgs:lat>
+	<wgs:long>16.4075</wgs:long>
+	<skos:altLabel>Drvar</skos:altLabel>
+	<skos:altLabel>Općina Drvar</skos:altLabel>
+	<skos:prefLabel>Općina Drvar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344080/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>43.34583</wgs:lat>
+	<wgs:long>17.78972</wgs:long>
+	<skos:altLabel>Centralna Zona Grada Mostara</skos:altLabel>
+	<skos:altLabel>Mostar Central Zone</skos:altLabel>
+	<skos:altLabel>Mostar Centralni Distrikt</skos:altLabel>
+	<skos:altLabel>Mostar City Council</skos:altLabel>
+	<skos:prefLabel>Mostar Centralni Distrikt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344081/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>43.42694</wgs:lat>
+	<wgs:long>17.7525</wgs:long>
+	<skos:altLabel>Mostar West</skos:altLabel>
+	<skos:altLabel>Mostar Zapad</skos:altLabel>
+	<skos:altLabel>Općina Mostar Zapad</skos:altLabel>
+	<skos:prefLabel>Općina Mostar Zapad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344082/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>43.48194</wgs:lat>
+	<wgs:long>17.88</wgs:long>
+	<skos:altLabel>Mostar North</skos:altLabel>
+	<skos:altLabel>Mostar Sjever</skos:altLabel>
+	<skos:altLabel>Općina Mostar Sjever</skos:altLabel>
+	<skos:prefLabel>Općina Mostar Sjever</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344083/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>43.24778</wgs:lat>
+	<wgs:long>17.78556</wgs:long>
+	<skos:altLabel>Mostar Jug</skos:altLabel>
+	<skos:altLabel>Mostar South</skos:altLabel>
+	<skos:altLabel>Općina Mostar Jug</skos:altLabel>
+	<skos:prefLabel>Općina Mostar Jug</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344084/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>43.35444</wgs:lat>
+	<wgs:long>17.74194</wgs:long>
+	<skos:altLabel>Mostar Jugozapad</skos:altLabel>
+	<skos:altLabel>Mostar South-West</skos:altLabel>
+	<skos:altLabel>Općina Mostar Jugozapad</skos:altLabel>
+	<skos:prefLabel>Općina Mostar Jugozapad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344085/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>43.30194</wgs:lat>
+	<wgs:long>17.915</wgs:long>
+	<skos:altLabel>Mostar Jugoistok</skos:altLabel>
+	<skos:altLabel>Mostar South-East</skos:altLabel>
+	<skos:altLabel>Općina Mostar Jugoistok</skos:altLabel>
+	<skos:prefLabel>Općina Mostar Jugoistok</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344086/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>43.34611</wgs:lat>
+	<wgs:long>17.80389</wgs:long>
+	<skos:altLabel>Mostar</skos:altLabel>
+	<skos:altLabel>Mostar Old Town</skos:altLabel>
+	<skos:altLabel>Općina Mostar Stari Grad</skos:altLabel>
+	<skos:prefLabel>Općina Mostar Stari Grad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344087/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.92972</wgs:lat>
+	<wgs:long>16.27528</wgs:long>
+	<skos:altLabel>Bosanska Krupa</skos:altLabel>
+	<skos:altLabel>Krupa</skos:altLabel>
+	<skos:altLabel>Krupa na Uni</skos:altLabel>
+	<skos:altLabel>Općina Bosanska Krupa</skos:altLabel>
+	<skos:altLabel>Opština Krupa na Uni</skos:altLabel>
+	<skos:prefLabel>Općina Bosanska Krupa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344088/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>45.12472</wgs:lat>
+	<wgs:long>16.82444</wgs:long>
+	<skos:altLabel>Bosanska Dubica</skos:altLabel>
+	<skos:altLabel>Kozarska Dubica</skos:altLabel>
+	<skos:altLabel>Općina Bosanska Dubica</skos:altLabel>
+	<skos:altLabel>Opština Kozarska Dubica</skos:altLabel>
+	<skos:prefLabel>Općina Bosanska Dubica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344089/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.73278</wgs:lat>
+	<wgs:long>16.82861</wgs:long>
+	<skos:altLabel>Općina Sanski Most</skos:altLabel>
+	<skos:altLabel>Opština Srpski Sanski Most</skos:altLabel>
+	<skos:altLabel>Sanski Most</skos:altLabel>
+	<skos:altLabel>Srpski Sanski Most</skos:altLabel>
+	<skos:prefLabel>Općina Sanski Most</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344090/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>45.00861</wgs:lat>
+	<wgs:long>18.24306</wgs:long>
+	<skos:altLabel>Odžak</skos:altLabel>
+	<skos:altLabel>Općina Odžak</skos:altLabel>
+	<skos:altLabel>Opština Vukosavlje</skos:altLabel>
+	<skos:altLabel>Vukosavlje</skos:altLabel>
+	<skos:prefLabel>Općina Odžak</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344091/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.94556</wgs:lat>
+	<wgs:long>18.64639</wgs:long>
+	<skos:altLabel>Općina Orašje</skos:altLabel>
+	<skos:altLabel>Opština Srpsko Orašje</skos:altLabel>
+	<skos:altLabel>Orašje</skos:altLabel>
+	<skos:altLabel>Srpsko Orašje</skos:altLabel>
+	<skos:prefLabel>Općina Orašje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344092/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.87889</wgs:lat>
+	<wgs:long>18.53806</wgs:long>
+	<skos:altLabel>Gradačac</skos:altLabel>
+	<skos:altLabel>Općina Gradačac</skos:altLabel>
+	<skos:altLabel>Opština Pelagićevo</skos:altLabel>
+	<skos:altLabel>Pelagićevo</skos:altLabel>
+	<skos:prefLabel>Općina Gradačac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344093/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.46694</wgs:lat>
+	<wgs:long>17.38944</wgs:long>
+	<skos:altLabel>Kneževo</skos:altLabel>
+	<skos:altLabel>Općina Skender Vakuf</skos:altLabel>
+	<skos:altLabel>Opština Kneževo</skos:altLabel>
+	<skos:altLabel>Skender Vakuf</skos:altLabel>
+	<skos:prefLabel>Općina Skender Vakuf</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344094/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.41694</wgs:lat>
+	<wgs:long>17.03722</wgs:long>
+	<skos:altLabel>Mrkonjić-Grad</skos:altLabel>
+	<skos:altLabel>Opština Mrkonjić-Grad</skos:altLabel>
+	<skos:prefLabel>Opština Mrkonjić-Grad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344095/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.2125</wgs:lat>
+	<wgs:long>17.12778</wgs:long>
+	<skos:altLabel>Opština Šipovo</skos:altLabel>
+	<skos:altLabel>Šipovo</skos:altLabel>
+	<skos:prefLabel>Opština Šipovo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344096/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.48361</wgs:lat>
+	<wgs:long>16.56444</wgs:long>
+	<skos:altLabel>Bosanski Petrovac</skos:altLabel>
+	<skos:altLabel>Općina Bosanski Petrovac</skos:altLabel>
+	<skos:altLabel>Opština Petrovac</skos:altLabel>
+	<skos:altLabel>Petrovac</skos:altLabel>
+	<skos:prefLabel>Općina Bosanski Petrovac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344097/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.4075</wgs:lat>
+	<wgs:long>16.62944</wgs:long>
+	<skos:altLabel>Drvar</skos:altLabel>
+	<skos:altLabel>Općina Drvar</skos:altLabel>
+	<skos:altLabel>Opština Srpski Drvar</skos:altLabel>
+	<skos:altLabel>Srpski Drvar</skos:altLabel>
+	<skos:prefLabel>Općina Drvar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344098/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.44917</wgs:lat>
+	<wgs:long>16.81361</wgs:long>
+	<skos:altLabel>Ključ</skos:altLabel>
+	<skos:altLabel>Općina Ključ</skos:altLabel>
+	<skos:altLabel>Opština Ribnik</skos:altLabel>
+	<skos:altLabel>Ribnik</skos:altLabel>
+	<skos:prefLabel>Općina Ključ</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344099/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.23056</wgs:lat>
+	<wgs:long>16.88556</wgs:long>
+	<skos:altLabel>Mrkonjić Grad Jug</skos:altLabel>
+	<skos:prefLabel>Mrkonjic Grad Jug Opcina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344100/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.41028</wgs:lat>
+	<wgs:long>19.04139</wgs:long>
+	<skos:altLabel>Opština Zvornik</skos:altLabel>
+	<skos:altLabel>Zvornik</skos:altLabel>
+	<skos:prefLabel>Opština Zvornik</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344101/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.3925</wgs:lat>
+	<wgs:long>18.93306</wgs:long>
+	<skos:altLabel>Kalesija</skos:altLabel>
+	<skos:altLabel>Općina Kalesija</skos:altLabel>
+	<skos:altLabel>Opština Osmaci</skos:altLabel>
+	<skos:altLabel>Osmaci</skos:altLabel>
+	<skos:prefLabel>Općina Kalesija</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344102/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.295</wgs:lat>
+	<wgs:long>18.835</wgs:long>
+	<skos:altLabel>Opština Šekovići</skos:altLabel>
+	<skos:altLabel>Šekovići</skos:altLabel>
+	<skos:prefLabel>Opština Šekovići</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344103/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.19028</wgs:lat>
+	<wgs:long>19.315</wgs:long>
+	<skos:altLabel>Bratunac</skos:altLabel>
+	<skos:altLabel>Opština Bratunac</skos:altLabel>
+	<skos:prefLabel>Opština Bratunac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344104/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.96306</wgs:lat>
+	<wgs:long>18.77667</wgs:long>
+	<skos:altLabel>Opština Sokolac</skos:altLabel>
+	<skos:altLabel>Sokolac</skos:altLabel>
+	<skos:prefLabel>Opština Sokolac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344105/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.66222</wgs:lat>
+	<wgs:long>19.02528</wgs:long>
+	<skos:altLabel>Goražde</skos:altLabel>
+	<skos:altLabel>Općina Goražde</skos:altLabel>
+	<skos:altLabel>Opština Srpsko Goražde</skos:altLabel>
+	<skos:altLabel>Srpsko Goražde</skos:altLabel>
+	<skos:prefLabel>Općina Goražde</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344106/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.85722</wgs:lat>
+	<wgs:long>18.48833</wgs:long>
+	<skos:altLabel>Općina Stari Grad</skos:altLabel>
+	<skos:altLabel>Opština Srpski Stari Grad</skos:altLabel>
+	<skos:altLabel>Sarajevo-Stari Grad</skos:altLabel>
+	<skos:altLabel>Srpski Stari Grad</skos:altLabel>
+	<skos:altLabel>Srpski Stari Grad Sarajevo</skos:altLabel>
+	<skos:altLabel>Srpsko Sarajevo</skos:altLabel>
+	<skos:altLabel>Stari Grad</skos:altLabel>
+	<skos:prefLabel>Općina Stari Grad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344107/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.80472</wgs:lat>
+	<wgs:long>18.405</wgs:long>
+	<skos:altLabel>Novo Sarajevo</skos:altLabel>
+	<skos:altLabel>Općina Novo Sarajevo</skos:altLabel>
+	<skos:altLabel>Opština Srpsko Novo Sarajevo</skos:altLabel>
+	<skos:altLabel>Srpsko Novo Sarajevo</skos:altLabel>
+	<skos:prefLabel>Općina Novo Sarajevo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344108/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.78583</wgs:lat>
+	<wgs:long>18.36222</wgs:long>
+	<skos:altLabel>Ilidža</skos:altLabel>
+	<skos:altLabel>Općina Ilidža</skos:altLabel>
+	<skos:altLabel>Opština Srpska Ilidža</skos:altLabel>
+	<skos:altLabel>Srpska Ilidža</skos:altLabel>
+	<skos:prefLabel>Općina Ilidža</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344109/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.74056</wgs:lat>
+	<wgs:long>18.42639</wgs:long>
+	<skos:altLabel>Opština Trnovo</skos:altLabel>
+	<skos:altLabel>Trnovo</skos:altLabel>
+	<skos:prefLabel>Opština Trnovo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344110/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.11972</wgs:lat>
+	<wgs:long>18.0625</wgs:long>
+	<skos:altLabel>Berkovići</skos:altLabel>
+	<skos:altLabel>Općina Stolac</skos:altLabel>
+	<skos:altLabel>Opština Berkovići</skos:altLabel>
+	<skos:altLabel>Stolac</skos:altLabel>
+	<skos:prefLabel>Općina Stolac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344111/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.42056</wgs:lat>
+	<wgs:long>18.00833</wgs:long>
+	<skos:altLabel>Mostar</skos:altLabel>
+	<skos:altLabel>Općina Mostar</skos:altLabel>
+	<skos:altLabel>Opština Srpski Mostar</skos:altLabel>
+	<skos:altLabel>Srpski Mostar</skos:altLabel>
+	<skos:prefLabel>Općina Mostar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344112/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.31694</wgs:lat>
+	<wgs:long>17.17417</wgs:long>
+	<skos:altLabel>Jajce</skos:altLabel>
+	<skos:altLabel>Jezero</skos:altLabel>
+	<skos:altLabel>Općina Jajce</skos:altLabel>
+	<skos:altLabel>Opština Jezero</skos:altLabel>
+	<skos:prefLabel>Općina Jajce</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344113/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.08028</wgs:lat>
+	<wgs:long>17.1575</wgs:long>
+	<skos:altLabel>Kupres</skos:altLabel>
+	<skos:altLabel>Općina Kupres</skos:altLabel>
+	<skos:altLabel>Opština Srpski Kupres</skos:altLabel>
+	<skos:altLabel>Srpski Kupres</skos:altLabel>
+	<skos:prefLabel>Općina Kupres</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344114/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>45.1825</wgs:lat>
+	<wgs:long>16.57389</wgs:long>
+	<skos:altLabel>Kostajnica</skos:altLabel>
+	<skos:altLabel>Općina Bosanska Kostajnica</skos:altLabel>
+	<skos:altLabel>Opština Kostajnica</skos:altLabel>
+	<skos:altLabel>Opština Srpska Kostajnica</skos:altLabel>
+	<skos:prefLabel>Opština Kostajnica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344115/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.63167</wgs:lat>
+	<wgs:long>18.28417</wgs:long>
+	<skos:altLabel>Gračanica</skos:altLabel>
+	<skos:altLabel>Općina Gračanica</skos:altLabel>
+	<skos:altLabel>Opština Petrovo</skos:altLabel>
+	<skos:altLabel>Petrovo</skos:altLabel>
+	<skos:prefLabel>Općina Gračanica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344116/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.46333</wgs:lat>
+	<wgs:long>17.92583</wgs:long>
+	<skos:altLabel>Teslić Jugoistok</skos:altLabel>
+	<skos:prefLabel>Teslic Jugoistok Opcina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344117/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.73417</wgs:lat>
+	<wgs:long>18.31222</wgs:long>
+	<skos:altLabel>Opština Trebinje</skos:altLabel>
+	<skos:altLabel>Trebinje</skos:altLabel>
+	<skos:prefLabel>Opština Trebinje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344118/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.14389</wgs:lat>
+	<wgs:long>19.0825</wgs:long>
+	<skos:altLabel>Milići</skos:altLabel>
+	<skos:altLabel>Opština Milići</skos:altLabel>
+	<skos:prefLabel>Opština Milići</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344119/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3230000/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.99333</wgs:lat>
+	<wgs:long>19.47417</wgs:long>
+	<skos:prefLabel>Skelani Opština</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344120/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>43.6775</wgs:lat>
+	<wgs:long>18.35083</wgs:long>
+	<skos:altLabel>Općina Trnovo</skos:altLabel>
+	<skos:altLabel>Trnovo</skos:altLabel>
+	<skos:prefLabel>Općina Trnovo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344121/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.55361</wgs:lat>
+	<wgs:long>18.65861</wgs:long>
+	<skos:altLabel>Općina Tuzla</skos:altLabel>
+	<skos:altLabel>Tuzla</skos:altLabel>
+	<skos:prefLabel>Općina Tuzla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3344154/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>43.69611</wgs:lat>
+	<wgs:long>17.7325</wgs:long>
+	<skos:prefLabel>Gradac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6692550/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.LIBR"/>
+	<wgs:lat>43.85916</wgs:lat>
+	<wgs:long>18.4333</wgs:long>
+	<skos:prefLabel>Vječnica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6698001/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>44.9051</wgs:lat>
+	<wgs:long>17.93649</wgs:long>
+	<skos:prefLabel>Spomenik</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648080/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3343726/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>43.58268</wgs:lat>
+	<wgs:long>18.79777</wgs:long>
+	<skos:prefLabel>Foca-Ustikolina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648081/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3343726/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>43.76187</wgs:lat>
+	<wgs:long>18.76613</wgs:long>
+	<skos:prefLabel>Pale-Prača</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648082/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>43.71171</wgs:lat>
+	<wgs:long>19.08478</wgs:long>
+	<skos:prefLabel>Novo Goražde</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648083/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>45.00196</wgs:lat>
+	<wgs:long>18.21528</wgs:long>
+	<skos:prefLabel>Vukosavlje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648084/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.83252</wgs:lat>
+	<wgs:long>16.78658</wgs:long>
+	<skos:prefLabel>Oštra Luka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648085/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.92767</wgs:lat>
+	<wgs:long>16.37308</wgs:long>
+	<skos:prefLabel>Krupa na Uni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648659/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3229999/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3277605/"/>
+	<europeana:country>BA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.44</wgs:lat>
+	<wgs:long>17.85</wgs:long>
+	<skos:prefLabel>Neretvljanski</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 230 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

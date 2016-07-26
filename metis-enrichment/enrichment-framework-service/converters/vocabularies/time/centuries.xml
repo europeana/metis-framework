@@ -1,0 +1,52 @@
+<!-- Full Century templates  -->
+<list>
+<eu.annocultor.converters.time.LabelTemplate>
+    <lang>en</lang>
+    <pattern_1>%dst century</pattern_1>
+    <pattern_2>%dnd century</pattern_2>
+    <pattern_3>%drd century</pattern_3>
+    <pattern_N>%dth century</pattern_N>
+</eu.annocultor.converters.time.LabelTemplate>
+<eu.annocultor.converters.time.LabelTemplate>
+    <lang>en</lang>
+    <pattern_1>%dst</pattern_1>
+    <pattern_2>%dnd</pattern_2>
+    <pattern_3>%drd</pattern_3>
+    <pattern_N>%dth</pattern_N>
+</eu.annocultor.converters.time.LabelTemplate>
+<eu.annocultor.converters.time.LabelTemplate>
+    <lang>en</lang>
+    <pattern_1>%d-st</pattern_1>
+    <pattern_2>%d-nd</pattern_2>
+    <pattern_3>%d-rd</pattern_3>
+    <pattern_N>%d-th</pattern_N>
+</eu.annocultor.converters.time.LabelTemplate>
+<eu.annocultor.converters.time.LabelTemplate>
+    <lang></lang>
+    <pattern_1>%de</pattern_1>
+    <pattern_2>%de</pattern_2>
+    <pattern_3>%de</pattern_3>
+    <pattern_N>%de</pattern_N>
+</eu.annocultor.converters.time.LabelTemplate>
+<eu.annocultor.converters.time.LabelTemplate>
+    <lang>fr</lang>
+    <pattern_1>%der siècle</pattern_1>
+    <pattern_2>%de siècle</pattern_2>
+    <pattern_3>%de siècle</pattern_3>
+    <pattern_N>%de siècle</pattern_N>
+</eu.annocultor.converters.time.LabelTemplate>
+<eu.annocultor.converters.time.LabelTemplate>
+    <lang>nl</lang>
+    <pattern_1>%dste eeuw</pattern_1>
+    <pattern_2>%dde eeuw</pattern_2>
+    <pattern_3>%dde eeuw</pattern_3>
+    <pattern_N>%dde eeuw</pattern_N>
+</eu.annocultor.converters.time.LabelTemplate>
+<eu.annocultor.converters.time.LabelTemplate>
+    <lang>ru</lang>
+    <pattern_1>%dй век</pattern_1>
+    <pattern_2>%dй век</pattern_2>
+    <pattern_3>%dй век</pattern_3>
+    <pattern_N>%dй век</pattern_N>
+</eu.annocultor.converters.time.LabelTemplate>
+</list>

@@ -1,0 +1,575 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AF_DJ
+Description: Selected fields pulled from Geonames about DJ done on Mon May 23 21:16:11 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/220726/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/223816/"/>
+	<europeana:country>DJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.45806</wgs:lat>
+	<wgs:long>43.41194</wgs:long>
+	<skos:altLabel>Low Islet</skos:altLabel>
+	<skos:altLabel>Tolka</skos:altLabel>
+	<skos:altLabel>Île Basse</skos:altLabel>
+	<skos:prefLabel>Tolka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/220781/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/223816/"/>
+	<europeana:country>DJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>33133</europeana:population>
+	<wgs:lat>12</wgs:lat>
+	<wgs:long>42.5</wgs:long>
+	<skos:altLabel>Cercle de Tadjoura</skos:altLabel>
+	<skos:altLabel>Circle of Tadjoura</skos:altLabel>
+	<skos:altLabel>Région de Tadjourah</skos:altLabel>
+	<skos:altLabel>Tadjourah</skos:altLabel>
+	<skos:altLabel>Tadjūrā</skos:altLabel>
+	<skos:prefLabel>Région de Tadjourah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/220782/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/223816/"/>
+	<europeana:country>DJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>22193</europeana:population>
+	<wgs:lat>11.78528</wgs:lat>
+	<wgs:long>42.88444</wgs:long>
+	<skos:altLabel xml:lang="fi">Tadjoura</skos:altLabel>
+	<skos:altLabel xml:lang="es">Tadjoura</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tadjoura</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Tadjoura</skos:altLabel>
+	<skos:altLabel>Tadjoura</skos:altLabel>
+	<skos:altLabel>Tadjura</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Tadżura</skos:altLabel>
+	<skos:altLabel>Tagiura</skos:altLabel>
+	<skos:altLabel>Tajura</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Таджура</skos:altLabel>
+	<skos:prefLabel>Tadjoura</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/220936/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/223816/"/>
+	<europeana:country>DJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>12.46056</wgs:lat>
+	<wgs:long>43.42417</wgs:long>
+	<skos:altLabel>Djeziret Seba</skos:altLabel>
+	<skos:altLabel>Djeziret Sowabih</skos:altLabel>
+	<skos:altLabel>Jazā’ir Seba</skos:altLabel>
+	<skos:altLabel>Jezirat Seba</skos:altLabel>
+	<skos:altLabel>Les Freres</skos:altLabel>
+	<skos:altLabel>Les Sept Frères</skos:altLabel>
+	<skos:altLabel>Saouabiâ</skos:altLabel>
+	<skos:altLabel>Sawâbi‘</skos:altLabel>
+	<skos:altLabel>Soivabih Island</skos:altLabel>
+	<skos:altLabel>The Brothers</skos:altLabel>
+	<skos:altLabel>Île Somabih</skos:altLabel>
+	<skos:altLabel>Îles Seba</skos:altLabel>
+	<skos:prefLabel>Sawâbi‘</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/221173/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/223816/"/>
+	<europeana:country>DJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLT"/>
+	<wgs:lat>11.62028</wgs:lat>
+	<wgs:long>43.15111</wgs:long>
+	<skos:altLabel>Heron Plateau</skos:altLabel>
+	<skos:altLabel>Plateau du Héron</skos:altLabel>
+	<skos:altLabel>Îlot du Héron</skos:altLabel>
+	<skos:prefLabel>Îlot du Héron</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/221264/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/223816/"/>
+	<europeana:country>DJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.44361</wgs:lat>
+	<wgs:long>43.45194</wgs:long>
+	<skos:altLabel>Rhounda Komaytou</skos:altLabel>
+	<skos:altLabel>Île du Sud</skos:altLabel>
+	<skos:altLabel>‘Ounḏa Kômaytou</skos:altLabel>
+	<skos:prefLabel>‘Ounḏa Kômaytou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/221321/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/223816/"/>
+	<europeana:country>DJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.46278</wgs:lat>
+	<wgs:long>43.38611</wgs:long>
+	<skos:altLabel>Rhounda Dâbali</skos:altLabel>
+	<skos:altLabel>Île Double</skos:altLabel>
+	<skos:altLabel>‘Ounḏa Dâbali</skos:altLabel>
+	<skos:prefLabel>‘Ounḏa Dâbali</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/221525/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/223816/"/>
+	<europeana:country>DJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>26537</europeana:population>
+	<wgs:lat>12.25</wgs:lat>
+	<wgs:long>43.08333</wgs:long>
+	<skos:altLabel>Cercle d’ Obock</skos:altLabel>
+	<skos:altLabel>Obock</skos:altLabel>
+	<skos:altLabel>Région d’ Obock</skos:altLabel>
+	<skos:prefLabel>Région d’ Obock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/221527/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/223816/"/>
+	<europeana:country>DJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>17776</europeana:population>
+	<wgs:lat>11.96306</wgs:lat>
+	<wgs:long>43.29056</wgs:long>
+	<skos:altLabel>Hayyou</skos:altLabel>
+	<skos:altLabel xml:lang="es">Obock</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Obock</skos:altLabel>
+	<skos:altLabel xml:lang="en">Obock</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Obock</skos:altLabel>
+	<skos:altLabel>Obock</skos:altLabel>
+	<skos:altLabel>Obok</skos:altLabel>
+	<skos:prefLabel>Obock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/221636/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/223816/"/>
+	<europeana:country>DJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>11.71639</wgs:lat>
+	<wgs:long>43.20611</wgs:long>
+	<skos:altLabel>Iles Musha</skos:altLabel>
+	<skos:altLabel>Isole Muscia</skos:altLabel>
+	<skos:altLabel>Moucha Islands</skos:altLabel>
+	<skos:altLabel>Îles Moucha</skos:altLabel>
+	<skos:prefLabel>Îles Moucha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/221637/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/223816/"/>
+	<europeana:country>DJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.71944</wgs:lat>
+	<wgs:long>43.20944</wgs:long>
+	<skos:altLabel>Moucha</skos:altLabel>
+	<skos:altLabel>Île Moucha</skos:altLabel>
+	<skos:prefLabel>Île Moucha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/221737/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/223816/"/>
+	<europeana:country>DJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.71472</wgs:lat>
+	<wgs:long>43.15833</wgs:long>
+	<skos:altLabel>Isola Mascali</skos:altLabel>
+	<skos:altLabel>Maskali</skos:altLabel>
+	<skos:altLabel>Maskali Island</skos:altLabel>
+	<skos:altLabel>Île Maskali</skos:altLabel>
+	<skos:prefLabel>Île Maskali</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/221980/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/223816/"/>
+	<europeana:country>DJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.7</wgs:lat>
+	<wgs:long>43.21667</wgs:long>
+	<skos:prefLabel>Île du Large</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/222360/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/223816/"/>
+	<europeana:country>DJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.46944</wgs:lat>
+	<wgs:long>43.42972</wgs:long>
+	<skos:altLabel>Kaḏḏa Dâbali</skos:altLabel>
+	<skos:altLabel>Île Grande</skos:altLabel>
+	<skos:prefLabel>Kaḏḏa Dâbali</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/222588/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/223816/"/>
+	<europeana:country>DJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.45139</wgs:lat>
+	<wgs:long>43.44028</wgs:long>
+	<skos:altLabel>Horod le Rhale</skos:altLabel>
+	<skos:altLabel>H̱orod le ‘Ale</skos:altLabel>
+	<skos:altLabel>Île de l ‘Est</skos:altLabel>
+	<skos:prefLabel>H̱orod le ‘Ale</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/222808/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/223816/"/>
+	<europeana:country>DJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.45889</wgs:lat>
+	<wgs:long>43.36556</wgs:long>
+	<skos:altLabel>H̱amra</skos:altLabel>
+	<skos:altLabel>Île de l’ Ouest</skos:altLabel>
+	<skos:prefLabel>H̱amra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/223738/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/223816/"/>
+	<europeana:country>DJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.71556</wgs:lat>
+	<wgs:long>43.14694</wgs:long>
+	<skos:altLabel>Doumeira Island</skos:altLabel>
+	<skos:altLabel>Doumêra</skos:altLabel>
+	<skos:altLabel>Dumēra Desēt</skos:altLabel>
+	<skos:altLabel>Isola Dumeira</skos:altLabel>
+	<skos:altLabel>Île Doumeïra</skos:altLabel>
+	<skos:altLabel>Île Dumeira</skos:altLabel>
+	<skos:prefLabel>Dumēra Desēt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/223816/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/223816/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255146/"/>
+	<europeana:country>DJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>740528</europeana:population>
+	<wgs:lat>11.5</wgs:lat>
+	<wgs:long>42.5</wgs:long>
+	<skos:altLabel>Afars and Issas</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Cibuti</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Cibutän</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Cîbûtî</skos:altLabel>
+	<skos:altLabel>Côte Française des Somalis</skos:altLabel>
+	<skos:altLabel>DJ</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Diobúití</skos:altLabel>
+	<skos:altLabel xml:lang="af">Djiboeti</skos:altLabel>
+	<skos:altLabel xml:lang="li">Djiboeti</skos:altLabel>
+	<skos:altLabel xml:lang="id">Djibouti</skos:altLabel>
+	<skos:altLabel xml:lang="da">Djibouti</skos:altLabel>
+	<skos:altLabel xml:lang="et">Djibouti</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Djibouti</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Djibouti</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Djibouti</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Djibouti</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Djibouti</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Djibouti</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Djibouti</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Djibouti</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Djibouti</skos:altLabel>
+	<skos:altLabel xml:lang="en">Djibouti</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Djibouti</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Djibouti</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Djibouti</skos:altLabel>
+	<skos:altLabel xml:lang="io">Djibouti</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Djibouti</skos:altLabel>
+	<skos:altLabel xml:lang="na">Djibouti</skos:altLabel>
+	<skos:altLabel xml:lang="no">Djibouti</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Djibouti</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Djibouti</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Djibouti</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Djibouti</skos:altLabel>
+	<skos:altLabel xml:lang="se">Djibouti</skos:altLabel>
+	<skos:altLabel xml:lang="es">Djibuti</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Djibuti</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Djibuti</skos:altLabel>
+	<skos:altLabel xml:lang="ln">Djibuti</skos:altLabel>
+	<skos:altLabel xml:lang="is">Djíbútí</skos:altLabel>
+	<skos:altLabel xml:lang="de">Dschibuti</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Dschibuti</skos:altLabel>
+	<skos:altLabel xml:lang="la">Dzibutum</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Dzsibuti</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Dżibuti</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Džibuti</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Džibuti</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Džibuti</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Džibuti</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Džibuti</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Džibuti</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Džibuti</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Džibutija</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Džibutis</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Džibutsko</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Džibutsko</skos:altLabel>
+	<skos:altLabel>French Somali Coast</skos:altLabel>
+	<skos:altLabel>French Territory of Afars and Issas</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Gi-bu-ti</skos:altLabel>
+	<skos:altLabel xml:lang="it">Gibuti</skos:altLabel>
+	<skos:altLabel xml:lang="so">Jabuuti</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Jiboti</skos:altLabel>
+	<skos:altLabel xml:lang="id">Jibouti</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Jibouti</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Jibouti</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Jibuti</skos:altLabel>
+	<skos:altLabel xml:lang="en">Republic of Djibouti</skos:altLabel>
+	<skos:altLabel xml:lang="fr">République de Djibouti</skos:altLabel>
+	<skos:altLabel>Somalie Française</skos:altLabel>
+	<skos:altLabel>Territoire Français des Afars et des Issas</skos:altLabel>
+	<skos:altLabel>Territoire de la Côte Française des Somalis</skos:altLabel>
+	<skos:altLabel>Territory of French Somaliland</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Xhibuti</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Xibutí - Djibouti</skos:altLabel>
+	<skos:altLabel xml:lang="aa">Yabuuti</skos:altLabel>
+	<skos:altLabel xml:lang="es">Yibuti</skos:altLabel>
+	<skos:altLabel xml:lang="an">Yibuti</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Ĝibutio</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Ġibuti</skos:altLabel>
+	<skos:altLabel xml:lang="el">Τζιμπουτί</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Џибути</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Џибути</skos:altLabel>
+	<skos:altLabel xml:lang="os">Джибути</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Джибути</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Джибути</skos:altLabel>
+	<skos:altLabel xml:lang="be">Джыбуці</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Джібуті</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Ҷибути</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Ջիբուտի</skos:altLabel>
+	<skos:altLabel xml:lang="he">ג'יבוטי</skos:altLabel>
+	<skos:altLabel xml:lang="he">ג׳יבוטי</skos:altLabel>
+	<skos:altLabel xml:lang="ug">جىبۇتى</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جيبوتي</skos:altLabel>
+	<skos:altLabel xml:lang="fa">جیبوتی</skos:altLabel>
+	<skos:altLabel xml:lang="ps">جېبوتي</skos:altLabel>
+	<skos:altLabel xml:lang="hi">जिबूती</skos:altLabel>
+	<skos:altLabel xml:lang="bn">জিবুতি</skos:altLabel>
+	<skos:altLabel xml:lang="ta">ஜிபௌடி</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ജിബൂട്ടി</skos:altLabel>
+	<skos:altLabel xml:lang="th">จิบูตี</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศจิบูตี</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ຄິໂບຕິ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཛི་བུ་ཏི།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ჯიბუტი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ጂቡቲ</skos:altLabel>
+	<skos:altLabel xml:lang="am">ጅቡቲ</skos:altLabel>
+	<skos:altLabel xml:lang="km">ហ្ស៉ីបូទី</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ジブチ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">吉布提</skos:altLabel>
+	<skos:altLabel xml:lang="ko">지부티</skos:altLabel>
+	<skos:prefLabel>Republic of Djibouti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/223817/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/223816/"/>
+	<europeana:country>DJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>623891</europeana:population>
+	<wgs:lat>11.58767</wgs:lat>
+	<wgs:long>43.14468</wgs:long>
+	<skos:altLabel xml:lang="tr">Cibuti</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Djibouti</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Djibouti</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Djibouti</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Djibouti</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Djibouti</skos:altLabel>
+	<skos:altLabel xml:lang="en">Djibouti</skos:altLabel>
+	<skos:altLabel xml:lang="no">Djibouti</skos:altLabel>
+	<skos:altLabel xml:lang="da">Djibouti</skos:altLabel>
+	<skos:altLabel>Djibuti</skos:altLabel>
+	<skos:altLabel xml:lang="de">Dschibuti</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Dżibuti</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Džibuti</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Džibuti</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Džibutis</skos:altLabel>
+	<skos:altLabel>Gibuti</skos:altLabel>
+	<skos:altLabel xml:lang="it">Gibuti</skos:altLabel>
+	<skos:altLabel>Jibouti</skos:altLabel>
+	<skos:altLabel>Jibuti</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Jibuti</skos:altLabel>
+	<skos:altLabel xml:lang="es">Yibuti</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Ĝibuto</skos:altLabel>
+	<skos:altLabel xml:lang="el">Τζιμπουτί</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Джибути</skos:altLabel>
+	<skos:altLabel xml:lang="he">ג'יבוטי</skos:altLabel>
+	<skos:altLabel xml:lang="ur">جبوتی سٹی</skos:altLabel>
+	<skos:altLabel xml:lang="fa">جیبوتی</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ジブチ市</skos:altLabel>
+	<skos:altLabel xml:lang="zh">吉布地</skos:altLabel>
+	<skos:altLabel xml:lang="ko">지부티</skos:altLabel>
+	<skos:prefLabel>Djibouti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/223818/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/223816/"/>
+	<europeana:country>DJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>11.51667</wgs:lat>
+	<wgs:long>43</wgs:long>
+	<skos:altLabel>Cercle de Djibouti</skos:altLabel>
+	<skos:altLabel>Djibouti</skos:altLabel>
+	<skos:altLabel>Ville de Djibouti</skos:altLabel>
+	<skos:prefLabel>Ville de Djibouti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/223889/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/223816/"/>
+	<europeana:country>DJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>17980</europeana:population>
+	<wgs:lat>11.5</wgs:lat>
+	<wgs:long>42.16667</wgs:long>
+	<skos:altLabel>Cercle de Dikhil</skos:altLabel>
+	<skos:altLabel>Dikhil</skos:altLabel>
+	<skos:altLabel>Dikkil</skos:altLabel>
+	<skos:altLabel>Région de Dikhil</skos:altLabel>
+	<skos:prefLabel>Région de Dikhil</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/223890/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/223816/"/>
+	<europeana:country>DJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>12043</europeana:population>
+	<wgs:lat>11.10861</wgs:lat>
+	<wgs:long>42.37389</wgs:long>
+	<skos:altLabel>Dicchil</skos:altLabel>
+	<skos:altLabel xml:lang="en">Dikhil</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Dikhil</skos:altLabel>
+	<skos:altLabel>Dikhil</skos:altLabel>
+	<skos:altLabel>Dikil</skos:altLabel>
+	<skos:altLabel>Dikkil</skos:altLabel>
+	<skos:prefLabel>Dikhil</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/224418/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/223816/"/>
+	<europeana:country>DJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.55083</wgs:lat>
+	<wgs:long>42.7025</wgs:long>
+	<skos:altLabel>fandoûrat ach Chahâriya</skos:altLabel>
+	<skos:altLabel>Île des Boutres</skos:altLabel>
+	<skos:prefLabel>Île des Boutres</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/224442/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/223816/"/>
+	<europeana:country>DJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLT"/>
+	<wgs:lat>11.55194</wgs:lat>
+	<wgs:long>43.18889</wgs:long>
+	<skos:altLabel>Bourdêro</skos:altLabel>
+	<skos:altLabel>Haramous</skos:altLabel>
+	<skos:altLabel>Ouaramos Island</skos:altLabel>
+	<skos:altLabel>Ouaramous</skos:altLabel>
+	<skos:altLabel>Waramous</skos:altLabel>
+	<skos:altLabel>Île Uaramos</skos:altLabel>
+	<skos:altLabel>Île Waramos</skos:altLabel>
+	<skos:prefLabel>Ouaramous</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/225282/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/223816/"/>
+	<europeana:country>DJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>59827</europeana:population>
+	<wgs:lat>11.25</wgs:lat>
+	<wgs:long>43</wgs:long>
+	<skos:altLabel>Ali Sabieh</skos:altLabel>
+	<skos:altLabel>Cercle d’ Ali-Sabieh</skos:altLabel>
+	<skos:altLabel>Cercle d’ ‘Ali Sabîẖ</skos:altLabel>
+	<skos:altLabel>Région d’ Ali Sabieh</skos:altLabel>
+	<skos:prefLabel>Région d’ Ali Sabieh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/225284/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/223816/"/>
+	<europeana:country>DJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>40074</europeana:population>
+	<wgs:lat>11.15583</wgs:lat>
+	<wgs:long>42.7125</wgs:long>
+	<skos:altLabel>Ali Sabiet</skos:altLabel>
+	<skos:altLabel xml:lang="no">Ali Sabih</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ali Sabih</skos:altLabel>
+	<skos:altLabel>Ali Sabiè</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Али-Сабие</skos:altLabel>
+	<skos:altLabel>‘Ali Sabieh</skos:altLabel>
+	<skos:altLabel>‘Ali Sabîẖ</skos:altLabel>
+	<skos:prefLabel>‘Ali Sabieh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/225712/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/223816/"/>
+	<europeana:country>DJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.55333</wgs:lat>
+	<wgs:long>42.68333</wgs:long>
+	<skos:altLabel>Abou Mâya</skos:altLabel>
+	<skos:altLabel>Bab Island</skos:altLabel>
+	<skos:altLabel>Ilot de la Passe</skos:altLabel>
+	<skos:altLabel>Isola Bab</skos:altLabel>
+	<skos:altLabel>Isola del Passo</skos:altLabel>
+	<skos:altLabel>Île Bab</skos:altLabel>
+	<skos:altLabel>Île Bal</skos:altLabel>
+	<skos:prefLabel>Abou Mâya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/397864/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/223816/"/>
+	<europeana:country>DJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.53639</wgs:lat>
+	<wgs:long>42.53944</wgs:long>
+	<skos:altLabel>Ginni Kôma</skos:altLabel>
+	<skos:altLabel>Guinni Kôma</skos:altLabel>
+	<skos:altLabel>Gumni Kôma</skos:altLabel>
+	<skos:prefLabel>Guinni Kôma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/409766/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/223816/"/>
+	<europeana:country>DJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.56139</wgs:lat>
+	<wgs:long>42.63528</wgs:long>
+	<skos:prefLabel>Île Blondeau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/449265/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/223816/"/>
+	<europeana:country>DJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>11.5</wgs:lat>
+	<wgs:long>42.75</wgs:long>
+	<skos:altLabel>Arta</skos:altLabel>
+	<skos:altLabel>Région d’ Arta</skos:altLabel>
+	<skos:prefLabel>Région d’ Arta</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 29 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

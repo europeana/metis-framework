@@ -1,0 +1,257 @@
+            ------
+            Tutorial: Writing a converter
+            ------
+ 
+Know what to do
+
+  First you need to analyze your source (XML or SQL) data and the target 
+  format to understand what you want to do. Which source objects need to be converted?
+  Which are the target objects? Are these objects public/allowed to be converted?
+  
+XML Data
+ 
+ Let us first look at the XML file that we have convert. It starts with tag
+ <<<recordset>>> with the default <<<xmlns>>>
+ namespace<<<http://e-culture.multimedian.nl/ns/tutorial#>>>. This
+ namespace means that each tag in this file effectively starts with the namespace and
+ the tag <<<recordset>>> should be read as
+ <<<http://e-culture.multimedian.nl/ns/tutorial#recordset>>>.
+
+ The file contains a number of records each separated with tag
+ <<<record>>>. Each record represents an object in the museum database. Each
+ object, in turn, is described with a number of fields (properties) represented in
+ the XML file with XML attributes of tag <<<record>>>, such as
+ <<<id>>>; and XML elements, subtags of tag <<<record>>>, such as   <<<publisher>>>.
+
+
+
++------------------------------------------------------------------+
+ <recordset xmlns="http://e-culture.multimedian.nl/ns/tutorial#">
+    <record id="001">
+        <publisher>Art Museum</publisher>
+        <timestampara>2000-02-22</timestampara>
+        <identifier>1-001</identifier>
+        <medium>hout, goud</medium>
+    </record>
+    <record id="002">
+        <publisher>Art Museum</publisher>
+        <timestampara>2000-02-22</timestampara>
+        <identifier>1-002</identifier>
+        <date>ca. 1470-1 / 1532</date>
+        <medium>silver</medium>
+    </record>
+ </recordset>
++------------------------------------------------------------------+
+[Sample XML document (fragment)]
+
+
+Conversion Task
+
+ Let us now look at the class <<<Tutorial>>> to see how can we build
+ an empty converter. This class extends abstract class <<<CustomConverter>>>
+ that, in turn, defines a default constructor and method <<<run>>>. Each
+ converter should have default constructor that should initialize all the property
+ conversion rules and should not do other resource-consuming tasks, as these should
+ be done in the <<<run>>> method. 
+
+
++------------------------------------------------------------------+
+   Task task = Factory.makeTask(
+      // a signature, basically any name you associate with this dataset
+      "tutorial",
+      "",
+      // public description
+      "Tutorial",
+      // target RDF namespace
+      Namespaces.TUTORIAL,
+      new Environment()
+  );
++------------------------------------------------------------------+
+
+ The <<<main>>> method of the class creates an instance of the converter
+ using this default constructor (line: <<<Tutorial customConverter = new
+ Tutorial();>>>). In the constructor we do two things (look at the source of
+ <<<Tutorial.java>>> to understand this better): 
+
+  * create a new instance of a task
+
+  * initialize this task with property conversion rules by calling methods
+                    <<<addPart(...)>>>, <<<addRule(...)>>>, and
+                    <<<addPreamble(...)>>>. 
+
+ We will come back to the conversion rules later. Let us now continue with the
+ <<<main()>>> method. After a specific converter is created, and it has
+ also created the conversion task, we parameterize the latter with the file names,
+ specific to the conversion run we are going to make. In addition to the source and
+ the temp paths, here we specify each target (output file) with its signature, file
+ name, and comment. 
+
+ Actual conversion happens when method <<<run()>>> is invoked. 
+
+Preamble
+ 
+ A file that we are going to create would represent an ontology. We want to start
+ with the standard OWL ontology header, an instance of class
+ <<<owl:Ontology>>>. This instance does not depend on the data we are going to
+ convert: these are just a few triples that we put in. This can be done with the
+ following code: 
+
+[Java code of the preamble]
+
++------------------------------------------------------------------+
+trgWorks.add(
+  new Triple(
+  // subject
+  Namespaces.TUTORIAL + "tutorial.xml",
+  // property
+  Namespaces.RDF + "type",
+  // value
+  Namespaces.OWL + "Ontology",
+  // xml:lang, not applicable here as this is a resource property
+  null,
+  // property type: resource or literal
+  Triple.Type.RESOURCE, 
+  // the rule that created this triple
+  null
+));    
++------------------------------------------------------------------+
+
+ In this way we can add multiple triples, they all would be inserted.
+
+ In the above code we create a triple, java object <<<Triple>>>. This class
+ represents an RDF triple; and the conversion result consists of a bunch of triples
+ like that. Then they are written into an RDF/XML file with the Sesame RDF parser.
+ You would see similar calls to the constructor of <<<Triple>>> further in the
+ code. You would also create your own triples when you would not be satisfied with
+ the conversion means provided by AnnoCultor and would like to create your own
+ conversion rules. But before you start writing them, let us make a look at the
+ conversion rules that have already been written and tested for you.
+
+
+Object conversion rules
+ 
+ We assume the source XML documents to contain non-overlapping identifiable
+ objects from each other in the XML document, and that each object should have an XML
+ tag which contains a unique identifier of each record. In our example the separating
+ tag is called <<<record>>>, and the identifying tag is XML attribute <<<id>>>. 
+
+
+ To separate these objects from the source XML we need to create an object
+ conversion rule that would basically say: 'Everything between XML tag
+ <<<record>>> is a record, and this record has a unique identifier that is
+ stored in XML attribute named <<<id>>> of this tag. If by whatever reason the
+ person who created our source XML forgot to put this <<<id>>> then please
+ show me an error message. To simplify my work on finding out where this happens,
+ please, show me the value of property <<<identifier>>> in the error message:
+ it is not the real identifier (such as the <<<id>>>) but knowing its value
+ would help me. Ah, please, use namespace <<<TUTORIAL>>> as the default
+ namespace in my target RDF file.'
+
+
+ This rule is initialized with the following Java code: 
+
+[Java code of the converter, object conversion rule]
+
++------------------------------------------------------------------+
+ObjectRule objectRule = ObjectRuleImpl.makeObjectRule(
+  task,
+  Namespaces.TUTORIAL, 
+    // path to the record separating XML tag
+  new Path(Namespaces.TUTORIAL, "recordset", "record"),
+    // primary identification element/attribute with a unique attribute id for each record
+  new Path(Namespaces.TUTORIAL + "recordset", Namespaces.TUTORIAL + "record[@id]"), 
+    // secondary identification used in an error message 
+    // generated if the primary element has a null value 
+  new Path(Namespaces.TUTORIAL, "recordset", "record", "identifier"),
+  null,
+  true
+);
++------------------------------------------------------------------+
+
+  This rule alone creates RDF objects, one per each object, with the
+  <<<rdf:id>>> taken from the corresponding XML tag and prefixed with the
+  target namespace that we specified in the task (not in this rule!)
+
+Property conversion rules
+  
+  The empty RDF objects created by the object conversion rules are fleshed up with
+  the property conversion rules that convert the source XML tags to the target RDF
+  properties. 
+
+  In the following code we map two properties: <<<identifier>>> and
+  <<<medium>>>. Let us look on these code lines in detail.
+
+  Property <<<identifier>>> is easy: it is mapped to SKOS property
+  <<<definition>>>. The last parameter tells what to put into the
+  <<<xml:lang>>> attribute, and in this case we store identifiers without
+  any language; in other cases values like <<<"en">>> or <<<"nl">>> may
+  be more appropriate. 
+
+  Property <<<medium>>> may contain terms from an external vocabulary called
+  <<<aatMap>>>. Within this conversion routine this vocabulary is seen as a
+  Java map <<<term=code>>>. When possible, these terms need to be replaced with
+  the codes. When we found a match in that vocabulary, then we store the vocabulary
+  code in AAT property <<<aat:material>>>. For example, if we come across an
+  object made of a specific material such as <<<wood>>> that has a specific
+  code <<<300012785>>> in the standard Art and Architecture Thesaurus (Getty
+  AAT), then we may want to replace this term 'wood' with this code. This makes the
+  link between the object and the material explicit in the spirit of the Semantic Web
+  in RDF. When no match is found then we store the original term in property
+  <<<material>>> in the Tutorial namespace. In this case we assume it to be
+  in Dutch and put language tag <<<"nl">>> in.
+
+  For the conversion report we want to keep counters on how many of them were
+  passed, mapped, not mapped. To keep the statistics specific to this rule we pass it
+  the prefix <<<MEDIUM>>> to be used to name the counters. They are then shown
+  in the conversion report.
+
+  In addition, property <<<medium>>> may have more than one term. In this
+  case we assume them to be separated with a comma (that, in fact, is a regular
+  expression).
+            
+[Java code of the converter, property conversion rule]
+
++------------------------------------------------------------------+
+objectRule.addRelRule(new Path("title"), new RenameLiteralPropertyRule(VRA.TITLE, "nl", trgWorks));    
+
+objectRule.addRelRule(
+  new Path("medium"), 
+  new LookupTermRule(
+    // mapped values are linked with a different property than non-mapped
+    VRA.MATERIAL,
+    VRA.SUBJECT,
+    EC.COMMENT,
+    Lang.nl,
+    Namespaces.TUTORIAL,
+    null,
+    null,
+    "MEDIUM",
+    ",",
+    trgWorks, 
+    trgWorks,
+    LookupTermRule.NO_TERM_CREATION,
+    vocabulary
+)
++------------------------------------------------------------------+
+            
+ This gives us the resulting RDF document, where term <<<silver>>> was not in the vocabulary.
+
+[Target RDF document (fragment)]
+
++------------------------------------------------------------------+
+<rdf:Description rdf:about="http://e-culture.multimedian.nl/ns/tutorial#002">
+  <skos:definition xml:lang="nl">1-002</skos:definition>
+  <tutorial:material>silver</tutorial:material>
+</rdf:Description>
+        
+<rdf:Description rdf:about="http://e-culture.multimedian.nl/ns/tutorial#001">
+  <skos:definition xml:lang="nl">1-001</skos:definition>
+  <aat:material rdf:resource="http://e-culture.multimedian.nl/ns/getty/aat#300012785"/>
+</rdf:Description>
++------------------------------------------------------------------+
+
+   
+     
+  
+ 
+ 

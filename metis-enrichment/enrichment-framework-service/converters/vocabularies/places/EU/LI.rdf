@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: EU_LI
+Description: Selected fields pulled from Geonames about LI done on Mon May 23 21:12:40 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042031/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3042058/"/>
+	<europeana:country>LI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>5197</europeana:population>
+	<wgs:lat>47.13333</wgs:lat>
+	<wgs:long>9.51667</wgs:long>
+	<skos:altLabel>Gemeinde Vaduz</skos:altLabel>
+	<skos:altLabel>Vaduz</skos:altLabel>
+	<skos:prefLabel>Gemeinde Vaduz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042034/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3042058/"/>
+	<europeana:country>LI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>2689</europeana:population>
+	<wgs:lat>47.11667</wgs:lat>
+	<wgs:long>9.53333</wgs:long>
+	<skos:altLabel>Gemeinde Triesenberg</skos:altLabel>
+	<skos:altLabel>Triesenberg</skos:altLabel>
+	<skos:altLabel>Triesenberg / Steg / Malbun</skos:altLabel>
+	<skos:prefLabel>Gemeinde Triesenberg</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042036/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3042058/"/>
+	<europeana:country>LI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>4701</europeana:population>
+	<wgs:lat>47.1</wgs:lat>
+	<wgs:long>9.53333</wgs:long>
+	<skos:altLabel>Gemeinde Triesen</skos:altLabel>
+	<skos:altLabel>Triesen</skos:altLabel>
+	<skos:prefLabel>Gemeinde Triesen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042038/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3042058/"/>
+	<europeana:country>LI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1004</europeana:population>
+	<wgs:lat>47.23333</wgs:lat>
+	<wgs:long>9.53333</wgs:long>
+	<skos:altLabel>Gemeinde Schellenberg</skos:altLabel>
+	<skos:altLabel>Schellenberg</skos:altLabel>
+	<skos:prefLabel>Gemeinde Schellenberg</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042042/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3042058/"/>
+	<europeana:country>LI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>5748</europeana:population>
+	<wgs:lat>47.16667</wgs:lat>
+	<wgs:long>9.5</wgs:long>
+	<skos:altLabel>Gemeinde Schaan</skos:altLabel>
+	<skos:altLabel>Schaan</skos:altLabel>
+	<skos:prefLabel>Gemeinde Schaan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042047/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3042058/"/>
+	<europeana:country>LI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1862</europeana:population>
+	<wgs:lat>47.23333</wgs:lat>
+	<wgs:long>9.51667</wgs:long>
+	<skos:altLabel>Gemeinde Ruggell</skos:altLabel>
+	<skos:altLabel>Ruggell</skos:altLabel>
+	<skos:prefLabel>Gemeinde Ruggell</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042050/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3042058/"/>
+	<europeana:country>LI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>377</europeana:population>
+	<wgs:lat>47.18333</wgs:lat>
+	<wgs:long>9.53333</wgs:long>
+	<skos:altLabel>Gemeinde Planken</skos:altLabel>
+	<skos:altLabel>Planken</skos:altLabel>
+	<skos:prefLabel>Gemeinde Planken</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042056/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3042058/"/>
+	<europeana:country>LI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>3626</europeana:population>
+	<wgs:lat>47.21667</wgs:lat>
+	<wgs:long>9.53333</wgs:long>
+	<skos:altLabel>Gemeinde Mauren</skos:altLabel>
+	<skos:altLabel>Mauren</skos:altLabel>
+	<skos:altLabel>Mauren-Schaanwald</skos:altLabel>
+	<skos:prefLabel>Gemeinde Mauren</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042058/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3042058/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255148/"/>
+	<europeana:country>LI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>35000</europeana:population>
+	<wgs:lat>47.16667</wgs:lat>
+	<wgs:long>9.53333</wgs:long>
+	<skos:altLabel xml:lang="oc">Categoria:Liechtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="de">Fürstentum Liechtenstein</skos:altLabel>
+	<skos:altLabel>LI</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Lich-ten-xtên</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Lich-ten-xtên (Liechtenstein)</skos:altLabel>
+	<skos:altLabel>Lichtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="it">Lichtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Lichtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Lichtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Lichtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="la">Lichtenstenum</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Lichtenštajnsko</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Lichtenšteinas</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Lichtenštejnsko</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Lichtinstéin</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Lichtènstayn</skos:altLabel>
+	<skos:altLabel xml:lang="id">Liechtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="es">Liechtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="en">Liechtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="da">Liechtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="et">Liechtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Liechtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Liechtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="is">Liechtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Liechtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Liechtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Liechtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Liechtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Liechtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Liechtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Liechtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Liechtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Liechtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="de">Liechtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="it">Liechtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Liechtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Liechtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Liechtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Liechtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Liechtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="br">Liechtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Liechtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="li">Liechtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="no">Liechtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Liechtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Liechtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="af">Liechtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="an">Liechtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Liechtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Liechtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="io">Liechtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="rm">Liechtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Liechtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Liechtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Liechtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Liechtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Liechtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="se">Liechtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Liechtestein</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Lihtenshtajni</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Lihtenştayn</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Lihtenštajn</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Lihtenštajn</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Lihtenštajn</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Lihtenštajn</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Lihtenšteina</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Lihtënshtajn</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Liktenstein</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Liktenstän</skos:altLabel>
+	<skos:altLabel xml:lang="uz">Lixtenshteyn</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Liĥtenŝtejno</skos:altLabel>
+	<skos:altLabel xml:lang="za">Luliilu</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Lychtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Lîştinştayn</skos:altLabel>
+	<skos:altLabel xml:lang="en">Principality of Liechtenstein</skos:altLabel>
+	<skos:altLabel xml:lang="el">Λιχτενστάιν</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Лихтенштајн</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Лихтенштајн</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Лихтенштейн</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Лихтенщайн</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Ліхтенштейн</skos:altLabel>
+	<skos:altLabel xml:lang="be">Ліхтэнштайн</skos:altLabel>
+	<skos:altLabel xml:lang="be">Ліхтэнштэйн</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Լիխտենշտեյն</skos:altLabel>
+	<skos:altLabel xml:lang="he">ליכטנשטיין</skos:altLabel>
+	<skos:altLabel xml:lang="ug">لىچتېنشتېين</skos:altLabel>
+	<skos:altLabel xml:lang="ar">ليختنشتاين</skos:altLabel>
+	<skos:altLabel xml:lang="ur">لکٹنسٹائن</skos:altLabel>
+	<skos:altLabel xml:lang="fa">لیختنشتاین</skos:altLabel>
+	<skos:altLabel xml:lang="fa">لیختن‌اشتاین</skos:altLabel>
+	<skos:altLabel xml:lang="fa">لیکتنستین</skos:altLabel>
+	<skos:altLabel xml:lang="hi">लिकटेंस्टीन</skos:altLabel>
+	<skos:altLabel xml:lang="hi">लियक़्टँस्टीन</skos:altLabel>
+	<skos:altLabel xml:lang="hi">लीख़्टेन्स्टाइन</skos:altLabel>
+	<skos:altLabel xml:lang="ne">लीश्टेनस्टाईन</skos:altLabel>
+	<skos:altLabel xml:lang="ta">லிச்டெண்ஸ்டீன்</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศลิกเตนสไตน์</skos:altLabel>
+	<skos:altLabel xml:lang="th">ลิกเตนสไตน์</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ໄລເທນສະໄຕ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ལེག་ཏེན་ཚིན།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ლიხტენშტაინი</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ლიხტენშტეინი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሊችተንስታይን</skos:altLabel>
+	<skos:altLabel xml:lang="km">លិចទេនស្តែន</skos:altLabel>
+	<skos:altLabel xml:lang="ja">リヒテンシュタイン</skos:altLabel>
+	<skos:altLabel xml:lang="ja">リヒテンシュタイン公国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">列支敦士登</skos:altLabel>
+	<skos:altLabel xml:lang="zh">列支敦斯登</skos:altLabel>
+	<skos:altLabel xml:lang="ko">리히텐슈타인</skos:altLabel>
+	<skos:prefLabel>Principality of Liechtenstein</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042063/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3042058/"/>
+	<europeana:country>LI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1268</europeana:population>
+	<wgs:lat>47.21667</wgs:lat>
+	<wgs:long>9.5</wgs:long>
+	<skos:altLabel>Gamprin</skos:altLabel>
+	<skos:altLabel>Gamprin-Bendern</skos:altLabel>
+	<skos:altLabel>Gemeinde Gamprin</skos:altLabel>
+	<skos:altLabel>Gemeinde Gamprin-Bendern</skos:altLabel>
+	<skos:prefLabel>Gemeinde Gamprin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042069/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3042058/"/>
+	<europeana:country>LI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>4008</europeana:population>
+	<wgs:lat>47.21667</wgs:lat>
+	<wgs:long>9.51667</wgs:long>
+	<skos:altLabel>Eschen</skos:altLabel>
+	<skos:altLabel>Eschen / Nendeln</skos:altLabel>
+	<skos:altLabel>Eschen-Nedeln</skos:altLabel>
+	<skos:altLabel>Gemeinde Eschen</skos:altLabel>
+	<skos:prefLabel>Gemeinde Eschen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042074/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3042058/"/>
+	<europeana:country>LI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>4447</europeana:population>
+	<wgs:lat>47.06667</wgs:lat>
+	<wgs:long>9.5</wgs:long>
+	<skos:altLabel>Balzers</skos:altLabel>
+	<skos:altLabel>Balzers / Mäls</skos:altLabel>
+	<skos:altLabel>Gemeinde Balzers</skos:altLabel>
+	<skos:prefLabel>Gemeinde Balzers</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 11 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

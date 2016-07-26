@@ -1,0 +1,92 @@
+<project>
+	<!--
+		Custom converter project. The place for custom details that typically do not mention
+		AnnoCultor.
+	-->
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>annocultor</groupId>
+	<artifactId>annocultor-demos</artifactId>
+	<name>AnnoCultor Demos</name>
+	<version>1.0</version>
+	<packaging>jar</packaging>
+	<description>Example converters</description>
+	<url>http://annocultor.sourceforge.net</url>
+
+  <!--
+    The place to put your name and project. 
+  -->
+	<developers>
+		<developer>
+			<id>omelayenko</id>
+			<name>Borys Omelayenko</name>
+			<organizationUrl>http://eculture.multimedian.nl</organizationUrl>
+			<roles>
+				<role>Architect</role>
+				<role>Lead Developer</role>
+			</roles>
+			<url>http://borys.name</url>
+			<organization>MultimediaN Eculture project, 2006-2009</organization>
+		</developer>
+	</developers>
+
+  <!-- 
+    The place to put your license.
+   -->
+	<licenses>
+		<license>
+			<name>Licensed under the Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<!-- 
+	  The official distribution of AnnoCultor. 
+	-->
+	<repositories>
+		<repository>
+			<id>annocultor.eu</id>
+			<name>AnnoCultor</name>
+			<url>http://annocultor.eu/repository/maven2/</url>
+			<releases>
+				<enabled>true</enabled>
+        			<updatePolicy>always</updatePolicy>
+			</releases>
+		</repository>
+	</repositories>
+
+	<!-- 
+	  Custom projects should invoke AnnoCultor via the exec plugin 
+	  to download all AnnoCultor dependencies automatically.
+	-->
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.1</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>java</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<executable>${java.home}/bin/java</executable>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<!-- 
+	  Custom projects should include AnnoCultor dependency. 
+	-->
+	<dependencies>
+		<dependency>
+			<groupId>annocultor</groupId>
+			<artifactId>annocultor</artifactId>
+			<version>RELEASE</version>
+		</dependency>
+	</dependencies>
+</project>

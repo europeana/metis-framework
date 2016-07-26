@@ -1,0 +1,615 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: EU_GG
+Description: Selected fields pulled from Geonames about GG done on Mon May 23 21:12:36 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042282/">
+	<europeana:country>GG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>49.43306</wgs:lat>
+	<wgs:long>-2.35889</wgs:long>
+	<skos:altLabel xml:lang="id">Sark</skos:altLabel>
+	<skos:altLabel xml:lang="de">Sark</skos:altLabel>
+	<skos:altLabel xml:lang="es">Sark</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Sark</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Sark</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Sark</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Sark</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Sark</skos:altLabel>
+	<skos:altLabel xml:lang="en">Sark</skos:altLabel>
+	<skos:altLabel xml:lang="no">Sark</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Sark</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Sark</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Sark</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Sercq</skos:altLabel>
+	<skos:altLabel>Serq</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сарк</skos:altLabel>
+	<skos:altLabel xml:lang="he">סרק</skos:altLabel>
+	<skos:altLabel xml:lang="ja">サーク島</skos:altLabel>
+	<skos:altLabel xml:lang="zh">薩克島</skos:altLabel>
+	<skos:altLabel xml:lang="ko">사크 섬</skos:altLabel>
+	<skos:prefLabel>Sark</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042287/">
+	<europeana:country>GG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>16488</europeana:population>
+	<wgs:lat>49.45981</wgs:lat>
+	<wgs:long>-2.53527</wgs:long>
+	<skos:altLabel xml:lang="de">Saint Peter Port</skos:altLabel>
+	<skos:altLabel xml:lang="es">Saint Peter Port</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Saint Peter Port</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Saint-Pierre-Port</skos:altLabel>
+	<skos:altLabel xml:lang="pt">St Peter Port</skos:altLabel>
+	<skos:altLabel xml:lang="en">St Peter Port</skos:altLabel>
+	<skos:altLabel xml:lang="sv">St. Peter Port</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Сент Питер Порт</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сент-Питер-Порт</skos:altLabel>
+	<skos:altLabel xml:lang="ja">セント・ピーター・ポート</skos:altLabel>
+	<skos:prefLabel>Saint Peter Port</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042295/">
+	<europeana:country>GG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>49.73333</wgs:lat>
+	<wgs:long>-2.28333</wgs:long>
+	<skos:altLabel>Renonpuet</skos:altLabel>
+	<skos:altLabel xml:lang="en">Renonquet</skos:altLabel>
+	<skos:prefLabel>Renonquet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042296/">
+	<europeana:country>GG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>49.71833</wgs:lat>
+	<wgs:long>-2.1675</wgs:long>
+	<skos:altLabel xml:lang="en">Raz Island</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Île de Raz</skos:altLabel>
+	<skos:prefLabel>Raz Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042325/">
+	<europeana:country>GG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>49.7</wgs:lat>
+	<wgs:long>-2.25</wgs:long>
+	<skos:altLabel xml:lang="en">Little Burhou</skos:altLabel>
+	<skos:prefLabel>Little Burhou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042326/">
+	<europeana:country>GG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>49.46056</wgs:lat>
+	<wgs:long>-2.66722</wgs:long>
+	<skos:altLabel xml:lang="en">Lihou Island</skos:altLabel>
+	<skos:prefLabel>Lihou Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042327/">
+	<europeana:country>GG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>49.40111</wgs:lat>
+	<wgs:long>-2.3675</wgs:long>
+	<skos:altLabel xml:lang="fr">L'Etac de Sark</skos:altLabel>
+	<skos:altLabel xml:lang="en">L’Etac</skos:altLabel>
+	<skos:altLabel>L’Etac de Sercq</skos:altLabel>
+	<skos:prefLabel>L’Etac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042351/">
+	<europeana:country>GG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>49.46667</wgs:lat>
+	<wgs:long>-2.46667</wgs:long>
+	<skos:altLabel xml:lang="de">Jethou</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Jethou</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Jethou</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Jethou</skos:altLabel>
+	<skos:altLabel xml:lang="en">Jethou</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Jethou</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Jéthou</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Джету</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Жету</skos:altLabel>
+	<skos:altLabel xml:lang="he">ג'ת'ו</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ジェソー島</skos:altLabel>
+	<skos:prefLabel>Jethou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042357/">
+	<europeana:country>GG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>49.48333</wgs:lat>
+	<wgs:long>-2.46667</wgs:long>
+	<skos:altLabel xml:lang="en">Homet</skos:altLabel>
+	<skos:prefLabel>Homet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042359/">
+	<europeana:country>GG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>49.5</wgs:lat>
+	<wgs:long>-2.46667</wgs:long>
+	<skos:altLabel xml:lang="de">Herm</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Herm</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Herm</skos:altLabel>
+	<skos:altLabel xml:lang="en">Herm</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Herm</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Herm</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Herm</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Herm</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Herm</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Херм</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Херм</skos:altLabel>
+	<skos:altLabel xml:lang="he">הרם</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ハーム島</skos:altLabel>
+	<skos:prefLabel>Herm</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042362/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255148/"/>
+	<europeana:country>GG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCL"/>
+	<europeana:population>65228</europeana:population>
+	<wgs:lat>49.58333</wgs:lat>
+	<wgs:long>-2.33333</wgs:long>
+	<skos:altLabel xml:lang="fr">Bailliage de Guernesey</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Batllia de Guernsey</skos:altLabel>
+	<skos:altLabel>GG</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Geansaí</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Guernesey</skos:altLabel>
+	<skos:altLabel xml:lang="id">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="da">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="de">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="en">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="es">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="et">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="is">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="it">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="se">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Gērnsija</skos:altLabel>
+	<skos:altLabel xml:lang="el">Γκερνσέι</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Гурнси</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Гърнси</skos:altLabel>
+	<skos:altLabel xml:lang="ru">О. Гернси</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Ґернсі</skos:altLabel>
+	<skos:altLabel xml:lang="he">גרנזי</skos:altLabel>
+	<skos:altLabel xml:lang="ur">گرنزی</skos:altLabel>
+	<skos:altLabel xml:lang="hi">ग्वेर्नसे</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ガーンジー島</skos:altLabel>
+	<skos:altLabel xml:lang="zh">格恩西岛</skos:altLabel>
+	<skos:altLabel xml:lang="ko">건지 섬</skos:altLabel>
+	<skos:prefLabel>Bailiwick of Guernsey</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042363/">
+	<europeana:country>GG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>49.45853</wgs:lat>
+	<wgs:long>-2.5787</wgs:long>
+	<skos:altLabel xml:lang="kw">Gernsi</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Guernesei</skos:altLabel>
+	<skos:altLabel xml:lang="es">Guernesey</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Guernesey</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Guernesey</skos:altLabel>
+	<skos:altLabel xml:lang="id">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="en">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="io">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="it">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="de">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="da">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="is">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="li">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="no">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Guernsey</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Ynys y Garn</skos:altLabel>
+	<skos:altLabel xml:lang="el">Γκέρνσεϋ</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Гернзи</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гернси</skos:altLabel>
+	<skos:altLabel xml:lang="he">גרנסי</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جزيرة جيرنزي</skos:altLabel>
+	<skos:altLabel xml:lang="ka">გერნსი</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ガーンジー島</skos:altLabel>
+	<skos:altLabel xml:lang="zh">根西岛</skos:altLabel>
+	<skos:altLabel xml:lang="ko">건지 섬</skos:altLabel>
+	<skos:prefLabel>Guernsey</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042370/">
+	<europeana:country>GG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>49.45</wgs:lat>
+	<wgs:long>-2.46667</wgs:long>
+	<skos:altLabel xml:lang="en">Grande Fauconnière</skos:altLabel>
+	<skos:altLabel>Grande Fauconriere</skos:altLabel>
+	<skos:prefLabel>Grande Fauconnière</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042387/">
+	<europeana:country>GG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>49.46667</wgs:lat>
+	<wgs:long>-2.46667</wgs:long>
+	<skos:altLabel xml:lang="en">Crevichon</skos:altLabel>
+	<skos:prefLabel>Crevichon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042400/">
+	<europeana:country>GG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<europeana:population>158000</europeana:population>
+	<wgs:lat>49.3466</wgs:lat>
+	<wgs:long>-2.36206</wgs:long>
+	<skos:altLabel xml:lang="en">Channel Islands</skos:altLabel>
+	<skos:altLabel xml:lang="en">channel</skos:altLabel>
+	<skos:prefLabel>Channel Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042401/">
+	<europeana:country>GG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>49.71667</wgs:lat>
+	<wgs:long>-2.4</wgs:long>
+	<skos:altLabel>Caskets</skos:altLabel>
+	<skos:altLabel xml:lang="en">Casquets</skos:altLabel>
+	<skos:prefLabel>Casquets</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042402/">
+	<europeana:country>GG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>49.46667</wgs:lat>
+	<wgs:long>-2.45</wgs:long>
+	<skos:altLabel>Caguerobert</skos:altLabel>
+	<skos:altLabel xml:lang="en">Caquorobert</skos:altLabel>
+	<skos:prefLabel>Caquorobert</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042405/">
+	<europeana:country>GG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>49.73333</wgs:lat>
+	<wgs:long>-2.25</wgs:long>
+	<skos:altLabel xml:lang="id">Alderney</skos:altLabel>
+	<skos:altLabel xml:lang="es">Alderney</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Alderney</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Alderney</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Alderney</skos:altLabel>
+	<skos:altLabel xml:lang="no">Alderney</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Alderney</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Alderney</skos:altLabel>
+	<skos:altLabel xml:lang="en">Alderney</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Alderney</skos:altLabel>
+	<skos:altLabel xml:lang="da">Alderney</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Alderney</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Alderney</skos:altLabel>
+	<skos:altLabel xml:lang="it">Alderney</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Alderney</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Alderney</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Alderney</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Aurigny</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Burhou</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Burhou</skos:altLabel>
+	<skos:altLabel xml:lang="de">Burhou</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Burhou</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Burhou</skos:altLabel>
+	<skos:altLabel xml:lang="en">Burhou</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Биру</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Олдерни</skos:altLabel>
+	<skos:altLabel xml:lang="he">אולדרני</skos:altLabel>
+	<skos:altLabel xml:lang="he">בורהו</skos:altLabel>
+	<skos:altLabel xml:lang="ja">オルダニー島</skos:altLabel>
+	<skos:prefLabel>Burhou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042407/">
+	<europeana:country>GG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>49.43222</wgs:lat>
+	<wgs:long>-2.38833</wgs:long>
+	<skos:altLabel xml:lang="en">Brecqhou</skos:altLabel>
+	<skos:altLabel>Brecqhou Island</skos:altLabel>
+	<skos:altLabel>Isle des Marchants</skos:altLabel>
+	<skos:prefLabel>Brecqhou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042422/">
+	<europeana:country>GG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>49.71667</wgs:lat>
+	<wgs:long>-2.2</wgs:long>
+	<skos:altLabel xml:lang="id">Alderney</skos:altLabel>
+	<skos:altLabel xml:lang="de">Alderney</skos:altLabel>
+	<skos:altLabel xml:lang="da">Alderney</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Alderney</skos:altLabel>
+	<skos:altLabel xml:lang="no">Alderney</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Alderney</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Alderney</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Alderney</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Alderney</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Alderney</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Alderney</skos:altLabel>
+	<skos:altLabel xml:lang="it">Alderney</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Alderney</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Alderney</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Alderney</skos:altLabel>
+	<skos:altLabel xml:lang="en">Alderney</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Олдерни</skos:altLabel>
+	<skos:altLabel xml:lang="he">אולדרני</skos:altLabel>
+	<skos:altLabel xml:lang="ja">オルダニー島</skos:altLabel>
+	<skos:prefLabel>Alderney</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6417213/">
+	<europeana:country>GG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>49.44556</wgs:lat>
+	<wgs:long>-2.64361</wgs:long>
+	<skos:altLabel xml:lang="en">Saint Pierre du Bois</skos:altLabel>
+	<skos:altLabel>St. Pierre du Bois</skos:altLabel>
+	<skos:prefLabel>Saint Pierre du Bois</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6417214/">
+	<europeana:country>GG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>49.43</wgs:lat>
+	<wgs:long>-2.64889</wgs:long>
+	<skos:altLabel xml:lang="en">Torteval</skos:altLabel>
+	<skos:prefLabel>Torteval</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6417215/">
+	<europeana:country>GG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>49.44972</wgs:lat>
+	<wgs:long>-2.62389</wgs:long>
+	<skos:altLabel xml:lang="en">Saint Saviour</skos:altLabel>
+	<skos:altLabel>St. Saviour</skos:altLabel>
+	<skos:prefLabel>Saint Saviour</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6417223/">
+	<europeana:country>GG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>49.42583</wgs:lat>
+	<wgs:long>-2.59194</wgs:long>
+	<skos:altLabel xml:lang="en">Forest</skos:altLabel>
+	<skos:prefLabel>Forest</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6417224/">
+	<europeana:country>GG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>49.43333</wgs:lat>
+	<wgs:long>-2.55722</wgs:long>
+	<skos:altLabel xml:lang="en">Saint Martin</skos:altLabel>
+	<skos:altLabel>St. Martin</skos:altLabel>
+	<skos:prefLabel>Saint Martin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6417226/">
+	<europeana:country>GG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>49.44778</wgs:lat>
+	<wgs:long>-2.57361</wgs:long>
+	<skos:altLabel xml:lang="en">Saint Andrew</skos:altLabel>
+	<skos:altLabel>St. Andrew</skos:altLabel>
+	<skos:prefLabel>Saint Andrew</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6417228/">
+	<europeana:country>GG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>49.46</wgs:lat>
+	<wgs:long>-2.55194</wgs:long>
+	<skos:altLabel xml:lang="en">Saint Peter Port</skos:altLabel>
+	<skos:altLabel>St. Peter Port</skos:altLabel>
+	<skos:prefLabel>Saint Peter Port</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6417229/">
+	<europeana:country>GG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>49.465</wgs:lat>
+	<wgs:long>-2.59361</wgs:long>
+	<skos:altLabel xml:lang="en">Castel</skos:altLabel>
+	<skos:prefLabel>Castel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6417230/">
+	<europeana:country>GG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>49.49361</wgs:lat>
+	<wgs:long>-2.52833</wgs:long>
+	<skos:altLabel xml:lang="en">Vale</skos:altLabel>
+	<skos:prefLabel>Vale</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6417233/">
+	<europeana:country>GG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>49.48194</wgs:lat>
+	<wgs:long>-2.53722</wgs:long>
+	<skos:altLabel xml:lang="en">Saint Sampson</skos:altLabel>
+	<skos:altLabel>St. Sampson</skos:altLabel>
+	<skos:prefLabel>Saint Sampson</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6420357/">
+	<europeana:country>GG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>49.42694</wgs:lat>
+	<wgs:long>-2.53417</wgs:long>
+	<skos:altLabel xml:lang="en">Doyle Column</skos:altLabel>
+	<skos:prefLabel>Doyle Column</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6420377/">
+	<europeana:country>GG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.CSTL"/>
+	<wgs:lat>49.45306</wgs:lat>
+	<wgs:long>-2.52667</wgs:long>
+	<skos:altLabel xml:lang="en">Castle Cornet</skos:altLabel>
+	<skos:prefLabel>Castle Cornet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6420764/">
+	<europeana:country>GG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>49.44611</wgs:lat>
+	<wgs:long>-2.53083</wgs:long>
+	<skos:altLabel xml:lang="en">Clarence Battery</skos:altLabel>
+	<skos:prefLabel>Clarence Battery</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6420791/">
+	<europeana:country>GG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>49.43778</wgs:lat>
+	<wgs:long>-2.54861</wgs:long>
+	<skos:altLabel xml:lang="en">Statue Menhir</skos:altLabel>
+	<skos:prefLabel>Statue Menhir</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6420918/">
+	<europeana:country>GG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>49.49667</wgs:lat>
+	<wgs:long>-2.53806</wgs:long>
+	<skos:altLabel xml:lang="en">Les Fouaillages</skos:altLabel>
+	<skos:prefLabel>Les Fouaillages</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6424167/">
+	<europeana:country>GG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>49.46667</wgs:lat>
+	<wgs:long>-2.62889</wgs:long>
+	<skos:altLabel xml:lang="en">Menhirs</skos:altLabel>
+	<skos:prefLabel>Menhirs</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6424227/">
+	<europeana:country>GG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>49.45861</wgs:lat>
+	<wgs:long>-2.57306</wgs:long>
+	<skos:altLabel xml:lang="en">Statue Menhir</skos:altLabel>
+	<skos:prefLabel>Statue Menhir</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6607962/">
+	<europeana:country>GG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>49.45</wgs:lat>
+	<wgs:long>-2.36778</wgs:long>
+	<skos:altLabel xml:lang="en">La Grune</skos:altLabel>
+	<skos:prefLabel>La Grune</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6608554/">
+	<europeana:country>GG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>49.43444</wgs:lat>
+	<wgs:long>-2.37389</wgs:long>
+	<skos:altLabel xml:lang="en">Moie du Mouton</skos:altLabel>
+	<skos:prefLabel>Moie du Mouton</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6609402/">
+	<europeana:country>GG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.CSTL"/>
+	<wgs:lat>49.7175</wgs:lat>
+	<wgs:long>-2.17556</wgs:long>
+	<skos:altLabel xml:lang="en">Essex Castle</skos:altLabel>
+	<skos:prefLabel>Essex Castle</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6620380/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3042362/"/>
+	<europeana:country>GG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>49.45624</wgs:lat>
+	<wgs:long>-2.54057</wgs:long>
+	<skos:prefLabel>Guernsey (general)</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6692241/">
+	<europeana:country>GG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>49.47398</wgs:lat>
+	<wgs:long>-2.44905</wgs:long>
+	<skos:prefLabel>Herm</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 41 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

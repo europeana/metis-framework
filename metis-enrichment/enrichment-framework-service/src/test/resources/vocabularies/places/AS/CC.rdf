@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AS_CC
+Description: Selected fields pulled from Geonames about CC done on Mon May 23 21:13:20 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/1547348/">
+	<europeana:country>CC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-12</wgs:lat>
+	<wgs:long>96.83333</wgs:long>
+	<skos:altLabel xml:lang="en">Cocos</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Cocos Adaları</skos:altLabel>
+	<skos:altLabel>Cocos Islands</skos:altLabel>
+	<skos:altLabel>Cocos-Keeling Islands</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Cocoseilanden</skos:altLabel>
+	<skos:altLabel xml:lang="da">Cocosøerne</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Ilhas Cocos</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Illas Cocos</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Illes Cocos</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Insulele Cocos</skos:altLabel>
+	<skos:altLabel xml:lang="es">Islas Cocos</skos:altLabel>
+	<skos:altLabel xml:lang="it">Isole Cocos</skos:altLabel>
+	<skos:altLabel>Keeling Islands</skos:altLabel>
+	<skos:altLabel xml:lang="id">Kepulauan Cocos</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Kepulauan Cocos</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kokosinseln</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Kokosinsuloj</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Kokosova ostrva</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Kokosovi otoci</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Kokosové ostrovy</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Kokosové ostrovy</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Kokosu (Kīlinga) Salas</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Kokosöarna</skos:altLabel>
+	<skos:altLabel xml:lang="no">Kokosøyene</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Kokosų (Kilingo) Salos</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Kookossaaret</skos:altLabel>
+	<skos:altLabel xml:lang="is">Kókoseyjar</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Kókusz</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Wyspy Kokosowe</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Ynysow Cocos</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Îles Cocos</skos:altLabel>
+	<skos:altLabel xml:lang="el">Νησιά Κόκος</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кокосовые острова</skos:altLabel>
+	<skos:altLabel xml:lang="he">איי קוקוס</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ココス諸島</skos:altLabel>
+	<skos:altLabel xml:lang="zh">科科斯</skos:altLabel>
+	<skos:altLabel xml:lang="ko">코코스 제도</skos:altLabel>
+	<skos:prefLabel>Cocos Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1547350/">
+	<europeana:country>CC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.1</wgs:lat>
+	<wgs:long>96.88333</wgs:long>
+	<skos:prefLabel>Workhouse Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1547351/">
+	<europeana:country>CC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.16667</wgs:lat>
+	<wgs:long>96.83333</wgs:long>
+	<skos:altLabel>Pulo Panjang</skos:altLabel>
+	<skos:altLabel>Ross</skos:altLabel>
+	<skos:altLabel>Ross Island</skos:altLabel>
+	<skos:altLabel>West Island</skos:altLabel>
+	<skos:prefLabel>West Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1547356/">
+	<europeana:country>CC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-12.15</wgs:lat>
+	<wgs:long>96.86667</wgs:long>
+	<skos:altLabel>South Keeling</skos:altLabel>
+	<skos:altLabel>South Keeling Island</skos:altLabel>
+	<skos:altLabel>South Keeling Islands</skos:altLabel>
+	<skos:prefLabel>South Keeling Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1547357/">
+	<europeana:country>CC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.2</wgs:lat>
+	<wgs:long>96.91667</wgs:long>
+	<skos:altLabel>Pulo Atas</skos:altLabel>
+	<skos:altLabel>Selima Island</skos:altLabel>
+	<skos:altLabel>Selma</skos:altLabel>
+	<skos:altLabel>Selma Island</skos:altLabel>
+	<skos:altLabel>South Island</skos:altLabel>
+	<skos:prefLabel>South Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1547358/">
+	<europeana:country>CC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.15</wgs:lat>
+	<wgs:long>96.91667</wgs:long>
+	<skos:prefLabel>Pulo Siput</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1547362/">
+	<europeana:country>CC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.1</wgs:lat>
+	<wgs:long>96.88333</wgs:long>
+	<skos:prefLabel>Prison Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1547364/">
+	<europeana:country>CC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.13333</wgs:lat>
+	<wgs:long>96.91667</wgs:long>
+	<skos:prefLabel>Pulo Pandang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1547366/">
+	<europeana:country>CC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-11.83333</wgs:lat>
+	<wgs:long>96.81667</wgs:long>
+	<skos:altLabel>North Keeling</skos:altLabel>
+	<skos:altLabel>North Keeling Island</skos:altLabel>
+	<skos:prefLabel>North Keeling Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1547367/">
+	<europeana:country>CC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.18333</wgs:lat>
+	<wgs:long>96.85</wgs:long>
+	<skos:altLabel>Pulo Maria</skos:altLabel>
+	<skos:altLabel>West Cay</skos:altLabel>
+	<skos:prefLabel>Pulo Maria</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1547368/">
+	<europeana:country>CC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.2</wgs:lat>
+	<wgs:long>96.88333</wgs:long>
+	<skos:altLabel>Klapa Sato</skos:altLabel>
+	<skos:altLabel>Pulo Klapa Satu</skos:altLabel>
+	<skos:prefLabel>Pulo Klapa Satu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1547369/">
+	<europeana:country>CC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.18333</wgs:lat>
+	<wgs:long>96.85</wgs:long>
+	<skos:prefLabel>Pulo Kambling</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1547370/">
+	<europeana:country>CC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.15</wgs:lat>
+	<wgs:long>96.91667</wgs:long>
+	<skos:prefLabel>Pulo Jambatan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1547371/">
+	<europeana:country>CC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.06667</wgs:lat>
+	<wgs:long>96.83333</wgs:long>
+	<skos:altLabel>Horsburgh Island</skos:altLabel>
+	<skos:altLabel>Pulo Luar</skos:altLabel>
+	<skos:prefLabel>Horsburgh Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1547372/">
+	<europeana:country>CC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.11667</wgs:lat>
+	<wgs:long>96.88333</wgs:long>
+	<skos:altLabel>Clunies Ross</skos:altLabel>
+	<skos:altLabel>Clunies Ross Island</skos:altLabel>
+	<skos:altLabel>Home Island</skos:altLabel>
+	<skos:altLabel>New Selma</skos:altLabel>
+	<skos:altLabel>New Selma Island</skos:altLabel>
+	<skos:prefLabel>Home Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1547373/">
+	<europeana:country>CC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.1</wgs:lat>
+	<wgs:long>96.88333</wgs:long>
+	<skos:altLabel>Clunie Island</skos:altLabel>
+	<skos:altLabel>Pulo Gangsa</skos:altLabel>
+	<skos:prefLabel>Pulo Gangsa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1547375/">
+	<europeana:country>CC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.1</wgs:lat>
+	<wgs:long>96.88333</wgs:long>
+	<skos:prefLabel>Direction Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1547376/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255147/"/>
+	<europeana:country>CC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLD"/>
+	<europeana:population>628</europeana:population>
+	<wgs:lat>-12.1642</wgs:lat>
+	<wgs:long>96.87332</wgs:long>
+	<skos:altLabel>CC</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Cocos (Keeling) Adaları</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Cocos (Keeling) Islands</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Cocos (Keeling) Islands</skos:altLabel>
+	<skos:altLabel>Cocos Islands</skos:altLabel>
+	<skos:altLabel xml:lang="da">Cocos Islands</skos:altLabel>
+	<skos:altLabel xml:lang="en">Cocos Islands</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Cocos uharteak</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Cocos-Keeling-eilanden</skos:altLabel>
+	<skos:altLabel xml:lang="is">Cocos-eyjar</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Ilhas Coco</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Illas Cocos</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Illes Cocos</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Insulele Cocos (Keeling)</skos:altLabel>
+	<skos:altLabel xml:lang="es">Islas Cocos (Keeling)</skos:altLabel>
+	<skos:altLabel xml:lang="it">Isole Cocos (Keeling)</skos:altLabel>
+	<skos:altLabel>Keeling Islands</skos:altLabel>
+	<skos:altLabel xml:lang="id">Kepulauan Cocos</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kokosinseln</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Kokosovi (Keeling) Otoci</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Kokosovi otoki</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Kokosové ostrovy</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Kokosové ostrovy</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Kokosu salas</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Kokosöarna; Keelingöarna</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Kokosøyane (Keelingøyane)</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Kokosøyene (Keelingøyene)</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Kokosų (Keelingo) salos</skos:altLabel>
+	<skos:altLabel xml:lang="et">Kookossaared</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Kookossaaret</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Kókusz-szigetek</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Oileáin Cocos (Keeling)</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Quần đảo Cocos</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Territoire des îles Cocos</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Wyspy Kokosowe (Keelinga)</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Ynysoedd Cocos (Keeling)</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Îles Cocos</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Îles Cocos (Keeling)</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Îles des Cocos</skos:altLabel>
+	<skos:altLabel xml:lang="el">Νήσοι Κόκος (Κήλινγκ)</skos:altLabel>
+	<skos:altLabel xml:lang="be">Какосавыя Астравы</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Кокос (Келинг) Острва</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Кокосови Острови</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Кокосови острови</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кокосовые острова</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Кокосові (Кілінґ) острови</skos:altLabel>
+	<skos:altLabel xml:lang="he">איי קוקוס (קילינג)</skos:altLabel>
+	<skos:altLabel xml:lang="ur">جزائر کوکوز</skos:altLabel>
+	<skos:altLabel xml:lang="fa">جزایر کوکوس</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جزر كوكوس (كيلنج)</skos:altLabel>
+	<skos:altLabel xml:lang="hi">कोकोस द्वीप</skos:altLabel>
+	<skos:altLabel xml:lang="bn">কোকোস দ্বীপপুঞ্জ</skos:altLabel>
+	<skos:altLabel xml:lang="ml">കോക്കസ്</skos:altLabel>
+	<skos:altLabel xml:lang="th">หมู่เกาะโคโคส (คีลิง)</skos:altLabel>
+	<skos:altLabel xml:lang="am">ኮኮስ ኬሊንግ ደሴቶች</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ココス諸島</skos:altLabel>
+	<skos:altLabel xml:lang="zh">科科斯（基林）群岛</skos:altLabel>
+	<skos:altLabel xml:lang="ko">코코스 군도</skos:altLabel>
+	<skos:prefLabel>Territory of Cocos (Keeling) Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1547377/">
+	<europeana:country>CC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.13333</wgs:lat>
+	<wgs:long>96.91667</wgs:long>
+	<skos:altLabel>Gooseberry Island</skos:altLabel>
+	<skos:altLabel>Pulo Cheplok</skos:altLabel>
+	<skos:prefLabel>Pulo Cheplok</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1547379/">
+	<europeana:country>CC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.2</wgs:lat>
+	<wgs:long>96.86667</wgs:long>
+	<skos:altLabel>Burial Island</skos:altLabel>
+	<skos:altLabel>Pulo Blan Madar</skos:altLabel>
+	<skos:prefLabel>Pulo Blan Madar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1547380/">
+	<europeana:country>CC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.18333</wgs:lat>
+	<wgs:long>96.86667</wgs:long>
+	<skos:altLabel>East Cay</skos:altLabel>
+	<skos:altLabel>Pulo Blan</skos:altLabel>
+	<skos:prefLabel>Pulo Blan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1547412/">
+	<europeana:country>CC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.125</wgs:lat>
+	<wgs:long>96.90278</wgs:long>
+	<skos:altLabel>Pulo Ampang Kechil</skos:altLabel>
+	<skos:altLabel>Pulu Ampang Kechil</skos:altLabel>
+	<skos:prefLabel>Pulu Ampang Kechil</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1547413/">
+	<europeana:country>CC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.12778</wgs:lat>
+	<wgs:long>96.90417</wgs:long>
+	<skos:altLabel>Pulo Ampang</skos:altLabel>
+	<skos:altLabel>Pulu Ampang</skos:altLabel>
+	<skos:prefLabel>Pulu Ampang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1547414/">
+	<europeana:country>CC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.12917</wgs:lat>
+	<wgs:long>96.90694</wgs:long>
+	<skos:altLabel>Pulo Wa-idas</skos:altLabel>
+	<skos:altLabel>Pulu Wa-idas</skos:altLabel>
+	<skos:prefLabel>Pulu Wa-idas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1547415/">
+	<europeana:country>CC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.13056</wgs:lat>
+	<wgs:long>96.90694</wgs:long>
+	<skos:altLabel>Pulo Blukok</skos:altLabel>
+	<skos:altLabel>Pulu Blekok</skos:altLabel>
+	<skos:prefLabel>Pulu Blekok</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1547416/">
+	<europeana:country>CC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.13333</wgs:lat>
+	<wgs:long>96.90694</wgs:long>
+	<skos:altLabel>Pulo Kambang</skos:altLabel>
+	<skos:altLabel>Pulu Kembang</skos:altLabel>
+	<skos:prefLabel>Pulu Kembang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1547417/">
+	<europeana:country>CC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.15833</wgs:lat>
+	<wgs:long>96.91806</wgs:long>
+	<skos:altLabel>Pulo Labu</skos:altLabel>
+	<skos:altLabel>Pulu Labu</skos:altLabel>
+	<skos:prefLabel>Pulu Labu</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 26 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

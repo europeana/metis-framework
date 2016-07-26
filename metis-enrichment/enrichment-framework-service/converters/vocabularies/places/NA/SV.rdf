@@ -1,0 +1,4125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: NA_SV
+Description: Selected fields pulled from Geonames about SV done on Mon May 23 21:14:33 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582789/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.56667</wgs:lat>
+	<wgs:long>-89.28333</wgs:long>
+	<skos:prefLabel>Municipio de Zaragoza</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582790/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11749</europeana:population>
+	<wgs:lat>13.58944</wgs:lat>
+	<wgs:long>-89.28889</wgs:long>
+	<skos:prefLabel>Zaragoza</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582795/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.26667</wgs:lat>
+	<wgs:long>-88.71667</wgs:long>
+	<skos:altLabel>Isla Zamorancito</skos:altLabel>
+	<skos:altLabel>Isla Zamorán</skos:altLabel>
+	<skos:prefLabel>Isla Zamorancito</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582801/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.305</wgs:lat>
+	<wgs:long>-87.76222</wgs:long>
+	<skos:altLabel>Isla Punta Zacate</skos:altLabel>
+	<skos:altLabel>Isla Zacatillo</skos:altLabel>
+	<skos:prefLabel>Isla Zacatillo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582803/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.43333</wgs:lat>
+	<wgs:long>-88.86667</wgs:long>
+	<skos:prefLabel>Municipio de Zacatecoluca</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582804/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585087/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.4</wgs:lat>
+	<wgs:long>-88.88333</wgs:long>
+	<skos:prefLabel>Distrito de Zacatecoluca</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582805/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>39613</europeana:population>
+	<wgs:lat>13.5</wgs:lat>
+	<wgs:long>-88.86667</wgs:long>
+	<skos:altLabel>Zacateccoluca</skos:altLabel>
+	<skos:altLabel>Zacatecoluca</skos:altLabel>
+	<skos:prefLabel>Zacatecoluca</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582811/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.55</wgs:lat>
+	<wgs:long>-88</wgs:long>
+	<skos:prefLabel>Municipio de Yucuaiquín</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582816/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.76667</wgs:lat>
+	<wgs:long>-88.15</wgs:long>
+	<skos:prefLabel>Municipio de Yoloaiquín</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582818/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.45</wgs:lat>
+	<wgs:long>-88.01667</wgs:long>
+	<skos:prefLabel>Municipio de Yayantique</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582823/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.66667</wgs:lat>
+	<wgs:long>-88.16667</wgs:long>
+	<skos:prefLabel>Municipio de Yamabal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582834/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.95</wgs:lat>
+	<wgs:long>-88.63333</wgs:long>
+	<skos:prefLabel>Municipio de Victoria</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582839/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.65</wgs:lat>
+	<wgs:long>-88.88333</wgs:long>
+	<skos:prefLabel>Municipio de Verapaz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582880/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.3</wgs:lat>
+	<wgs:long>-88.43333</wgs:long>
+	<skos:prefLabel>Municipio de Usulután</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582881/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582882/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.3</wgs:lat>
+	<wgs:long>-88.38333</wgs:long>
+	<skos:prefLabel>Distrito de Usulután</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582882/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>13.43333</wgs:lat>
+	<wgs:long>-88.53333</wgs:long>
+	<skos:altLabel>Departamento de Usulután</skos:altLabel>
+	<skos:altLabel>Usulután</skos:altLabel>
+	<skos:prefLabel>Departamento de Usulután</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582883/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>51910</europeana:population>
+	<wgs:lat>13.35</wgs:lat>
+	<wgs:long>-88.45</wgs:long>
+	<skos:altLabel>Usulután</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Усулутане</skos:altLabel>
+	<skos:prefLabel>Usulután</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582887/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.48333</wgs:lat>
+	<wgs:long>-88.06667</wgs:long>
+	<skos:prefLabel>Municipio de Uluazapa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582895/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.96667</wgs:lat>
+	<wgs:long>-89.78333</wgs:long>
+	<skos:prefLabel>Municipio de Turín</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582909/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.25</wgs:lat>
+	<wgs:long>-88.55</wgs:long>
+	<skos:altLabel>Isla La Tortuga</skos:altLabel>
+	<skos:altLabel>Isla Tortuga</skos:altLabel>
+	<skos:prefLabel>Isla Tortuga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582912/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.91667</wgs:lat>
+	<wgs:long>-88.23333</wgs:long>
+	<skos:prefLabel>Municipio de Torola</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582916/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.78333</wgs:lat>
+	<wgs:long>-89.11667</wgs:long>
+	<skos:prefLabel>Municipio de Tonacatepeque</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582917/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3583360/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.91667</wgs:lat>
+	<wgs:long>-89.2</wgs:long>
+	<skos:prefLabel>Distrito de Tonacatepeque</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582931/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.24778</wgs:lat>
+	<wgs:long>-89.52</wgs:long>
+	<skos:altLabel>Isla Teotipa</skos:altLabel>
+	<skos:altLabel>Isla Tipa</skos:altLabel>
+	<skos:altLabel>Isla de las Peñitas</skos:altLabel>
+	<skos:prefLabel>Isla Tipa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582953/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>14.13333</wgs:lat>
+	<wgs:long>-89.51667</wgs:long>
+	<skos:prefLabel>Municipio de Texistepeque</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582965/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.65</wgs:lat>
+	<wgs:long>-88.83333</wgs:long>
+	<skos:prefLabel>Municipio de Tepetitán</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582973/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.7</wgs:lat>
+	<wgs:long>-89.46667</wgs:long>
+	<skos:prefLabel>Municipio de Tepecoyo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582979/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.58333</wgs:lat>
+	<wgs:long>-89.51667</wgs:long>
+	<skos:prefLabel>Municipio de Teotepeque</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582986/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.83333</wgs:lat>
+	<wgs:long>-88.96667</wgs:long>
+	<skos:prefLabel>Municipio de Tenancingo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582990/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>14.16667</wgs:lat>
+	<wgs:long>-89.11667</wgs:long>
+	<skos:prefLabel>Municipio de Tejutla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582991/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3587090/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>14.21667</wgs:lat>
+	<wgs:long>-89.16667</wgs:long>
+	<skos:prefLabel>Distrito de Tejutla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582993/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.85</wgs:lat>
+	<wgs:long>-88.9</wgs:long>
+	<skos:prefLabel>Municipio de Tejutepeque</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583007/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.55</wgs:lat>
+	<wgs:long>-88.78333</wgs:long>
+	<skos:prefLabel>Municipio de Tecoluca</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583014/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.43333</wgs:lat>
+	<wgs:long>-88.5</wgs:long>
+	<skos:prefLabel>Municipio de Tecapán</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583032/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.56667</wgs:lat>
+	<wgs:long>-89.06667</wgs:long>
+	<skos:prefLabel>Municipio de Tapalhuaca</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583040/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.56667</wgs:lat>
+	<wgs:long>-89.4</wgs:long>
+	<skos:prefLabel>Municipio de Tamanique</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583049/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.66667</wgs:lat>
+	<wgs:long>-89.4</wgs:long>
+	<skos:prefLabel>Municipio de Talnique</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583064/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.9</wgs:lat>
+	<wgs:long>-89.95</wgs:long>
+	<skos:prefLabel>Municipio de Tacuba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583088/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.95</wgs:lat>
+	<wgs:long>-89.08333</wgs:long>
+	<skos:prefLabel>Municipio de Suchitoto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583089/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3586831/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.91667</wgs:lat>
+	<wgs:long>-89.06667</wgs:long>
+	<skos:prefLabel>Distrito de Suchitoto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583095/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.7</wgs:lat>
+	<wgs:long>-89.13333</wgs:long>
+	<skos:prefLabel>Municipio de Soyapango</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583096/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>329708</europeana:population>
+	<wgs:lat>13.73472</wgs:lat>
+	<wgs:long>-89.15139</wgs:long>
+	<skos:altLabel xml:lang="en">Soyapango</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Soyapango</skos:altLabel>
+	<skos:altLabel>Soyapango</skos:altLabel>
+	<skos:altLabel>Soyopango</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сояпанго</skos:altLabel>
+	<skos:prefLabel>Soyapango</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583097/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.75</wgs:lat>
+	<wgs:long>-89.71667</wgs:long>
+	<skos:prefLabel>Municipio de Sonzacate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583098/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15446</europeana:population>
+	<wgs:lat>13.73417</wgs:lat>
+	<wgs:long>-89.71472</wgs:long>
+	<skos:prefLabel>Sonzacate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583099/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.71667</wgs:lat>
+	<wgs:long>-88.73333</wgs:long>
+	<skos:prefLabel>Municipio de Sonsonate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583100/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3583101/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.63333</wgs:lat>
+	<wgs:long>-89.8</wgs:long>
+	<skos:prefLabel>Distrito de Sonsonate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583101/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>13.7</wgs:lat>
+	<wgs:long>-89.7</wgs:long>
+	<skos:altLabel>Departamento de Sonsonate</skos:altLabel>
+	<skos:altLabel>Sonsonate</skos:altLabel>
+	<skos:prefLabel>Departamento de Sonsonate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583102/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>59468</europeana:population>
+	<wgs:lat>13.71889</wgs:lat>
+	<wgs:long>-89.72417</wgs:long>
+	<skos:altLabel>Ciudad de Sonsonate</skos:altLabel>
+	<skos:altLabel>Sonsonate</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сонсонате</skos:altLabel>
+	<skos:prefLabel>Sonsonate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583110/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.7</wgs:lat>
+	<wgs:long>-88.01667</wgs:long>
+	<skos:prefLabel>Municipio de Sociedad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583153/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.73333</wgs:lat>
+	<wgs:long>-88.41667</wgs:long>
+	<skos:prefLabel>Municipio de Sesori</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583154/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3583462/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.78333</wgs:lat>
+	<wgs:long>-88.41667</wgs:long>
+	<skos:prefLabel>Distrito de Sesori</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583156/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.88333</wgs:lat>
+	<wgs:long>-88.63333</wgs:long>
+	<skos:prefLabel>Municipio de Sensuntepeque</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583157/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3587217/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.88333</wgs:lat>
+	<wgs:long>-88.58333</wgs:long>
+	<skos:prefLabel>Distrito de Sensuntepeque</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583158/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20386</europeana:population>
+	<wgs:lat>13.86667</wgs:lat>
+	<wgs:long>-88.63333</wgs:long>
+	<skos:altLabel>Sensuntepeque</skos:altLabel>
+	<skos:altLabel>Sensuntepque</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сенсутепеке</skos:altLabel>
+	<skos:prefLabel>Sensuntepeque</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583160/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.66667</wgs:lat>
+	<wgs:long>-88.16667</wgs:long>
+	<skos:prefLabel>Municipio de Sensembra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583174/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.65</wgs:lat>
+	<wgs:long>-88.78333</wgs:long>
+	<skos:prefLabel>Municipio de San Vicente</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583175/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3583176/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.48333</wgs:lat>
+	<wgs:long>-88.75</wgs:long>
+	<skos:prefLabel>Distrito de San Vicente</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583176/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>13.51667</wgs:lat>
+	<wgs:long>-88.75</wgs:long>
+	<skos:altLabel>Departamento de San Vicente</skos:altLabel>
+	<skos:altLabel>San Vicente</skos:altLabel>
+	<skos:prefLabel>Departamento de San Vicente</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583178/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>37326</europeana:population>
+	<wgs:lat>13.63333</wgs:lat>
+	<wgs:long>-88.8</wgs:long>
+	<skos:altLabel>San Vicente</skos:altLabel>
+	<skos:altLabel>San Vincente</skos:altLabel>
+	<skos:prefLabel>San Vicente</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583180/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.65</wgs:lat>
+	<wgs:long>-89.15</wgs:long>
+	<skos:prefLabel>Municipio de Santo Tomás</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583181/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3583360/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.61667</wgs:lat>
+	<wgs:long>-89.18333</wgs:long>
+	<skos:prefLabel>Distrito de Santo Tomás</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583183/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14581</europeana:population>
+	<wgs:lat>13.64083</wgs:lat>
+	<wgs:long>-89.13333</wgs:long>
+	<skos:prefLabel>Santo Tomás</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583186/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.71667</wgs:lat>
+	<wgs:long>-89.8</wgs:long>
+	<skos:altLabel>Municipio de Santo Domingo de Guzmán</skos:altLabel>
+	<skos:altLabel>Santo Domingo</skos:altLabel>
+	<skos:prefLabel>Municipio de Santo Domingo de Guzmán</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583188/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.71667</wgs:lat>
+	<wgs:long>-88.85</wgs:long>
+	<skos:prefLabel>Municipio de Santo Domingo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583193/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.65</wgs:lat>
+	<wgs:long>-89.1</wgs:long>
+	<skos:prefLabel>Municipio de Santiago Texacuangos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583195/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.48333</wgs:lat>
+	<wgs:long>-88.96667</wgs:long>
+	<skos:prefLabel>Municipio de Santiago Nonualco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583197/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.5</wgs:lat>
+	<wgs:long>-88.45</wgs:long>
+	<skos:prefLabel>Municipio de Santiago de María</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583198/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582882/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.45</wgs:lat>
+	<wgs:long>-88.46667</wgs:long>
+	<skos:prefLabel>Distrito de Santiago de María</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583199/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15032</europeana:population>
+	<wgs:lat>13.48333</wgs:lat>
+	<wgs:long>-88.46667</wgs:long>
+	<skos:altLabel>Santiago</skos:altLabel>
+	<skos:altLabel>Santiago de María</skos:altLabel>
+	<skos:prefLabel>Santiago de María</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583200/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>14.16667</wgs:lat>
+	<wgs:long>-89.61667</wgs:long>
+	<skos:prefLabel>Municipio de Santiago de La Frontera</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583210/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>14.2</wgs:lat>
+	<wgs:long>-89.35</wgs:long>
+	<skos:prefLabel>Municipio de Santa Rosa Guachipilín</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583212/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.61667</wgs:lat>
+	<wgs:long>-87.9</wgs:long>
+	<skos:prefLabel>Municipio de Santa Rosa de Lima</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583213/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3584767/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.75</wgs:lat>
+	<wgs:long>-87.83333</wgs:long>
+	<skos:altLabel>Distrito de Santa Rosa de Lima</skos:altLabel>
+	<skos:altLabel>Santa Rosa</skos:altLabel>
+	<skos:prefLabel>Distrito de Santa Rosa de Lima</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583214/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13249</europeana:population>
+	<wgs:lat>13.62472</wgs:lat>
+	<wgs:long>-87.89361</wgs:long>
+	<skos:altLabel>Santa Rosa</skos:altLabel>
+	<skos:altLabel>Santa Rosa de Lima</skos:altLabel>
+	<skos:prefLabel>Santa Rosa de Lima</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583231/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>14.13333</wgs:lat>
+	<wgs:long>-89</wgs:long>
+	<skos:prefLabel>Municipio de Santa Rita</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583242/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.61667</wgs:lat>
+	<wgs:long>-88.93333</wgs:long>
+	<skos:prefLabel>Municipio de Santa María Ostuma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583246/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.33333</wgs:lat>
+	<wgs:long>-88.41667</wgs:long>
+	<skos:prefLabel>Municipio de Santa María</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583262/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.58333</wgs:lat>
+	<wgs:long>-89.6</wgs:long>
+	<skos:prefLabel>Municipio de Santa Isabel Ishuatán</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583273/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.4</wgs:lat>
+	<wgs:long>-88.4</wgs:long>
+	<skos:prefLabel>Municipio de Santa Elena</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583279/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.75</wgs:lat>
+	<wgs:long>-88.96667</wgs:long>
+	<skos:prefLabel>Municipio de Santa Cruz Michapa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583284/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.66667</wgs:lat>
+	<wgs:long>-88.96667</wgs:long>
+	<skos:prefLabel>Municipio de Santa Cruz Analquito</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583303/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.71667</wgs:lat>
+	<wgs:long>-88.73333</wgs:long>
+	<skos:prefLabel>Municipio de Santa Clara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583308/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.78333</wgs:lat>
+	<wgs:long>-89.76667</wgs:long>
+	<skos:prefLabel>Municipio de Santa Catarina Masahuat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583310/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.25</wgs:lat>
+	<wgs:long>-88.48333</wgs:long>
+	<skos:prefLabel>Isla Santa Catarina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583330/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>14</wgs:lat>
+	<wgs:long>-89.55</wgs:long>
+	<skos:prefLabel>Municipio de Santa Ana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583331/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3583332/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>14</wgs:lat>
+	<wgs:long>-89.5</wgs:long>
+	<skos:prefLabel>Distrito de Santa Ana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583332/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>14.1</wgs:lat>
+	<wgs:long>-89.58333</wgs:long>
+	<skos:altLabel>Departamento de Santa Ana</skos:altLabel>
+	<skos:altLabel>Santa Ana</skos:altLabel>
+	<skos:prefLabel>Departamento de Santa Ana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583334/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>176661</europeana:population>
+	<wgs:lat>13.99417</wgs:lat>
+	<wgs:long>-89.55972</wgs:long>
+	<skos:altLabel xml:lang="en">Santa Ana</skos:altLabel>
+	<skos:altLabel xml:lang="de">Santa Ana</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Santa Ana</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Santa Ana</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Santa Ana</skos:altLabel>
+	<skos:altLabel>Santa Ana</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Санта-Ана</skos:altLabel>
+	<skos:prefLabel>Santa Ana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583335/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.83333</wgs:lat>
+	<wgs:long>-88.23333</wgs:long>
+	<skos:prefLabel>Municipio de San Simón</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583337/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.96667</wgs:lat>
+	<wgs:long>-89.63333</wgs:long>
+	<skos:prefLabel>Municipio de San Sebastián Salitrillo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583344/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.71667</wgs:lat>
+	<wgs:long>-88.81667</wgs:long>
+	<skos:prefLabel>Municipio de San Sebastián</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583345/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.18333</wgs:lat>
+	<wgs:long>-88.41667</wgs:long>
+	<skos:prefLabel>Isla San Sebastián</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583346/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3583176/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.71667</wgs:lat>
+	<wgs:long>-88.68333</wgs:long>
+	<skos:prefLabel>Distrito de San Sebastián</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583358/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.7</wgs:lat>
+	<wgs:long>-89.21667</wgs:long>
+	<skos:prefLabel>Municipio de San Salvador</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583359/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3583360/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.7</wgs:lat>
+	<wgs:long>-89.15</wgs:long>
+	<skos:prefLabel>Distrito de San Salvador</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583360/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>13.78333</wgs:lat>
+	<wgs:long>-89.18333</wgs:long>
+	<skos:altLabel>Departamento de San Salvador</skos:altLabel>
+	<skos:altLabel>San Salvador</skos:altLabel>
+	<skos:prefLabel>Departamento de San Salvador</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583361/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>525990</europeana:population>
+	<wgs:lat>13.68935</wgs:lat>
+	<wgs:long>-89.18718</wgs:long>
+	<skos:altLabel xml:lang="fr">Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="id">San Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="en">San Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="it">San Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="sv">San Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="de">San Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="ca">San Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="fi">San Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="io">San Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="nl">San Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="pt">San Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="tr">San Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="es">San Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="fr">San Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="da">San Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="eu">San Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="vo">San Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="hr">San Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="no">San Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="pl">San Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="nn">San Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="lt">San Salvadoras</skos:altLabel>
+	<skos:altLabel xml:lang="pl">San Salwador</skos:altLabel>
+	<skos:altLabel xml:lang="eo">San-Salvadoro</skos:altLabel>
+	<skos:altLabel xml:lang="el">Σαν Σαλβαδόρ</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сан-Сальвадор</skos:altLabel>
+	<skos:altLabel xml:lang="he">סן סלוודור</skos:altLabel>
+	<skos:altLabel xml:lang="fa">سان سالوادور</skos:altLabel>
+	<skos:altLabel xml:lang="th">ซันซัลวาดอร์</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሳን ሳልቫዶር</skos:altLabel>
+	<skos:altLabel xml:lang="ja">サンサルバドル</skos:altLabel>
+	<skos:altLabel xml:lang="zh">聖薩爾瓦多</skos:altLabel>
+	<skos:altLabel xml:lang="ko">산살바도르</skos:altLabel>
+	<skos:prefLabel>San Salvador</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583369/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.68333</wgs:lat>
+	<wgs:long>-88.91667</wgs:long>
+	<skos:prefLabel>Municipio de San Ramón</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583378/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.38333</wgs:lat>
+	<wgs:long>-88.33333</wgs:long>
+	<skos:altLabel>Municipio de San Rafael Oriente</skos:altLabel>
+	<skos:altLabel>San Rafael</skos:altLabel>
+	<skos:prefLabel>Municipio de San Rafael Oriente</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583379/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19095</europeana:population>
+	<wgs:lat>13.38333</wgs:lat>
+	<wgs:long>-88.35</wgs:long>
+	<skos:altLabel>San Rafael Oriente</skos:altLabel>
+	<skos:altLabel>San Rafael de Oriente</skos:altLabel>
+	<skos:prefLabel>San Rafael Oriente</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583380/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.5</wgs:lat>
+	<wgs:long>-88.91667</wgs:long>
+	<skos:prefLabel>Municipio de San Rafael Obrajuelo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583383/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.75</wgs:lat>
+	<wgs:long>-88.9</wgs:long>
+	<skos:prefLabel>Municipio de San Rafael Cedros</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583385/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>14.13333</wgs:lat>
+	<wgs:long>-89.03333</wgs:long>
+	<skos:prefLabel>Municipio de San Rafael</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583396/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.78333</wgs:lat>
+	<wgs:long>-89.81667</wgs:long>
+	<skos:prefLabel>Municipio de San Pedro Puxtla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583399/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.76667</wgs:lat>
+	<wgs:long>-89</wgs:long>
+	<skos:prefLabel>Municipio de San Pedro Perulapán</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583402/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.6</wgs:lat>
+	<wgs:long>-88.93333</wgs:long>
+	<skos:prefLabel>Municipio de San Pedro Nonualco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583403/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585087/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.61667</wgs:lat>
+	<wgs:long>-88.93333</wgs:long>
+	<skos:prefLabel>Distrito de San Pedro Nonualco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583405/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.55</wgs:lat>
+	<wgs:long>-89.01667</wgs:long>
+	<skos:prefLabel>Municipio de San Pedro Masahuat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583406/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585087/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.51667</wgs:lat>
+	<wgs:long>-89.03333</wgs:long>
+	<skos:prefLabel>Distrito de San Pedro Masahuat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583428/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>14</wgs:lat>
+	<wgs:long>-89.33333</wgs:long>
+	<skos:prefLabel>Municipio de San Pablo Tacachico</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583446/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>161880</europeana:population>
+	<wgs:lat>13.48333</wgs:lat>
+	<wgs:long>-88.18333</wgs:long>
+	<skos:prefLabel>San Miquel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583448/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.63333</wgs:lat>
+	<wgs:long>-89.01667</wgs:long>
+	<skos:prefLabel>Municipio de San Miguel Tepezontes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583456/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>14</wgs:lat>
+	<wgs:long>-88.95</wgs:long>
+	<skos:prefLabel>Municipio de San Miguel de Mercedes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583460/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.48333</wgs:lat>
+	<wgs:long>-88.18333</wgs:long>
+	<skos:prefLabel>Municipio de San Miguel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583461/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3583462/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.5</wgs:lat>
+	<wgs:long>-88.16667</wgs:long>
+	<skos:prefLabel>Distrito de San Miguel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583462/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>13.53333</wgs:lat>
+	<wgs:long>-88.28333</wgs:long>
+	<skos:altLabel>Departamento de San Miguel</skos:altLabel>
+	<skos:altLabel>San Miguel</skos:altLabel>
+	<skos:prefLabel>Departamento de San Miguel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583465/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.88333</wgs:lat>
+	<wgs:long>-89.31667</wgs:long>
+	<skos:prefLabel>Municipio de San Matías</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583469/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.75</wgs:lat>
+	<wgs:long>-89.06667</wgs:long>
+	<skos:prefLabel>Municipio de San Martín</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583471/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>39361</europeana:population>
+	<wgs:lat>13.78333</wgs:lat>
+	<wgs:long>-88.91667</wgs:long>
+	<skos:prefLabel>San Martín</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583476/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.66667</wgs:lat>
+	<wgs:long>-89.16667</wgs:long>
+	<skos:prefLabel>Municipio de San Marcos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583480/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>54615</europeana:population>
+	<wgs:lat>13.65889</wgs:lat>
+	<wgs:long>-89.18306</wgs:long>
+	<skos:prefLabel>San Marcos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583486/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.95</wgs:lat>
+	<wgs:long>-88.98333</wgs:long>
+	<skos:prefLabel>Municipio de San Luis del Carmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583488/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.83333</wgs:lat>
+	<wgs:long>-88.35</wgs:long>
+	<skos:prefLabel>Municipio de San Luis de la Reina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583490/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.43333</wgs:lat>
+	<wgs:long>-89.08333</wgs:long>
+	<skos:prefLabel>Municipio de San Luis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583507/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>14.01667</wgs:lat>
+	<wgs:long>-89.78333</wgs:long>
+	<skos:prefLabel>Municipio de San Lorenzo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583508/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.7</wgs:lat>
+	<wgs:long>-88.8</wgs:long>
+	<skos:prefLabel>Municipio de San Lorenzo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583520/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.7</wgs:lat>
+	<wgs:long>-89.56667</wgs:long>
+	<skos:prefLabel>Municipio de San Julián</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583525/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.61667</wgs:lat>
+	<wgs:long>-89</wgs:long>
+	<skos:prefLabel>Municipio de San Juan Tepezontes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583527/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.51667</wgs:lat>
+	<wgs:long>-89.08333</wgs:long>
+	<skos:prefLabel>Municipio de San Juan Talpa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583529/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.91667</wgs:lat>
+	<wgs:long>-89.38333</wgs:long>
+	<skos:prefLabel>Municipio de San Juan Opico</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583530/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585155/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.86667</wgs:lat>
+	<wgs:long>-89.4</wgs:long>
+	<skos:altLabel>Distrito de San Juan Opico</skos:altLabel>
+	<skos:altLabel>Opico</skos:altLabel>
+	<skos:prefLabel>Distrito de San Juan Opico</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583532/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.5</wgs:lat>
+	<wgs:long>-88.9</wgs:long>
+	<skos:prefLabel>Municipio de San Juan Nonualco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583560/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.44861</wgs:lat>
+	<wgs:long>-87.80333</wgs:long>
+	<skos:prefLabel>Isla San Juan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583575/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.58333</wgs:lat>
+	<wgs:long>-89.26667</wgs:long>
+	<skos:prefLabel>Municipio de San José Villanueva</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583589/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>14.05</wgs:lat>
+	<wgs:long>-88.85</wgs:long>
+	<skos:altLabel>Las Flores</skos:altLabel>
+	<skos:altLabel>Municipio de San José Las Flores</skos:altLabel>
+	<skos:prefLabel>Municipio de San José Las Flores</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583599/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.83333</wgs:lat>
+	<wgs:long>-89.11667</wgs:long>
+	<skos:prefLabel>Municipio de San José Guayabal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583614/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.96667</wgs:lat>
+	<wgs:long>-88.85</wgs:long>
+	<skos:prefLabel>Municipio de San José Cancasque</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583624/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.56667</wgs:lat>
+	<wgs:long>-87.9</wgs:long>
+	<skos:prefLabel>Municipio de San José</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583649/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.43333</wgs:lat>
+	<wgs:long>-88.33333</wgs:long>
+	<skos:prefLabel>Municipio de San Jorge</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583681/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>14</wgs:lat>
+	<wgs:long>-88.85</wgs:long>
+	<skos:prefLabel>Municipio de San Isidro Labrador</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583683/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.85</wgs:lat>
+	<wgs:long>-88.23333</wgs:long>
+	<skos:prefLabel>Municipio de San Isidro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583684/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.83333</wgs:lat>
+	<wgs:long>-88.71667</wgs:long>
+	<skos:prefLabel>Municipio de San Isidro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583701/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.7</wgs:lat>
+	<wgs:long>-88.56667</wgs:long>
+	<skos:prefLabel>Municipio de San Ildefonso</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583706/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>14.33333</wgs:lat>
+	<wgs:long>-89.18333</wgs:long>
+	<skos:prefLabel>Municipio de San Ignacio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583710/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.8</wgs:lat>
+	<wgs:long>-88.4</wgs:long>
+	<skos:prefLabel>Municipio de San Gerardo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583713/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>14.18333</wgs:lat>
+	<wgs:long>-89.05</wgs:long>
+	<skos:prefLabel>Municipio de San Francisco Morazán</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583715/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.8</wgs:lat>
+	<wgs:long>-90.06667</wgs:long>
+	<skos:prefLabel>Municipio de San Francisco Menéndez</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583718/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.96667</wgs:lat>
+	<wgs:long>-89</wgs:long>
+	<skos:prefLabel>Municipio de San Francisco Lempa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583720/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.41667</wgs:lat>
+	<wgs:long>-88.56667</wgs:long>
+	<skos:prefLabel>Municipio de San Francisco Javier</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583728/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.6</wgs:lat>
+	<wgs:long>-89.08333</wgs:long>
+	<skos:prefLabel>Municipio de San Francisco Chinameca</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583737/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.66667</wgs:lat>
+	<wgs:long>-88.1</wgs:long>
+	<skos:altLabel>Gotera</skos:altLabel>
+	<skos:altLabel>Municipio de San Francisco</skos:altLabel>
+	<skos:prefLabel>Municipio de San Francisco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583738/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3584317/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.66667</wgs:lat>
+	<wgs:long>-88.11667</wgs:long>
+	<skos:prefLabel>Distrito de San Francisco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583747/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16152</europeana:population>
+	<wgs:lat>13.7</wgs:lat>
+	<wgs:long>-88.1</wgs:long>
+	<skos:altLabel>Gotera</skos:altLabel>
+	<skos:altLabel>San Francisco</skos:altLabel>
+	<skos:altLabel>San Francisco Gotera</skos:altLabel>
+	<skos:prefLabel>San Francisco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583753/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>14.3</wgs:lat>
+	<wgs:long>-89.03333</wgs:long>
+	<skos:prefLabel>Municipio de San Fernando</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583754/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.96667</wgs:lat>
+	<wgs:long>-88.2</wgs:long>
+	<skos:prefLabel>Municipio de San Fernando</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583770/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.68333</wgs:lat>
+	<wgs:long>-88.78333</wgs:long>
+	<skos:prefLabel>Municipio de San Esteban Catarina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583776/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.65</wgs:lat>
+	<wgs:long>-88.98333</wgs:long>
+	<skos:prefLabel>Municipio de San Emigdio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583779/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.21667</wgs:lat>
+	<wgs:long>-88.43333</wgs:long>
+	<skos:prefLabel>Municipio de San Dionisio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583780/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.23333</wgs:lat>
+	<wgs:long>-88.46667</wgs:long>
+	<skos:prefLabel>Isla San Dionisio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583792/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.7</wgs:lat>
+	<wgs:long>-88.88333</wgs:long>
+	<skos:prefLabel>Municipio de San Cristóbal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583803/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.66667</wgs:lat>
+	<wgs:long>-88.81667</wgs:long>
+	<skos:prefLabel>Municipio de San Cayetano Istepeque</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583806/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.65</wgs:lat>
+	<wgs:long>-88.1</wgs:long>
+	<skos:prefLabel>Municipio de San Carlos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583814/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.56667</wgs:lat>
+	<wgs:long>-88.4</wgs:long>
+	<skos:prefLabel>Municipio de San Buenaventura</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583824/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.76667</wgs:lat>
+	<wgs:long>-89.05</wgs:long>
+	<skos:prefLabel>Municipio de San Bartolomé Perulapía</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583837/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>14.18333</wgs:lat>
+	<wgs:long>-89.55</wgs:long>
+	<skos:prefLabel>Municipio de San Antonio Pajonal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583839/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.58333</wgs:lat>
+	<wgs:long>-89.01667</wgs:long>
+	<skos:prefLabel>Municipio de San Antonio Masahuat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583842/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>14</wgs:lat>
+	<wgs:long>-88.98333</wgs:long>
+	<skos:prefLabel>Municipio de San Antonio Los Ranchos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583850/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.71667</wgs:lat>
+	<wgs:long>-89.75</wgs:long>
+	<skos:prefLabel>Municipio de San Antonio del Monte</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583852/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>14.03333</wgs:lat>
+	<wgs:long>-88.81667</wgs:long>
+	<skos:prefLabel>Municipio de San Antonio de La Cruz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583869/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.85</wgs:lat>
+	<wgs:long>-88.28333</wgs:long>
+	<skos:prefLabel>Municipio de San Antonio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583904/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.43333</wgs:lat>
+	<wgs:long>-87.96667</wgs:long>
+	<skos:prefLabel>Municipio de San Alejo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583906/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.48333</wgs:lat>
+	<wgs:long>-88.61667</wgs:long>
+	<skos:prefLabel>Municipio de San Agustín</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583911/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.2</wgs:lat>
+	<wgs:long>-88.35</wgs:long>
+	<skos:altLabel>Isla Samuria</skos:altLabel>
+	<skos:altLabel>Isla de Samuria</skos:altLabel>
+	<skos:prefLabel>Isla Samuria</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583921/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.83333</wgs:lat>
+	<wgs:long>-89.76667</wgs:long>
+	<skos:prefLabel>Municipio de Salcoatitán</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583927/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.75</wgs:lat>
+	<wgs:long>-89.45</wgs:long>
+	<skos:prefLabel>Municipio de Sacacoyo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583936/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.55</wgs:lat>
+	<wgs:long>-89.21667</wgs:long>
+	<skos:prefLabel>Municipio de Rosario de Mora</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583979/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.83333</wgs:lat>
+	<wgs:long>-89.26667</wgs:long>
+	<skos:prefLabel>Municipio de Quezaltepeque</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583980/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585155/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.91667</wgs:lat>
+	<wgs:long>-89.25</wgs:long>
+	<skos:prefLabel>Distrito de Quezaltepeque</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583981/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>28886</europeana:population>
+	<wgs:lat>13.835</wgs:lat>
+	<wgs:long>-89.27444</wgs:long>
+	<skos:altLabel>Quezaltepeque</skos:altLabel>
+	<skos:altLabel>Quezaltepque</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кесальтепеке</skos:altLabel>
+	<skos:prefLabel>Quezaltepeque</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3583988/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.51667</wgs:lat>
+	<wgs:long>-88.23333</wgs:long>
+	<skos:prefLabel>Municipio de Quelepa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584002/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.25</wgs:lat>
+	<wgs:long>-88.55</wgs:long>
+	<skos:prefLabel>Municipio de Puerto El Triunfo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584003/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19074</europeana:population>
+	<wgs:lat>13.28333</wgs:lat>
+	<wgs:long>-88.55</wgs:long>
+	<skos:altLabel>Puerto Del Triunfo</skos:altLabel>
+	<skos:altLabel>Puerto El Triunfo</skos:altLabel>
+	<skos:prefLabel>Puerto El Triunfo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584029/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.96667</wgs:lat>
+	<wgs:long>-88.96667</wgs:long>
+	<skos:prefLabel>Municipio de Potonico</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584034/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.67222</wgs:lat>
+	<wgs:long>-89.07556</wgs:long>
+	<skos:prefLabel>Isla Portillón</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584041/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.81667</wgs:lat>
+	<wgs:long>-87.81667</wgs:long>
+	<skos:prefLabel>Municipio de Polorós</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584104/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.95</wgs:lat>
+	<wgs:long>-88.16667</wgs:long>
+	<skos:prefLabel>Municipio de Perquín</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584106/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.39</wgs:lat>
+	<wgs:long>-87.85111</wgs:long>
+	<skos:prefLabel>Isla Periquito</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584107/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.38083</wgs:lat>
+	<wgs:long>-87.86139</wgs:long>
+	<skos:prefLabel>Isla Perico</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584139/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.58333</wgs:lat>
+	<wgs:long>-87.83333</wgs:long>
+	<skos:prefLabel>Municipio de Pasaquina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584145/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.63333</wgs:lat>
+	<wgs:long>-88.96667</wgs:long>
+	<skos:prefLabel>Municipio de Paraíso de Osorio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584155/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.6</wgs:lat>
+	<wgs:long>-89.16667</wgs:long>
+	<skos:prefLabel>Municipio de Panchimalco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584181/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.2</wgs:lat>
+	<wgs:long>-88.46667</wgs:long>
+	<skos:prefLabel>Isla Pajarito</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584189/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.35</wgs:lat>
+	<wgs:long>-88.51667</wgs:long>
+	<skos:prefLabel>Municipio de Ozatlán</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584195/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.8</wgs:lat>
+	<wgs:long>-88.15</wgs:long>
+	<skos:prefLabel>Municipio de Osicala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584196/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3584317/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.78333</wgs:lat>
+	<wgs:long>-88.11667</wgs:long>
+	<skos:prefLabel>Distrito de Osicala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584201/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.81667</wgs:lat>
+	<wgs:long>-89.06667</wgs:long>
+	<skos:prefLabel>Municipio de Oratorio de Concepción</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584206/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.29583</wgs:lat>
+	<wgs:long>-88.05222</wgs:long>
+	<skos:prefLabel>Isla Olomeguita</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584208/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.29694</wgs:lat>
+	<wgs:long>-88.06278</wgs:long>
+	<skos:prefLabel>Isla Olomega</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584210/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.5</wgs:lat>
+	<wgs:long>-89.13333</wgs:long>
+	<skos:prefLabel>Municipio de Olocuilta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584211/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585087/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.5</wgs:lat>
+	<wgs:long>-89.1</wgs:long>
+	<skos:prefLabel>Distrito de Olocuilta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584217/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>14.13333</wgs:lat>
+	<wgs:long>-88.86667</wgs:long>
+	<skos:prefLabel>Municipio de Ojos de Agua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584246/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.81667</wgs:lat>
+	<wgs:long>-88.48333</wgs:long>
+	<skos:prefLabel>Municipio de Nuevo Edén de San Juan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584250/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.65</wgs:lat>
+	<wgs:long>-89.26667</wgs:long>
+	<skos:prefLabel>Municipio de Nuevo Cuscatlán</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584253/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>14.06667</wgs:lat>
+	<wgs:long>-88.78333</wgs:long>
+	<skos:prefLabel>Municipio de Nueva Trinidad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584255/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.66667</wgs:lat>
+	<wgs:long>-89.3</wgs:long>
+	<skos:prefLabel>Municipio de Nueva San Salvador</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584256/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585155/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.63333</wgs:lat>
+	<wgs:long>-89.36667</wgs:long>
+	<skos:prefLabel>Distrito de Nueva San Salvador</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584257/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>124694</europeana:population>
+	<wgs:lat>13.67694</wgs:lat>
+	<wgs:long>-89.27972</wgs:long>
+	<skos:altLabel>Ciudad de Nueva San Salvador</skos:altLabel>
+	<skos:altLabel>La Ciudad de Nueva San Salvador</skos:altLabel>
+	<skos:altLabel>Nueva San Salvador</skos:altLabel>
+	<skos:altLabel>Santa Tecla</skos:altLabel>
+	<skos:altLabel xml:lang="en">Santa Tecla</skos:altLabel>
+	<skos:altLabel xml:lang="de">Santa Tecla</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Santa Tecla</skos:altLabel>
+	<skos:altLabel xml:lang="es">Santa Tecla</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Нуэва-Сан-Сальвадор</skos:altLabel>
+	<skos:prefLabel>Nueva San Salvador</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584258/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.53333</wgs:lat>
+	<wgs:long>-88.35</wgs:long>
+	<skos:prefLabel>Municipio de Nueva Guadalupe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584261/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.61667</wgs:lat>
+	<wgs:long>-88.43333</wgs:long>
+	<skos:prefLabel>Municipio de Nueva Granada</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584263/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.78333</wgs:lat>
+	<wgs:long>-87.83333</wgs:long>
+	<skos:prefLabel>Municipio de Nueva Esparta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584265/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>14.11667</wgs:lat>
+	<wgs:long>-89.36667</wgs:long>
+	<skos:prefLabel>Municipio de Nueva Concepción</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584271/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>14</wgs:lat>
+	<wgs:long>-88.73333</wgs:long>
+	<skos:prefLabel>Municipio de Nombre de Jesús</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584281/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.83333</wgs:lat>
+	<wgs:long>-89.23333</wgs:long>
+	<skos:prefLabel>Municipio de Nejapa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584294/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.66667</wgs:lat>
+	<wgs:long>-89.71667</wgs:long>
+	<skos:prefLabel>Municipio de Nahulingo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584296/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.78333</wgs:lat>
+	<wgs:long>-89.73333</wgs:long>
+	<skos:prefLabel>Municipio de Nahuizalco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584307/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.16667</wgs:lat>
+	<wgs:long>-88.4</wgs:long>
+	<skos:prefLabel>Isla Mundo Nuevo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584317/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>13.8</wgs:lat>
+	<wgs:long>-88.1</wgs:long>
+	<skos:altLabel>Departamento de Morazán</skos:altLabel>
+	<skos:altLabel>Morazán</skos:altLabel>
+	<skos:prefLabel>Departamento de Morazán</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584322/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.76667</wgs:lat>
+	<wgs:long>-88.95</wgs:long>
+	<skos:prefLabel>Municipio de Monte San Juan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584324/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.26667</wgs:lat>
+	<wgs:long>-88.61667</wgs:long>
+	<skos:prefLabel>Isla Monte Redondo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584334/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.25</wgs:lat>
+	<wgs:long>-88.8</wgs:long>
+	<skos:prefLabel>Isla Montecristo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584346/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.53333</wgs:lat>
+	<wgs:long>-88.28333</wgs:long>
+	<skos:prefLabel>Municipio de Moncagua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584381/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>14.31667</wgs:lat>
+	<wgs:long>-89.41667</wgs:long>
+	<skos:prefLabel>Municipio de Metapán</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584383/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3583332/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>14.3</wgs:lat>
+	<wgs:long>-89.43333</wgs:long>
+	<skos:prefLabel>Distrito de Metapán</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584384/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19143</europeana:population>
+	<wgs:lat>14.33333</wgs:lat>
+	<wgs:long>-89.45</wgs:long>
+	<skos:altLabel>Metapán</skos:altLabel>
+	<skos:prefLabel>Metapán</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584389/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.56667</wgs:lat>
+	<wgs:long>-88.5</wgs:long>
+	<skos:prefLabel>Municipio de Mercedes Umaña</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584391/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.65</wgs:lat>
+	<wgs:long>-88.91667</wgs:long>
+	<skos:prefLabel>Municipio de Mercedes La Ceiba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584398/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.73333</wgs:lat>
+	<wgs:long>-89.18333</wgs:long>
+	<skos:prefLabel>Municipio de Mejicanos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584399/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>160317</europeana:population>
+	<wgs:lat>13.74028</wgs:lat>
+	<wgs:long>-89.21306</wgs:long>
+	<skos:altLabel xml:lang="en">Mejicanos</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Mejicanos</skos:altLabel>
+	<skos:altLabel>Mejicanos</skos:altLabel>
+	<skos:altLabel>Mexicanos</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Мехиканос</skos:altLabel>
+	<skos:prefLabel>Mejicanos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584401/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.17222</wgs:lat>
+	<wgs:long>-87.68639</wgs:long>
+	<skos:altLabel>Isla Meanguerita</skos:altLabel>
+	<skos:altLabel>Isla Pirigallo</skos:altLabel>
+	<skos:prefLabel>Isla Meanguerita</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584402/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.2</wgs:lat>
+	<wgs:long>-87.71667</wgs:long>
+	<skos:prefLabel>Municipio de Meanguera del Golfo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584404/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.85</wgs:lat>
+	<wgs:long>-88.15</wgs:long>
+	<skos:prefLabel>Municipio de Meanguera</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584405/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.19083</wgs:lat>
+	<wgs:long>-87.71139</wgs:long>
+	<skos:altLabel>Isla El Meanguera</skos:altLabel>
+	<skos:altLabel>Isla Meanguera</skos:altLabel>
+	<skos:prefLabel>Isla Meanguera</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584423/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>14.16667</wgs:lat>
+	<wgs:long>-89.41667</wgs:long>
+	<skos:prefLabel>Municipio de Masahuat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584425/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.28333</wgs:lat>
+	<wgs:long>-87.74139</wgs:long>
+	<skos:prefLabel>Isla Martín Pérez</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584458/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.21667</wgs:lat>
+	<wgs:long>-88.5</wgs:long>
+	<skos:altLabel>El Recodo</skos:altLabel>
+	<skos:altLabel>Isla Madre Sal</skos:altLabel>
+	<skos:altLabel>Isla Recodo</skos:altLabel>
+	<skos:altLabel>Isla del Madresal</skos:altLabel>
+	<skos:altLabel>Isla del Recodo</skos:altLabel>
+	<skos:altLabel>Recodo Island</skos:altLabel>
+	<skos:prefLabel>Isla Madre Sal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584571/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.35</wgs:lat>
+	<wgs:long>-89.01667</wgs:long>
+	<skos:altLabel>Isla Los Mangos</skos:altLabel>
+	<skos:altLabel>Isla de Los Mangos</skos:altLabel>
+	<skos:altLabel>Isla de Mangos</skos:altLabel>
+	<skos:prefLabel>Isla Los Mangos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584653/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.2</wgs:lat>
+	<wgs:long>-88.4</wgs:long>
+	<skos:prefLabel>Isla Los Cedros</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584711/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.73333</wgs:lat>
+	<wgs:long>-88.08333</wgs:long>
+	<skos:prefLabel>Municipio de Lolotiquillo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584713/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.6</wgs:lat>
+	<wgs:long>-88.35</wgs:long>
+	<skos:prefLabel>Municipio de Lolotique</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584744/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.8</wgs:lat>
+	<wgs:long>-87.9</wgs:long>
+	<skos:prefLabel>Municipio de Lislique</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584765/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.33333</wgs:lat>
+	<wgs:long>-87.85</wgs:long>
+	<skos:prefLabel>Municipio de La Unión</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584766/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3584767/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.36667</wgs:lat>
+	<wgs:long>-87.88333</wgs:long>
+	<skos:prefLabel>Distrito de La Unión</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584767/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>13.55</wgs:lat>
+	<wgs:long>-87.9</wgs:long>
+	<skos:altLabel>Departamento de La Unión</skos:altLabel>
+	<skos:altLabel>La Unión</skos:altLabel>
+	<skos:altLabel>Union</skos:altLabel>
+	<skos:prefLabel>Departamento de La Unión</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584772/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>26807</europeana:population>
+	<wgs:lat>13.33694</wgs:lat>
+	<wgs:long>-87.84389</wgs:long>
+	<skos:altLabel>La Unión</skos:altLabel>
+	<skos:altLabel>San Carlos de La Unión</skos:altLabel>
+	<skos:prefLabel>La Unión</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584786/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.28333</wgs:lat>
+	<wgs:long>-88.86667</wgs:long>
+	<skos:altLabel>De La Tasajera</skos:altLabel>
+	<skos:altLabel>Isla Tasajera</skos:altLabel>
+	<skos:altLabel>Isla de La Tasajera</skos:altLabel>
+	<skos:prefLabel>Isla de La Tasajera</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3584789/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>14.1</wgs:lat>
+	<wgs:long>-88.9</wgs:long>
+	<skos:prefLabel>Municipio de Las Vueltas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585040/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>14.2</wgs:lat>
+	<wgs:long>-89.15</wgs:long>
+	<skos:prefLabel>Municipio de La Reina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585087/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>13.46667</wgs:lat>
+	<wgs:long>-88.98333</wgs:long>
+	<skos:altLabel>Departamento de La Paz</skos:altLabel>
+	<skos:altLabel>La Paz</skos:altLabel>
+	<skos:prefLabel>Departamento de La Paz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585097/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>14.31667</wgs:lat>
+	<wgs:long>-89.16667</wgs:long>
+	<skos:prefLabel>Municipio de La Palma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585154/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.35</wgs:lat>
+	<wgs:long>-89.51667</wgs:long>
+	<skos:prefLabel>Municipio de La Libertad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585155/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>13.75</wgs:lat>
+	<wgs:long>-89.38333</wgs:long>
+	<skos:altLabel>Departamento de La Libertad</skos:altLabel>
+	<skos:altLabel>La Libertad</skos:altLabel>
+	<skos:prefLabel>Departamento de La Libertad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585157/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16855</europeana:population>
+	<wgs:lat>13.48833</wgs:lat>
+	<wgs:long>-89.32222</wgs:long>
+	<skos:altLabel>La Libertad</skos:altLabel>
+	<skos:altLabel>Puerto La Libertad</skos:altLabel>
+	<skos:prefLabel>La Libertad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585166/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>14.15</wgs:lat>
+	<wgs:long>-88.95</wgs:long>
+	<skos:prefLabel>Municipio de La Laguna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585268/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.26667</wgs:lat>
+	<wgs:long>-88.58333</wgs:long>
+	<skos:altLabel>El Cagado</skos:altLabel>
+	<skos:altLabel>Isla La Empalizada</skos:altLabel>
+	<skos:altLabel>Isla el Cagado</skos:altLabel>
+	<skos:prefLabel>Isla La Empalizada</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585388/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.88333</wgs:lat>
+	<wgs:long>-88.9</wgs:long>
+	<skos:prefLabel>Municipio de Jutiapa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585391/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.75</wgs:lat>
+	<wgs:long>-89.93333</wgs:long>
+	<skos:prefLabel>Municipio de Jujutla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585394/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.23333</wgs:lat>
+	<wgs:long>-88.26667</wgs:long>
+	<skos:prefLabel>Municipio de Jucuarán</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585396/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.5</wgs:lat>
+	<wgs:long>-88.4</wgs:long>
+	<skos:prefLabel>Municipio de Jucuapa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585397/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582882/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.61667</wgs:lat>
+	<wgs:long>-88.43333</wgs:long>
+	<skos:prefLabel>Distrito de Jucuapa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585398/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10601</europeana:population>
+	<wgs:lat>13.51667</wgs:lat>
+	<wgs:long>-88.38333</wgs:long>
+	<skos:prefLabel>Jucuapa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585399/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.83333</wgs:lat>
+	<wgs:long>-89.73333</wgs:long>
+	<skos:prefLabel>Municipio de Juayúa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585400/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3583101/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.83333</wgs:lat>
+	<wgs:long>-89.75</wgs:long>
+	<skos:prefLabel>Distrito de Juayúa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585426/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.61667</wgs:lat>
+	<wgs:long>-88.01667</wgs:long>
+	<skos:prefLabel>Municipio de Jocoro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585429/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.9</wgs:lat>
+	<wgs:long>-88.15</wgs:long>
+	<skos:prefLabel>Municipio de Jocoaitique</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585430/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3584317/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.96667</wgs:lat>
+	<wgs:long>-88.15</wgs:long>
+	<skos:prefLabel>Distrito de Jocoaitique</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585434/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.9</wgs:lat>
+	<wgs:long>-88.05</wgs:long>
+	<skos:prefLabel>Municipio de Joateca</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585436/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.33333</wgs:lat>
+	<wgs:long>-88.56667</wgs:long>
+	<skos:prefLabel>Municipio de Jiquilisco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585444/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.53333</wgs:lat>
+	<wgs:long>-89.51667</wgs:long>
+	<skos:prefLabel>Municipio de Jicalapa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585448/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.66667</wgs:lat>
+	<wgs:long>-88.91667</wgs:long>
+	<skos:prefLabel>Municipio de Jerusalén</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585454/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.66667</wgs:lat>
+	<wgs:long>-89.43333</wgs:long>
+	<skos:prefLabel>Municipio de Jayaque</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585471/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.76667</wgs:lat>
+	<wgs:long>-89.61667</wgs:long>
+	<skos:prefLabel>Municipio de Izalco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585472/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3583101/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.7</wgs:lat>
+	<wgs:long>-89.58333</wgs:long>
+	<skos:prefLabel>Distrito de Izalco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585473/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19197</europeana:population>
+	<wgs:lat>13.74472</wgs:lat>
+	<wgs:long>-89.67306</wgs:long>
+	<skos:altLabel>Izalco</skos:altLabel>
+	<skos:altLabel>Yzalco</skos:altLabel>
+	<skos:prefLabel>Izalco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585479/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.2</wgs:lat>
+	<wgs:long>-88.05</wgs:long>
+	<skos:prefLabel>Municipio de Intipucá</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585482/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.7</wgs:lat>
+	<wgs:long>-89.1</wgs:long>
+	<skos:prefLabel>Municipio de Ilopango</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585484/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>38890</europeana:population>
+	<wgs:lat>13.70167</wgs:lat>
+	<wgs:long>-89.10944</wgs:long>
+	<skos:altLabel>Ilopango</skos:altLabel>
+	<skos:altLabel>Ylopango</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Илопанго</skos:altLabel>
+	<skos:prefLabel>Ilopango</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585485/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.85</wgs:lat>
+	<wgs:long>-88.85</wgs:long>
+	<skos:prefLabel>Municipio de Ilobasco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585486/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3587217/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.88333</wgs:lat>
+	<wgs:long>-88.83333</wgs:long>
+	<skos:prefLabel>Distrito de Ilobasco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585488/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.29917</wgs:lat>
+	<wgs:long>-87.74472</wgs:long>
+	<skos:prefLabel>Isla Ilca</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585493/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.56667</wgs:lat>
+	<wgs:long>-89.23333</wgs:long>
+	<skos:prefLabel>Municipio de Huizúcar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585635/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.9</wgs:lat>
+	<wgs:long>-89.16667</wgs:long>
+	<skos:prefLabel>Municipio de Guazapa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585636/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10995</europeana:population>
+	<wgs:lat>13.87694</wgs:lat>
+	<wgs:long>-89.17306</wgs:long>
+	<skos:altLabel>Guasapa</skos:altLabel>
+	<skos:altLabel>Guazapa</skos:altLabel>
+	<skos:prefLabel>Guazapa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585639/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.71667</wgs:lat>
+	<wgs:long>-89.85</wgs:long>
+	<skos:prefLabel>Municipio de Guaymango</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585652/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.66667</wgs:lat>
+	<wgs:long>-88.2</wgs:long>
+	<skos:prefLabel>Municipio de Guatajiagua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585667/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.81667</wgs:lat>
+	<wgs:long>-88.21667</wgs:long>
+	<skos:prefLabel>Municipio de Gualococti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585684/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.61667</wgs:lat>
+	<wgs:long>-88.88333</wgs:long>
+	<skos:prefLabel>Municipio de Guadalupe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585695/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.86667</wgs:lat>
+	<wgs:long>-88.65</wgs:long>
+	<skos:prefLabel>Municipio de Guacotecti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585752/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.63333</wgs:lat>
+	<wgs:long>-88.5</wgs:long>
+	<skos:prefLabel>Municipio de Estanzuelas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585763/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.33333</wgs:lat>
+	<wgs:long>-88.38333</wgs:long>
+	<skos:prefLabel>Municipio de Ereguayquín</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585838/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.58333</wgs:lat>
+	<wgs:long>-88.43333</wgs:long>
+	<skos:prefLabel>Municipio de El Triunfo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585847/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.35</wgs:lat>
+	<wgs:long>-88.31667</wgs:long>
+	<skos:prefLabel>Municipio de El Tránsito</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585961/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.66667</wgs:lat>
+	<wgs:long>-87.8</wgs:long>
+	<skos:prefLabel>Municipio de El Sauce</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585968/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255149/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>6052064</europeana:population>
+	<wgs:lat>13.83333</wgs:lat>
+	<wgs:long>-88.91667</wgs:long>
+	<skos:altLabel xml:lang="ga">An tSalvadóir</skos:altLabel>
+	<skos:altLabel xml:lang="cy">El Salfador</skos:altLabel>
+	<skos:altLabel xml:lang="id">El Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="es">El Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="ca">El Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="de">El Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="fr">El Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="hr">El Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="is">El Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="ms">El Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="nb">El Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="nn">El Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="ro">El Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="en">El Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="cs">El Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="da">El Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="et">El Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="fi">El Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="hu">El Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="it">El Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="mt">El Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="nl">El Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="pt">El Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="sv">El Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="tr">El Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="bs">El Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="eu">El Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="ku">El Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="oc">El Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="tl">El Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="vi">El Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="an">El Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="ia">El Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="kw">El Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="na">El Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="no">El Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="sw">El Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="af">El Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="se">El Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="vi">En-san-va-đo</skos:altLabel>
+	<skos:altLabel xml:lang="gl">O Salvador - El Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="en">Republic of El Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="es">República de El Salvador</skos:altLabel>
+	<skos:altLabel>SV</skos:altLabel>
+	<skos:altLabel>Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="af">Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Salvador</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Salvadora</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Salvadoras</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Salvadori</skos:altLabel>
+	<skos:altLabel xml:lang="io">Salvadoria</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Salvadoro</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Salvadorän</skos:altLabel>
+	<skos:altLabel xml:lang="la">Salvatoria</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Salvádor</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Salwador</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ελ Σαλβαδόρ</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Ел Салвадор</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Ел Салвадор</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Ел Салвадор</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Салвадор</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сальвадор</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Сальвадор</skos:altLabel>
+	<skos:altLabel xml:lang="be">Сальвадор</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Սալվադոր</skos:altLabel>
+	<skos:altLabel xml:lang="he">אל סלבדור</skos:altLabel>
+	<skos:altLabel xml:lang="he">אל סלוואדור</skos:altLabel>
+	<skos:altLabel xml:lang="he">אל סלוודור</skos:altLabel>
+	<skos:altLabel xml:lang="ar">إلسلفادور</skos:altLabel>
+	<skos:altLabel xml:lang="fa">السالوادور</skos:altLabel>
+	<skos:altLabel xml:lang="ar">السلفادور</skos:altLabel>
+	<skos:altLabel xml:lang="ps">اېلسلوادور</skos:altLabel>
+	<skos:altLabel xml:lang="ps">سالوېډور</skos:altLabel>
+	<skos:altLabel xml:lang="ug">سالۋادور</skos:altLabel>
+	<skos:altLabel xml:lang="hi">अल साल्वाडोर</skos:altLabel>
+	<skos:altLabel xml:lang="hi">एल-साल्वाडोर</skos:altLabel>
+	<skos:altLabel xml:lang="sa">एल-साल्वाडोर</skos:altLabel>
+	<skos:altLabel xml:lang="bn">এল সালভাদোর</skos:altLabel>
+	<skos:altLabel xml:lang="bn">সালভেডর</skos:altLabel>
+	<skos:altLabel xml:lang="ta">எல் சால்வடார்</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศเอลซัลวาดอร์</skos:altLabel>
+	<skos:altLabel xml:lang="th">สาธารณรัฐเอลซัลวาดอร์</skos:altLabel>
+	<skos:altLabel xml:lang="th">เอลซัลวาดอร์</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ເອຊາວາດໍ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">སར་ཝ་དོར</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཨེལ། སཱལ་ཝ་ཌོར།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">სალვადორი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ኤል ሳልቫዶር</skos:altLabel>
+	<skos:altLabel xml:lang="km">អែលសាល់វ៉ាឌ័រ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">エルサルバドル</skos:altLabel>
+	<skos:altLabel xml:lang="zh">萨尔瓦多</skos:altLabel>
+	<skos:altLabel xml:lang="ko">엘살바도르</skos:altLabel>
+	<skos:prefLabel>Republic of El Salvador</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585996/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.86667</wgs:lat>
+	<wgs:long>-88.21667</wgs:long>
+	<skos:prefLabel>Municipio de El Rosario</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585997/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.76667</wgs:lat>
+	<wgs:long>-88.91667</wgs:long>
+	<skos:prefLabel>Municipio de El Rosario</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3585998/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.5</wgs:lat>
+	<wgs:long>-89.01667</wgs:long>
+	<skos:prefLabel>Municipio de El Rosario</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586051/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.98333</wgs:lat>
+	<wgs:long>-89.71667</wgs:long>
+	<skos:prefLabel>Municipio de El Refugio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586079/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>14.03333</wgs:lat>
+	<wgs:long>-89.65</wgs:long>
+	<skos:prefLabel>Municipio de El Porvenir</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586107/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.18333</wgs:lat>
+	<wgs:long>-88.36667</wgs:long>
+	<skos:prefLabel>Isla El Platanar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586168/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>14.1</wgs:lat>
+	<wgs:long>-89.06667</wgs:long>
+	<skos:prefLabel>Municipio de El Paraíso</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586203/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>14</wgs:lat>
+	<wgs:long>-89.23333</wgs:long>
+	<skos:prefLabel>Municipio de El Paisnal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586299/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.25</wgs:lat>
+	<wgs:long>-88.65</wgs:long>
+	<skos:altLabel>Isla El Magueyal</skos:altLabel>
+	<skos:altLabel>Isla Magueyal</skos:altLabel>
+	<skos:altLabel>Isla el Magueyal</skos:altLabel>
+	<skos:prefLabel>Isla El Magueyal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586400/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLT"/>
+	<wgs:lat>13.16667</wgs:lat>
+	<wgs:long>-88.05</wgs:long>
+	<skos:altLabel>Isla El Icacal</skos:altLabel>
+	<skos:altLabel>Isla del Icacal</skos:altLabel>
+	<skos:prefLabel>Isla El Icacal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586457/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLT"/>
+	<wgs:lat>13.23333</wgs:lat>
+	<wgs:long>-88.61667</wgs:long>
+	<skos:altLabel>Espiritu Santo Island</skos:altLabel>
+	<skos:altLabel>Isla El Espíritu Santo</skos:altLabel>
+	<skos:altLabel>Isla Espirito Santo</skos:altLabel>
+	<skos:altLabel>Isla Espiritu Sunto</skos:altLabel>
+	<skos:altLabel>Isla Espíritu Santo</skos:altLabel>
+	<skos:prefLabel>Isla El Espíritu Santo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586489/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.6</wgs:lat>
+	<wgs:long>-88.05</wgs:long>
+	<skos:prefLabel>Municipio de El Divisadero</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586549/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.88333</wgs:lat>
+	<wgs:long>-89.51667</wgs:long>
+	<skos:prefLabel>Municipio de El Congo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586642/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>14.16667</wgs:lat>
+	<wgs:long>-88.9</wgs:long>
+	<skos:prefLabel>Municipio de El Carrizal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586657/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.71667</wgs:lat>
+	<wgs:long>-88.91667</wgs:long>
+	<skos:prefLabel>Municipio de El Carmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586658/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.35</wgs:lat>
+	<wgs:long>-88</wgs:long>
+	<skos:prefLabel>Municipio de El Carmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586736/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.18333</wgs:lat>
+	<wgs:long>-88.46667</wgs:long>
+	<skos:altLabel>Isla El Bajón</skos:altLabel>
+	<skos:altLabel>Islote El Bajón</skos:altLabel>
+	<skos:prefLabel>Isla El Bajón</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586742/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.18333</wgs:lat>
+	<wgs:long>-88.31667</wgs:long>
+	<skos:altLabel>Isla El Arco</skos:altLabel>
+	<skos:altLabel>Isla del Arco</skos:altLabel>
+	<skos:prefLabel>Isla El Arco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586796/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>14.15</wgs:lat>
+	<wgs:long>-89.01667</wgs:long>
+	<skos:prefLabel>Municipio de Dulce Nombre de María</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586797/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3587090/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>14.2</wgs:lat>
+	<wgs:long>-89.03333</wgs:long>
+	<skos:prefLabel>Distrito de Dulce Nombre de María</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586806/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.78333</wgs:lat>
+	<wgs:long>-88.55</wgs:long>
+	<skos:prefLabel>Municipio de Dolores</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586810/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.78333</wgs:lat>
+	<wgs:long>-88.13333</wgs:long>
+	<skos:prefLabel>Municipio de Delicias de Concepción</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586813/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.75</wgs:lat>
+	<wgs:long>-89.15</wgs:long>
+	<skos:prefLabel>Municipio de Delgado</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586814/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>71594</europeana:population>
+	<wgs:lat>13.72417</wgs:lat>
+	<wgs:long>-89.17028</wgs:long>
+	<skos:altLabel xml:lang="en">Delgado</skos:altLabel>
+	<skos:altLabel>Delgado</skos:altLabel>
+	<skos:altLabel>Villa Delcado</skos:altLabel>
+	<skos:altLabel>Villa Delgado</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Дельгадо</skos:altLabel>
+	<skos:prefLabel>Delgado</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586815/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.55</wgs:lat>
+	<wgs:long>-89.1</wgs:long>
+	<skos:prefLabel>Municipio de Cuyultitán</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586831/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>13.83333</wgs:lat>
+	<wgs:long>-89.03333</wgs:long>
+	<skos:altLabel>Cuscatlán</skos:altLabel>
+	<skos:altLabel>Departamento de Cuscatlán</skos:altLabel>
+	<skos:prefLabel>Departamento de Cuscatlán</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586832/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.73333</wgs:lat>
+	<wgs:long>-89.16667</wgs:long>
+	<skos:prefLabel>Municipio de Cuscatancingo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586833/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>44369</europeana:population>
+	<wgs:lat>13.73611</wgs:lat>
+	<wgs:long>-89.18139</wgs:long>
+	<skos:altLabel>Cuscatancingo</skos:altLabel>
+	<skos:prefLabel>Cuscatancingo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586843/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.25</wgs:lat>
+	<wgs:long>-88.66667</wgs:long>
+	<skos:altLabel>Isla Cumichín</skos:altLabel>
+	<skos:altLabel>Isla Gumichin</skos:altLabel>
+	<skos:prefLabel>Isla Cumichín</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586852/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.61667</wgs:lat>
+	<wgs:long>-89.63333</wgs:long>
+	<skos:prefLabel>Municipio de Cuisnahuat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586883/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.81667</wgs:lat>
+	<wgs:long>-87.96667</wgs:long>
+	<skos:prefLabel>Municipio de Corinto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586911/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.23528</wgs:lat>
+	<wgs:long>-87.76778</wgs:long>
+	<skos:altLabel>Conchaguita Island</skos:altLabel>
+	<skos:altLabel>Isla Conchacuita</skos:altLabel>
+	<skos:altLabel>Isla Conchagua</skos:altLabel>
+	<skos:altLabel>Isla Conchagüita</skos:altLabel>
+	<skos:prefLabel>Isla Conchagüita</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586916/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.3</wgs:lat>
+	<wgs:long>-87.86667</wgs:long>
+	<skos:prefLabel>Municipio de Conchagua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586918/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>14.08333</wgs:lat>
+	<wgs:long>-88.95</wgs:long>
+	<skos:prefLabel>Municipio de Concepción Quezaltepeque</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586923/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.8</wgs:lat>
+	<wgs:long>-87.75</wgs:long>
+	<skos:prefLabel>Municipio de Concepción de Oriente</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586925/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.85</wgs:lat>
+	<wgs:long>-89.86667</wgs:long>
+	<skos:prefLabel>Municipio de Concepción de Ataco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586929/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.33333</wgs:lat>
+	<wgs:long>-88.36667</wgs:long>
+	<skos:prefLabel>Municipio de Concepción Batres</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586950/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.58333</wgs:lat>
+	<wgs:long>-89.38333</wgs:long>
+	<skos:prefLabel>Municipio de Comasagua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586955/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>14.13333</wgs:lat>
+	<wgs:long>-88.96667</wgs:long>
+	<skos:prefLabel>Municipio de Comalapa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586960/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.53333</wgs:lat>
+	<wgs:long>-88.05</wgs:long>
+	<skos:prefLabel>Municipio de Comacarán</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586971/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.73333</wgs:lat>
+	<wgs:long>-89.36667</wgs:long>
+	<skos:prefLabel>Municipio de Colón</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586975/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.71667</wgs:lat>
+	<wgs:long>-88.95</wgs:long>
+	<skos:prefLabel>Municipio de Cojutepeque</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586976/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3586831/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.76667</wgs:lat>
+	<wgs:long>-88.96667</wgs:long>
+	<skos:prefLabel>Distrito de Cojutepeque</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586977/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>48411</europeana:population>
+	<wgs:lat>13.71667</wgs:lat>
+	<wgs:long>-88.93333</wgs:long>
+	<skos:altLabel>Cojutepeque</skos:altLabel>
+	<skos:prefLabel>Cojutepeque</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586979/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.95</wgs:lat>
+	<wgs:long>-89.48333</wgs:long>
+	<skos:prefLabel>Municipio de Coatepeque</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586982/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.76667</wgs:lat>
+	<wgs:long>-88.26667</wgs:long>
+	<skos:prefLabel>Municipio de Ciudad Barrios</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586984/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.83333</wgs:lat>
+	<wgs:long>-89.43333</wgs:long>
+	<skos:prefLabel>Municipio de Ciudad Arce</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586985/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10095</europeana:population>
+	<wgs:lat>13.84028</wgs:lat>
+	<wgs:long>-89.44722</wgs:long>
+	<skos:altLabel>Chilamatal</skos:altLabel>
+	<skos:altLabel>Ciudad Arce</skos:altLabel>
+	<skos:altLabel>El Chilamatal</skos:altLabel>
+	<skos:prefLabel>Ciudad Arce</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586986/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>14.38333</wgs:lat>
+	<wgs:long>-89.28333</wgs:long>
+	<skos:prefLabel>Municipio de Citalá</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3586989/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.88333</wgs:lat>
+	<wgs:long>-88.96667</wgs:long>
+	<skos:prefLabel>Municipio de Cinquera</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587011/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.32333</wgs:lat>
+	<wgs:long>-87.76167</wgs:long>
+	<skos:prefLabel>Isla Chuchito</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587017/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.26667</wgs:lat>
+	<wgs:long>-88.15</wgs:long>
+	<skos:prefLabel>Municipio de Chirilagua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587035/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.48333</wgs:lat>
+	<wgs:long>-88.35</wgs:long>
+	<skos:prefLabel>Municipio de Chinameca</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587036/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3583462/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.5</wgs:lat>
+	<wgs:long>-88.33333</wgs:long>
+	<skos:prefLabel>Distrito de Chinameca</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587041/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.56667</wgs:lat>
+	<wgs:long>-89.45</wgs:long>
+	<skos:prefLabel>Municipio de Chiltiupán</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587049/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.71667</wgs:lat>
+	<wgs:long>-88.11667</wgs:long>
+	<skos:prefLabel>Municipio de Chilanga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587063/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.65</wgs:lat>
+	<wgs:long>-88.26667</wgs:long>
+	<skos:prefLabel>Municipio de Chapeltique</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587083/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>14</wgs:lat>
+	<wgs:long>-89.7</wgs:long>
+	<skos:prefLabel>Municipio de Chalchuapa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587085/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3583332/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>14.03333</wgs:lat>
+	<wgs:long>-89.66667</wgs:long>
+	<skos:prefLabel>Distrito de Chalchuapa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587086/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>32282</europeana:population>
+	<wgs:lat>13.98667</wgs:lat>
+	<wgs:long>-89.68111</wgs:long>
+	<skos:altLabel>Chalchuapa</skos:altLabel>
+	<skos:prefLabel>Chalchuapa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587088/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>14.03333</wgs:lat>
+	<wgs:long>-88.95</wgs:long>
+	<skos:prefLabel>Municipio de Chalatenango</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587089/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3587090/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>14.05</wgs:lat>
+	<wgs:long>-88.83333</wgs:long>
+	<skos:prefLabel>Distrito de Chalatenango</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587090/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>14.13333</wgs:lat>
+	<wgs:long>-89.01667</wgs:long>
+	<skos:altLabel>Chalatenango</skos:altLabel>
+	<skos:altLabel>Departamento de Chalatenango</skos:altLabel>
+	<skos:prefLabel>Departamento de Chalatenango</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587091/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19364</europeana:population>
+	<wgs:lat>14.03333</wgs:lat>
+	<wgs:long>-88.93333</wgs:long>
+	<skos:altLabel>Chalatenanga</skos:altLabel>
+	<skos:altLabel>Chalatenango</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Чалатенанго</skos:altLabel>
+	<skos:prefLabel>Chalatenango</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587142/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.85</wgs:lat>
+	<wgs:long>-88.3</wgs:long>
+	<skos:prefLabel>Municipio de Carolina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587156/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>14.11667</wgs:lat>
+	<wgs:long>-89.63333</wgs:long>
+	<skos:prefLabel>Municipio de Candelaria de La Frontera</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587159/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.68333</wgs:lat>
+	<wgs:long>-88.96667</wgs:long>
+	<skos:prefLabel>Municipio de Candelaria</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587191/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.7</wgs:lat>
+	<wgs:long>-89.63333</wgs:long>
+	<skos:prefLabel>Municipio de Caluco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587198/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.31667</wgs:lat>
+	<wgs:long>-88.66667</wgs:long>
+	<skos:prefLabel>Municipio de California</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587207/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.76667</wgs:lat>
+	<wgs:long>-88.08333</wgs:long>
+	<skos:prefLabel>Municipio de Cacaopera</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587217/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>13.86667</wgs:lat>
+	<wgs:long>-88.75</wgs:long>
+	<skos:altLabel>Cabañas</skos:altLabel>
+	<skos:altLabel>Departamento de Cabañas</skos:altLabel>
+	<skos:prefLabel>Departamento de Cabañas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587257/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.56667</wgs:lat>
+	<wgs:long>-87.95</wgs:long>
+	<skos:prefLabel>Municipio de Bolívar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587264/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.51667</wgs:lat>
+	<wgs:long>-88.56667</wgs:long>
+	<skos:prefLabel>Municipio de Berlín</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587265/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582882/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.51667</wgs:lat>
+	<wgs:long>-88.6</wgs:long>
+	<skos:prefLabel>Distrito de Berlín</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587266/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11313</europeana:population>
+	<wgs:lat>13.5</wgs:lat>
+	<wgs:long>-88.53333</wgs:long>
+	<skos:altLabel>Berlín</skos:altLabel>
+	<skos:prefLabel>Berlín</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587295/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.98333</wgs:lat>
+	<wgs:long>-88.98333</wgs:long>
+	<skos:prefLabel>Municipio de Azacualpa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587307/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.73333</wgs:lat>
+	<wgs:long>-89.18333</wgs:long>
+	<skos:prefLabel>Municipio de Ayutuxtepeque</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587308/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>25426</europeana:population>
+	<wgs:lat>13.74556</wgs:lat>
+	<wgs:long>-89.20639</wgs:long>
+	<skos:altLabel>Ayutuxtepegue</skos:altLabel>
+	<skos:altLabel>Ayutuxtepeque</skos:altLabel>
+	<skos:prefLabel>Ayutuxtepeque</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587315/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.95</wgs:lat>
+	<wgs:long>-89.73333</wgs:long>
+	<skos:prefLabel>Municipio de Atiquizaya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587316/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3587425/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.98333</wgs:lat>
+	<wgs:long>-89.75</wgs:long>
+	<skos:prefLabel>Distrito de Atiquizaya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587332/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.75</wgs:lat>
+	<wgs:long>-89.5</wgs:long>
+	<skos:prefLabel>Municipio de Armenia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587333/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14997</europeana:population>
+	<wgs:lat>13.74361</wgs:lat>
+	<wgs:long>-89.49889</wgs:long>
+	<skos:altLabel>Armenia</skos:altLabel>
+	<skos:altLabel>Guaymoco</skos:altLabel>
+	<skos:prefLabel>Armenia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587335/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>14.08333</wgs:lat>
+	<wgs:long>-88.75</wgs:long>
+	<skos:prefLabel>Municipio de Arcatao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587340/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.91667</wgs:lat>
+	<wgs:long>-88.13333</wgs:long>
+	<skos:prefLabel>Municipio de Arambala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587344/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.78333</wgs:lat>
+	<wgs:long>-89.2</wgs:long>
+	<skos:prefLabel>Municipio de Apopa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587345/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>112158</europeana:population>
+	<wgs:lat>13.80722</wgs:lat>
+	<wgs:long>-89.17917</wgs:long>
+	<skos:altLabel xml:lang="en">Apopa</skos:altLabel>
+	<skos:altLabel>Apopa</skos:altLabel>
+	<skos:prefLabel>Apopa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587347/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.66667</wgs:lat>
+	<wgs:long>-88.78333</wgs:long>
+	<skos:prefLabel>Municipio de Apastepeque</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587355/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.85</wgs:lat>
+	<wgs:long>-89.8</wgs:long>
+	<skos:prefLabel>Municipio de Apaneca</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587361/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.66667</wgs:lat>
+	<wgs:long>-89.08333</wgs:long>
+	<skos:prefLabel>Municipio de Antiguo Cuscatlán</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587362/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>33767</europeana:population>
+	<wgs:lat>13.67306</wgs:lat>
+	<wgs:long>-89.24083</wgs:long>
+	<skos:altLabel>Antiguo Cuscatlán</skos:altLabel>
+	<skos:prefLabel>Antiguo Cuscatlán</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587371/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.75</wgs:lat>
+	<wgs:long>-87.86667</wgs:long>
+	<skos:prefLabel>Municipio de Anamorós</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587409/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.5</wgs:lat>
+	<wgs:long>-88.48333</wgs:long>
+	<skos:prefLabel>Municipio de Alegría</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587423/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.95</wgs:lat>
+	<wgs:long>-89.85</wgs:long>
+	<skos:prefLabel>Municipio de Ahuachapán</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587424/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3587425/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.83333</wgs:lat>
+	<wgs:long>-89.91667</wgs:long>
+	<skos:prefLabel>Distrito de Ahuachapán</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587425/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>13.86667</wgs:lat>
+	<wgs:long>-89.91667</wgs:long>
+	<skos:altLabel>Ahuachapán</skos:altLabel>
+	<skos:altLabel>Departamento de Ahuachapán</skos:altLabel>
+	<skos:prefLabel>Departamento de Ahuachapán</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587426/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>34102</europeana:population>
+	<wgs:lat>13.92139</wgs:lat>
+	<wgs:long>-89.845</wgs:long>
+	<skos:altLabel>Ahuachapán</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ачуачапан</skos:altLabel>
+	<skos:prefLabel>Ahuachapán</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587427/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.96667</wgs:lat>
+	<wgs:long>-89.2</wgs:long>
+	<skos:prefLabel>Municipio de Aguilares</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587428/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21445</europeana:population>
+	<wgs:lat>13.95722</wgs:lat>
+	<wgs:long>-89.18972</wgs:long>
+	<skos:prefLabel>Aguilares</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587479/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>14.18333</wgs:lat>
+	<wgs:long>-89.23333</wgs:long>
+	<skos:prefLabel>Municipio de Agua Caliente</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587497/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>13.63333</wgs:lat>
+	<wgs:long>-89.83333</wgs:long>
+	<skos:prefLabel>Municipio de Acajutla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3587498/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>22763</europeana:population>
+	<wgs:lat>13.59278</wgs:lat>
+	<wgs:long>-89.8275</wgs:long>
+	<skos:altLabel>Acajutla</skos:altLabel>
+	<skos:altLabel>Puerto Acajutla</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Акахутла</skos:altLabel>
+	<skos:prefLabel>Acajutla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3735041/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.30583</wgs:lat>
+	<wgs:long>-88.03028</wgs:long>
+	<skos:prefLabel>Isla El Borbollón</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3735042/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.30472</wgs:lat>
+	<wgs:long>-88.02222</wgs:long>
+	<skos:prefLabel>Río El Achiotal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3735046/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.30306</wgs:lat>
+	<wgs:long>-88.03556</wgs:long>
+	<skos:prefLabel>Isla de Los Chivos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3735047/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.30083</wgs:lat>
+	<wgs:long>-88.03639</wgs:long>
+	<skos:prefLabel>Isla La Casita</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3764653/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLT"/>
+	<wgs:lat>14.27556</wgs:lat>
+	<wgs:long>-89.54722</wgs:long>
+	<skos:prefLabel>Islote Ostúa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3764656/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.24528</wgs:lat>
+	<wgs:long>-89.52361</wgs:long>
+	<skos:prefLabel>Islita Cerro Negro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3764657/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.24472</wgs:lat>
+	<wgs:long>-89.52167</wgs:long>
+	<skos:prefLabel>Isla Cintular</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3764989/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.70444</wgs:lat>
+	<wgs:long>-90.00917</wgs:long>
+	<skos:prefLabel>Isla El Cajete</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3764990/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.69889</wgs:lat>
+	<wgs:long>-90.01389</wgs:long>
+	<skos:prefLabel>Isla del Muerto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3810436/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.64889</wgs:lat>
+	<wgs:long>-89.02889</wgs:long>
+	<skos:prefLabel>Cerro Los Patos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3810454/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.84417</wgs:lat>
+	<wgs:long>-89.56306</wgs:long>
+	<skos:prefLabel>Isla del Cerro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3810471/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.64861</wgs:lat>
+	<wgs:long>-89.02861</wgs:long>
+	<skos:prefLabel>Isla Cerro Los Patos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3810490/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.99389</wgs:lat>
+	<wgs:long>-89.02972</wgs:long>
+	<skos:prefLabel>Isla de León</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3811451/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.42944</wgs:lat>
+	<wgs:long>-87.79583</wgs:long>
+	<skos:prefLabel>Isla Muruhuaca</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3811457/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>13.41</wgs:lat>
+	<wgs:long>-87.81694</wgs:long>
+	<skos:prefLabel>Los Islotes de Ramaditas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3825985/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3585968/"/>
+	<europeana:country>SV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.34778</wgs:lat>
+	<wgs:long>-87.74278</wgs:long>
+	<skos:prefLabel>Isla Conejo</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 409 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

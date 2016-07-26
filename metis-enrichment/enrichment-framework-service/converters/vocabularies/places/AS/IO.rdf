@@ -1,0 +1,592 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AS_IO
+Description: Selected fields pulled from Geonames about IO done on Mon May 23 21:13:29 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282503/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.24282</wgs:lat>
+	<wgs:long>71.96228</wgs:long>
+	<skos:altLabel xml:lang="fr">Île Yeye</skos:altLabel>
+	<skos:prefLabel>Île Yeye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282505/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-7.24801</wgs:lat>
+	<wgs:long>72.38434</wgs:long>
+	<skos:altLabel>West Island</skos:altLabel>
+	<skos:altLabel>West Islet</skos:altLabel>
+	<skos:prefLabel>West Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282507/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.32891</wgs:lat>
+	<wgs:long>71.74281</wgs:long>
+	<skos:altLabel xml:lang="fr">Île Verte</skos:altLabel>
+	<skos:prefLabel>Île Verte</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282509/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.42401</wgs:lat>
+	<wgs:long>71.82931</wgs:long>
+	<skos:altLabel xml:lang="fr">Île Vache Marine</skos:altLabel>
+	<skos:prefLabel>Île Vache Marine</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282510/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-6.14389</wgs:lat>
+	<wgs:long>71.56222</wgs:long>
+	<skos:altLabel>Three Brothers</skos:altLabel>
+	<skos:altLabel>Three Brothers Islands</skos:altLabel>
+	<skos:prefLabel>Three Brothers</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282511/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-6.68164</wgs:lat>
+	<wgs:long>71.36749</wgs:long>
+	<skos:prefLabel>Île Tattamucca</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282512/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.3311</wgs:lat>
+	<wgs:long>72.2712</wgs:long>
+	<skos:prefLabel>Île Takamaka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282513/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-6.6866</wgs:lat>
+	<wgs:long>71.38739</wgs:long>
+	<skos:prefLabel>Île Sudest</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282516/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-6.65545</wgs:lat>
+	<wgs:long>71.31504</wgs:long>
+	<skos:prefLabel>Île Sipaille</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282518/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.34921</wgs:lat>
+	<wgs:long>72.25336</wgs:long>
+	<skos:prefLabel>Île Sepulture</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282519/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.35468</wgs:lat>
+	<wgs:long>72.22664</wgs:long>
+	<skos:prefLabel>Île du Sel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282521/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.24834</wgs:lat>
+	<wgs:long>71.8335</wgs:long>
+	<skos:prefLabel>Île Saint-Brandon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282522/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-6.6452</wgs:lat>
+	<wgs:long>71.31308</wgs:long>
+	<skos:prefLabel>Île des Rats</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282524/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.40584</wgs:lat>
+	<wgs:long>71.75027</wgs:long>
+	<skos:altLabel xml:lang="fr">Île Poule</skos:altLabel>
+	<skos:prefLabel>Île Poule</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282525/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.35878</wgs:lat>
+	<wgs:long>72.22084</wgs:long>
+	<skos:prefLabel>Île Poule</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282527/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.29046</wgs:lat>
+	<wgs:long>71.73784</wgs:long>
+	<skos:altLabel xml:lang="fr">Île Pierre</skos:altLabel>
+	<skos:prefLabel>Île Pierre</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282528/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.36417</wgs:lat>
+	<wgs:long>71.75477</wgs:long>
+	<skos:prefLabel>Petite Soeur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282529/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.27346</wgs:lat>
+	<wgs:long>71.74631</wgs:long>
+	<skos:altLabel xml:lang="fr">Petite Île Mapou</skos:altLabel>
+	<skos:prefLabel>Petite Île Mapou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282530/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.23333</wgs:lat>
+	<wgs:long>71.81667</wgs:long>
+	<skos:prefLabel>Petite Île de la Passe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282531/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.33931</wgs:lat>
+	<wgs:long>71.97332</wgs:long>
+	<skos:prefLabel>Petite Île Coquillage</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282533/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.3023</wgs:lat>
+	<wgs:long>72.25299</wgs:long>
+	<skos:prefLabel>Île de la Passe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282534/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.24212</wgs:lat>
+	<wgs:long>71.8153</wgs:long>
+	<skos:prefLabel>Île de la Passe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282536/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.26373</wgs:lat>
+	<wgs:long>71.84357</wgs:long>
+	<skos:altLabel>Ile Parasole</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Île Parasol</skos:altLabel>
+	<skos:prefLabel>Île Parasol</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282541/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-5.237</wgs:lat>
+	<wgs:long>71.82596</wgs:long>
+	<skos:prefLabel>Moresby Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282542/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.42372</wgs:lat>
+	<wgs:long>71.75113</wgs:long>
+	<skos:altLabel xml:lang="fr">Île Monpatre</skos:altLabel>
+	<skos:prefLabel>Île Monpatre</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282546/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-7.22826</wgs:lat>
+	<wgs:long>72.40828</wgs:long>
+	<skos:altLabel>Middle Island</skos:altLabel>
+	<skos:altLabel>Middle Islet</skos:altLabel>
+	<skos:prefLabel>Middle Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282548/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.46163</wgs:lat>
+	<wgs:long>71.7918</wgs:long>
+	<skos:prefLabel>Mapou de Î’ile du Coin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282549/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.31143</wgs:lat>
+	<wgs:long>72.26466</wgs:long>
+	<skos:prefLabel>Île Mapou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282550/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.3149</wgs:lat>
+	<wgs:long>71.73587</wgs:long>
+	<skos:altLabel xml:lang="fr">Île Manon</skos:altLabel>
+	<skos:prefLabel>Île Manon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282551/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.25915</wgs:lat>
+	<wgs:long>71.92237</wgs:long>
+	<skos:altLabel>Île Manoel</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Île Manoël</skos:altLabel>
+	<skos:prefLabel>Île Manoël</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282553/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-6.66819</wgs:lat>
+	<wgs:long>71.33024</wgs:long>
+	<skos:prefLabel>Île Lubine</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282554/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.26922</wgs:lat>
+	<wgs:long>71.86877</wgs:long>
+	<skos:altLabel xml:lang="fr">Île Longue</skos:altLabel>
+	<skos:prefLabel>Île Longue</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282557/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.35072</wgs:lat>
+	<wgs:long>72.24547</wgs:long>
+	<skos:prefLabel>Île Jacobin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282560/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.34603</wgs:lat>
+	<wgs:long>71.74943</wgs:long>
+	<skos:prefLabel>Grande Soeur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282561/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.2654</wgs:lat>
+	<wgs:long>71.75025</wgs:long>
+	<skos:altLabel xml:lang="fr">Grande Île Mapou</skos:altLabel>
+	<skos:prefLabel>Grande Île Mapou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282562/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.37305</wgs:lat>
+	<wgs:long>71.96936</wgs:long>
+	<skos:prefLabel>Grande Île Coquillage</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282564/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.42282</wgs:lat>
+	<wgs:long>71.74917</wgs:long>
+	<skos:altLabel xml:lang="fr">Île Gabrielle</skos:altLabel>
+	<skos:prefLabel>Île Gabrielle</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282565/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.46253</wgs:lat>
+	<wgs:long>71.81055</wgs:long>
+	<skos:altLabel xml:lang="fr">Île Fouquet</skos:altLabel>
+	<skos:prefLabel>Île Fouquet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282566/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.34161</wgs:lat>
+	<wgs:long>72.26631</wgs:long>
+	<skos:prefLabel>Île Fouquet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282567/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.33214</wgs:lat>
+	<wgs:long>71.74427</wgs:long>
+	<skos:altLabel xml:lang="fr">Île Finon</skos:altLabel>
+	<skos:prefLabel>Île Finon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282569/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-6.65443</wgs:lat>
+	<wgs:long>71.35028</wgs:long>
+	<skos:altLabel>Egmont</skos:altLabel>
+	<skos:altLabel>Egmont Islands</skos:altLabel>
+	<skos:altLabel>Six Islands</skos:altLabel>
+	<skos:prefLabel>Egmont Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282573/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-7.22674</wgs:lat>
+	<wgs:long>72.41868</wgs:long>
+	<skos:altLabel>East Island</skos:altLabel>
+	<skos:altLabel>East Islet</skos:altLabel>
+	<skos:prefLabel>East Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282574/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-6.21194</wgs:lat>
+	<wgs:long>71.33</wgs:long>
+	<skos:altLabel>Eagle</skos:altLabel>
+	<skos:altLabel>Eagle Islands</skos:altLabel>
+	<skos:prefLabel>Eagle Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282576/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.25369</wgs:lat>
+	<wgs:long>71.76208</wgs:long>
+	<skos:altLabel xml:lang="fr">Île Diamant</skos:altLabel>
+	<skos:prefLabel>Île Diamant</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282577/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.34619</wgs:lat>
+	<wgs:long>72.20368</wgs:long>
+	<skos:prefLabel>Île Diable</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282579/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-6.38333</wgs:lat>
+	<wgs:long>71.26528</wgs:long>
+	<skos:altLabel>Danger</skos:altLabel>
+	<skos:altLabel>Danger Island</skos:altLabel>
+	<skos:prefLabel>Danger Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282582/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.42711</wgs:lat>
+	<wgs:long>71.8811</wgs:long>
+	<skos:altLabel>Coin du Mire</skos:altLabel>
+	<skos:altLabel>Gunners Coign</skos:altLabel>
+	<skos:prefLabel>Coin du Mire</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282583/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.45392</wgs:lat>
+	<wgs:long>71.76622</wgs:long>
+	<skos:prefLabel>Île du Coin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282586/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-6.67804</wgs:lat>
+	<wgs:long>71.36284</wgs:long>
+	<skos:prefLabel>Île Carre Pate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282588/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255147/"/>
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLD"/>
+	<europeana:population>4000</europeana:population>
+	<wgs:lat>-6</wgs:lat>
+	<wgs:long>72</wgs:long>
+	<skos:altLabel xml:lang="is">Breska yfirráðasvæðið í Indlandshafi</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Brit Indiai Óceáni Fennhatóság</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Brita Hindoceana Teritorio</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Britanski Indijskooceanski Teritorij</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Britansko ozemlje Indijskega oceana</skos:altLabel>
+	<skos:altLabel xml:lang="et">Briti India Ookeani Territoorium</skos:altLabel>
+	<skos:altLabel xml:lang="de">Britisches Territorium im Indischen Ozean</skos:altLabel>
+	<skos:altLabel xml:lang="id">British Indian Ocean Territory</skos:altLabel>
+	<skos:altLabel xml:lang="da">British Indian Ocean Territory</skos:altLabel>
+	<skos:altLabel xml:lang="en">British Indian Ocean Territory</skos:altLabel>
+	<skos:altLabel xml:lang="ms">British Indian Ocean Territory</skos:altLabel>
+	<skos:altLabel xml:lang="mt">British Indian Ocean Territory</skos:altLabel>
+	<skos:altLabel>British Indian Ocean Territory</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Britiske områder i det indiske hav</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Brits Territorium in de Indische Oceaan</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Brittiläinen Intian valtameren alue</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Brittiska territoriet i Indiska Oceanen</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Críocha Briotanacha an Aigéin Indiagh</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Det britiske territoriet i Indiahavet</skos:altLabel>
+	<skos:altLabel>IO</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Indiako Ozeanoko Britainiar Lurraldea</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Indijas okeāna Britu teritorija</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Indijos vandenyno britų sritis</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Oceánské teritorium Britské Indie</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Oceánské teritórium Britskej Indie</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Teritoriile Britanice din Oceanul Indian</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Territoire britannique de l'océan Indien</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Territoires britanniques de l'Océan Indien</skos:altLabel>
+	<skos:altLabel xml:lang="it">Territori Britannici dell'Oceano Indiano</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Territori Britànic de l'Oceà Índic</skos:altLabel>
+	<skos:altLabel xml:lang="es">Territorio Británico del Océano Índico</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Territorio Británico do Océano Índico</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Territorio oceanic britanno-indian</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Território Britânico do Oceano Índico</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Terytorium brytyjskie na Oceanie Indyjskim</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Thuộc địa Anh tại Ấn Độ Dương</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Tiriogaeth Cefnfor India Prydain</skos:altLabel>
+	<skos:altLabel xml:lang="tr">İngiliz Hint Okyanusu Teritoryası</skos:altLabel>
+	<skos:altLabel xml:lang="el">Έδαφος Βρετανικού Ινδικού Ωκεανού</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Архипелаг Чагос</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Британская территория Индийского океана</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Британско Индиско Океанска територија</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Британско Индијска океанска територија</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Британська територія Індійського океану</skos:altLabel>
+	<skos:altLabel xml:lang="be">Брытанская тэрыторыя Індыйскага акіяну</skos:altLabel>
+	<skos:altLabel xml:lang="he">טריטוריה ימית הבריטית הודית</skos:altLabel>
+	<skos:altLabel xml:lang="ar">المحيط الهندي البريطاني</skos:altLabel>
+	<skos:altLabel xml:lang="ur">بحرھند کا برٹش علاقہ</skos:altLabel>
+	<skos:altLabel xml:lang="fa">سرزمین دریای هندی انگلیسی</skos:altLabel>
+	<skos:altLabel xml:lang="hi">ब्रिटिश हिंद महासागरीय क्षेत्र</skos:altLabel>
+	<skos:altLabel xml:lang="bn">ব্রিটিশ ভারত-মহাসাগরীয় অঞ্চল</skos:altLabel>
+	<skos:altLabel xml:lang="th">เขตมหาสมุทรบริติชอินเดีย</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ბრიტანული ტერიტორია ინდოეთის ოკეანეში</skos:altLabel>
+	<skos:altLabel xml:lang="am">የብሪታኒያ ህንድ ውቂያኖስ ግዛት</skos:altLabel>
+	<skos:altLabel xml:lang="ja">イギリス領インド洋地域</skos:altLabel>
+	<skos:altLabel xml:lang="zh">英属印度洋领地</skos:altLabel>
+	<skos:altLabel xml:lang="ko">영령 인도양</skos:altLabel>
+	<skos:prefLabel>British Indian Ocean Territory</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282589/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.35903</wgs:lat>
+	<wgs:long>72.2055</wgs:long>
+	<skos:prefLabel>Île Boddam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282594/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.43949</wgs:lat>
+	<wgs:long>71.75313</wgs:long>
+	<skos:altLabel xml:lang="fr">Île Anglaise</skos:altLabel>
+	<skos:prefLabel>Île Anglaise</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282595/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.32434</wgs:lat>
+	<wgs:long>72.22276</wgs:long>
+	<skos:prefLabel>Île Anglaise</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6620383/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282588/"/>
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-7.30117</wgs:lat>
+	<wgs:long>72.39793</wgs:long>
+	<skos:prefLabel>British Indian Ocean Territory (general)</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6896274/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-7.23769</wgs:lat>
+	<wgs:long>72.40258</wgs:long>
+	<skos:prefLabel>Anniversary Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6902749/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.26984</wgs:lat>
+	<wgs:long>71.89585</wgs:long>
+	<skos:altLabel xml:lang="fr">Grande Île Bois Mangue</skos:altLabel>
+	<skos:prefLabel>Grande Île Bois Mangue</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6902750/">
+	<europeana:country>IO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.27072</wgs:lat>
+	<wgs:long>71.88478</wgs:long>
+	<skos:altLabel xml:lang="fr">Petite Île Bois Mangue</skos:altLabel>
+	<skos:prefLabel>Petite Île Bois Mangue</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 56 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

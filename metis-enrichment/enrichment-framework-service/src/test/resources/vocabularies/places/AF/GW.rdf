@@ -1,0 +1,1513 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AF_GW
+Description: Selected fields pulled from Geonames about GW done on Mon May 23 21:16:13 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/2368655/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.86667</wgs:lat>
+	<wgs:long>-15.93333</wgs:long>
+	<skos:altLabel>Ilha Madara</skos:altLabel>
+	<skos:altLabel>Ilha da Zagaia</skos:altLabel>
+	<skos:prefLabel>Ilha da Zagaia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2368691/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.38333</wgs:lat>
+	<wgs:long>-15.83333</wgs:long>
+	<skos:prefLabel>Ilhéu Utite Sogà</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2368711/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.3</wgs:lat>
+	<wgs:long>-16.1</wgs:long>
+	<skos:altLabel>Ilha Uracão</skos:altLabel>
+	<skos:altLabel>Ilha de Uracane</skos:altLabel>
+	<skos:altLabel>Orakan Island</skos:altLabel>
+	<skos:prefLabel>Ilha de Uracane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2368728/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.25</wgs:lat>
+	<wgs:long>-16.21667</wgs:long>
+	<skos:altLabel>Ilha Une</skos:altLabel>
+	<skos:altLabel>Ilha de Uno</skos:altLabel>
+	<skos:altLabel>Ul Island</skos:altLabel>
+	<skos:prefLabel>Ilha de Uno</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2368729/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.28333</wgs:lat>
+	<wgs:long>-16.38333</wgs:long>
+	<skos:altLabel>Ilha de Unhocomozinho</skos:altLabel>
+	<skos:altLabel>Zegzeg Island</skos:altLabel>
+	<skos:prefLabel>Ilha de Unhocomozinho</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2368730/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.3</wgs:lat>
+	<wgs:long>-16.45</wgs:long>
+	<skos:prefLabel>Ilha de Unhocomo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2368915/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.45</wgs:lat>
+	<wgs:long>-15.65</wgs:long>
+	<skos:prefLabel>Ilhéu do Tufo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2368926/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.6</wgs:lat>
+	<wgs:long>-15.88333</wgs:long>
+	<skos:prefLabel>Ilhéu da Torre</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2368955/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>105485</europeana:population>
+	<wgs:lat>11.25</wgs:lat>
+	<wgs:long>-15</wgs:long>
+	<skos:altLabel>Tombali</skos:altLabel>
+	<skos:prefLabel>Tombali</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2368974/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.3</wgs:lat>
+	<wgs:long>-15.28333</wgs:long>
+	<skos:prefLabel>Ilhéu Timbofiam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2369205/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.35</wgs:lat>
+	<wgs:long>-15.86667</wgs:long>
+	<skos:altLabel>Ilha Sojá</skos:altLabel>
+	<skos:altLabel>Ilha de Sogá</skos:altLabel>
+	<skos:prefLabel>Ilha de Sogá</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2369789/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.86667</wgs:lat>
+	<wgs:long>-15.43333</wgs:long>
+	<skos:prefLabel>Ilhéu Sêco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2370039/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.55</wgs:lat>
+	<wgs:long>-16.05</wgs:long>
+	<skos:prefLabel>Ilhéu de São Francisco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2370068/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>11.88333</wgs:lat>
+	<wgs:long>-16.13333</wgs:long>
+	<skos:prefLabel>Ilhas de Santa Catarina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2370252/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>11.71667</wgs:lat>
+	<wgs:long>-14.85</wgs:long>
+	<skos:prefLabel>Ilhéus Saído</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2370286/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.33333</wgs:lat>
+	<wgs:long>-15.81667</wgs:long>
+	<skos:altLabel>Ilha Ago Pequena</skos:altLabel>
+	<skos:altLabel>Ilha de Rubane</skos:altLabel>
+	<skos:altLabel>Ruban Island</skos:altLabel>
+	<skos:prefLabel>Ilha de Rubane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2370288/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.25</wgs:lat>
+	<wgs:long>-15.71667</wgs:long>
+	<skos:altLabel>Canhabaque</skos:altLabel>
+	<skos:altLabel>Canhambaque</skos:altLabel>
+	<skos:altLabel>Ilha Roxa</skos:altLabel>
+	<skos:altLabel>Kanabak</skos:altLabel>
+	<skos:prefLabel>Ilha Roxa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2370319/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.85</wgs:lat>
+	<wgs:long>-15.65</wgs:long>
+	<skos:altLabel>Ilhéu do Rei</skos:altLabel>
+	<skos:altLabel>Rey Island</skos:altLabel>
+	<skos:prefLabel>Ilhéu do Rei</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2370360/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>62261</europeana:population>
+	<wgs:lat>11.66667</wgs:lat>
+	<wgs:long>-15.08333</wgs:long>
+	<skos:altLabel>Buba</skos:altLabel>
+	<skos:altLabel>Quinara</skos:altLabel>
+	<skos:prefLabel>Quinara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2370423/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.53333</wgs:lat>
+	<wgs:long>-16.21667</wgs:long>
+	<skos:prefLabel>Ilhéu de Quérè</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2370424/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.5</wgs:lat>
+	<wgs:long>-16.18333</wgs:long>
+	<skos:prefLabel>Ilhéu de Quérè</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2370498/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.85</wgs:lat>
+	<wgs:long>-16.33333</wgs:long>
+	<skos:prefLabel>Ilhéu de Pumoune</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2370539/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>11.33333</wgs:lat>
+	<wgs:long>-15.65</wgs:long>
+	<skos:prefLabel>Ilhéus dos Porcos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2370540/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.41667</wgs:lat>
+	<wgs:long>-16.3</wgs:long>
+	<skos:altLabel>Ilhéu dos Porcos</skos:altLabel>
+	<skos:altLabel>Salum Island</skos:altLabel>
+	<skos:prefLabel>Ilhéu dos Porcos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2370712/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.53333</wgs:lat>
+	<wgs:long>-15.98333</wgs:long>
+	<skos:altLabel>Ilha da Ponta</skos:altLabel>
+	<skos:altLabel>Nago</skos:altLabel>
+	<skos:prefLabel>Ilha da Ponta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2370726/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.86667</wgs:lat>
+	<wgs:long>-15.71667</wgs:long>
+	<skos:altLabel>Ilhéu do Poilão</skos:altLabel>
+	<skos:altLabel>Pullam</skos:altLabel>
+	<skos:prefLabel>Ilhéu do Poilão</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2370732/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.4</wgs:lat>
+	<wgs:long>-15.35</wgs:long>
+	<skos:altLabel>Ilha Pobresa</skos:altLabel>
+	<skos:altLabel>Ilhéu Pobreza</skos:altLabel>
+	<skos:prefLabel>Ilhéu Pobreza</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2370827/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.85</wgs:lat>
+	<wgs:long>-16.33333</wgs:long>
+	<skos:prefLabel>Ilhéu de Pelindã</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2370828/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.58333</wgs:lat>
+	<wgs:long>-16.25</wgs:long>
+	<skos:prefLabel>Ilhéu dos Pelicanos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2370844/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.58333</wgs:lat>
+	<wgs:long>-15.86667</wgs:long>
+	<skos:prefLabel>Ilhéu das Pedras</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2370847/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.03333</wgs:lat>
+	<wgs:long>-15.88333</wgs:long>
+	<skos:prefLabel>Ilhéu de Pedonto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2370856/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.83333</wgs:lat>
+	<wgs:long>-16.08333</wgs:long>
+	<skos:altLabel>Bassis Island</skos:altLabel>
+	<skos:altLabel>Ilha de Pecixe</skos:altLabel>
+	<skos:prefLabel>Ilha de Pecixe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2370876/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.26667</wgs:lat>
+	<wgs:long>-15.76667</wgs:long>
+	<skos:altLabel>Ilhéu do Patrão</skos:altLabel>
+	<skos:altLabel>Tent Island</skos:altLabel>
+	<skos:prefLabel>Ilhéu do Patrão</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2370908/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.81667</wgs:lat>
+	<wgs:long>-15.6</wgs:long>
+	<skos:altLabel>Ilhota de Bandim</skos:altLabel>
+	<skos:altLabel>Ilhéu dos Pássaros</skos:altLabel>
+	<skos:altLabel>Passaro Island</skos:altLabel>
+	<skos:prefLabel>Ilhéu dos Pássaros</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2370909/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.75</wgs:lat>
+	<wgs:long>-16.03333</wgs:long>
+	<skos:prefLabel>Ilhéu dos Pássaros</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2370910/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.46667</wgs:lat>
+	<wgs:long>-16.31667</wgs:long>
+	<skos:prefLabel>Ilhéu dos Pássaros</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2370911/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.31667</wgs:lat>
+	<wgs:long>-15.73333</wgs:long>
+	<skos:altLabel>Ilhéu dos Pássaros</skos:altLabel>
+	<skos:altLabel>Piao Island</skos:altLabel>
+	<skos:prefLabel>Ilhéu dos Pássaros</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2370938/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.6</wgs:lat>
+	<wgs:long>-15.88333</wgs:long>
+	<skos:altLabel>Ilhéu dos Papagaios</skos:altLabel>
+	<skos:altLabel>Papagaio Island</skos:altLabel>
+	<skos:prefLabel>Ilhéu dos Papagaios</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2370961/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.66667</wgs:lat>
+	<wgs:long>-15.51667</wgs:long>
+	<skos:prefLabel>Ilhéu das Palmeiras</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2371045/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.13333</wgs:lat>
+	<wgs:long>-15.93333</wgs:long>
+	<skos:altLabel>Ilha Orangosinho</skos:altLabel>
+	<skos:altLabel>Ilha de Orangozinho</skos:altLabel>
+	<skos:prefLabel>Ilha de Orangozinho</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2371046/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.08333</wgs:lat>
+	<wgs:long>-16.13333</wgs:long>
+	<skos:prefLabel>Ilha de Orango</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2371050/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.21472</wgs:lat>
+	<wgs:long>-16.35056</wgs:long>
+	<skos:altLabel>Caton Island</skos:altLabel>
+	<skos:altLabel>Ilha Ongueringon</skos:altLabel>
+	<skos:altLabel>Ilha de Ongueringão</skos:altLabel>
+	<skos:altLabel>Katon Island</skos:altLabel>
+	<skos:altLabel>Onguerigon</skos:altLabel>
+	<skos:prefLabel>Ilha de Ongueringão</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2371071/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>196057</europeana:population>
+	<wgs:lat>12.25</wgs:lat>
+	<wgs:long>-15.25</wgs:long>
+	<skos:altLabel>Oio</skos:altLabel>
+	<skos:prefLabel>Oio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2371075/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.9</wgs:lat>
+	<wgs:long>-16</wgs:long>
+	<skos:altLabel>Ilha de Mantambua</skos:altLabel>
+	<skos:altLabel>Ilha de Ocurai</skos:altLabel>
+	<skos:altLabel>Ilha de Ocurri</skos:altLabel>
+	<skos:prefLabel>Ilha de Ocurri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2371307/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.81667</wgs:lat>
+	<wgs:long>-15.98333</wgs:long>
+	<skos:altLabel>Ilha dos Mosquitos</skos:altLabel>
+	<skos:altLabel>Kellett</skos:altLabel>
+	<skos:prefLabel>Ilha dos Mosquitos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2371377/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.1</wgs:lat>
+	<wgs:long>-16</wgs:long>
+	<skos:altLabel>Ilha Canobé</skos:altLabel>
+	<skos:altLabel>Ilha de Meneque</skos:altLabel>
+	<skos:altLabel>Serena</skos:altLabel>
+	<skos:prefLabel>Ilha de Meneque</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2371380/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.03333</wgs:lat>
+	<wgs:long>-15.21667</wgs:long>
+	<skos:altLabel>Ilha de Melo</skos:altLabel>
+	<skos:altLabel>Mello Island</skos:altLabel>
+	<skos:prefLabel>Ilha de Melo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2371387/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.51667</wgs:lat>
+	<wgs:long>-15.95</wgs:long>
+	<skos:altLabel>Ilhéu do Meio</skos:altLabel>
+	<skos:altLabel>Quai</skos:altLabel>
+	<skos:prefLabel>Ilhéu do Meio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2371388/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.98333</wgs:lat>
+	<wgs:long>-15.66667</wgs:long>
+	<skos:altLabel>Ilha do Mel</skos:altLabel>
+	<skos:altLabel>Ilhéu do Meio</skos:altLabel>
+	<skos:prefLabel>Ilhéu do Meio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2371532/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.7</wgs:lat>
+	<wgs:long>-15.53333</wgs:long>
+	<skos:prefLabel>Ilhéu do Mancebo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2371540/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.51667</wgs:lat>
+	<wgs:long>-15.9</wgs:long>
+	<skos:altLabel>Acôcò</skos:altLabel>
+	<skos:altLabel>Ilhéu de Manassa</skos:altLabel>
+	<skos:prefLabel>Ilhéu de Manassa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2371596/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.33333</wgs:lat>
+	<wgs:long>-15.65</wgs:long>
+	<skos:altLabel>Ilhéu Maju Inorei</skos:altLabel>
+	<skos:altLabel>Ilhéu dos Porcos</skos:altLabel>
+	<skos:prefLabel>Ilhéu Maju Inorei</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2371597/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.31667</wgs:lat>
+	<wgs:long>-15.66667</wgs:long>
+	<skos:prefLabel>Ilhéu Maju Anchorupe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2371602/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.56667</wgs:lat>
+	<wgs:long>-15.95</wgs:long>
+	<skos:altLabel>Chediã</skos:altLabel>
+	<skos:altLabel>Ilha de Maio</skos:altLabel>
+	<skos:altLabel>Mayo</skos:altLabel>
+	<skos:altLabel>Xedigan</skos:altLabel>
+	<skos:prefLabel>Ilha de Maio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2371755/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.98333</wgs:lat>
+	<wgs:long>-15.86667</wgs:long>
+	<skos:prefLabel>Ilha de Lisboa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2371905/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.03333</wgs:lat>
+	<wgs:long>-15.63333</wgs:long>
+	<skos:altLabel>Ilha João Vieira</skos:altLabel>
+	<skos:altLabel>Jamber</skos:altLabel>
+	<skos:prefLabel>Ilha João Vieira</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2371924/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.88333</wgs:lat>
+	<wgs:long>-16.25</wgs:long>
+	<skos:altLabel>Ilha de Jata</skos:altLabel>
+	<skos:altLabel>Ilha de Jeta</skos:altLabel>
+	<skos:altLabel>Jatt Island</skos:altLabel>
+	<skos:prefLabel>Ilha de Jeta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2371956/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.01667</wgs:lat>
+	<wgs:long>-15.88333</wgs:long>
+	<skos:prefLabel>Ilhéu de Janhar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2372098/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.25</wgs:lat>
+	<wgs:long>-15.21667</wgs:long>
+	<skos:prefLabel>Ilhéu de Infanda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2372102/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.88333</wgs:lat>
+	<wgs:long>-16.06667</wgs:long>
+	<skos:prefLabel>Ilhéu Indiole</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2372134/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.03333</wgs:lat>
+	<wgs:long>-16.1</wgs:long>
+	<skos:prefLabel>Ilha de Imbone</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2372248/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255146/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>1565126</europeana:population>
+	<wgs:lat>12</wgs:lat>
+	<wgs:long>-15</wgs:long>
+	<skos:altLabel xml:lang="ga">An Ghuine-Bhissau</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Bisau Gvinėja</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Bisava-Gineyän</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Bissau-Guinea</skos:altLabel>
+	<skos:altLabel>GW</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ghi-nê Bít xao (Guinea-Bissau)</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ghi-nê Bít-xao</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Gine Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="ln">Gine-Bisau</skos:altLabel>
+	<skos:altLabel xml:lang="ff">Gine-Biso</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Gine-Biso</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Gine-Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Ginea Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Ginea-Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Ginea-Bissaw</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Guine Bisau</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Guinea Bisau</skos:altLabel>
+	<skos:altLabel xml:lang="id">Guinea Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Guinea Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Guinea Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Guinea Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="la">Guinea Bissaviensis</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Guinea-Bisau - Guiné-Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="id">Guinea-Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Guinea-Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="da">Guinea-Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="et">Guinea-Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Guinea-Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="it">Guinea-Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Guinea-Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Guinea-Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Guinea-Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="de">Guinea-Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="es">Guinea-Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Guinea-Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Guinea-Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Guinea-Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="en">Guinea-Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="na">Guinea-Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="no">Guinea-Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="an">Guinea-Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="io">Guinea-Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Guinea-Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Guinea-Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Guinea-Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Guinea-Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Guinea-Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="se">Guinea-Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="es">Guinea-Bissáu</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Guinee-Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="af">Guinee-Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Guineea-Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Guineja Bizare</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Guinèa Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Guiné Bissau</skos:altLabel>
+	<skos:altLabel>Guiné Portuguesa</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Guiné-Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Guiné-Bissau</skos:altLabel>
+	<skos:altLabel>Guinée Bissao</skos:altLabel>
+	<skos:altLabel>Guinée-Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Guinée-Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Gvineja Bisau</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Gvineja Bisau</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Gvineja Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Gvineja-Bisau</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Gvineja-Bisava</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Gvineo Bisaŭa</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Gvineo-Bisaŭo</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Gwinea Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Gyni-Bissaw</skos:altLabel>
+	<skos:altLabel xml:lang="is">Gínea-Bissá</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Gînê Bîsso</skos:altLabel>
+	<skos:altLabel>Portuguese Guinea</skos:altLabel>
+	<skos:altLabel>Província da Guiné</skos:altLabel>
+	<skos:altLabel xml:lang="en">Republic of Guinea-Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="pt">República da Guiné-Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="el">Γουινέα-Μπισάου</skos:altLabel>
+	<skos:altLabel xml:lang="el">Γουινέα-Μπισσάου</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Гвинеа-Биса</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Гвинеа-Бисау</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Гвинея Бисау</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Гвинея-Бисау</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гвинея-Бисау</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Гвинея-Бисау</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гвинея-Биссау</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Гвинеја Бисао</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Гвинеја-Бисао</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Гвинеја-Бисао</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Гвінея-Бісау</skos:altLabel>
+	<skos:altLabel xml:lang="be">Гвінея-Бісаў</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Гвінея-Біссау</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Ґвінея-Бісау</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Գվինեա-Բիսաու</skos:altLabel>
+	<skos:altLabel xml:lang="he">גינאה ביסאו</skos:altLabel>
+	<skos:altLabel xml:lang="he">גינאה־ביסאו</skos:altLabel>
+	<skos:altLabel xml:lang="he">גיניאה-ביסאו</skos:altLabel>
+	<skos:altLabel xml:lang="ar">غينيا بيساو</skos:altLabel>
+	<skos:altLabel xml:lang="ps">ګوينې بېساو</skos:altLabel>
+	<skos:altLabel xml:lang="ur">گنی بسائو</skos:altLabel>
+	<skos:altLabel xml:lang="fa">گوینیا-بیساو</skos:altLabel>
+	<skos:altLabel xml:lang="ug">گۋىنىيە بىسسائۇ</skos:altLabel>
+	<skos:altLabel xml:lang="fa">گینه بیسائو</skos:altLabel>
+	<skos:altLabel xml:lang="fa">گینهٔ بیسائو</skos:altLabel>
+	<skos:altLabel xml:lang="hi">गिनी-बिसाऊ</skos:altLabel>
+	<skos:altLabel xml:lang="hi">गीनी-बिसाउ</skos:altLabel>
+	<skos:altLabel xml:lang="bn">গিনি-বিসাউ</skos:altLabel>
+	<skos:altLabel xml:lang="ta">கினி-பிஸ்ஸாவ்</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ഗിനി-ബിസോ</skos:altLabel>
+	<skos:altLabel xml:lang="th">กินี-บิสเซา</skos:altLabel>
+	<skos:altLabel xml:lang="th">กินีบิสเซา</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศกินี-บิสเซา</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ກິວນີ-ບິສໂຊ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">གྷི་ནི་ཡ་བིས྄་སོ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">გვინეა-ბისაუ</skos:altLabel>
+	<skos:altLabel xml:lang="am">ቢሳዎ</skos:altLabel>
+	<skos:altLabel xml:lang="am">ጊኔ-ቢሳው</skos:altLabel>
+	<skos:altLabel xml:lang="km">ហ្គីណេប៊ីសូ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ギニアビサウ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ギニアビサウ共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">几内亚比绍</skos:altLabel>
+	<skos:altLabel xml:lang="zh">幾內亞比索</skos:altLabel>
+	<skos:altLabel xml:lang="ko">기네비소</skos:altLabel>
+	<skos:altLabel xml:lang="ko">기네비쏘</skos:altLabel>
+	<skos:altLabel xml:lang="ko">기니비사우</skos:altLabel>
+	<skos:prefLabel>Republic of Guinea-Bissau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2372406/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.45</wgs:lat>
+	<wgs:long>-15.23333</wgs:long>
+	<skos:prefLabel>Ilhéu de Ganduà</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2372488/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.38333</wgs:lat>
+	<wgs:long>-15.75</wgs:long>
+	<skos:altLabel>Gallo Island</skos:altLabel>
+	<skos:altLabel>Ilhéu do Galo</skos:altLabel>
+	<skos:prefLabel>Ilhéu do Galo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2372489/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.46667</wgs:lat>
+	<wgs:long>-15.68333</wgs:long>
+	<skos:altLabel>Gallinha Island</skos:altLabel>
+	<skos:altLabel>Ilha das Galinhas</skos:altLabel>
+	<skos:prefLabel>Ilha das Galinhas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2372532/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>14430</europeana:population>
+	<wgs:lat>12.28333</wgs:lat>
+	<wgs:long>-14.21667</wgs:long>
+	<skos:altLabel>Gaba</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Gabu</skos:altLabel>
+	<skos:altLabel xml:lang="en">Gabú</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Gabú</skos:altLabel>
+	<skos:altLabel>Gabú</skos:altLabel>
+	<skos:altLabel>Gabú-Sara</skos:altLabel>
+	<skos:altLabel>Nova Lamego</skos:altLabel>
+	<skos:altLabel>Villa Gabu Sara</skos:altLabel>
+	<skos:prefLabel>Gabú</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2372533/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>192903</europeana:population>
+	<wgs:lat>12.16667</wgs:lat>
+	<wgs:long>-14.08333</wgs:long>
+	<skos:altLabel>Gabú</skos:altLabel>
+	<skos:prefLabel>Gabú</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2372563/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.06667</wgs:lat>
+	<wgs:long>-15.21667</wgs:long>
+	<skos:prefLabel>Ilha da Fortuna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2372569/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.48333</wgs:lat>
+	<wgs:long>-15.96667</wgs:long>
+	<skos:prefLabel>Ilha Formosa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2372588/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.75</wgs:lat>
+	<wgs:long>-15.86667</wgs:long>
+	<skos:prefLabel>Ilha da Flecha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2372599/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.55</wgs:lat>
+	<wgs:long>-15.86667</wgs:long>
+	<skos:altLabel>Ilhéu dos Flamingos</skos:altLabel>
+	<skos:altLabel>Manramba</skos:altLabel>
+	<skos:prefLabel>Ilhéu dos Flamingos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2372721/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>11.2</wgs:lat>
+	<wgs:long>-15.9</wgs:long>
+	<skos:altLabel>Ilheús Mosquitos</skos:altLabel>
+	<skos:altLabel>Ilhéus Êtintite</skos:altLabel>
+	<skos:prefLabel>Ilhéus Êtintite</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2372734/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.35</wgs:lat>
+	<wgs:long>-15.48333</wgs:long>
+	<skos:altLabel>Ilha dos Escravos</skos:altLabel>
+	<skos:altLabel>Manteri</skos:altLabel>
+	<skos:prefLabel>Ilha dos Escravos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2372742/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.38333</wgs:lat>
+	<wgs:long>-16.1</wgs:long>
+	<skos:altLabel>Ilha Uno</skos:altLabel>
+	<skos:altLabel>Ilha de Enu</skos:altLabel>
+	<skos:altLabel>Island Une</skos:altLabel>
+	<skos:altLabel>Naun Island</skos:altLabel>
+	<skos:prefLabel>Ilha de Enu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2372780/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.23972</wgs:lat>
+	<wgs:long>-16.305</wgs:long>
+	<skos:prefLabel>Ilha de Elia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2372785/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.33333</wgs:lat>
+	<wgs:long>-15.71667</wgs:long>
+	<skos:altLabel>Escoda Island</skos:altLabel>
+	<skos:altLabel>Ilhéu de Egumbane</skos:altLabel>
+	<skos:prefLabel>Ilhéu de Egumbane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2372787/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.33333</wgs:lat>
+	<wgs:long>-16.03333</wgs:long>
+	<skos:altLabel>Egoba Island</skos:altLabel>
+	<skos:altLabel>Ilha de Eguba</skos:altLabel>
+	<skos:prefLabel>Ilha de Eguba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2372791/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.36667</wgs:lat>
+	<wgs:long>-16.01667</wgs:long>
+	<skos:altLabel>Denna Island</skos:altLabel>
+	<skos:altLabel>Ilha Dana</skos:altLabel>
+	<skos:altLabel>Ilhéu de Edana</skos:altLabel>
+	<skos:prefLabel>Ilhéu de Edana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2372793/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.21667</wgs:lat>
+	<wgs:long>-15.7</wgs:long>
+	<skos:altLabel>Ilhéu de Meneque</skos:altLabel>
+	<skos:altLabel>Ilhéu Êbengà</skos:altLabel>
+	<skos:prefLabel>Ilhéu Êbengà</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2373021/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.33333</wgs:lat>
+	<wgs:long>-16.16667</wgs:long>
+	<skos:prefLabel>Ilha de Cute</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2373263/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.2</wgs:lat>
+	<wgs:long>-15.33333</wgs:long>
+	<skos:prefLabel>Ilha de Como</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2373327/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.61667</wgs:lat>
+	<wgs:long>-15.46667</wgs:long>
+	<skos:altLabel>Calypso Island</skos:altLabel>
+	<skos:altLabel>Ilha das Cobras</skos:altLabel>
+	<skos:prefLabel>Ilha das Cobras</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2373346/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.93333</wgs:lat>
+	<wgs:long>-16.05</wgs:long>
+	<skos:prefLabel>Ilhéu de Cisse</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2373484/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.01667</wgs:lat>
+	<wgs:long>-15.71667</wgs:long>
+	<skos:altLabel>Cavalho Island</skos:altLabel>
+	<skos:altLabel>Ilhéu dos Cavalos</skos:altLabel>
+	<skos:prefLabel>Ilhéu dos Cavalos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2373514/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.16667</wgs:lat>
+	<wgs:long>-15.26667</wgs:long>
+	<skos:prefLabel>Ilha de Catunco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2373627/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.53333</wgs:lat>
+	<wgs:long>-16.33333</wgs:long>
+	<skos:altLabel>Ilha Caravela</skos:altLabel>
+	<skos:altLabel>Karashe</skos:altLabel>
+	<skos:prefLabel>Ilha Caravela</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2373651/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.48333</wgs:lat>
+	<wgs:long>-16.23333</wgs:long>
+	<skos:altLabel>Ilha Caraxe</skos:altLabel>
+	<skos:altLabel>Ilha Carácha</skos:altLabel>
+	<skos:altLabel>Ilha Caráxa</skos:altLabel>
+	<skos:altLabel>Ilha de Carache</skos:altLabel>
+	<skos:altLabel>Korbelha Island</skos:altLabel>
+	<skos:prefLabel>Ilha de Carache</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2373789/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.16667</wgs:lat>
+	<wgs:long>-16.03333</wgs:long>
+	<skos:prefLabel>Ilha de Canogo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2373887/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.95</wgs:lat>
+	<wgs:long>-15.05</wgs:long>
+	<skos:altLabel>Catadi</skos:altLabel>
+	<skos:altLabel>Ilha Cataque</skos:altLabel>
+	<skos:altLabel>Ilha de Canefaque</skos:altLabel>
+	<skos:altLabel>Katak</skos:altLabel>
+	<skos:altLabel>Katidi</skos:altLabel>
+	<skos:prefLabel>Ilha de Canefaque</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2373985/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.58333</wgs:lat>
+	<wgs:long>-15.9</wgs:long>
+	<skos:prefLabel>Ilhéu dos Canais</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2374072/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.98333</wgs:lat>
+	<wgs:long>-15</wgs:long>
+	<skos:prefLabel>Ilha de Cambom</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2374169/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.85</wgs:lat>
+	<wgs:long>-16.3</wgs:long>
+	<skos:prefLabel>Ilhéu de Calim</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2374179/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.95</wgs:lat>
+	<wgs:long>-15.01667</wgs:long>
+	<skos:prefLabel>Ilhéu Cálèbè</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2374215/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.83333</wgs:lat>
+	<wgs:long>-16.31667</wgs:long>
+	<skos:prefLabel>Ilhéu de Caió</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2374228/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.36667</wgs:lat>
+	<wgs:long>-15.36667</wgs:long>
+	<skos:prefLabel>Ilha de Caiar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2374281/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.9</wgs:lat>
+	<wgs:long>-16.03333</wgs:long>
+	<skos:prefLabel>Ilhéu Cadaque</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2374311/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>10490</europeana:population>
+	<wgs:lat>12.27056</wgs:lat>
+	<wgs:long>-16.16583</wgs:long>
+	<skos:altLabel xml:lang="en">Cacheu</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Cacheu</skos:altLabel>
+	<skos:altLabel>Cacheu</skos:altLabel>
+	<skos:prefLabel>Cacheu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2374312/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>179739</europeana:population>
+	<wgs:lat>12</wgs:lat>
+	<wgs:long>-16.16667</wgs:long>
+	<skos:altLabel>Cacheu</skos:altLabel>
+	<skos:prefLabel>Cacheu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2374413/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.75</wgs:lat>
+	<wgs:long>-16.05</wgs:long>
+	<skos:prefLabel>Ilhéu da Cabaceira</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2374414/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.5</wgs:lat>
+	<wgs:long>-15.55</wgs:long>
+	<skos:prefLabel>Ilhéu da Cabaceira</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2374581/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.25</wgs:lat>
+	<wgs:long>-15.86667</wgs:long>
+	<skos:altLabel>Bawak</skos:altLabel>
+	<skos:altLabel>Ilha Agô Grande</skos:altLabel>
+	<skos:altLabel>Ilha de Bubaque</skos:altLabel>
+	<skos:prefLabel>Ilha de Bubaque</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2374685/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.56667</wgs:lat>
+	<wgs:long>-15.55</wgs:long>
+	<skos:altLabel>Bulama Island</skos:altLabel>
+	<skos:altLabel>Ilha de Bolama</skos:altLabel>
+	<skos:prefLabel>Ilha de Bolama</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2374688/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>10769</europeana:population>
+	<wgs:lat>11.58333</wgs:lat>
+	<wgs:long>-15.46667</wgs:long>
+	<skos:altLabel xml:lang="en">Bolama</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Bolama</skos:altLabel>
+	<skos:altLabel xml:lang="de">Bolama</skos:altLabel>
+	<skos:altLabel>Bolama</skos:altLabel>
+	<skos:altLabel>Bulama</skos:altLabel>
+	<skos:altLabel>Port Beaver</skos:altLabel>
+	<skos:prefLabel>Bolama</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2374689/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>30145</europeana:population>
+	<wgs:lat>11.25</wgs:lat>
+	<wgs:long>-16</wgs:long>
+	<skos:altLabel>Bolama</skos:altLabel>
+	<skos:prefLabel>Bolama</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2374759/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>12688</europeana:population>
+	<wgs:lat>12.22306</wgs:lat>
+	<wgs:long>-15.4475</wgs:long>
+	<skos:altLabel>Bissoram</skos:altLabel>
+	<skos:altLabel>Bissorã</skos:altLabel>
+	<skos:prefLabel>Bissorã</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2374774/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.86667</wgs:lat>
+	<wgs:long>-15.76667</wgs:long>
+	<skos:altLabel>Bissao Island</skos:altLabel>
+	<skos:altLabel>Ilha de Bissau</skos:altLabel>
+	<skos:prefLabel>Ilha de Bissau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2374775/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>388028</europeana:population>
+	<wgs:lat>11.85</wgs:lat>
+	<wgs:long>-15.58333</wgs:long>
+	<skos:altLabel xml:lang="lt">Bisau</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Bisau</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Bisau - Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Bisaŭo</skos:altLabel>
+	<skos:altLabel>Bissao</skos:altLabel>
+	<skos:altLabel xml:lang="id">Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="de">Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="af">Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="da">Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="io">Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="it">Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="et">Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="es">Bissau</skos:altLabel>
+	<skos:altLabel>Bissau</skos:altLabel>
+	<skos:altLabel xml:lang="es">Bissáu</skos:altLabel>
+	<skos:altLabel>São José de Bissáu</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μπισσάου</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Бисао</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Бисау</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бисау</skos:altLabel>
+	<skos:altLabel xml:lang="he">ביסאו</skos:altLabel>
+	<skos:altLabel xml:lang="ur">بساؤ</skos:altLabel>
+	<skos:altLabel xml:lang="fa">بیسائو</skos:altLabel>
+	<skos:altLabel xml:lang="am">ቢሳው</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ビサウ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">比绍</skos:altLabel>
+	<skos:altLabel xml:lang="ko">비사우</skos:altLabel>
+	<skos:prefLabel>Bissau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2374776/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>11.83333</wgs:lat>
+	<wgs:long>-15.75</wgs:long>
+	<skos:altLabel>Bissau</skos:altLabel>
+	<skos:prefLabel>Bissau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2374820/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>69751</europeana:population>
+	<wgs:lat>11.83333</wgs:lat>
+	<wgs:long>-15.75</wgs:long>
+	<skos:altLabel>Biombo</skos:altLabel>
+	<skos:prefLabel>Biombo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2374876/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>11.25</wgs:lat>
+	<wgs:long>-16.08333</wgs:long>
+	<skos:altLabel>Arquipélago dos Bijagós</skos:altLabel>
+	<skos:altLabel>Bijagóz</skos:altLabel>
+	<skos:altLabel>Bijouga</skos:altLabel>
+	<skos:altLabel>Bissagos Islands</skos:altLabel>
+	<skos:prefLabel>Arquipélago dos Bijagós</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2375147/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.3</wgs:lat>
+	<wgs:long>-15.73333</wgs:long>
+	<skos:prefLabel>Ilhéu de Bane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2375254/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>22521</europeana:population>
+	<wgs:lat>12.16667</wgs:lat>
+	<wgs:long>-14.66667</wgs:long>
+	<skos:prefLabel>Bafatá</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2375255/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>194591</europeana:population>
+	<wgs:lat>12.16667</wgs:lat>
+	<wgs:long>-14.75</wgs:long>
+	<skos:altLabel>Bafatá</skos:altLabel>
+	<skos:prefLabel>Bafatá</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2375309/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.7</wgs:lat>
+	<wgs:long>-15.61667</wgs:long>
+	<skos:altLabel>Ilha das Arcas</skos:altLabel>
+	<skos:altLabel>Ilha das Areias</skos:altLabel>
+	<skos:prefLabel>Ilha das Areias</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2375334/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.23333</wgs:lat>
+	<wgs:long>-16.15</wgs:long>
+	<skos:prefLabel>Ilhéu Anópa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2375347/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.31667</wgs:lat>
+	<wgs:long>-15.8</wgs:long>
+	<skos:prefLabel>Ilhéu Angutite</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2375348/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.31667</wgs:lat>
+	<wgs:long>-15.9</wgs:long>
+	<skos:prefLabel>Ilhéu Anguruma Êtisse</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2375349/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.3</wgs:lat>
+	<wgs:long>-15.91667</wgs:long>
+	<skos:prefLabel>Ilhéu Anguruma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2375356/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.53333</wgs:lat>
+	<wgs:long>-16.16667</wgs:long>
+	<skos:altLabel>Ilhéu Angana-untô</skos:altLabel>
+	<skos:altLabel>Ilhéu Anganã</skos:altLabel>
+	<skos:prefLabel>Ilhéu Angana-untô</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2375373/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.73333</wgs:lat>
+	<wgs:long>-16.03333</wgs:long>
+	<skos:altLabel>Ankora Island</skos:altLabel>
+	<skos:altLabel>Ilhéu de Âncora</skos:altLabel>
+	<skos:prefLabel>Ilhéu de Âncora</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2375393/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.41667</wgs:lat>
+	<wgs:long>-16.06667</wgs:long>
+	<skos:altLabel>Ilhéu Ancadongue</skos:altLabel>
+	<skos:altLabel>Ilhéu de Ancadonque</skos:altLabel>
+	<skos:prefLabel>Ilhéu de Ancadonque</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2375408/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.35</wgs:lat>
+	<wgs:long>-15.76667</wgs:long>
+	<skos:altLabel>Ilhéu de Anagaru</skos:altLabel>
+	<skos:altLabel>Nagarun Island</skos:altLabel>
+	<skos:prefLabel>Ilhéu de Anagaru</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2375421/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.23333</wgs:lat>
+	<wgs:long>-15.83333</wgs:long>
+	<skos:altLabel>Ilha de Ancoco</skos:altLabel>
+	<skos:altLabel>Ilhéu de Ametite</skos:altLabel>
+	<skos:prefLabel>Ilhéu de Ametite</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2375422/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.31667</wgs:lat>
+	<wgs:long>-15.8</wgs:long>
+	<skos:prefLabel>Ilhéu Ametite</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2375450/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.45</wgs:lat>
+	<wgs:long>-16.28333</wgs:long>
+	<skos:prefLabel>Ilhéu Ambelô</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2375511/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2372248/"/>
+	<europeana:country>GW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.01667</wgs:lat>
+	<wgs:long>-16.03333</wgs:long>
+	<skos:prefLabel>Ilhéu de Adonga</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 125 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

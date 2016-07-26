@@ -1,0 +1,17 @@
+p.level_3 {
+  display: inline;   
+}
+p.level_2 {
+  clear: both;
+  border-bottom: thin;
+  border-bottom-color: black;
+  border-bottom-style: dotted;   
+}
+h1 {
+    font-size: large;
+    border: none;
+    background-color: white;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: #aaaaaa;
+}

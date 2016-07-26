@@ -1,0 +1,66 @@
+            ------
+            Converter: Getty
+            ------
+ 
+
+ This converter translates the Getty {{{http://www.getty.edu/research/conducting_research/vocabularies/}AAT  and ULAN}} vocabularies 
+ provided by the Getty Foundation into their SKOS (RDF) representation.
+ 
+Source files
+ 
+ {{{http://annocultor.svn.sourceforge.net/svnroot/annocultor/demos/converters/getty/} Parent directory for source files}}
+ in the AnnoCultor source repository.
+ 
+Data 
+
+ Large samples of the vocabularies are provided for download at Getty. To run the demo you need to
+ download {{{http://www.getty.edu/research/conducting_research/vocabularies/aat/aat_xml_utf8_sample09.zip}AAT zip}} file 
+ and {{{http://www.getty.edu/research/conducting_research/vocabularies/ulan/ulan_xml_utf8_sample09.zip}ULAN zip}} file, and extract them to 
+ <<<annocultor/demos/converters/getty/input_source/>>>. Specifically, we need files <<<AAT.xml>>> and <<<ULAN.xml>>>.
+  
+ To convert the complete vocabularies you need to obtain a license and their complete XML sources from Getty. 
+   
+Running
+
+ Invoke <<<convert.bat AAT>>> or <<<convert.bat ULAN>>> from <<<annocultor/demos/converters/getty/>>>
+    
+Converter
+
+ Both converters share
+ 
+ * conversion 
+ {{{https://annocultor.svn.sourceforge.net/svnroot/annocultor/demos/converters/getty/profile/parameters-getty.xml}parameters}}
+ 
+ 
+ * several 
+ {{{https://annocultor.svn.sourceforge.net/svnroot/annocultor/demos/converters/getty/profile/common-getty.xml}common conversion rules}} 
+ 
+ The complete 
+ {{{https://annocultor.svn.sourceforge.net/svnroot/annocultor/demos/converters/getty/profile/profile-AAT.xml} AAT converter}}
+ and 
+ {{{https://annocultor.svn.sourceforge.net/svnroot/annocultor/demos/converters/getty/profile/profile-ULAN.xml} ULAN converter}}
+ translate:
+ 
+ * terms to <<<skos>>> terms,
+ 
+ * labels to <<<skos:prefLabel>>> and <<<skos:altLabel>>>,
+ 
+ * concept hierarchy into the <<<skos:broader>>> relation.
+ 
+ In addition, it creates a number of custom properties, mostly for ULAN.
+ 
+ This converter illustrates the following AnnoCultor features:
+ 
+ * part-of objects, converting a part-of object to a few properties of the parent object
+ 
+ * wildcards on source files 
+ 
+ * property rename
+ 
+ * faceted property rename
+  
+ * using listeners on converter and listeners on object rules together.
+ 
+Acknowledgments
+ 
+ This converter was developed with support from the {{{http://europeana.eu}Europeana project}}}.  

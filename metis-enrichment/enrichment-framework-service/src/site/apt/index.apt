@@ -1,0 +1,63 @@
+            ------
+            AnnoCultor: a tool for data conversion and semantic enrichment
+            ------
+ 
+
+ AnnoCultor allows converting databases and XML files to {{{http://www.w3.org/RDF/}RDF}},
+ and semantically tag them with links to vocabularies, to be published on Linked Data and the Semantic Web.
+ 
+AnnoCultor Converter
+
+ AnnoCultor Converter allows converting SQL databases, XML files, and SPARQL datasets
+ to RDF. Converters are written in XML in a simple declarative way,
+ and common XML editing skills are sufficient to write one.
+ 
+ When specific transformations are needed, pieces of Java code can be easily
+ plugged into the XML converters, ranging from a simple statement like 
+ <<<substringAfter(",")>>> to large blocks of code. 
+ 
+ AnnoCultor is flexible from both sides: it allows plugging in 
+ small Java programs to parse input data custom or legacy formats, or to 
+ produce non-RDF output data, e.g. Solr documents. 
+ 
+ AnnoCultor Converter was used to convert dozens datasets, ranging 
+ from simple, where all objects have the same structure, 
+ to complex, where input objects are different and interlinked, and need to
+ be restructured to interlinked output objects.
+  
+AnnoCultor Tagger
+
+ AnnoCultor Tagger allows assigning semantic tags to your data. 
+ Here the tags correspond to terms from existing vocabularies,
+ e.g. term 'Paris' from Geonames contains translations in a dozen languages,
+ augmented with coordinates, population, and other data. 
+ AnnoCultor can find and link this tag to a document, allowing new 
+ features, such as showing this document on a map.
+ 
+ AnnoCultor Tagger has been recently used to semantically tag nearly 7 million
+ records from the {{{http://europeana.eu}Europeana}} collections with location data,
+ see {{{http://mariateresa.isti.cnr.it/~borys/europeana/Ese_Places/index.html}tagging statistics report}}.
+ 
+ AnnoCultor is suitable for any vocabulary, with experience in 
+ Geonames and Getty TGN (places),  
+ Getty ULAN and RKD (people), 
+ Getty AAT and Gemet (general terminology),
+ SVCN (mix), and others.
+ 
+AnnoCultor Time Ontology
+ 
+ AnnoCultor Time Ontology is a vocabulary of time periods: 
+ milleniums, centuries, half centuries, quarters, decades, and years.
+ It also includes historical periods, like middle ages.
+ 
+ It can be used with AnnoCultor out-of-the-box to augment various representations of
+ periods with exact dates to show them on a timeline.
+ 
+Release Terms and Assistance 
+
+ AnnoCultor is an open-source project released under the Apache License that allows commercial reuse.
+ It needs to be customised to each specific data source and target format, see our {{{http://borys.name/papers/porting08.pdf} experiences on costs}}).
+ For consultancy, please contact us via 
+
+[images/email.support.gif].
+   

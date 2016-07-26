@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xml:lang="el"
+            xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'
+            xmlns:rdfs='http://www.w3.org/2000/01/rdf-schema#'
+            xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+            xmlns="http://www.eionet.europa.eu/gemet/2004/06/gemet-schema.rdf#">
+<SuperGroup rdf:about="http://www.eionet.europa.eu/gemet/supergroup/4044">
+<rdfs:label>ΑΝΘΡΩΠΙΝΕΣ ΔΡΑΣΤΗΡΙΟΤΗΤΕΣ ΚΑΙ ΠΡΟΪΟΝΤΑ</rdfs:label>
+</SuperGroup>
+<SuperGroup rdf:about="http://www.eionet.europa.eu/gemet/supergroup/5306">
+<rdfs:label>ΚΑΤΑΛΟΓΟΙ ΕΞΑΡΤΗΜΑΤΩΝ</rdfs:label>
+</SuperGroup>
+<SuperGroup rdf:about="http://www.eionet.europa.eu/gemet/supergroup/2894">
+<rdfs:label>ΚΟΙΝΩΝΙΚΑ ΖΗΤΗΜΑΤΑ, ΜΕΤΡΑ ΠΕΡΙΒΑΛΛΟΝΤΙΚΗΣ ΠΟΛΙΤΙΚΗΣ</rdfs:label>
+</SuperGroup>
+<SuperGroup rdf:about="http://www.eionet.europa.eu/gemet/supergroup/5499">
+<rdfs:label>ΦΥΣΙΚΟ ΠΕΡΙΒΑΛΛΟΝ, ΑΝΘΡΩΠΟΓΕΝΕΣ ΠΕΡΙΒΑΛΛΟΝ</rdfs:label>
+</SuperGroup>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/96">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/2894" />
+<rdfs:label>ΔΙΟΙΚΗΣΗ, ΔΙΑΧΕΙΡΙΣΗ, ΠΟΛΙΤΙΚΕΣ, ΠΟΛΙΤΙΚΗ, ΘΕΣΜΟΙ, ΣΧΕΔΙΑΣΜΟΣ</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/234">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>ΓΕΩΡΓΙΑ, ΔΑΣΟΠΟΝΙΑ, ΚΤΗΝΟΤΡΟΦΙΑ</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/618">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/5499" />
+<rdfs:label>ΑΤΜΟΣΦΑΙΡΑ (αέρας, κλίμα)</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/893">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/5499" />
+<rdfs:label>ΒΙΟΣΦΑΙΡΑ (οργανισμοί, οικοσυστήματα)</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/1062">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/5499" />
+<rdfs:label>ΑΝΘΡΩΠΟΣΦΑΙΡΑ (δομημένο περιβάλλον, ανθρώπινοι οικισμοί, χρήσεις γης)</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/1349">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>ΧΗΜΕΙΑ, ΟΥΣΙΕΣ, ΔΙΕΡΓΑΣΙΕΣ</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/1922">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/2894" />
+<rdfs:label>ΕΝΗΜΕΡΩΣΗ, ΕΚΠΑΙΔΕΥΣΗ, ΠΟΛΙΤΙΣΜΟΣ, ΠΕΡΙΒΑΛΛΟΝΤΙΚΗ ΣΥΝΕΙΔΗΣΗ</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/2504">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/2894" />
+<rdfs:label>ΟΙΚΟΝΟΜΙΑ, ΧΡΗΜΑΤΟΠΙΣΤΩΤΙΚΟ ΣΥΣΤΗΜΑ</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/2711">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>ΕΝΕΡΓΕΙΑ</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/3875">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/2894" />
+<rdfs:label>ΥΓΕΙΑ, ΔΙΑΤΡΟΦΗ</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/4125">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/5499" />
+<rdfs:label>ΥΔΡΟΣΦΑΙΡΑ (γλυκά νερα, θαλασσινά νερά, νερά)</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/4281">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>ΒΙΟΜΗΧΑΝΙΑ, ΒΙΟΤΕΧΝΙΑ, ΤΕΧΝΟΛΟΓΙΑ, ΤΕΧΝΟΛΟΓΙΙΚΟΣ ΕΞΟΠΛΙΣΜΟΣ</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/4630">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/5499" />
+<rdfs:label>ΠΕΡΙΟΧΗ (τοπίο, γεωγραφία)</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/4750">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/2894" />
+<rdfs:label>ΝΟΜΟΘΕΣΙΑ, ΠΡΟΤΥΠΑ, ΣΥΜΒΑΣΕΙΣ</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/4856">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/5499" />
+<rdfs:label>ΛΙΘΟΣΦΑΙΡΑ (έδαφος, γεωλογικές διεργασίες)</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/6237">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>ΦΥΣΙΚΕΣ ΙΔΙΟΤΗΤΕΣ, ΘΟΡΥΒΟΣ, ΚΡΑΔΑΣΜΟΙ, ΑΚΤΙΝΟΒΟΛΙΕΣ</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/7007">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>ΑΝΑΨΥΧΗ, ΤΟΘΡΙΣΜΟΣ</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/7136">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/2894" />
+<rdfs:label>ΕΡΕΥΝΑ, ΕΠΙΣΤΗΜΕΣ</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/7243">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/2894" />
+<rdfs:label>ΚΙΝΔΥΝΟΙ, ΑΣΦΑΛΕΙΑ</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/7779">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/2894" />
+<rdfs:label>ΚΟΙΝΩΝΙΚΑ ΖΗΤΗΜΑΤΑ</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/7956">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/5499" />
+<rdfs:label>ΧΩΡΟΣ</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/8575">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>ΕΜΠΟΡΙΟ, ΥΠΗΡΕΣΙΕΣ</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/8603">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>ΚΥΚΛΟΦΟΡΙΑ, ΜΕΤΑΦΟΡΕΣ</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/9117">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>ΑΠΟΒΛΗΤΑ, ΡΥΠΟΙ, ΡΥΠΑΝΣΗ</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/10111">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/5499" />
+<rdfs:label>ΠΕΡΙΒΑΛΛΟΝ (φυσικό περιβάλλον, ανθρωπογενές περιβάλλον)</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/10112">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>ΠΡΟΪΟΝΤΑ, ΥΛΙΚΑ</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/10114">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>ΑΠΟΤΕΛΕΣΜΑΤΑ, ΕΠΙΠΤΩΣΕΙΣ</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/10117">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/5306" />
+<rdfs:label>ΓΕΝΙΚΟΙ ΟΡΟΙ</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/10118">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>ΠΟΡΟΙ (χρήση πόρων)</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/13109">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/2894" />
+<rdfs:label>ΠΕΡΙΒΑΛΛΟΝΤΙΚΗ ΠΟΛΙΤΙΚΗ</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/14979">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/5499" />
+<rdfs:label>ΧΡΟΝΟΣ</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/14980">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/5306" />
+<rdfs:label>ΛΕΙΤΟΥΡΓΙΚΟΙ ΟΡΟΙ</rdfs:label>
+</Group>
+<Theme rdfs:label="αέρας" rdf:about="http://www.eionet.europa.eu/gemet/theme/3" />
+<Theme rdfs:label="ακτινοβολίες" rdf:about="http://www.eionet.europa.eu/gemet/theme/28" />
+<Theme rdfs:label="αλιεία" rdf:about="http://www.eionet.europa.eu/gemet/theme/12" />
+<Theme rdfs:label="ανθρώπινη υγεία" rdf:about="http://www.eionet.europa.eu/gemet/theme/17" />
+<Theme rdfs:label="απόβλητα" rdf:about="http://www.eionet.europa.eu/gemet/theme/39" />
+<Theme rdfs:label="αστικό περιβάλλον, αστικές πιέσεις" rdf:about="http://www.eionet.europa.eu/gemet/theme/38" />
+<Theme rdfs:label="βιολογία" rdf:about="http://www.eionet.europa.eu/gemet/theme/4" />
+<Theme rdfs:label="βιομηχανία" rdf:about="http://www.eionet.europa.eu/gemet/theme/19" />
+<Theme rdfs:label="γενικές υποθέσεις" rdf:about="http://www.eionet.europa.eu/gemet/theme/15" />
+<Theme rdfs:label="γεωγραφία" rdf:about="http://www.eionet.europa.eu/gemet/theme/16" />
+<Theme rdfs:label="γεωργία" rdf:about="http://www.eionet.europa.eu/gemet/theme/2" />
+<Theme rdfs:label="δασοπονία" rdf:about="http://www.eionet.europa.eu/gemet/theme/14" />
+<Theme rdfs:label="διοίκηση" rdf:about="http://www.eionet.europa.eu/gemet/theme/1" />
+<Theme rdfs:label="έδαφος" rdf:about="http://www.eionet.europa.eu/gemet/theme/35" />
+<Theme rdfs:label="είδη διατροφής, πόσιμο νερό" rdf:about="http://www.eionet.europa.eu/gemet/theme/13" />
+<Theme rdfs:label="εμπόριο, υπηρεσίες" rdf:about="http://www.eionet.europa.eu/gemet/theme/33" />
+<Theme rdfs:label="ενέργεια" rdf:about="http://www.eionet.europa.eu/gemet/theme/10" />
+<Theme rdfs:label="ενημέρωση" rdf:about="http://www.eionet.europa.eu/gemet/theme/20" />
+<Theme rdfs:label="έρευνα" rdf:about="http://www.eionet.europa.eu/gemet/theme/30" />
+<Theme rdfs:label="θόρυβος, κραδασμοί" rdf:about="http://www.eionet.europa.eu/gemet/theme/24" />
+<Theme rdfs:label="καταστροφές, ατυχήματα, κίνδυνοι" rdf:about="http://www.eionet.europa.eu/gemet/theme/32" />
+<Theme rdfs:label="κλίμα" rdf:about="http://www.eionet.europa.eu/gemet/theme/7" />
+<Theme rdfs:label="κοινωνικά ζητήματα, πληθυσμός" rdf:about="http://www.eionet.europa.eu/gemet/theme/34" />
+<Theme rdfs:label="κτηνοτροφία" rdf:about="http://www.eionet.europa.eu/gemet/theme/18" />
+<Theme rdfs:label="μεταφορές" rdf:about="http://www.eionet.europa.eu/gemet/theme/37" />
+<Theme rdfs:label="νερό" rdf:about="http://www.eionet.europa.eu/gemet/theme/40" />
+<Theme rdfs:label="νομοθεσία" rdf:about="http://www.eionet.europa.eu/gemet/theme/21" />
+<Theme rdfs:label="οικοδόμημα" rdf:about="http://www.eionet.europa.eu/gemet/theme/5" />
+<Theme rdfs:label="οικονομία" rdf:about="http://www.eionet.europa.eu/gemet/theme/9" />
+<Theme rdfs:label="περιβαλλοντική πολιτική" rdf:about="http://www.eionet.europa.eu/gemet/theme/11" />
+<Theme rdfs:label="πόροι" rdf:about="http://www.eionet.europa.eu/gemet/theme/31" />
+<Theme rdfs:label="ρύπανση" rdf:about="http://www.eionet.europa.eu/gemet/theme/26" />
+<Theme rdfs:label="στρατιωτικά ζητήματα" rdf:about="http://www.eionet.europa.eu/gemet/theme/22" />
+<Theme rdfs:label="τουρισμός" rdf:about="http://www.eionet.europa.eu/gemet/theme/29" />
+<Theme rdfs:label="υλικά" rdf:about="http://www.eionet.europa.eu/gemet/theme/27" />
+<Theme rdfs:label="φυσικές περιοχές, τοπίο, οικοσυστήματα" rdf:about="http://www.eionet.europa.eu/gemet/theme/23" />
+<Theme rdfs:label="φυσική" rdf:about="http://www.eionet.europa.eu/gemet/theme/25" />
+<Theme rdfs:label="φυσική δυναμική" rdf:about="http://www.eionet.europa.eu/gemet/theme/8" />
+<Theme rdfs:label="χημεία" rdf:about="http://www.eionet.europa.eu/gemet/theme/6" />
+<Theme rdfs:label="χώρος" rdf:about="http://www.eionet.europa.eu/gemet/theme/36" />
+</rdf:RDF>

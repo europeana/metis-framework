@@ -1,0 +1,1072 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AF_BJ
+Description: Selected fields pulled from Geonames about BJ done on Mon May 23 21:16:08 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/2390719/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>628684</europeana:population>
+	<wgs:lat>7.25</wgs:lat>
+	<wgs:long>2.16667</wgs:long>
+	<skos:altLabel>Center</skos:altLabel>
+	<skos:altLabel>Département du Centre</skos:altLabel>
+	<skos:altLabel>Département du Zou</skos:altLabel>
+	<skos:altLabel>Province du Zou</skos:altLabel>
+	<skos:altLabel>Zou</skos:altLabel>
+	<skos:prefLabel>Département du Zou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2391377/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20971</europeana:population>
+	<wgs:lat>8.88333</wgs:lat>
+	<wgs:long>2.6</wgs:long>
+	<skos:altLabel>Chauru</skos:altLabel>
+	<skos:altLabel>Tchaourou</skos:altLabel>
+	<skos:prefLabel>Tchaourou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2391455/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19833</europeana:population>
+	<wgs:lat>10.61972</wgs:lat>
+	<wgs:long>1.26444</wgs:long>
+	<skos:altLabel>Tangoueita</skos:altLabel>
+	<skos:altLabel>Tangueita</skos:altLabel>
+	<skos:altLabel>Tanguiéta</skos:altLabel>
+	<skos:prefLabel>Tanguiéta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2391893/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>75970</europeana:population>
+	<wgs:lat>8.03333</wgs:lat>
+	<wgs:long>2.48333</wgs:long>
+	<skos:altLabel xml:lang="en">Savé</skos:altLabel>
+	<skos:altLabel>Savé</skos:altLabel>
+	<skos:prefLabel>Savé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2391895/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>30187</europeana:population>
+	<wgs:lat>7.93333</wgs:lat>
+	<wgs:long>1.96667</wgs:long>
+	<skos:altLabel xml:lang="fr">Savalou</skos:altLabel>
+	<skos:altLabel xml:lang="en">Savalou</skos:altLabel>
+	<skos:altLabel>Savalou</skos:altLabel>
+	<skos:altLabel>Savalu</skos:altLabel>
+	<skos:prefLabel>Savalou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2392009/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>30111</europeana:population>
+	<wgs:lat>6.71667</wgs:lat>
+	<wgs:long>2.66667</wgs:long>
+	<skos:prefLabel>Sakété</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2392087/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>234168</europeana:population>
+	<wgs:lat>6.49646</wgs:lat>
+	<wgs:long>2.60359</wgs:long>
+	<skos:altLabel xml:lang="lt">Porto Novas</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Porto Novo</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Porto Novo</skos:altLabel>
+	<skos:altLabel xml:lang="de">Porto Novo</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Porto Novo</skos:altLabel>
+	<skos:altLabel xml:lang="io">Porto Novo</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Porto Novo</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Porto Novo</skos:altLabel>
+	<skos:altLabel xml:lang="is">Porto Novo</skos:altLabel>
+	<skos:altLabel xml:lang="en">Porto-Novo</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Porto-Novo</skos:altLabel>
+	<skos:altLabel xml:lang="it">Porto-Novo</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Porto-Novo</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Porto-Novo</skos:altLabel>
+	<skos:altLabel xml:lang="es">Porto-Novo</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Porto-Novo</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Porto-Novo</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Porto-Novo</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Porto-Novo</skos:altLabel>
+	<skos:altLabel xml:lang="da">Porto-Novo</skos:altLabel>
+	<skos:altLabel xml:lang="el">Πόρτο Νόβο</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Порто Ново</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Порто-Ново</skos:altLabel>
+	<skos:altLabel xml:lang="he">פורטו נובו</skos:altLabel>
+	<skos:altLabel xml:lang="fa">پورتو نووو</skos:altLabel>
+	<skos:altLabel xml:lang="am">ፖርቶ ኖቮ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ポルトノボ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">新港</skos:altLabel>
+	<skos:altLabel xml:lang="zh">波多诺伏</skos:altLabel>
+	<skos:altLabel xml:lang="ko">포르토노보</skos:altLabel>
+	<skos:prefLabel>Porto-Novo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2392108/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>32983</europeana:population>
+	<wgs:lat>6.96667</wgs:lat>
+	<wgs:long>2.68333</wgs:long>
+	<skos:altLabel>Ipobe</skos:altLabel>
+	<skos:altLabel>Pobé</skos:altLabel>
+	<skos:prefLabel>Pobé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2392204/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>163753</europeana:population>
+	<wgs:lat>9.35</wgs:lat>
+	<wgs:long>2.61667</wgs:long>
+	<skos:altLabel xml:lang="id">Parakou</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Parakou</skos:altLabel>
+	<skos:altLabel xml:lang="es">Parakou</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Parakou</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Parakou</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Parakou</skos:altLabel>
+	<skos:altLabel xml:lang="en">Parakou</skos:altLabel>
+	<skos:altLabel>Parakou</skos:altLabel>
+	<skos:altLabel>Paraku</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Параку</skos:altLabel>
+	<skos:prefLabel>Parakou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2392308/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>83503</europeana:population>
+	<wgs:lat>6.36667</wgs:lat>
+	<wgs:long>2.08333</wgs:long>
+	<skos:altLabel xml:lang="pt">Fortaleza de São João Baptista de Ajudá</skos:altLabel>
+	<skos:altLabel xml:lang="es">Ouidah</skos:altLabel>
+	<skos:altLabel xml:lang="de">Ouidah</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Ouidah</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Ouidah</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Ouidah</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Ouidah</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Ouidah</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ouidah</skos:altLabel>
+	<skos:altLabel>Ouidah</skos:altLabel>
+	<skos:altLabel xml:lang="nl">São João Baptista de Ajudá</skos:altLabel>
+	<skos:altLabel>Whydah</skos:altLabel>
+	<skos:altLabel>Wida</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Виды</skos:altLabel>
+	<skos:altLabel xml:lang="zh">圣约翰堡</skos:altLabel>
+	<skos:prefLabel>Ouidah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2392325/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>773421</europeana:population>
+	<wgs:lat>6.66667</wgs:lat>
+	<wgs:long>2.5</wgs:long>
+	<skos:altLabel>Département de l’ Ouémé</skos:altLabel>
+	<skos:altLabel>Département du Sud-Est</skos:altLabel>
+	<skos:altLabel>Ouémé</skos:altLabel>
+	<skos:altLabel>Province de l’ Ouémé</skos:altLabel>
+	<skos:altLabel>Quémé</skos:altLabel>
+	<skos:altLabel>Southeast</skos:altLabel>
+	<skos:prefLabel>Département de l’ Ouémé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2392505/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>54009</europeana:population>
+	<wgs:lat>9.93389</wgs:lat>
+	<wgs:long>3.20444</wgs:long>
+	<skos:altLabel>Nikki</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Никки</skos:altLabel>
+	<skos:prefLabel>Nikki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2392601/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>80892</europeana:population>
+	<wgs:lat>10.30667</wgs:lat>
+	<wgs:long>1.375</wgs:long>
+	<skos:altLabel xml:lang="de">Natitingou</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Natitingou</skos:altLabel>
+	<skos:altLabel xml:lang="en">Natitingou</skos:altLabel>
+	<skos:altLabel>Natitingou</skos:altLabel>
+	<skos:altLabel>Natitingu</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Натитингу</skos:altLabel>
+	<skos:prefLabel>Natitingou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2392716/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>380078</europeana:population>
+	<wgs:lat>6.58333</wgs:lat>
+	<wgs:long>1.83333</wgs:long>
+	<skos:altLabel>Département du Mono</skos:altLabel>
+	<skos:altLabel>Département du Sud-Ouest</skos:altLabel>
+	<skos:altLabel>Mono</skos:altLabel>
+	<skos:altLabel>Province du Mono</skos:altLabel>
+	<skos:altLabel>Southwest</skos:altLabel>
+	<skos:prefLabel>Département du Mono</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2392837/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>37117</europeana:population>
+	<wgs:lat>11.86411</wgs:lat>
+	<wgs:long>3.38967</wgs:long>
+	<skos:altLabel>Malanville</skos:altLabel>
+	<skos:altLabel>Mallanville</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Маланвилем</skos:altLabel>
+	<skos:prefLabel>Malanville</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2392897/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>86971</europeana:population>
+	<wgs:lat>6.63333</wgs:lat>
+	<wgs:long>1.71667</wgs:long>
+	<skos:altLabel>Locossa</skos:altLabel>
+	<skos:altLabel xml:lang="en">Lokossa</skos:altLabel>
+	<skos:altLabel>Lokossa</skos:altLabel>
+	<skos:prefLabel>Lokossa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2393551/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>22341</europeana:population>
+	<wgs:lat>7.36667</wgs:lat>
+	<wgs:long>2.6</wgs:long>
+	<skos:altLabel>Ketu</skos:altLabel>
+	<skos:altLabel>Kétou</skos:altLabel>
+	<skos:prefLabel>Kétou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2393693/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>109701</europeana:population>
+	<wgs:lat>11.13417</wgs:lat>
+	<wgs:long>2.93861</wgs:long>
+	<skos:altLabel xml:lang="en">Kandi</skos:altLabel>
+	<skos:altLabel xml:lang="es">Kandi</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Kandi</skos:altLabel>
+	<skos:altLabel>Kandi</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Канди</skos:altLabel>
+	<skos:prefLabel>Kandi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2394545/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>41312</europeana:population>
+	<wgs:lat>6.81667</wgs:lat>
+	<wgs:long>1.78333</wgs:long>
+	<skos:prefLabel>Dogbo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2394560/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>202810</europeana:population>
+	<wgs:lat>9.705</wgs:lat>
+	<wgs:long>1.66694</wgs:long>
+	<skos:altLabel xml:lang="es">Djougou</skos:altLabel>
+	<skos:altLabel xml:lang="en">Djougou</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Djougou</skos:altLabel>
+	<skos:altLabel>Djougou</skos:altLabel>
+	<skos:altLabel>Jugu</skos:altLabel>
+	<skos:prefLabel>Djougou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2394711/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21672</europeana:population>
+	<wgs:lat>7.75</wgs:lat>
+	<wgs:long>2.18333</wgs:long>
+	<skos:altLabel>Dassa Zume</skos:altLabel>
+	<skos:altLabel>Dassa-Zoumé</skos:altLabel>
+	<skos:prefLabel>Dassa-Zoumé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2394814/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>38566</europeana:population>
+	<wgs:lat>7.22097</wgs:lat>
+	<wgs:long>2.34017</wgs:long>
+	<skos:altLabel>Kové</skos:altLabel>
+	<skos:prefLabel>Cové</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2394819/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>690584</europeana:population>
+	<wgs:lat>6.35</wgs:lat>
+	<wgs:long>2.43333</wgs:long>
+	<skos:altLabel>Appi</skos:altLabel>
+	<skos:altLabel>Catonou</skos:altLabel>
+	<skos:altLabel xml:lang="de">Cotonou</skos:altLabel>
+	<skos:altLabel xml:lang="es">Cotonou</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Cotonou</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Cotonou</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Cotonou</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Cotonou</skos:altLabel>
+	<skos:altLabel xml:lang="en">Cotonou</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Cotonou</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Cotonou</skos:altLabel>
+	<skos:altLabel xml:lang="it">Cotonou</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Cotonou</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Cotonou</skos:altLabel>
+	<skos:altLabel xml:lang="da">Cotonou</skos:altLabel>
+	<skos:altLabel xml:lang="et">Cotonou</skos:altLabel>
+	<skos:altLabel>Cotonou</skos:altLabel>
+	<skos:altLabel xml:lang="es">Cotonú</skos:altLabel>
+	<skos:altLabel>Kotonou</skos:altLabel>
+	<skos:altLabel>Kotonu</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kotonu</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Kotonu</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Котону</skos:altLabel>
+	<skos:altLabel xml:lang="he">קוטונו</skos:altLabel>
+	<skos:altLabel xml:lang="ja">コトヌー</skos:altLabel>
+	<skos:altLabel xml:lang="zh">科托努</skos:altLabel>
+	<skos:prefLabel>Cotonou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2394824/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>29208</europeana:population>
+	<wgs:lat>6.4</wgs:lat>
+	<wgs:long>1.88333</wgs:long>
+	<skos:altLabel>Comé</skos:altLabel>
+	<skos:altLabel>Komé</skos:altLabel>
+	<skos:prefLabel>Comé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2394992/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>802503</europeana:population>
+	<wgs:lat>9.75</wgs:lat>
+	<wgs:long>2.75</wgs:long>
+	<skos:altLabel>Borgou</skos:altLabel>
+	<skos:altLabel>Département du Borgou</skos:altLabel>
+	<skos:altLabel>Département du Nord-Est</skos:altLabel>
+	<skos:altLabel>Northeast</skos:altLabel>
+	<skos:altLabel>Province du Bergou</skos:altLabel>
+	<skos:altLabel>Province du Borgou</skos:altLabel>
+	<skos:prefLabel>Département du Borgou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2395049/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>125092</europeana:population>
+	<wgs:lat>7.2</wgs:lat>
+	<wgs:long>2.06667</wgs:long>
+	<skos:altLabel xml:lang="es">Bohicon</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bohicon</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Bohicon</skos:altLabel>
+	<skos:altLabel>Bohicon</skos:altLabel>
+	<skos:prefLabel>Bohicon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2395127/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13108</europeana:population>
+	<wgs:lat>9.2</wgs:lat>
+	<wgs:long>2.26667</wgs:long>
+	<skos:altLabel>Bétérou</skos:altLabel>
+	<skos:prefLabel>Bétérou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2395170/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255146/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>9056010</europeana:population>
+	<wgs:lat>9.5</wgs:lat>
+	<wgs:long>2.25</wgs:long>
+	<skos:altLabel>BJ</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Beinin</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Benen</skos:altLabel>
+	<skos:altLabel xml:lang="so">Beniin</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Benim</skos:altLabel>
+	<skos:altLabel xml:lang="id">Benin</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Benin</skos:altLabel>
+	<skos:altLabel xml:lang="da">Benin</skos:altLabel>
+	<skos:altLabel xml:lang="et">Benin</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Benin</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Benin</skos:altLabel>
+	<skos:altLabel xml:lang="it">Benin</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Benin</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Benin</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Benin</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Benin</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Benin</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Benin</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Benin</skos:altLabel>
+	<skos:altLabel xml:lang="de">Benin</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Benin</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Benin</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Benin</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Benin</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Benin</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Benin</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Benin</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Benin</skos:altLabel>
+	<skos:altLabel xml:lang="en">Benin</skos:altLabel>
+	<skos:altLabel xml:lang="af">Benin</skos:altLabel>
+	<skos:altLabel xml:lang="br">Benin</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Benin</skos:altLabel>
+	<skos:altLabel xml:lang="na">Benin</skos:altLabel>
+	<skos:altLabel xml:lang="no">Benin</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Benin</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Benin</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Benin</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Benin</skos:altLabel>
+	<skos:altLabel xml:lang="io">Benin</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Benin</skos:altLabel>
+	<skos:altLabel xml:lang="li">Benin</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Benin</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Benin</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Benin</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Benin</skos:altLabel>
+	<skos:altLabel xml:lang="se">Benin</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Benin</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Benina</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Beninas</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Benini</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Benino</skos:altLabel>
+	<skos:altLabel xml:lang="la">Beninum</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Beninän</skos:altLabel>
+	<skos:altLabel xml:lang="es">Benín</skos:altLabel>
+	<skos:altLabel xml:lang="is">Benín</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Benín</skos:altLabel>
+	<skos:altLabel xml:lang="an">Benín</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Benín</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Bénin</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Bénin</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Bê-nanh</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Bê-nanh (Benin)</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Bênîn</skos:altLabel>
+	<skos:altLabel>Dahome</skos:altLabel>
+	<skos:altLabel>People’s Republic of Benin</skos:altLabel>
+	<skos:altLabel xml:lang="en">Republic of Benin</skos:altLabel>
+	<skos:altLabel>Republic of Dahomey</skos:altLabel>
+	<skos:altLabel xml:lang="gl">República de Benín - République du Bénin</skos:altLabel>
+	<skos:altLabel>République Populaire du Bénin</skos:altLabel>
+	<skos:altLabel xml:lang="fr">République du Bénin</skos:altLabel>
+	<skos:altLabel>République du Dahomey</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μπένιν</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μπενίν</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Бенин</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Бенин</skos:altLabel>
+	<skos:altLabel xml:lang="cv">Бенин</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Бенин</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бенин</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Бенин</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Бенін</skos:altLabel>
+	<skos:altLabel xml:lang="be">Бенін</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Բենին</skos:altLabel>
+	<skos:altLabel xml:lang="he">בנין</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بنين</skos:altLabel>
+	<skos:altLabel xml:lang="fa">بنین</skos:altLabel>
+	<skos:altLabel xml:lang="ur">بینن</skos:altLabel>
+	<skos:altLabel xml:lang="ug">بېنىن</skos:altLabel>
+	<skos:altLabel xml:lang="hi">बेनिन</skos:altLabel>
+	<skos:altLabel xml:lang="bn">বেনিন</skos:altLabel>
+	<skos:altLabel xml:lang="ta">பெனின்</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ബെനിന്‍</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศเบนิน</skos:altLabel>
+	<skos:altLabel xml:lang="th">เบนิน</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ເບນິນ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">བཱེ་ནིན།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ბენინი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ቤኒን</skos:altLabel>
+	<skos:altLabel xml:lang="km">បេណាំង</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ベナン</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ベニン</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ベニン共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">贝宁</skos:altLabel>
+	<skos:altLabel xml:lang="ko">베냉</skos:altLabel>
+	<skos:altLabel xml:lang="ko">베넹</skos:altLabel>
+	<skos:prefLabel>Republic of Benin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2395182/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>24006</europeana:population>
+	<wgs:lat>10.22889</wgs:lat>
+	<wgs:long>2.66528</wgs:long>
+	<skos:altLabel>Bembèrèkè</skos:altLabel>
+	<skos:altLabel>Bimbéréké</skos:altLabel>
+	<skos:prefLabel>Bembèrèkè</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2395261/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23616</europeana:population>
+	<wgs:lat>9.01667</wgs:lat>
+	<wgs:long>1.66667</wgs:long>
+	<skos:altLabel>Bassila</skos:altLabel>
+	<skos:prefLabel>Bassila</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2395317/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>22487</europeana:population>
+	<wgs:lat>11.3</wgs:lat>
+	<wgs:long>2.43333</wgs:long>
+	<skos:altLabel>Banikoara</skos:altLabel>
+	<skos:prefLabel>Banikoara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2395504/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>896901</europeana:population>
+	<wgs:lat>6.66667</wgs:lat>
+	<wgs:long>2.25</wgs:long>
+	<skos:altLabel>Alantique</skos:altLabel>
+	<skos:altLabel>Atlantique</skos:altLabel>
+	<skos:altLabel>Département de l’ Atlantique</skos:altLabel>
+	<skos:altLabel>Département du Sud</skos:altLabel>
+	<skos:altLabel>Province de l’ Atlantique</skos:altLabel>
+	<skos:altLabel>South</skos:altLabel>
+	<skos:prefLabel>Département de l’ Atlantique</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2395524/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>586734</europeana:population>
+	<wgs:lat>10.75</wgs:lat>
+	<wgs:long>1.66667</wgs:long>
+	<skos:altLabel>Atacora</skos:altLabel>
+	<skos:altLabel>Atakora</skos:altLabel>
+	<skos:altLabel>Attacora</skos:altLabel>
+	<skos:altLabel>Attagora</skos:altLabel>
+	<skos:altLabel>Département de l’ Atakora</skos:altLabel>
+	<skos:altLabel>Département du Nord-Ouest</skos:altLabel>
+	<skos:altLabel>Northwest</skos:altLabel>
+	<skos:altLabel>Province de l’ Atacora</skos:altLabel>
+	<skos:altLabel>Province de l’ Atakora</skos:altLabel>
+	<skos:prefLabel>Département de l’ Atakora</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2395568/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19862</europeana:population>
+	<wgs:lat>6.93333</wgs:lat>
+	<wgs:long>1.68333</wgs:long>
+	<skos:altLabel>Aplahoué</skos:altLabel>
+	<skos:altLabel>Parahoué</skos:altLabel>
+	<skos:altLabel>Parahue</skos:altLabel>
+	<skos:prefLabel>Aplahoué</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2395635/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20094</europeana:population>
+	<wgs:lat>6.65</wgs:lat>
+	<wgs:long>2.15</wgs:long>
+	<skos:altLabel>Allada</skos:altLabel>
+	<skos:prefLabel>Allada</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2395914/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>385755</europeana:population>
+	<wgs:lat>6.45</wgs:lat>
+	<wgs:long>2.35</wgs:long>
+	<skos:altLabel>Abome Calavi</skos:altLabel>
+	<skos:altLabel xml:lang="en">Abomey-Calavi</skos:altLabel>
+	<skos:altLabel>Abomey-Calavi</skos:altLabel>
+	<skos:altLabel>Kalavi</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Абомей-Калави</skos:altLabel>
+	<skos:prefLabel>Abomey-Calavi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2395915/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>82154</europeana:population>
+	<wgs:lat>7.18333</wgs:lat>
+	<wgs:long>1.98333</wgs:long>
+	<skos:altLabel>Abome</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Abomei</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Abomei</skos:altLabel>
+	<skos:altLabel xml:lang="id">Abomey</skos:altLabel>
+	<skos:altLabel xml:lang="en">Abomey</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Abomey</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Abomey</skos:altLabel>
+	<skos:altLabel xml:lang="de">Abomey</skos:altLabel>
+	<skos:altLabel xml:lang="da">Abomey</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Abomey</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Abomey</skos:altLabel>
+	<skos:altLabel xml:lang="it">Abomey</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Abomey</skos:altLabel>
+	<skos:altLabel>Abomey</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Palácios Reais de Abomei</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Абомей</skos:altLabel>
+	<skos:prefLabel>Abomey</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597271/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>576251</europeana:population>
+	<wgs:lat>11.33333</wgs:lat>
+	<wgs:long>2.91667</wgs:long>
+	<skos:altLabel>Alibori</skos:altLabel>
+	<skos:altLabel>Département de l’ Alibori</skos:altLabel>
+	<skos:prefLabel>Département de l’ Alibori</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597272/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>602066</europeana:population>
+	<wgs:lat>8</wgs:lat>
+	<wgs:long>2.16667</wgs:long>
+	<skos:altLabel>Collines</skos:altLabel>
+	<skos:altLabel>Département du Collines</skos:altLabel>
+	<skos:prefLabel>Département du Collines</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597273/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>560182</europeana:population>
+	<wgs:lat>7.08333</wgs:lat>
+	<wgs:long>1.83333</wgs:long>
+	<skos:altLabel>Couffo</skos:altLabel>
+	<skos:altLabel>Département du Kouffo</skos:altLabel>
+	<skos:altLabel>Kouffo</skos:altLabel>
+	<skos:prefLabel>Département du Kouffo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597274/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>384151</europeana:population>
+	<wgs:lat>9.16667</wgs:lat>
+	<wgs:long>1.83333</wgs:long>
+	<skos:altLabel>Donga</skos:altLabel>
+	<skos:altLabel>Département de la Donga</skos:altLabel>
+	<skos:prefLabel>Département de la Donga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597275/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>690584</europeana:population>
+	<wgs:lat>6.36667</wgs:lat>
+	<wgs:long>2.41667</wgs:long>
+	<skos:altLabel>Département du Littoral</skos:altLabel>
+	<skos:altLabel>Littoral</skos:altLabel>
+	<skos:prefLabel>Département du Littoral</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597277/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>435623</europeana:population>
+	<wgs:lat>7.16667</wgs:lat>
+	<wgs:long>2.58333</wgs:long>
+	<skos:altLabel>Département du Plateau</skos:altLabel>
+	<skos:altLabel>Plateau</skos:altLabel>
+	<skos:prefLabel>Département du Plateau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7668892/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2392325/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.71182</wgs:lat>
+	<wgs:long>2.49399</wgs:long>
+	<skos:prefLabel>Adjohoun</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7668898/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2392325/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.86938</wgs:lat>
+	<wgs:long>2.47934</wgs:long>
+	<skos:prefLabel>Bonou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7668900/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2392325/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.58039</wgs:lat>
+	<wgs:long>2.49927</wgs:long>
+	<skos:prefLabel>Dangbo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7668907/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2390719/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.34512</wgs:lat>
+	<wgs:long>2.27279</wgs:long>
+	<skos:prefLabel>Covè</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7668908/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2390719/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.06812</wgs:lat>
+	<wgs:long>2.46769</wgs:long>
+	<skos:prefLabel>Ouinhi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7668909/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2390719/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.25395</wgs:lat>
+	<wgs:long>2.39184</wgs:long>
+	<skos:prefLabel>Zangnanado</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7668910/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395524/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.42486</wgs:lat>
+	<wgs:long>1.71466</wgs:long>
+	<skos:prefLabel>Kouande</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7668916/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395524/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.27069</wgs:lat>
+	<wgs:long>2.03744</wgs:long>
+	<skos:prefLabel>Pehonko</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7668918/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395524/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.91433</wgs:lat>
+	<wgs:long>1.99153</wgs:long>
+	<skos:prefLabel>Kerou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7668924/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2392716/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.69802</wgs:lat>
+	<wgs:long>1.74161</wgs:long>
+	<skos:prefLabel>Lokossa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7668926/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2392716/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.56924</wgs:lat>
+	<wgs:long>1.70259</wgs:long>
+	<skos:prefLabel>Athieme</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7668931/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2390719/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.18091</wgs:lat>
+	<wgs:long>2.10342</wgs:long>
+	<skos:prefLabel>Bohicon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7668932/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2390719/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.22812</wgs:lat>
+	<wgs:long>2.20147</wgs:long>
+	<skos:prefLabel>Za-kpota</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7668934/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2390719/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.01778</wgs:lat>
+	<wgs:long>2.18308</wgs:long>
+	<skos:prefLabel>Zogbodome</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7668935/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597271/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>11.33966</wgs:lat>
+	<wgs:long>2.45915</wgs:long>
+	<skos:prefLabel>Banikoara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7668936/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395504/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.37069</wgs:lat>
+	<wgs:long>2.11274</wgs:long>
+	<skos:prefLabel>Ouidah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7668937/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395504/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.46756</wgs:lat>
+	<wgs:long>2.01064</wgs:long>
+	<skos:prefLabel>Kpomasse</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7668938/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395504/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.5381</wgs:lat>
+	<wgs:long>2.1429</wgs:long>
+	<skos:prefLabel>Tori-bossito</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7668939/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2392325/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.48047</wgs:lat>
+	<wgs:long>2.62129</wgs:long>
+	<skos:prefLabel>Porto-novo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7668940/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2392325/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.462</wgs:lat>
+	<wgs:long>2.51945</wgs:long>
+	<skos:prefLabel>Aguégués</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7668941/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2392325/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.39468</wgs:lat>
+	<wgs:long>2.58172</wgs:long>
+	<skos:prefLabel>Seme-kpodji</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7669263/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597274/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>9.59959</wgs:lat>
+	<wgs:long>1.43707</wgs:long>
+	<skos:prefLabel>Ouake</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7669264/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597274/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>9.68047</wgs:lat>
+	<wgs:long>1.84481</wgs:long>
+	<skos:prefLabel>Djougou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7669265/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2394992/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>9.20213</wgs:lat>
+	<wgs:long>2.51939</wgs:long>
+	<skos:prefLabel>Tchaourou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7669268/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2394992/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>9.34991</wgs:lat>
+	<wgs:long>2.62262</wgs:long>
+	<skos:prefLabel>Parakou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7669269/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2394992/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>9.73027</wgs:lat>
+	<wgs:long>2.45032</wgs:long>
+	<skos:prefLabel>Ndali</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7669270/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2394992/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.26755</wgs:lat>
+	<wgs:long>2.77158</wgs:long>
+	<skos:prefLabel>Bembereke</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7669273/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395524/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.25746</wgs:lat>
+	<wgs:long>1.41397</wgs:long>
+	<skos:prefLabel>Natitingou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7669275/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395170/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2395524/"/>
+	<europeana:country>BJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>9.88262</wgs:lat>
+	<wgs:long>1.55402</wgs:long>
+	<skos:prefLabel>Kopargo</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 71 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

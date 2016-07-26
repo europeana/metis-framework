@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: OC_NU
+Description: Selected fields pulled from Geonames about NU done on Mon May 23 21:17:15 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/4036231/">
+	<europeana:country>NU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.03333</wgs:lat>
+	<wgs:long>-169.86667</wgs:long>
+	<skos:altLabel xml:lang="fr">Ile de Niue</skos:altLabel>
+	<skos:altLabel>Iniue</skos:altLabel>
+	<skos:altLabel>Niue</skos:altLabel>
+	<skos:altLabel>Niue Island</skos:altLabel>
+	<skos:altLabel>Savage Island</skos:altLabel>
+	<skos:prefLabel>Niue Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4036232/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255151/"/>
+	<europeana:country>NU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLS"/>
+	<europeana:population>2166</europeana:population>
+	<wgs:lat>-19.03333</wgs:lat>
+	<wgs:long>-169.86667</wgs:long>
+	<skos:altLabel xml:lang="es">Isla Niue</skos:altLabel>
+	<skos:altLabel>NU</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Nioué</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Niue</skos:altLabel>
+	<skos:altLabel xml:lang="id">Niue</skos:altLabel>
+	<skos:altLabel xml:lang="en">Niue</skos:altLabel>
+	<skos:altLabel xml:lang="an">Niue</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Niue</skos:altLabel>
+	<skos:altLabel xml:lang="de">Niue</skos:altLabel>
+	<skos:altLabel xml:lang="es">Niue</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Niue</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Niue</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Niue</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Niue</skos:altLabel>
+	<skos:altLabel xml:lang="is">Niue</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Niue</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Niue</skos:altLabel>
+	<skos:altLabel xml:lang="no">Niue</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Niue</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Niue</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Niue</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Niue</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Niue</skos:altLabel>
+	<skos:altLabel xml:lang="da">Niue</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Niue</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Niue</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Niue</skos:altLabel>
+	<skos:altLabel xml:lang="io">Niue</skos:altLabel>
+	<skos:altLabel xml:lang="it">Niue</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Niue</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Niue</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Niue</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Niue</skos:altLabel>
+	<skos:altLabel xml:lang="se">Niue</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Niue</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Niue</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Niue</skos:altLabel>
+	<skos:altLabel xml:lang="et">Niue</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Niue</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Niue</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Niue</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Niue</skos:altLabel>
+	<skos:altLabel>Niue</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Niue Adaları</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Niuo</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Niué</skos:altLabel>
+	<skos:altLabel xml:lang="to">Niuē</skos:altLabel>
+	<skos:altLabel>Republic of Niue</skos:altLabel>
+	<skos:altLabel xml:lang="el">Νιούε</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Ние</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Ниуе</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Ниуе</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ниуе</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ниуэ</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Нијуе</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Ніуе</skos:altLabel>
+	<skos:altLabel xml:lang="be">Ніуэ</skos:altLabel>
+	<skos:altLabel xml:lang="he">ניאו</skos:altLabel>
+	<skos:altLabel xml:lang="he">ניואה</skos:altLabel>
+	<skos:altLabel xml:lang="he">ניווה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">نيوي</skos:altLabel>
+	<skos:altLabel xml:lang="fa">نیوئه</skos:altLabel>
+	<skos:altLabel xml:lang="fa">نیووی</skos:altLabel>
+	<skos:altLabel xml:lang="hi">नीयू</skos:altLabel>
+	<skos:altLabel xml:lang="bn">নিউয়ি</skos:altLabel>
+	<skos:altLabel xml:lang="th">นีอูเอ</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ນີຢູ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ནིའུ་ཝ།</skos:altLabel>
+	<skos:altLabel xml:lang="am">ኒኡይ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ニウエ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ニウエ島</skos:altLabel>
+	<skos:altLabel xml:lang="zh">紐埃</skos:altLabel>
+	<skos:altLabel xml:lang="zh">纽埃</skos:altLabel>
+	<skos:altLabel xml:lang="ko">니우에</skos:altLabel>
+	<skos:prefLabel>Niue</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 1 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

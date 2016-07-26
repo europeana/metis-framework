@@ -1,0 +1,885 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AF_GQ
+Description: Selected fields pulled from Geonames about GQ done on Mon May 23 21:16:13 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/2306506/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.4</wgs:lat>
+	<wgs:long>5.6</wgs:long>
+	<skos:prefLabel>Isla Yebatelu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2306544/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>1.75</wgs:lat>
+	<wgs:long>10.83333</wgs:long>
+	<skos:prefLabel>Valladolid de los Bimbiles</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2306595/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.40222</wgs:lat>
+	<wgs:long>5.65667</wgs:long>
+	<skos:altLabel>Isla Pan de Azúcar</skos:altLabel>
+	<skos:altLabel>Isla Piedra Grande</skos:altLabel>
+	<skos:altLabel>Isla Tortuga</skos:altLabel>
+	<skos:altLabel>Isla Yegani</skos:altLabel>
+	<skos:altLabel>Isla Yegany</skos:altLabel>
+	<skos:prefLabel>Isla Tortuga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2306702/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>1.83333</wgs:lat>
+	<wgs:long>10.25</wgs:long>
+	<skos:altLabel>Administración Territorial de Niefang</skos:altLabel>
+	<skos:altLabel>Niefan</skos:altLabel>
+	<skos:altLabel>Niefang</skos:altLabel>
+	<skos:altLabel>Sevilla de Niefang</skos:altLabel>
+	<skos:prefLabel>Sevilla de Niefang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2306725/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.48333</wgs:lat>
+	<wgs:long>5.61667</wgs:long>
+	<skos:altLabel>Isla Santarem</skos:altLabel>
+	<skos:altLabel>Isla Yeoga</skos:altLabel>
+	<skos:altLabel>Isla de Santaren</skos:altLabel>
+	<skos:altLabel>Islote de Santarem</skos:altLabel>
+	<skos:prefLabel>Isla Santarem</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2306734/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>3.63333</wgs:lat>
+	<wgs:long>8.75</wgs:long>
+	<skos:altLabel>Administración Territorial de Santa Isabel</skos:altLabel>
+	<skos:altLabel>Demarcación de Sanda Isabel</skos:altLabel>
+	<skos:altLabel>Santa Isabel</skos:altLabel>
+	<skos:prefLabel>Santa Isabel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2306754/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>3.75</wgs:lat>
+	<wgs:long>8.78333</wgs:long>
+	<skos:prefLabel>San Fernando</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2306771/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>3.36667</wgs:lat>
+	<wgs:long>8.58333</wgs:long>
+	<skos:altLabel>Administración Territorial de San Carlos</skos:altLabel>
+	<skos:altLabel>Demarcación de San Carlos</skos:altLabel>
+	<skos:altLabel>Distrito de San Carlos</skos:altLabel>
+	<skos:altLabel>San Carlos</skos:altLabel>
+	<skos:prefLabel>San Carlos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2306818/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>1.58333</wgs:lat>
+	<wgs:long>10.5</wgs:long>
+	<skos:altLabel>Continental</skos:altLabel>
+	<skos:altLabel>Continental Guinea</skos:altLabel>
+	<skos:altLabel>Distrito Continental</skos:altLabel>
+	<skos:altLabel>Province of Rio Muni</skos:altLabel>
+	<skos:altLabel>Provincia de Río Muni</skos:altLabel>
+	<skos:prefLabel>Provincia de Río Muni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2306841/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>1.25</wgs:lat>
+	<wgs:long>9.75</wgs:long>
+	<skos:altLabel>Administración Territorial de Kogo</skos:altLabel>
+	<skos:altLabel>Cogo</skos:altLabel>
+	<skos:altLabel>Kogo</skos:altLabel>
+	<skos:altLabel>Puerto Iradier</skos:altLabel>
+	<skos:prefLabel>Puerto Iradier</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2306880/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.41667</wgs:lat>
+	<wgs:long>5.63333</wgs:long>
+	<skos:altLabel>Isla Yecuiná</skos:altLabel>
+	<skos:altLabel>Isla del Paso</skos:altLabel>
+	<skos:prefLabel>Isla del Paso</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2307161/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>1.25</wgs:lat>
+	<wgs:long>11.16667</wgs:long>
+	<skos:altLabel>Administración Territorial de Nsok</skos:altLabel>
+	<skos:altLabel>Ensorc</skos:altLabel>
+	<skos:altLabel>Ensoro</skos:altLabel>
+	<skos:altLabel>Nsoc</skos:altLabel>
+	<skos:altLabel>Nsok</skos:altLabel>
+	<skos:altLabel>N’sork</skos:altLabel>
+	<skos:prefLabel>Nsoc</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2307366/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.08333</wgs:lat>
+	<wgs:long>9.73333</wgs:long>
+	<skos:altLabel>Isla Gande</skos:altLabel>
+	<skos:altLabel>Isla Ngande</skos:altLabel>
+	<skos:prefLabel>Isla Ngande</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2307796/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>1.66667</wgs:lat>
+	<wgs:long>11.16667</wgs:long>
+	<skos:altLabel>Mongomo</skos:altLabel>
+	<skos:altLabel>Mongomo de Guadalupe</skos:altLabel>
+	<skos:prefLabel>Mongomo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2308017/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>2</wgs:lat>
+	<wgs:long>10.66667</wgs:long>
+	<skos:altLabel>Administración Territorial de Mikomeseng</skos:altLabel>
+	<skos:altLabel>Micomesen</skos:altLabel>
+	<skos:altLabel>Micomeseng</skos:altLabel>
+	<skos:altLabel>Mikomesen</skos:altLabel>
+	<skos:altLabel>Mikomeseng</skos:altLabel>
+	<skos:prefLabel>Micomeseng</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2308276/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>1.5</wgs:lat>
+	<wgs:long>9.75</wgs:long>
+	<skos:altLabel>Administración Territorial de Río Benito</skos:altLabel>
+	<skos:altLabel>Benito</skos:altLabel>
+	<skos:altLabel>Distrito de Mbini</skos:altLabel>
+	<skos:altLabel>Río Benito</skos:altLabel>
+	<skos:prefLabel>Distrito de Mbini</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2308324/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.81667</wgs:lat>
+	<wgs:long>9.38333</wgs:long>
+	<skos:altLabel>Isla Banye</skos:altLabel>
+	<skos:altLabel>Isla Baynia</skos:altLabel>
+	<skos:altLabel>Isla Bañe</skos:altLabel>
+	<skos:altLabel>Islote Mbañe</skos:altLabel>
+	<skos:altLabel>Île Mbagné</skos:altLabel>
+	<skos:prefLabel>Islote Mbañe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2308679/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>3.53333</wgs:lat>
+	<wgs:long>8.56667</wgs:long>
+	<skos:altLabel>Islotes Loros</skos:altLabel>
+	<skos:altLabel>Islotes Papagayos</skos:altLabel>
+	<skos:altLabel>Islotes de las Cabras</skos:altLabel>
+	<skos:prefLabel>Islotes Loros</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2308680/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.53333</wgs:lat>
+	<wgs:long>8.56667</wgs:long>
+	<skos:altLabel>Cabras Islet</skos:altLabel>
+	<skos:altLabel>Goat Islet</skos:altLabel>
+	<skos:altLabel>Islote Cabras</skos:altLabel>
+	<skos:altLabel>Islote Loros</skos:altLabel>
+	<skos:prefLabel>Islote Loros</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2308724/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.46667</wgs:lat>
+	<wgs:long>8.83333</wgs:long>
+	<skos:altLabel>Caracas Islet</skos:altLabel>
+	<skos:altLabel>Islote Leven</skos:altLabel>
+	<skos:altLabel>Islote de Caraca</skos:altLabel>
+	<skos:altLabel>Islote de Caracas</skos:altLabel>
+	<skos:altLabel>Leven Island</skos:altLabel>
+	<skos:prefLabel>Islote Leven</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2308725/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.88333</wgs:lat>
+	<wgs:long>9.31667</wgs:long>
+	<skos:altLabel>Islote Laval</skos:altLabel>
+	<skos:altLabel>Islote Leva</skos:altLabel>
+	<skos:altLabel>Islote Leval</skos:altLabel>
+	<skos:altLabel>Levan</skos:altLabel>
+	<skos:prefLabel>Islote Leva</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2308768/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.53333</wgs:lat>
+	<wgs:long>8.58333</wgs:long>
+	<skos:altLabel>Isla Kid</skos:altLabel>
+	<skos:altLabel>Islote Kid</skos:altLabel>
+	<skos:prefLabel>Islote Kid</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2308819/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.06667</wgs:lat>
+	<wgs:long>9.68333</wgs:long>
+	<skos:altLabel>Isla Ibelo</skos:altLabel>
+	<skos:altLabel>Isla Ivelo</skos:altLabel>
+	<skos:prefLabel>Isla Ivelo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2308861/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>3.75</wgs:lat>
+	<wgs:long>8.9</wgs:long>
+	<skos:prefLabel>Islotes Horacio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2308862/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.75</wgs:lat>
+	<wgs:long>8.9</wgs:long>
+	<skos:altLabel>Islote Horacio</skos:altLabel>
+	<skos:altLabel>Île Horacio</skos:altLabel>
+	<skos:prefLabel>Islote Horacio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2308864/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.88333</wgs:lat>
+	<wgs:long>9.35</wgs:long>
+	<skos:prefLabel>Islote Hoco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2308940/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.48333</wgs:lat>
+	<wgs:long>5.61667</wgs:long>
+	<skos:altLabel>Isla Yemum</skos:altLabel>
+	<skos:altLabel>Islote Fernando Póo</skos:altLabel>
+	<skos:altLabel>Islote Yemún</skos:altLabel>
+	<skos:prefLabel>Islote Fernando Póo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2308978/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>1.05</wgs:lat>
+	<wgs:long>9.8</wgs:long>
+	<skos:altLabel>Islas Ebengue</skos:altLabel>
+	<skos:altLabel>Islas Ebonge</skos:altLabel>
+	<skos:altLabel>Islas Ebongüe</skos:altLabel>
+	<skos:altLabel>Islas Evongue</skos:altLabel>
+	<skos:altLabel>Islas Ibangüe</skos:altLabel>
+	<skos:altLabel>Islas Ibongüe</skos:altLabel>
+	<skos:altLabel>Îles Evonge</skos:altLabel>
+	<skos:prefLabel>Islas Evongue</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2308979/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.05</wgs:lat>
+	<wgs:long>9.8</wgs:long>
+	<skos:prefLabel>Isla de Evongue</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2308997/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>1.41667</wgs:lat>
+	<wgs:long>10.58333</wgs:long>
+	<skos:altLabel>Administración Territorial de Evinayong</skos:altLabel>
+	<skos:altLabel>Ebinayon</skos:altLabel>
+	<skos:altLabel>Ebinayong</skos:altLabel>
+	<skos:altLabel>Evinayong</skos:altLabel>
+	<skos:prefLabel>Evinayong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2309082/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.46667</wgs:lat>
+	<wgs:long>5.61667</wgs:long>
+	<skos:altLabel>Isla Escobar</skos:altLabel>
+	<skos:altLabel>Isla Yecastely</skos:altLabel>
+	<skos:altLabel>Islote de Escobar</skos:altLabel>
+	<skos:prefLabel>Isla Escobar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2309096/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255146/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>1014999</europeana:population>
+	<wgs:lat>2</wgs:lat>
+	<wgs:long>10</wgs:long>
+	<skos:altLabel xml:lang="ga">An Ghuine Mheánchriosach</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Egyenlítďi Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Egyenlítői-Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Ekuatore Ginea</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Ekvator Ginesi</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Ekvator Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Ekvatora Gvineo</skos:altLabel>
+	<skos:altLabel xml:lang="et">Ekvatoriaal-Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Ekvatorial-Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Ekvatorial-Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="no">Ekvatorial-Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Ekvatorialguinea</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Ekvatorialna Gvineja</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Ekvatorijalna Gvineja</skos:altLabel>
+	<skos:altLabel xml:lang="se">Ekvatoriála Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Ekvatoriālā Gvineja</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Ekvatorska Gvineja</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Ekvatorska Gvineja</skos:altLabel>
+	<skos:altLabel xml:lang="af">Ekwatoriaal-Guinee</skos:altLabel>
+	<skos:altLabel xml:lang="io">Equatorala Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="li">Equatoriaal Guinee</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Equatoriaal-Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="id">Equatorial Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Equatorial Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Equatorial Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="en">Equatorial Guinea</skos:altLabel>
+	<skos:altLabel>GQ</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ghi-nê Xích-đạo</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ghi-nê Xích-đạo (Equatorial Guinea)</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Ginea Ekwatorjali</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Gini Gyhydeddol</skos:altLabel>
+	<skos:altLabel xml:lang="la">Guinea Aequatorensis</skos:altLabel>
+	<skos:altLabel xml:lang="es">Guinea Ecuatorial</skos:altLabel>
+	<skos:altLabel xml:lang="an">Guinea Ecuatorial</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Guinea Ecuatorial</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Guinea Equatorial</skos:altLabel>
+	<skos:altLabel xml:lang="it">Guinea Equatoriale</skos:altLabel>
+	<skos:altLabel xml:lang="es">Guinea Española</skos:altLabel>
+	<skos:altLabel xml:lang="id">Guinea Khatulistiwa</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Guinea Khatulistiwa</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Guinea Xích Đạo</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Guinea equatorial</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Guinea ya Ikweta</skos:altLabel>
+	<skos:altLabel>Guinee Espagnol</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Guineea Ecuatorială</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Guineja Ekuatoriale</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Guinèa Eqüatoriala</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Guiné Equatorial</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Guinée-Équatoriale</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Gwinea Równikowa</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Gyni Ekwadoriel</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Kveatora-Gineyän</skos:altLabel>
+	<skos:altLabel xml:lang="is">Miðbaugs-Gínea</skos:altLabel>
+	<skos:altLabel xml:lang="es">Posesiones Españolas del Golfo de Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="es">Provincia de la Guinea Ecuatorial</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Pusiaujo Gvinėja</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Päiväntasaajan Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="en">Republic of Equatorial Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="es">República de Guinea Ecuatorial</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Rovníková Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Rovníková Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="en">Spanish Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="es">Territorios Españoles del Golfo de Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="de">Äquatorialguinea</skos:altLabel>
+	<skos:altLabel xml:lang="da">Ækvatorial Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="da">Ækvatorialguinea</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ισημερινή Γουινέα</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Гвинеяи Истивоӣ</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Екваториална Гвинея</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Екваторијална Гвинеја</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Екваторска Гвинеја</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Екваторіальна Гвінея</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Екваторіальна Ґвінея</skos:altLabel>
+	<skos:altLabel xml:lang="be">Экватарыяльная Гвінея</skos:altLabel>
+	<skos:altLabel xml:lang="be">Экватарыяльная Гвінэя</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Экваториальная Гвинея</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Հասարակածային Գվինեա</skos:altLabel>
+	<skos:altLabel xml:lang="he">גינאה המשוונית</skos:altLabel>
+	<skos:altLabel xml:lang="he">גיניאה המשוונית</skos:altLabel>
+	<skos:altLabel xml:lang="ug">ئېكۋاتور گۋىنىيىسى</skos:altLabel>
+	<skos:altLabel xml:lang="ur">استوائی گنی</skos:altLabel>
+	<skos:altLabel xml:lang="fa">ایکواتریال گوینیا</skos:altLabel>
+	<skos:altLabel xml:lang="ps">اېکواټوريال ګوينا</skos:altLabel>
+	<skos:altLabel xml:lang="ar">غينيا الاستوائية</skos:altLabel>
+	<skos:altLabel xml:lang="fa">گینه استوایی</skos:altLabel>
+	<skos:altLabel xml:lang="fa">گینهٔ استوایی</skos:altLabel>
+	<skos:altLabel xml:lang="hi">इक्वेटोरियल गिनी</skos:altLabel>
+	<skos:altLabel xml:lang="bn">ইকোয়েটোরিয়াল গিনি</skos:altLabel>
+	<skos:altLabel xml:lang="ta">ஈக்குவிடோரியல் கினி</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศอิเควทอเรียลกินี</skos:altLabel>
+	<skos:altLabel xml:lang="th">อิเควทอเรียลกินี</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ເອຄົວໂທເລຍລະກິນີ</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ეკვატორული გვინეა</skos:altLabel>
+	<skos:altLabel xml:lang="am">ኢኳቶሪያል ጊኒ</skos:altLabel>
+	<skos:altLabel xml:lang="am">ኢኳቶሪያል ጊኔ</skos:altLabel>
+	<skos:altLabel xml:lang="km">ហ្គីណេអេក្វាទ័រ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">赤道ギニア</skos:altLabel>
+	<skos:altLabel xml:lang="ja">赤道ギニア共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">赤道几内亚</skos:altLabel>
+	<skos:altLabel xml:lang="ko">적도 기니</skos:altLabel>
+	<skos:prefLabel>Republic of Equatorial Guinea</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2309173/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.98333</wgs:lat>
+	<wgs:long>9.5</wgs:long>
+	<skos:altLabel>Big Elobey</skos:altLabel>
+	<skos:altLabel>Great Elobey</skos:altLabel>
+	<skos:altLabel>Isla de Elobey Grande</skos:altLabel>
+	<skos:prefLabel>Isla de Elobey Grande</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2309174/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1</wgs:lat>
+	<wgs:long>9.51667</wgs:long>
+	<skos:altLabel>Isla Elobey Pequeño</skos:altLabel>
+	<skos:altLabel>Isla de Elobey Chico</skos:altLabel>
+	<skos:altLabel>Little Elobey</skos:altLabel>
+	<skos:prefLabel>Isla de Elobey Chico</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2309175/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>0.98333</wgs:lat>
+	<wgs:long>9.5</wgs:long>
+	<skos:altLabel>Islas de Elobey</skos:altLabel>
+	<skos:altLabel>Islas de Elobi</skos:altLabel>
+	<skos:altLabel>Los Elobeyes</skos:altLabel>
+	<skos:prefLabel>Islas de Elobey</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2309288/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.25</wgs:lat>
+	<wgs:long>9.38333</wgs:long>
+	<skos:altLabel>Islote Bonehe</skos:altLabel>
+	<skos:altLabel>Islote Buenja</skos:altLabel>
+	<skos:altLabel>Islote Ebumya</skos:altLabel>
+	<skos:altLabel>Islote de Ibunye</skos:altLabel>
+	<skos:prefLabel>Islote Ebumya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2309297/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.06667</wgs:lat>
+	<wgs:long>9.76667</wgs:long>
+	<skos:prefLabel>Isla Ebongo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2309332/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>24831</europeana:population>
+	<wgs:lat>2.15</wgs:lat>
+	<wgs:long>11.33333</wgs:long>
+	<skos:altLabel>Ebebiyín</skos:altLabel>
+	<skos:altLabel>Ebibeyin</skos:altLabel>
+	<skos:altLabel>Ebibeying</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Эбебийина</skos:altLabel>
+	<skos:prefLabel>Ebebiyín</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2309335/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>1.91667</wgs:lat>
+	<wgs:long>11.16667</wgs:long>
+	<skos:altLabel>Administración Territorial de Ebebiyin</skos:altLabel>
+	<skos:altLabel>Ebebeyin</skos:altLabel>
+	<skos:altLabel>Ebebiyín</skos:altLabel>
+	<skos:altLabel>Ebibellin</skos:altLabel>
+	<skos:altLabel>Ebibeyin</skos:altLabel>
+	<skos:altLabel>Ebibeying</skos:altLabel>
+	<skos:prefLabel>Ebebiyín</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2309479/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.91667</wgs:lat>
+	<wgs:long>9.31667</wgs:long>
+	<skos:altLabel>Isla Mandyi</skos:altLabel>
+	<skos:altLabel>Isla de Corisco</skos:altLabel>
+	<skos:prefLabel>Isla de Corisco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2309527/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>155963</europeana:population>
+	<wgs:lat>3.75</wgs:lat>
+	<wgs:long>8.78333</wgs:long>
+	<skos:altLabel xml:lang="es">Ciudad de Malabo</skos:altLabel>
+	<skos:altLabel>Malaba</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Malabas</skos:altLabel>
+	<skos:altLabel xml:lang="de">Malabo</skos:altLabel>
+	<skos:altLabel xml:lang="es">Malabo</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Malabo</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Malabo</skos:altLabel>
+	<skos:altLabel xml:lang="it">Malabo</skos:altLabel>
+	<skos:altLabel xml:lang="no">Malabo</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Malabo</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Malabo</skos:altLabel>
+	<skos:altLabel xml:lang="en">Malabo</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Malabo</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Malabo</skos:altLabel>
+	<skos:altLabel xml:lang="io">Malabo</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Malabo</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Malabo</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Malabo</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Malabo</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Malabo</skos:altLabel>
+	<skos:altLabel xml:lang="da">Malabo</skos:altLabel>
+	<skos:altLabel>Malabo</skos:altLabel>
+	<skos:altLabel>Port Clarence</skos:altLabel>
+	<skos:altLabel>Rev Malebo</skos:altLabel>
+	<skos:altLabel xml:lang="en">Santa Isabel</skos:altLabel>
+	<skos:altLabel xml:lang="es">Santa Isabel</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μαλάμπο</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Малабо</skos:altLabel>
+	<skos:altLabel xml:lang="he">מלאבו</skos:altLabel>
+	<skos:altLabel xml:lang="ar">مالابو</skos:altLabel>
+	<skos:altLabel xml:lang="fa">مالابو</skos:altLabel>
+	<skos:altLabel xml:lang="am">ማላቦ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">マラボ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">馬拉博</skos:altLabel>
+	<skos:altLabel xml:lang="ko">말라보</skos:altLabel>
+	<skos:prefLabel>Malabo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2309792/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.5</wgs:lat>
+	<wgs:long>8.7</wgs:long>
+	<skos:altLabel>Bioka</skos:altLabel>
+	<skos:altLabel xml:lang="en">Fernando Po</skos:altLabel>
+	<skos:altLabel xml:lang="es">Isla de Bioko</skos:altLabel>
+	<skos:altLabel>Isla de Fernando Póo</skos:altLabel>
+	<skos:altLabel>Isla de Macías Nguema Biyogo</skos:altLabel>
+	<skos:altLabel>Island of Macias</skos:altLabel>
+	<skos:prefLabel>Fernando Po</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2310007/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1</wgs:lat>
+	<wgs:long>9.5</wgs:long>
+	<skos:altLabel>Belovi Island</skos:altLabel>
+	<skos:altLabel>Islote Belobi</skos:altLabel>
+	<skos:prefLabel>Islote Belobi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2310046/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>173046</europeana:population>
+	<wgs:lat>1.85</wgs:lat>
+	<wgs:long>9.75</wgs:long>
+	<skos:altLabel xml:lang="id">Bata</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bata</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Bata</skos:altLabel>
+	<skos:altLabel xml:lang="de">Bata</skos:altLabel>
+	<skos:altLabel xml:lang="es">Bata</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Bata</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Bata</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Bata</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Bata</skos:altLabel>
+	<skos:altLabel>Bata</skos:altLabel>
+	<skos:altLabel>Kokapipa</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бата</skos:altLabel>
+	<skos:altLabel xml:lang="ja">バタ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">巴塔</skos:altLabel>
+	<skos:prefLabel>Bata</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2310047/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>1.91667</wgs:lat>
+	<wgs:long>9.91667</wgs:long>
+	<skos:altLabel>Administración Territorial de Bata</skos:altLabel>
+	<skos:altLabel>Bata</skos:altLabel>
+	<skos:prefLabel>Bata</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2310306/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.43333</wgs:lat>
+	<wgs:long>5.63333</wgs:long>
+	<skos:altLabel xml:lang="nl">Annobon</skos:altLabel>
+	<skos:altLabel xml:lang="en">Annobón</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Annobón</skos:altLabel>
+	<skos:altLabel xml:lang="es">Annobón</skos:altLabel>
+	<skos:altLabel xml:lang="de">Annobón</skos:altLabel>
+	<skos:altLabel xml:lang="et">Annobón</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Annobón</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Ano Bom</skos:altLabel>
+	<skos:altLabel>Isla Pagalu</skos:altLabel>
+	<skos:altLabel>Isla de Annobón</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Pagalu</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Аннобон</skos:altLabel>
+	<skos:altLabel xml:lang="ja">アンノボン島</skos:altLabel>
+	<skos:prefLabel>Isla de Annobón</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2310307/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>4433</europeana:population>
+	<wgs:lat>-1.43333</wgs:lat>
+	<wgs:long>5.63333</wgs:long>
+	<skos:altLabel>Administración Territorial de Annobón</skos:altLabel>
+	<skos:altLabel>Annobón</skos:altLabel>
+	<skos:altLabel>Demarcación de Annobón</skos:altLabel>
+	<skos:altLabel>Isla de Annobón</skos:altLabel>
+	<skos:altLabel>Provincia de Annobón</skos:altLabel>
+	<skos:prefLabel>Provincia de Annobón</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2310309/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10191</europeana:population>
+	<wgs:lat>1.85</wgs:lat>
+	<wgs:long>10.76667</wgs:long>
+	<skos:altLabel>Añisoc</skos:altLabel>
+	<skos:altLabel>Añisok</skos:altLabel>
+	<skos:prefLabel>Añisoc</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2310522/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.46944</wgs:lat>
+	<wgs:long>5.6425</wgs:long>
+	<skos:altLabel>Isla Picachos</skos:altLabel>
+	<skos:altLabel>Isla Yecayi</skos:altLabel>
+	<skos:altLabel>Islote Adams</skos:altLabel>
+	<skos:altLabel>Islote del Sur</skos:altLabel>
+	<skos:prefLabel>Islote Adams</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2310534/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>1.11667</wgs:lat>
+	<wgs:long>10.66667</wgs:long>
+	<skos:altLabel>Acurenam</skos:altLabel>
+	<skos:altLabel>Acurenan</skos:altLabel>
+	<skos:altLabel>Akurenam</skos:altLabel>
+	<skos:altLabel>Akurenan</skos:altLabel>
+	<skos:prefLabel>Acurenam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2310547/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11192</europeana:population>
+	<wgs:lat>1.3</wgs:lat>
+	<wgs:long>10.93333</wgs:long>
+	<skos:altLabel>Aconibe</skos:altLabel>
+	<skos:altLabel>Akonebe</skos:altLabel>
+	<skos:prefLabel>Aconibe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2566978/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>231629</europeana:population>
+	<wgs:lat>3.66667</wgs:lat>
+	<wgs:long>8.75</wgs:long>
+	<skos:altLabel>Bioko Norte</skos:altLabel>
+	<skos:altLabel>Provincia de Bioko Norte</skos:altLabel>
+	<skos:prefLabel>Provincia de Bioko Norte</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2566979/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>25972</europeana:population>
+	<wgs:lat>3.41667</wgs:lat>
+	<wgs:long>8.66667</wgs:long>
+	<skos:altLabel>Bioko Sur</skos:altLabel>
+	<skos:altLabel>Provincia de Bioko Sur</skos:altLabel>
+	<skos:prefLabel>Provincia de Bioko Sur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2566980/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>129620</europeana:population>
+	<wgs:lat>1.5</wgs:lat>
+	<wgs:long>10.5</wgs:long>
+	<skos:altLabel>Centro Sur</skos:altLabel>
+	<skos:altLabel>Provincia de Centro Sur</skos:altLabel>
+	<skos:prefLabel>Provincia de Centro Sur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2566981/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>161807</europeana:population>
+	<wgs:lat>2</wgs:lat>
+	<wgs:long>11</wgs:long>
+	<skos:altLabel>Kié-Ntem</skos:altLabel>
+	<skos:altLabel>Provincia de Kié-Ntem</skos:altLabel>
+	<skos:prefLabel>Provincia de Kié-Ntem</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2566982/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>300000</europeana:population>
+	<wgs:lat>1.5</wgs:lat>
+	<wgs:long>9.75</wgs:long>
+	<skos:altLabel>Litoral</skos:altLabel>
+	<skos:altLabel>Provincia de Litoral</skos:altLabel>
+	<skos:prefLabel>Provincia de Litoral</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2566983/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2309096/"/>
+	<europeana:country>GQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>157000</europeana:population>
+	<wgs:lat>1.5</wgs:lat>
+	<wgs:long>11.16667</wgs:long>
+	<skos:altLabel>Provincia de Wele-Nzas</skos:altLabel>
+	<skos:altLabel>Wele-Nzas</skos:altLabel>
+	<skos:prefLabel>Provincia de Wele-Nzas</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 56 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

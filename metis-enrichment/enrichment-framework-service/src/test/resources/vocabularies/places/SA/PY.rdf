@@ -1,0 +1,1035 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: SA_PY
+Description: Selected fields pulled from Geonames about PY done on Mon May 23 21:15:20 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/3436579/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-25</wgs:lat>
+	<wgs:long>-57.31667</wgs:long>
+	<skos:prefLabel>Isla Ypecuá</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3436639/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-27.28333</wgs:lat>
+	<wgs:long>-56.13333</wgs:long>
+	<skos:prefLabel>Isla Ybycui</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3436680/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-27.41667</wgs:lat>
+	<wgs:long>-56.5</wgs:long>
+	<skos:altLabel>Isla Yaciretá</skos:altLabel>
+	<skos:altLabel>Isla Yacyretá</skos:altLabel>
+	<skos:prefLabel>Isla Yacyretá</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3436714/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>41157</europeana:population>
+	<wgs:lat>-25.75</wgs:lat>
+	<wgs:long>-56.43333</wgs:long>
+	<skos:altLabel xml:lang="lt">Viljarika</skos:altLabel>
+	<skos:altLabel>Villa Rica</skos:altLabel>
+	<skos:altLabel xml:lang="de">Villarrica</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Villarrica</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Villarrica</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Villarrica</skos:altLabel>
+	<skos:altLabel xml:lang="es">Villarrica</skos:altLabel>
+	<skos:altLabel xml:lang="en">Villarrica</skos:altLabel>
+	<skos:altLabel>Villarrica</skos:altLabel>
+	<skos:altLabel>Villarrica del Espíritu Santo</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Вильяррика</skos:altLabel>
+	<skos:prefLabel>Villarrica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3436728/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>64099</europeana:population>
+	<wgs:lat>-25.36667</wgs:lat>
+	<wgs:long>-57.61667</wgs:long>
+	<skos:altLabel>Colonia Eliza</skos:altLabel>
+	<skos:altLabel>Villa Elisa</skos:altLabel>
+	<skos:prefLabel>Villa Elisa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3436870/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-27.53333</wgs:lat>
+	<wgs:long>-56.43333</wgs:long>
+	<skos:prefLabel>Isla Talavera</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3436968/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11823</europeana:population>
+	<wgs:lat>-25.78333</wgs:lat>
+	<wgs:long>-55.06667</wgs:long>
+	<skos:prefLabel>Santa Rita</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3436985/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.83333</wgs:lat>
+	<wgs:long>-57.98333</wgs:long>
+	<skos:prefLabel>Isla Santa Elena</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3437027/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>332397</europeana:population>
+	<wgs:lat>-24.25</wgs:lat>
+	<wgs:long>-56.5</wgs:long>
+	<skos:altLabel>Departamento de San Pedro</skos:altLabel>
+	<skos:altLabel>San Pedro</skos:altLabel>
+	<skos:altLabel>Segundo Departamento</skos:altLabel>
+	<skos:prefLabel>Departamento de San Pedro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3437033/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-27.38333</wgs:lat>
+	<wgs:long>-56.38333</wgs:long>
+	<skos:prefLabel>Isla San Pablo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3437056/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>227876</europeana:population>
+	<wgs:lat>-25.33333</wgs:lat>
+	<wgs:long>-57.53333</wgs:long>
+	<skos:altLabel xml:lang="es">San Lorenzo</skos:altLabel>
+	<skos:altLabel xml:lang="en">San Lorenzo</skos:altLabel>
+	<skos:altLabel>San Lorenzo</skos:altLabel>
+	<skos:altLabel>San Lorenzo del Campo Grande</skos:altLabel>
+	<skos:prefLabel>San Lorenzo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3437088/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11095</europeana:population>
+	<wgs:lat>-24.51667</wgs:lat>
+	<wgs:long>-55.7</wgs:long>
+	<skos:altLabel>Curuguaty</skos:altLabel>
+	<skos:altLabel>San Isidro de Curuguaty</skos:altLabel>
+	<skos:altLabel>Villa Curuguaty</skos:altLabel>
+	<skos:prefLabel>San Isidro de Curuguaty</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3437096/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-25.13333</wgs:lat>
+	<wgs:long>-57.58333</wgs:long>
+	<skos:prefLabel>Isla San Francisco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3437127/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>55754</europeana:population>
+	<wgs:lat>-25.38333</wgs:lat>
+	<wgs:long>-57.63333</wgs:long>
+	<skos:prefLabel>San Antonio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3437135/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.88333</wgs:lat>
+	<wgs:long>-57.98333</wgs:long>
+	<skos:prefLabel>Isla San Alberto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3437434/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-27.4</wgs:lat>
+	<wgs:long>-56.81667</wgs:long>
+	<skos:prefLabel>Isla Pucu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3437435/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-27.36667</wgs:lat>
+	<wgs:long>-56.25</wgs:long>
+	<skos:prefLabel>Isla Pucú</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3437443/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>88960</europeana:population>
+	<wgs:lat>-23.5</wgs:lat>
+	<wgs:long>-58.83333</wgs:long>
+	<skos:altLabel>Decimoquinto Departamento</skos:altLabel>
+	<skos:altLabel>Departamento de Presidente Hayes</skos:altLabel>
+	<skos:altLabel>Presidente Hayes</skos:altLabel>
+	<skos:altLabel>Villa Hayes</skos:altLabel>
+	<skos:prefLabel>Departamento de Presidente Hayes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3437444/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>54292</europeana:population>
+	<wgs:lat>-25.53333</wgs:lat>
+	<wgs:long>-54.61667</wgs:long>
+	<skos:altLabel>Presidente Franco</skos:altLabel>
+	<skos:altLabel>Puerto Presidente Franco</skos:altLabel>
+	<skos:prefLabel>Presidente Franco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3437495/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10337</europeana:population>
+	<wgs:lat>-25.48333</wgs:lat>
+	<wgs:long>-57.05</wgs:long>
+	<skos:altLabel>Piribebuy</skos:altLabel>
+	<skos:prefLabel>Piribebuy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3437526/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>28716</europeana:population>
+	<wgs:lat>-26.86667</wgs:lat>
+	<wgs:long>-58.38333</wgs:long>
+	<skos:altLabel>Pilar</skos:altLabel>
+	<skos:prefLabel>Pilar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3437589/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-25.81667</wgs:lat>
+	<wgs:long>-57.78333</wgs:long>
+	<skos:prefLabel>Isla Paray</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3437598/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255150/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>6375830</europeana:population>
+	<wgs:lat>-22.99333</wgs:lat>
+	<wgs:long>-57.99639</wgs:long>
+	<skos:altLabel>El Paraguay</skos:altLabel>
+	<skos:altLabel>PY</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Pa-ra-goay</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Pa-ra-goay (Paraguay)</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Paragua</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Paraguai</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Paraguai</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Paraguai</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Paraguai</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Paraguai</skos:altLabel>
+	<skos:altLabel xml:lang="an">Paraguai</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Paraguai</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Paraguai - Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="la">Paraguaia</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Paraguaj</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Paraguaj</skos:altLabel>
+	<skos:altLabel xml:lang="id">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="en">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="de">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="da">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="et">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="it">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="af">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="io">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="se">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="br">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="no">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="rm">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="es">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Paraguei</skos:altLabel>
+	<skos:altLabel xml:lang="gn">Paraguái</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Paragvaj</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Paragvaj</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Paragvaj</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Paragvaj</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Paragvaja</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Paragvajo</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Paragvajus</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Paragvän</skos:altLabel>
+	<skos:altLabel xml:lang="is">Paragvæ</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Paragwai</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Paragwaj</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Paragwaj</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Paragway</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Paragûay</skos:altLabel>
+	<skos:altLabel xml:lang="az">Paraqvay</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Parawayi</skos:altLabel>
+	<skos:altLabel xml:lang="en">Republic of Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="es">República del Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="el">Παραγουάη</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Парагвай</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Парагвай</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Парагвай</skos:altLabel>
+	<skos:altLabel xml:lang="be">Парагвай</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Парагвај</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Парагвај</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Параґвай</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Պարագվայ</skos:altLabel>
+	<skos:altLabel xml:lang="yi">פאראגוויי</skos:altLabel>
+	<skos:altLabel xml:lang="he">פרגואי</skos:altLabel>
+	<skos:altLabel xml:lang="he">פרגוואי</skos:altLabel>
+	<skos:altLabel xml:lang="ar">باراجواي</skos:altLabel>
+	<skos:altLabel xml:lang="ar">باراغواي</skos:altLabel>
+	<skos:altLabel xml:lang="fa">پاراگوئه</skos:altLabel>
+	<skos:altLabel xml:lang="fa">پاراگویه</skos:altLabel>
+	<skos:altLabel xml:lang="ug">پاراگۋاي</skos:altLabel>
+	<skos:altLabel xml:lang="ur">پیراگوئے</skos:altLabel>
+	<skos:altLabel xml:lang="hi">पारागुए</skos:altLabel>
+	<skos:altLabel xml:lang="hi">पॅराग्वे</skos:altLabel>
+	<skos:altLabel xml:lang="bn">পারাগুয়ে</skos:altLabel>
+	<skos:altLabel xml:lang="bn">প্যারাগোয়ে</skos:altLabel>
+	<skos:altLabel xml:lang="ta">பராகுவே</skos:altLabel>
+	<skos:altLabel xml:lang="ta">பாரகுவே</skos:altLabel>
+	<skos:altLabel xml:lang="kn">ಪೆರಗ್ವೆ</skos:altLabel>
+	<skos:altLabel xml:lang="ml">പരാഗ്വേ</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศปารากวัย</skos:altLabel>
+	<skos:altLabel xml:lang="th">ปารากวัย</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ປາລາກວຍ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">པཱ་ར་གེ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">პარაგვაი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ፓራጓይ</skos:altLabel>
+	<skos:altLabel xml:lang="km">ប៉ារ៉ាហ្គាយ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">パラグアイ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">パラグアイ共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">巴拉圭</skos:altLabel>
+	<skos:altLabel xml:lang="ko">파라과이</skos:altLabel>
+	<skos:prefLabel>Republic of Paraguay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3437599/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>227919</europeana:population>
+	<wgs:lat>-26</wgs:lat>
+	<wgs:long>-57.16667</wgs:long>
+	<skos:altLabel>Departamento de Paraguarí</skos:altLabel>
+	<skos:altLabel>Departamento de Quyyndy</skos:altLabel>
+	<skos:altLabel>Noveno Departamento</skos:altLabel>
+	<skos:altLabel>Paraguarí</skos:altLabel>
+	<skos:altLabel>Quiindy</skos:altLabel>
+	<skos:prefLabel>Departamento de Paraguarí</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3437600/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10079</europeana:population>
+	<wgs:lat>-25.63333</wgs:lat>
+	<wgs:long>-57.15</wgs:long>
+	<skos:altLabel>Paraguarí</skos:altLabel>
+	<skos:prefLabel>Paraguarí</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3437603/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-27.41667</wgs:lat>
+	<wgs:long>-56.85</wgs:long>
+	<skos:prefLabel>Isla Pantita-Cue</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3437608/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-27.45</wgs:lat>
+	<wgs:long>-56.38333</wgs:long>
+	<skos:prefLabel>Isla Palo Seco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3437611/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-27.35</wgs:lat>
+	<wgs:long>-56.41667</wgs:long>
+	<skos:prefLabel>Isla Paloma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3437634/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-27.53333</wgs:lat>
+	<wgs:long>-56.48333</wgs:long>
+	<skos:prefLabel>Isla Oculto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3437665/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>94641</europeana:population>
+	<wgs:lat>-25.36667</wgs:lat>
+	<wgs:long>-57.6</wgs:long>
+	<skos:altLabel>Nemby</skos:altLabel>
+	<skos:altLabel>San Lorenzo de la Frontera</skos:altLabel>
+	<skos:prefLabel>Nemby</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3437677/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>77587</europeana:population>
+	<wgs:lat>-27</wgs:lat>
+	<wgs:long>-58</wgs:long>
+	<skos:altLabel>Departamento de Pilar</skos:altLabel>
+	<skos:altLabel>Departamento de Ñeembucú</skos:altLabel>
+	<skos:altLabel>Duodécimo Departamento</skos:altLabel>
+	<skos:altLabel>Pilar</skos:altLabel>
+	<skos:altLabel>Ñeembucú</skos:altLabel>
+	<skos:prefLabel>Departamento de Ñeembucú</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3437721/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-27.35</wgs:lat>
+	<wgs:long>-56.45</wgs:long>
+	<skos:prefLabel>Isla Modosto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3437727/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>105164</europeana:population>
+	<wgs:lat>-27</wgs:lat>
+	<wgs:long>-57</wgs:long>
+	<skos:altLabel>Departamento de Misiones</skos:altLabel>
+	<skos:altLabel>Departamento de San Ignacio</skos:altLabel>
+	<skos:altLabel>Departamento de las Misiones</skos:altLabel>
+	<skos:altLabel>Las Misiones</skos:altLabel>
+	<skos:altLabel>Misiones</skos:altLabel>
+	<skos:altLabel>Octavo Departamento</skos:altLabel>
+	<skos:altLabel>San Ignacio</skos:altLabel>
+	<skos:prefLabel>Departamento de Misiones</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3437754/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-27.41667</wgs:lat>
+	<wgs:long>-56.83333</wgs:long>
+	<skos:prefLabel>Isla Mborevi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3437842/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>96143</europeana:population>
+	<wgs:lat>-25.18333</wgs:lat>
+	<wgs:long>-57.53333</wgs:long>
+	<skos:prefLabel>Limpio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3437843/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-27.26667</wgs:lat>
+	<wgs:long>-58.11667</wgs:long>
+	<skos:altLabel>Islas de la Limosna</skos:altLabel>
+	<skos:altLabel>Islas del Limosna</skos:altLabel>
+	<skos:prefLabel>Islas del Limosna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3437863/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>126377</europeana:population>
+	<wgs:lat>-25.35</wgs:lat>
+	<wgs:long>-57.65</wgs:long>
+	<skos:altLabel xml:lang="en">Lambaré</skos:altLabel>
+	<skos:altLabel>Lambaré</skos:altLabel>
+	<skos:prefLabel>Lambaré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3437918/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>64997</europeana:population>
+	<wgs:lat>-25.38333</wgs:lat>
+	<wgs:long>-57.33333</wgs:long>
+	<skos:altLabel xml:lang="en">Itauguá</skos:altLabel>
+	<skos:altLabel>Itauguá</skos:altLabel>
+	<skos:prefLabel>Itauguá</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3437923/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>484308</europeana:population>
+	<wgs:lat>-26.83333</wgs:lat>
+	<wgs:long>-55.83333</wgs:long>
+	<skos:altLabel>Departamento de Encarnación</skos:altLabel>
+	<skos:altLabel>Departamento de Ytapúa</skos:altLabel>
+	<skos:altLabel>Encarnación</skos:altLabel>
+	<skos:altLabel>Itapúa</skos:altLabel>
+	<skos:altLabel>Séptimo Departamento</skos:altLabel>
+	<skos:prefLabel>Departamento de Itapúa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3437954/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18459</europeana:population>
+	<wgs:lat>-25.48333</wgs:lat>
+	<wgs:long>-57.35</wgs:long>
+	<skos:prefLabel>Itá</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3438004/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-25.9</wgs:lat>
+	<wgs:long>-57.81667</wgs:long>
+	<skos:prefLabel>Isla Hermosa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3438049/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>181128</europeana:population>
+	<wgs:lat>-25.75</wgs:lat>
+	<wgs:long>-56.5</wgs:long>
+	<skos:altLabel>Cuarto Departamento</skos:altLabel>
+	<skos:altLabel>Departamento de Guairá</skos:altLabel>
+	<skos:altLabel>Departamento del Guairá</skos:altLabel>
+	<skos:altLabel>Guairá</skos:altLabel>
+	<skos:altLabel>Villarrica</skos:altLabel>
+	<skos:prefLabel>Departamento del Guairá</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3438115/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>120167</europeana:population>
+	<wgs:lat>-25.31667</wgs:lat>
+	<wgs:long>-57.6</wgs:long>
+	<skos:altLabel>Fernando de la Mora</skos:altLabel>
+	<skos:prefLabel>Fernando de la Mora</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3438735/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>74983</europeana:population>
+	<wgs:lat>-27.33333</wgs:lat>
+	<wgs:long>-55.9</wgs:long>
+	<skos:altLabel xml:lang="eu">Encarnacion</skos:altLabel>
+	<skos:altLabel xml:lang="de">Encarnación</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Encarnación</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Encarnación</skos:altLabel>
+	<skos:altLabel xml:lang="es">Encarnación</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Encarnación</skos:altLabel>
+	<skos:altLabel xml:lang="en">Encarnación</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Encarnación</skos:altLabel>
+	<skos:altLabel>Encarnación</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Enkarnasjonas</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Энкарнасьон</skos:altLabel>
+	<skos:altLabel xml:lang="zh">恩卡纳西翁</skos:altLabel>
+	<skos:prefLabel>Encarnación</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3438767/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-27.36667</wgs:lat>
+	<wgs:long>-56.51667</wgs:long>
+	<skos:prefLabel>Isla Cururú</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3438819/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>51286</europeana:population>
+	<wgs:lat>-25.41667</wgs:lat>
+	<wgs:long>-56.45</wgs:long>
+	<skos:altLabel>Ajos</skos:altLabel>
+	<skos:altLabel>Coronel Oviedo</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Коронель-Овьедо</skos:altLabel>
+	<skos:prefLabel>Coronel Oviedo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3438827/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>238117</europeana:population>
+	<wgs:lat>-25.25</wgs:lat>
+	<wgs:long>-57</wgs:long>
+	<skos:altLabel>Cordillera</skos:altLabel>
+	<skos:altLabel>Departamento de la Cordillera</skos:altLabel>
+	<skos:altLabel>La Cordillera</skos:altLabel>
+	<skos:altLabel>Tercer Departamento</skos:altLabel>
+	<skos:prefLabel>Departamento de la Cordillera</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3438833/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>181529</europeana:population>
+	<wgs:lat>-23.1775</wgs:lat>
+	<wgs:long>-57.1675</wgs:long>
+	<skos:altLabel>Concepción</skos:altLabel>
+	<skos:altLabel>Departamento de Concepción</skos:altLabel>
+	<skos:altLabel>Primer Departamento</skos:altLabel>
+	<skos:prefLabel>Departamento de Concepción</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3438834/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>48123</europeana:population>
+	<wgs:lat>-23.40639</wgs:lat>
+	<wgs:long>-57.43444</wgs:long>
+	<skos:altLabel xml:lang="pl">Concepción</skos:altLabel>
+	<skos:altLabel xml:lang="de">Concepción</skos:altLabel>
+	<skos:altLabel xml:lang="en">Concepción</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Concepción</skos:altLabel>
+	<skos:altLabel xml:lang="es">Concepción</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Concepción</skos:altLabel>
+	<skos:altLabel>Concepción</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Konsepsjonas</skos:altLabel>
+	<skos:altLabel>Villa Concepción</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Консепсьон</skos:altLabel>
+	<skos:prefLabel>Concepción</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3438995/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>72008</europeana:population>
+	<wgs:lat>-25.16667</wgs:lat>
+	<wgs:long>-57.55</wgs:long>
+	<skos:altLabel>Colonia Mariano Roque Alonso</skos:altLabel>
+	<skos:altLabel>Colonia Roque Alonso</skos:altLabel>
+	<skos:altLabel>Mariano Roque Alonso</skos:altLabel>
+	<skos:prefLabel>Colonia Mariano Roque Alonso</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3439032/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11558</europeana:population>
+	<wgs:lat>-25.36667</wgs:lat>
+	<wgs:long>-55.7</wgs:long>
+	<skos:prefLabel>Colonia General Alfredo Stroessner</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3439100/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-27.38333</wgs:lat>
+	<wgs:long>-56.6</wgs:long>
+	<skos:prefLabel>Isla Clavel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3439122/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-20</wgs:lat>
+	<wgs:long>-60</wgs:long>
+	<skos:prefLabel>Departamento (historical) Chaco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3439137/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1533589</europeana:population>
+	<wgs:lat>-25.5</wgs:lat>
+	<wgs:long>-57.5</wgs:long>
+	<skos:altLabel>Central</skos:altLabel>
+	<skos:altLabel>Departamento Central</skos:altLabel>
+	<skos:altLabel>Departamento de Villeta</skos:altLabel>
+	<skos:altLabel>Undécimo Departamento</skos:altLabel>
+	<skos:altLabel>Villeta</skos:altLabel>
+	<skos:prefLabel>Departamento Central</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3439214/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>198553</europeana:population>
+	<wgs:lat>-25.35</wgs:lat>
+	<wgs:long>-57.41667</wgs:long>
+	<skos:altLabel xml:lang="en">Capiatá</skos:altLabel>
+	<skos:altLabel>Capiatá</skos:altLabel>
+	<skos:altLabel>Capista</skos:altLabel>
+	<skos:prefLabel>Capiatá</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3439216/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>154224</europeana:population>
+	<wgs:lat>-24.25</wgs:lat>
+	<wgs:long>-55.25</wgs:long>
+	<skos:altLabel>Canindeyú</skos:altLabel>
+	<skos:altLabel>Decimocuarto Departamento</skos:altLabel>
+	<skos:altLabel>Departamento de Canendiyú</skos:altLabel>
+	<skos:altLabel>Departamento de Canindeyú</skos:altLabel>
+	<skos:prefLabel>Departamento de Canindeyú</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3439296/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>141150</europeana:population>
+	<wgs:lat>-26.16667</wgs:lat>
+	<wgs:long>-56</wgs:long>
+	<skos:altLabel>Caazapá</skos:altLabel>
+	<skos:altLabel>Departamento de Caazapá</skos:altLabel>
+	<skos:altLabel>Sexto Departamento</skos:altLabel>
+	<skos:prefLabel>Departamento de Caazapá</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3439312/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>458819</europeana:population>
+	<wgs:lat>-25.33333</wgs:lat>
+	<wgs:long>-55.83333</wgs:long>
+	<skos:altLabel>Caaguazú</skos:altLabel>
+	<skos:altLabel>Departamento de Caaguazú</skos:altLabel>
+	<skos:altLabel>Departamento de Yhú</skos:altLabel>
+	<skos:altLabel>Quinto Departamento</skos:altLabel>
+	<skos:altLabel>Yhú</skos:altLabel>
+	<skos:prefLabel>Departamento de Caaguazú</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3439317/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>54808</europeana:population>
+	<wgs:lat>-25.45</wgs:lat>
+	<wgs:long>-56.01667</wgs:long>
+	<skos:prefLabel>Caaguazú</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3439320/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21696</europeana:population>
+	<wgs:lat>-25.38333</wgs:lat>
+	<wgs:long>-57.15</wgs:long>
+	<skos:altLabel>Caacupé</skos:altLabel>
+	<skos:prefLabel>Caacupé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3439341/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-27.23333</wgs:lat>
+	<wgs:long>-58.41667</wgs:long>
+	<skos:altLabel>Isla Bobi-ñú</skos:altLabel>
+	<skos:altLabel>Isla Boby-ñu</skos:altLabel>
+	<skos:prefLabel>Isla Bobi-ñú</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3439373/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-25.35</wgs:lat>
+	<wgs:long>-57.65</wgs:long>
+	<skos:prefLabel>Isla Banco Morales</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3439374/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-25.28333</wgs:lat>
+	<wgs:long>-57.66667</wgs:long>
+	<skos:prefLabel>Isla Banco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3439378/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12061</europeana:population>
+	<wgs:lat>-27.4</wgs:lat>
+	<wgs:long>-56.9</wgs:long>
+	<skos:altLabel>Ayolas</skos:altLabel>
+	<skos:altLabel>Juan De Ayolas</skos:altLabel>
+	<skos:prefLabel>Ayolas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3439389/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>1482200</europeana:population>
+	<wgs:lat>-25.30066</wgs:lat>
+	<wgs:long>-57.63591</wgs:long>
+	<skos:altLabel xml:lang="la">Assumptio</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Assunção</skos:altLabel>
+	<skos:altLabel xml:lang="io">Asuncion</skos:altLabel>
+	<skos:altLabel xml:lang="ur">Asuncion</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Asuncion</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Asuncion</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Asuncion</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Asunciono</skos:altLabel>
+	<skos:altLabel xml:lang="de">Asunción</skos:altLabel>
+	<skos:altLabel xml:lang="es">Asunción</skos:altLabel>
+	<skos:altLabel xml:lang="da">Asunción</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Asunción</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Asunción</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Asunción</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Asunción</skos:altLabel>
+	<skos:altLabel xml:lang="en">Asunción</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Asunción</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Asunción</skos:altLabel>
+	<skos:altLabel xml:lang="it">Asunción</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Asunción</skos:altLabel>
+	<skos:altLabel xml:lang="no">Asunción</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Asunción</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Asunción</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Asunción</skos:altLabel>
+	<skos:altLabel xml:lang="et">Asunción</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Asunción</skos:altLabel>
+	<skos:altLabel xml:lang="rm">Asunción</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Asunción</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Asunción</skos:altLabel>
+	<skos:altLabel xml:lang="gn">Asunción</skos:altLabel>
+	<skos:altLabel xml:lang="id">Asunción</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Asunsjonas</skos:altLabel>
+	<skos:altLabel>La Muy Noble y Leal Ciudad de Nuestra Señora Santa María de la Asunción</skos:altLabel>
+	<skos:altLabel>Nuestra Señora Santa María de la Asunción</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ασουνθιόν</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Асунсион</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Асунсьйон</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Асунсьон</skos:altLabel>
+	<skos:altLabel xml:lang="he">אסונסיון</skos:altLabel>
+	<skos:altLabel xml:lang="fa">آسونسیون</skos:altLabel>
+	<skos:altLabel xml:lang="ar">أسونسيون</skos:altLabel>
+	<skos:altLabel xml:lang="th">อะซุนซิออง</skos:altLabel>
+	<skos:altLabel xml:lang="am">አሱንሲዮን</skos:altLabel>
+	<skos:altLabel xml:lang="ja">アスンシオン</skos:altLabel>
+	<skos:altLabel xml:lang="zh">亞松森</skos:altLabel>
+	<skos:altLabel xml:lang="ko">아순시온</skos:altLabel>
+	<skos:prefLabel>Asunción</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3439403/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11222</europeana:population>
+	<wgs:lat>-25.3</wgs:lat>
+	<wgs:long>-57.41667</wgs:long>
+	<skos:altLabel>Areguá</skos:altLabel>
+	<skos:prefLabel>Areguá</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3439433/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>120680</europeana:population>
+	<wgs:lat>-23</wgs:lat>
+	<wgs:long>-56</wgs:long>
+	<skos:altLabel>Amambay</skos:altLabel>
+	<skos:altLabel>Decimotercero Departamento</skos:altLabel>
+	<skos:altLabel>Departamento del Amambai</skos:altLabel>
+	<skos:altLabel>Departamento del Amambay</skos:altLabel>
+	<skos:altLabel>Pedro Juan Caballero</skos:altLabel>
+	<skos:prefLabel>Departamento del Amambay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3439440/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>618273</europeana:population>
+	<wgs:lat>-25.5</wgs:lat>
+	<wgs:long>-54.83333</wgs:long>
+	<skos:altLabel>Alto Paraná</skos:altLabel>
+	<skos:altLabel>Decimo Departamento</skos:altLabel>
+	<skos:altLabel>Departamento del Alto Paraná</skos:altLabel>
+	<skos:prefLabel>Departamento del Alto Paraná</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3439441/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-20.5</wgs:lat>
+	<wgs:long>-59.16667</wgs:long>
+	<skos:altLabel>Alto Paraguay</skos:altLabel>
+	<skos:altLabel>Decimoséptimo Departamento</skos:altLabel>
+	<skos:altLabel>Departamento de Alto Paraguay</skos:altLabel>
+	<skos:prefLabel>Departamento de Alto Paraguay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3474570/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-25.26667</wgs:lat>
+	<wgs:long>-57.66667</wgs:long>
+	<skos:prefLabel>Asunción</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3480780/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10531</europeana:population>
+	<wgs:lat>-23.34278</wgs:lat>
+	<wgs:long>-57.05972</wgs:long>
+	<skos:prefLabel>Horqueta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3867214/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-21.08333</wgs:lat>
+	<wgs:long>-61.16667</wgs:long>
+	<skos:prefLabel>Departamento de (historical) Nueva Asunción</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3867442/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3437598/"/>
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-22.66667</wgs:lat>
+	<wgs:long>-61</wgs:long>
+	<skos:altLabel>Boquerón</skos:altLabel>
+	<skos:altLabel>Decimosexto Departamento</skos:altLabel>
+	<skos:altLabel>Departamento de Boquerón</skos:altLabel>
+	<skos:prefLabel>Departamento de Boquerón</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 72 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

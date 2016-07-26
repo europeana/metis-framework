@@ -1,0 +1,3551 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: EU_RS
+Description: Selected fields pulled from Geonames about RS done on Mon May 23 21:12:45 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/783763/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.75667</wgs:lat>
+	<wgs:long>20.61028</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Zvezdara</skos:altLabel>
+	<skos:prefLabel>Opština Zvezdara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/783813/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>45.34</wgs:lat>
+	<wgs:long>20.33806</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Zrenjanin</skos:altLabel>
+	<skos:prefLabel>Opština Zrenjanin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/783814/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>79773</europeana:population>
+	<wgs:lat>45.38361</wgs:lat>
+	<wgs:long>20.38194</wgs:long>
+	<skos:altLabel>Becicherecu Mare</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Becicherecu Mare</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Becicherecul Mare</skos:altLabel>
+	<skos:altLabel>Becskerek</skos:altLabel>
+	<skos:altLabel>Betschkerek</skos:altLabel>
+	<skos:altLabel>Beçkerek</skos:altLabel>
+	<skos:altLabel>Gross-Betschkerek</skos:altLabel>
+	<skos:altLabel>Nagybecskerek</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Nagybecskerek</skos:altLabel>
+	<skos:altLabel>Petrovgrad</skos:altLabel>
+	<skos:altLabel>Veliki Bečkerek</skos:altLabel>
+	<skos:altLabel xml:lang="en">Zrenjanin</skos:altLabel>
+	<skos:altLabel xml:lang="es">Zrenjanin</skos:altLabel>
+	<skos:altLabel xml:lang="da">Zrenjanin</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Zrenjanin</skos:altLabel>
+	<skos:altLabel xml:lang="it">Zrenjanin</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Zrenjanin</skos:altLabel>
+	<skos:altLabel xml:lang="de">Zrenjanin</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Zrenjanin</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Zrenjanin</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Zrenjanin</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Zrenjanin</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Zrenjanin</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Zrenjaninas</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Зренянин</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Зрењанин</skos:altLabel>
+	<skos:prefLabel>Zrenjanin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/783879/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>43.19611</wgs:lat>
+	<wgs:long>21.71583</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Žitorađa</skos:altLabel>
+	<skos:altLabel>Žitoradja</skos:altLabel>
+	<skos:prefLabel>Opština Žitorađa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/783886/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>45.53028</wgs:lat>
+	<wgs:long>20.66028</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Žitište</skos:altLabel>
+	<skos:prefLabel>Opština Žitište</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/783896/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>44.76861</wgs:lat>
+	<wgs:long>21.19333</wgs:long>
+	<skos:altLabel>Ostrvo Žilovo</skos:altLabel>
+	<skos:altLabel>Žilovo</skos:altLabel>
+	<skos:prefLabel>Žilovo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/783919/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.82583</wgs:lat>
+	<wgs:long>20.24167</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Zemun</skos:altLabel>
+	<skos:prefLabel>Opština Zemun</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/783920/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>155591</europeana:population>
+	<wgs:lat>44.84306</wgs:lat>
+	<wgs:long>20.40111</wgs:long>
+	<skos:altLabel>Semlin</skos:altLabel>
+	<skos:altLabel>Taurunum</skos:altLabel>
+	<skos:altLabel>Zeman</skos:altLabel>
+	<skos:altLabel>Zemlén</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Zemun</skos:altLabel>
+	<skos:altLabel>Zimony</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Земун</skos:altLabel>
+	<skos:prefLabel>Zemun</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/784023/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.89056</wgs:lat>
+	<wgs:long>22.26333</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Zaječar</skos:altLabel>
+	<skos:prefLabel>Opština Zaječar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/784024/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>49800</europeana:population>
+	<wgs:lat>43.90358</wgs:lat>
+	<wgs:long>22.26405</wgs:long>
+	<skos:altLabel xml:lang="ro">Zaiciar</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Zaychar</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Заечар</skos:altLabel>
+	<skos:prefLabel>Zaječar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/784030/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.20222</wgs:lat>
+	<wgs:long>21.77778</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Žagubica</skos:altLabel>
+	<skos:prefLabel>Opština Žagubica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/784063/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.35806</wgs:lat>
+	<wgs:long>21.22417</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Žabari</skos:altLabel>
+	<skos:prefLabel>Opština Žabari</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/784067/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>45.36722</wgs:lat>
+	<wgs:long>20.05472</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Žabalj</skos:altLabel>
+	<skos:prefLabel>Opština Žabalj</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/784135/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>45.08889</wgs:lat>
+	<wgs:long>21.30222</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Vršac</skos:altLabel>
+	<skos:prefLabel>Opština Vršac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/784136/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>36300</europeana:population>
+	<wgs:lat>45.11667</wgs:lat>
+	<wgs:long>21.30361</wgs:long>
+	<skos:altLabel>Hennemannstadt</skos:altLabel>
+	<skos:altLabel>Versec</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Versec</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Versec</skos:altLabel>
+	<skos:altLabel>Versecz</skos:altLabel>
+	<skos:altLabel>Vershice</skos:altLabel>
+	<skos:altLabel xml:lang="de">Vršac</skos:altLabel>
+	<skos:altLabel xml:lang="it">Vršac</skos:altLabel>
+	<skos:altLabel xml:lang="en">Vršac</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Vršac</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Vršac</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Vršac</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Vršac</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Vršac</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Vršac</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Vršac</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Vršacas</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Vârşeţ</skos:altLabel>
+	<skos:altLabel>Werschetz</skos:altLabel>
+	<skos:altLabel>Werschitz</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Вршац</skos:altLabel>
+	<skos:prefLabel>Vršac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/784140/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.60972</wgs:lat>
+	<wgs:long>20.8875</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Vrnjačka Banja</skos:altLabel>
+	<skos:prefLabel>Opština Vrnjačka Banja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/784141/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10207</europeana:population>
+	<wgs:lat>43.61667</wgs:lat>
+	<wgs:long>20.9</wgs:long>
+	<skos:prefLabel>Vrnjačka Banja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/784226/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.56278</wgs:lat>
+	<wgs:long>21.8825</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Vranje</skos:altLabel>
+	<skos:prefLabel>Opština Vranje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/784227/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>56199</europeana:population>
+	<wgs:lat>42.55139</wgs:lat>
+	<wgs:long>21.90028</wgs:long>
+	<skos:altLabel>Ivranya</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Vranje</skos:altLabel>
+	<skos:altLabel xml:lang="en">Vranje</skos:altLabel>
+	<skos:altLabel xml:lang="de">Vranje</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Vranje</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Vranje</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Vranje</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Vranje</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Vranje</skos:altLabel>
+	<skos:altLabel>Vranya</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Враня</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Врање</skos:altLabel>
+	<skos:prefLabel>Vranje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/784251/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.77333</wgs:lat>
+	<wgs:long>20.57444</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Vračar</skos:altLabel>
+	<skos:prefLabel>Opština Vračar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/784255/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.69444</wgs:lat>
+	<wgs:long>20.525</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Voždovac</skos:altLabel>
+	<skos:prefLabel>Opština Voždovac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/784272/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>2134409</europeana:population>
+	<wgs:lat>45</wgs:lat>
+	<wgs:long>20</wgs:long>
+	<skos:altLabel>Socijalistička Autonomna Pokrajina Vojvodina</skos:altLabel>
+	<skos:altLabel>Socijalistička Pokrajina Vojvodina</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Vajdaság</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Vajdaság Autonóm Tartomány</skos:altLabel>
+	<skos:altLabel>Voivodina</skos:altLabel>
+	<skos:altLabel>Vojvodina</skos:altLabel>
+	<skos:altLabel>Voyvodina</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Voïvodine</skos:altLabel>
+	<skos:prefLabel>Autonomna Pokrajina Vojvodina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/784317/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.96</wgs:lat>
+	<wgs:long>22.12167</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Vlasotince</skos:altLabel>
+	<skos:prefLabel>Opština Vlasotince</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/784354/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.70194</wgs:lat>
+	<wgs:long>22.05194</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Vladičin Han</skos:altLabel>
+	<skos:prefLabel>Opština Vladičin Han</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/784526/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>44.83306</wgs:lat>
+	<wgs:long>20.43806</wgs:long>
+	<skos:altLabel>Great Kriegs Island</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Veliko Ratno Ostrvo</skos:altLabel>
+	<skos:prefLabel>Veliko Ratno Ostrvo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/784534/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.74833</wgs:lat>
+	<wgs:long>21.51028</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Veliko Gradište</skos:altLabel>
+	<skos:prefLabel>Opština Veliko Gradište</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/784629/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.33778</wgs:lat>
+	<wgs:long>21.04556</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Velika Plana</skos:altLabel>
+	<skos:prefLabel>Opština Velika Plana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/784703/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.71194</wgs:lat>
+	<wgs:long>21.31889</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Varvarin</skos:altLabel>
+	<skos:prefLabel>Opština Varvarin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/784793/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.43556</wgs:lat>
+	<wgs:long>20.06889</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Ub</skos:altLabel>
+	<skos:prefLabel>Opština Ub</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/784799/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.99667</wgs:lat>
+	<wgs:long>20.31889</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Tutin</skos:altLabel>
+	<skos:prefLabel>Opština Tutin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/784872/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.62583</wgs:lat>
+	<wgs:long>20.98944</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Trstenik</skos:altLabel>
+	<skos:prefLabel>Opština Trstenik</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/784873/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>49043</europeana:population>
+	<wgs:lat>43.61694</wgs:lat>
+	<wgs:long>21.0025</wgs:long>
+	<skos:prefLabel>Trstenik</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/784943/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.37333</wgs:lat>
+	<wgs:long>22.06583</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Trgovište</skos:altLabel>
+	<skos:prefLabel>Opština Trgovište</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/785012/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.26306</wgs:lat>
+	<wgs:long>20.69528</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Topola</skos:altLabel>
+	<skos:prefLabel>Opština Topola</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/785061/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>45.19639</wgs:lat>
+	<wgs:long>20.29361</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Titel</skos:altLabel>
+	<skos:prefLabel>Opština Titel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/785162/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.41944</wgs:lat>
+	<wgs:long>22.11972</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Svrljig</skos:altLabel>
+	<skos:prefLabel>Opština Svrljig</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/785183/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.22778</wgs:lat>
+	<wgs:long>21.19667</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Svilajnac</skos:altLabel>
+	<skos:prefLabel>Opština Svilajnac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/785186/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.96667</wgs:lat>
+	<wgs:long>21.26667</wgs:long>
+	<skos:altLabel>Opština Jagodina</skos:altLabel>
+	<skos:altLabel>Opština Svetozarevo</skos:altLabel>
+	<skos:prefLabel>Opština Jagodina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/785284/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.69611</wgs:lat>
+	<wgs:long>22.17556</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Surdulica</skos:altLabel>
+	<skos:prefLabel>Opština Surdulica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/785288/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12575</europeana:population>
+	<wgs:lat>44.79306</wgs:lat>
+	<wgs:long>20.28028</wgs:long>
+	<skos:altLabel>Surchin</skos:altLabel>
+	<skos:altLabel>Surcsin</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Surčin</skos:altLabel>
+	<skos:altLabel>Szurcsin</skos:altLabel>
+	<skos:prefLabel>Surčin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/785533/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.79556</wgs:lat>
+	<wgs:long>20.50694</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Stari Grad</skos:altLabel>
+	<skos:prefLabel>Opština Stari Grad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/785558/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.97417</wgs:lat>
+	<wgs:long>20.19056</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Stara Pazova</skos:altLabel>
+	<skos:prefLabel>Opština Stara Pazova</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/785559/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16217</europeana:population>
+	<wgs:lat>44.985</wgs:lat>
+	<wgs:long>20.16083</wgs:long>
+	<skos:altLabel>Alt-Pasua</skos:altLabel>
+	<skos:altLabel>Alt-Pazua</skos:altLabel>
+	<skos:altLabel>Pazua</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Stara Pazova</skos:altLabel>
+	<skos:altLabel>Ópázova</skos:altLabel>
+	<skos:prefLabel>Stara Pazova</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/785615/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23000</europeana:population>
+	<wgs:lat>44.67653</wgs:lat>
+	<wgs:long>20.39232</wgs:long>
+	<skos:prefLabel>Sremčica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/785670/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.52806</wgs:lat>
+	<wgs:long>20.56083</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Sopot</skos:altLabel>
+	<skos:prefLabel>Opština Sopot</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/785703/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.63722</wgs:lat>
+	<wgs:long>21.90417</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Sokobanja</skos:altLabel>
+	<skos:prefLabel>Opština Sokobanja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/785752/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>58000</europeana:population>
+	<wgs:lat>44.38083</wgs:lat>
+	<wgs:long>20.94861</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Smederevska Palanka</skos:altLabel>
+	<skos:prefLabel>Opština Smederevska Palanka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/785753/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>27000</europeana:population>
+	<wgs:lat>44.36548</wgs:lat>
+	<wgs:long>20.95885</wgs:long>
+	<skos:altLabel>Palanka</skos:altLabel>
+	<skos:altLabel>Palanka Smederevska</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Смедеревска-Паланка</skos:altLabel>
+	<skos:prefLabel>Smederevska Palanka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/785754/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>44.68083</wgs:lat>
+	<wgs:long>20.91917</wgs:long>
+	<skos:altLabel xml:lang="sr">Smederevska Ada</skos:altLabel>
+	<skos:prefLabel>Smederevska Ada</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/785755/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.63667</wgs:lat>
+	<wgs:long>20.92861</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Smederevo</skos:altLabel>
+	<skos:prefLabel>Opština Smederevo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/785756/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>62000</europeana:population>
+	<wgs:lat>44.66278</wgs:lat>
+	<wgs:long>20.93</wgs:long>
+	<skos:altLabel>Semendria</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Semendria</skos:altLabel>
+	<skos:altLabel>Smedere</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Smederevas</skos:altLabel>
+	<skos:altLabel xml:lang="en">Smederevo</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Smederevo</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Smederevo</skos:altLabel>
+	<skos:altLabel xml:lang="de">Smederevo</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Smederevo</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Smederevo</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Smederevo</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Szendrő</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Смедерево</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Смедерево</skos:altLabel>
+	<skos:prefLabel>Smederevo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/785958/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>44</wgs:lat>
+	<wgs:long>21</wgs:long>
+	<skos:altLabel>Central Serbia</skos:altLabel>
+	<skos:altLabel>Serbia Proper</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Serbie centrale</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Центральная Сербия</skos:altLabel>
+	<skos:prefLabel>Central Serbia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/785964/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>45.93333</wgs:lat>
+	<wgs:long>20.08333</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Senta</skos:altLabel>
+	<skos:prefLabel>Opština Senta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/785965/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20302</europeana:population>
+	<wgs:lat>45.9275</wgs:lat>
+	<wgs:long>20.07722</wgs:long>
+	<skos:altLabel xml:lang="sr">Senta</skos:altLabel>
+	<skos:altLabel>Szénta</skos:altLabel>
+	<skos:altLabel>Zenta</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сента</skos:altLabel>
+	<skos:prefLabel>Senta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/786034/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>45.37889</wgs:lat>
+	<wgs:long>20.76583</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Sečanj</skos:altLabel>
+	<skos:prefLabel>Opština Sečanj</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/786048/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.77306</wgs:lat>
+	<wgs:long>20.44139</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Savski Venac</skos:altLabel>
+	<skos:prefLabel>Opština Savski Venac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/786357/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.84944</wgs:lat>
+	<wgs:long>21.11028</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Rekovac</skos:altLabel>
+	<skos:prefLabel>Opština Rekovac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/786389/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.685</wgs:lat>
+	<wgs:long>21.56917</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Ražanj</skos:altLabel>
+	<skos:prefLabel>Opština Ražanj</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/786458/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>43.27972</wgs:lat>
+	<wgs:long>20.64889</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Raška</skos:altLabel>
+	<skos:prefLabel>Opština Raška</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/786622/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.21083</wgs:lat>
+	<wgs:long>20.94667</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Rača</skos:altLabel>
+	<skos:prefLabel>Opština Rača</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/786689/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>43.22694</wgs:lat>
+	<wgs:long>21.58444</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Prokuplje</skos:altLabel>
+	<skos:prefLabel>Opština Prokuplje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/786690/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>27673</europeana:population>
+	<wgs:lat>43.23417</wgs:lat>
+	<wgs:long>21.58806</wgs:long>
+	<skos:altLabel>Prokuple</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Prokuplje</skos:altLabel>
+	<skos:prefLabel>Prokuplje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/786771/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.31333</wgs:lat>
+	<wgs:long>21.66667</wgs:long>
+	<skos:altLabel xml:lang="sq">Komuna e Preshevës</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Opština Preševo</skos:altLabel>
+	<skos:prefLabel>Opština Preševo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/786823/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.84306</wgs:lat>
+	<wgs:long>20.01889</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Požega</skos:altLabel>
+	<skos:prefLabel>Opština Požega</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/786826/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.6225</wgs:lat>
+	<wgs:long>21.20694</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Požarevac</skos:altLabel>
+	<skos:prefLabel>Opština Požarevac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/786827/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>41736</europeana:population>
+	<wgs:lat>44.61528</wgs:lat>
+	<wgs:long>21.1825</wgs:long>
+	<skos:altLabel xml:lang="hu">Pozsarevác</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Pożarewac</skos:altLabel>
+	<skos:altLabel xml:lang="en">Požarevac</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Požarevac</skos:altLabel>
+	<skos:altLabel xml:lang="de">Požarevac</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Požarevac</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Požarevac</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Požarevac</skos:altLabel>
+	<skos:altLabel xml:lang="et">Požarevac</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Požarevac</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Požarevac</skos:altLabel>
+	<skos:altLabel xml:lang="es">Požarevac</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Požarevac</skos:altLabel>
+	<skos:altLabel xml:lang="it">Požarevac</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Požarevac</skos:altLabel>
+	<skos:altLabel xml:lang="id">Požarevac</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Požarevac</skos:altLabel>
+	<skos:altLabel>Požerevac</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Пожаревац</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Пожаревац</skos:altLabel>
+	<skos:prefLabel>Požarevac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/787031/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>45.24306</wgs:lat>
+	<wgs:long>21.125</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Plandište</skos:altLabel>
+	<skos:prefLabel>Opština Plandište</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/787049/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.17528</wgs:lat>
+	<wgs:long>22.59278</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Pirot</skos:altLabel>
+	<skos:prefLabel>Opština Pirot</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/787050/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>40678</europeana:population>
+	<wgs:lat>43.15306</wgs:lat>
+	<wgs:long>22.58611</wgs:long>
+	<skos:altLabel xml:lang="pl">Pirot</skos:altLabel>
+	<skos:altLabel xml:lang="de">Pirot</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Pirot</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Pirot</skos:altLabel>
+	<skos:altLabel xml:lang="en">Pirot</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Pirot</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Pirot</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Пирот</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Пирот</skos:altLabel>
+	<skos:prefLabel>Pirot</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/787077/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.38389</wgs:lat>
+	<wgs:long>21.42194</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Petrovac</skos:altLabel>
+	<skos:prefLabel>Opština Petrovac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/787151/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>45.76972</wgs:lat>
+	<wgs:long>20.05778</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Pećinci</skos:altLabel>
+	<skos:prefLabel>Opština Pećinci</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/787214/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.84722</wgs:lat>
+	<wgs:long>21.45639</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Paraćin</skos:altLabel>
+	<skos:prefLabel>Opština Paraćin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/787236/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.83833</wgs:lat>
+	<wgs:long>20.71889</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Pančevo</skos:altLabel>
+	<skos:prefLabel>Opština Pančevo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/787237/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>76654</europeana:population>
+	<wgs:lat>44.87083</wgs:lat>
+	<wgs:long>20.64028</wgs:long>
+	<skos:altLabel>Banstadt</skos:altLabel>
+	<skos:altLabel>Hertelendyfalva</skos:altLabel>
+	<skos:altLabel>Marienfeld</skos:altLabel>
+	<skos:altLabel>Panciova</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Panciova</skos:altLabel>
+	<skos:altLabel>Pancsal</skos:altLabel>
+	<skos:altLabel>Pancsaly</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Pancsova</skos:altLabel>
+	<skos:altLabel>Pancsova</skos:altLabel>
+	<skos:altLabel>Pantschowa</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Pančevas</skos:altLabel>
+	<skos:altLabel xml:lang="de">Pančevo</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Pančevo</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Pančevo</skos:altLabel>
+	<skos:altLabel xml:lang="en">Pančevo</skos:altLabel>
+	<skos:altLabel xml:lang="es">Pančevo</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Pančevo</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Pančevo</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Pančevo</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Pančevo</skos:altLabel>
+	<skos:altLabel>Vojlovica</skos:altLabel>
+	<skos:altLabel>Wojlowitz</skos:altLabel>
+	<skos:altLabel>Wojlowitza</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Панчево</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Панчево</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Панчево</skos:altLabel>
+	<skos:prefLabel>Pančevo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/787252/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.91222</wgs:lat>
+	<wgs:long>20.43917</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Palilula</skos:altLabel>
+	<skos:prefLabel>Opština Palilula</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/787460/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>45.06361</wgs:lat>
+	<wgs:long>20.45722</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Opovo</skos:altLabel>
+	<skos:prefLabel>Opština Opovo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/787515/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.61944</wgs:lat>
+	<wgs:long>20.10472</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Obrenovac</skos:altLabel>
+	<skos:prefLabel>Opština Obrenovac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/787516/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16821</europeana:population>
+	<wgs:lat>44.65486</wgs:lat>
+	<wgs:long>20.20017</wgs:long>
+	<skos:prefLabel>Obrenovac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/787594/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>43.13556</wgs:lat>
+	<wgs:long>20.51139</wgs:long>
+	<skos:altLabel>Novi Pazar</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Opština Novi Pazar</skos:altLabel>
+	<skos:prefLabel>Opština Novi Pazar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/787595/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>85996</europeana:population>
+	<wgs:lat>43.13667</wgs:lat>
+	<wgs:long>20.51222</wgs:long>
+	<skos:altLabel xml:lang="en">Novi Pazar</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Novi Pazar</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Novi Pazar</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Novi Pazar</skos:altLabel>
+	<skos:altLabel xml:lang="de">Novi Pazar</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Novi Pazar</skos:altLabel>
+	<skos:altLabel xml:lang="no">Novi Pazar</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Novi Pazar</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Novi Pazar</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Novi Pazar</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Novi Pazar</skos:altLabel>
+	<skos:altLabel>Pazari i Ri</skos:altLabel>
+	<skos:altLabel>Yeni Pazar</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Yenipazar</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Нови Пазар</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Нови пазар</skos:altLabel>
+	<skos:prefLabel>Novi Pazar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/787599/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>46.09139</wgs:lat>
+	<wgs:long>20.23972</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Novi Kneževac</skos:altLabel>
+	<skos:prefLabel>Opština Novi Kneževac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/787606/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.80861</wgs:lat>
+	<wgs:long>20.40889</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Novi Beograd</skos:altLabel>
+	<skos:prefLabel>Opština Novi Beograd</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/787609/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>45.58528</wgs:lat>
+	<wgs:long>20.24111</wgs:long>
+	<skos:altLabel xml:lang="sr">Novi Bečej Opština</skos:altLabel>
+	<skos:prefLabel>Novi Bečej Opština</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/787615/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15488</europeana:population>
+	<wgs:lat>44.94366</wgs:lat>
+	<wgs:long>20.21931</wgs:long>
+	<skos:altLabel>Neu-Pasua</skos:altLabel>
+	<skos:altLabel>Újpázova</skos:altLabel>
+	<skos:prefLabel>bar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/787620/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>45.66778</wgs:lat>
+	<wgs:long>20.65639</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Nova Crnja</skos:altLabel>
+	<skos:prefLabel>Opština Nova Crnja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/787656/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.27611</wgs:lat>
+	<wgs:long>21.96778</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Niš</skos:altLabel>
+	<skos:prefLabel>Opština Niš</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/787657/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>250000</europeana:population>
+	<wgs:lat>43.32472</wgs:lat>
+	<wgs:long>21.90333</wgs:long>
+	<skos:altLabel>Nich</skos:altLabel>
+	<skos:altLabel>Nisch</skos:altLabel>
+	<skos:altLabel>Nish</skos:altLabel>
+	<skos:altLabel>Nissa</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Nisz</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Niŝo</skos:altLabel>
+	<skos:altLabel xml:lang="de">Niš</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Niš</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Niš</skos:altLabel>
+	<skos:altLabel xml:lang="it">Niš</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Niš</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Niš</skos:altLabel>
+	<skos:altLabel xml:lang="es">Niš</skos:altLabel>
+	<skos:altLabel xml:lang="en">Niš</skos:altLabel>
+	<skos:altLabel xml:lang="da">Niš</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Niš</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Niš</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Niš</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Niš</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Niš</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Ниш</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ниш</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Ниш</skos:altLabel>
+	<skos:prefLabel>Niš</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/787717/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.22944</wgs:lat>
+	<wgs:long>22.52528</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Negotin</skos:altLabel>
+	<skos:prefLabel>Opština Negotin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/787718/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17612</europeana:population>
+	<wgs:lat>44.22639</wgs:lat>
+	<wgs:long>22.53083</wgs:long>
+	<skos:altLabel>Negotin Krajina</skos:altLabel>
+	<skos:altLabel>Negotin Krajinski</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Неготин</skos:altLabel>
+	<skos:prefLabel>Negotin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/787891/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.445</wgs:lat>
+	<wgs:long>20.69806</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Mladenovac</skos:altLabel>
+	<skos:prefLabel>Opština Mladenovac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/787934/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.23972</wgs:lat>
+	<wgs:long>20.09472</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Mionica</skos:altLabel>
+	<skos:prefLabel>Opština Mionica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/788025/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>43.28889</wgs:lat>
+	<wgs:long>21.71694</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Merošina</skos:altLabel>
+	<skos:prefLabel>Opština Merošina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/788054/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.84556</wgs:lat>
+	<wgs:long>21.59472</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Medveđa</skos:altLabel>
+	<skos:prefLabel>Opština Medveđa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/788217/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.55278</wgs:lat>
+	<wgs:long>21.29722</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Malo Crniće</skos:altLabel>
+	<skos:prefLabel>Opština Malo Crniće</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/788356/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.41944</wgs:lat>
+	<wgs:long>21.95833</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Majdanpek</skos:altLabel>
+	<skos:prefLabel>Opština Majdanpek</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/788357/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10071</europeana:population>
+	<wgs:lat>44.42771</wgs:lat>
+	<wgs:long>21.94596</wgs:long>
+	<skos:altLabel xml:lang="ru">Майданпек</skos:altLabel>
+	<skos:prefLabel>Majdanpek</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/788451/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.8325</wgs:lat>
+	<wgs:long>20.17944</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Lučani</skos:altLabel>
+	<skos:prefLabel>Opština Lučani</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/788582/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.22361</wgs:lat>
+	<wgs:long>20.22083</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Ljig</skos:altLabel>
+	<skos:prefLabel>Opština Ljig</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/788705/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.99528</wgs:lat>
+	<wgs:long>21.91778</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Leskovac</skos:altLabel>
+	<skos:prefLabel>Opština Leskovac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/788709/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>94758</europeana:population>
+	<wgs:lat>42.99806</wgs:lat>
+	<wgs:long>21.94611</wgs:long>
+	<skos:altLabel xml:lang="es">Leskovac</skos:altLabel>
+	<skos:altLabel xml:lang="de">Leskovac</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Leskovac</skos:altLabel>
+	<skos:altLabel xml:lang="en">Leskovac</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Leskovac</skos:altLabel>
+	<skos:altLabel xml:lang="it">Leskovac</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Leskovac</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Leskovac</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Leskovac</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Leskovacas</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Лесковац</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Лесковац</skos:altLabel>
+	<skos:prefLabel>Leskovac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/788761/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.91278</wgs:lat>
+	<wgs:long>21.71861</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Lebane</skos:altLabel>
+	<skos:prefLabel>Opština Lebane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/788770/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.37278</wgs:lat>
+	<wgs:long>20.26444</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Lazarevac</skos:altLabel>
+	<skos:prefLabel>Opština Lazarevac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/788771/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23551</europeana:population>
+	<wgs:lat>44.38534</wgs:lat>
+	<wgs:long>20.2557</wgs:long>
+	<skos:altLabel xml:lang="sr">Lazarevac</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Лазаревац</skos:altLabel>
+	<skos:prefLabel>Lazarevac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/788811/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.34528</wgs:lat>
+	<wgs:long>20.16083</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Lajkovac</skos:altLabel>
+	<skos:prefLabel>Opština Lajkovac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/788851/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>43.14194</wgs:lat>
+	<wgs:long>21.27806</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Kuršumlija</skos:altLabel>
+	<skos:prefLabel>Opština Kuršumlija</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/788936/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.48389</wgs:lat>
+	<wgs:long>21.66083</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Kučevo</skos:altLabel>
+	<skos:prefLabel>Opština Kučevo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/788974/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.58278</wgs:lat>
+	<wgs:long>21.32639</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Kruševac</skos:altLabel>
+	<skos:prefLabel>Opština Kruševac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/788975/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>75256</europeana:population>
+	<wgs:lat>43.58</wgs:lat>
+	<wgs:long>21.33389</wgs:long>
+	<skos:altLabel xml:lang="tr">Alacahisar</skos:altLabel>
+	<skos:altLabel xml:lang="es">Kruševac</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kruševac</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Kruševac</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Kruševac</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Kruševac</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kruševac</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kruševac</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Kruševac</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Kruševacas</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Крушевац</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Крушевац</skos:altLabel>
+	<skos:altLabel xml:lang="zh">克鲁舍瓦茨</skos:altLabel>
+	<skos:prefLabel>Kruševac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/789106/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.73972</wgs:lat>
+	<wgs:long>20.67694</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Kraljevo</skos:altLabel>
+	<skos:prefLabel>Opština Kraljevo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/789107/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>82846</europeana:population>
+	<wgs:lat>43.72583</wgs:lat>
+	<wgs:long>20.68944</wgs:long>
+	<skos:altLabel xml:lang="lt">Kraljevas</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kraljevo</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kraljevo</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Kraljevo</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Kraljevo</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Kraljevo</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kraljevo</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Kraljevo</skos:altLabel>
+	<skos:altLabel xml:lang="da">Kraljevo</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Kraljevo</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Kraljevo</skos:altLabel>
+	<skos:altLabel>Rankovićevo</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Кралево</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Краљево</skos:altLabel>
+	<skos:prefLabel>Kraljevo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/789127/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.02289</wgs:lat>
+	<wgs:long>20.90904</wgs:long>
+	<skos:altLabel>Opština Kragujevac</skos:altLabel>
+	<skos:prefLabel>Grad Kragujevac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/789128/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>147473</europeana:population>
+	<wgs:lat>44.01667</wgs:lat>
+	<wgs:long>20.91667</wgs:long>
+	<skos:altLabel>Krabujevac</skos:altLabel>
+	<skos:altLabel>Kragiyevac</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kragujevac</skos:altLabel>
+	<skos:altLabel xml:lang="es">Kragujevac</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Kragujevac</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Kragujevac</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Kragujevac</skos:altLabel>
+	<skos:altLabel xml:lang="it">Kragujevac</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Kragujevac</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Kragujevac</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Kragujevac</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kragujevac</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kragujevac</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Kragujevac</skos:altLabel>
+	<skos:altLabel xml:lang="da">Kragujevac</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Kragujevac</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Kragujevac</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Kragujevac</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Kragujevac</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Kragujevaca</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Kragujevacas</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Крагуевац</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Крагуевац</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Крагуевац</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Крагујевац</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Крагујевац</skos:altLabel>
+	<skos:altLabel xml:lang="he">קרגוייבץ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">クラグイエヴァツ</skos:altLabel>
+	<skos:prefLabel>Kragujevac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/789167/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.76722</wgs:lat>
+	<wgs:long>20.99167</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Kovin</skos:altLabel>
+	<skos:prefLabel>Opština Kovin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/789168/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14250</europeana:population>
+	<wgs:lat>44.7475</wgs:lat>
+	<wgs:long>20.97611</wgs:long>
+	<skos:altLabel>Cubin</skos:altLabel>
+	<skos:altLabel>Kevevára</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Kovin</skos:altLabel>
+	<skos:altLabel>Kubin</skos:altLabel>
+	<skos:altLabel>Temes-Kubin</skos:altLabel>
+	<skos:altLabel>Temeschkubin</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ковин</skos:altLabel>
+	<skos:prefLabel>Kovin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/789176/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>45.10056</wgs:lat>
+	<wgs:long>20.62389</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Kovačica</skos:altLabel>
+	<skos:prefLabel>Opština Kovačica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/789414/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.57806</wgs:lat>
+	<wgs:long>22.25111</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Knjaževac</skos:altLabel>
+	<skos:prefLabel>Opština Knjaževac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/789416/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.92028</wgs:lat>
+	<wgs:long>20.70639</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Knić</skos:altLabel>
+	<skos:prefLabel>Opština Knić</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/789484/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.60694</wgs:lat>
+	<wgs:long>22.59806</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Kladovo</skos:altLabel>
+	<skos:prefLabel>Opština Kladovo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/789517/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>45.83889</wgs:lat>
+	<wgs:long>20.45722</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Kikinda</skos:altLabel>
+	<skos:prefLabel>Opština Kikinda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/789518/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>41935</europeana:population>
+	<wgs:lat>45.82972</wgs:lat>
+	<wgs:long>20.46528</wgs:long>
+	<skos:altLabel>Chichinda Mare</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Chichinda Mare</skos:altLabel>
+	<skos:altLabel>Gross-Kikinda</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kikinda</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Kikinda</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kikinda</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Kikinda</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Kikinda</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Kikinda</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Kikinda</skos:altLabel>
+	<skos:altLabel>Kökénd</skos:altLabel>
+	<skos:altLabel>Nagykikinda</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Nagykikinda</skos:altLabel>
+	<skos:altLabel>Velika Kikinda</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Кикинда</skos:altLabel>
+	<skos:prefLabel>Kikinda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/789599/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>46.06167</wgs:lat>
+	<wgs:long>20.02806</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Kanjiža</skos:altLabel>
+	<skos:prefLabel>Opština Kanjiža</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/789600/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10200</europeana:population>
+	<wgs:lat>46.06667</wgs:lat>
+	<wgs:long>20.05</wgs:long>
+	<skos:altLabel xml:lang="de">Alt-Kanischa</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Kanjiža</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Magyarkanizsa</skos:altLabel>
+	<skos:altLabel>Pavlovgrad</skos:altLabel>
+	<skos:altLabel>Stara Kanjiža</skos:altLabel>
+	<skos:altLabel xml:lang="de">Ungarisch-Kanischa</skos:altLabel>
+	<skos:altLabel>Ungarische Kanischa</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Канижа</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Кањижа</skos:altLabel>
+	<skos:prefLabel>Kanjiža</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/789923/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>35589</europeana:population>
+	<wgs:lat>43.98139</wgs:lat>
+	<wgs:long>21.26222</wgs:long>
+	<skos:altLabel xml:lang="sr">Jagodina</skos:altLabel>
+	<skos:altLabel>Svetozarevo</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ягодина</skos:altLabel>
+	<skos:prefLabel>Jagodina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/789987/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.56944</wgs:lat>
+	<wgs:long>20.24944</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Ivanjica</skos:altLabel>
+	<skos:prefLabel>Opština Ivanjica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/790014/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>45.06611</wgs:lat>
+	<wgs:long>20.07389</wgs:long>
+	<skos:altLabel>Indjija</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Opština Inđija</skos:altLabel>
+	<skos:prefLabel>Opština Inđija</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/790015/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>26247</europeana:population>
+	<wgs:lat>45.04917</wgs:lat>
+	<wgs:long>20.07917</wgs:long>
+	<skos:altLabel>India</skos:altLabel>
+	<skos:altLabel>Indjija</skos:altLabel>
+	<skos:prefLabel>Inđija</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/790045/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>44.82139</wgs:lat>
+	<wgs:long>20.51194</wgs:long>
+	<skos:altLabel xml:lang="sr">Ada Huja</skos:altLabel>
+	<skos:altLabel>Ostrvo Huja</skos:altLabel>
+	<skos:prefLabel>Ada Huja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/790131/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.66056</wgs:lat>
+	<wgs:long>20.7225</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Grocka</skos:altLabel>
+	<skos:prefLabel>Opština Grocka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/790366/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.03444</wgs:lat>
+	<wgs:long>20.46611</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Gornji Milanovac</skos:altLabel>
+	<skos:prefLabel>Opština Gornji Milanovac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/790367/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23982</europeana:population>
+	<wgs:lat>44.03333</wgs:lat>
+	<wgs:long>20.45</wgs:long>
+	<skos:altLabel xml:lang="sr">Gornji Milanovac</skos:altLabel>
+	<skos:prefLabel>Gornji Milanovac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/790558/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.64417</wgs:lat>
+	<wgs:long>21.63167</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Golubac</skos:altLabel>
+	<skos:prefLabel>Opština Golubac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/790698/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>73000</europeana:population>
+	<wgs:lat>44.03972</wgs:lat>
+	<wgs:long>21.31639</wgs:long>
+	<skos:altLabel xml:lang="sr">Glogovac</skos:altLabel>
+	<skos:prefLabel>Glogovac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/790794/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.2075</wgs:lat>
+	<wgs:long>22.02333</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Gadžin Han</skos:altLabel>
+	<skos:prefLabel>Opština Gadžin Han</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/791372/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>43.19806</wgs:lat>
+	<wgs:long>21.81861</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Doljevac</skos:altLabel>
+	<skos:prefLabel>Opština Doljevac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/791486/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.01139</wgs:lat>
+	<wgs:long>22.72639</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Dimitrovgrad</skos:altLabel>
+	<skos:prefLabel>Opština Dimitrovgrad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/791515/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.08778</wgs:lat>
+	<wgs:long>21.46278</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Despotovac</skos:altLabel>
+	<skos:prefLabel>Opština Despotovac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/791677/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.93667</wgs:lat>
+	<wgs:long>21.40222</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Ćuprija</skos:altLabel>
+	<skos:prefLabel>Opština Ćuprija</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/791678/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20585</europeana:population>
+	<wgs:lat>43.9275</wgs:lat>
+	<wgs:long>21.37</wgs:long>
+	<skos:altLabel xml:lang="sr">Ćuprija</skos:altLabel>
+	<skos:prefLabel>Ćuprija</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/791703/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.64361</wgs:lat>
+	<wgs:long>20.38556</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Čukarica</skos:altLabel>
+	<skos:prefLabel>Opština Čukarica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/791839/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.81417</wgs:lat>
+	<wgs:long>22.28528</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Crna Trava</skos:altLabel>
+	<skos:prefLabel>Opština Crna Trava</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/791899/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>45.93778</wgs:lat>
+	<wgs:long>20.15833</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Čoka</skos:altLabel>
+	<skos:prefLabel>Opština Čoka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/791926/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>44.78944</wgs:lat>
+	<wgs:long>20.4025</wgs:long>
+	<skos:altLabel xml:lang="sr">Ada Ciganlija</skos:altLabel>
+	<skos:altLabel>Ostrovo Ciganlija</skos:altLabel>
+	<skos:prefLabel>Ada Ciganlija</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/791935/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.71722</wgs:lat>
+	<wgs:long>21.4575</wgs:long>
+	<skos:altLabel xml:lang="sr">Ćićevac Opština</skos:altLabel>
+	<skos:prefLabel>Ćićevac Opština</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/791940/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>44.79833</wgs:lat>
+	<wgs:long>21.30083</wgs:long>
+	<skos:altLabel xml:lang="sr">Čibuklija</skos:altLabel>
+	<skos:prefLabel>Čibuklija</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/792016/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>43.31667</wgs:lat>
+	<wgs:long>21.93333</wgs:long>
+	<skos:altLabel>Cele Tower</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Ćele Kula</skos:altLabel>
+	<skos:prefLabel>Ćele Kula</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/792077/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.88389</wgs:lat>
+	<wgs:long>20.34361</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Čačak</skos:altLabel>
+	<skos:prefLabel>Opština Čačak</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/792078/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>117072</europeana:population>
+	<wgs:lat>43.89139</wgs:lat>
+	<wgs:long>20.34972</wgs:long>
+	<skos:altLabel xml:lang="en">Čačak</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Čačak</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Čačak</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Čačak</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Čačak</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Čačak</skos:altLabel>
+	<skos:altLabel xml:lang="de">Čačak</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Čačak</skos:altLabel>
+	<skos:altLabel xml:lang="it">Čačak</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Čačakas</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Чачак</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Чачак</skos:altLabel>
+	<skos:altLabel xml:lang="zh">查查克</skos:altLabel>
+	<skos:prefLabel>Čačak</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/792172/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.46667</wgs:lat>
+	<wgs:long>21.74361</wgs:long>
+	<skos:altLabel xml:lang="sq">Komuna e Bujanovcit</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Opština Bujanovac</skos:altLabel>
+	<skos:prefLabel>Opština Bujanovac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/792240/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>43.37972</wgs:lat>
+	<wgs:long>21.01139</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Brus</skos:altLabel>
+	<skos:prefLabel>Opština Brus</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/792420/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.48639</wgs:lat>
+	<wgs:long>22.45583</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Bosilegrad</skos:altLabel>
+	<skos:prefLabel>Opština Bosilegrad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/792455/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.0675</wgs:lat>
+	<wgs:long>22.08056</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Bor</skos:altLabel>
+	<skos:prefLabel>Opština Bor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/792456/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>39387</europeana:population>
+	<wgs:lat>44.07833</wgs:lat>
+	<wgs:long>22.09528</wgs:long>
+	<skos:altLabel xml:lang="en">Bor</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Bor</skos:altLabel>
+	<skos:altLabel xml:lang="de">Bor</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Bor</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Bor</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Bor</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Bor</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Bor</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бор</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Бор</skos:altLabel>
+	<skos:prefLabel>Bor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/792469/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.84667</wgs:lat>
+	<wgs:long>21.95972</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Boljevac</skos:altLabel>
+	<skos:prefLabel>Opština Boljevac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/792480/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>43.01611</wgs:lat>
+	<wgs:long>21.70889</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Bojnik</skos:altLabel>
+	<skos:prefLabel>Opština Bojnik</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/792563/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>43.29889</wgs:lat>
+	<wgs:long>21.28333</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Blace</skos:altLabel>
+	<skos:prefLabel>Opština Blace</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/792680/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>1273651</europeana:population>
+	<wgs:lat>44.80401</wgs:lat>
+	<wgs:long>20.46513</wgs:long>
+	<skos:altLabel xml:lang="sk">Belehrad</skos:altLabel>
+	<skos:altLabel>Belgrad</skos:altLabel>
+	<skos:altLabel xml:lang="de">Belgrad</skos:altLabel>
+	<skos:altLabel xml:lang="et">Belgrad</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Belgrad</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Belgrad</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Belgrad</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Belgrad</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Belgrad</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Belgrad</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Belgrad</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Belgrad</skos:altLabel>
+	<skos:altLabel xml:lang="is">Belgrad</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Belgrada</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Belgradas</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Belgrade</skos:altLabel>
+	<skos:altLabel xml:lang="io">Belgrade</skos:altLabel>
+	<skos:altLabel xml:lang="en">Belgrade</skos:altLabel>
+	<skos:altLabel>Belgrado</skos:altLabel>
+	<skos:altLabel xml:lang="es">Belgrado</skos:altLabel>
+	<skos:altLabel xml:lang="it">Belgrado</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Belgrado</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Belgrado</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Belgrado</skos:altLabel>
+	<skos:altLabel xml:lang="la">Belgradum</skos:altLabel>
+	<skos:altLabel xml:lang="is">Belgrað</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Belgrád</skos:altLabel>
+	<skos:altLabel xml:lang="id">Beograd</skos:altLabel>
+	<skos:altLabel>Beograd</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Beograd</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Beograd</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Beograd</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Beograd</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Beograd</skos:altLabel>
+	<skos:altLabel xml:lang="da">Beograd</skos:altLabel>
+	<skos:altLabel xml:lang="no">Beograd</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Beograd</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Beograd</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Beogradi</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Beogrado</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Bělehrad</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Nándorfehérvár</skos:altLabel>
+	<skos:altLabel>Singidunum</skos:altLabel>
+	<skos:altLabel xml:lang="el">Βελιγράδι</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Белград</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Белград</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Белград</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Белград</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Београд</skos:altLabel>
+	<skos:altLabel xml:lang="cu">Бѣлъ Градъ</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Բելգրադ</skos:altLabel>
+	<skos:altLabel xml:lang="he">בלגרד</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بلغراد</skos:altLabel>
+	<skos:altLabel xml:lang="ug">بېلگراد</skos:altLabel>
+	<skos:altLabel xml:lang="ta">பெல்கிறேட்</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ბელგრადი</skos:altLabel>
+	<skos:altLabel xml:lang="am">በልግራድ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ベオグラード</skos:altLabel>
+	<skos:altLabel xml:lang="zh">贝尔格莱德</skos:altLabel>
+	<skos:altLabel xml:lang="ko">베오그라드</skos:altLabel>
+	<skos:prefLabel>Belgrade</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/792783/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.21611</wgs:lat>
+	<wgs:long>22.33472</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Bela Palanka</skos:altLabel>
+	<skos:prefLabel>Opština Bela Palanka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/792793/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.91583</wgs:lat>
+	<wgs:long>21.43</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Bela Crkva</skos:altLabel>
+	<skos:prefLabel>Opština Bela Crkva</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/792794/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10675</europeana:population>
+	<wgs:lat>44.8975</wgs:lat>
+	<wgs:long>21.41722</wgs:long>
+	<skos:altLabel xml:lang="sr">Bela Crkva</skos:altLabel>
+	<skos:altLabel>Biserica Albă</skos:altLabel>
+	<skos:altLabel>Fehéregyház</skos:altLabel>
+	<skos:altLabel>Fehértemplom</skos:altLabel>
+	<skos:altLabel>Fejéregyház</skos:altLabel>
+	<skos:altLabel>Ungarisch Weisskirchen</skos:altLabel>
+	<skos:altLabel>Weisskirchen</skos:altLabel>
+	<skos:altLabel xml:lang="de">Weißkirchen</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бела-Црква</skos:altLabel>
+	<skos:prefLabel>Bela Crkva</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/792814/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>25774</europeana:population>
+	<wgs:lat>45.61632</wgs:lat>
+	<wgs:long>20.03331</wgs:long>
+	<skos:altLabel>Alt-Betsche</skos:altLabel>
+	<skos:altLabel>Becse</skos:altLabel>
+	<skos:altLabel>Becsej</skos:altLabel>
+	<skos:altLabel>Stari Bečej</skos:altLabel>
+	<skos:altLabel>Óbecse</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бечей</skos:altLabel>
+	<skos:prefLabel>Bečej</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/792829/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.16389</wgs:lat>
+	<wgs:long>21.07417</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Batočina</skos:altLabel>
+	<skos:prefLabel>Opština Batočina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/792891/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.58778</wgs:lat>
+	<wgs:long>20.44</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Barajevo</skos:altLabel>
+	<skos:prefLabel>Opština Barajevo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/793033/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.06111</wgs:lat>
+	<wgs:long>22.40389</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Babušnica</skos:altLabel>
+	<skos:prefLabel>Opština Babušnica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/793092/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.74139</wgs:lat>
+	<wgs:long>20.10472</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Arilje</skos:altLabel>
+	<skos:prefLabel>Opština Arilje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/793110/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.29556</wgs:lat>
+	<wgs:long>20.55111</wgs:long>
+	<skos:altLabel>Arandjelovac</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Opština Aranđelovac</skos:altLabel>
+	<skos:prefLabel>Opština Aranđelovac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/793111/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>24309</europeana:population>
+	<wgs:lat>44.30694</wgs:lat>
+	<wgs:long>20.56</wgs:long>
+	<skos:altLabel>Arangjelovac</skos:altLabel>
+	<skos:prefLabel>Aranđelovac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/793133/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>45.07917</wgs:lat>
+	<wgs:long>20.9675</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Alibunar</skos:altLabel>
+	<skos:prefLabel>Opština Alibunar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/793137/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.54556</wgs:lat>
+	<wgs:long>21.68639</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Aleksinac</skos:altLabel>
+	<skos:prefLabel>Opština Aleksinac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/793140/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.44833</wgs:lat>
+	<wgs:long>21.04667</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Aleksandrovac</skos:altLabel>
+	<skos:prefLabel>Opština Aleksandrovac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/793170/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>45.8025</wgs:lat>
+	<wgs:long>20.13361</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Ada</skos:altLabel>
+	<skos:prefLabel>Opština Ada</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/835306/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>43.06639</wgs:lat>
+	<wgs:long>20.62</wgs:long>
+	<skos:altLabel xml:lang="sr">Česmalije</skos:altLabel>
+	<skos:prefLabel>Česmalije</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/837124/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>44.66111</wgs:lat>
+	<wgs:long>20.2675</wgs:long>
+	<skos:altLabel>Ostrvo Sprud</skos:altLabel>
+	<skos:altLabel>Sprud</skos:altLabel>
+	<skos:prefLabel>Ostrvo Sprud</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/837132/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>44.68028</wgs:lat>
+	<wgs:long>20.04083</wgs:long>
+	<skos:prefLabel>Ada Skeljanska</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/837219/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>44.66722</wgs:lat>
+	<wgs:long>20.74083</wgs:long>
+	<skos:prefLabel>Gročanska Ada</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/837264/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>44.7225</wgs:lat>
+	<wgs:long>20.69778</wgs:long>
+	<skos:prefLabel>Ivanovo Ostrvo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/837380/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>44.84944</wgs:lat>
+	<wgs:long>20.60722</wgs:long>
+	<skos:altLabel>Forkontumac</skos:altLabel>
+	<skos:altLabel>Ostrvo Forkontumac</skos:altLabel>
+	<skos:altLabel>Šveb</skos:altLabel>
+	<skos:prefLabel>Forkontumac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/837383/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>44.83333</wgs:lat>
+	<wgs:long>20.61944</wgs:long>
+	<skos:prefLabel>Štefanac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/838783/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>44.47528</wgs:lat>
+	<wgs:long>22.5175</wgs:long>
+	<skos:prefLabel>Grabovica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/845257/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>44.77833</wgs:lat>
+	<wgs:long>20.36111</wgs:long>
+	<skos:prefLabel>Jocina Ada</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/845269/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>44.82361</wgs:lat>
+	<wgs:long>20.43833</wgs:long>
+	<skos:altLabel>Malo Ratno Ostrvo</skos:altLabel>
+	<skos:prefLabel>Malo Ratno Ostrvo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/845296/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>44.79139</wgs:lat>
+	<wgs:long>20.38694</wgs:long>
+	<skos:altLabel>Ada Međica</skos:altLabel>
+	<skos:altLabel>Međica Ada</skos:altLabel>
+	<skos:prefLabel>Ada Međica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/845650/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>44.82028</wgs:lat>
+	<wgs:long>20.61944</wgs:long>
+	<skos:prefLabel>Donja Ada</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/845726/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLT"/>
+	<wgs:lat>44.82278</wgs:lat>
+	<wgs:long>20.65222</wgs:long>
+	<skos:altLabel>Ada Starčevo</skos:altLabel>
+	<skos:altLabel>Starčevačka Ada</skos:altLabel>
+	<skos:prefLabel>Starčevačka Ada</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/846691/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>44.85278</wgs:lat>
+	<wgs:long>20.56667</wgs:long>
+	<skos:prefLabel>Ovčanska Ada</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/846695/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>44.83333</wgs:lat>
+	<wgs:long>20.60028</wgs:long>
+	<skos:prefLabel>Čakljanac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/846789/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>44.71444</wgs:lat>
+	<wgs:long>20.14667</wgs:long>
+	<skos:prefLabel>Ada</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/847669/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>44.69639</wgs:lat>
+	<wgs:long>20.08556</wgs:long>
+	<skos:prefLabel>Mozerova Ada</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/850581/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>44.6775</wgs:lat>
+	<wgs:long>20.74139</wgs:long>
+	<skos:prefLabel>Sprud</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/851409/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>43.5325</wgs:lat>
+	<wgs:long>21.71306</wgs:long>
+	<skos:altLabel xml:lang="sr">Ruski Spomenik</skos:altLabel>
+	<skos:prefLabel>Ruski Spomenik</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/862179/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>42.55278</wgs:lat>
+	<wgs:long>22.23278</wgs:long>
+	<skos:prefLabel>Ruski Spomenik</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/862901/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>44.73444</wgs:lat>
+	<wgs:long>21.11306</wgs:long>
+	<skos:prefLabel>Dubovačka Ada</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/862911/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>44.72722</wgs:lat>
+	<wgs:long>21.13028</wgs:long>
+	<skos:prefLabel>Stojkova Ada</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/862912/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>44.78556</wgs:lat>
+	<wgs:long>21.27583</wgs:long>
+	<skos:prefLabel>Otok Zavojska</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/865080/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.75056</wgs:lat>
+	<wgs:long>20.46778</wgs:long>
+	<skos:prefLabel>Opština Rakovica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/865081/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.27417</wgs:lat>
+	<wgs:long>20.01778</wgs:long>
+	<skos:prefLabel>Opština Sjenica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/865082/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.22028</wgs:lat>
+	<wgs:long>21.09389</wgs:long>
+	<skos:prefLabel>Opština Lapovo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/865083/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.32306</wgs:lat>
+	<wgs:long>21.89444</wgs:long>
+	<skos:prefLabel>Grad Niš</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3187295/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>45.55361</wgs:lat>
+	<wgs:long>19.65639</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Vrbas</skos:altLabel>
+	<skos:prefLabel>Opština Vrbas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3187297/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>25907</europeana:population>
+	<wgs:lat>45.57139</wgs:lat>
+	<wgs:long>19.64083</wgs:long>
+	<skos:altLabel>Alt-Werbass</skos:altLabel>
+	<skos:altLabel>Neu-Werbass</skos:altLabel>
+	<skos:altLabel>Titov Vrbas</skos:altLabel>
+	<skos:altLabel>Verbász</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Vrbas</skos:altLabel>
+	<skos:altLabel>Weidenheim</skos:altLabel>
+	<skos:altLabel>Óverbász</skos:altLabel>
+	<skos:altLabel>Újverbász</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Врбас</skos:altLabel>
+	<skos:prefLabel>Vrbas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3187829/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10226</europeana:population>
+	<wgs:lat>45.25333</wgs:lat>
+	<wgs:long>19.75944</wgs:long>
+	<skos:altLabel xml:lang="sr">Veternik</skos:altLabel>
+	<skos:altLabel>Ófutak</skos:altLabel>
+	<skos:prefLabel>Veternik</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3188401/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.26333</wgs:lat>
+	<wgs:long>19.8875</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Valjevo</skos:altLabel>
+	<skos:prefLabel>Opština Valjevo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3188402/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>61035</europeana:population>
+	<wgs:lat>44.27513</wgs:lat>
+	<wgs:long>19.89821</wgs:long>
+	<skos:altLabel xml:lang="lt">Valjevas</skos:altLabel>
+	<skos:altLabel xml:lang="de">Valjevo</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Valjevo</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Valjevo</skos:altLabel>
+	<skos:altLabel xml:lang="it">Valjevo</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Valjevo</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Valjevo</skos:altLabel>
+	<skos:altLabel xml:lang="en">Valjevo</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Valjevo</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Valjevo</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Валево</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Ваљево</skos:altLabel>
+	<skos:prefLabel>Valjevo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3188434/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>63577</europeana:population>
+	<wgs:lat>43.85861</wgs:lat>
+	<wgs:long>19.84878</wgs:long>
+	<skos:altLabel>Oujiste</skos:altLabel>
+	<skos:altLabel>Titovo Užice</skos:altLabel>
+	<skos:altLabel xml:lang="en">Užice</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Užice</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Užice</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Užice</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Užice</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Užice</skos:altLabel>
+	<skos:altLabel xml:lang="de">Užice</skos:altLabel>
+	<skos:altLabel xml:lang="it">Užice</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Užice</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Užice</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Užicė</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Ужице</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ужице</skos:altLabel>
+	<skos:altLabel xml:lang="cu">Ѹжице</skos:altLabel>
+	<skos:prefLabel>Užice</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3189165/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>45.41056</wgs:lat>
+	<wgs:long>19.90167</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Temerin</skos:altLabel>
+	<skos:prefLabel>Opština Temerin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3189594/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>46.04389</wgs:lat>
+	<wgs:long>19.65972</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Subotica</skos:altLabel>
+	<skos:prefLabel>Opština Subotica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3189595/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>100000</europeana:population>
+	<wgs:lat>46.1</wgs:lat>
+	<wgs:long>19.66667</wgs:long>
+	<skos:altLabel>Maria-Theresianopel</skos:altLabel>
+	<skos:altLabel xml:lang="de">Maria-Theresiopel</skos:altLabel>
+	<skos:altLabel>Maria-Theresiopolis</skos:altLabel>
+	<skos:altLabel>Sawaditz</skos:altLabel>
+	<skos:altLabel xml:lang="en">Subotica</skos:altLabel>
+	<skos:altLabel xml:lang="da">Subotica</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Subotica</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Subotica</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Subotica</skos:altLabel>
+	<skos:altLabel xml:lang="de">Subotica</skos:altLabel>
+	<skos:altLabel xml:lang="es">Subotica</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Subotica</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Subotica</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Subotica</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Subotica</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Subotica</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Subotica</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Subotica</skos:altLabel>
+	<skos:altLabel xml:lang="de">Subotiza</skos:altLabel>
+	<skos:altLabel>Szabadka</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Szabadka</skos:altLabel>
+	<skos:altLabel>Szent-Mária</skos:altLabel>
+	<skos:altLabel>Theresiopel</skos:altLabel>
+	<skos:altLabel>Zubotica</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Суботица</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Суботица</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Суботица</skos:altLabel>
+	<skos:prefLabel>Subotica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3190103/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>39084</europeana:population>
+	<wgs:lat>44.97639</wgs:lat>
+	<wgs:long>19.61222</wgs:long>
+	<skos:altLabel>Dimitrofçe</skos:altLabel>
+	<skos:altLabel>Mitrovic</skos:altLabel>
+	<skos:altLabel>Mitrovica</skos:altLabel>
+	<skos:altLabel>Mitrovicz</skos:altLabel>
+	<skos:altLabel>Mitrovicza</skos:altLabel>
+	<skos:altLabel>Mitrovitza</skos:altLabel>
+	<skos:altLabel>Mitrowitz</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Opština Sremska Mitrovica</skos:altLabel>
+	<skos:altLabel>Sirmion</skos:altLabel>
+	<skos:altLabel>Sirmium</skos:altLabel>
+	<skos:altLabel xml:lang="de">Sremska Mitrovica</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Sremska Mitrovica</skos:altLabel>
+	<skos:altLabel>Srijemska Mitrovica</skos:altLabel>
+	<skos:altLabel>Strema Mitrovica</skos:altLabel>
+	<skos:altLabel>Syrmisch-Mitrowitz</skos:altLabel>
+	<skos:altLabel>Szávaszentdemeter</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Општина Сремска Митровица</skos:altLabel>
+	<skos:prefLabel>Sremska Mitrovica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3190168/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>45.55</wgs:lat>
+	<wgs:long>19.82861</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Srbobran</skos:altLabel>
+	<skos:prefLabel>Opština Srbobran</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3190341/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>45.77472</wgs:lat>
+	<wgs:long>19.15889</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Sombor</skos:altLabel>
+	<skos:prefLabel>Opština Sombor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3190342/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>48454</europeana:population>
+	<wgs:lat>45.77417</wgs:lat>
+	<wgs:long>19.11222</wgs:long>
+	<skos:altLabel>Coborszentmihály</skos:altLabel>
+	<skos:altLabel>Kiszombor</skos:altLabel>
+	<skos:altLabel>Mezőzombor</skos:altLabel>
+	<skos:altLabel>Nagy-Zombor</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Opština Sombor</skos:altLabel>
+	<skos:altLabel>Schomburg</skos:altLabel>
+	<skos:altLabel xml:lang="de">Sombor</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Sombor</skos:altLabel>
+	<skos:altLabel>Szentmihály</skos:altLabel>
+	<skos:altLabel>Zombor</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Општина Сомбор</skos:altLabel>
+	<skos:prefLabel>Sombor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3191376/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>55114</europeana:population>
+	<wgs:lat>44.74667</wgs:lat>
+	<wgs:long>19.69</wgs:long>
+	<skos:altLabel>Chabats</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Шабац</skos:altLabel>
+	<skos:prefLabel>Šabac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3191428/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>44.92167</wgs:lat>
+	<wgs:long>19.82556</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Ruma</skos:altLabel>
+	<skos:prefLabel>Opština Ruma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3191429/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>32229</europeana:population>
+	<wgs:lat>45.00806</wgs:lat>
+	<wgs:long>19.82222</wgs:long>
+	<skos:altLabel xml:lang="sr">Ruma</skos:altLabel>
+	<skos:altLabel>Árpatarló</skos:altLabel>
+	<skos:altLabel>Árpataró</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Рума</skos:altLabel>
+	<skos:prefLabel>Ruma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3193406/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13917</europeana:population>
+	<wgs:lat>45.24667</wgs:lat>
+	<wgs:long>19.87944</wgs:long>
+	<skos:altLabel xml:lang="tr">Petervaradin</skos:altLabel>
+	<skos:altLabel xml:lang="de">Peterwardein</skos:altLabel>
+	<skos:altLabel xml:lang="de">Petrovaradin</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Petrovaradin</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Petrovaradin</skos:altLabel>
+	<skos:altLabel xml:lang="en">Petrovaradin</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Petrovaradin</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Petrovaradin</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Petrovaradin</skos:altLabel>
+	<skos:altLabel>Pétervárad</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Pétervárad</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Петроварадин</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Петроварадин</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ペトロヴァラディン</skos:altLabel>
+	<skos:prefLabel>Petrovaradin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3194208/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>45.49889</wgs:lat>
+	<wgs:long>19.25972</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Odžaci</skos:altLabel>
+	<skos:prefLabel>Opština Odžaci</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3194359/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>45.25</wgs:lat>
+	<wgs:long>19.83333</wgs:long>
+	<skos:altLabel>Grad Novi Sad</skos:altLabel>
+	<skos:altLabel>Opština Novi Sad</skos:altLabel>
+	<skos:prefLabel>Grad Novi Sad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3194360/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>215400</europeana:population>
+	<wgs:lat>45.25167</wgs:lat>
+	<wgs:long>19.83694</wgs:long>
+	<skos:altLabel>Neoplanta</skos:altLabel>
+	<skos:altLabel>Neusatz</skos:altLabel>
+	<skos:altLabel xml:lang="de">Novi Sad</skos:altLabel>
+	<skos:altLabel xml:lang="en">Novi Sad</skos:altLabel>
+	<skos:altLabel xml:lang="da">Novi Sad</skos:altLabel>
+	<skos:altLabel xml:lang="et">Novi Sad</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Novi Sad</skos:altLabel>
+	<skos:altLabel xml:lang="it">Novi Sad</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Novi Sad</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Novi Sad</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Novi Sad</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Novi Sad</skos:altLabel>
+	<skos:altLabel xml:lang="es">Novi Sad</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Novi Sad</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Novi Sad</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Novi Sad</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Novi Sad</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Novi Sad</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Novi Sadas</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Novisada</skos:altLabel>
+	<skos:altLabel>Nový Sad</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Nowy Sad</skos:altLabel>
+	<skos:altLabel>Pétervárad</skos:altLabel>
+	<skos:altLabel>Varadinum Petri</skos:altLabel>
+	<skos:altLabel>Vásáros-Várad</skos:altLabel>
+	<skos:altLabel>Ó-péterváradja</skos:altLabel>
+	<skos:altLabel>Újvidék</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Újvidék</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Нови Сад</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Нови Сад</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Нови Сад</skos:altLabel>
+	<skos:altLabel xml:lang="zh">诺威萨</skos:altLabel>
+	<skos:prefLabel>Novi Sad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3195706/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>45.69194</wgs:lat>
+	<wgs:long>19.6725</wgs:long>
+	<skos:altLabel>Mali Idjoš</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Opština Mali Iđoš</skos:altLabel>
+	<skos:prefLabel>Opština Mali Iđoš</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3196972/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>45.60861</wgs:lat>
+	<wgs:long>19.52556</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Kula</skos:altLabel>
+	<skos:prefLabel>Opština Kula</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3197945/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.47417</wgs:lat>
+	<wgs:long>19.82083</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Koceljeva</skos:altLabel>
+	<skos:altLabel>Opština Koceljevo</skos:altLabel>
+	<skos:prefLabel>Opština Koceljeva</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3199102/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>45.10194</wgs:lat>
+	<wgs:long>19.85583</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Irig</skos:altLabel>
+	<skos:prefLabel>Opština Irig</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3204287/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>45.19389</wgs:lat>
+	<wgs:long>19.69611</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Beočin</skos:altLabel>
+	<skos:prefLabel>Opština Beočin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3204390/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>45.60972</wgs:lat>
+	<wgs:long>19.99528</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Bečej</skos:altLabel>
+	<skos:prefLabel>Opština Bečej</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3204664/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>45.36556</wgs:lat>
+	<wgs:long>19.60944</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Bački Petrovac</skos:altLabel>
+	<skos:prefLabel>Opština Bački Petrovac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3204671/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>45.83583</wgs:lat>
+	<wgs:long>19.65889</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Bačka Topola</skos:altLabel>
+	<skos:prefLabel>Opština Bačka Topola</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3204672/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16154</europeana:population>
+	<wgs:lat>45.81516</wgs:lat>
+	<wgs:long>19.6318</wgs:long>
+	<skos:altLabel>Andrásföldje</skos:altLabel>
+	<skos:altLabel>Batsch-Topola</skos:altLabel>
+	<skos:altLabel>Bácstopolya</skos:altLabel>
+	<skos:altLabel>Kisbelgrád</skos:altLabel>
+	<skos:altLabel>Mali Beograd</skos:altLabel>
+	<skos:altLabel>Topolo</skos:altLabel>
+	<skos:altLabel>Topolya</skos:altLabel>
+	<skos:prefLabel>Bačka Topola</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3204673/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>45.28944</wgs:lat>
+	<wgs:long>19.40833</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Bačka Palanka</skos:altLabel>
+	<skos:prefLabel>Opština Bačka Palanka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3204674/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>29449</europeana:population>
+	<wgs:lat>45.25083</wgs:lat>
+	<wgs:long>19.39194</wgs:long>
+	<skos:altLabel>Alt-Palanka</skos:altLabel>
+	<skos:altLabel>Deutsch-Palanka</skos:altLabel>
+	<skos:altLabel>Nova Palanka</skos:altLabel>
+	<skos:altLabel>Német-Palánka</skos:altLabel>
+	<skos:altLabel>Palánka</skos:altLabel>
+	<skos:altLabel>Plakenburg</skos:altLabel>
+	<skos:altLabel>Stara Palanka</skos:altLabel>
+	<skos:altLabel>Ópalánka</skos:altLabel>
+	<skos:altLabel>Újpalánka</skos:altLabel>
+	<skos:prefLabel>Bačka Palanka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3204690/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>45.40056</wgs:lat>
+	<wgs:long>19.18917</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Bač</skos:altLabel>
+	<skos:prefLabel>Opština Bač</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3204792/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>45.68028</wgs:lat>
+	<wgs:long>18.99444</wgs:long>
+	<skos:altLabel xml:lang="sr">Opština Apatin</skos:altLabel>
+	<skos:prefLabel>Opština Apatin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3204793/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18320</europeana:population>
+	<wgs:lat>45.67111</wgs:lat>
+	<wgs:long>18.98472</wgs:long>
+	<skos:altLabel>Abthausen</skos:altLabel>
+	<skos:altLabel>Apathin</skos:altLabel>
+	<skos:altLabel>Apati</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Apatin</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Apatin</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Apatin</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Apatin</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Apatin</skos:altLabel>
+	<skos:altLabel xml:lang="de">Apatin</skos:altLabel>
+	<skos:altLabel xml:lang="en">Apatin</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Apatin</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Apatin</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Apatin</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Апатин</skos:altLabel>
+	<skos:prefLabel>Apatin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3257592/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>44.90444</wgs:lat>
+	<wgs:long>19.34778</wgs:long>
+	<skos:altLabel xml:lang="sr">Mlinsko Ostrvo</skos:altLabel>
+	<skos:prefLabel>Mlinsko Ostrvo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3306132/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>45.25806</wgs:lat>
+	<wgs:long>19.23472</wgs:long>
+	<skos:altLabel xml:lang="sr">Šarengradska Ada</skos:altLabel>
+	<skos:prefLabel>Šarengradska Ada</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3307128/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>45.34806</wgs:lat>
+	<wgs:long>19.03</wgs:long>
+	<skos:altLabel>Vokovarska Ada</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Vukovarska Ada</skos:altLabel>
+	<skos:prefLabel>Vukovarska Ada</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3307160/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>45.48389</wgs:lat>
+	<wgs:long>19.07944</wgs:long>
+	<skos:altLabel xml:lang="sr">Golić</skos:altLabel>
+	<skos:prefLabel>Golić</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3316754/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>44.84889</wgs:lat>
+	<wgs:long>19.71444</wgs:long>
+	<skos:altLabel xml:lang="sr">Drenovačka Ada</skos:altLabel>
+	<skos:prefLabel>Drenovačka Ada</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3316868/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>44.74778</wgs:lat>
+	<wgs:long>19.73917</wgs:long>
+	<skos:altLabel>Ada Mišarska</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Mišarska Ada</skos:altLabel>
+	<skos:prefLabel>Mišarska Ada</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3318744/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>45.21333</wgs:lat>
+	<wgs:long>19.58583</wgs:long>
+	<skos:prefLabel>Šašiceva Ada</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3318746/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>45.22861</wgs:lat>
+	<wgs:long>19.65306</wgs:long>
+	<skos:altLabel xml:lang="sr">Čerevićka Ada</skos:altLabel>
+	<skos:altLabel>Čerevički Ada</skos:altLabel>
+	<skos:prefLabel>Čerevićka Ada</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3318970/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>44.68917</wgs:lat>
+	<wgs:long>19.93611</wgs:long>
+	<skos:prefLabel>Podgorička Ada</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3318971/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>44.73583</wgs:lat>
+	<wgs:long>19.82611</wgs:long>
+	<skos:prefLabel>Oridska Ada</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343728/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>45.12472</wgs:lat>
+	<wgs:long>19.24583</wgs:long>
+	<skos:prefLabel>Opština Šid</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343729/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>45.01833</wgs:lat>
+	<wgs:long>19.57778</wgs:long>
+	<skos:prefLabel>Opština Sremska Mitrovica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343730/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>45.2</wgs:lat>
+	<wgs:long>19.92472</wgs:long>
+	<skos:prefLabel>Opština Sremski Karlovci</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343732/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.75583</wgs:lat>
+	<wgs:long>19.65111</wgs:long>
+	<skos:prefLabel>Opština Šabac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343734/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.5975</wgs:lat>
+	<wgs:long>19.74722</wgs:long>
+	<skos:prefLabel>Opština Vladimirci</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343735/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.83028</wgs:lat>
+	<wgs:long>19.42333</wgs:long>
+	<skos:prefLabel>Opština Bogatić</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343738/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.54806</wgs:lat>
+	<wgs:long>19.25833</wgs:long>
+	<skos:prefLabel>Opština Loznica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343739/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.3725</wgs:lat>
+	<wgs:long>19.14583</wgs:long>
+	<skos:prefLabel>Opština Mali Zvornik</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343741/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.36389</wgs:lat>
+	<wgs:long>19.35</wgs:long>
+	<skos:prefLabel>Opština Krupanj</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343742/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.39417</wgs:lat>
+	<wgs:long>19.58222</wgs:long>
+	<skos:prefLabel>Opština Osečina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343743/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>44.2075</wgs:lat>
+	<wgs:long>19.39444</wgs:long>
+	<skos:prefLabel>Opština Ljubovija</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343745/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.99833</wgs:lat>
+	<wgs:long>19.895</wgs:long>
+	<skos:prefLabel>Opštinać Kosjerić</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343746/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.96278</wgs:lat>
+	<wgs:long>19.57972</wgs:long>
+	<skos:prefLabel>Opština Bajina Bašta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343747/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.86583</wgs:lat>
+	<wgs:long>19.82556</wgs:long>
+	<skos:prefLabel>Opština Užice</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343748/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.71889</wgs:lat>
+	<wgs:long>19.68083</wgs:long>
+	<skos:prefLabel>Opština Čajetina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343749/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.55917</wgs:lat>
+	<wgs:long>19.55361</wgs:long>
+	<skos:prefLabel>Opština Priboj</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343750/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.46333</wgs:lat>
+	<wgs:long>19.80056</wgs:long>
+	<skos:prefLabel>Opština Nova Varoš</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343751/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.385</wgs:lat>
+	<wgs:long>19.64667</wgs:long>
+	<skos:prefLabel>Opština Prijepolje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6290252/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255148/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>7344847</europeana:population>
+	<wgs:lat>44.81892</wgs:lat>
+	<wgs:long>20.45998</wgs:long>
+	<skos:altLabel xml:lang="ga">An tSeirbia</skos:altLabel>
+	<skos:altLabel>RS</skos:altLabel>
+	<skos:altLabel xml:lang="es">Serbia</skos:altLabel>
+	<skos:altLabel xml:lang="id">Serbia</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Serbia</skos:altLabel>
+	<skos:altLabel xml:lang="en">Serbia</skos:altLabel>
+	<skos:altLabel xml:lang="an">Serbia</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Serbia</skos:altLabel>
+	<skos:altLabel xml:lang="io">Serbia</skos:altLabel>
+	<skos:altLabel xml:lang="it">Serbia</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Serbia</skos:altLabel>
+	<skos:altLabel xml:lang="et">Serbia</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Serbia</skos:altLabel>
+	<skos:altLabel xml:lang="la">Serbia</skos:altLabel>
+	<skos:altLabel xml:lang="no">Serbia</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Serbia</skos:altLabel>
+	<skos:altLabel xml:lang="se">Serbia</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Serbia</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Serbia</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Serbia</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Serbia</skos:altLabel>
+	<skos:altLabel xml:lang="da">Serbia</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Serbia</skos:altLabel>
+	<skos:altLabel xml:lang="is">Serbia</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Serbia</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Serbia - Србија</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Serbie</skos:altLabel>
+	<skos:altLabel xml:lang="de">Serbien</skos:altLabel>
+	<skos:altLabel xml:lang="da">Serbien</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Serbien</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Serbija</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Serbija</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Serbio</skos:altLabel>
+	<skos:altLabel xml:lang="uz">Serbiya</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Serbja</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Serbya</skos:altLabel>
+	<skos:altLabel xml:lang="is">Serbía</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Servië</skos:altLabel>
+	<skos:altLabel xml:lang="li">Servië</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Servje</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Sirbistan</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Sirbya</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Srbija</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Srbija</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Srbija</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Srbija</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Srbsko</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Srbsko</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Szerbia</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Särbän</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Sèrbia</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Sérvia</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Sırbistan</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Xéc-bi</skos:altLabel>
+	<skos:altLabel xml:lang="el">Σερβία</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сербия</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Сербія</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Србија</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Србија</skos:altLabel>
+	<skos:altLabel xml:lang="cu">Срьбї</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Сърбия</skos:altLabel>
+	<skos:altLabel xml:lang="be">Сэрбія</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Սերբիա</skos:altLabel>
+	<skos:altLabel xml:lang="he">סרביה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جمهورية صربيا</skos:altLabel>
+	<skos:altLabel xml:lang="ug">سېربىيە</skos:altLabel>
+	<skos:altLabel xml:lang="fa">صربستان</skos:altLabel>
+	<skos:altLabel xml:lang="ar">صربيا</skos:altLabel>
+	<skos:altLabel xml:lang="ne">सर्बिया</skos:altLabel>
+	<skos:altLabel xml:lang="hi">सर्बिया</skos:altLabel>
+	<skos:altLabel xml:lang="bn">সার্বিয়া</skos:altLabel>
+	<skos:altLabel xml:lang="ml">സെര്‍ബിയ</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศเซอร์เบีย</skos:altLabel>
+	<skos:altLabel xml:lang="th">เซอร์เบีย</skos:altLabel>
+	<skos:altLabel xml:lang="bo">སེར་བི་ཡ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">სერბეთი</skos:altLabel>
+	<skos:altLabel xml:lang="ka">სერბია</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሰርቢያ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">セルビア</skos:altLabel>
+	<skos:altLabel xml:lang="zh">塞尔维亚</skos:altLabel>
+	<skos:altLabel xml:lang="ko">세르비아</skos:altLabel>
+	<skos:prefLabel>Serbia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6619277/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>25000</europeana:population>
+	<wgs:lat>43.56484</wgs:lat>
+	<wgs:long>22.25023</wgs:long>
+	<skos:prefLabel>Knjazevac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6697828/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>44.81775</wgs:lat>
+	<wgs:long>20.45709</wgs:long>
+	<skos:prefLabel>Podrucje Knez Mihailove ulice</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6697869/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>44.68876</wgs:lat>
+	<wgs:long>20.51577</wgs:long>
+	<skos:prefLabel>Spomenik Neznanom junaku na Avali</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6697996/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>44.81646</wgs:lat>
+	<wgs:long>20.46008</wgs:long>
+	<skos:prefLabel>Spomenik Knezu Mihailu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7581582/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>44.36667</wgs:lat>
+	<wgs:long>22.25</wgs:long>
+	<skos:prefLabel>Borski Okrug</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7581794/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>44.48028</wgs:lat>
+	<wgs:long>21.58611</wgs:long>
+	<skos:prefLabel>Braničevski Okrug</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7581795/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.99528</wgs:lat>
+	<wgs:long>21.91778</wgs:long>
+	<skos:prefLabel>Jablanički Okrug</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7581796/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>45.40861</wgs:lat>
+	<wgs:long>19.88917</wgs:long>
+	<skos:prefLabel>Juzhno Bački Okrug</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7581797/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>45.08083</wgs:lat>
+	<wgs:long>20.96583</wgs:long>
+	<skos:prefLabel>Juzhno Banatski Okrug</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7581798/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>44.26333</wgs:lat>
+	<wgs:long>19.8875</wgs:long>
+	<skos:prefLabel>Kolubarski Okrug</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7581799/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>44.61472</wgs:lat>
+	<wgs:long>19.47222</wgs:long>
+	<skos:prefLabel>Mačvanski Okrug</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7581800/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>43.80389</wgs:lat>
+	<wgs:long>20.17806</wgs:long>
+	<skos:prefLabel>Moravički Okrug</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7581801/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>43.32306</wgs:lat>
+	<wgs:long>21.89444</wgs:long>
+	<skos:prefLabel>Nišavski Okrug</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7581802/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.56278</wgs:lat>
+	<wgs:long>21.8825</wgs:long>
+	<skos:prefLabel>Pčinjski Okrug</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7581803/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>43.17528</wgs:lat>
+	<wgs:long>22.59278</wgs:long>
+	<skos:prefLabel>Pirotski Okrug</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7581804/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>44.48417</wgs:lat>
+	<wgs:long>20.91167</wgs:long>
+	<skos:prefLabel>Podunavski Okrug</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7581805/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>43.93667</wgs:lat>
+	<wgs:long>21.40222</wgs:long>
+	<skos:prefLabel>Pomoravski Okrug</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7581806/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>43.55917</wgs:lat>
+	<wgs:long>21.21472</wgs:long>
+	<skos:prefLabel>Rasinski Okrug</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7581807/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>43.26694</wgs:lat>
+	<wgs:long>20.65278</wgs:long>
+	<skos:prefLabel>Raški Okrug</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7581808/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>45.815</wgs:lat>
+	<wgs:long>19.63611</wgs:long>
+	<skos:prefLabel>Severno Bački Okrug</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7581905/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>45.9425</wgs:lat>
+	<wgs:long>20.14333</wgs:long>
+	<skos:prefLabel>Severno Banatski Okrug</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7581906/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>45.38361</wgs:lat>
+	<wgs:long>20.38194</wgs:long>
+	<skos:prefLabel>Srednje Banatski Okrug</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7581907/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>44.92167</wgs:lat>
+	<wgs:long>19.82556</wgs:long>
+	<skos:prefLabel>Sremski Okrug</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7581908/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>44.00222</wgs:lat>
+	<wgs:long>20.91778</wgs:long>
+	<skos:prefLabel>Šumadijski Okrug</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7581909/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>43.14194</wgs:lat>
+	<wgs:long>21.27806</wgs:long>
+	<skos:prefLabel>Toplički Okrug</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7581910/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>43.69917</wgs:lat>
+	<wgs:long>21.98778</wgs:long>
+	<skos:prefLabel>Zaječarski Okrug</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7581911/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>45.77417</wgs:lat>
+	<wgs:long>19.11222</wgs:long>
+	<skos:prefLabel>Zapadno Bački Okrug</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7581912/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6290252/"/>
+	<europeana:country>RS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>43.70917</wgs:lat>
+	<wgs:long>19.67306</wgs:long>
+	<skos:prefLabel>Zlatiborski Okrug</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 287 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

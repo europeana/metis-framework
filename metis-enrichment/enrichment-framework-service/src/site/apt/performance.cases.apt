@@ -1,0 +1,29 @@
+            ------
+            Performance
+            ------
+ 
+ Performance depends on a number of factors: 
+ number of fields in each record, length of fields,
+ distribution of tagging requests. 
+ 
+ Typically, converter fits memory, and available RAM is not
+ an issue.
+
+Conversion of SQL results
+ 
+ Writing SQL results down in RDF, with property renaming.
+ Average field length is around 8 characters. MySQL, 
+ Intel i5 (Intel performance index 4/5).
+ 
+ Records on one field each: 1.6 mln records per minute.
+ Records on two field each: 1.3 mln records per minute.
+  
+Tagging XML records
+
+ Records are of a dozen fields each, 
+ varying field from a few characters to a few lines.
+ One of the fields is selected and tagged. 
+ Intel Core2 (Intel performance index 3/5).
+ 
+ Performance of 110.000 records per minute. 
+  

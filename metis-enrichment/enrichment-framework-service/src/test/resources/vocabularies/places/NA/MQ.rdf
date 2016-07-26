@@ -1,0 +1,1055 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: NA_MQ
+Description: Selected fields pulled from Geonames about MQ done on Mon May 23 21:14:28 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/3569774/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.62746</wgs:lat>
+	<wgs:long>-60.85274</wgs:long>
+	<skos:altLabel>Bonchard</skos:altLabel>
+	<skos:altLabel>Îlet Bouchard</skos:altLabel>
+	<skos:prefLabel>Îlet Bouchard</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3569843/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.41074</wgs:lat>
+	<wgs:long>-60.83258</wgs:long>
+	<skos:altLabel>Îlet Tois Roux</skos:altLabel>
+	<skos:altLabel>Îlet à Tois Roux</skos:altLabel>
+	<skos:prefLabel>Îlet à Tois Roux</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3569846/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.62557</wgs:lat>
+	<wgs:long>-60.84808</wgs:long>
+	<skos:prefLabel>Îlet Thiéry</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3569857/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.76432</wgs:lat>
+	<wgs:long>-60.92233</wgs:long>
+	<skos:prefLabel>Îlet Tartane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3569861/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.77516</wgs:lat>
+	<wgs:long>-60.87191</wgs:long>
+	<skos:prefLabel>Table du Diable</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3569862/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.38333</wgs:lat>
+	<wgs:long>-60.86667</wgs:long>
+	<skos:prefLabel>Table au Diable</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3569906/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6690604/"/>
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<europeana:population>23796</europeana:population>
+	<wgs:lat>14.75</wgs:lat>
+	<wgs:long>-61.18333</wgs:long>
+	<skos:altLabel>Arrondissement du Nord</skos:altLabel>
+	<skos:prefLabel>Arrondissement de Saint-Pierre</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3569915/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16974</europeana:population>
+	<wgs:lat>14.66792</wgs:lat>
+	<wgs:long>-61.04558</wgs:long>
+	<skos:altLabel>Saint-Joseph</skos:altLabel>
+	<skos:prefLabel>Saint-Joseph</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3569925/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.78333</wgs:lat>
+	<wgs:long>-60.98333</wgs:long>
+	<skos:prefLabel>Îlet Sainte-Marie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3569926/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20380</europeana:population>
+	<wgs:lat>14.78392</wgs:lat>
+	<wgs:long>-60.99274</wgs:long>
+	<skos:altLabel>Sainte-Marie</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сент-Мари</skos:altLabel>
+	<skos:prefLabel>Sainte-Marie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3569933/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.77025</wgs:lat>
+	<wgs:long>-60.9695</wgs:long>
+	<skos:prefLabel>Îlet Saint-Aubin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3569955/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.67025</wgs:lat>
+	<wgs:long>-60.88258</wgs:long>
+	<skos:altLabel>Îlet Larose</skos:altLabel>
+	<skos:altLabel>Îlet Madame</skos:altLabel>
+	<skos:altLabel>Îlet de la Rose</skos:altLabel>
+	<skos:prefLabel>Îlet de la Rose</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3569970/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13359</europeana:population>
+	<wgs:lat>14.47746</wgs:lat>
+	<wgs:long>-60.9035</wgs:long>
+	<skos:altLabel>Rivière-Pilote</skos:altLabel>
+	<skos:prefLabel>Rivière-Pilote</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3569999/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.68608</wgs:lat>
+	<wgs:long>-60.90017</wgs:long>
+	<skos:altLabel>Bats Island</skos:altLabel>
+	<skos:altLabel>Ilet au Rat</skos:altLabel>
+	<skos:altLabel>Îlet aux Rats</skos:altLabel>
+	<skos:prefLabel>Îlet aux Rats</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3570001/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.69391</wgs:lat>
+	<wgs:long>-60.88883</wgs:long>
+	<skos:altLabel>Île Chancel</skos:altLabel>
+	<skos:altLabel>Îlet Ramville</skos:altLabel>
+	<skos:prefLabel>Îlet Ramville</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3570002/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.54401</wgs:lat>
+	<wgs:long>-61.07865</wgs:long>
+	<skos:prefLabel>Îlet à Ramiers</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3570006/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.68808</wgs:lat>
+	<wgs:long>-60.88317</wgs:long>
+	<skos:altLabel>Îlet Duchamp</skos:altLabel>
+	<skos:altLabel>Îlet Ragot</skos:altLabel>
+	<skos:altLabel>Îlet de la Grotte</skos:altLabel>
+	<skos:prefLabel>Îlet Ragot</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3570142/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.61667</wgs:lat>
+	<wgs:long>-60.83333</wgs:long>
+	<skos:altLabel>Caye Pinsonelle</skos:altLabel>
+	<skos:altLabel>Caye Pinsonnelle</skos:altLabel>
+	<skos:prefLabel>Caye Pinsonnelle</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3570151/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.68783</wgs:lat>
+	<wgs:long>-60.92042</wgs:long>
+	<skos:prefLabel>Îlet Petit Vincent</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3570155/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.68419</wgs:lat>
+	<wgs:long>-60.8798</wgs:long>
+	<skos:altLabel>Grotte Rock</skos:altLabel>
+	<skos:altLabel>Rocher de la Grotte</skos:altLabel>
+	<skos:altLabel>Îlet Petit Piton</skos:altLabel>
+	<skos:prefLabel>Îlet Petit Piton</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3570160/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.45924</wgs:lat>
+	<wgs:long>-60.88484</wgs:long>
+	<skos:altLabel>Dupré Island</skos:altLabel>
+	<skos:altLabel>Petit Îlet Duprey</skos:altLabel>
+	<skos:altLabel>Îlet Duprey</skos:altLabel>
+	<skos:prefLabel>Petit Îlet Duprey</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3570161/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.55</wgs:lat>
+	<wgs:long>-61</wgs:long>
+	<skos:prefLabel>Petit Îlet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3570166/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15152</europeana:population>
+	<wgs:lat>14.75</wgs:lat>
+	<wgs:long>-60.96667</wgs:long>
+	<skos:altLabel>Petite Rivière Salée</skos:altLabel>
+	<skos:altLabel>Quartier Petite Rivière Salée</skos:altLabel>
+	<skos:prefLabel>Petite Rivière Salée</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3570174/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.68575</wgs:lat>
+	<wgs:long>-60.90966</wgs:long>
+	<skos:altLabel>Little Martinique</skos:altLabel>
+	<skos:altLabel>Îlet Petite Martinique</skos:altLabel>
+	<skos:prefLabel>Îlet Petite Martinique</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3570177/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.56817</wgs:lat>
+	<wgs:long>-60.83589</wgs:long>
+	<skos:altLabel>Ilet de la Petite Grenade</skos:altLabel>
+	<skos:altLabel>Little Grenade Island</skos:altLabel>
+	<skos:altLabel>Île Pointe Grenade</skos:altLabel>
+	<skos:altLabel>Îlet Petite Grenade</skos:altLabel>
+	<skos:prefLabel>Île Petite Grenade</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3570201/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.6148</wgs:lat>
+	<wgs:long>-60.84831</wgs:long>
+	<skos:prefLabel>Îlet Pelé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3570218/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.62723</wgs:lat>
+	<wgs:long>-60.85301</wgs:long>
+	<skos:prefLabel>Îlet Oscar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3570294/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.61667</wgs:lat>
+	<wgs:long>-60.86667</wgs:long>
+	<skos:altLabel>Îlet Aubin</skos:altLabel>
+	<skos:altLabel>Îlet Métrente</skos:altLabel>
+	<skos:prefLabel>Îlet Métrente</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3570311/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255149/"/>
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLD"/>
+	<europeana:population>432900</europeana:population>
+	<wgs:lat>14.66667</wgs:lat>
+	<wgs:long>-61</wgs:long>
+	<skos:altLabel>La Martinique</skos:altLabel>
+	<skos:altLabel>MQ</skos:altLabel>
+	<skos:altLabel xml:lang="es">Martinica</skos:altLabel>
+	<skos:altLabel xml:lang="it">Martinica</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Martinica</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Martinica</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Martinica</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Martinik</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Martinik</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Martinik</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Martinik</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Martinik</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Martinik</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Martinika</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Martinika</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Martiniko</skos:altLabel>
+	<skos:altLabel xml:lang="id">Martinique</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Martinique</skos:altLabel>
+	<skos:altLabel xml:lang="da">Martinique</skos:altLabel>
+	<skos:altLabel xml:lang="de">Martinique</skos:altLabel>
+	<skos:altLabel xml:lang="en">Martinique</skos:altLabel>
+	<skos:altLabel xml:lang="et">Martinique</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Martinique</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Martinique</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Martinique</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Martinique</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Martinique</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Martinique</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Martinique</skos:altLabel>
+	<skos:altLabel xml:lang="se">Martinique</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Martinique</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Martinique (francia)</skos:altLabel>
+	<skos:altLabel xml:lang="is">Martiník</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Martynika</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μαρτινίκα</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Мартиник</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Мартиник</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Мартиник</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Мартиника</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Мартініка</skos:altLabel>
+	<skos:altLabel xml:lang="be">Марцініка</skos:altLabel>
+	<skos:altLabel xml:lang="he">מרטיניק</skos:altLabel>
+	<skos:altLabel xml:lang="ar">مارتينيك</skos:altLabel>
+	<skos:altLabel xml:lang="fa">مارتینیک</skos:altLabel>
+	<skos:altLabel xml:lang="hi">मार्टीनिक</skos:altLabel>
+	<skos:altLabel xml:lang="bn">মার্টিনিক</skos:altLabel>
+	<skos:altLabel xml:lang="th">มาร์ตินีก</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ມາຕິນິກ</skos:altLabel>
+	<skos:altLabel xml:lang="ka">მარტინიკი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ማርቲኒክ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">マルティニーク島</skos:altLabel>
+	<skos:altLabel xml:lang="zh">马提尼克岛</skos:altLabel>
+	<skos:altLabel xml:lang="ko">말티니크</skos:altLabel>
+	<skos:prefLabel>Martinique</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3570312/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.66667</wgs:lat>
+	<wgs:long>-61</wgs:long>
+	<skos:altLabel>Island of Martinique</skos:altLabel>
+	<skos:altLabel>La Martinique</skos:altLabel>
+	<skos:altLabel xml:lang="an">Martinica</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Martinica</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Martinica</skos:altLabel>
+	<skos:altLabel xml:lang="es">Martinica</skos:altLabel>
+	<skos:altLabel xml:lang="it">Martinica</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Martinica</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Martinica</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Martinica - Martinique</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Martinik</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Martinik</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Martinik</skos:altLabel>
+	<skos:altLabel xml:lang="io">Martinik</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Martinik</skos:altLabel>
+	<skos:altLabel xml:lang="br">Martinik</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Martinik</skos:altLabel>
+	<skos:altLabel xml:lang="wo">Martinik</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Martinika</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Martinika</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Martiniko</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Martinique</skos:altLabel>
+	<skos:altLabel xml:lang="id">Martinique</skos:altLabel>
+	<skos:altLabel xml:lang="en">Martinique</skos:altLabel>
+	<skos:altLabel xml:lang="da">Martinique</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Martinique</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Martinique</skos:altLabel>
+	<skos:altLabel xml:lang="is">Martinique</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Martinique</skos:altLabel>
+	<skos:altLabel xml:lang="no">Martinique</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Martinique</skos:altLabel>
+	<skos:altLabel xml:lang="de">Martinique</skos:altLabel>
+	<skos:altLabel xml:lang="et">Martinique</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Martinique</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Martinique</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Martinique</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Martinique</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Martinique</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Martinique</skos:altLabel>
+	<skos:altLabel>Martinique</skos:altLabel>
+	<skos:altLabel>Martinique Island</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Martynika</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Matinik</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μαρτινίκα</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Мартиник</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Мартиника</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Мартиника</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Мартініка</skos:altLabel>
+	<skos:altLabel xml:lang="he">מרטיניק</skos:altLabel>
+	<skos:altLabel xml:lang="ar">مارتينيك</skos:altLabel>
+	<skos:altLabel xml:lang="ja">マルティニーク</skos:altLabel>
+	<skos:altLabel xml:lang="zh">馬提尼克</skos:altLabel>
+	<skos:altLabel xml:lang="ko">마르티니크</skos:altLabel>
+	<skos:prefLabel>Martinique</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3570319/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6690604/"/>
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<europeana:population>119269</europeana:population>
+	<wgs:lat>14.46667</wgs:lat>
+	<wgs:long>-60.86667</wgs:long>
+	<skos:altLabel>Le Marin</skos:altLabel>
+	<skos:prefLabel>Arrondissement du Marin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3570385/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.61187</wgs:lat>
+	<wgs:long>-60.85537</wgs:long>
+	<skos:prefLabel>Îlet Long</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3570397/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>14.54416</wgs:lat>
+	<wgs:long>-61.03658</wgs:long>
+	<skos:prefLabel>Les Trois Îlets</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3570412/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23814</europeana:population>
+	<wgs:lat>14.67751</wgs:lat>
+	<wgs:long>-60.94228</wgs:long>
+	<skos:altLabel>Robert</skos:altLabel>
+	<skos:prefLabel>Le Robert</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3570428/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>39229</europeana:population>
+	<wgs:lat>14.608</wgs:lat>
+	<wgs:long>-61.00933</wgs:long>
+	<skos:altLabel>Lamentin</skos:altLabel>
+	<skos:altLabel>Le Lamentin</skos:altLabel>
+	<skos:prefLabel>Le Lamentin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3570429/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19682</europeana:population>
+	<wgs:lat>14.61557</wgs:lat>
+	<wgs:long>-60.90308</wgs:long>
+	<skos:altLabel>François</skos:altLabel>
+	<skos:altLabel>Le François</skos:altLabel>
+	<skos:prefLabel>Le François</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3570439/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.63249</wgs:lat>
+	<wgs:long>-60.88741</wgs:long>
+	<skos:altLabel>Gros Îlet</skos:altLabel>
+	<skos:altLabel>Îlet Lavigne</skos:altLabel>
+	<skos:prefLabel>Îlet Lavigne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3570445/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6690604/"/>
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<europeana:population>86704</europeana:population>
+	<wgs:lat>14.73333</wgs:lat>
+	<wgs:long>-60.96667</wgs:long>
+	<skos:prefLabel>Arrondissement de La Trinité</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3570446/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15040</europeana:population>
+	<wgs:lat>14.73758</wgs:lat>
+	<wgs:long>-60.96286</wgs:long>
+	<skos:altLabel>La Trinité</skos:altLabel>
+	<skos:altLabel>Trinité</skos:altLabel>
+	<skos:prefLabel>La Trinité</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3570477/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.77622</wgs:lat>
+	<wgs:long>-60.87466</wgs:long>
+	<skos:prefLabel>Îlet Lapin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3570572/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.41699</wgs:lat>
+	<wgs:long>-60.83133</wgs:long>
+	<skos:prefLabel>Îlet Hardy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3570584/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11025</europeana:population>
+	<wgs:lat>14.7</wgs:lat>
+	<wgs:long>-61</wgs:long>
+	<skos:prefLabel>Le Gros-Morne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3570587/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.54841</wgs:lat>
+	<wgs:long>-61.01942</wgs:long>
+	<skos:prefLabel>Gros Îlet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3570645/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.73058</wgs:lat>
+	<wgs:long>-60.93292</wgs:long>
+	<skos:prefLabel>Îlet du Galion</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3570656/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.60591</wgs:lat>
+	<wgs:long>-60.86367</wgs:long>
+	<skos:prefLabel>Îlet Frégate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3570674/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6690604/"/>
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<europeana:population>167961</europeana:population>
+	<wgs:lat>14.6</wgs:lat>
+	<wgs:long>-61.08333</wgs:long>
+	<skos:altLabel>Arrondissement Martinique</skos:altLabel>
+	<skos:altLabel>Arrondissement du Sud</skos:altLabel>
+	<skos:prefLabel>Arrondissement de Fort-de-France</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3570675/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>89995</europeana:population>
+	<wgs:lat>14.60892</wgs:lat>
+	<wgs:long>-61.07334</wgs:long>
+	<skos:altLabel xml:lang="lt">For de Fransas</skos:altLabel>
+	<skos:altLabel>Fort Royal</skos:altLabel>
+	<skos:altLabel xml:lang="id">Fort-de-France</skos:altLabel>
+	<skos:altLabel xml:lang="en">Fort-de-France</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Fort-de-France</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Fort-de-France</skos:altLabel>
+	<skos:altLabel xml:lang="de">Fort-de-France</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Fort-de-France</skos:altLabel>
+	<skos:altLabel xml:lang="io">Fort-de-France</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Fort-de-France</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Fort-de-France</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Fort-de-France</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Fort-de-France</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Fort-de-France</skos:altLabel>
+	<skos:altLabel xml:lang="it">Fort-de-France</skos:altLabel>
+	<skos:altLabel xml:lang="da">Fort-de-France</skos:altLabel>
+	<skos:altLabel xml:lang="el">Fort-de-France</skos:altLabel>
+	<skos:altLabel xml:lang="es">Fort-de-France</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Fort-de-France</skos:altLabel>
+	<skos:altLabel>Le Fort-de-France</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Форт-де-Франс</skos:altLabel>
+	<skos:altLabel xml:lang="ja">フォール・ド・フランス</skos:altLabel>
+	<skos:altLabel xml:lang="ko">포르드프랑스</skos:altLabel>
+	<skos:prefLabel>Fort-de-France</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3570767/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.68333</wgs:lat>
+	<wgs:long>-60.9</wgs:long>
+	<skos:altLabel>Îlet a l'Eau</skos:altLabel>
+	<skos:altLabel>Îlet à Eau</skos:altLabel>
+	<skos:prefLabel>Îlet à Eau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3570771/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.45</wgs:lat>
+	<wgs:long>-60.88333</wgs:long>
+	<skos:prefLabel>Îlet Duquesnay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3570785/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17394</europeana:population>
+	<wgs:lat>14.57529</wgs:lat>
+	<wgs:long>-60.97453</wgs:long>
+	<skos:altLabel>Ducos</skos:altLabel>
+	<skos:prefLabel>Ducos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3570883/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>14.44424</wgs:lat>
+	<wgs:long>-60.81625</wgs:long>
+	<skos:prefLabel>Îlets aux Chiens</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3570885/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.43041</wgs:lat>
+	<wgs:long>-60.82734</wgs:long>
+	<skos:altLabel>Îlet Chevalier</skos:altLabel>
+	<skos:altLabel>Îlet Lézard</skos:altLabel>
+	<skos:altLabel>Îlet Lézards</skos:altLabel>
+	<skos:prefLabel>Îlet Chevalier</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3570901/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.67391</wgs:lat>
+	<wgs:long>-60.88008</wgs:long>
+	<skos:altLabel>Îlet Boisseau</skos:altLabel>
+	<skos:altLabel>Îlet des Chardons</skos:altLabel>
+	<skos:prefLabel>Îlet des Chardons</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3570978/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.39027</wgs:lat>
+	<wgs:long>-60.86742</wgs:long>
+	<skos:altLabel>Îlet Cabri</skos:altLabel>
+	<skos:altLabel>Îlet Cabrit</skos:altLabel>
+	<skos:altLabel>Îlet Cabrits</skos:altLabel>
+	<skos:prefLabel>Îlet Cabrits</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3571090/">
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.45</wgs:lat>
+	<wgs:long>-60.86667</wgs:long>
+	<skos:prefLabel>Îlet Baude</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690603/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3570311/"/>
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>397730</europeana:population>
+	<wgs:lat>14.66655</wgs:lat>
+	<wgs:long>-60.99961</wgs:long>
+	<skos:altLabel>Région Martinique</skos:altLabel>
+	<skos:prefLabel>Martinique</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690604/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6690603/"/>
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>397730</europeana:population>
+	<wgs:lat>14.66639</wgs:lat>
+	<wgs:long>-60.99985</wgs:long>
+	<skos:altLabel>Département de La Martinique</skos:altLabel>
+	<skos:altLabel xml:lang="es">Martinica</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Martinica</skos:altLabel>
+	<skos:altLabel xml:lang="it">Martinica</skos:altLabel>
+	<skos:prefLabel>Martinique</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690652/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3570445/"/>
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>1659</europeana:population>
+	<wgs:lat>14.8247</wgs:lat>
+	<wgs:long>-61.1144</wgs:long>
+	<skos:prefLabel>Ajoupa-Bouillon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690653/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3570319/"/>
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>3787</europeana:population>
+	<wgs:lat>14.4911</wgs:lat>
+	<wgs:long>-61.0803</wgs:long>
+	<skos:prefLabel>Les Anses-d'Arlet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690654/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3570445/"/>
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>3845</europeana:population>
+	<wgs:lat>14.8686</wgs:lat>
+	<wgs:long>-61.1203</wgs:long>
+	<skos:prefLabel>Basse-Pointe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690655/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3569906/"/>
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>3722</europeana:population>
+	<wgs:lat>14.7122</wgs:lat>
+	<wgs:long>-61.1831</wgs:long>
+	<skos:prefLabel>Le Carbet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690656/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3569906/"/>
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>4461</europeana:population>
+	<wgs:lat>14.6431</wgs:lat>
+	<wgs:long>-61.1389</wgs:long>
+	<skos:prefLabel>Case-Pilote</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690657/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3570319/"/>
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>5602</europeana:population>
+	<wgs:lat>14.48</wgs:lat>
+	<wgs:long>-61.0256</wgs:long>
+	<skos:prefLabel>Le Diamant</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690658/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3570319/"/>
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>16122</europeana:population>
+	<wgs:lat>14.5761</wgs:lat>
+	<wgs:long>-60.9758</wgs:long>
+	<skos:prefLabel>Ducos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690659/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3569906/"/>
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>881</europeana:population>
+	<wgs:lat>14.7389</wgs:lat>
+	<wgs:long>-61.1322</wgs:long>
+	<skos:prefLabel>Fonds-Saint-Denis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690660/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3570674/"/>
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>89794</europeana:population>
+	<wgs:lat>14.6072</wgs:lat>
+	<wgs:long>-61.0694</wgs:long>
+	<skos:prefLabel>Fort-de-France</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690661/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3570319/"/>
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>19333</europeana:population>
+	<wgs:lat>14.6153</wgs:lat>
+	<wgs:long>-60.9028</wgs:long>
+	<skos:prefLabel>Le François</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690662/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3570445/"/>
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>824</europeana:population>
+	<wgs:lat>14.8733</wgs:lat>
+	<wgs:long>-61.1814</wgs:long>
+	<skos:prefLabel>Grand'Rivière</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690663/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3570445/"/>
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>10765</europeana:population>
+	<wgs:lat>14.7081</wgs:lat>
+	<wgs:long>-61.0075</wgs:long>
+	<skos:prefLabel>Le Gros-Morne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690664/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3570674/"/>
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>39442</europeana:population>
+	<wgs:lat>14.6153</wgs:lat>
+	<wgs:long>-61.0019</wgs:long>
+	<skos:prefLabel>Le Lamentin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690665/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3570445/"/>
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>7716</europeana:population>
+	<wgs:lat>14.8328</wgs:lat>
+	<wgs:long>-61.0556</wgs:long>
+	<skos:prefLabel>Le Lorrain</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690666/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3570445/"/>
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>1296</europeana:population>
+	<wgs:lat>14.8761</wgs:lat>
+	<wgs:long>-61.145</wgs:long>
+	<skos:prefLabel>Macouba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690667/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3570445/"/>
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>3700</europeana:population>
+	<wgs:lat>14.8214</wgs:lat>
+	<wgs:long>-61.0283</wgs:long>
+	<skos:prefLabel>Marigot</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690668/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3570319/"/>
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>8769</europeana:population>
+	<wgs:lat>14.4714</wgs:lat>
+	<wgs:long>-60.8708</wgs:long>
+	<skos:prefLabel>Le Marin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690669/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3569906/"/>
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>5170</europeana:population>
+	<wgs:lat>14.7728</wgs:lat>
+	<wgs:long>-61.1347</wgs:long>
+	<skos:prefLabel>Le Morne-Rouge</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690670/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3569906/"/>
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>1699</europeana:population>
+	<wgs:lat>14.8011</wgs:lat>
+	<wgs:long>-61.2247</wgs:long>
+	<skos:prefLabel>Le Prêcheur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690671/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3570319/"/>
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>13621</europeana:population>
+	<wgs:lat>14.4869</wgs:lat>
+	<wgs:long>-60.9033</wgs:long>
+	<skos:prefLabel>Rivière-Pilote</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690672/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3570319/"/>
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>13106</europeana:population>
+	<wgs:lat>14.5289</wgs:lat>
+	<wgs:long>-60.9814</wgs:long>
+	<skos:prefLabel>Rivière-Salée</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690673/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3570445/"/>
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>24068</europeana:population>
+	<wgs:lat>14.6775</wgs:lat>
+	<wgs:long>-60.9392</wgs:long>
+	<skos:prefLabel>Le Robert</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690674/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3570319/"/>
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>8899</europeana:population>
+	<wgs:lat>14.5606</wgs:lat>
+	<wgs:long>-60.9372</wgs:long>
+	<skos:prefLabel>Saint-Esprit</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690675/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3570674/"/>
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>17215</europeana:population>
+	<wgs:lat>14.6708</wgs:lat>
+	<wgs:long>-61.0381</wgs:long>
+	<skos:prefLabel>Saint-Joseph</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690676/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3569906/"/>
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>4539</europeana:population>
+	<wgs:lat>14.7431</wgs:lat>
+	<wgs:long>-61.1753</wgs:long>
+	<skos:prefLabel>Saint-Pierre</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690677/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3570319/"/>
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>4963</europeana:population>
+	<wgs:lat>14.4353</wgs:lat>
+	<wgs:long>-60.8814</wgs:long>
+	<skos:prefLabel>Sainte-Anne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690678/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3570319/"/>
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>9165</europeana:population>
+	<wgs:lat>14.4683</wgs:lat>
+	<wgs:long>-60.9217</wgs:long>
+	<skos:prefLabel>Sainte-Luce</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690679/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3570445/"/>
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>19249</europeana:population>
+	<wgs:lat>14.7814</wgs:lat>
+	<wgs:long>-60.9936</wgs:long>
+	<skos:prefLabel>Sainte-Marie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690680/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3570674/"/>
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>21510</europeana:population>
+	<wgs:lat>14.6161</wgs:lat>
+	<wgs:long>-61.1014</wgs:long>
+	<skos:altLabel>Case-Navire</skos:altLabel>
+	<skos:prefLabel>Schœlcher</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690681/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3570445/"/>
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>13582</europeana:population>
+	<wgs:lat>14.7386</wgs:lat>
+	<wgs:long>-60.9631</wgs:long>
+	<skos:prefLabel>La Trinité</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690682/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3570319/"/>
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>7084</europeana:population>
+	<wgs:lat>14.5381</wgs:lat>
+	<wgs:long>-61.0344</wgs:long>
+	<skos:prefLabel>Les Trois-Îlets</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690683/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3570319/"/>
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>8818</europeana:population>
+	<wgs:lat>14.545</wgs:lat>
+	<wgs:long>-60.84</wgs:long>
+	<skos:prefLabel>Le Vauclin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690684/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3569906/"/>
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>1862</europeana:population>
+	<wgs:lat>14.7075</wgs:lat>
+	<wgs:long>-61.1444</wgs:long>
+	<skos:prefLabel>Le Morne-Vert</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690685/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3569906/"/>
+	<europeana:country>MQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>1462</europeana:population>
+	<wgs:lat>14.6739</wgs:lat>
+	<wgs:long>-61.1644</wgs:long>
+	<skos:prefLabel>Bellefontaine</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 90 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

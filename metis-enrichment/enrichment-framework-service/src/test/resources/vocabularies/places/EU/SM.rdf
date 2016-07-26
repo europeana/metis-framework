@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: EU_SM
+Description: Selected fields pulled from Geonames about SM done on Mon May 23 21:12:51 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/3166650/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3168068/"/>
+	<europeana:country>SM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>9566</europeana:population>
+	<wgs:lat>43.96667</wgs:lat>
+	<wgs:long>12.46667</wgs:long>
+	<skos:altLabel>Castello di Serravalle</skos:altLabel>
+	<skos:altLabel>Serravalle</skos:altLabel>
+	<skos:prefLabel>Castello di Serravalle</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3168068/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3168068/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255148/"/>
+	<europeana:country>SM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>31477</europeana:population>
+	<wgs:lat>43.93333</wgs:lat>
+	<wgs:long>12.41667</wgs:long>
+	<skos:altLabel>Most Serene Republic of San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="it">Repubblica di San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="ca">República de San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="la">Res publica Sancti Marini</skos:altLabel>
+	<skos:altLabel>SM</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Saint-Marin</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Saluda-Marinän</skos:altLabel>
+	<skos:altLabel xml:lang="ga">San Mairíne</skos:altLabel>
+	<skos:altLabel xml:lang="lt">San Marinas</skos:altLabel>
+	<skos:altLabel xml:lang="id">San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="es">San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="it">San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="cy">San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="de">San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="en">San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="hr">San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="ms">San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="nb">San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="nn">San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="pt">San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="sl">San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="sv">San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="cs">San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="da">San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="et">San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="fi">San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="hu">San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="mt">San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="nl">San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="pl">San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="ro">San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="tr">San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="an">San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="bs">San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="eu">San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="io">San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="fy">San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="kw">San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="li">San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="no">San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="sq">San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="tl">San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="ca">San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="vi">San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="oc">San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="qu">San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="sw">San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="af">San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="gl">San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="ia">San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="se">San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="gl">San Mariño - San Marino</skos:altLabel>
+	<skos:altLabel xml:lang="sk">San Maríno</skos:altLabel>
+	<skos:altLabel xml:lang="is">San Marínó</skos:altLabel>
+	<skos:altLabel xml:lang="eo">San-Marino</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Sanmarīno</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Sant Marin</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Sen Marin</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Xan Ma-ri-nô</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Xan Ma-ri-nô (San Marino)</skos:altLabel>
+	<skos:altLabel xml:lang="el">Άγιος Μαρίνος</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Сан Марино</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Сан Марино</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Сан Марино</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сан-Марино</skos:altLabel>
+	<skos:altLabel xml:lang="kk">Сан-Марино</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Сан-Марино</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Сан-Маріно</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Սան Մարինո</skos:altLabel>
+	<skos:altLabel xml:lang="he">סאן מארינו</skos:altLabel>
+	<skos:altLabel xml:lang="he">סן מרינו</skos:altLabel>
+	<skos:altLabel xml:lang="ug">سان مارىنو</skos:altLabel>
+	<skos:altLabel xml:lang="ar">سان مارينو</skos:altLabel>
+	<skos:altLabel xml:lang="fa">سان مارینو</skos:altLabel>
+	<skos:altLabel xml:lang="ur">سان میرینو</skos:altLabel>
+	<skos:altLabel xml:lang="ne">सान मरिनो</skos:altLabel>
+	<skos:altLabel xml:lang="sa">सान मरीनो</skos:altLabel>
+	<skos:altLabel xml:lang="hi">सान मारिनो</skos:altLabel>
+	<skos:altLabel xml:lang="hi">सैन मरिनो</skos:altLabel>
+	<skos:altLabel xml:lang="hi">सैन मेरीनो</skos:altLabel>
+	<skos:altLabel xml:lang="bn">সান মরিনো</skos:altLabel>
+	<skos:altLabel xml:lang="ta">சான்மெரினோ</skos:altLabel>
+	<skos:altLabel xml:lang="th">ซานมารีโน</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศซานมารีโน</skos:altLabel>
+	<skos:altLabel xml:lang="bo">སན་མེ་རི་ནོ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">სან-მარინო</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሳን ማሪኖ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">サンマリノ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">サンマリノ共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">圣马力诺</skos:altLabel>
+	<skos:altLabel xml:lang="ko">산마리노</skos:altLabel>
+	<skos:prefLabel>Repubblica di San Marino</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3178807/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3168068/"/>
+	<europeana:country>SM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>981</europeana:population>
+	<wgs:lat>43.91667</wgs:lat>
+	<wgs:long>12.41667</wgs:long>
+	<skos:altLabel>Castello di Chiesanuova</skos:altLabel>
+	<skos:altLabel>Chiesanuova</skos:altLabel>
+	<skos:altLabel xml:lang="es">Chiesanuova</skos:altLabel>
+	<skos:altLabel xml:lang="de">Chiesanuova</skos:altLabel>
+	<skos:altLabel xml:lang="it">Chiesanuova</skos:altLabel>
+	<skos:altLabel xml:lang="no">Chiesanuova</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Chiesanuova</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Chiesanuova</skos:altLabel>
+	<skos:altLabel xml:lang="en">Chiesanuova</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Chiesanuova</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Chiesanuova</skos:altLabel>
+	<skos:prefLabel>Castello di Chiesanuova</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3345302/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3168068/"/>
+	<europeana:country>SM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>43.93333</wgs:lat>
+	<wgs:long>12.45</wgs:long>
+	<skos:altLabel xml:lang="ca">Castell de San Marino</skos:altLabel>
+	<skos:altLabel>Castello di San Marino</skos:altLabel>
+	<skos:altLabel>Castello di San Marino Città</skos:altLabel>
+	<skos:altLabel>Città di San Marino</skos:altLabel>
+	<skos:altLabel>San Marino</skos:altLabel>
+	<skos:prefLabel>Castello di San Marino Città</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3345303/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3168068/"/>
+	<europeana:country>SM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1578</europeana:population>
+	<wgs:lat>43.95</wgs:lat>
+	<wgs:long>12.41667</wgs:long>
+	<skos:altLabel xml:lang="ca">Acquaviva</skos:altLabel>
+	<skos:altLabel>Acquaviva</skos:altLabel>
+	<skos:altLabel>Castello di Acquaviva</skos:altLabel>
+	<skos:prefLabel>Castello di Acquaviva</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3345304/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3168068/"/>
+	<europeana:country>SM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>6828</europeana:population>
+	<wgs:lat>43.94092</wgs:lat>
+	<wgs:long>12.44562</wgs:long>
+	<skos:altLabel>Borgo Maggiore</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Castell de Borgo Maggiore</skos:altLabel>
+	<skos:prefLabel>Castello di Borgo Maggiore</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3345305/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3168068/"/>
+	<europeana:country>SM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>2808</europeana:population>
+	<wgs:lat>43.95417</wgs:lat>
+	<wgs:long>12.48333</wgs:long>
+	<skos:altLabel>Castello di Domagnano</skos:altLabel>
+	<skos:altLabel>Domagnano</skos:altLabel>
+	<skos:prefLabel>Castello di Domagnano</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3345306/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3168068/"/>
+	<europeana:country>SM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1010</europeana:population>
+	<wgs:lat>43.9251</wgs:lat>
+	<wgs:long>12.49849</wgs:long>
+	<skos:altLabel>Faetano</skos:altLabel>
+	<skos:prefLabel>Castello di Faetano</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3345307/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3168068/"/>
+	<europeana:country>SM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>2147</europeana:population>
+	<wgs:lat>43.91144</wgs:lat>
+	<wgs:long>12.45652</wgs:long>
+	<skos:altLabel>Fiorentino</skos:altLabel>
+	<skos:prefLabel>Castello di Fiorentino</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3345308/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3168068/"/>
+	<europeana:country>SM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>796</europeana:population>
+	<wgs:lat>43.90902</wgs:lat>
+	<wgs:long>12.47412</wgs:long>
+	<skos:altLabel>Montegiardino</skos:altLabel>
+	<skos:prefLabel>Castello di Montegiardino</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 9 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

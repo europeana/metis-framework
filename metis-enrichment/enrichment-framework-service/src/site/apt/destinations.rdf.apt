@@ -1,0 +1,22 @@
+            ------
+            Destination: RDF file
+            ------
+ 
+ RDF file is the default destination.
+ Conversion output is typically saved into several RDF files.
+ These files are, in turn split into volumes.
+
++------------------------------------------------------------------+
+<ac:destinations rdf:parseType="Collection">
+  <ac:RdfGraph rdf:about="Records">
+    <ac:comment>Catalog records about books</ac:comment>
+  </ac:RdfGraph>  
+  <ac:RdfGraph rdf:about="Authors">
+    <ac:comment>Authors of the books</ac:comment>
+  </ac:RdfGraph>  
+  <ac:RdfGraph rdf:about="LinksRecordToAuthor">
+    <ac:comment>Links between the catalog records and authors</ac:comment>
+  </ac:RdfGraph>  
+</ac:destinations>
++------------------------------------------------------------------+
+ 

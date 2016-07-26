@@ -1,0 +1,1088 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AF_GM
+Description: Selected fields pulled from Geonames about GM done on Mon May 23 21:16:13 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/2411671/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2411711/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>37033</europeana:population>
+	<wgs:lat>13.5</wgs:lat>
+	<wgs:long>-14.08333</wgs:long>
+	<skos:prefLabel>Wuli</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2411683/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>13.25</wgs:lat>
+	<wgs:long>-16.33333</wgs:long>
+	<skos:altLabel>Western</skos:altLabel>
+	<skos:altLabel>Western Division</skos:altLabel>
+	<skos:prefLabel>Western Division</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2411710/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2412707/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>16539</europeana:population>
+	<wgs:lat>13.75</wgs:lat>
+	<wgs:long>-15.2</wgs:long>
+	<skos:prefLabel>Upper Saloum</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2411711/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>187972</europeana:population>
+	<wgs:lat>13.33333</wgs:lat>
+	<wgs:long>-14.16667</wgs:long>
+	<skos:altLabel xml:lang="en">Upper River</skos:altLabel>
+	<skos:altLabel>Upper River Division</skos:altLabel>
+	<skos:prefLabel>Upper River Division</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2411712/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2412353/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>25542</europeana:population>
+	<wgs:lat>13.4</wgs:lat>
+	<wgs:long>-16.33333</wgs:long>
+	<skos:altLabel>Mandingo State</skos:altLabel>
+	<skos:altLabel>Niumi</skos:altLabel>
+	<skos:altLabel>Upper Niumi District</skos:altLabel>
+	<skos:prefLabel>Upper Niumi District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2411714/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2412353/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>55133</europeana:population>
+	<wgs:lat>13.55</wgs:lat>
+	<wgs:long>-15.66667</wgs:long>
+	<skos:prefLabel>Upper Baddibu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2411880/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15131</europeana:population>
+	<wgs:lat>13.41033</wgs:lat>
+	<wgs:long>-16.70815</wgs:long>
+	<skos:altLabel>Dembadu</skos:altLabel>
+	<skos:altLabel>Sabiji</skos:altLabel>
+	<skos:altLabel>Sukuta</skos:altLabel>
+	<skos:altLabel>Sukuto</skos:altLabel>
+	<skos:altLabel>Sukutta</skos:altLabel>
+	<skos:prefLabel>Sukuta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2411990/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.55</wgs:lat>
+	<wgs:long>-14.86667</wgs:long>
+	<skos:prefLabel>Sepu Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2412154/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.26806</wgs:lat>
+	<wgs:long>-16.39778</wgs:long>
+	<skos:prefLabel>Sansankoto Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2412176/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2411711/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>19025</europeana:population>
+	<wgs:lat>13.41667</wgs:lat>
+	<wgs:long>-14.36667</wgs:long>
+	<skos:prefLabel>Sandu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2412201/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2412707/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>19605</europeana:population>
+	<wgs:lat>13.58333</wgs:lat>
+	<wgs:long>-14.58333</wgs:long>
+	<skos:prefLabel>Sami</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2412237/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.45417</wgs:lat>
+	<wgs:long>-16.60833</wgs:long>
+	<skos:altLabel>Banjul Island</skos:altLabel>
+	<skos:altLabel>Saint Mary Island</skos:altLabel>
+	<skos:altLabel>Saint Marys Island</skos:altLabel>
+	<skos:prefLabel>Banjul Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2412282/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.66667</wgs:lat>
+	<wgs:long>-15.13333</wgs:long>
+	<skos:prefLabel>Pasul Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2412289/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.7</wgs:lat>
+	<wgs:long>-15.08333</wgs:long>
+	<skos:prefLabel>Pasari Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2412291/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.63333</wgs:lat>
+	<wgs:long>-15.23333</wgs:long>
+	<skos:prefLabel>Pappa Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2412294/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.55</wgs:lat>
+	<wgs:long>-14.8</wgs:long>
+	<skos:prefLabel>Pangon Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2412353/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>13.5</wgs:lat>
+	<wgs:long>-16</wgs:long>
+	<skos:altLabel>North Bank</skos:altLabel>
+	<skos:altLabel>North Bank Division</skos:altLabel>
+	<skos:prefLabel>North Bank Division</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2412358/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.65</wgs:lat>
+	<wgs:long>-15.25</wgs:long>
+	<skos:prefLabel>N’Jubdu Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2412420/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2412707/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>8503</europeana:population>
+	<wgs:lat>13.75</wgs:lat>
+	<wgs:long>-15.08333</wgs:long>
+	<skos:prefLabel>Nianija</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2412421/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2412707/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>22789</europeana:population>
+	<wgs:lat>13.66667</wgs:lat>
+	<wgs:long>-14.91667</wgs:long>
+	<skos:prefLabel>Niani</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2412422/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2412707/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>6727</europeana:population>
+	<wgs:lat>13.58333</wgs:lat>
+	<wgs:long>-15.25</wgs:long>
+	<skos:altLabel>Niamina West</skos:altLabel>
+	<skos:altLabel>Western Niamina</skos:altLabel>
+	<skos:prefLabel>Niamina West</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2412423/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2412707/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>19679</europeana:population>
+	<wgs:lat>13.63333</wgs:lat>
+	<wgs:long>-15.08333</wgs:long>
+	<skos:altLabel>Eastern Niamina</skos:altLabel>
+	<skos:altLabel>Niamina East</skos:altLabel>
+	<skos:prefLabel>Niamina East</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2412424/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2412707/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.58333</wgs:lat>
+	<wgs:long>-15.33333</wgs:long>
+	<skos:altLabel>Dankunku Niamina</skos:altLabel>
+	<skos:altLabel>Dunkunku Niamina</skos:altLabel>
+	<skos:altLabel>Niamina Dankunku</skos:altLabel>
+	<skos:prefLabel>Niamina Dankunku</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2412494/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>13.55</wgs:lat>
+	<wgs:long>-14.56667</wgs:long>
+	<skos:altLabel>Mungo Memorial Park</skos:altLabel>
+	<skos:altLabel>Mungo Park Memorial</skos:altLabel>
+	<skos:prefLabel>Mungo Park Memorial</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2412529/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.58333</wgs:lat>
+	<wgs:long>-14.91667</wgs:long>
+	<skos:altLabel>Mimang Island</skos:altLabel>
+	<skos:altLabel>Miniang Island</skos:altLabel>
+	<skos:prefLabel>Mimang Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2412707/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>3584</europeana:population>
+	<wgs:lat>13.58333</wgs:lat>
+	<wgs:long>-14.91667</wgs:long>
+	<skos:altLabel>Central River</skos:altLabel>
+	<skos:altLabel>Central River Division</skos:altLabel>
+	<skos:altLabel>MacCarthy Island Division</skos:altLabel>
+	<skos:prefLabel>Central River Division</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2412708/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.53333</wgs:lat>
+	<wgs:long>-14.76667</wgs:long>
+	<skos:altLabel>Jangjanbure</skos:altLabel>
+	<skos:altLabel>Jangjangbure</skos:altLabel>
+	<skos:altLabel>Janjangbure</skos:altLabel>
+	<skos:altLabel>MacCarthy Island</skos:altLabel>
+	<skos:altLabel>MacCarthy’s Island</skos:altLabel>
+	<skos:prefLabel>MacCarthy Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2412715/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2412707/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>13274</europeana:population>
+	<wgs:lat>13.71667</wgs:lat>
+	<wgs:long>-15.36667</wgs:long>
+	<skos:prefLabel>Lower Saloum</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2412716/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>73474</europeana:population>
+	<wgs:lat>13.36667</wgs:lat>
+	<wgs:long>-15.66667</wgs:long>
+	<skos:altLabel>Central Division</skos:altLabel>
+	<skos:altLabel>Lower River</skos:altLabel>
+	<skos:altLabel>Lower River Division</skos:altLabel>
+	<skos:prefLabel>Lower River Division</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2412717/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2412353/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>46280</europeana:population>
+	<wgs:lat>13.53333</wgs:lat>
+	<wgs:long>-16.41667</wgs:long>
+	<skos:altLabel>Lower Niumi District</skos:altLabel>
+	<skos:altLabel>Mandingo State</skos:altLabel>
+	<skos:altLabel>Niumi</skos:altLabel>
+	<skos:prefLabel>Lower Niumi District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2412718/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2412353/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>15260</europeana:population>
+	<wgs:lat>13.5</wgs:lat>
+	<wgs:long>-16.05</wgs:long>
+	<skos:prefLabel>Lower Baddibu District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2412722/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.66667</wgs:lat>
+	<wgs:long>-15.28333</wgs:long>
+	<skos:prefLabel>Little Pappa Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2412745/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.41833</wgs:lat>
+	<wgs:long>-16.60778</wgs:long>
+	<skos:prefLabel>Lamin Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2412749/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>24797</europeana:population>
+	<wgs:lat>13.35222</wgs:lat>
+	<wgs:long>-16.43389</wgs:long>
+	<skos:prefLabel>Lamin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2412849/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2411683/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>67244</europeana:population>
+	<wgs:lat>13.25</wgs:lat>
+	<wgs:long>-16.75</wgs:long>
+	<skos:altLabel>Kombo South District</skos:altLabel>
+	<skos:altLabel>South Kombo</skos:altLabel>
+	<skos:prefLabel>Kombo South District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2412850/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2411683/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>187065</europeana:population>
+	<wgs:lat>13.36667</wgs:lat>
+	<wgs:long>-16.66667</wgs:long>
+	<skos:altLabel>Kombo North District</skos:altLabel>
+	<skos:altLabel>North Kombo</skos:altLabel>
+	<skos:prefLabel>Kombo North District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2412851/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2411683/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>29387</europeana:population>
+	<wgs:lat>13.21667</wgs:lat>
+	<wgs:long>-16.51667</wgs:long>
+	<skos:altLabel>East Kombo</skos:altLabel>
+	<skos:altLabel>Kombo East</skos:altLabel>
+	<skos:prefLabel>Kombo East</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2412852/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2411683/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>89828</europeana:population>
+	<wgs:lat>13.25</wgs:lat>
+	<wgs:long>-16.66667</wgs:long>
+	<skos:altLabel>Central Kombo</skos:altLabel>
+	<skos:altLabel>Kombo Central District</skos:altLabel>
+	<skos:prefLabel>Kombo Central District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2412885/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2412716/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>14842</europeana:population>
+	<wgs:lat>13.33333</wgs:lat>
+	<wgs:long>-16</wgs:long>
+	<skos:prefLabel>Kiang West</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2412886/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2412716/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>6521</europeana:population>
+	<wgs:lat>13.41667</wgs:lat>
+	<wgs:long>-15.63333</wgs:long>
+	<skos:altLabel>Eastern Kiang</skos:altLabel>
+	<skos:altLabel>Kiang East</skos:altLabel>
+	<skos:prefLabel>Kiang East</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2412887/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2412716/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>7946</europeana:population>
+	<wgs:lat>13.4</wgs:lat>
+	<wgs:long>-15.75</wgs:long>
+	<skos:altLabel>Central Kiang</skos:altLabel>
+	<skos:altLabel>Kiang Central</skos:altLabel>
+	<skos:prefLabel>Kiang Central</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2413088/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2411711/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>31079</europeana:population>
+	<wgs:lat>13.41667</wgs:lat>
+	<wgs:long>-13.91667</wgs:long>
+	<skos:prefLabel>Kantora</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2413146/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.56667</wgs:lat>
+	<wgs:long>-14.88333</wgs:long>
+	<skos:prefLabel>Kajakat Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2413152/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>13.55</wgs:lat>
+	<wgs:long>-14.88333</wgs:long>
+	<skos:altLabel>Ka-ai Islands</skos:altLabel>
+	<skos:altLabel>Kai Hai Island</skos:altLabel>
+	<skos:altLabel>Kai Hai Islands</skos:altLabel>
+	<skos:altLabel>Xa-ai Islands</skos:altLabel>
+	<skos:prefLabel>Kai Hai Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2413213/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2412353/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>18406</europeana:population>
+	<wgs:lat>13.53333</wgs:lat>
+	<wgs:long>-16.18333</wgs:long>
+	<skos:altLabel>Joka</skos:altLabel>
+	<skos:altLabel>Jokadu</skos:altLabel>
+	<skos:prefLabel>Jokadu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2413266/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2412716/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>24983</europeana:population>
+	<wgs:lat>13.41667</wgs:lat>
+	<wgs:long>-15.53333</wgs:long>
+	<skos:altLabel>Jarra West</skos:altLabel>
+	<skos:altLabel>Western Jarra</skos:altLabel>
+	<skos:prefLabel>Jarra West</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2413267/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2412716/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>12655</europeana:population>
+	<wgs:lat>13.41667</wgs:lat>
+	<wgs:long>-15.25</wgs:long>
+	<skos:altLabel>Eastern Jarra</skos:altLabel>
+	<skos:altLabel>Jarra East</skos:altLabel>
+	<skos:prefLabel>Jarra East</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2413268/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2412716/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>6527</europeana:population>
+	<wgs:lat>13.41667</wgs:lat>
+	<wgs:long>-15.41667</wgs:long>
+	<skos:altLabel>Central Jarra</skos:altLabel>
+	<skos:altLabel>Jarra Central</skos:altLabel>
+	<skos:prefLabel>Jarra Central</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2413419/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14088</europeana:population>
+	<wgs:lat>13.20194</wgs:lat>
+	<wgs:long>-16.73389</wgs:long>
+	<skos:prefLabel>Gunjur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2413451/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255146/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>1593256</europeana:population>
+	<wgs:lat>13.5</wgs:lat>
+	<wgs:long>-15.5</wgs:long>
+	<skos:altLabel xml:lang="ga">An Ghaimbia</skos:altLabel>
+	<skos:altLabel>GM</skos:altLabel>
+	<skos:altLabel xml:lang="wo">Gaambi</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Gambi</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Gambi</skos:altLabel>
+	<skos:altLabel xml:lang="id">Gambia</skos:altLabel>
+	<skos:altLabel xml:lang="es">Gambia</skos:altLabel>
+	<skos:altLabel>Gambia</skos:altLabel>
+	<skos:altLabel xml:lang="da">Gambia</skos:altLabel>
+	<skos:altLabel xml:lang="et">Gambia</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Gambia</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Gambia</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Gambia</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Gambia</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Gambia</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Gambia</skos:altLabel>
+	<skos:altLabel xml:lang="de">Gambia</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Gambia</skos:altLabel>
+	<skos:altLabel xml:lang="it">Gambia</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Gambia</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Gambia</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Gambia</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Gambia</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Gambia</skos:altLabel>
+	<skos:altLabel xml:lang="an">Gambia</skos:altLabel>
+	<skos:altLabel xml:lang="io">Gambia</skos:altLabel>
+	<skos:altLabel xml:lang="la">Gambia</skos:altLabel>
+	<skos:altLabel xml:lang="na">Gambia</skos:altLabel>
+	<skos:altLabel xml:lang="no">Gambia</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Gambia</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Gambia</skos:altLabel>
+	<skos:altLabel xml:lang="li">Gambia</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Gambia</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Gambia</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Gambia</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Gambia</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Gambia</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Gambia</skos:altLabel>
+	<skos:altLabel xml:lang="ln">Gambia</skos:altLabel>
+	<skos:altLabel xml:lang="se">Gambia</skos:altLabel>
+	<skos:altLabel xml:lang="en">Gambia</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Gambia - The Gambia</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Gambie</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Gambie</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Gambija</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Gambija</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Gambija</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Gambija</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Gambija</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Gambija</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Gambio</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Gambiya</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Gambiya</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Gambiyän</skos:altLabel>
+	<skos:altLabel xml:lang="af">Gambië</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Gambja</skos:altLabel>
+	<skos:altLabel xml:lang="is">Gambía</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Ganbia</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Gàmbia</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Gàmbia</skos:altLabel>
+	<skos:altLabel xml:lang="se">Gámbia</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Gâmbia</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Găm-bi-a</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Găm-bi-a (Gambia)</skos:altLabel>
+	<skos:altLabel xml:lang="en">Republic of The Gambia</skos:altLabel>
+	<skos:altLabel xml:lang="en">The Gambia</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Y Gambia</skos:altLabel>
+	<skos:altLabel xml:lang="el">Γκάμπια</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Гамбия</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гамбия</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Гамбия</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Гамбија</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Гамбија</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Гамбія</skos:altLabel>
+	<skos:altLabel xml:lang="be">Гамбія</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Ґамбія</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Գամբիա</skos:altLabel>
+	<skos:altLabel xml:lang="he">גאמביה</skos:altLabel>
+	<skos:altLabel xml:lang="he">גמביה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">غامبيا</skos:altLabel>
+	<skos:altLabel xml:lang="ps">ګامبيا</skos:altLabel>
+	<skos:altLabel xml:lang="ug">گامبىيە</skos:altLabel>
+	<skos:altLabel xml:lang="fa">گامبیا</skos:altLabel>
+	<skos:altLabel xml:lang="fa">گمبیا</skos:altLabel>
+	<skos:altLabel xml:lang="ur">گیمبیا</skos:altLabel>
+	<skos:altLabel xml:lang="hi">गाम्बिया</skos:altLabel>
+	<skos:altLabel xml:lang="bn">গাম্বিয়া</skos:altLabel>
+	<skos:altLabel xml:lang="bn">গ্যাম্বিয়া</skos:altLabel>
+	<skos:altLabel xml:lang="ta">காம்பியா</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ഗാംബിയ</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศแกมเบีย</skos:altLabel>
+	<skos:altLabel xml:lang="th">แกมเบีย</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ແກມເບຍ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">གྷམ་བི་ཡ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">გამბია</skos:altLabel>
+	<skos:altLabel xml:lang="am">ጋምቢያ</skos:altLabel>
+	<skos:altLabel xml:lang="km">ហ្គាំប៊ី</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ガンビア</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ガンビア共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">冈比亚</skos:altLabel>
+	<skos:altLabel xml:lang="zh">冈比亚共和国</skos:altLabel>
+	<skos:altLabel xml:lang="ko">감비아</skos:altLabel>
+	<skos:prefLabel>Gambia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2413461/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2412707/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>73965</europeana:population>
+	<wgs:lat>13.5</wgs:lat>
+	<wgs:long>-14.75</wgs:long>
+	<skos:prefLabel>Fulladu West</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2413462/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2411711/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>100835</europeana:population>
+	<wgs:lat>13.33333</wgs:lat>
+	<wgs:long>-14.25</wgs:long>
+	<skos:prefLabel>Fulladu East</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2413472/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.31694</wgs:lat>
+	<wgs:long>-16.36278</wgs:long>
+	<skos:altLabel>Fort James Island</skos:altLabel>
+	<skos:altLabel>James Islet</skos:altLabel>
+	<skos:altLabel>Sandi Munk Island</skos:altLabel>
+	<skos:prefLabel>Fort James Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2413477/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2411683/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>13192</europeana:population>
+	<wgs:lat>13.21667</wgs:lat>
+	<wgs:long>-16.05</wgs:long>
+	<skos:prefLabel>Foni Kansala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2413478/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2411683/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>6314</europeana:population>
+	<wgs:lat>13.23333</wgs:lat>
+	<wgs:long>-15.83333</wgs:long>
+	<skos:prefLabel>Foni Jarrol</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2413479/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2411683/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>11920</europeana:population>
+	<wgs:lat>13.21667</wgs:lat>
+	<wgs:long>-16.33333</wgs:long>
+	<skos:prefLabel>Foni Brefet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2413480/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2411683/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>6301</europeana:population>
+	<wgs:lat>13.21667</wgs:lat>
+	<wgs:long>-15.93333</wgs:long>
+	<skos:prefLabel>Foni Bondali</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2413481/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2411683/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.25</wgs:lat>
+	<wgs:long>-16.21667</wgs:long>
+	<skos:prefLabel>Foni Bintang-Karenai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2413515/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>29867</europeana:population>
+	<wgs:lat>13.56667</wgs:lat>
+	<wgs:long>-15.6</wgs:long>
+	<skos:altLabel>Farafenni</skos:altLabel>
+	<skos:prefLabel>Farafenni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2413536/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.45</wgs:lat>
+	<wgs:long>-15.33333</wgs:long>
+	<skos:prefLabel>Elephant Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2413555/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.36472</wgs:lat>
+	<wgs:long>-16.51139</wgs:long>
+	<skos:altLabel>Charles Island</skos:altLabel>
+	<skos:altLabel>Dog Island</skos:altLabel>
+	<skos:prefLabel>Dog Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2413607/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>13.71667</wgs:lat>
+	<wgs:long>-15.05</wgs:long>
+	<skos:altLabel>Deer Island</skos:altLabel>
+	<skos:altLabel>Deer Islands</skos:altLabel>
+	<skos:prefLabel>Deer Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2413637/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.425</wgs:lat>
+	<wgs:long>-16.61056</wgs:long>
+	<skos:prefLabel>Daranka Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2413640/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2412353/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.56667</wgs:lat>
+	<wgs:long>-16</wgs:long>
+	<skos:prefLabel>Dappo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2413641/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2412353/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.48333</wgs:lat>
+	<wgs:long>-16.35</wgs:long>
+	<skos:prefLabel>Dappo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2413642/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.56667</wgs:lat>
+	<wgs:long>-15.36667</wgs:long>
+	<skos:altLabel>Dankunku Island</skos:altLabel>
+	<skos:altLabel>Sea Horse Island</skos:altLabel>
+	<skos:prefLabel>Dankunku Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2413657/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.42972</wgs:lat>
+	<wgs:long>-16.60972</wgs:long>
+	<skos:prefLabel>Chitabong Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2413686/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2412353/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>14943</europeana:population>
+	<wgs:lat>13.53333</wgs:lat>
+	<wgs:long>-15.91667</wgs:long>
+	<skos:prefLabel>Central Baddibu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2413747/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.58333</wgs:lat>
+	<wgs:long>-14.96667</wgs:long>
+	<skos:altLabel>Brikama Island</skos:altLabel>
+	<skos:altLabel>Brikana Island</skos:altLabel>
+	<skos:prefLabel>Brikama Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2413753/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>77700</europeana:population>
+	<wgs:lat>13.27136</wgs:lat>
+	<wgs:long>-16.64944</wgs:long>
+	<skos:altLabel xml:lang="en">Brikama</skos:altLabel>
+	<skos:altLabel xml:lang="de">Brikama</skos:altLabel>
+	<skos:altLabel xml:lang="et">Brikama</skos:altLabel>
+	<skos:altLabel>Brikama</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Брикаме</skos:altLabel>
+	<skos:prefLabel>Brikama</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2413780/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.71667</wgs:lat>
+	<wgs:long>-14.93333</wgs:long>
+	<skos:prefLabel>Bird Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2413786/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>13.38528</wgs:lat>
+	<wgs:long>-16.81694</wgs:long>
+	<skos:altLabel>Bijal Islands</skos:altLabel>
+	<skos:altLabel>Bijol Islands</skos:altLabel>
+	<skos:prefLabel>Bijol Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2413818/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>14380</europeana:population>
+	<wgs:lat>13.30995</wgs:lat>
+	<wgs:long>-14.21373</wgs:long>
+	<skos:altLabel>Basse</skos:altLabel>
+	<skos:altLabel xml:lang="de">Basse Santa Su</skos:altLabel>
+	<skos:altLabel xml:lang="en">Basse Santa Su</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Basse Santa Su</skos:altLabel>
+	<skos:altLabel>Basse Santa Su</skos:altLabel>
+	<skos:prefLabel>Basse Santa Su</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2413875/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>34589</europeana:population>
+	<wgs:lat>13.45</wgs:lat>
+	<wgs:long>-16.58333</wgs:long>
+	<skos:altLabel>Banjul</skos:altLabel>
+	<skos:altLabel>City of Banjul</skos:altLabel>
+	<skos:prefLabel>City of Banjul</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2413876/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>34589</europeana:population>
+	<wgs:lat>13.45274</wgs:lat>
+	<wgs:long>-16.57803</wgs:long>
+	<skos:altLabel xml:lang="pl">Bandżul</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Bandžulis</skos:altLabel>
+	<skos:altLabel xml:lang="id">Banjul</skos:altLabel>
+	<skos:altLabel xml:lang="de">Banjul</skos:altLabel>
+	<skos:altLabel xml:lang="es">Banjul</skos:altLabel>
+	<skos:altLabel xml:lang="da">Banjul</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Banjul</skos:altLabel>
+	<skos:altLabel xml:lang="io">Banjul</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Banjul</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Banjul</skos:altLabel>
+	<skos:altLabel xml:lang="en">Banjul</skos:altLabel>
+	<skos:altLabel xml:lang="af">Banjul</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Banjul</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Banjul</skos:altLabel>
+	<skos:altLabel xml:lang="it">Banjul</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Banjul</skos:altLabel>
+	<skos:altLabel xml:lang="no">Banjul</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Banjul</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Banjul</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Banjul</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Banjul</skos:altLabel>
+	<skos:altLabel xml:lang="et">Banjul</skos:altLabel>
+	<skos:altLabel xml:lang="wo">Banjul</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Banjul</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Banjul</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Banĵulo</skos:altLabel>
+	<skos:altLabel>Bathurst</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μπανζούλ</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Банжул</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Банжул</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Банџул</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Բանջուլ</skos:altLabel>
+	<skos:altLabel xml:lang="he">בנג'ול</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بانجول</skos:altLabel>
+	<skos:altLabel xml:lang="fa">بانجول</skos:altLabel>
+	<skos:altLabel xml:lang="am">ባንጁል</skos:altLabel>
+	<skos:altLabel xml:lang="ja">バンジュール</skos:altLabel>
+	<skos:altLabel xml:lang="zh">班珠尔</skos:altLabel>
+	<skos:altLabel xml:lang="zh">班珠爾</skos:altLabel>
+	<skos:altLabel xml:lang="ko">반줄</skos:altLabel>
+	<skos:prefLabel>Banjul</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2413920/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>43098</europeana:population>
+	<wgs:lat>13.47806</wgs:lat>
+	<wgs:long>-16.68194</wgs:long>
+	<skos:altLabel>Bakau</skos:altLabel>
+	<skos:prefLabel>Bakau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2413952/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.65</wgs:lat>
+	<wgs:long>-15.18333</wgs:long>
+	<skos:altLabel>Ba Faraba Island</skos:altLabel>
+	<skos:altLabel>Ba Faraka</skos:altLabel>
+	<skos:prefLabel>Ba Faraba Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2413958/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>13.63333</wgs:lat>
+	<wgs:long>-14.95</wgs:long>
+	<skos:prefLabel>Baboon Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2593157/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.36111</wgs:lat>
+	<wgs:long>-16.51194</wgs:long>
+	<skos:prefLabel>Pelican Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2593772/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413875/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>345191</europeana:population>
+	<wgs:lat>13.44389</wgs:lat>
+	<wgs:long>-16.64583</wgs:long>
+	<skos:prefLabel>Kombo Saint Mary District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6692623/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2413451/"/>
+	<europeana:country>GM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13.28272</wgs:lat>
+	<wgs:long>-16.7926</wgs:long>
+	<skos:prefLabel>Gambiaanse Atlantische Kust</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 80 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

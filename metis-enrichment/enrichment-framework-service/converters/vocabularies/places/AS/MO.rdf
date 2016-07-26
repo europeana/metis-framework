@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AS_MO
+Description: Selected fields pulled from Geonames about MO done on Mon May 23 21:13:33 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/1821262/">
+	<europeana:country>MO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.15972</wgs:lat>
+	<wgs:long>113.55944</wgs:long>
+	<skos:altLabel>Dangzai Dao</skos:altLabel>
+	<skos:altLabel>I-li-mi</skos:altLabel>
+	<skos:altLabel>Ilha da Taipa</skos:altLabel>
+	<skos:altLabel>Ilha de Taipa</skos:altLabel>
+	<skos:altLabel>Kai Kiong</skos:altLabel>
+	<skos:altLabel>Tai Pa Island</skos:altLabel>
+	<skos:altLabel>Taipa</skos:altLabel>
+	<skos:altLabel xml:lang="zh">氹仔島</skos:altLabel>
+	<skos:prefLabel>Ilha da Taipa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1821272/">
+	<europeana:country>MO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.19972</wgs:lat>
+	<wgs:long>113.54639</wgs:long>
+	<skos:altLabel>Ao-men Tao</skos:altLabel>
+	<skos:altLabel>Aomen Bandao</skos:altLabel>
+	<skos:altLabel>Aumun</skos:altLabel>
+	<skos:altLabel>Chung-Shan</skos:altLabel>
+	<skos:altLabel>Heungshan</skos:altLabel>
+	<skos:altLabel>Hião-Chão</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Ilha de Macau</skos:altLabel>
+	<skos:altLabel>Macao Island</skos:altLabel>
+	<skos:altLabel xml:lang="en">Macau Island</skos:altLabel>
+	<skos:altLabel xml:lang="zh">澳门半岛</skos:altLabel>
+	<skos:prefLabel>Macau Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1821273/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1821275/"/>
+	<europeana:country>MO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>22.20028</wgs:lat>
+	<wgs:long>113.54694</wgs:long>
+	<skos:altLabel>Concelho de Macau</skos:altLabel>
+	<skos:altLabel>Macau</skos:altLabel>
+	<skos:prefLabel>Concelho de Macau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1821274/">
+	<europeana:country>MO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>520400</europeana:population>
+	<wgs:lat>22.20056</wgs:lat>
+	<wgs:long>113.54611</wgs:long>
+	<skos:altLabel>Aomen</skos:altLabel>
+	<skos:altLabel>Cidade de Macau</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Cidade do Santo Nome de Deus de Macau</skos:altLabel>
+	<skos:altLabel>Macao</skos:altLabel>
+	<skos:altLabel xml:lang="de">Macao</skos:altLabel>
+	<skos:altLabel xml:lang="en">Macao</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Macao</skos:altLabel>
+	<skos:altLabel xml:lang="it">Macao</skos:altLabel>
+	<skos:altLabel xml:lang="da">Macao</skos:altLabel>
+	<skos:altLabel xml:lang="el">Macao</skos:altLabel>
+	<skos:altLabel xml:lang="es">Macao</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Macao</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Macao</skos:altLabel>
+	<skos:altLabel>Macau</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Макао</skos:altLabel>
+	<skos:altLabel xml:lang="zh">澳门</skos:altLabel>
+	<skos:prefLabel>Macau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1821275/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255147/"/>
+	<europeana:country>MO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLS"/>
+	<europeana:population>449198</europeana:population>
+	<wgs:lat>22.15778</wgs:lat>
+	<wgs:long>113.55972</wgs:long>
+	<skos:altLabel xml:lang="et">Aomen</skos:altLabel>
+	<skos:altLabel>Aomen Tebie Xingzhengqu</skos:altLabel>
+	<skos:altLabel>MO</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ma Cao</skos:altLabel>
+	<skos:altLabel xml:lang="id">Macao</skos:altLabel>
+	<skos:altLabel>Macao</skos:altLabel>
+	<skos:altLabel xml:lang="de">Macao</skos:altLabel>
+	<skos:altLabel xml:lang="da">Macao</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Macao</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Macao</skos:altLabel>
+	<skos:altLabel xml:lang="it">Macao</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Macao</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Macao</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Macao</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Macao</skos:altLabel>
+	<skos:altLabel xml:lang="es">Macao</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Macao</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Macao</skos:altLabel>
+	<skos:altLabel xml:lang="no">Macao</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Macao</skos:altLabel>
+	<skos:altLabel xml:lang="af">Macao</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Macao</skos:altLabel>
+	<skos:altLabel xml:lang="en">Macao</skos:altLabel>
+	<skos:altLabel xml:lang="et">Macao</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Macao</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Macao</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Macao</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Macao</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Macao</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Macao S.A.R., China</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Macao S.A.R., China</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Macao S.A.R., Tseina</skos:altLabel>
+	<skos:altLabel xml:lang="an">Macau</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Macau</skos:altLabel>
+	<skos:altLabel xml:lang="io">Macau</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Macau</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Macau</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Macau</skos:altLabel>
+	<skos:altLabel xml:lang="en">Macau</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Macau</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Macau</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Macau</skos:altLabel>
+	<skos:altLabel xml:lang="de">Macau</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Macau - 澳门</skos:altLabel>
+	<skos:altLabel xml:lang="en">Macau Special Administrative Region</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Macáó</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Makao</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Makao</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Makao</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Makao</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Makao</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Makao</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Makao</skos:altLabel>
+	<skos:altLabel xml:lang="id">Makau</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Makau</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Makau</skos:altLabel>
+	<skos:altLabel xml:lang="is">Makaó</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Makaó</skos:altLabel>
+	<skos:altLabel xml:lang="is">Makáo</skos:altLabel>
+	<skos:altLabel xml:lang="se">Makáo</skos:altLabel>
+	<skos:altLabel>Province of Macao</skos:altLabel>
+	<skos:altLabel>Província de Macau</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Região Administrativa Especial de Macau</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μακάο</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μακάου</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Аомынь</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Макао</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Макао</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Макао</skos:altLabel>
+	<skos:altLabel xml:lang="be">Макао</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Макао</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Макао С.А.Р Кина</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Макау</skos:altLabel>
+	<skos:altLabel xml:lang="he">מקאו</skos:altLabel>
+	<skos:altLabel xml:lang="ug">ئاۋمېن</skos:altLabel>
+	<skos:altLabel xml:lang="ar">ماكاو</skos:altLabel>
+	<skos:altLabel xml:lang="ur">ماکاؤ</skos:altLabel>
+	<skos:altLabel xml:lang="fa">ماکائو، ناحیهٔ ویژهٔ حکومتی چین</skos:altLabel>
+	<skos:altLabel xml:lang="hi">मकाओ</skos:altLabel>
+	<skos:altLabel xml:lang="ml">മക്കാവു</skos:altLabel>
+	<skos:altLabel xml:lang="th">มาเก๊า</skos:altLabel>
+	<skos:altLabel xml:lang="th">เขตบริหารพิเศษมาเก๊า</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ມາເກົ້າ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">མེ་ཀའོ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">მაკაო</skos:altLabel>
+	<skos:altLabel xml:lang="am">ማካዎ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">マカオ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">澳門</skos:altLabel>
+	<skos:altLabel xml:lang="zh">澳门</skos:altLabel>
+	<skos:altLabel xml:lang="zh">澳门特别行政区</skos:altLabel>
+	<skos:altLabel xml:lang="ko">마카오</skos:altLabel>
+	<skos:prefLabel>Macau Special Administrative Region</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1821280/">
+	<europeana:country>MO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.15472</wgs:lat>
+	<wgs:long>113.57611</wgs:long>
+	<skos:altLabel xml:lang="pt">Ilha Kai Kiong</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Ilhéu Kai-Kiong</skos:altLabel>
+	<skos:altLabel>Kai King</skos:altLabel>
+	<skos:altLabel>Kai Kiong</skos:altLabel>
+	<skos:altLabel xml:lang="zh">一粒米</skos:altLabel>
+	<skos:prefLabel>Ilhéu Kai-Kiong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1821286/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1821275/"/>
+	<europeana:country>MO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>22.125</wgs:lat>
+	<wgs:long>113.56583</wgs:long>
+	<skos:altLabel>Concelho das Ilhas</skos:altLabel>
+	<skos:altLabel>Ilhas</skos:altLabel>
+	<skos:prefLabel>Concelho das Ilhas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1821291/">
+	<europeana:country>MO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.12611</wgs:lat>
+	<wgs:long>113.56691</wgs:long>
+	<skos:altLabel>Chiu-ao</skos:altLabel>
+	<skos:altLabel>Chiu-ao Tao</skos:altLabel>
+	<skos:altLabel>Coloane</skos:altLabel>
+	<skos:altLabel>Colovane</skos:altLabel>
+	<skos:altLabel>Colowan</skos:altLabel>
+	<skos:altLabel>Colowan Island</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Ilha de Coloane</skos:altLabel>
+	<skos:altLabel>Ko Ho Island</skos:altLabel>
+	<skos:altLabel>Koho Tao</skos:altLabel>
+	<skos:altLabel>Luhuan Dao</skos:altLabel>
+	<skos:altLabel xml:lang="zh">路环岛</skos:altLabel>
+	<skos:prefLabel>Ilha de Coloane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6611652/">
+	<europeana:country>MO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.TMPL"/>
+	<wgs:lat>22.11417</wgs:lat>
+	<wgs:long>113.55056</wgs:long>
+	<skos:altLabel>Tankong Miao</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Templo de Tam Kung</skos:altLabel>
+	<skos:altLabel xml:lang="zh">谭公庙</skos:altLabel>
+	<skos:prefLabel>Templo de Tam Kung</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6611655/">
+	<europeana:country>MO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.TMPL"/>
+	<wgs:lat>22.16139</wgs:lat>
+	<wgs:long>113.55167</wgs:long>
+	<skos:altLabel>Puti Yuan</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Templo de Tou Tai Un</skos:altLabel>
+	<skos:altLabel xml:lang="zh">菩提园</skos:altLabel>
+	<skos:prefLabel>Templo de Tou Tai Un</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6611661/">
+	<europeana:country>MO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.TMPL"/>
+	<wgs:lat>22.18667</wgs:lat>
+	<wgs:long>113.53139</wgs:long>
+	<skos:altLabel>Mage Miao</skos:altLabel>
+	<skos:altLabel>Templo da Deusa A-Ma</skos:altLabel>
+	<skos:altLabel xml:lang="zh">妈阁庙</skos:altLabel>
+	<skos:prefLabel>Templo da Deusa A-Ma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6611723/">
+	<europeana:country>MO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.TMPL"/>
+	<wgs:lat>22.20444</wgs:lat>
+	<wgs:long>113.55028</wgs:long>
+	<skos:altLabel>Guanyin Tang</skos:altLabel>
+	<skos:altLabel>Puji Chanyuan</skos:altLabel>
+	<skos:altLabel>Templo de Kun Iam</skos:altLabel>
+	<skos:altLabel xml:lang="zh">普济禅院</skos:altLabel>
+	<skos:altLabel>观音堂</skos:altLabel>
+	<skos:prefLabel>Templo de Kun Iam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6611727/">
+	<europeana:country>MO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.TMPL"/>
+	<wgs:lat>22.20639</wgs:lat>
+	<wgs:long>113.54778</wgs:long>
+	<skos:altLabel>Guanyin Gumiao</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Kun Iam Miu</skos:altLabel>
+	<skos:altLabel xml:lang="zh">观音古庙</skos:altLabel>
+	<skos:prefLabel>Kun Iam Miu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6611734/">
+	<europeana:country>MO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.TMPL"/>
+	<wgs:lat>22.21</wgs:lat>
+	<wgs:long>113.54806</wgs:long>
+	<skos:altLabel>Lianfeng Miao</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Templo de Lin Fong</skos:altLabel>
+	<skos:altLabel xml:lang="zh">莲峰庙</skos:altLabel>
+	<skos:prefLabel>Templo de Lin Fong</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 13 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

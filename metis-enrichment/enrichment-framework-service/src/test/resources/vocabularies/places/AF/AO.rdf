@@ -1,0 +1,3034 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AF_AO
+Description: Selected fields pulled from Geonames about AO done on Mon May 23 21:16:03 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/145530/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/145701/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-9.16667</wgs:lat>
+	<wgs:long>20.16667</wgs:long>
+	<skos:altLabel>Circunscrição de Saurimo</skos:altLabel>
+	<skos:altLabel>Concelho de Henrique de Carvalho</skos:altLabel>
+	<skos:altLabel>Concelho de Saurimo</skos:altLabel>
+	<skos:altLabel>Município Saurimo</skos:altLabel>
+	<skos:prefLabel>Município Saurimo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/145531/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>40498</europeana:population>
+	<wgs:lat>-9.65</wgs:lat>
+	<wgs:long>20.4</wgs:long>
+	<skos:altLabel>Henrique de Carvalho</skos:altLabel>
+	<skos:altLabel xml:lang="en">Saurimo</skos:altLabel>
+	<skos:altLabel xml:lang="de">Saurimo</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Saurimo</skos:altLabel>
+	<skos:altLabel>Saurimo</skos:altLabel>
+	<skos:altLabel>Saurimu</skos:altLabel>
+	<skos:altLabel>Vila Henrique de Carvalho</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сауримо</skos:altLabel>
+	<skos:prefLabel>Saurimo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/145701/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-10.25918</wgs:lat>
+	<wgs:long>20.62489</wgs:long>
+	<skos:altLabel>Lunda Sul</skos:altLabel>
+	<skos:altLabel>Província da Lunda Sul</skos:altLabel>
+	<skos:prefLabel>Província da Lunda Sul</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/145702/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-8.63543</wgs:lat>
+	<wgs:long>19.64852</wgs:long>
+	<skos:altLabel>Lunda Norte</skos:altLabel>
+	<skos:altLabel>Província da Lunda Norte</skos:altLabel>
+	<skos:prefLabel>Província da Lunda Norte</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/145723/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/145702/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-8.33333</wgs:lat>
+	<wgs:long>20.66667</wgs:long>
+	<skos:altLabel>Concelho de Verissimo Sarmento</skos:altLabel>
+	<skos:altLabel>Município Lucapa</skos:altLabel>
+	<skos:prefLabel>Município Lucapa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/145724/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>20115</europeana:population>
+	<wgs:lat>-8.41667</wgs:lat>
+	<wgs:long>20.75</wgs:long>
+	<skos:altLabel xml:lang="pl">Lucapa</skos:altLabel>
+	<skos:altLabel xml:lang="en">Lucapa</skos:altLabel>
+	<skos:altLabel>Lucapa</skos:altLabel>
+	<skos:altLabel>Lukapa</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Лукапа</skos:altLabel>
+	<skos:prefLabel>Lucapa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/145775/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/145702/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-7.33333</wgs:lat>
+	<wgs:long>20.5</wgs:long>
+	<skos:altLabel>Circunscrição de Chitato</skos:altLabel>
+	<skos:altLabel>Circunscrição do Chitato</skos:altLabel>
+	<skos:altLabel>Concelho de Portugália</skos:altLabel>
+	<skos:altLabel>Município Chitato</skos:altLabel>
+	<skos:prefLabel>Município Chitato</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/145897/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/145702/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-7.83333</wgs:lat>
+	<wgs:long>21.5</wgs:long>
+	<skos:altLabel>Concelho de Cambulo</skos:altLabel>
+	<skos:altLabel>Município Cambulo</skos:altLabel>
+	<skos:prefLabel>Município Cambulo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/875819/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/875996/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-17</wgs:lat>
+	<wgs:long>22</wgs:long>
+	<skos:altLabel>Circunscrição do Rivungo</skos:altLabel>
+	<skos:altLabel>Município Rivungo</skos:altLabel>
+	<skos:prefLabel>Município Rivungo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/875968/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/145701/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-10</wgs:lat>
+	<wgs:long>21.5</wgs:long>
+	<skos:altLabel>Circunscrição de Cassai-Sul</skos:altLabel>
+	<skos:altLabel>Circunscrição de Nova Chaves</skos:altLabel>
+	<skos:altLabel>Circunscrição do Cassai Sul</skos:altLabel>
+	<skos:altLabel>Município Muconda</skos:altLabel>
+	<skos:prefLabel>Município Muconda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/875996/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-12.84869</wgs:lat>
+	<wgs:long>20.93266</wgs:long>
+	<skos:altLabel>Distrito do Moxico</skos:altLabel>
+	<skos:altLabel>Moxico</skos:altLabel>
+	<skos:altLabel>Província do Moxico</skos:altLabel>
+	<skos:prefLabel>Província do Moxico</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/875997/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/875996/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-12.16667</wgs:lat>
+	<wgs:long>20</wgs:long>
+	<skos:altLabel>Concelho do Moxico</skos:altLabel>
+	<skos:altLabel>Município Moxico</skos:altLabel>
+	<skos:prefLabel>Município Moxico</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/876017/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/876337/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-16</wgs:lat>
+	<wgs:long>20</wgs:long>
+	<skos:altLabel>Circunscrição do Cuando</skos:altLabel>
+	<skos:altLabel>Município Mavinga</skos:altLabel>
+	<skos:prefLabel>Município Mavinga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/876125/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/875996/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-11.83333</wgs:lat>
+	<wgs:long>21.33333</wgs:long>
+	<skos:altLabel>Cameia</skos:altLabel>
+	<skos:altLabel>Município Lumege</skos:altLabel>
+	<skos:prefLabel>Município Lumege</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/876129/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/875996/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-14</wgs:lat>
+	<wgs:long>21.33333</wgs:long>
+	<skos:altLabel>Circunscrição do Bundas</skos:altLabel>
+	<skos:altLabel>Município Lumbala N’guimbo</skos:altLabel>
+	<skos:prefLabel>Município Lumbala N’guimbo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/876176/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/875996/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-11</wgs:lat>
+	<wgs:long>22</wgs:long>
+	<skos:altLabel>Município Luau</skos:altLabel>
+	<skos:altLabel>Teixeira de Sousa</skos:altLabel>
+	<skos:prefLabel>Município Luau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/876177/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18465</europeana:population>
+	<wgs:lat>-10.7</wgs:lat>
+	<wgs:long>22.23333</wgs:long>
+	<skos:altLabel>Luao</skos:altLabel>
+	<skos:altLabel>Luau</skos:altLabel>
+	<skos:altLabel>Teixeira de Sousa</skos:altLabel>
+	<skos:altLabel>Teixera de Sousa</skos:altLabel>
+	<skos:altLabel>Texeira-de Susa</skos:altLabel>
+	<skos:altLabel>Vila Teixeira de Sousa</skos:altLabel>
+	<skos:altLabel>Vila Teixeira de Souza</skos:altLabel>
+	<skos:altLabel>Vila Teixera de Souza</skos:altLabel>
+	<skos:altLabel>Vila Texeira de Sousa</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Луау</skos:altLabel>
+	<skos:prefLabel>Luau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/876198/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/875996/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-11.66667</wgs:lat>
+	<wgs:long>22</wgs:long>
+	<skos:altLabel>Concelho do Dilôlo</skos:altLabel>
+	<skos:altLabel>Município Luacano</skos:altLabel>
+	<skos:prefLabel>Município Luacano</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/876232/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/875996/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-11.83333</wgs:lat>
+	<wgs:long>20.66667</wgs:long>
+	<skos:altLabel>Município Léua</skos:altLabel>
+	<skos:altLabel>Sandando</skos:altLabel>
+	<skos:prefLabel>Município Léua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/876291/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/876337/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-17.5</wgs:lat>
+	<wgs:long>20.83333</wgs:long>
+	<skos:altLabel>Circunscrição do Dirico</skos:altLabel>
+	<skos:altLabel>Município Dirico</skos:altLabel>
+	<skos:prefLabel>Município Dirico</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/876307/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/145701/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-11</wgs:lat>
+	<wgs:long>20.33333</wgs:long>
+	<skos:altLabel>Concelho do Dala</skos:altLabel>
+	<skos:altLabel>Município Dala</skos:altLabel>
+	<skos:prefLabel>Município Dala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/876337/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>130000</europeana:population>
+	<wgs:lat>-15.94761</wgs:lat>
+	<wgs:long>19.3832</wgs:long>
+	<skos:altLabel>Cuando Cubango</skos:altLabel>
+	<skos:altLabel>Distrito do Cuando Cubango</skos:altLabel>
+	<skos:altLabel>Kuando-Kubango</skos:altLabel>
+	<skos:altLabel>Kuando-Kubangu</skos:altLabel>
+	<skos:altLabel>Kwando Kwbango</skos:altLabel>
+	<skos:altLabel>Província do Cuando Cubango</skos:altLabel>
+	<skos:prefLabel>Província do Cuando Cubango</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/876631/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/875996/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-11.33333</wgs:lat>
+	<wgs:long>20.33333</wgs:long>
+	<skos:prefLabel>Município Camanongue</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/876723/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/875996/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-12</wgs:lat>
+	<wgs:long>23</wgs:long>
+	<skos:altLabel>Circunscrição do Alto Zambeze</skos:altLabel>
+	<skos:altLabel>Município Alto Zambeze</skos:altLabel>
+	<skos:prefLabel>Município Alto Zambeze</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2236355/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-6.58717</wgs:lat>
+	<wgs:long>13.51966</wgs:long>
+	<skos:altLabel>Distrito do Zaire</skos:altLabel>
+	<skos:altLabel>Província do Zaire</skos:altLabel>
+	<skos:altLabel>Zaire</skos:altLabel>
+	<skos:prefLabel>Província do Zaire</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2236396/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/145702/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-9.16667</wgs:lat>
+	<wgs:long>18</wgs:long>
+	<skos:prefLabel>Município Xá-Muteba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2236499/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2240444/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-9</wgs:lat>
+	<wgs:long>13.33333</wgs:long>
+	<skos:altLabel>Concelho de Viana</skos:altLabel>
+	<skos:altLabel>Município Viana</skos:altLabel>
+	<skos:altLabel xml:lang="en">Viana</skos:altLabel>
+	<skos:prefLabel>Município Viana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2236566/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-7.10719</wgs:lat>
+	<wgs:long>15.44056</wgs:long>
+	<skos:altLabel>Distrito do Uíge</skos:altLabel>
+	<skos:altLabel>Província do Uíge</skos:altLabel>
+	<skos:altLabel>Uíge</skos:altLabel>
+	<skos:altLabel>Uíje</skos:altLabel>
+	<skos:prefLabel>Província do Uíge</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2236567/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2236566/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-7.5</wgs:lat>
+	<wgs:long>15.16667</wgs:long>
+	<skos:prefLabel>Município Uíge</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2236568/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>60008</europeana:population>
+	<wgs:lat>-7.61667</wgs:lat>
+	<wgs:long>15.05</wgs:long>
+	<skos:altLabel>Carmona</skos:altLabel>
+	<skos:altLabel>Uije</skos:altLabel>
+	<skos:altLabel xml:lang="en">Uíge</skos:altLabel>
+	<skos:altLabel>Uíge</skos:altLabel>
+	<skos:altLabel>Vila Marchel Carmona</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Уиже</skos:altLabel>
+	<skos:prefLabel>Uíge</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2236714/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2236355/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-6.66667</wgs:lat>
+	<wgs:long>13.33333</wgs:long>
+	<skos:prefLabel>Município Tomboco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2236932/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-9.03333</wgs:lat>
+	<wgs:long>13.01667</wgs:long>
+	<skos:prefLabel>Ilha do Sumbo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2236966/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2236355/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-6.33333</wgs:lat>
+	<wgs:long>12.83333</wgs:long>
+	<skos:altLabel>Concelho de Santo António do Zaire</skos:altLabel>
+	<skos:altLabel>Município Soyo</skos:altLabel>
+	<skos:prefLabel>Município Soyo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2236967/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>67491</europeana:population>
+	<wgs:lat>-6.1349</wgs:lat>
+	<wgs:long>12.36894</wgs:long>
+	<skos:altLabel>Saint Antonio do Zaire</skos:altLabel>
+	<skos:altLabel>San Antonio</skos:altLabel>
+	<skos:altLabel>Santo Antoni</skos:altLabel>
+	<skos:altLabel>Santo António do Zaire</skos:altLabel>
+	<skos:altLabel>Santo-António</skos:altLabel>
+	<skos:altLabel>Sazaire</skos:altLabel>
+	<skos:altLabel>Soio</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Soyo</skos:altLabel>
+	<skos:altLabel xml:lang="en">Soyo</skos:altLabel>
+	<skos:altLabel>Soyo</skos:altLabel>
+	<skos:altLabel>São Antônio</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сойу</skos:altLabel>
+	<skos:prefLabel>Soio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2236985/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2236566/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-7.16667</wgs:lat>
+	<wgs:long>14.83333</wgs:long>
+	<skos:prefLabel>Município Songo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2237123/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-8.92639</wgs:lat>
+	<wgs:long>13.11917</wgs:long>
+	<skos:altLabel>Ilha da Cazanga</skos:altLabel>
+	<skos:altLabel>Ilha de São Jõao da Cazanga</skos:altLabel>
+	<skos:prefLabel>Ilha da Cazanga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2237127/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2236566/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-7.33333</wgs:lat>
+	<wgs:long>16</wgs:long>
+	<skos:altLabel>Concelho do Pombo</skos:altLabel>
+	<skos:altLabel>Município Sanza Pombo</skos:altLabel>
+	<skos:prefLabel>Município Sanza Pombo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2237144/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2236566/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-7</wgs:lat>
+	<wgs:long>16.66667</wgs:long>
+	<skos:altLabel>Circunscrição do Macocola</skos:altLabel>
+	<skos:altLabel>Município Santa Cruz</skos:altLabel>
+	<skos:prefLabel>Município Santa Cruz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2237284/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.87882</wgs:lat>
+	<wgs:long>13.05465</wgs:long>
+	<skos:altLabel>Ile Sacra M’Baca</skos:altLabel>
+	<skos:altLabel>Ilha Sacra Mbaca</skos:altLabel>
+	<skos:altLabel>Ilha Sacra Mebaca</skos:altLabel>
+	<skos:altLabel>N’kete Island</skos:altLabel>
+	<skos:altLabel>Île Sacra Ambaka</skos:altLabel>
+	<skos:prefLabel>Ilha Sacra Mbaca</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2237499/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2236566/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-8</wgs:lat>
+	<wgs:long>15</wgs:long>
+	<skos:altLabel>Dange</skos:altLabel>
+	<skos:altLabel>Município Quitexe</skos:altLabel>
+	<skos:prefLabel>Município Quitexe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2237639/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-8.98472</wgs:lat>
+	<wgs:long>13.05972</wgs:long>
+	<skos:prefLabel>Ilha da Quissanga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2237640/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-6.03333</wgs:lat>
+	<wgs:long>12.63333</wgs:long>
+	<skos:altLabel>Ilha Quissanga</skos:altLabel>
+	<skos:altLabel>Ilha da Quissanga</skos:altLabel>
+	<skos:prefLabel>Ilha da Quissanga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2238174/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2236566/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-6.33333</wgs:lat>
+	<wgs:long>16.5</wgs:long>
+	<skos:altLabel>Circunscrição do Cuango</skos:altLabel>
+	<skos:altLabel>Município Quimbele</skos:altLabel>
+	<skos:prefLabel>Município Quimbele</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2238485/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2241660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-8.5</wgs:lat>
+	<wgs:long>15.33333</wgs:long>
+	<skos:prefLabel>Município Quiculungo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2238564/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2243598/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-9.83333</wgs:lat>
+	<wgs:long>14</wgs:long>
+	<skos:altLabel>Concelho da Quissama</skos:altLabel>
+	<skos:altLabel>Concelho de Quiçama</skos:altLabel>
+	<skos:altLabel>Município Quicama</skos:altLabel>
+	<skos:altLabel>Quissama</skos:altLabel>
+	<skos:prefLabel>Município Quicama</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2238814/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2239858/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-9.33333</wgs:lat>
+	<wgs:long>17.16667</wgs:long>
+	<skos:altLabel>Concelho do Quela</skos:altLabel>
+	<skos:altLabel>Município Quela</skos:altLabel>
+	<skos:prefLabel>Município Quela</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2238826/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2236566/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-7.66667</wgs:lat>
+	<wgs:long>15.66667</wgs:long>
+	<skos:prefLabel>Município Puri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2238905/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-6.05</wgs:lat>
+	<wgs:long>12.58333</wgs:long>
+	<skos:altLabel>Ilha Pendi</skos:altLabel>
+	<skos:altLabel>Pendi</skos:altLabel>
+	<skos:prefLabel>Ilha Pendi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2238937/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-8.93611</wgs:lat>
+	<wgs:long>13.13583</wgs:long>
+	<skos:altLabel>Ilha dos Pássaros</skos:altLabel>
+	<skos:altLabel>Ilheú dos Pássaros</skos:altLabel>
+	<skos:prefLabel>Ilha dos Pássaros</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2238950/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2241660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-8.75</wgs:lat>
+	<wgs:long>14.5</wgs:long>
+	<skos:prefLabel>Município Pango Aluquém</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2239000/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2236355/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-7.33333</wgs:lat>
+	<wgs:long>13.5</wgs:long>
+	<skos:altLabel>Concelho do Ambrizete</skos:altLabel>
+	<skos:altLabel>Município N’zeto</skos:altLabel>
+	<skos:prefLabel>Município N’zeto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2239001/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18352</europeana:population>
+	<wgs:lat>-7.23333</wgs:lat>
+	<wgs:long>12.86667</wgs:long>
+	<skos:altLabel>Ambrisette</skos:altLabel>
+	<skos:altLabel>Ambrizete</skos:altLabel>
+	<skos:altLabel>Ambrizette</skos:altLabel>
+	<skos:altLabel>N’zeto</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Нзето</skos:altLabel>
+	<skos:prefLabel>N’zeto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2239019/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2236355/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-6.16667</wgs:lat>
+	<wgs:long>13.5</wgs:long>
+	<skos:altLabel>Circunscrição de Nóqui</skos:altLabel>
+	<skos:altLabel>Circunscrição do Nóqui</skos:altLabel>
+	<skos:altLabel>Município Nóqui</skos:altLabel>
+	<skos:prefLabel>Município Nóqui</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2239067/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2236566/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-7.83333</wgs:lat>
+	<wgs:long>15.33333</wgs:long>
+	<skos:prefLabel>Município Negage</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2239093/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2243598/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-8</wgs:lat>
+	<wgs:long>14.33333</wgs:long>
+	<skos:prefLabel>Município Nambuangongo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2239335/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2239858/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-9.5</wgs:lat>
+	<wgs:long>17</wgs:long>
+	<skos:prefLabel>Município Mucari</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2239352/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2236566/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-7.16667</wgs:lat>
+	<wgs:long>15.16667</wgs:long>
+	<skos:prefLabel>Município Mucaba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2239402/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-6.03333</wgs:lat>
+	<wgs:long>12.81667</wgs:long>
+	<skos:altLabel>Iles Monroe</skos:altLabel>
+	<skos:altLabel>Ilhas de Monroe</skos:altLabel>
+	<skos:altLabel>Ilots Monro</skos:altLabel>
+	<skos:altLabel>Monro Islands</skos:altLabel>
+	<skos:prefLabel>Ilhas de Monroe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2239519/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2236355/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-6.33333</wgs:lat>
+	<wgs:long>14.16667</wgs:long>
+	<skos:altLabel>Concelho de São Salvador do Congo</skos:altLabel>
+	<skos:altLabel>Município M’banza Congo</skos:altLabel>
+	<skos:prefLabel>Município M’banza Congo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2239520/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>24220</europeana:population>
+	<wgs:lat>-6.26667</wgs:lat>
+	<wgs:long>14.25</wgs:long>
+	<skos:altLabel>Mbanza Kongo</skos:altLabel>
+	<skos:altLabel>M’banza Congo</skos:altLabel>
+	<skos:altLabel>San Salvador</skos:altLabel>
+	<skos:altLabel>São Salvador</skos:altLabel>
+	<skos:altLabel>São Salvador do Congo</skos:altLabel>
+	<skos:prefLabel>M’banza Congo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2239696/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2239858/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-7.83333</wgs:lat>
+	<wgs:long>16.66667</wgs:long>
+	<skos:altLabel>Circunscrição de Forte República</skos:altLabel>
+	<skos:altLabel>Município Massango</skos:altLabel>
+	<skos:prefLabel>Município Massango</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2239711/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2239858/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-8.16667</wgs:lat>
+	<wgs:long>17.16667</wgs:long>
+	<skos:altLabel>Circunscrição de Marimba</skos:altLabel>
+	<skos:altLabel>Município Marimba</skos:altLabel>
+	<skos:prefLabel>Município Marimba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2239731/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2236566/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-6.16667</wgs:lat>
+	<wgs:long>15.5</wgs:long>
+	<skos:altLabel>Concelho de Zombo</skos:altLabel>
+	<skos:altLabel>Muniípio Maquela do Zombo</skos:altLabel>
+	<skos:prefLabel>Muniípio Maquela do Zombo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2239858/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-9.67548</wgs:lat>
+	<wgs:long>16.82553</wgs:long>
+	<skos:altLabel>Distrito de Malanje</skos:altLabel>
+	<skos:altLabel>Malanje</skos:altLabel>
+	<skos:altLabel>Província de Malange</skos:altLabel>
+	<skos:altLabel>Província de Malanje</skos:altLabel>
+	<skos:prefLabel>Província de Malanje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2239859/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2239858/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-9.5</wgs:lat>
+	<wgs:long>16.33333</wgs:long>
+	<skos:altLabel>Concelho de Malange</skos:altLabel>
+	<skos:altLabel>Concelho de Malanje</skos:altLabel>
+	<skos:altLabel>Município Malanje</skos:altLabel>
+	<skos:prefLabel>Município Malanje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2239862/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>87046</europeana:population>
+	<wgs:lat>-9.54472</wgs:lat>
+	<wgs:long>16.34528</wgs:long>
+	<skos:altLabel>Malandje</skos:altLabel>
+	<skos:altLabel>Malange</skos:altLabel>
+	<skos:altLabel>Malanje</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Маланже</skos:altLabel>
+	<skos:prefLabel>Malanje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2240384/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2241660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-9.16667</wgs:lat>
+	<wgs:long>15.33333</wgs:long>
+	<skos:prefLabel>Município Lucala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2240415/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/145702/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-9.25</wgs:lat>
+	<wgs:long>19.25</wgs:long>
+	<skos:altLabel>Circunscrição do Lubalo</skos:altLabel>
+	<skos:altLabel>Município Lubalo</skos:altLabel>
+	<skos:prefLabel>Município Lubalo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2240444/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-8.91666</wgs:lat>
+	<wgs:long>13.33924</wgs:long>
+	<skos:altLabel>Distrito de Luanda</skos:altLabel>
+	<skos:altLabel>Luanda</skos:altLabel>
+	<skos:altLabel>Província de Luanda</skos:altLabel>
+	<skos:prefLabel>Província de Luanda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2240445/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2240444/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-8.83333</wgs:lat>
+	<wgs:long>13.33333</wgs:long>
+	<skos:altLabel>Concelho Luanda</skos:altLabel>
+	<skos:altLabel>Concelho de Luanda</skos:altLabel>
+	<skos:altLabel>Município Luanda</skos:altLabel>
+	<skos:prefLabel>Município Luanda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2240446/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-8.78667</wgs:lat>
+	<wgs:long>13.23222</wgs:long>
+	<skos:altLabel>Ilha de Loanda</skos:altLabel>
+	<skos:altLabel>Ilha de Luanda</skos:altLabel>
+	<skos:altLabel>Loanda Island</skos:altLabel>
+	<skos:prefLabel>Ilha de Luanda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2240449/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>2776168</europeana:population>
+	<wgs:lat>-8.83833</wgs:lat>
+	<wgs:long>13.23444</wgs:long>
+	<skos:altLabel>Loanda</skos:altLabel>
+	<skos:altLabel xml:lang="id">Luanda</skos:altLabel>
+	<skos:altLabel xml:lang="en">Luanda</skos:altLabel>
+	<skos:altLabel xml:lang="af">Luanda</skos:altLabel>
+	<skos:altLabel xml:lang="da">Luanda</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Luanda</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Luanda</skos:altLabel>
+	<skos:altLabel xml:lang="de">Luanda</skos:altLabel>
+	<skos:altLabel xml:lang="es">Luanda</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Luanda</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Luanda</skos:altLabel>
+	<skos:altLabel xml:lang="io">Luanda</skos:altLabel>
+	<skos:altLabel xml:lang="la">Luanda</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Luanda</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Luanda</skos:altLabel>
+	<skos:altLabel xml:lang="no">Luanda</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Luanda</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Luanda</skos:altLabel>
+	<skos:altLabel xml:lang="it">Luanda</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Luanda</skos:altLabel>
+	<skos:altLabel xml:lang="mg">Luanda</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Luanda</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Luanda</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Luanda</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Luanda</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Luanda</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Luanda</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Luanda</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Luanda</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Luanda</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Luanda</skos:altLabel>
+	<skos:altLabel xml:lang="et">Luanda</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Luanda</skos:altLabel>
+	<skos:altLabel>Luanda</skos:altLabel>
+	<skos:altLabel>São Paolo de Loanda</skos:altLabel>
+	<skos:altLabel>São Paulo da Assunção de Luanda</skos:altLabel>
+	<skos:altLabel>São Paulo de Loanda</skos:altLabel>
+	<skos:altLabel>São Paulo de Luanda</skos:altLabel>
+	<skos:altLabel xml:lang="el">Λουάντα</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Луанда</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Луанда</skos:altLabel>
+	<skos:altLabel xml:lang="he">לואנדה</skos:altLabel>
+	<skos:altLabel xml:lang="fa">لوآندا</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሏንዳ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ルアンダ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">罗安达</skos:altLabel>
+	<skos:altLabel xml:lang="ko">루안다</skos:altLabel>
+	<skos:prefLabel>Luanda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2240660/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2243266/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-5</wgs:lat>
+	<wgs:long>12.33333</wgs:long>
+	<skos:altLabel>Concelho Cacongo</skos:altLabel>
+	<skos:altLabel>Concelho de Cacongo</skos:altLabel>
+	<skos:altLabel>Malemba</skos:altLabel>
+	<skos:altLabel>Município Lândana</skos:altLabel>
+	<skos:prefLabel>Município Lândana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2240685/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2239858/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-8.83333</wgs:lat>
+	<wgs:long>17.33333</wgs:long>
+	<skos:altLabel>Circunscrição de Montalegre</skos:altLabel>
+	<skos:altLabel>Município Kunda-dia-Baze</skos:altLabel>
+	<skos:prefLabel>Município Kunda-dia-Baze</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2240688/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2239858/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-9</wgs:lat>
+	<wgs:long>16.5</wgs:long>
+	<skos:prefLabel>Município Kiwaba N’zogi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2240756/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2243598/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-9.16667</wgs:lat>
+	<wgs:long>13.83333</wgs:long>
+	<skos:altLabel>Concelho da Icolo e Bengo</skos:altLabel>
+	<skos:altLabel>Concelho de Icolo e Bengo</skos:altLabel>
+	<skos:altLabel>Município Icoloe Bengo</skos:altLabel>
+	<skos:prefLabel>Município Icoloe Bengo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2240905/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2241660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-8.91667</wgs:lat>
+	<wgs:long>14.91667</wgs:long>
+	<skos:prefLabel>Município Gonguembo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2240974/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2241660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-9.16667</wgs:lat>
+	<wgs:long>14.75</wgs:long>
+	<skos:altLabel>Concelho da Golungo Alto</skos:altLabel>
+	<skos:altLabel>Município Golungo Alto</skos:altLabel>
+	<skos:prefLabel>Município Golungo Alto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2241294/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-6</wgs:lat>
+	<wgs:long>12.76667</wgs:long>
+	<skos:altLabel>Archipel des Herbes</skos:altLabel>
+	<skos:altLabel>Arquipélago das Ervas</skos:altLabel>
+	<skos:altLabel>Grass Islands</skos:altLabel>
+	<skos:prefLabel>Arquipélago das Ervas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2241446/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-8.90278</wgs:lat>
+	<wgs:long>13.15306</wgs:long>
+	<skos:altLabel>Ilha do Desterro</skos:altLabel>
+	<skos:altLabel>Ilha do Oesterro</skos:altLabel>
+	<skos:prefLabel>Ilha do Desterro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2241454/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2241660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-8.5</wgs:lat>
+	<wgs:long>14.66667</wgs:long>
+	<skos:altLabel>Concelho dos Dembos</skos:altLabel>
+	<skos:altLabel>Município Dembos</skos:altLabel>
+	<skos:prefLabel>Município Dembos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2241484/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2243598/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-8.5</wgs:lat>
+	<wgs:long>13.83333</wgs:long>
+	<skos:altLabel>Concelho de Dande</skos:altLabel>
+	<skos:altLabel>Concelho do Dande</skos:altLabel>
+	<skos:altLabel>Município Dande</skos:altLabel>
+	<skos:prefLabel>Município Dande</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2241498/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2236566/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-6.66667</wgs:lat>
+	<wgs:long>15.33333</wgs:long>
+	<skos:altLabel>Concelho da Damba</skos:altLabel>
+	<skos:altLabel>Concelho do Damba</skos:altLabel>
+	<skos:altLabel>Município Damba</skos:altLabel>
+	<skos:prefLabel>Município Damba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2241620/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2236355/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-6.16667</wgs:lat>
+	<wgs:long>14.66667</wgs:long>
+	<skos:prefLabel>Município Cuimba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2241628/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/145702/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-8</wgs:lat>
+	<wgs:long>19.66667</wgs:long>
+	<skos:altLabel>Circunscrição do Cuilo</skos:altLabel>
+	<skos:altLabel>Município Cuilo</skos:altLabel>
+	<skos:prefLabel>Município Cuilo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2241660/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>402357</europeana:population>
+	<wgs:lat>-8.91136</wgs:lat>
+	<wgs:long>14.8887</wgs:long>
+	<skos:altLabel>Cuanza Norte</skos:altLabel>
+	<skos:altLabel>Distrito do Cuanza Norte</skos:altLabel>
+	<skos:altLabel>Kuanza Norte</skos:altLabel>
+	<skos:altLabel>Kwanza-Norte Province</skos:altLabel>
+	<skos:altLabel>North Kwanza</skos:altLabel>
+	<skos:altLabel>Província do Cuanza Norte</skos:altLabel>
+	<skos:prefLabel>Província do Cuanza Norte</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2241665/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/145702/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-8.66667</wgs:lat>
+	<wgs:long>18.16667</wgs:long>
+	<skos:prefLabel>Município Cuango</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2241967/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2241660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-9.33333</wgs:lat>
+	<wgs:long>15</wgs:long>
+	<skos:altLabel>Concelho de Cazengo</skos:altLabel>
+	<skos:altLabel>Município Cazengo</skos:altLabel>
+	<skos:prefLabel>Município Cazengo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2242001/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>28224</europeana:population>
+	<wgs:lat>-8.58</wgs:lat>
+	<wgs:long>13.66417</wgs:long>
+	<skos:altLabel>Caxito</skos:altLabel>
+	<skos:altLabel>Kashito</skos:altLabel>
+	<skos:altLabel>Kaxito</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кашито</skos:altLabel>
+	<skos:prefLabel>Caxito</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2242013/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-9.68333</wgs:lat>
+	<wgs:long>14.28333</wgs:long>
+	<skos:altLabel>Ilha Caxingango</skos:altLabel>
+	<skos:altLabel>Ilha de Quixingango</skos:altLabel>
+	<skos:prefLabel>Ilha Caxingango</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2242051/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/145702/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-8.33333</wgs:lat>
+	<wgs:long>19</wgs:long>
+	<skos:altLabel>Circunscrição de Camaxilo</skos:altLabel>
+	<skos:altLabel>Circunscrição de Camexilo</skos:altLabel>
+	<skos:altLabel>Circunscrição de Caungula</skos:altLabel>
+	<skos:altLabel>Município Caungula</skos:altLabel>
+	<skos:prefLabel>Município Caungula</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2242427/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/145702/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-9.66667</wgs:lat>
+	<wgs:long>18.83333</wgs:long>
+	<skos:altLabel>Circunscrição de Capenda Camulemba</skos:altLabel>
+	<skos:altLabel>Município Capenda-Camulemba</skos:altLabel>
+	<skos:prefLabel>Município Capenda-Camulemba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2242475/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2239858/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-8.66667</wgs:lat>
+	<wgs:long>16.5</wgs:long>
+	<skos:altLabel>Circunscrição do Cambo</skos:altLabel>
+	<skos:altLabel>Município Caombo</skos:altLabel>
+	<skos:prefLabel>Município Caombo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2242801/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2241660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-9.5</wgs:lat>
+	<wgs:long>14.66667</wgs:long>
+	<skos:altLabel>Concelho de Cambambe</skos:altLabel>
+	<skos:altLabel>Município Cambambe</skos:altLabel>
+	<skos:prefLabel>Município Cambambe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2242885/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12837</europeana:population>
+	<wgs:lat>-8.18333</wgs:lat>
+	<wgs:long>15.36667</wgs:long>
+	<skos:altLabel>Ambaca</skos:altLabel>
+	<skos:altLabel>Camabatela</skos:altLabel>
+	<skos:altLabel>Kamabatela</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Камабатела</skos:altLabel>
+	<skos:prefLabel>Camabatela</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2242997/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2239858/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-8.66667</wgs:lat>
+	<wgs:long>16</wgs:long>
+	<skos:altLabel>Circunscrição do Duque de Bragança</skos:altLabel>
+	<skos:altLabel>Concelho do Duque de Bragança</skos:altLabel>
+	<skos:altLabel>Município Calandula</skos:altLabel>
+	<skos:prefLabel>Município Calandula</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2243120/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2239858/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-9.5</wgs:lat>
+	<wgs:long>15.66667</wgs:long>
+	<skos:altLabel>Concelho de Cacuso</skos:altLabel>
+	<skos:altLabel>Município Cacuso</skos:altLabel>
+	<skos:prefLabel>Município Cacuso</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2243168/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-9.68333</wgs:lat>
+	<wgs:long>14.36667</wgs:long>
+	<skos:altLabel>Ilha Cacuanza</skos:altLabel>
+	<skos:altLabel>Ilha de Cambondo</skos:altLabel>
+	<skos:prefLabel>Ilha Cacuanza</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2243171/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2240444/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-8.83333</wgs:lat>
+	<wgs:long>13.5</wgs:long>
+	<skos:prefLabel>Município Cacuaco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2243266/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-4.93423</wgs:lat>
+	<wgs:long>12.40532</wgs:long>
+	<skos:altLabel>Cabinda</skos:altLabel>
+	<skos:altLabel>Distrito de Cabinda</skos:altLabel>
+	<skos:altLabel>Kabinda</skos:altLabel>
+	<skos:altLabel>Província de Cabinda</skos:altLabel>
+	<skos:prefLabel>Província de Cabinda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2243267/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2243266/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-5.5</wgs:lat>
+	<wgs:long>12.33333</wgs:long>
+	<skos:altLabel>Concelho de Cabinda</skos:altLabel>
+	<skos:altLabel>Kabinda</skos:altLabel>
+	<skos:altLabel>Município Cabinda</skos:altLabel>
+	<skos:prefLabel>Município Cabinda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2243271/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>66020</europeana:population>
+	<wgs:lat>-5.55</wgs:lat>
+	<wgs:long>12.2</wgs:long>
+	<skos:altLabel>Cabinda</skos:altLabel>
+	<skos:altLabel>Kabinda</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кабинда</skos:altLabel>
+	<skos:prefLabel>Cabinda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2243355/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2236566/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-7.5</wgs:lat>
+	<wgs:long>15.5</wgs:long>
+	<skos:prefLabel>Município Bungo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2243414/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-6</wgs:lat>
+	<wgs:long>12.76667</wgs:long>
+	<skos:altLabel>Bulikoko</skos:altLabel>
+	<skos:altLabel>Ile des Bulicoco</skos:altLabel>
+	<skos:altLabel>Île Bulikoko</skos:altLabel>
+	<skos:prefLabel>Île Bulikoko</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2243415/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-6</wgs:lat>
+	<wgs:long>12.78333</wgs:long>
+	<skos:altLabel>Bulikoko Islands</skos:altLabel>
+	<skos:altLabel>Ilhas Quissuelo</skos:altLabel>
+	<skos:altLabel>Ilhas do Bulicoco</skos:altLabel>
+	<skos:altLabel>Ilhas do Quissuelo</skos:altLabel>
+	<skos:altLabel>Îlots Bulikoko</skos:altLabel>
+	<skos:prefLabel>Ilhas do Bulicoco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2243420/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2241660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-8.66667</wgs:lat>
+	<wgs:long>14.83333</wgs:long>
+	<skos:prefLabel>Município Bula Atumba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2243441/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2236566/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-6.66667</wgs:lat>
+	<wgs:long>15.83333</wgs:long>
+	<skos:prefLabel>Município Buengas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2243457/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2243266/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-4.83333</wgs:lat>
+	<wgs:long>12.5</wgs:long>
+	<skos:altLabel>Circonscrição do Buco Zau</skos:altLabel>
+	<skos:altLabel>Município Buco Zau</skos:altLabel>
+	<skos:prefLabel>Município Buco Zau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2243535/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2241660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-8.33333</wgs:lat>
+	<wgs:long>15.16667</wgs:long>
+	<skos:prefLabel>Município Bolongongo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2243598/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-8.97504</wgs:lat>
+	<wgs:long>13.82743</wgs:long>
+	<skos:altLabel>Bengo</skos:altLabel>
+	<skos:altLabel>Província do Bengo</skos:altLabel>
+	<skos:prefLabel>Província do Bengo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2243631/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2236566/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-7.16667</wgs:lat>
+	<wgs:long>14.33333</wgs:long>
+	<skos:prefLabel>Município Bembe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2243632/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2236566/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-7.16667</wgs:lat>
+	<wgs:long>14.33333</wgs:long>
+	<skos:prefLabel>Concelho do Bembe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2243645/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2243266/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-4.66667</wgs:lat>
+	<wgs:long>12.83333</wgs:long>
+	<skos:altLabel>Circunscrição do Maiombe</skos:altLabel>
+	<skos:altLabel>Mayombe</skos:altLabel>
+	<skos:altLabel>Município Belize</skos:altLabel>
+	<skos:prefLabel>Município Belize</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2243811/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2241660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-8.66667</wgs:lat>
+	<wgs:long>15.16667</wgs:long>
+	<skos:prefLabel>Município Banga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2243908/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2236566/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-7.66667</wgs:lat>
+	<wgs:long>14.5</wgs:long>
+	<skos:prefLabel>Município Ambuila</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2243911/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2243598/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-8</wgs:lat>
+	<wgs:long>13.5</wgs:long>
+	<skos:altLabel>Concelho do Ambriz</skos:altLabel>
+	<skos:altLabel>Município Ambriz</skos:altLabel>
+	<skos:prefLabel>Município Ambriz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2243916/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2241660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-8.33333</wgs:lat>
+	<wgs:long>15.5</wgs:long>
+	<skos:altLabel>Concelho de Ambaca</skos:altLabel>
+	<skos:altLabel>Município Ambaca</skos:altLabel>
+	<skos:prefLabel>Município Ambaca</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2243921/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2236566/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-7.83333</wgs:lat>
+	<wgs:long>15.91667</wgs:long>
+	<skos:altLabel>Alto Cuale</skos:altLabel>
+	<skos:altLabel>Município Alto Cauale</skos:altLabel>
+	<skos:prefLabel>Município Alto Cauale</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3345496/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3349234/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-11.33333</wgs:lat>
+	<wgs:long>15.33333</wgs:long>
+	<skos:altLabel>Município Waku Kungo</skos:altLabel>
+	<skos:altLabel>Santa Comba</skos:altLabel>
+	<skos:prefLabel>Município Waku Kungo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3345497/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10970</europeana:population>
+	<wgs:lat>-11.35</wgs:lat>
+	<wgs:long>15.11667</wgs:long>
+	<skos:altLabel>Cela</skos:altLabel>
+	<skos:altLabel>Santa Comba</skos:altLabel>
+	<skos:altLabel>Santa Comba Dão</skos:altLabel>
+	<skos:altLabel>Vila de Santa Comba Dão</skos:altLabel>
+	<skos:altLabel>Waco-Kungo</skos:altLabel>
+	<skos:altLabel>Waku Kungo</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ваку Кунгу</skos:altLabel>
+	<skos:prefLabel>Waku Kungo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3345516/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3347016/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-15.66667</wgs:lat>
+	<wgs:long>13.16667</wgs:long>
+	<skos:prefLabel>Município Virei</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3345667/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3348310/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-12.66667</wgs:lat>
+	<wgs:long>15.16667</wgs:long>
+	<skos:altLabel>Cuma</skos:altLabel>
+	<skos:altLabel>Município Ukuma</skos:altLabel>
+	<skos:prefLabel>Município Ukuma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3345788/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3347016/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-16.66667</wgs:lat>
+	<wgs:long>12.33333</wgs:long>
+	<skos:altLabel>Concelho de Porto Alexandre</skos:altLabel>
+	<skos:altLabel>Município Tombua</skos:altLabel>
+	<skos:prefLabel>Município Tombua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3345909/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3348310/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-12.83333</wgs:lat>
+	<wgs:long>14.83333</wgs:long>
+	<skos:prefLabel>Município Tchindjenje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3345923/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3348310/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-13</wgs:lat>
+	<wgs:long>16.16667</wgs:long>
+	<skos:altLabel>Município Tchikala-Tcholohanga</skos:altLabel>
+	<skos:altLabel>Vila Nova</skos:altLabel>
+	<skos:prefLabel>Município Tchikala-Tcholohanga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3346014/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3349234/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-11.5</wgs:lat>
+	<wgs:long>14</wgs:long>
+	<skos:altLabel>Concelho de Novo Redondo</skos:altLabel>
+	<skos:altLabel>Município Sumbe</skos:altLabel>
+	<skos:prefLabel>Município Sumbe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3346015/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>33277</europeana:population>
+	<wgs:lat>-11.2</wgs:lat>
+	<wgs:long>13.83333</wgs:long>
+	<skos:altLabel>Angungescapolo</skos:altLabel>
+	<skos:altLabel>Ngunza</skos:altLabel>
+	<skos:altLabel>Nova Redonda</skos:altLabel>
+	<skos:altLabel>Nova Redondo</skos:altLabel>
+	<skos:altLabel>Novo Redondo</skos:altLabel>
+	<skos:altLabel xml:lang="en">Sumbe</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Sumbe</skos:altLabel>
+	<skos:altLabel>Sumbe</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сумбе</skos:altLabel>
+	<skos:prefLabel>Sumbe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3346113/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3349234/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-11.5</wgs:lat>
+	<wgs:long>14.75</wgs:long>
+	<skos:altLabel>Concelho de Seles</skos:altLabel>
+	<skos:altLabel>Concelho do Seles</skos:altLabel>
+	<skos:altLabel>Município Seles</skos:altLabel>
+	<skos:prefLabel>Município Seles</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3346489/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2239858/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-11</wgs:lat>
+	<wgs:long>18.33333</wgs:long>
+	<skos:altLabel>Circunscrição de Quirima</skos:altLabel>
+	<skos:altLabel>Município Quirima</skos:altLabel>
+	<skos:prefLabel>Município Quirima</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3346496/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3348303/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-15</wgs:lat>
+	<wgs:long>14.5</wgs:long>
+	<skos:prefLabel>Município Quipungo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3346556/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3348303/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-14.16667</wgs:lat>
+	<wgs:long>14</wgs:long>
+	<skos:altLabel>Concelho de Quilengues</skos:altLabel>
+	<skos:altLabel>Município Quilengues</skos:altLabel>
+	<skos:prefLabel>Município Quilengues</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3346558/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3349234/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-10.5</wgs:lat>
+	<wgs:long>14.33333</wgs:long>
+	<skos:prefLabel>Município Quilenda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3346597/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3349234/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-11</wgs:lat>
+	<wgs:long>15.5</wgs:long>
+	<skos:altLabel>Circunscrição da Quibala</skos:altLabel>
+	<skos:altLabel>Concelho da Quibala</skos:altLabel>
+	<skos:altLabel>Município Quibala</skos:altLabel>
+	<skos:prefLabel>Município Quibala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3346659/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3349234/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-10.5</wgs:lat>
+	<wgs:long>14</wgs:long>
+	<skos:altLabel>Concelho de Porto Amboim</skos:altLabel>
+	<skos:altLabel>Município Porto Amboim</skos:altLabel>
+	<skos:prefLabel>Município Porto Amboim</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3346713/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-13.45</wgs:lat>
+	<wgs:long>12.53333</wgs:long>
+	<skos:altLabel>Iheu do Pina</skos:altLabel>
+	<skos:altLabel>Ilheús do Pina</skos:altLabel>
+	<skos:altLabel>Pine Islet</skos:altLabel>
+	<skos:prefLabel>Ilheús do Pina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3346821/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>10169</europeana:population>
+	<wgs:lat>-17.06667</wgs:lat>
+	<wgs:long>15.73333</wgs:long>
+	<skos:altLabel>N’Giva</skos:altLabel>
+	<skos:altLabel>N’Jiva</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ondjiva</skos:altLabel>
+	<skos:altLabel xml:lang="de">Ondjiva</skos:altLabel>
+	<skos:altLabel>Ondjiva</skos:altLabel>
+	<skos:altLabel>Ondyiva</skos:altLabel>
+	<skos:altLabel>Ongiva</skos:altLabel>
+	<skos:altLabel>Onjiva</skos:altLabel>
+	<skos:altLabel>Pereira de Eca</skos:altLabel>
+	<skos:altLabel>Pereira d’Eca</skos:altLabel>
+	<skos:altLabel>Vila Pereira de Eco</skos:altLabel>
+	<skos:altLabel>Vila Pereira de Eça</skos:altLabel>
+	<skos:altLabel>Vila Pereira d’Eça</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Онджива</skos:altLabel>
+	<skos:prefLabel>Ondjiva</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3346850/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3349096/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-16.66667</wgs:lat>
+	<wgs:long>15</wgs:long>
+	<skos:altLabel>Circunscrição do Cuamato</skos:altLabel>
+	<skos:altLabel>Município Ombadja</skos:altLabel>
+	<skos:prefLabel>Município Ombadja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3346941/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351640/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-11.33333</wgs:lat>
+	<wgs:long>17.25</wgs:long>
+	<skos:prefLabel>Município N’harea</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3347005/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/876337/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-16.5</wgs:lat>
+	<wgs:long>18.66667</wgs:long>
+	<skos:prefLabel>Município Nankova</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3347016/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-15.33207</wgs:lat>
+	<wgs:long>12.66002</wgs:long>
+	<skos:altLabel>Distrito de Moçâmedes</skos:altLabel>
+	<skos:altLabel>Namibe</skos:altLabel>
+	<skos:altLabel>Província de Moçâmedes</skos:altLabel>
+	<skos:altLabel>Província de Namibe</skos:altLabel>
+	<skos:prefLabel>Província de Namibe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3347017/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3347016/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-14.83333</wgs:lat>
+	<wgs:long>12.5</wgs:long>
+	<skos:altLabel>Concelho de Moçâmedes</skos:altLabel>
+	<skos:altLabel>Município Namibe</skos:altLabel>
+	<skos:prefLabel>Município Namibe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3347019/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>80149</europeana:population>
+	<wgs:lat>-15.19611</wgs:lat>
+	<wgs:long>12.15222</wgs:long>
+	<skos:altLabel>Mossamedes</skos:altLabel>
+	<skos:altLabel>Moçâmedes</skos:altLabel>
+	<skos:altLabel xml:lang="en">Namibe</skos:altLabel>
+	<skos:altLabel xml:lang="et">Namibe</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Namibe</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Namibe</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Namibe</skos:altLabel>
+	<skos:altLabel xml:lang="de">Namibe</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Namibe</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Namibe</skos:altLabel>
+	<skos:altLabel>Namibe</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Намибе</skos:altLabel>
+	<skos:prefLabel>Namibe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3347028/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3349096/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-17</wgs:lat>
+	<wgs:long>16.66667</wgs:long>
+	<skos:prefLabel>Município Namacunde</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3347070/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3349234/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-10.33333</wgs:lat>
+	<wgs:long>16</wgs:long>
+	<skos:prefLabel>Município Mussende</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3347110/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3348310/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-11.66667</wgs:lat>
+	<wgs:long>16.16667</wgs:long>
+	<skos:prefLabel>Município Mungo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3347352/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/876337/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-15</wgs:lat>
+	<wgs:long>17.66667</wgs:long>
+	<skos:altLabel>Circunscrição de Menongue</skos:altLabel>
+	<skos:altLabel>Concelho de Serpa Pinto</skos:altLabel>
+	<skos:altLabel>Concelho do Menongue</skos:altLabel>
+	<skos:altLabel>Município Menongue</skos:altLabel>
+	<skos:prefLabel>Município Menongue</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3347353/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>32203</europeana:population>
+	<wgs:lat>-14.6585</wgs:lat>
+	<wgs:long>17.69099</wgs:long>
+	<skos:altLabel>Menonge</skos:altLabel>
+	<skos:altLabel>Serpa Pinto</skos:altLabel>
+	<skos:altLabel>Vila Serpa Pinto</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Менонге</skos:altLabel>
+	<skos:prefLabel>Menongue</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3347423/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3348303/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-15.33333</wgs:lat>
+	<wgs:long>15.16667</wgs:long>
+	<skos:altLabel>Circunscrição de Alto Cimene</skos:altLabel>
+	<skos:altLabel>Circunscrição de Alto Cunene</skos:altLabel>
+	<skos:altLabel>Município Matala</skos:altLabel>
+	<skos:prefLabel>Município Matala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3347536/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.25</wgs:lat>
+	<wgs:long>17.75</wgs:long>
+	<skos:prefLabel>Ilha Macundi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3347614/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2239858/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-10.83333</wgs:lat>
+	<wgs:long>17.5</wgs:long>
+	<skos:altLabel>Concelho do Luguembo</skos:altLabel>
+	<skos:altLabel>Município Luquembo</skos:altLabel>
+	<skos:prefLabel>Município Luquembo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3347719/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>21115</europeana:population>
+	<wgs:lat>-11.78333</wgs:lat>
+	<wgs:long>19.91667</wgs:long>
+	<skos:altLabel>Luena</skos:altLabel>
+	<skos:altLabel>Luene</skos:altLabel>
+	<skos:altLabel>Luso</skos:altLabel>
+	<skos:altLabel>Luzo</skos:altLabel>
+	<skos:altLabel>Vila Luso</skos:altLabel>
+	<skos:altLabel>Vila Luzo</skos:altLabel>
+	<skos:altLabel>Vila Luzu</skos:altLabel>
+	<skos:altLabel>Villa Luso</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Луэна</skos:altLabel>
+	<skos:prefLabel>Luena</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3347741/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/875996/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-13.66667</wgs:lat>
+	<wgs:long>19.83333</wgs:long>
+	<skos:altLabel>Circunscrição dos Luchazes</skos:altLabel>
+	<skos:altLabel>Município Luchazes</skos:altLabel>
+	<skos:prefLabel>Município Luchazes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3347760/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3348303/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-14.75</wgs:lat>
+	<wgs:long>13.75</wgs:long>
+	<skos:altLabel>Concelho do Lubango</skos:altLabel>
+	<skos:altLabel>Município Lubango</skos:altLabel>
+	<skos:prefLabel>Município Lubango</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3347762/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>102541</europeana:population>
+	<wgs:lat>-14.91667</wgs:lat>
+	<wgs:long>13.5</wgs:long>
+	<skos:altLabel xml:lang="en">Lubango</skos:altLabel>
+	<skos:altLabel xml:lang="de">Lubango</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Lubango</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Lubango</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Lubango</skos:altLabel>
+	<skos:altLabel>Lubango</skos:altLabel>
+	<skos:altLabel>Sá da Bandeira</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Лубанго</skos:altLabel>
+	<skos:prefLabel>Lubango</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3347852/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3348310/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-13</wgs:lat>
+	<wgs:long>15.33333</wgs:long>
+	<skos:prefLabel>Município Longonjo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3347853/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>24346</europeana:population>
+	<wgs:lat>-12.90667</wgs:lat>
+	<wgs:long>15.25333</wgs:long>
+	<skos:altLabel>Congonjo</skos:altLabel>
+	<skos:altLabel>Longonjo</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Логонжу</skos:altLabel>
+	<skos:prefLabel>Longonjo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3347879/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3348310/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-12.16667</wgs:lat>
+	<wgs:long>15.33333</wgs:long>
+	<skos:altLabel>Luimbale</skos:altLabel>
+	<skos:altLabel>Município Londuimbali</skos:altLabel>
+	<skos:prefLabel>Município Londuimbali</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3347937/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-12.16667</wgs:lat>
+	<wgs:long>13.83333</wgs:long>
+	<skos:altLabel>Concelho do Lobito</skos:altLabel>
+	<skos:altLabel>Município Lobito</skos:altLabel>
+	<skos:prefLabel>Município Lobito</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3347939/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>207932</europeana:population>
+	<wgs:lat>-12.34806</wgs:lat>
+	<wgs:long>13.54556</wgs:long>
+	<skos:altLabel xml:lang="id">Lobito</skos:altLabel>
+	<skos:altLabel xml:lang="de">Lobito</skos:altLabel>
+	<skos:altLabel xml:lang="en">Lobito</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Lobito</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Lobito</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Lobito</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Lobito</skos:altLabel>
+	<skos:altLabel xml:lang="it">Lobito</skos:altLabel>
+	<skos:altLabel>Lobito</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Лобиту</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ロビト</skos:altLabel>
+	<skos:prefLabel>Lobito</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3347977/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.41667</wgs:lat>
+	<wgs:long>12.55</wgs:long>
+	<skos:altLabel>Bay Island</skos:altLabel>
+	<skos:altLabel>Ilha Liesse</skos:altLabel>
+	<skos:altLabel>Ilheú dos Pássaros</skos:altLabel>
+	<skos:prefLabel>Ilha Liesse</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3347989/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3349234/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-10</wgs:lat>
+	<wgs:long>15</wgs:long>
+	<skos:altLabel>Concelho do Libolo</skos:altLabel>
+	<skos:altLabel>Município Libolo</skos:altLabel>
+	<skos:prefLabel>Município Libolo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3348075/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3348303/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-14.33333</wgs:lat>
+	<wgs:long>16.33333</wgs:long>
+	<skos:altLabel>Circunscrição da Ganguelas</skos:altLabel>
+	<skos:altLabel>Circunscrição das Ganguelas</skos:altLabel>
+	<skos:altLabel>Circunscrição dos Ganguelas</skos:altLabel>
+	<skos:altLabel>Município Kuvango</skos:altLabel>
+	<skos:prefLabel>Município Kuvango</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3348077/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351640/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-12.5</wgs:lat>
+	<wgs:long>17</wgs:long>
+	<skos:altLabel>Concelho do Bié</skos:altLabel>
+	<skos:altLabel>Município Kuito</skos:altLabel>
+	<skos:prefLabel>Município Kuito</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3348078/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>113624</europeana:population>
+	<wgs:lat>-12.38333</wgs:lat>
+	<wgs:long>16.93333</wgs:long>
+	<skos:altLabel>Bihé</skos:altLabel>
+	<skos:altLabel>Bié</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kuito</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kuito</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Kuito</skos:altLabel>
+	<skos:altLabel>Kuito</skos:altLabel>
+	<skos:altLabel>Silva Porto</skos:altLabel>
+	<skos:altLabel>Vila Salva Porto</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Куито</skos:altLabel>
+	<skos:prefLabel>Kuito</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3348093/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3348310/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-12.83333</wgs:lat>
+	<wgs:long>16.33333</wgs:long>
+	<skos:altLabel>Bela Vista</skos:altLabel>
+	<skos:altLabel>Município Katchiungo</skos:altLabel>
+	<skos:prefLabel>Município Katchiungo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3348165/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3348303/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-14.66667</wgs:lat>
+	<wgs:long>15.83333</wgs:long>
+	<skos:prefLabel>Município Jamba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3348286/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3348303/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-15</wgs:lat>
+	<wgs:long>13.33333</wgs:long>
+	<skos:prefLabel>Município Humpata</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3348303/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-14.69531</wgs:lat>
+	<wgs:long>15.00014</wgs:long>
+	<skos:altLabel>Distrito da Huíla</skos:altLabel>
+	<skos:altLabel>Huíla</skos:altLabel>
+	<skos:altLabel>Província da Huíla</skos:altLabel>
+	<skos:prefLabel>Província da Huíla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3348310/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-12.5</wgs:lat>
+	<wgs:long>15.66667</wgs:long>
+	<skos:altLabel>Distrito do Huambo</skos:altLabel>
+	<skos:altLabel>Huambo</skos:altLabel>
+	<skos:altLabel>Huambo Province</skos:altLabel>
+	<skos:altLabel>Província do Huambo</skos:altLabel>
+	<skos:prefLabel>Província do Huambo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3348311/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3348310/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-13</wgs:lat>
+	<wgs:long>15.83333</wgs:long>
+	<skos:altLabel>Concelho do Huambo</skos:altLabel>
+	<skos:altLabel>Município Huambo</skos:altLabel>
+	<skos:prefLabel>Município Huambo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3348313/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>226145</europeana:population>
+	<wgs:lat>-12.77611</wgs:lat>
+	<wgs:long>15.73917</wgs:long>
+	<skos:altLabel xml:lang="id">Huambo</skos:altLabel>
+	<skos:altLabel xml:lang="en">Huambo</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Huambo</skos:altLabel>
+	<skos:altLabel xml:lang="de">Huambo</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Huambo</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Huambo</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Huambo</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Huambo</skos:altLabel>
+	<skos:altLabel xml:lang="et">Huambo</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Huambo</skos:altLabel>
+	<skos:altLabel xml:lang="it">Huambo</skos:altLabel>
+	<skos:altLabel>Huambo</skos:altLabel>
+	<skos:altLabel>Nova Lisboa</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Уамбо</skos:altLabel>
+	<skos:prefLabel>Huambo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3348578/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-13</wgs:lat>
+	<wgs:long>14.66667</wgs:long>
+	<skos:altLabel>Concelho da Ganda</skos:altLabel>
+	<skos:altLabel>Município Ganda</skos:altLabel>
+	<skos:prefLabel>Município Ganda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3348773/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3348310/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-12.5</wgs:lat>
+	<wgs:long>15.5</wgs:long>
+	<skos:altLabel>Município Ekunha</skos:altLabel>
+	<skos:altLabel>Vila Flor</skos:altLabel>
+	<skos:prefLabel>Município Ekunha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3348792/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3349234/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-11</wgs:lat>
+	<wgs:long>14.83333</wgs:long>
+	<skos:prefLabel>Município Ebo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3348986/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3349096/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-15.66667</wgs:lat>
+	<wgs:long>16.16667</wgs:long>
+	<skos:prefLabel>Município Cuvelai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3349045/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3349096/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-17</wgs:lat>
+	<wgs:long>13.66667</wgs:long>
+	<skos:altLabel>Circunscriçã de Curóco</skos:altLabel>
+	<skos:altLabel>Circunscriçã do Curóco</skos:altLabel>
+	<skos:altLabel>Município Curoca</skos:altLabel>
+	<skos:prefLabel>Município Curoca</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3349078/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351640/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-12</wgs:lat>
+	<wgs:long>16.83333</wgs:long>
+	<skos:altLabel>Município Cunhinga</skos:altLabel>
+	<skos:altLabel>Vouga</skos:altLabel>
+	<skos:prefLabel>Município Cunhinga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3349096/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-16.51009</wgs:lat>
+	<wgs:long>15.43526</wgs:long>
+	<skos:altLabel>Cunene</skos:altLabel>
+	<skos:altLabel>Distrito do Cunene</skos:altLabel>
+	<skos:altLabel>Kunene</skos:altLabel>
+	<skos:altLabel>Kwnene</skos:altLabel>
+	<skos:altLabel>Província do Cunene</skos:altLabel>
+	<skos:prefLabel>Província do Cunene</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3349148/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/876337/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-15</wgs:lat>
+	<wgs:long>19</wgs:long>
+	<skos:altLabel>Circunscrição do Cuíto-Cuanavale</skos:altLabel>
+	<skos:altLabel>Município Cuito Cuanavale</skos:altLabel>
+	<skos:prefLabel>Município Cuito Cuanavale</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3349179/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351640/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-12</wgs:lat>
+	<wgs:long>18.33333</wgs:long>
+	<skos:prefLabel>Município Cuemba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3349195/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/876337/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-14.66667</wgs:lat>
+	<wgs:long>17</wgs:long>
+	<skos:altLabel>Concelho do Cuchi</skos:altLabel>
+	<skos:altLabel>Município Cuchi</skos:altLabel>
+	<skos:prefLabel>Município Cuchi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3349225/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-13.16667</wgs:lat>
+	<wgs:long>14.33333</wgs:long>
+	<skos:prefLabel>Município Cubal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3349234/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>653121</europeana:population>
+	<wgs:lat>-10.82696</wgs:lat>
+	<wgs:long>15.03197</wgs:long>
+	<skos:altLabel>Cuanza Sul</skos:altLabel>
+	<skos:altLabel>Distrito do Cuanza Sul</skos:altLabel>
+	<skos:altLabel>Kuanza Sul</skos:altLabel>
+	<skos:altLabel>Kwanza Sul Province</skos:altLabel>
+	<skos:altLabel>Província do Cuanza Sul</skos:altLabel>
+	<skos:altLabel>South Kwanza</skos:altLabel>
+	<skos:prefLabel>Província do Cuanza Sul</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3349237/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3349096/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-16.5</wgs:lat>
+	<wgs:long>16.33333</wgs:long>
+	<skos:altLabel>Circunscrição do Baixo Cunene</skos:altLabel>
+	<skos:altLabel>Município Cuanhama</skos:altLabel>
+	<skos:prefLabel>Município Cuanhama</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3349243/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/876337/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-17</wgs:lat>
+	<wgs:long>18.16667</wgs:long>
+	<skos:altLabel>Circunscrição do Baixo Cubango</skos:altLabel>
+	<skos:altLabel>Município Cuangar</skos:altLabel>
+	<skos:prefLabel>Município Cuangar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3349321/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3349234/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-11.16667</wgs:lat>
+	<wgs:long>14.5</wgs:long>
+	<skos:prefLabel>Município Conda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3349404/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-13.5</wgs:lat>
+	<wgs:long>13.83333</wgs:long>
+	<skos:prefLabel>Município Chongoroi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3349514/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351640/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-13.5</wgs:lat>
+	<wgs:long>17.33333</wgs:long>
+	<skos:altLabel>Circunscrição do Alto Cuanza</skos:altLabel>
+	<skos:altLabel>Município Chitembo</skos:altLabel>
+	<skos:prefLabel>Município Chitembo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3349647/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3348303/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-13.83333</wgs:lat>
+	<wgs:long>15.83333</wgs:long>
+	<skos:prefLabel>Município Chipindo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3349722/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351640/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-12.58333</wgs:lat>
+	<wgs:long>16.5</wgs:long>
+	<skos:altLabel>Concelho de Chinguar</skos:altLabel>
+	<skos:altLabel>Município Chinguar</skos:altLabel>
+	<skos:prefLabel>Município Chinguar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3349949/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3348303/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-14.16667</wgs:lat>
+	<wgs:long>15</wgs:long>
+	<skos:prefLabel>Município Chicomba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3349996/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3348303/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-15.16667</wgs:lat>
+	<wgs:long>14</wgs:long>
+	<skos:altLabel>Concelho de Chibia</skos:altLabel>
+	<skos:altLabel>Município Chibia</skos:altLabel>
+	<skos:prefLabel>Município Chibia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3350009/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3348303/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-15.83333</wgs:lat>
+	<wgs:long>14.16667</wgs:long>
+	<skos:prefLabel>Município Chiange</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3350246/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16977</europeana:population>
+	<wgs:lat>-12.43139</wgs:lat>
+	<wgs:long>13.54722</wgs:long>
+	<skos:altLabel>Asseiceira</skos:altLabel>
+	<skos:altLabel>Catumbela</skos:altLabel>
+	<skos:altLabel>Catumbella</skos:altLabel>
+	<skos:altLabel>Katumbela</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Катумбела</skos:altLabel>
+	<skos:prefLabel>Catumbela</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3350370/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351640/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-12.16667</wgs:lat>
+	<wgs:long>17.33333</wgs:long>
+	<skos:prefLabel>Município Catabola</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3350372/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18855</europeana:population>
+	<wgs:lat>-12.15</wgs:lat>
+	<wgs:long>17.28333</wgs:long>
+	<skos:altLabel>Catabola</skos:altLabel>
+	<skos:altLabel>Katabola</skos:altLabel>
+	<skos:altLabel>Nova Sintra</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Катабола</skos:altLabel>
+	<skos:prefLabel>Catabola</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3350385/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3349234/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-11.83333</wgs:lat>
+	<wgs:long>15</wgs:long>
+	<skos:prefLabel>Município Cassongue</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3350771/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2239858/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-10</wgs:lat>
+	<wgs:long>16.66667</wgs:long>
+	<skos:prefLabel>Município Cangandala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3350916/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2239858/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-10</wgs:lat>
+	<wgs:long>17.66667</wgs:long>
+	<skos:altLabel>Circunscrição do Songo</skos:altLabel>
+	<skos:altLabel>Município Cambundi-Catembo</skos:altLabel>
+	<skos:prefLabel>Município Cambundi-Catembo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3351012/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351640/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-12.5</wgs:lat>
+	<wgs:long>17.75</wgs:long>
+	<skos:prefLabel>Município Camacupa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3351013/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351640/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-12.5</wgs:lat>
+	<wgs:long>17.75</wgs:long>
+	<skos:prefLabel>Concelho de Camacupa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3351014/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19150</europeana:population>
+	<wgs:lat>-12.01667</wgs:lat>
+	<wgs:long>17.48333</wgs:long>
+	<skos:altLabel>Camacupa</skos:altLabel>
+	<skos:altLabel>General Machado</skos:altLabel>
+	<skos:altLabel>General Machado Villa</skos:altLabel>
+	<skos:altLabel>General Mathado</skos:altLabel>
+	<skos:altLabel>Machado</skos:altLabel>
+	<skos:altLabel>Vila General Machado</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Камакупа</skos:altLabel>
+	<skos:prefLabel>Camacupa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3351015/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3347016/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-14</wgs:lat>
+	<wgs:long>13.16667</wgs:long>
+	<skos:prefLabel>Município Camacuio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3351021/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3348303/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-14</wgs:lat>
+	<wgs:long>14.5</wgs:long>
+	<skos:prefLabel>Município Caluquembe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3351024/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>30300</europeana:population>
+	<wgs:lat>-13.78333</wgs:lat>
+	<wgs:long>14.68333</wgs:long>
+	<skos:altLabel>Caluquembe</skos:altLabel>
+	<skos:altLabel>Caluquembo</skos:altLabel>
+	<skos:altLabel>Caluquemo</skos:altLabel>
+	<skos:altLabel>Kalukembe</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Калукембе</skos:altLabel>
+	<skos:prefLabel>Caluquembe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3351214/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/876337/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-17.33333</wgs:lat>
+	<wgs:long>19.33333</wgs:long>
+	<skos:prefLabel>Mnuicípio Calai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3351267/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-13</wgs:lat>
+	<wgs:long>13.83333</wgs:long>
+	<skos:prefLabel>Município Caimbambo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3351306/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3349096/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-16.5</wgs:lat>
+	<wgs:long>14.33333</wgs:long>
+	<skos:altLabel>Circunscrição do Gambos</skos:altLabel>
+	<skos:altLabel>Circunscrição dos Gambos</skos:altLabel>
+	<skos:altLabel>Município Cahama</skos:altLabel>
+	<skos:prefLabel>Município Cahama</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3351379/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3348303/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-13.83333</wgs:lat>
+	<wgs:long>15.16667</wgs:long>
+	<skos:altLabel>Concelho de Caconda</skos:altLabel>
+	<skos:altLabel>Município Caconda</skos:altLabel>
+	<skos:prefLabel>Município Caconda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3351380/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10549</europeana:population>
+	<wgs:lat>-13.73333</wgs:lat>
+	<wgs:long>15.06667</wgs:long>
+	<skos:altLabel>Caconda</skos:altLabel>
+	<skos:altLabel>Kakonda</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Каконда</skos:altLabel>
+	<skos:prefLabel>Caconda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3351386/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/145701/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-10.66667</wgs:lat>
+	<wgs:long>19.25</wgs:long>
+	<skos:altLabel>Circunscrição de Minungo</skos:altLabel>
+	<skos:altLabel>Circunscrição do Minungo</skos:altLabel>
+	<skos:altLabel>Município Cacolo</skos:altLabel>
+	<skos:prefLabel>Município Cacolo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3351497/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3348310/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-13.16667</wgs:lat>
+	<wgs:long>15.5</wgs:long>
+	<skos:altLabel>Concelho da Caála</skos:altLabel>
+	<skos:altLabel>Concelho de Caala</skos:altLabel>
+	<skos:altLabel>Município Caála</skos:altLabel>
+	<skos:prefLabel>Município Caála</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3351500/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21205</europeana:population>
+	<wgs:lat>-12.8525</wgs:lat>
+	<wgs:long>15.56056</wgs:long>
+	<skos:altLabel>Cahala</skos:altLabel>
+	<skos:altLabel>Caála</skos:altLabel>
+	<skos:altLabel>Kaala</skos:altLabel>
+	<skos:altLabel>Robert Williams</skos:altLabel>
+	<skos:altLabel>Roberto Williams</skos:altLabel>
+	<skos:altLabel>Vila Robert Williams</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Каале</skos:altLabel>
+	<skos:prefLabel>Caála</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3351597/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-12.33333</wgs:lat>
+	<wgs:long>14.16667</wgs:long>
+	<skos:prefLabel>Município Bocoio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3351640/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-12.34989</wgs:lat>
+	<wgs:long>17.3031</wgs:long>
+	<skos:altLabel>Bié</skos:altLabel>
+	<skos:altLabel>Distrito do Bíe</skos:altLabel>
+	<skos:altLabel>Província do Bié</skos:altLabel>
+	<skos:prefLabel>Província do Bié</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3351646/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3347016/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-14.66667</wgs:lat>
+	<wgs:long>13.16667</wgs:long>
+	<skos:altLabel>Circunscrição da Bibala</skos:altLabel>
+	<skos:altLabel>Concelho da Bibala</skos:altLabel>
+	<skos:altLabel>Município Bibala</skos:altLabel>
+	<skos:altLabel>Vila Arriaga</skos:altLabel>
+	<skos:prefLabel>Município Bibala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3351660/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-12.854</wgs:lat>
+	<wgs:long>13.92825</wgs:long>
+	<skos:altLabel>Benguela</skos:altLabel>
+	<skos:altLabel>Benguella</skos:altLabel>
+	<skos:altLabel>Distrito do Benguela</skos:altLabel>
+	<skos:altLabel>Província de Benguela</skos:altLabel>
+	<skos:prefLabel>Província de Benguela</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3351661/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-12.83333</wgs:lat>
+	<wgs:long>13.5</wgs:long>
+	<skos:altLabel>Concelho de Benguela</skos:altLabel>
+	<skos:altLabel>Município Benguela</skos:altLabel>
+	<skos:prefLabel>Município Benguela</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3351663/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>151226</europeana:population>
+	<wgs:lat>-12.57833</wgs:lat>
+	<wgs:long>13.40722</wgs:long>
+	<skos:altLabel xml:lang="pl">Benguela</skos:altLabel>
+	<skos:altLabel xml:lang="de">Benguela</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Benguela</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Benguela</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Benguela</skos:altLabel>
+	<skos:altLabel xml:lang="en">Benguela</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Benguela</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Benguela</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Benguela</skos:altLabel>
+	<skos:altLabel xml:lang="it">Benguela</skos:altLabel>
+	<skos:altLabel>Benguela</skos:altLabel>
+	<skos:altLabel>Benguella</skos:altLabel>
+	<skos:altLabel>São Félipe de Benguela</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бенгела</skos:altLabel>
+	<skos:altLabel xml:lang="zh">本吉拉</skos:altLabel>
+	<skos:prefLabel>Benguela</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3351758/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-13.33333</wgs:lat>
+	<wgs:long>14.83333</wgs:long>
+	<skos:prefLabel>Município Balombo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3351760/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-12.33333</wgs:lat>
+	<wgs:long>14.83333</wgs:long>
+	<skos:altLabel>Circunscrição do Balombo</skos:altLabel>
+	<skos:altLabel>Município Balombo</skos:altLabel>
+	<skos:prefLabel>Município Balombo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3351782/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3348310/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-12</wgs:lat>
+	<wgs:long>16</wgs:long>
+	<skos:altLabel>Concelho do Bailundo</skos:altLabel>
+	<skos:altLabel>Município Bailundo</skos:altLabel>
+	<skos:prefLabel>Município Bailundo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3351785/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-13.16667</wgs:lat>
+	<wgs:long>13</wgs:long>
+	<skos:prefLabel>Município Baía Farta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3351787/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.66667</wgs:lat>
+	<wgs:long>11.7</wgs:long>
+	<skos:altLabel>Ilha da Baía dos Tigres</skos:altLabel>
+	<skos:altLabel>Peninsula Tigres</skos:altLabel>
+	<skos:altLabel>Península dos Tigres</skos:altLabel>
+	<skos:altLabel>Presqu’ile des Tigres</skos:altLabel>
+	<skos:altLabel>Tiger Peninsula</skos:altLabel>
+	<skos:altLabel>Tiger-Halb-Insel</skos:altLabel>
+	<skos:prefLabel>Ilha da Baía dos Tigres</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3351879/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255146/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>13068161</europeana:population>
+	<wgs:lat>-12.5</wgs:lat>
+	<wgs:long>18.5</wgs:long>
+	<skos:altLabel>AO</skos:altLabel>
+	<skos:altLabel xml:lang="es">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="id">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="en">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="de">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="da">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="et">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="it">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="af">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="an">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="io">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="kg">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="mg">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="se">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="jv">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="li">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="na">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="no">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Angola</skos:altLabel>
+	<skos:altLabel xml:lang="la">Angolia</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Angolo</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Angolë</skos:altLabel>
+	<skos:altLabel xml:lang="so">Angoola</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Angòla</skos:altLabel>
+	<skos:altLabel xml:lang="is">Angóla</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Angóla</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Angóla</skos:altLabel>
+	<skos:altLabel xml:lang="ln">Angóla</skos:altLabel>
+	<skos:altLabel>Colónia de Angola</skos:altLabel>
+	<skos:altLabel>Estado de Angola</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Langolän</skos:altLabel>
+	<skos:altLabel xml:lang="kg">Ngola</skos:altLabel>
+	<skos:altLabel>People’s Republic of Angola</skos:altLabel>
+	<skos:altLabel>Portugiesisch Westafrika</skos:altLabel>
+	<skos:altLabel>Portuguese West Africa</skos:altLabel>
+	<skos:altLabel>Província de Angola</skos:altLabel>
+	<skos:altLabel xml:lang="en">Republic of Angola</skos:altLabel>
+	<skos:altLabel>República Popular de Angola</skos:altLabel>
+	<skos:altLabel xml:lang="pt">República de Angola</skos:altLabel>
+	<skos:altLabel>África Ocidental Portuguesa</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ăng-gô-la</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ăng-gô-la (Angola)</skos:altLabel>
+	<skos:altLabel xml:lang="el">Αγκόλα</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ανγκόλα</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Ангола</skos:altLabel>
+	<skos:altLabel xml:lang="cv">Ангола</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Ангола</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Ангола</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Ангола</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ангола</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Ангола</skos:altLabel>
+	<skos:altLabel xml:lang="be">Ангола</skos:altLabel>
+	<skos:altLabel xml:lang="be">Анґола</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Анґола</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Անգոլա</skos:altLabel>
+	<skos:altLabel xml:lang="he">אנגולה</skos:altLabel>
+	<skos:altLabel xml:lang="ps">آنګولا</skos:altLabel>
+	<skos:altLabel xml:lang="fa">آنگولا</skos:altLabel>
+	<skos:altLabel xml:lang="ar">أنجولا</skos:altLabel>
+	<skos:altLabel xml:lang="ar">أنغولا</skos:altLabel>
+	<skos:altLabel xml:lang="ug">ئانگولا</skos:altLabel>
+	<skos:altLabel xml:lang="ar">انغولا</skos:altLabel>
+	<skos:altLabel xml:lang="ps">انګولا</skos:altLabel>
+	<skos:altLabel xml:lang="ur">انگولا</skos:altLabel>
+	<skos:altLabel xml:lang="mr">अँगोला</skos:altLabel>
+	<skos:altLabel xml:lang="hi">अंगोला</skos:altLabel>
+	<skos:altLabel xml:lang="sa">अंगोला</skos:altLabel>
+	<skos:altLabel xml:lang="bn">অ্যাঙ্গোলা</skos:altLabel>
+	<skos:altLabel xml:lang="bn">আঙ্গোলা</skos:altLabel>
+	<skos:altLabel xml:lang="bn">এঙ্গোলা</skos:altLabel>
+	<skos:altLabel xml:lang="ta">அங்கோலா</skos:altLabel>
+	<skos:altLabel xml:lang="ml">അംഗോള</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศแองโกลา</skos:altLabel>
+	<skos:altLabel xml:lang="th">แองโกลา</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ອັນໂກລາ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཨང་གཽ་ལ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ანგოლა</skos:altLabel>
+	<skos:altLabel xml:lang="am">አንጎላ</skos:altLabel>
+	<skos:altLabel xml:lang="am">አንጐላ</skos:altLabel>
+	<skos:altLabel xml:lang="km">អង់ហ្គោឡា</skos:altLabel>
+	<skos:altLabel xml:lang="km">អាង់កូឡា</skos:altLabel>
+	<skos:altLabel xml:lang="ja">アンゴラ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">アンゴラ共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">安哥拉</skos:altLabel>
+	<skos:altLabel xml:lang="ko">앙골라</skos:altLabel>
+	<skos:prefLabel>Republic of Angola</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3351882/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351640/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-11.16667</wgs:lat>
+	<wgs:long>16.5</wgs:long>
+	<skos:altLabel>Concelho de Andulo</skos:altLabel>
+	<skos:altLabel>Concelho do Andulo</skos:altLabel>
+	<skos:altLabel>Município Andulo</skos:altLabel>
+	<skos:prefLabel>Município Andulo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3351905/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3349234/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-11</wgs:lat>
+	<wgs:long>14.33333</wgs:long>
+	<skos:altLabel>Concelho de Amboim</skos:altLabel>
+	<skos:altLabel>Concelho do Amboim</skos:altLabel>
+	<skos:altLabel>Município Amboim</skos:altLabel>
+	<skos:prefLabel>Município Amboim</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7644584/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.88201</wgs:lat>
+	<wgs:long>13.03053</wgs:long>
+	<skos:prefLabel>Ilha Selonga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7644593/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.88441</wgs:lat>
+	<wgs:long>13.08639</wgs:long>
+	<skos:prefLabel>Ilha Roca</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7644598/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3351879/"/>
+	<europeana:country>AO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.90424</wgs:lat>
+	<wgs:long>13.13259</wgs:long>
+	<skos:prefLabel>Ilha Condo</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 229 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

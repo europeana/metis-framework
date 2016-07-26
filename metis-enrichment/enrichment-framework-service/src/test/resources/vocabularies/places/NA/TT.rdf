@@ -1,0 +1,1380 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: NA_TT
+Description: Selected fields pulled from Geonames about TT done on Mon May 23 21:14:34 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573514/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.68333</wgs:lat>
+	<wgs:long>-61.75</wgs:long>
+	<skos:altLabel>Chacachacare Island</skos:altLabel>
+	<skos:altLabel>Island of Chacachacare</skos:altLabel>
+	<skos:prefLabel>Chacachacare</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573535/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>10.13333</wgs:lat>
+	<wgs:long>-61</wgs:long>
+	<skos:altLabel>White Island</skos:altLabel>
+	<skos:altLabel>White Islands</skos:altLabel>
+	<skos:altLabel>White Islets</skos:altLabel>
+	<skos:prefLabel>White Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573559/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.68333</wgs:lat>
+	<wgs:long>-61.16667</wgs:long>
+	<skos:altLabel>Valencia</skos:altLabel>
+	<skos:altLabel>Valencia Ward</skos:altLabel>
+	<skos:prefLabel>Ward of Valencia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573575/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.5</wgs:lat>
+	<wgs:long>-61.11667</wgs:long>
+	<skos:altLabel>Turure</skos:altLabel>
+	<skos:altLabel>Turure Ward</skos:altLabel>
+	<skos:prefLabel>Ward of Turure</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573576/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>17758</europeana:population>
+	<wgs:lat>10.63333</wgs:lat>
+	<wgs:long>-61.38333</wgs:long>
+	<skos:altLabel>Tunapuna Village</skos:altLabel>
+	<skos:prefLabel>Tunapuna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573589/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3574155/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.16667</wgs:lat>
+	<wgs:long>-61.15</wgs:long>
+	<skos:altLabel>Trinity</skos:altLabel>
+	<skos:altLabel>Trinity Ward</skos:altLabel>
+	<skos:altLabel>Ward of Trinity</skos:altLabel>
+	<skos:prefLabel>Ward of Trinity</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573591/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255149/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>1228691</europeana:population>
+	<wgs:lat>11</wgs:lat>
+	<wgs:long>-61</wgs:long>
+	<skos:altLabel>Colony of Trinidad and Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Oileáin na Tríonóide agus Tobága</skos:altLabel>
+	<skos:altLabel>Republic of Trinidad and Tobago</skos:altLabel>
+	<skos:altLabel>TT</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Tri-ni-đát và Tô-ba-gô</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Trindade e Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Trindade e Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Trindade e Tobago - Trinidad and Tobago</skos:altLabel>
+	<skos:altLabel>Trinidad</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Trinidad a Thobago</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Trinidad a Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Trinidad a Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Trinidad a Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="en">Trinidad and Tobago</skos:altLabel>
+	<skos:altLabel>Trinidad and Tobago Colony</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Trinidad at Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="id">Trinidad dan Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Trinidad dan Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Trinidad dhe Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="it">Trinidad e Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Trinidad e Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Trinidad e Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="io">Trinidad e Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Trinidad e Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Trinidad en Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="af">Trinidad en Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Trinidad et Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Trinidad eta Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Trinidad i Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Trinidad i Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Trinidad i Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Trinidad i Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Trinidad in Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="et">Trinidad ja Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Trinidad ja Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="se">Trinidad ja Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Trinidad na Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Trinidad och Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="da">Trinidad og Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Trinidad og Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Trinidad og Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Trinidad og Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="no">Trinidad og Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Trinidad u Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="de">Trinidad und Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Trinidad ve Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Trinidad và Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="az">Trinidad və Tobaqo</skos:altLabel>
+	<skos:altLabel xml:lang="es">Trinidad y Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="an">Trinidad y Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Trinidad és Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Trinidad şi Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Trinidad-Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Trinidada un Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Trinidadas ir Tobagas</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Trinidadeän e Tobageäns</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Trinidado kaj Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Trinidāda un Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Trinidāda un Tobāgo</skos:altLabel>
+	<skos:altLabel xml:lang="la">Trinitas et Tabacum</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Trinitat e Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Trinitat i Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Trinité-et-Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Trynidad i Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Trynses ha Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="is">Trínidad og Tóbagó</skos:altLabel>
+	<skos:altLabel xml:lang="is">Trínídad og Tóbagó</skos:altLabel>
+	<skos:altLabel>United Colony of Trinidad and Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="el">Τρινιδάδ και Τομπάγκο</skos:altLabel>
+	<skos:altLabel xml:lang="el">Τρινιντάντ και Τομπάγκο</skos:altLabel>
+	<skos:altLabel xml:lang="el">Τρινινταντ και Τομπαγκο</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Тринидад и Тобаго</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Тринидад и Тобаго</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Тринидад и Тобаго</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Тринидад и Тобаго</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Тринідад і Тобаго</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Тринідад і Тобаґо</skos:altLabel>
+	<skos:altLabel xml:lang="be">Трынідад і Табага</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Трінідад і Тобаго</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Տրինիդադ-Տոբագո</skos:altLabel>
+	<skos:altLabel xml:lang="he">טרינידאד וטובגו</skos:altLabel>
+	<skos:altLabel xml:lang="he">טרינידד וטובגו</skos:altLabel>
+	<skos:altLabel xml:lang="ug">ترىنىداد ۋە توباگو</skos:altLabel>
+	<skos:altLabel xml:lang="ar">ترينيداد وتوباغو</skos:altLabel>
+	<skos:altLabel xml:lang="fa">ترینیداد و تباکو</skos:altLabel>
+	<skos:altLabel xml:lang="fa">ترینیداد و توباگو</skos:altLabel>
+	<skos:altLabel xml:lang="ur">ٹرینیڈاڈ اور ٹوباگو</skos:altLabel>
+	<skos:altLabel xml:lang="ps">ټرېنېداد او ټوباګو</skos:altLabel>
+	<skos:altLabel xml:lang="hi">ट्रिनिडाड और टोबैगो</skos:altLabel>
+	<skos:altLabel xml:lang="hi">त्रिनिदाद और टोबैगो</skos:altLabel>
+	<skos:altLabel xml:lang="bn">ত্রিনিদাদ ও টবেগো</skos:altLabel>
+	<skos:altLabel xml:lang="ta">திரினிடாட் தொபாகோ</skos:altLabel>
+	<skos:altLabel xml:lang="th">ตรินิแดดและโตเบโก</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศตรินิแดดและโตเบโก</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ທິນິແດດ</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ტრინიდადი და ტობაგო</skos:altLabel>
+	<skos:altLabel xml:lang="am">ትሪኒዳድ እና ቶባጎ</skos:altLabel>
+	<skos:altLabel xml:lang="km">ទ្រីនីដាដនឹងតូបាហ្គោ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">トリニダード・トバゴ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">トリニダード・トバゴ共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">千里達及托巴哥</skos:altLabel>
+	<skos:altLabel xml:lang="zh">特立尼达和多巴哥</skos:altLabel>
+	<skos:altLabel xml:lang="ko">트리니다드 토바고</skos:altLabel>
+	<skos:prefLabel>Republic of Trinidad and Tobago</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573592/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.5</wgs:lat>
+	<wgs:long>-61.25</wgs:long>
+	<skos:altLabel>La Trinite</skos:altLabel>
+	<skos:altLabel>Trinidad</skos:altLabel>
+	<skos:prefLabel>Trinidad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573603/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.78333</wgs:lat>
+	<wgs:long>-61.05</wgs:long>
+	<skos:altLabel>Toco</skos:altLabel>
+	<skos:altLabel>Toco Ward</skos:altLabel>
+	<skos:prefLabel>Ward of Toco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573606/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>11.25</wgs:lat>
+	<wgs:long>-60.66667</wgs:long>
+	<skos:altLabel>Tobago</skos:altLabel>
+	<skos:prefLabel>Tobago</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573607/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.25</wgs:lat>
+	<wgs:long>-60.66667</wgs:long>
+	<skos:altLabel xml:lang="es">Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="et">Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="de">Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Tobago</skos:altLabel>
+	<skos:altLabel xml:lang="id">Tobago</skos:altLabel>
+	<skos:altLabel>Tobago</skos:altLabel>
+	<skos:altLabel>Tobago Island</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Tobāgo</skos:altLabel>
+	<skos:altLabel xml:lang="ar">توباغو</skos:altLabel>
+	<skos:altLabel xml:lang="ja">トバゴ島</skos:altLabel>
+	<skos:prefLabel>Tobago</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573624/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.4</wgs:lat>
+	<wgs:long>-61.01667</wgs:long>
+	<skos:altLabel>Tarpon</skos:altLabel>
+	<skos:prefLabel>Tarpon Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573635/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.53333</wgs:lat>
+	<wgs:long>-61.18333</wgs:long>
+	<skos:altLabel>Tamana</skos:altLabel>
+	<skos:altLabel>Tamana Ward</skos:altLabel>
+	<skos:prefLabel>Ward of Tamana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573642/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.66667</wgs:lat>
+	<wgs:long>-61.38333</wgs:long>
+	<skos:altLabel>Tacarigua</skos:altLabel>
+	<skos:altLabel>Tacarigua Ward</skos:altLabel>
+	<skos:prefLabel>Ward of Tacarigua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573643/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573989/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>15067</europeana:population>
+	<wgs:lat>10.63471</wgs:lat>
+	<wgs:long>-61.36671</wgs:long>
+	<skos:prefLabel>Paradise</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573673/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.18315</wgs:lat>
+	<wgs:long>-60.65029</wgs:long>
+	<skos:altLabel>Smith Island</skos:altLabel>
+	<skos:altLabel>Smith Islet</skos:altLabel>
+	<skos:altLabel>Smiths Island</skos:altLabel>
+	<skos:prefLabel>Smith Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573676/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>11.33225</wgs:lat>
+	<wgs:long>-60.64458</wgs:long>
+	<skos:altLabel>Sisters</skos:altLabel>
+	<skos:altLabel>Sisters Rocks</skos:altLabel>
+	<skos:altLabel>The Sisters</skos:altLabel>
+	<skos:prefLabel>Sisters Rocks</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573680/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>79760</europeana:population>
+	<wgs:lat>10.15</wgs:lat>
+	<wgs:long>-61.46667</wgs:long>
+	<skos:altLabel>Siparia</skos:altLabel>
+	<skos:altLabel>Siparia Ward</skos:altLabel>
+	<skos:prefLabel>Ward of Siparia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573703/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>17000</europeana:population>
+	<wgs:lat>11.18333</wgs:lat>
+	<wgs:long>-60.73333</wgs:long>
+	<skos:altLabel>Port Louis</skos:altLabel>
+	<skos:altLabel>Scarborough</skos:altLabel>
+	<skos:prefLabel>Scarborough</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573709/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.3</wgs:lat>
+	<wgs:long>-61.36667</wgs:long>
+	<skos:altLabel>Savana Grande</skos:altLabel>
+	<skos:altLabel>Savana Grande Ward</skos:altLabel>
+	<skos:prefLabel>Ward of Savana Grande</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573710/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.76667</wgs:lat>
+	<wgs:long>-61.51667</wgs:long>
+	<skos:altLabel>Maravaca</skos:altLabel>
+	<skos:altLabel>Maravaca Island</skos:altLabel>
+	<skos:altLabel>Saut d'Eau Islet</skos:altLabel>
+	<skos:prefLabel>Saut d'Eau Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573722/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.53333</wgs:lat>
+	<wgs:long>-61.26667</wgs:long>
+	<skos:altLabel>San Rafael</skos:altLabel>
+	<skos:altLabel>San Rafael Ward</skos:altLabel>
+	<skos:prefLabel>Ward of San Rafael</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573732/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>15968</europeana:population>
+	<wgs:lat>10.58333</wgs:lat>
+	<wgs:long>-61.11667</wgs:long>
+	<skos:altLabel>Sangre Grand</skos:altLabel>
+	<skos:altLabel>Sangre Grande Station</skos:altLabel>
+	<skos:altLabel>Sangre Grande Town</skos:altLabel>
+	<skos:prefLabel>Sangre Grande</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573738/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>55419</europeana:population>
+	<wgs:lat>10.28333</wgs:lat>
+	<wgs:long>-61.46667</wgs:long>
+	<skos:prefLabel>San Fernando</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573739/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>56380</europeana:population>
+	<wgs:lat>10.28333</wgs:lat>
+	<wgs:long>-61.46667</wgs:long>
+	<skos:altLabel>San Fernando</skos:altLabel>
+	<skos:prefLabel>San Fernando</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573759/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573606/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>11.26667</wgs:lat>
+	<wgs:long>-60.56667</wgs:long>
+	<skos:prefLabel>Saint Paul</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573761/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573606/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>11.16667</wgs:lat>
+	<wgs:long>-60.8</wgs:long>
+	<skos:prefLabel>Saint Patrick</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573766/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573606/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>11.23333</wgs:lat>
+	<wgs:long>-60.63333</wgs:long>
+	<skos:prefLabel>Saint Mary</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573778/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573606/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>11.3</wgs:lat>
+	<wgs:long>-60.61667</wgs:long>
+	<skos:prefLabel>Saint John</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573782/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>11.35504</wgs:lat>
+	<wgs:long>-60.52174</wgs:long>
+	<skos:altLabel>Giles Island</skos:altLabel>
+	<skos:altLabel>Giles Islands</skos:altLabel>
+	<skos:altLabel>Melville Island</skos:altLabel>
+	<skos:altLabel>Melville Islands</skos:altLabel>
+	<skos:altLabel>Melville Islets</skos:altLabel>
+	<skos:altLabel>Saint Giles Island</skos:altLabel>
+	<skos:altLabel>Saint Giles Islands</skos:altLabel>
+	<skos:altLabel>Saint Giles Islets</skos:altLabel>
+	<skos:altLabel>Saint Giles’s Islands</skos:altLabel>
+	<skos:prefLabel>Saint Giles Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573784/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573606/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>11.21667</wgs:lat>
+	<wgs:long>-60.7</wgs:long>
+	<skos:prefLabel>Saint George</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573793/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573606/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>11.25</wgs:lat>
+	<wgs:long>-60.71667</wgs:long>
+	<skos:prefLabel>Saint David</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573800/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.68333</wgs:lat>
+	<wgs:long>-61.46667</wgs:long>
+	<skos:altLabel>Saint Ann's</skos:altLabel>
+	<skos:altLabel>Saint Ann's Ward</skos:altLabel>
+	<skos:prefLabel>Ward of Saint Ann's</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573805/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573606/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>11.18333</wgs:lat>
+	<wgs:long>-60.75</wgs:long>
+	<skos:prefLabel>Saint Andrew</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573834/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.65</wgs:lat>
+	<wgs:long>-61.6</wgs:long>
+	<skos:prefLabel>Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573841/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.41667</wgs:lat>
+	<wgs:long>-61.03333</wgs:long>
+	<skos:altLabel>Rincon</skos:altLabel>
+	<skos:prefLabel>Rincon Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573843/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.21748</wgs:lat>
+	<wgs:long>-60.59367</wgs:long>
+	<skos:altLabel>Richmond Island</skos:altLabel>
+	<skos:altLabel>Richmond Islet</skos:altLabel>
+	<skos:prefLabel>Richmond Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573870/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.23905</wgs:lat>
+	<wgs:long>-60.55821</wgs:long>
+	<skos:altLabel>Queen Islet</skos:altLabel>
+	<skos:altLabel>Queen’s Island</skos:altLabel>
+	<skos:prefLabel>Queen’s Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573875/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.18333</wgs:lat>
+	<wgs:long>-61.46667</wgs:long>
+	<skos:prefLabel>Puzzle Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573890/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>49031</europeana:population>
+	<wgs:lat>10.66617</wgs:lat>
+	<wgs:long>-61.51657</wgs:long>
+	<skos:altLabel>City of Port-of-Spain</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Port d'Espagne</skos:altLabel>
+	<skos:altLabel xml:lang="en">Port of Spain</skos:altLabel>
+	<skos:altLabel xml:lang="it">Port of Spain</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Port of Spain</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Port of Spain</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Port of Spain</skos:altLabel>
+	<skos:altLabel xml:lang="no">Port of Spain</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Port of Spain</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Port of Spain</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Port of Spain</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Port of Spain</skos:altLabel>
+	<skos:altLabel xml:lang="da">Port of Spain</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Port of Speinas</skos:altLabel>
+	<skos:altLabel>Port-au-Spain</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Port-d'Espagne</skos:altLabel>
+	<skos:altLabel xml:lang="id">Port-of-Spain</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Port-of-Spain</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Port-of-Spain</skos:altLabel>
+	<skos:altLabel xml:lang="de">Port-of-Spain</skos:altLabel>
+	<skos:altLabel xml:lang="io">Port-of-Spain</skos:altLabel>
+	<skos:altLabel xml:lang="es">Puerto España</skos:altLabel>
+	<skos:altLabel xml:lang="el">Πορτ οφ Σπέιν</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Порт оф Спејн</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Порт-оф-Спейн</skos:altLabel>
+	<skos:altLabel xml:lang="he">פורט אוף ספיין</skos:altLabel>
+	<skos:altLabel xml:lang="am">ፖርት ኦፍ ስፔን</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ポートオブスペイン</skos:altLabel>
+	<skos:altLabel xml:lang="zh">西班牙港</skos:altLabel>
+	<skos:altLabel xml:lang="ko">포트 오브 스페인</skos:altLabel>
+	<skos:altLabel xml:lang="ko">포트오브스페인</skos:altLabel>
+	<skos:prefLabel>Port-of-Spain</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573891/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>49657</europeana:population>
+	<wgs:lat>10.65</wgs:lat>
+	<wgs:long>-61.51667</wgs:long>
+	<skos:altLabel>Port-of-Spain</skos:altLabel>
+	<skos:prefLabel>Port-of-Spain</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573899/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>19056</europeana:population>
+	<wgs:lat>10.18333</wgs:lat>
+	<wgs:long>-61.68333</wgs:long>
+	<skos:prefLabel>Point Fortin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573901/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.33333</wgs:lat>
+	<wgs:long>-61.4</wgs:long>
+	<skos:altLabel>Pointe-a-Pierre Ward</skos:altLabel>
+	<skos:altLabel>Pointe-à-Pierre</skos:altLabel>
+	<skos:prefLabel>Ward of Pointe-à-Pierre</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573965/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>12281</europeana:population>
+	<wgs:lat>10.16667</wgs:lat>
+	<wgs:long>-61.46667</wgs:long>
+	<skos:altLabel>Peñal Village</skos:altLabel>
+	<skos:prefLabel>Peñal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573969/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.65</wgs:lat>
+	<wgs:long>-61.6</wgs:long>
+	<skos:prefLabel>Pelican</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574008/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.26667</wgs:lat>
+	<wgs:long>-61.31667</wgs:long>
+	<skos:altLabel>Ortoire</skos:altLabel>
+	<skos:altLabel>Ortoire Ward</skos:altLabel>
+	<skos:prefLabel>Ward of Ortoire</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574023/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.4</wgs:lat>
+	<wgs:long>-61.01667</wgs:long>
+	<skos:altLabel>Omega</skos:altLabel>
+	<skos:prefLabel>Omega Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574042/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.65</wgs:lat>
+	<wgs:long>-61.6</wgs:long>
+	<skos:prefLabel>Nelson</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574064/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.23333</wgs:lat>
+	<wgs:long>-61.45</wgs:long>
+	<skos:altLabel>Naparima</skos:altLabel>
+	<skos:altLabel>Naparima Ward</skos:altLabel>
+	<skos:prefLabel>Ward of Naparima</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574086/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.13333</wgs:lat>
+	<wgs:long>-61.31667</wgs:long>
+	<skos:altLabel>Moruga</skos:altLabel>
+	<skos:altLabel>Moruga Ward</skos:altLabel>
+	<skos:prefLabel>Ward of Moruga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574111/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.41667</wgs:lat>
+	<wgs:long>-61.35</wgs:long>
+	<skos:altLabel>Montserrat</skos:altLabel>
+	<skos:altLabel>Montserrat Ward</skos:altLabel>
+	<skos:prefLabel>Ward of Montserrat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574116/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>56380</europeana:population>
+	<wgs:lat>10.283</wgs:lat>
+	<wgs:long>-61.44605</wgs:long>
+	<skos:prefLabel>Mon Repos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574119/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.68333</wgs:lat>
+	<wgs:long>-61.68333</wgs:long>
+	<skos:altLabel>Monos Island</skos:altLabel>
+	<skos:prefLabel>Monos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574131/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.41667</wgs:lat>
+	<wgs:long>-61.03333</wgs:long>
+	<skos:altLabel>Minorca</skos:altLabel>
+	<skos:prefLabel>Minorca Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574155/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>33480</europeana:population>
+	<wgs:lat>10.16667</wgs:lat>
+	<wgs:long>-61.08333</wgs:long>
+	<skos:altLabel>Mayaro</skos:altLabel>
+	<skos:prefLabel>Mayaro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574167/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.7</wgs:lat>
+	<wgs:long>-61.06667</wgs:long>
+	<skos:altLabel>Matura</skos:altLabel>
+	<skos:altLabel>Matura Ward</skos:altLabel>
+	<skos:prefLabel>Ward of Matura</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574182/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.36116</wgs:lat>
+	<wgs:long>-60.52559</wgs:long>
+	<skos:altLabel>Marble Island</skos:altLabel>
+	<skos:altLabel>Marble Islet</skos:altLabel>
+	<skos:prefLabel>Marble Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574194/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>26700</europeana:population>
+	<wgs:lat>10.30618</wgs:lat>
+	<wgs:long>-61.44671</wgs:long>
+	<skos:altLabel>Marabella</skos:altLabel>
+	<skos:prefLabel>Marabella</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574201/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.61667</wgs:lat>
+	<wgs:long>-61.13333</wgs:long>
+	<skos:altLabel>Manzanilla</skos:altLabel>
+	<skos:altLabel>Manzanilla Ward</skos:altLabel>
+	<skos:prefLabel>Ward of Manzanilla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574207/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.41667</wgs:lat>
+	<wgs:long>-61.03333</wgs:long>
+	<skos:altLabel>Manati</skos:altLabel>
+	<skos:prefLabel>Manati Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574220/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.43321</wgs:lat>
+	<wgs:long>-61.03745</wgs:long>
+	<skos:altLabel>Majorca</skos:altLabel>
+	<skos:altLabel>Majorca Island</skos:altLabel>
+	<skos:prefLabel>Majorca Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574241/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.38333</wgs:lat>
+	<wgs:long>-61.01667</wgs:long>
+	<skos:altLabel>Macaw Reserve</skos:altLabel>
+	<skos:prefLabel>Macaw Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574268/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.76667</wgs:lat>
+	<wgs:long>-61.45</wgs:long>
+	<skos:prefLabel>Long Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574275/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.29916</wgs:lat>
+	<wgs:long>-60.50139</wgs:long>
+	<skos:altLabel>Bird of Paradise Island</skos:altLabel>
+	<skos:altLabel>Little Tobago</skos:altLabel>
+	<skos:altLabel>Little Tobago Island</skos:altLabel>
+	<skos:prefLabel>Little Tobago</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574281/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.81667</wgs:lat>
+	<wgs:long>-61.11667</wgs:long>
+	<skos:prefLabel>L'Islette</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574291/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>10.76667</wgs:lat>
+	<wgs:long>-61.48333</wgs:long>
+	<skos:altLabel>Les Boquets Island</skos:altLabel>
+	<skos:altLabel>Les Bouquets</skos:altLabel>
+	<skos:prefLabel>Les Boquets Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574299/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.65</wgs:lat>
+	<wgs:long>-61.6</wgs:long>
+	<skos:prefLabel>Lenagan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574301/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.7</wgs:lat>
+	<wgs:long>-61.66667</wgs:long>
+	<skos:altLabel>Dent Madame Têteron</skos:altLabel>
+	<skos:prefLabel>Le Chapeau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574352/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.16667</wgs:lat>
+	<wgs:long>-61.65</wgs:long>
+	<skos:altLabel>La Brea</skos:altLabel>
+	<skos:altLabel>La Brea Ward</skos:altLabel>
+	<skos:prefLabel>Ward of La Brea</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574394/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.7</wgs:lat>
+	<wgs:long>-61.71667</wgs:long>
+	<skos:altLabel>Island of Huevos</skos:altLabel>
+	<skos:prefLabel>Huevos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574434/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3574155/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.2</wgs:lat>
+	<wgs:long>-61.05</wgs:long>
+	<skos:altLabel>Guayaguayare</skos:altLabel>
+	<skos:altLabel>Guayaguayare Ward</skos:altLabel>
+	<skos:altLabel>Ward of Guayaguayare</skos:altLabel>
+	<skos:prefLabel>Ward of Guayaguayare</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574469/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>20</wgs:lat>
+	<wgs:long>-74</wgs:long>
+	<skos:altLabel>Antillas Mayores</skos:altLabel>
+	<skos:altLabel>Grandes Antillas</skos:altLabel>
+	<skos:altLabel>Grandes Antilles</skos:altLabel>
+	<skos:altLabel>Greater Antilles</skos:altLabel>
+	<skos:altLabel>Groote Antillen</skos:altLabel>
+	<skos:prefLabel>Greater Antilles</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574516/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.30062</wgs:lat>
+	<wgs:long>-60.51908</wgs:long>
+	<skos:altLabel>Goat Island</skos:altLabel>
+	<skos:altLabel>Goat Islet</skos:altLabel>
+	<skos:prefLabel>Goat Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574523/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.66667</wgs:lat>
+	<wgs:long>-61.65</wgs:long>
+	<skos:altLabel>Gasparillo</skos:altLabel>
+	<skos:altLabel>Gasparillo Islet</skos:altLabel>
+	<skos:prefLabel>Gasparillo Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574525/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.66667</wgs:lat>
+	<wgs:long>-61.65</wgs:long>
+	<skos:altLabel>Gasparee</skos:altLabel>
+	<skos:prefLabel>Gaspar Grande</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574570/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>10.65</wgs:lat>
+	<wgs:long>-61.6</wgs:long>
+	<skos:altLabel>Las Cotorras</skos:altLabel>
+	<skos:prefLabel>Five Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574590/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.08333</wgs:lat>
+	<wgs:long>-61.63333</wgs:long>
+	<skos:altLabel>Erin</skos:altLabel>
+	<skos:altLabel>Erin Ward</skos:altLabel>
+	<skos:prefLabel>Ward of Erin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574611/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.78333</wgs:lat>
+	<wgs:long>-61.41667</wgs:long>
+	<skos:prefLabel>East Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574635/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>111964</europeana:population>
+	<wgs:lat>10.7</wgs:lat>
+	<wgs:long>-61.58333</wgs:long>
+	<skos:altLabel>Diego Martin</skos:altLabel>
+	<skos:altLabel>Diego Martin Ward</skos:altLabel>
+	<skos:prefLabel>Ward of Diego Martin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574637/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>10.65</wgs:lat>
+	<wgs:long>-61.61667</wgs:long>
+	<skos:prefLabel>Diego Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574679/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.55</wgs:lat>
+	<wgs:long>-61.33333</wgs:long>
+	<skos:altLabel>Cunupia</skos:altLabel>
+	<skos:altLabel>Cunupia Ward</skos:altLabel>
+	<skos:prefLabel>Ward of Cunupia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574710/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.65</wgs:lat>
+	<wgs:long>-61.63333</wgs:long>
+	<skos:altLabel>Cronstadt</skos:altLabel>
+	<skos:prefLabel>Cronstadt Islet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574723/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.41667</wgs:lat>
+	<wgs:long>-61.45</wgs:long>
+	<skos:altLabel>Couva</skos:altLabel>
+	<skos:altLabel>Couva Ward</skos:altLabel>
+	<skos:prefLabel>Ward of Couva</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574768/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.36667</wgs:lat>
+	<wgs:long>-61.08333</wgs:long>
+	<skos:altLabel>Cocal</skos:altLabel>
+	<skos:altLabel>Cocal Ward</skos:altLabel>
+	<skos:prefLabel>Ward of Cocal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574770/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.31469</wgs:lat>
+	<wgs:long>-60.62424</wgs:long>
+	<skos:prefLabel>Clump Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574796/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.38333</wgs:lat>
+	<wgs:long>-61.2</wgs:long>
+	<skos:altLabel>Charuma</skos:altLabel>
+	<skos:altLabel>Charuma Ward</skos:altLabel>
+	<skos:prefLabel>Ward of Charuma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574809/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>72159</europeana:population>
+	<wgs:lat>10.5</wgs:lat>
+	<wgs:long>-61.38333</wgs:long>
+	<skos:altLabel>Chaguanas</skos:altLabel>
+	<skos:altLabel>Chaguanas Ward</skos:altLabel>
+	<skos:prefLabel>Ward of Chaguanas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574810/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>67433</europeana:population>
+	<wgs:lat>10.51667</wgs:lat>
+	<wgs:long>-61.41667</wgs:long>
+	<skos:prefLabel>Chaguanas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574824/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.1</wgs:lat>
+	<wgs:long>-61.8</wgs:long>
+	<skos:altLabel>Cedros</skos:altLabel>
+	<skos:altLabel>Cedros Ward</skos:altLabel>
+	<skos:prefLabel>Ward of Cedros</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574841/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.65</wgs:lat>
+	<wgs:long>-61.61667</wgs:long>
+	<skos:altLabel>Carrera</skos:altLabel>
+	<skos:prefLabel>Carrera Islet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574897/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.65</wgs:lat>
+	<wgs:long>-61.6</wgs:long>
+	<skos:prefLabel>Caledonia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574904/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.8</wgs:lat>
+	<wgs:long>-61.18333</wgs:long>
+	<skos:prefLabel>Cachipa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574907/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.7</wgs:lat>
+	<wgs:long>-61.75</wgs:long>
+	<skos:altLabel>Cabresse Islet</skos:altLabel>
+	<skos:prefLabel>Cabresse Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574920/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>11.31667</wgs:lat>
+	<wgs:long>-60.61667</wgs:long>
+	<skos:altLabel>Brothers Rocks</skos:altLabel>
+	<skos:altLabel>The Brothers</skos:altLabel>
+	<skos:prefLabel>Brothers Rocks</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574922/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>18</wgs:lat>
+	<wgs:long>-68</wgs:long>
+	<skos:prefLabel>British West Indies</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574946/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.32169</wgs:lat>
+	<wgs:long>-60.55847</wgs:long>
+	<skos:altLabel>Booby Island</skos:altLabel>
+	<skos:altLabel>Booby Islet</skos:altLabel>
+	<skos:prefLabel>Booby Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3574971/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.76667</wgs:lat>
+	<wgs:long>-61.31667</wgs:long>
+	<skos:altLabel>Blanchisseuse</skos:altLabel>
+	<skos:altLabel>Blanchisseuse Ward</skos:altLabel>
+	<skos:prefLabel>Ward of Blanchisseuse</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3575039/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12054</europeana:population>
+	<wgs:lat>10.63333</wgs:lat>
+	<wgs:long>-61.33333</wgs:long>
+	<skos:altLabel>Arouca Village</skos:altLabel>
+	<skos:prefLabel>Arouca</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3575050/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3575052/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.65</wgs:lat>
+	<wgs:long>-61.26667</wgs:long>
+	<skos:altLabel>Arima</skos:altLabel>
+	<skos:altLabel>Arima Ward</skos:altLabel>
+	<skos:altLabel>Ward of Arima</skos:altLabel>
+	<skos:prefLabel>Ward of Arima</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3575051/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>35000</europeana:population>
+	<wgs:lat>10.63333</wgs:lat>
+	<wgs:long>-61.28333</wgs:long>
+	<skos:altLabel>Arima</skos:altLabel>
+	<skos:altLabel>Town of Arima</skos:altLabel>
+	<skos:prefLabel>Arima</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3575052/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>10.63333</wgs:lat>
+	<wgs:long>-61.28333</wgs:long>
+	<skos:altLabel>Arima</skos:altLabel>
+	<skos:prefLabel>Arima</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521937/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>10.51718</wgs:lat>
+	<wgs:long>-61.41503</wgs:long>
+	<skos:prefLabel>Chaguanas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521938/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>162779</europeana:population>
+	<wgs:lat>10.41792</wgs:lat>
+	<wgs:long>-61.45117</wgs:long>
+	<skos:prefLabel>Couva-Tabaquite-Talparo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521939/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>105720</europeana:population>
+	<wgs:lat>10.7005</wgs:lat>
+	<wgs:long>-61.53417</wgs:long>
+	<skos:prefLabel>Diego Martin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521940/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>11.24988</wgs:lat>
+	<wgs:long>-60.58419</wgs:long>
+	<skos:prefLabel>Eastern Tobago</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521941/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>83609</europeana:population>
+	<wgs:lat>10.16778</wgs:lat>
+	<wgs:long>-61.46524</wgs:long>
+	<skos:prefLabel>Penal/Debe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521942/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>91947</europeana:population>
+	<wgs:lat>10.26746</wgs:lat>
+	<wgs:long>-61.38182</wgs:long>
+	<skos:prefLabel>Princes Town</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521943/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>10.184</wgs:lat>
+	<wgs:long>-61.68197</wgs:long>
+	<skos:prefLabel>Point Fortin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521944/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>64343</europeana:population>
+	<wgs:lat>10.5835</wgs:lat>
+	<wgs:long>-61.11772</wgs:long>
+	<skos:prefLabel>Sangre Grande</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521945/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>81917</europeana:population>
+	<wgs:lat>10.13382</wgs:lat>
+	<wgs:long>-61.50121</wgs:long>
+	<skos:prefLabel>Siparia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521946/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>157295</europeana:population>
+	<wgs:lat>10.64964</wgs:lat>
+	<wgs:long>-61.49752</wgs:long>
+	<skos:prefLabel>San Juan/Laventille</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521947/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573591/"/>
+	<europeana:country>TT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>203975</europeana:population>
+	<wgs:lat>10.63387</wgs:lat>
+	<wgs:long>-61.38182</wgs:long>
+	<skos:prefLabel>Tunapuna/Piarco</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 111 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

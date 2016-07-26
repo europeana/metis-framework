@@ -1,0 +1,2857 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AS_SY
+Description: Selected fields pulled from Geonames about SY done on Mon May 23 21:13:38 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/4141/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>35.75556</wgs:lat>
+	<wgs:long>39.26111</wgs:long>
+	<skos:prefLabel>Jazīrat Tall Mīlāsh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4151/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>35.75833</wgs:lat>
+	<wgs:long>39.80556</wgs:long>
+	<skos:prefLabel>Jazīrat ash Shitī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/9143/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>36.67083</wgs:lat>
+	<wgs:long>38.08333</wgs:long>
+	<skos:prefLabel>Ḩuwayjat al Wardah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/162627/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>40502</europeana:population>
+	<wgs:lat>33.96667</wgs:lat>
+	<wgs:long>36.66667</wgs:long>
+	<skos:altLabel>Gebru</skos:altLabel>
+	<skos:altLabel>Jebru</skos:altLabel>
+	<skos:altLabel>Jebrud</skos:altLabel>
+	<skos:altLabel>Yabroûd</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Yabrūd</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ябруд</skos:altLabel>
+	<skos:prefLabel>Yabrūd</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/163270/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>29259</europeana:population>
+	<wgs:lat>35.26539</wgs:lat>
+	<wgs:long>36.71148</wgs:long>
+	<skos:altLabel>Taïbet el Imâm</skos:altLabel>
+	<skos:altLabel>Tibbat al Imām</skos:altLabel>
+	<skos:altLabel>Tibet Iman</skos:altLabel>
+	<skos:altLabel>Ţaybat al Imām</skos:altLabel>
+	<skos:altLabel>Ţaybat al Imām ‘Alī</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ţayyibat al Imām</skos:altLabel>
+	<skos:prefLabel>Ţayyibat al Imām</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/163342/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>35</wgs:lat>
+	<wgs:long>36.16667</wgs:long>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at Ţarţūs</skos:altLabel>
+	<skos:altLabel xml:lang="no">Tartus</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tartus</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tartus Governorate</skos:altLabel>
+	<skos:altLabel>Ţarţūs</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at Ţarţūs</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/163343/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163342/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>34.83333</wgs:lat>
+	<wgs:long>35.91667</wgs:long>
+	<skos:altLabel xml:lang="ar">Minţaqat Ţarţūs</skos:altLabel>
+	<skos:altLabel>Qaḑā’ Ţarţūs</skos:altLabel>
+	<skos:altLabel>Tartouss</skos:altLabel>
+	<skos:altLabel>Tartoûs</skos:altLabel>
+	<skos:prefLabel>Minţaqat Ţarţūs</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/163345/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>89457</europeana:population>
+	<wgs:lat>34.88902</wgs:lat>
+	<wgs:long>35.88659</wgs:long>
+	<skos:altLabel>Antaradus</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tartous</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Tartous</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Tartous</skos:altLabel>
+	<skos:altLabel>Tartouss</skos:altLabel>
+	<skos:altLabel>Tartoûs</skos:altLabel>
+	<skos:altLabel xml:lang="de">Tartus</skos:altLabel>
+	<skos:altLabel xml:lang="it">Tartus</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Tartus</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ţarţūs</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Тартус</skos:altLabel>
+	<skos:altLabel xml:lang="he">טרטוס</skos:altLabel>
+	<skos:altLabel>طرطوس</skos:altLabel>
+	<skos:altLabel xml:lang="ar">طرطوس</skos:altLabel>
+	<skos:altLabel xml:lang="ar">محافظة طرطوس</skos:altLabel>
+	<skos:prefLabel>Ţarţūs</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/163476/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>25658</europeana:population>
+	<wgs:lat>36.46667</wgs:lat>
+	<wgs:long>37.1</wgs:long>
+	<skos:altLabel xml:lang="ar">Tall Rif‘at</skos:altLabel>
+	<skos:altLabel>Tell Arfad</skos:altLabel>
+	<skos:altLabel>Tell Refaat</skos:altLabel>
+	<skos:altLabel>Tell Rifat</skos:altLabel>
+	<skos:altLabel>Tell Rifaâte</skos:altLabel>
+	<skos:prefLabel>Tall Rif‘at</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/163532/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/169575/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>34.75</wgs:lat>
+	<wgs:long>36.41667</wgs:long>
+	<skos:altLabel xml:lang="ar">Minţaqat Tall Kalakh</skos:altLabel>
+	<skos:altLabel>Qaḑā’ Talkalakh</skos:altLabel>
+	<skos:altLabel>Qaḑā’ Tall Kalakh</skos:altLabel>
+	<skos:altLabel>Tel-Kalakh</skos:altLabel>
+	<skos:altLabel>Tell Kalakh</skos:altLabel>
+	<skos:prefLabel>Minţaqat Tall Kalakh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/163533/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>29754</europeana:population>
+	<wgs:lat>34.66667</wgs:lat>
+	<wgs:long>36.25</wgs:long>
+	<skos:altLabel>Talkalakh</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Tall Kalakh</skos:altLabel>
+	<skos:altLabel>Telkalakh</skos:altLabel>
+	<skos:altLabel>Tell Kalakh</skos:altLabel>
+	<skos:prefLabel>Tall Kalakh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/163608/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>36.67889</wgs:lat>
+	<wgs:long>41.04917</wgs:long>
+	<skos:altLabel xml:lang="ar">Tall Birāk</skos:altLabel>
+	<skos:altLabel>Tell Brāk</skos:altLabel>
+	<skos:altLabel>Temple of the Eye</skos:altLabel>
+	<skos:prefLabel>Tall Birāk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/163779/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>38491</europeana:population>
+	<wgs:lat>34.84063</wgs:lat>
+	<wgs:long>36.73093</wgs:long>
+	<skos:altLabel>Talbiseh</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Talbīsah</skos:altLabel>
+	<skos:altLabel>Tall Bissah</skos:altLabel>
+	<skos:altLabel>Tall Bīsih</skos:altLabel>
+	<skos:altLabel>Tel Bisi</skos:altLabel>
+	<skos:altLabel>Telbise</skos:altLabel>
+	<skos:altLabel>Tell Bîsse</skos:altLabel>
+	<skos:altLabel>Tell Bīse</skos:altLabel>
+	<skos:prefLabel>Talbīsah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/163806/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>31249</europeana:population>
+	<wgs:lat>32.73564</wgs:lat>
+	<wgs:long>36.06694</wgs:long>
+	<skos:altLabel>Tafass</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ţafas</skos:altLabel>
+	<skos:prefLabel>Ţafas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/163808/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>51015</europeana:population>
+	<wgs:lat>34.55</wgs:lat>
+	<wgs:long>38.28333</wgs:long>
+	<skos:altLabel xml:lang="es">Palmira</skos:altLabel>
+	<skos:altLabel xml:lang="it">Palmira</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Palmira</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Palmira</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Palmira</skos:altLabel>
+	<skos:altLabel>Palmyra</skos:altLabel>
+	<skos:altLabel xml:lang="en">Palmyra</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Palmyra</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Palmyra</skos:altLabel>
+	<skos:altLabel xml:lang="de">Palmyra</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Palmyra</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Palmyra</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Palmyra</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Palmyra</skos:altLabel>
+	<skos:altLabel>Palmyre</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Palmyre</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Palmüra</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Palmýra</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Palmýra</skos:altLabel>
+	<skos:altLabel>Tadmor</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Tadmur</skos:altLabel>
+	<skos:altLabel>Tedmor</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Палмира</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Пальмира</skos:altLabel>
+	<skos:altLabel xml:lang="he">תדמור</skos:altLabel>
+	<skos:altLabel xml:lang="ar">مملكة تدمر</skos:altLabel>
+	<skos:altLabel xml:lang="ja">パルミラ遺跡</skos:altLabel>
+	<skos:altLabel xml:lang="zh">巴尔米拉</skos:altLabel>
+	<skos:prefLabel>Tadmur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/163809/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.55</wgs:lat>
+	<wgs:long>38.28333</wgs:long>
+	<skos:altLabel>Palmira</skos:altLabel>
+	<skos:altLabel xml:lang="en">Palmyra</skos:altLabel>
+	<skos:altLabel>Palmyre</skos:altLabel>
+	<skos:altLabel>Tadmor</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Tadmur</skos:altLabel>
+	<skos:altLabel>Tamar</skos:altLabel>
+	<skos:altLabel>Tedmor</skos:altLabel>
+	<skos:prefLabel>Palmyra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/163811/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>34670</europeana:population>
+	<wgs:lat>36.33333</wgs:lat>
+	<wgs:long>37.53333</wgs:long>
+	<skos:altLabel>Teft</skos:altLabel>
+	<skos:altLabel>Tâdef</skos:altLabel>
+	<skos:altLabel>Tâder</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Tādif</skos:altLabel>
+	<skos:prefLabel>Tādif</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/163843/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255147/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>22198110</europeana:population>
+	<wgs:lat>35</wgs:lat>
+	<wgs:long>38</wgs:long>
+	<skos:altLabel>Al Iqlīm as Sūrī</skos:altLabel>
+	<skos:altLabel>Al Iqlīm ash Shamālī</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Al Jumhūrīyah al ‘Arabīyah as Sūrīyah</skos:altLabel>
+	<skos:altLabel>Al-Sham</skos:altLabel>
+	<skos:altLabel>Al-Suriyah</skos:altLabel>
+	<skos:altLabel xml:lang="ga">An tSiria</skos:altLabel>
+	<skos:altLabel>Arām</skos:altLabel>
+	<skos:altLabel>El Sham</skos:altLabel>
+	<skos:altLabel>El Suriya</skos:altLabel>
+	<skos:altLabel>Es Suriya</skos:altLabel>
+	<skos:altLabel>Esh Sham</skos:altLabel>
+	<skos:altLabel>La Syrie</skos:altLabel>
+	<skos:altLabel>Northern Region</skos:altLabel>
+	<skos:altLabel>SY</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Siri</skos:altLabel>
+	<skos:altLabel xml:lang="es">Siria</skos:altLabel>
+	<skos:altLabel>Siria</skos:altLabel>
+	<skos:altLabel xml:lang="id">Siria</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Siria</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Siria</skos:altLabel>
+	<skos:altLabel xml:lang="it">Siria</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Siria</skos:altLabel>
+	<skos:altLabel xml:lang="an">Siria</skos:altLabel>
+	<skos:altLabel xml:lang="br">Siria</skos:altLabel>
+	<skos:altLabel xml:lang="io">Siria</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Siria</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Siria</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Siria - سورية</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Sirija</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Sirija</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Sirija</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Sirija</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Sirija</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Sirio</skos:altLabel>
+	<skos:altLabel xml:lang="af">Sirië</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Sirja</skos:altLabel>
+	<skos:altLabel xml:lang="id">Suriah</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Suriya</skos:altLabel>
+	<skos:altLabel xml:lang="uz">Suriya</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Suriye</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Surri</skos:altLabel>
+	<skos:altLabel xml:lang="so">Suuriya</skos:altLabel>
+	<skos:altLabel xml:lang="id">Syria</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Syria</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Syria</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Syria</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Syria</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Syria</skos:altLabel>
+	<skos:altLabel xml:lang="en">Syria</skos:altLabel>
+	<skos:altLabel xml:lang="la">Syria</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Syria</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Syria</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Syria</skos:altLabel>
+	<skos:altLabel xml:lang="no">Syria</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Syria</skos:altLabel>
+	<skos:altLabel xml:lang="se">Syria</skos:altLabel>
+	<skos:altLabel xml:lang="en">Syrian Arab Republic</skos:altLabel>
+	<skos:altLabel>Syrian Region</skos:altLabel>
+	<skos:altLabel>Syrie</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Syrie</skos:altLabel>
+	<skos:altLabel xml:lang="da">Syrien</skos:altLabel>
+	<skos:altLabel xml:lang="de">Syrien</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Syrien</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Syrien</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Syrië</skos:altLabel>
+	<skos:altLabel xml:lang="li">Syrië</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Syyria</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Szíria</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Szíriai Arab Köztársaság</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Síria</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Síria</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Sûrî</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Süriyän</skos:altLabel>
+	<skos:altLabel xml:lang="et">Süüria</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Sýria</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Sýrie</skos:altLabel>
+	<skos:altLabel xml:lang="is">Sýrland</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Sýrska arabská republika</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Sīrija</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Xi-ri</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Xi-ri (Syria)</skos:altLabel>
+	<skos:altLabel xml:lang="el">Συρία</skos:altLabel>
+	<skos:altLabel xml:lang="el">Συρία, Αραβική Δημοκρατία της</skos:altLabel>
+	<skos:altLabel xml:lang="os">Сири</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Сирийска Арабска Република</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сирийская Арабская Республика</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Сирия</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сирия</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Сирија</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Сирија</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Сирійська Арабська Республіка</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Сирія</skos:altLabel>
+	<skos:altLabel xml:lang="be">Сірыйская Арабская Рэспубліка</skos:altLabel>
+	<skos:altLabel xml:lang="cu">Сѵрї</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Սիրիա</skos:altLabel>
+	<skos:altLabel xml:lang="he">סוריה</skos:altLabel>
+	<skos:altLabel xml:lang="yi">סירייע</skos:altLabel>
+	<skos:altLabel xml:lang="ar">سوريا</skos:altLabel>
+	<skos:altLabel xml:lang="ar">سورية</skos:altLabel>
+	<skos:altLabel xml:lang="ps">سوريه</skos:altLabel>
+	<skos:altLabel xml:lang="fa">سوریه</skos:altLabel>
+	<skos:altLabel xml:lang="ps">سوریه</skos:altLabel>
+	<skos:altLabel xml:lang="ur">سیریا</skos:altLabel>
+	<skos:altLabel xml:lang="ur">شام</skos:altLabel>
+	<skos:altLabel xml:lang="hi">सीरिया</skos:altLabel>
+	<skos:altLabel xml:lang="bn">সিরিয়া</skos:altLabel>
+	<skos:altLabel xml:lang="bn">সিরিয়া</skos:altLabel>
+	<skos:altLabel xml:lang="ta">சிரியா</skos:altLabel>
+	<skos:altLabel xml:lang="ml">സിറിയ</skos:altLabel>
+	<skos:altLabel xml:lang="th">ซีเรีย</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศซีเรีย</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ຊິເລຍ</skos:altLabel>
+	<skos:altLabel xml:lang="ka">სირია</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሲሪያ</skos:altLabel>
+	<skos:altLabel xml:lang="km">ស៊ីរី</skos:altLabel>
+	<skos:altLabel xml:lang="ja">シリア</skos:altLabel>
+	<skos:altLabel xml:lang="ja">シリア・アラブ共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">叙利亚</skos:altLabel>
+	<skos:altLabel xml:lang="ko">시리아</skos:altLabel>
+	<skos:prefLabel>Syrian Arab Republic</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/163915/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>30716</europeana:population>
+	<wgs:lat>35.29138</wgs:lat>
+	<wgs:long>36.74865</wgs:long>
+	<skos:altLabel>Soran</skos:altLabel>
+	<skos:altLabel>Souran</skos:altLabel>
+	<skos:altLabel>Soûrâne</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Şūrān</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Суран</skos:altLabel>
+	<skos:prefLabel>Şūrān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/164025/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>25514</europeana:population>
+	<wgs:lat>34.85444</wgs:lat>
+	<wgs:long>40.60833</wgs:long>
+	<skos:altLabel>Sabikhan</skos:altLabel>
+	<skos:altLabel>Soubeïkhâne</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Subaykhān</skos:altLabel>
+	<skos:prefLabel>Subaykhān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/164328/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>25920</europeana:population>
+	<wgs:lat>32.82944</wgs:lat>
+	<wgs:long>36.15933</wgs:long>
+	<skos:altLabel>Ash Shaykh Maskīn</skos:altLabel>
+	<skos:altLabel>Ash Shaykh Miskīn</skos:altLabel>
+	<skos:altLabel>Cheïkh Meskîne</skos:altLabel>
+	<skos:altLabel>Chikh Meskine</skos:altLabel>
+	<skos:altLabel>Shaykh Maskīn</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Shaykh Miskīn</skos:altLabel>
+	<skos:altLabel>Sheikh Miskīn</skos:altLabel>
+	<skos:prefLabel>Shaykh Miskīn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/164337/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>35</wgs:lat>
+	<wgs:long>36.05</wgs:long>
+	<skos:altLabel>As Saih Badr</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Nāḩiyat ash Shaykh Badr</skos:altLabel>
+	<skos:prefLabel>Nāḩiyat ash Shaykh Badr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/164625/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/172410/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>33</wgs:lat>
+	<wgs:long>36.83333</wgs:long>
+	<skos:altLabel>Chahba</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Minţaqat Shahbā’</skos:altLabel>
+	<skos:altLabel>Qaḑā’ Shahbā’</skos:altLabel>
+	<skos:altLabel>Shabba</skos:altLabel>
+	<skos:prefLabel>Minţaqat Shahbā’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/164626/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14784</europeana:population>
+	<wgs:lat>32.85514</wgs:lat>
+	<wgs:long>36.62896</wgs:long>
+	<skos:altLabel>Chahba</skos:altLabel>
+	<skos:altLabel>Philippopolis</skos:altLabel>
+	<skos:altLabel>Phillipopolis</skos:altLabel>
+	<skos:altLabel>Philppopolis</skos:altLabel>
+	<skos:altLabel>Shaba</skos:altLabel>
+	<skos:altLabel>Shahaba</skos:altLabel>
+	<skos:altLabel>Shahbah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Shahbā’</skos:altLabel>
+	<skos:prefLabel>Shahbā’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/164816/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>34231</europeana:population>
+	<wgs:lat>35.86361</wgs:lat>
+	<wgs:long>36.80056</wgs:long>
+	<skos:altLabel>Sarakeb</skos:altLabel>
+	<skos:altLabel>Saraquib</skos:altLabel>
+	<skos:altLabel>Sarâqeb</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Sarāqib</skos:altLabel>
+	<skos:altLabel>Seraikin</skos:altLabel>
+	<skos:altLabel>Serakab</skos:altLabel>
+	<skos:altLabel>Seraqib</skos:altLabel>
+	<skos:altLabel>Serāqab</skos:altLabel>
+	<skos:prefLabel>Sarāqib</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/164898/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>31608</europeana:population>
+	<wgs:lat>36.13809</wgs:lat>
+	<wgs:long>36.45322</wgs:long>
+	<skos:altLabel>Salkîne</skos:altLabel>
+	<skos:altLabel>Salqîne</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Salqīn</skos:altLabel>
+	<skos:altLabel>Selkin</skos:altLabel>
+	<skos:altLabel>Silkin</skos:altLabel>
+	<skos:prefLabel>Salqīn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/164916/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/172410/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>32.5</wgs:lat>
+	<wgs:long>36.91667</wgs:long>
+	<skos:altLabel xml:lang="ar">Minţaqat Şalkhad</skos:altLabel>
+	<skos:altLabel>Qaḑā’ Şalkhad</skos:altLabel>
+	<skos:prefLabel>Minţaqat Şalkhad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/164946/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/170015/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>35.16667</wgs:lat>
+	<wgs:long>37.33333</wgs:long>
+	<skos:altLabel>As Salamīyah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Minţaqat Salamīyah</skos:altLabel>
+	<skos:altLabel>Qaḑā’ as Salamīyah</skos:altLabel>
+	<skos:altLabel>Salamiya</skos:altLabel>
+	<skos:altLabel>Selemiyeh</skos:altLabel>
+	<skos:altLabel>Selemīye</skos:altLabel>
+	<skos:prefLabel>Minţaqat Salamīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/164947/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>94887</europeana:population>
+	<wgs:lat>35.01127</wgs:lat>
+	<wgs:long>37.05324</wgs:long>
+	<skos:altLabel>Salamias</skos:altLabel>
+	<skos:altLabel xml:lang="en">Salamiyah</skos:altLabel>
+	<skos:altLabel>Salamiyeh</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Salamīyah</skos:altLabel>
+	<skos:altLabel>Selemié</skos:altLabel>
+	<skos:altLabel>Selemīya</skos:altLabel>
+	<skos:altLabel>Sélémîyé</skos:altLabel>
+	<skos:prefLabel>Salamīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/164952/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12842</europeana:population>
+	<wgs:lat>32.87271</wgs:lat>
+	<wgs:long>36.57271</wgs:long>
+	<skos:altLabel>Salâkhed</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Şalākhid</skos:altLabel>
+	<skos:prefLabel>Şalākhid</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/165059/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163342/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>34.83333</wgs:lat>
+	<wgs:long>36.16667</wgs:long>
+	<skos:altLabel xml:lang="ar">Minţaqat Şāfītā</skos:altLabel>
+	<skos:altLabel>Qaḑā’ Şāfītā</skos:altLabel>
+	<skos:prefLabel>Minţaqat Şāfītā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/165060/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>27815</europeana:population>
+	<wgs:lat>34.81667</wgs:lat>
+	<wgs:long>36.11667</wgs:long>
+	<skos:altLabel>Borj Sâfîta</skos:altLabel>
+	<skos:altLabel>Khokhu</skos:altLabel>
+	<skos:altLabel>Satita</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Şāfītā</skos:altLabel>
+	<skos:prefLabel>Şāfītā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/165369/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.58333</wgs:lat>
+	<wgs:long>35.75</wgs:long>
+	<skos:altLabel xml:lang="gl">Alfabeto ugarítico</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Ougarit</skos:altLabel>
+	<skos:altLabel>Ras Shamra</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ra’s Shamrah</skos:altLabel>
+	<skos:altLabel>Râs Chamra</skos:altLabel>
+	<skos:altLabel>Ugarit</skos:altLabel>
+	<skos:altLabel xml:lang="de">Ugarit</skos:altLabel>
+	<skos:altLabel xml:lang="es">Ugarit</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Ugarit</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Ugarit</skos:altLabel>
+	<skos:altLabel xml:lang="it">Ugarit</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Ugarit</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ugarit</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Ugarit</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Ugarit</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Ugarit</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Ugarit</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Ugarit</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Ugarito</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Ugaryt</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Угарит</skos:altLabel>
+	<skos:altLabel xml:lang="he">אוגרית</skos:altLabel>
+	<skos:altLabel xml:lang="fa">اوگاریت</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ウガリット</skos:altLabel>
+	<skos:altLabel xml:lang="zh">烏加里特</skos:altLabel>
+	<skos:prefLabel>Ra’s Shamrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/165928/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/170652/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>33.43333</wgs:lat>
+	<wgs:long>36.1</wgs:long>
+	<skos:altLabel>Fadi al-Ajam</skos:altLabel>
+	<skos:altLabel>Katana</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Minţaqat Qaţanā</skos:altLabel>
+	<skos:altLabel>Ouâdi-el-Aajam</skos:altLabel>
+	<skos:altLabel>Qaḑā’ Qaţanā</skos:altLabel>
+	<skos:prefLabel>Minţaqat Qaţanā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/165929/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18511</europeana:population>
+	<wgs:lat>33.43544</wgs:lat>
+	<wgs:long>36.08148</wgs:long>
+	<skos:altLabel>Katana</skos:altLabel>
+	<skos:altLabel>Qaţanah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaţanā</skos:altLabel>
+	<skos:prefLabel>Qaţanā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/165963/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33</wgs:lat>
+	<wgs:long>35.63333</wgs:long>
+	<skos:altLabel>Mezad ‘Ateret</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaşr ‘Aţrah</skos:altLabel>
+	<skos:prefLabel>Qaşr ‘Aţrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/165997/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>30283</europeana:population>
+	<wgs:lat>32.99233</wgs:lat>
+	<wgs:long>36.06018</wgs:long>
+	<skos:altLabel>Jacem</skos:altLabel>
+	<skos:altLabel>Jasem</skos:altLabel>
+	<skos:altLabel>Jâssem</skos:altLabel>
+	<skos:altLabel>Jāsim</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qāsim</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Касим</skos:altLabel>
+	<skos:prefLabel>Qāsim</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/166111/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20656</europeana:population>
+	<wgs:lat>34.15</wgs:lat>
+	<wgs:long>36.73333</wgs:long>
+	<skos:altLabel>Kara</skos:altLabel>
+	<skos:altLabel>Karra</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qārah</skos:altLabel>
+	<skos:altLabel>Qārā</skos:altLabel>
+	<skos:prefLabel>Qārah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/166331/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>25546</europeana:population>
+	<wgs:lat>36.3771</wgs:lat>
+	<wgs:long>36.99238</wgs:long>
+	<skos:altLabel>Noubbel</skos:altLabel>
+	<skos:altLabel>Noubbol</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Nubl</skos:altLabel>
+	<skos:prefLabel>Nubl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/166410/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>34.98333</wgs:lat>
+	<wgs:long>35.86667</wgs:long>
+	<skos:altLabel>Ipsiri Island</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat an Naml</skos:altLabel>
+	<skos:altLabel>Jézîret enn Namel</skos:altLabel>
+	<skos:prefLabel>Jazīrat an Naml</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/167044/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/170015/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>35.16667</wgs:lat>
+	<wgs:long>36.33333</wgs:long>
+	<skos:altLabel>Massiâf</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Minţaqat Maşyāf</skos:altLabel>
+	<skos:altLabel>Misiaf</skos:altLabel>
+	<skos:altLabel>Qaḑā’ Maşyāf</skos:altLabel>
+	<skos:prefLabel>Minţaqat Maşyāf</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/167046/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>32262</europeana:population>
+	<wgs:lat>35.05</wgs:lat>
+	<wgs:long>36.35</wgs:long>
+	<skos:altLabel>Imranie</skos:altLabel>
+	<skos:altLabel>Massiâf</skos:altLabel>
+	<skos:altLabel>Massyaf</skos:altLabel>
+	<skos:altLabel>Masyad</skos:altLabel>
+	<skos:altLabel>Masyāb</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Maşyāf</skos:altLabel>
+	<skos:altLabel>Maşşīyaf</skos:altLabel>
+	<skos:altLabel>Misiaf</skos:altLabel>
+	<skos:altLabel>Omranié</skos:altLabel>
+	<skos:altLabel>‘Omrānīye</skos:altLabel>
+	<skos:altLabel>‘Umraniya</skos:altLabel>
+	<skos:prefLabel>Maşyāf</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/167192/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>35.54413</wgs:lat>
+	<wgs:long>35.75927</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat Mār Tādrus</skos:altLabel>
+	<skos:altLabel>Jeziret Martatros</skos:altLabel>
+	<skos:altLabel>Jezîret Martatross</skos:altLabel>
+	<skos:prefLabel>Jazīrat Mār Tādrus</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/167296/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>34.75</wgs:lat>
+	<wgs:long>35.9</wgs:long>
+	<skos:altLabel>Makrud</skos:altLabel>
+	<skos:altLabel>Maqroûd</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Maqrūd</skos:altLabel>
+	<skos:prefLabel>Maqrūd</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/167355/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/170062/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>36.33333</wgs:lat>
+	<wgs:long>38</wgs:long>
+	<skos:altLabel>Manbej</skos:altLabel>
+	<skos:altLabel>Membij</skos:altLabel>
+	<skos:altLabel>Menbej</skos:altLabel>
+	<skos:altLabel>Minbej</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Minţaqat Manbij</skos:altLabel>
+	<skos:altLabel>Ménnbidj</skos:altLabel>
+	<skos:altLabel>Qaḑā’ Manbij</skos:altLabel>
+	<skos:prefLabel>Minţaqat Manbij</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/167357/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>68888</europeana:population>
+	<wgs:lat>36.52667</wgs:lat>
+	<wgs:long>37.95639</wgs:long>
+	<skos:altLabel>Hierapolis</skos:altLabel>
+	<skos:altLabel>Manbej</skos:altLabel>
+	<skos:altLabel>Manbi</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Manbij</skos:altLabel>
+	<skos:altLabel>Membidj</skos:altLabel>
+	<skos:altLabel>Membij</skos:altLabel>
+	<skos:altLabel>Memdidge</skos:altLabel>
+	<skos:altLabel>Menbidj</skos:altLabel>
+	<skos:altLabel>Menbij</skos:altLabel>
+	<skos:altLabel>Mennbidj</skos:altLabel>
+	<skos:altLabel>Minbej</skos:altLabel>
+	<skos:prefLabel>Manbij</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/167541/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>33.5</wgs:lat>
+	<wgs:long>36.3</wgs:long>
+	<skos:altLabel xml:lang="en">Damascus City</skos:altLabel>
+	<skos:altLabel xml:lang="no">Damaskus</skos:altLabel>
+	<skos:altLabel>Dimashq</skos:altLabel>
+	<skos:altLabel>Madīnat Dimashq al Mumtāzah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at Dimashq</skos:altLabel>
+	<skos:altLabel>Muḩāfaz̧at Madīnat Dimashq</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at Dimashq</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/167605/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>32163</europeana:population>
+	<wgs:lat>36.01337</wgs:lat>
+	<wgs:long>36.67254</wgs:long>
+	<skos:altLabel>Maarat Missrin</skos:altLabel>
+	<skos:altLabel>Maarrat al Masrin</skos:altLabel>
+	<skos:altLabel>Maarret Misrine</skos:altLabel>
+	<skos:altLabel>Maarret el Mesrine</skos:altLabel>
+	<skos:altLabel>Ma‘arrat Misriyn</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ma‘arrat Mişrīn</skos:altLabel>
+	<skos:prefLabel>Ma‘arrat Mişrīn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/167610/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/169387/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>35.58333</wgs:lat>
+	<wgs:long>36.66667</wgs:long>
+	<skos:altLabel>Maaret en Numan</skos:altLabel>
+	<skos:altLabel>Maaret-enn Naamane</skos:altLabel>
+	<skos:altLabel>Maarret enn Naamâne</skos:altLabel>
+	<skos:altLabel>Ma‘arrat</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Minţaqat Ma‘arrat an Nu‘mān</skos:altLabel>
+	<skos:altLabel>Qaḑā’ Ma‘arrat an Nu‘mān</skos:altLabel>
+	<skos:altLabel>Qaḑā’al Ma‘arrah</skos:altLabel>
+	<skos:prefLabel>Minţaqat Ma‘arrat an Nu‘mān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/168325/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>48975</europeana:population>
+	<wgs:lat>35.44063</wgs:lat>
+	<wgs:long>36.64995</wgs:long>
+	<skos:altLabel>Khan Cheykoun</skos:altLabel>
+	<skos:altLabel>Khan-Sheikhoun</skos:altLabel>
+	<skos:altLabel>Khâne Chaïkhoun</skos:altLabel>
+	<skos:altLabel>Khâne Cheïkhoûn</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Khān Shaykhūn</skos:altLabel>
+	<skos:altLabel>Khān Sheikhūn</skos:altLabel>
+	<skos:prefLabel>Khān Shaykhūn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/168620/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21845</europeana:population>
+	<wgs:lat>35.37382</wgs:lat>
+	<wgs:long>36.60365</wgs:long>
+	<skos:altLabel>Kafer Zaïta</skos:altLabel>
+	<skos:altLabel>Kafer Zita</skos:altLabel>
+	<skos:altLabel>Kafer ez Zaïta</skos:altLabel>
+	<skos:altLabel>Kafr Zaytah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Kafr Zaytā</skos:altLabel>
+	<skos:altLabel>Kafr Zīta</skos:altLabel>
+	<skos:prefLabel>Kafr Zaytā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/168629/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>22436</europeana:population>
+	<wgs:lat>36.11684</wgs:lat>
+	<wgs:long>36.51528</wgs:long>
+	<skos:altLabel>Kafar Takharim</skos:altLabel>
+	<skos:altLabel>Kafer Harut</skos:altLabel>
+	<skos:altLabel>Kafer Tahârim</skos:altLabel>
+	<skos:altLabel>Kafer Takhârim</skos:altLabel>
+	<skos:altLabel>Kafer Tkherim</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Kafr Takhārīm</skos:altLabel>
+	<skos:altLabel>Kafr Taḩārīm</skos:altLabel>
+	<skos:prefLabel>Kafr Takhārīm</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/168661/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>24754</europeana:population>
+	<wgs:lat>35.6</wgs:lat>
+	<wgs:long>36.56667</wgs:long>
+	<skos:altLabel>Kafer Nebal</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Kafr Nabl</skos:altLabel>
+	<skos:altLabel>Kafr Nubl</skos:altLabel>
+	<skos:altLabel>Kafr Nubul</skos:altLabel>
+	<skos:altLabel>Kufer Nabel</skos:altLabel>
+	<skos:prefLabel>Kafr Nabl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/168668/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21819</europeana:population>
+	<wgs:lat>34.89464</wgs:lat>
+	<wgs:long>36.49404</wgs:long>
+	<skos:altLabel>Kafer Lâha</skos:altLabel>
+	<skos:altLabel>Kafr Lāhā</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Kafr Lāḩah</skos:altLabel>
+	<skos:altLabel>Kefrlehe</skos:altLabel>
+	<skos:altLabel>Kufer Laha</skos:altLabel>
+	<skos:prefLabel>Kafr Lāḩah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/168753/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.56667</wgs:lat>
+	<wgs:long>36.5</wgs:long>
+	<skos:altLabel xml:lang="ca">Cadeix</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kadesch</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kadesh</skos:altLabel>
+	<skos:altLabel xml:lang="es">Kadesh</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Kadesh</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Kadesh</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kadesz</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Kadeš</skos:altLabel>
+	<skos:altLabel>Qadesh</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кадеш</skos:altLabel>
+	<skos:prefLabel>Kadesh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/169022/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/169387/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>35.91667</wgs:lat>
+	<wgs:long>36.25</wgs:long>
+	<skos:altLabel>Jisr ech Chorhour</skos:altLabel>
+	<skos:altLabel>Jisr esh Shogur</skos:altLabel>
+	<skos:altLabel>Jisr esh Shughūr</skos:altLabel>
+	<skos:altLabel>Jisr-esh-Shughour</skos:altLabel>
+	<skos:altLabel>Jisr-esh-Shugour</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Minţaqat Jisr ash Shughūr</skos:altLabel>
+	<skos:altLabel>Qaḑá’ Jisr ash Shughūr</skos:altLabel>
+	<skos:prefLabel>Minţaqat Jisr ash Shughūr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/169023/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>39311</europeana:population>
+	<wgs:lat>35.81556</wgs:lat>
+	<wgs:long>36.3175</wgs:long>
+	<skos:altLabel>Djisr el Choghour</skos:altLabel>
+	<skos:altLabel>Jisr Al-Shughour</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jisr ash Shughūr</skos:altLabel>
+	<skos:altLabel>Jisr ash Shāghūr</skos:altLabel>
+	<skos:altLabel>Jisr ech Chorhour</skos:altLabel>
+	<skos:altLabel>Jisr esh Shaur</skos:altLabel>
+	<skos:altLabel>Jisr esh Shughūr</skos:altLabel>
+	<skos:altLabel>Jisr-esh-Shughour</skos:altLabel>
+	<skos:prefLabel>Jisr ash Shughūr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/169113/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>32352</europeana:population>
+	<wgs:lat>33.81667</wgs:lat>
+	<wgs:long>36.73333</wgs:long>
+	<skos:altLabel>Djerud</skos:altLabel>
+	<skos:altLabel>Djéroud</skos:altLabel>
+	<skos:altLabel>Jairud</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jayrūd</skos:altLabel>
+	<skos:altLabel>Jaïroud</skos:altLabel>
+	<skos:altLabel>Jerūd</skos:altLabel>
+	<skos:prefLabel>Jayrūd</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/169178/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/170062/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>36.58333</wgs:lat>
+	<wgs:long>37.75</wgs:long>
+	<skos:altLabel>Djerablous</skos:altLabel>
+	<skos:altLabel>Jerablus</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Minţaqat Jarābulus</skos:altLabel>
+	<skos:altLabel>Qaḑā’ Jarābulus</skos:altLabel>
+	<skos:prefLabel>Minţaqat Jarābulus</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/169179/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>24997</europeana:population>
+	<wgs:lat>36.8175</wgs:lat>
+	<wgs:long>38.01111</wgs:long>
+	<skos:altLabel>Carablus</skos:altLabel>
+	<skos:altLabel>Djarablous</skos:altLabel>
+	<skos:altLabel>Djérâbloûs</skos:altLabel>
+	<skos:altLabel>Jarablos</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jarābulus</skos:altLabel>
+	<skos:altLabel>Jerablus</skos:altLabel>
+	<skos:altLabel>Jirāblus</skos:altLabel>
+	<skos:prefLabel>Jarābulus</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/169252/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>36.85</wgs:lat>
+	<wgs:long>40.9</wgs:long>
+	<skos:altLabel>Chagar Bazar</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Jāghir Bāzār</skos:altLabel>
+	<skos:altLabel>Shagār Bazār</skos:altLabel>
+	<skos:prefLabel>Jāghir Bāzār</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/169303/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/173578/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>35.33333</wgs:lat>
+	<wgs:long>36.08333</wgs:long>
+	<skos:altLabel>Djéble</skos:altLabel>
+	<skos:altLabel>Jableh</skos:altLabel>
+	<skos:altLabel>Jebeieh</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Minţaqat Jablah</skos:altLabel>
+	<skos:altLabel>Qaḑā’ Jablah</skos:altLabel>
+	<skos:prefLabel>Minţaqat Jablah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/169304/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>65915</europeana:population>
+	<wgs:lat>35.35</wgs:lat>
+	<wgs:long>35.91667</wgs:long>
+	<skos:altLabel>Djéblé</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jablah</skos:altLabel>
+	<skos:altLabel>Jableh</skos:altLabel>
+	<skos:altLabel>Jebele</skos:altLabel>
+	<skos:altLabel>Jebeleh</skos:altLabel>
+	<skos:altLabel>Jebelli</skos:altLabel>
+	<skos:altLabel>Jeble</skos:altLabel>
+	<skos:prefLabel>Jablah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/169326/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/170062/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>36</wgs:lat>
+	<wgs:long>37.16667</wgs:long>
+	<skos:altLabel>Djebel Smane</skos:altLabel>
+	<skos:altLabel>Jebel Sam ‘ān</skos:altLabel>
+	<skos:altLabel>Jebel Samaâne</skos:altLabel>
+	<skos:altLabel>Jebel Siman</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Minţaqat Jabal Sim‘ān</skos:altLabel>
+	<skos:altLabel>Qaḑā’ Jabal Sam‘ān</skos:altLabel>
+	<skos:altLabel>Qaḑā’ Jabal Sim‘ān</skos:altLabel>
+	<skos:prefLabel>Minţaqat Jabal Sim‘ān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/169339/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/170903/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>33</wgs:lat>
+	<wgs:long>36.25</wgs:long>
+	<skos:altLabel>Ezraa</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Minţaqat Izra‘</skos:altLabel>
+	<skos:altLabel>Qaḑā’ Izra‘</skos:altLabel>
+	<skos:prefLabel>Minţaqat Izra‘</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/169341/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13882</europeana:population>
+	<wgs:lat>32.8706</wgs:lat>
+	<wgs:long>36.25453</wgs:long>
+	<skos:altLabel>Ezra</skos:altLabel>
+	<skos:altLabel>Ezraa</skos:altLabel>
+	<skos:altLabel>Ezrra</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Izra‘</skos:altLabel>
+	<skos:altLabel>Izra‘a</skos:altLabel>
+	<skos:altLabel>Lorava</skos:altLabel>
+	<skos:altLabel>Zoraia</skos:altLabel>
+	<skos:altLabel>Zorava</skos:altLabel>
+	<skos:prefLabel>Izra‘</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/169355/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ZNB"/>
+	<wgs:lat>33</wgs:lat>
+	<wgs:long>35.61667</wgs:long>
+	<skos:altLabel>Demilitarized Zone</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Israel-Syria Demilitarized Zones</skos:altLabel>
+	<skos:altLabel>Israel-Syria Neutral Zone</skos:altLabel>
+	<skos:altLabel>Neutral Zone</skos:altLabel>
+	<skos:prefLabel>Israel-Syria Demilitarized Zones</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/169372/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>42474</europeana:population>
+	<wgs:lat>33.5376</wgs:lat>
+	<wgs:long>36.36856</wgs:long>
+	<skos:altLabel>Aarbîl</skos:altLabel>
+	<skos:altLabel>Arbine</skos:altLabel>
+	<skos:altLabel xml:lang="en">Irbin</skos:altLabel>
+	<skos:altLabel xml:lang="no">Irbin</skos:altLabel>
+	<skos:altLabel>Irbine</skos:altLabel>
+	<skos:altLabel xml:lang="ar">‘Irbīn</skos:altLabel>
+	<skos:prefLabel>‘Irbīn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/169375/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>29076</europeana:population>
+	<wgs:lat>33</wgs:lat>
+	<wgs:long>36.11667</wgs:long>
+	<skos:altLabel>Enn Nakhl</skos:altLabel>
+	<skos:altLabel>Ennkhel</skos:altLabel>
+	<skos:altLabel>Inkhel</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Inkhil</skos:altLabel>
+	<skos:prefLabel>Inkhil</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/169387/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>35.83333</wgs:lat>
+	<wgs:long>36.66667</wgs:long>
+	<skos:altLabel>Idlib</skos:altLabel>
+	<skos:altLabel xml:lang="en">Idlib</skos:altLabel>
+	<skos:altLabel xml:lang="no">Idlib</skos:altLabel>
+	<skos:altLabel xml:lang="en">Idlib Governorate</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at Idlib</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at Idlib</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/169388/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/169387/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>35.91667</wgs:lat>
+	<wgs:long>36.58333</wgs:long>
+	<skos:altLabel>Idleb</skos:altLabel>
+	<skos:altLabel>Idlid</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Minţaqat Idlib</skos:altLabel>
+	<skos:altLabel>Qaḑā’ Idlib</skos:altLabel>
+	<skos:prefLabel>Minţaqat Idlib</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/169389/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>128840</europeana:population>
+	<wgs:lat>35.93062</wgs:lat>
+	<wgs:long>36.63393</wgs:long>
+	<skos:altLabel>Idleb</skos:altLabel>
+	<skos:altLabel xml:lang="en">Idlib</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Idlib</skos:altLabel>
+	<skos:altLabel xml:lang="de">Idlib</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Idlib</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Idlib</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Идлиб</skos:altLabel>
+	<skos:altLabel xml:lang="ar">إدلب</skos:altLabel>
+	<skos:altLabel xml:lang="ar">محافظة إدلب</skos:altLabel>
+	<skos:prefLabel>Idlib</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/169575/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>34.25</wgs:lat>
+	<wgs:long>38</wgs:long>
+	<skos:altLabel>Homs</skos:altLabel>
+	<skos:altLabel xml:lang="en">Homs</skos:altLabel>
+	<skos:altLabel xml:lang="no">Homs</skos:altLabel>
+	<skos:altLabel xml:lang="en">Homs Governorate</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at Ḩimş</skos:altLabel>
+	<skos:altLabel>Ḩimş</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at Ḩimş</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/169576/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/169575/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>34.41667</wgs:lat>
+	<wgs:long>38.16667</wgs:long>
+	<skos:altLabel>Homs</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Minţaqat Ḩimş</skos:altLabel>
+	<skos:altLabel>Qaḑā’ Ḩimş</skos:altLabel>
+	<skos:prefLabel>Minţaqat Ḩimş</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/169577/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>775404</europeana:population>
+	<wgs:lat>34.72682</wgs:lat>
+	<wgs:long>36.72339</wgs:long>
+	<skos:altLabel>Emesa</skos:altLabel>
+	<skos:altLabel xml:lang="la">Emesa</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Hims</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Hims</skos:altLabel>
+	<skos:altLabel>Homs</skos:altLabel>
+	<skos:altLabel xml:lang="id">Homs</skos:altLabel>
+	<skos:altLabel xml:lang="en">Homs</skos:altLabel>
+	<skos:altLabel xml:lang="de">Homs</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Homs</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Homs</skos:altLabel>
+	<skos:altLabel xml:lang="it">Homs</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Homs</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Homs</skos:altLabel>
+	<skos:altLabel xml:lang="no">Homs</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Homs</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Homs</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Homs</skos:altLabel>
+	<skos:altLabel>Houmousse</skos:altLabel>
+	<skos:altLabel>Hums</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Хомс</skos:altLabel>
+	<skos:altLabel xml:lang="he">חומס</skos:altLabel>
+	<skos:altLabel xml:lang="ar">حمص</skos:altLabel>
+	<skos:altLabel xml:lang="ur">حمص</skos:altLabel>
+	<skos:altLabel xml:lang="ar">مدينة حمص</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ḩimş</skos:altLabel>
+	<skos:prefLabel>Ḩimş</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/169865/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/169387/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>36.16667</wgs:lat>
+	<wgs:long>36.58333</wgs:long>
+	<skos:altLabel>Harem</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Minţaqat Ḩārim</skos:altLabel>
+	<skos:altLabel>Qaḑā’ Ḩārim</skos:altLabel>
+	<skos:prefLabel>Minţaqat Ḩārim</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/169897/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>37348</europeana:population>
+	<wgs:lat>33.55899</wgs:lat>
+	<wgs:long>36.36432</wgs:long>
+	<skos:altLabel>Arasta Bassal</skos:altLabel>
+	<skos:altLabel>Harasta</skos:altLabel>
+	<skos:altLabel>Harasta el Bassal</skos:altLabel>
+	<skos:altLabel>Harastah al Başal</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ḩarastā al Başal</skos:altLabel>
+	<skos:altLabel>Ḩiristā</skos:altLabel>
+	<skos:prefLabel>Ḩiristā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/170015/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>35.16667</wgs:lat>
+	<wgs:long>37</wgs:long>
+	<skos:altLabel xml:lang="en">Hama</skos:altLabel>
+	<skos:altLabel xml:lang="no">Hama</skos:altLabel>
+	<skos:altLabel xml:lang="en">Hama Governorate</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at Ḩamāh</skos:altLabel>
+	<skos:altLabel>Ḩamāh</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at Ḩamāh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/170016/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/170015/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>35.16667</wgs:lat>
+	<wgs:long>36.66667</wgs:long>
+	<skos:altLabel>Hama</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Minţaqat Ḩamāh</skos:altLabel>
+	<skos:altLabel>Qaḑā’ Ḩamāh</skos:altLabel>
+	<skos:prefLabel>Minţaqat Ḩamāh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/170017/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>460602</europeana:population>
+	<wgs:lat>35.13179</wgs:lat>
+	<wgs:long>36.75783</wgs:long>
+	<skos:altLabel>Epiphaneia</skos:altLabel>
+	<skos:altLabel>Epiphania</skos:altLabel>
+	<skos:altLabel>Hama</skos:altLabel>
+	<skos:altLabel xml:lang="en">Hama</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Hama</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Hama</skos:altLabel>
+	<skos:altLabel xml:lang="de">Hama</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Hama</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Hama</skos:altLabel>
+	<skos:altLabel xml:lang="it">Hama</skos:altLabel>
+	<skos:altLabel xml:lang="no">Hama</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Hama</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Hamao</skos:altLabel>
+	<skos:altLabel>Hamath</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Хама</skos:altLabel>
+	<skos:altLabel xml:lang="ar">حماة</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ḩamāh</skos:altLabel>
+	<skos:prefLabel>Ḩamāh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/170044/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23403</europeana:population>
+	<wgs:lat>35.25995</wgs:lat>
+	<wgs:long>36.60572</wgs:long>
+	<skos:altLabel xml:lang="ar">Ḩalfāyā</skos:altLabel>
+	<skos:prefLabel>Ḩalfāyā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/170062/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>3115559</europeana:population>
+	<wgs:lat>36</wgs:lat>
+	<wgs:long>37</wgs:long>
+	<skos:altLabel>Aleppo</skos:altLabel>
+	<skos:altLabel xml:lang="en">Aleppo</skos:altLabel>
+	<skos:altLabel xml:lang="no">Aleppo</skos:altLabel>
+	<skos:altLabel xml:lang="en">Aleppo Governorate</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at Ḩalab</skos:altLabel>
+	<skos:altLabel>Ḩalab</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at Ḩalab</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/170063/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>1602264</europeana:population>
+	<wgs:lat>36.20278</wgs:lat>
+	<wgs:long>37.15861</wgs:long>
+	<skos:altLabel>Alep</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Alep</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Alep</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Alep</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Alepas</skos:altLabel>
+	<skos:altLabel xml:lang="es">Alepo</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Alepo</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Alepo</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Alepo</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Alepo - حلب</skos:altLabel>
+	<skos:altLabel>Aleppe</skos:altLabel>
+	<skos:altLabel xml:lang="id">Aleppo</skos:altLabel>
+	<skos:altLabel xml:lang="de">Aleppo</skos:altLabel>
+	<skos:altLabel xml:lang="it">Aleppo</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Aleppo</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Aleppo</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Aleppo</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Aleppo</skos:altLabel>
+	<skos:altLabel xml:lang="en">Aleppo</skos:altLabel>
+	<skos:altLabel xml:lang="no">Aleppo</skos:altLabel>
+	<skos:altLabel xml:lang="da">Aleppo</skos:altLabel>
+	<skos:altLabel>Berea</skos:altLabel>
+	<skos:altLabel>Beroea</skos:altLabel>
+	<skos:altLabel>Haleb</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Halep</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Heleb</skos:altLabel>
+	<skos:altLabel>Khalepion</skos:altLabel>
+	<skos:altLabel>Madīnat Ḩalab</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Халеб</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Халеб</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Халеб</skos:altLabel>
+	<skos:altLabel xml:lang="he">חאלב</skos:altLabel>
+	<skos:altLabel xml:lang="ur">حلب</skos:altLabel>
+	<skos:altLabel xml:lang="ar">حلب</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ḩalab</skos:altLabel>
+	<skos:altLabel xml:lang="et">Ḩalab</skos:altLabel>
+	<skos:altLabel xml:lang="ja">アレッポ</skos:altLabel>
+	<skos:prefLabel>Aleppo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/170572/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11918</europeana:population>
+	<wgs:lat>34.88333</wgs:lat>
+	<wgs:long>36.13333</wgs:long>
+	<skos:altLabel>Bermana</skos:altLabel>
+	<skos:altLabel>Dere Kish</skos:altLabel>
+	<skos:altLabel>Draykīkh</skos:altLabel>
+	<skos:altLabel>Draïkich</skos:altLabel>
+	<skos:altLabel>Dreikich</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Duraykīsh</skos:altLabel>
+	<skos:altLabel>Dureikīsh</skos:altLabel>
+	<skos:prefLabel>Duraykīsh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/170590/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/170652/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>33.5</wgs:lat>
+	<wgs:long>36.5</wgs:long>
+	<skos:altLabel>Douma</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Minţaqat Dūmā</skos:altLabel>
+	<skos:altLabel>Qaḑā’ Dūmā</skos:altLabel>
+	<skos:prefLabel>Minţaqat Dūmā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/170592/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>111864</europeana:population>
+	<wgs:lat>33.57175</wgs:lat>
+	<wgs:long>36.4027</wgs:long>
+	<skos:altLabel>Douma</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Dūmā</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Дума</skos:altLabel>
+	<skos:prefLabel>Dūmā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/170652/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>33.5</wgs:lat>
+	<wgs:long>37.75</wgs:long>
+	<skos:altLabel>Damascus</skos:altLabel>
+	<skos:altLabel xml:lang="no">Damaskus-området</skos:altLabel>
+	<skos:altLabel>Muḩāfaz̧at Dimashq</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at Rīf Dimashq</skos:altLabel>
+	<skos:altLabel xml:lang="en">Rif-dimashq</skos:altLabel>
+	<skos:altLabel xml:lang="en">Rif-dimashq Governorate</skos:altLabel>
+	<skos:altLabel>Rīf Dimashq</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at Rīf Dimashq</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/170653/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/170652/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>33.46667</wgs:lat>
+	<wgs:long>36.25</wgs:long>
+	<skos:altLabel>Damas</skos:altLabel>
+	<skos:altLabel>Damascus</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Minţaqat Dimashq</skos:altLabel>
+	<skos:prefLabel>Minţaqat Dimashq</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/170654/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>1569394</europeana:population>
+	<wgs:lat>33.5102</wgs:lat>
+	<wgs:long>36.29128</wgs:long>
+	<skos:altLabel>Al-Shām</skos:altLabel>
+	<skos:altLabel>Cham</skos:altLabel>
+	<skos:altLabel>Damas</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Damas</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Damasc</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Damasc</skos:altLabel>
+	<skos:altLabel xml:lang="es">Damasco</skos:altLabel>
+	<skos:altLabel xml:lang="it">Damasco</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Damasco</skos:altLabel>
+	<skos:altLabel>Damascus</skos:altLabel>
+	<skos:altLabel xml:lang="en">Damascus</skos:altLabel>
+	<skos:altLabel xml:lang="la">Damascus</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Damascus</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Damask</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Damask</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Damask</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Damask</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Damask</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Damaskas</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Damasko</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Damasko</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Damaskos</skos:altLabel>
+	<skos:altLabel xml:lang="id">Damaskus</skos:altLabel>
+	<skos:altLabel>Damaskus</skos:altLabel>
+	<skos:altLabel xml:lang="de">Damaskus</skos:altLabel>
+	<skos:altLabel xml:lang="da">Damaskus</skos:altLabel>
+	<skos:altLabel xml:lang="is">Damaskus</skos:altLabel>
+	<skos:altLabel xml:lang="no">Damaskus</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Damaskus</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Damaszek</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Damašek</skos:altLabel>
+	<skos:altLabel>Dammeseq</skos:altLabel>
+	<skos:altLabel>Dimashk</skos:altLabel>
+	<skos:altLabel>Dimashk al-Shām</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Dimashq</skos:altLabel>
+	<skos:altLabel>Dimeshki esh Sham</skos:altLabel>
+	<skos:altLabel>Dimishq</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Dimäjk</skos:altLabel>
+	<skos:altLabel>Esh Shām</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Şam</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Şam</skos:altLabel>
+	<skos:altLabel xml:lang="el">Δαμασκός</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Дамаск</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Дамаск</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Дамаск</skos:altLabel>
+	<skos:altLabel xml:lang="cu">Дамаскъ</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Димишқ</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Դամասկոս</skos:altLabel>
+	<skos:altLabel xml:lang="he">דמשק</skos:altLabel>
+	<skos:altLabel xml:lang="ar">دمشق</skos:altLabel>
+	<skos:altLabel xml:lang="fa">دمشق</skos:altLabel>
+	<skos:altLabel xml:lang="ur">دمشق</skos:altLabel>
+	<skos:altLabel xml:lang="am">ደማስቆ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ダマスカス</skos:altLabel>
+	<skos:altLabel xml:lang="zh">大馬士革</skos:altLabel>
+	<skos:altLabel xml:lang="ko">다마스쿠스</skos:altLabel>
+	<skos:prefLabel>Damascus</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/170665/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/173813/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>37.16667</wgs:lat>
+	<wgs:long>42.15</wgs:long>
+	<skos:altLabel>Dajla</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Minţaqat Dijlah</skos:altLabel>
+	<skos:altLabel>Qadā’ Dayrīk</skos:altLabel>
+	<skos:altLabel>Qaḑā’ Dijlah</skos:altLabel>
+	<skos:altLabel>Tigre</skos:altLabel>
+	<skos:prefLabel>Minţaqat Dijlah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/170683/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.95</wgs:lat>
+	<wgs:long>38.16667</wgs:long>
+	<skos:altLabel>Ad-Dibsi</skos:altLabel>
+	<skos:altLabel>Athis</skos:altLabel>
+	<skos:altLabel>Debsé</skos:altLabel>
+	<skos:altLabel>Dibsah</skos:altLabel>
+	<skos:altLabel>Dibse</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Dibsī</skos:altLabel>
+	<skos:altLabel>Thapsacus</skos:altLabel>
+	<skos:altLabel>Tifsaḩ</skos:altLabel>
+	<skos:prefLabel>Dibsī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/170785/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>28905</europeana:population>
+	<wgs:lat>36.15361</wgs:lat>
+	<wgs:long>37.70667</wgs:long>
+	<skos:altLabel xml:lang="ar">Dayr Ḩāfir</skos:altLabel>
+	<skos:altLabel>Deir Hâfero</skos:altLabel>
+	<skos:altLabel>Deir Hâfir</skos:altLabel>
+	<skos:altLabel>Deïr Hâfer</skos:altLabel>
+	<skos:prefLabel>Dayr Ḩāfir</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/170792/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>35.5</wgs:lat>
+	<wgs:long>39</wgs:long>
+	<skos:altLabel>Al Furāt</skos:altLabel>
+	<skos:altLabel>Dayr az Zawr</skos:altLabel>
+	<skos:altLabel xml:lang="en">Deir ez-Zor</skos:altLabel>
+	<skos:altLabel xml:lang="no">Deir ez-Zor</skos:altLabel>
+	<skos:altLabel xml:lang="en">Deir ez-Zor Governorate</skos:altLabel>
+	<skos:altLabel>Euphrates</skos:altLabel>
+	<skos:altLabel>Muhafaza of Der al-Zor</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at Dayr az Zawr</skos:altLabel>
+	<skos:altLabel>Muḩāfaz̧at al Furāt</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at Dayr az Zawr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/170793/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/170792/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>35.5</wgs:lat>
+	<wgs:long>39</wgs:long>
+	<skos:altLabel>Deïr-ez-Zor</skos:altLabel>
+	<skos:altLabel>Euphrates</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Minţaqat Dayr az Zawr</skos:altLabel>
+	<skos:altLabel>Qaḑā’ Dayr az Zawr</skos:altLabel>
+	<skos:prefLabel>Minţaqat Dayr az Zawr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/170794/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>242565</europeana:population>
+	<wgs:lat>35.33333</wgs:lat>
+	<wgs:long>40.15</wgs:long>
+	<skos:altLabel>Azaura</skos:altLabel>
+	<skos:altLabel>Dayr al-Zor</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Dayr az Zawr</skos:altLabel>
+	<skos:altLabel>Dayr az Zūr</skos:altLabel>
+	<skos:altLabel>Deir Zzor</skos:altLabel>
+	<skos:altLabel>Deir ez Zoar</skos:altLabel>
+	<skos:altLabel>Deïr ez Zor</skos:altLabel>
+	<skos:altLabel xml:lang="ar">دير الزور</skos:altLabel>
+	<skos:prefLabel>Dayr az Zawr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/170887/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21481</europeana:population>
+	<wgs:lat>37.07279</wgs:lat>
+	<wgs:long>40.65199</wgs:long>
+	<skos:altLabel xml:lang="tr">Darbāsīyah</skos:altLabel>
+	<skos:altLabel>Derbassiye</skos:altLabel>
+	<skos:altLabel>Derbisīye</skos:altLabel>
+	<skos:altLabel>Dirbassiyeh</skos:altLabel>
+	<skos:prefLabel>Darbāsīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/170892/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>71596</europeana:population>
+	<wgs:lat>33.45897</wgs:lat>
+	<wgs:long>36.23742</wgs:long>
+	<skos:altLabel>Daraya</skos:altLabel>
+	<skos:altLabel>Daraye</skos:altLabel>
+	<skos:altLabel>Deraya</skos:altLabel>
+	<skos:altLabel>Dâraiya</skos:altLabel>
+	<skos:altLabel>Dārayyah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Dārayyā</skos:altLabel>
+	<skos:altLabel>Dāreiya</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Дарайе</skos:altLabel>
+	<skos:prefLabel>Dārayyā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/170903/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>33</wgs:lat>
+	<wgs:long>36.16667</wgs:long>
+	<skos:altLabel xml:lang="no">Dara</skos:altLabel>
+	<skos:altLabel xml:lang="en">Daraa</skos:altLabel>
+	<skos:altLabel xml:lang="en">Daraa Governorate</skos:altLabel>
+	<skos:altLabel>Dar‘ā</skos:altLabel>
+	<skos:altLabel>Haourane</skos:altLabel>
+	<skos:altLabel>Haurān</skos:altLabel>
+	<skos:altLabel>Muhafaza of Dera‘a</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at Dar‘ā</skos:altLabel>
+	<skos:altLabel>Muḩāfaz̧at Hawrān</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at Dar‘ā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/170904/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/170903/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>33</wgs:lat>
+	<wgs:long>36.16667</wgs:long>
+	<skos:altLabel>Deraa</skos:altLabel>
+	<skos:altLabel>Dir‘a</skos:altLabel>
+	<skos:altLabel>Haurān</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Minţaqat Dar‘ā</skos:altLabel>
+	<skos:altLabel>Qaḑā’ Dar‘ā</skos:altLabel>
+	<skos:prefLabel>Minţaqat Dar‘ā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/171451/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>30354</europeana:population>
+	<wgs:lat>35.95554</wgs:lat>
+	<wgs:long>36.71393</wgs:long>
+	<skos:altLabel>Binnesh</skos:altLabel>
+	<skos:altLabel>Binnich</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Binnish</skos:altLabel>
+	<skos:prefLabel>Binnish</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/171829/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163342/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>35.16667</wgs:lat>
+	<wgs:long>36.08333</wgs:long>
+	<skos:altLabel>Banias</skos:altLabel>
+	<skos:altLabel>Baniass</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Minţaqat Bāniyās</skos:altLabel>
+	<skos:altLabel>Qaḑā’ Bāniyās</skos:altLabel>
+	<skos:prefLabel>Minţaqat Bāniyās</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/171830/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>39066</europeana:population>
+	<wgs:lat>35.18333</wgs:lat>
+	<wgs:long>35.95</wgs:long>
+	<skos:altLabel>Bulunyās</skos:altLabel>
+	<skos:altLabel>Bâniâs</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Bāniyās</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Банияс</skos:altLabel>
+	<skos:prefLabel>Bāniyās</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/172039/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/173336/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>32.75</wgs:lat>
+	<wgs:long>35.75</wgs:long>
+	<skos:altLabel>Feek</skos:altLabel>
+	<skos:altLabel>Feeq</skos:altLabel>
+	<skos:altLabel>Fik</skos:altLabel>
+	<skos:altLabel>Minţaqat Fīq</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Minţaqat az Zawīyah</skos:altLabel>
+	<skos:altLabel>Qaḑā’ Fīq</skos:altLabel>
+	<skos:altLabel>Qaḑā’ az Zawīyah</skos:altLabel>
+	<skos:altLabel>Zaouîye</skos:altLabel>
+	<skos:prefLabel>Minţaqat az Zawīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/172059/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>29549</europeana:population>
+	<wgs:lat>33.72565</wgs:lat>
+	<wgs:long>36.09704</wgs:long>
+	<skos:altLabel xml:lang="ar">Az Zabadānī</skos:altLabel>
+	<skos:altLabel>Zabadani</skos:altLabel>
+	<skos:altLabel>Zabdānī</skos:altLabel>
+	<skos:altLabel>Zebdāni</skos:altLabel>
+	<skos:altLabel>Zebedani</skos:altLabel>
+	<skos:altLabel>Zibdānī</skos:altLabel>
+	<skos:prefLabel>Az Zabadānī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/172060/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/170652/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>33.66667</wgs:lat>
+	<wgs:long>36.16667</wgs:long>
+	<skos:altLabel xml:lang="ar">Minţaqat az Zabadān</skos:altLabel>
+	<skos:altLabel>Minţaqat az Zabadānī</skos:altLabel>
+	<skos:altLabel>Qaḑā’ az Zabadani</skos:altLabel>
+	<skos:altLabel>Zebdāni</skos:altLabel>
+	<skos:altLabel>Zébédâni</skos:altLabel>
+	<skos:prefLabel>Minţaqat az Zabadān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/172081/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/170062/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>36.5</wgs:lat>
+	<wgs:long>37.16667</wgs:long>
+	<skos:altLabel>Aazâz</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Minţaqat A‘zāz</skos:altLabel>
+	<skos:altLabel>Qaḑā’ A‘zāz</skos:altLabel>
+	<skos:altLabel>Qaḑā’ I‘zāz</skos:altLabel>
+	<skos:prefLabel>Minţaqat A‘zāz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/172082/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>66138</europeana:population>
+	<wgs:lat>36.58889</wgs:lat>
+	<wgs:long>37.04417</wgs:long>
+	<skos:altLabel>Aazâz</skos:altLabel>
+	<skos:altLabel xml:lang="en">Azaz</skos:altLabel>
+	<skos:altLabel xml:lang="ar">A‘zāz</skos:altLabel>
+	<skos:altLabel>I‘zāz</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Азаз</skos:altLabel>
+	<skos:prefLabel>A‘zāz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/172255/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/170062/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>36.58333</wgs:lat>
+	<wgs:long>38.41667</wgs:long>
+	<skos:altLabel>Ain Arab</skos:altLabel>
+	<skos:altLabel>Ain-el-Aaraba</skos:altLabel>
+	<skos:altLabel>Aïn el Aarab</skos:altLabel>
+	<skos:altLabel>Ein al Arab</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Minţaqat ‘Ayn al ‘Arab</skos:altLabel>
+	<skos:altLabel>Qaḑā’ ‘Ayn al ‘Arab</skos:altLabel>
+	<skos:altLabel>‘Ain el ‘Arab</skos:altLabel>
+	<skos:prefLabel>Minţaqat ‘Ayn al ‘Arab</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/172349/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>55561</europeana:population>
+	<wgs:lat>33.6099</wgs:lat>
+	<wgs:long>36.30964</wgs:long>
+	<skos:altLabel>Al-Tal</skos:altLabel>
+	<skos:altLabel xml:lang="ar">At Tall</skos:altLabel>
+	<skos:altLabel>Ett Tell</skos:altLabel>
+	<skos:altLabel>Tal</skos:altLabel>
+	<skos:altLabel>Tall</skos:altLabel>
+	<skos:altLabel>Tell</skos:altLabel>
+	<skos:prefLabel>At Tall</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/172350/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/170652/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>33.61667</wgs:lat>
+	<wgs:long>36.33333</wgs:long>
+	<skos:altLabel xml:lang="ar">Minţaqat at Tall</skos:altLabel>
+	<skos:prefLabel>Minţaqat at Tall</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/172374/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>87880</europeana:population>
+	<wgs:lat>35.84688</wgs:lat>
+	<wgs:long>38.54427</wgs:long>
+	<skos:altLabel>Al Tabaqah</skos:altLabel>
+	<skos:altLabel>Al-Tabbaqah</skos:altLabel>
+	<skos:altLabel>Al-Thawra</skos:altLabel>
+	<skos:altLabel>At Tabqah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ath Thawrah</skos:altLabel>
+	<skos:altLabel>Madīnat ath Thawrah</skos:altLabel>
+	<skos:altLabel>Medinat Al Thawra</skos:altLabel>
+	<skos:altLabel>Revolution City</skos:altLabel>
+	<skos:altLabel>Tabqa</skos:altLabel>
+	<skos:altLabel>Ţabaqah</skos:altLabel>
+	<skos:prefLabel>Ath Thawrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/172408/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>59052</europeana:population>
+	<wgs:lat>32.70896</wgs:lat>
+	<wgs:long>36.56951</wgs:long>
+	<skos:altLabel>Al-Sweida</skos:altLabel>
+	<skos:altLabel>As Suwaydah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">As Suwaydā’</skos:altLabel>
+	<skos:altLabel>Dionysia</skos:altLabel>
+	<skos:altLabel>Es Suweida</skos:altLabel>
+	<skos:altLabel>Es Suweidīya</skos:altLabel>
+	<skos:altLabel>Soueïda</skos:altLabel>
+	<skos:altLabel>Suwaydah</skos:altLabel>
+	<skos:altLabel>Sweida</skos:altLabel>
+	<skos:prefLabel>As Suwaydā’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/172409/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/172410/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>32.66667</wgs:lat>
+	<wgs:long>36.91667</wgs:long>
+	<skos:altLabel>As Suwaydah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Minţaqat as Suwaydā’</skos:altLabel>
+	<skos:altLabel>Qaḑā’ as Suwaydā’</skos:altLabel>
+	<skos:altLabel>Soueïda</skos:altLabel>
+	<skos:altLabel>Suweida</skos:altLabel>
+	<skos:altLabel>Sweïda</skos:altLabel>
+	<skos:prefLabel>Minţaqat as Suwaydā’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/172410/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>32.75</wgs:lat>
+	<wgs:long>36.75</wgs:long>
+	<skos:altLabel>As Suwaydāʼ</skos:altLabel>
+	<skos:altLabel xml:lang="no">As-Suwayda</skos:altLabel>
+	<skos:altLabel xml:lang="en">As-Suwayda</skos:altLabel>
+	<skos:altLabel xml:lang="en">As-Suwayda Governorate</skos:altLabel>
+	<skos:altLabel>Jebel Druse</skos:altLabel>
+	<skos:altLabel>Jebel ed Druz</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at as Suwaydā’</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at as Suwaydā’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/172469/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>25702</europeana:population>
+	<wgs:lat>33.07312</wgs:lat>
+	<wgs:long>36.18499</wgs:long>
+	<skos:altLabel>Aeré</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Aş Şanamayn</skos:altLabel>
+	<skos:altLabel>Es Sanamein</skos:altLabel>
+	<skos:altLabel>Es Sannamain</skos:altLabel>
+	<skos:altLabel>Sanamein</skos:altLabel>
+	<skos:altLabel>Sanameïne</skos:altLabel>
+	<skos:altLabel>Sanmayn</skos:altLabel>
+	<skos:altLabel>Şanamayn</skos:altLabel>
+	<skos:prefLabel>Aş Şanamayn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/172503/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>95832</europeana:population>
+	<wgs:lat>36.07696</wgs:lat>
+	<wgs:long>37.37251</wgs:long>
+	<skos:altLabel>Al-Safira</skos:altLabel>
+	<skos:altLabel xml:lang="ar">As Safīrah</skos:altLabel>
+	<skos:altLabel>Safira</skos:altLabel>
+	<skos:altLabel>Safīrah</skos:altLabel>
+	<skos:altLabel>Sfiré</skos:altLabel>
+	<skos:altLabel>Sfīra</skos:altLabel>
+	<skos:altLabel>Şafīr</skos:altLabel>
+	<skos:prefLabel>As Safīrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/172879/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>34.85613</wgs:lat>
+	<wgs:long>35.85868</wgs:long>
+	<skos:altLabel>Aradus</skos:altLabel>
+	<skos:altLabel>Arvād</skos:altLabel>
+	<skos:altLabel>Ile de Rouad</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Arwād</skos:altLabel>
+	<skos:altLabel>Ruad Island</skos:altLabel>
+	<skos:altLabel>جزيرة أرواد</skos:altLabel>
+	<skos:prefLabel>Jazīrat Arwād</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/172946/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>53152</europeana:population>
+	<wgs:lat>34.92653</wgs:lat>
+	<wgs:long>36.73238</wgs:long>
+	<skos:altLabel>Al-Rastan</skos:altLabel>
+	<skos:altLabel>Ar Rastan</skos:altLabel>
+	<skos:altLabel>Arethousa</skos:altLabel>
+	<skos:altLabel>Arethus</skos:altLabel>
+	<skos:altLabel>El Rastane</skos:altLabel>
+	<skos:altLabel>Er Rastan</skos:altLabel>
+	<skos:altLabel>Rastan</skos:altLabel>
+	<skos:altLabel>Rastâne</skos:altLabel>
+	<skos:prefLabel>Ar Rastan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/172947/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/169575/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>34.91667</wgs:lat>
+	<wgs:long>36.75</wgs:long>
+	<skos:prefLabel>Minţaqat ar Rastan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/172955/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>177636</europeana:population>
+	<wgs:lat>35.95</wgs:lat>
+	<wgs:long>39.01667</wgs:long>
+	<skos:altLabel>Al-Rakka</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ar Raqqah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ar Raqqah</skos:altLabel>
+	<skos:altLabel xml:lang="de">Ar-Raqqah</skos:altLabel>
+	<skos:altLabel>Nicephorium</skos:altLabel>
+	<skos:altLabel>Rakka</skos:altLabel>
+	<skos:altLabel>Raqqa</skos:altLabel>
+	<skos:altLabel xml:lang="es">Raqqa</skos:altLabel>
+	<skos:altLabel>Raqqah</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ар-Ракка</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الرقة</skos:altLabel>
+	<skos:prefLabel>Ar Raqqah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/172956/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/172957/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>36</wgs:lat>
+	<wgs:long>38.5</wgs:long>
+	<skos:altLabel>Ar Riqqa</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Minţaqat ar Raqqah</skos:altLabel>
+	<skos:altLabel>Qaḑā’ ar Raqqah</skos:altLabel>
+	<skos:altLabel>Rakka</skos:altLabel>
+	<skos:altLabel>Raqqa</skos:altLabel>
+	<skos:prefLabel>Minţaqat ar Raqqah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/172957/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>36</wgs:lat>
+	<wgs:long>39</wgs:long>
+	<skos:altLabel>Al Rashid</skos:altLabel>
+	<skos:altLabel>Ar Raqqah</skos:altLabel>
+	<skos:altLabel>Ar Rashīd</skos:altLabel>
+	<skos:altLabel xml:lang="no">Ar-Raqqah</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ar-Raqqah</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ar-Raqqah Governorate</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at ar Raqqah</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at ar Raqqah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/173193/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>49372</europeana:population>
+	<wgs:lat>34.01667</wgs:lat>
+	<wgs:long>36.73333</wgs:long>
+	<skos:altLabel>Al-Nabek</skos:altLabel>
+	<skos:altLabel xml:lang="ar">An Nabk</skos:altLabel>
+	<skos:altLabel>En Nebk</skos:altLabel>
+	<skos:altLabel>Kalamom</skos:altLabel>
+	<skos:altLabel>Nabak</skos:altLabel>
+	<skos:altLabel>Nabaq</skos:altLabel>
+	<skos:altLabel>Nabek</skos:altLabel>
+	<skos:altLabel>Nebek</skos:altLabel>
+	<skos:altLabel>Nebk</skos:altLabel>
+	<skos:altLabel>Nébeck</skos:altLabel>
+	<skos:prefLabel>An Nabk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/173194/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/170652/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>33.33333</wgs:lat>
+	<wgs:long>37.25</wgs:long>
+	<skos:altLabel>Kalamom</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Minţaqat an Nabk</skos:altLabel>
+	<skos:altLabel>Qalamoun</skos:altLabel>
+	<skos:altLabel>Qalamūn</skos:altLabel>
+	<skos:altLabel>Qaza of Nebek</skos:altLabel>
+	<skos:altLabel>Qaḑā’ an Nabk</skos:altLabel>
+	<skos:prefLabel>Minţaqat an Nabk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/173312/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16118</europeana:population>
+	<wgs:lat>33.75</wgs:lat>
+	<wgs:long>36.6</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Quţayfah</skos:altLabel>
+	<skos:altLabel>Al-Kutaifeh</skos:altLabel>
+	<skos:altLabel>El Qtaïfé</skos:altLabel>
+	<skos:altLabel>Kouteifé</skos:altLabel>
+	<skos:altLabel>Kutayfa</skos:altLabel>
+	<skos:altLabel>Kuteife</skos:altLabel>
+	<skos:altLabel>Qtaïfé</skos:altLabel>
+	<skos:altLabel>Quteifa</skos:altLabel>
+	<skos:altLabel>Quteife</skos:altLabel>
+	<skos:altLabel>Quteifeh</skos:altLabel>
+	<skos:altLabel>Quţayfah</skos:altLabel>
+	<skos:prefLabel>Al Quţayfah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/173313/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/170652/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>33.75</wgs:lat>
+	<wgs:long>36.58333</wgs:long>
+	<skos:altLabel>Al-Kuteïfeh</skos:altLabel>
+	<skos:altLabel>Al-Quteïfeh</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Minţaqat al Quţayfah</skos:altLabel>
+	<skos:altLabel>Qaḑā‘ al Quţayfah</skos:altLabel>
+	<skos:altLabel>Qtaïfé</skos:altLabel>
+	<skos:altLabel>Quteife</skos:altLabel>
+	<skos:prefLabel>Minţaqat al Quţayfah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/173322/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>41062</europeana:population>
+	<wgs:lat>34.50914</wgs:lat>
+	<wgs:long>36.57975</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Quşayr</skos:altLabel>
+	<skos:altLabel>Al-Kuseir</skos:altLabel>
+	<skos:altLabel>El Qoussair</skos:altLabel>
+	<skos:altLabel>El Quseir</skos:altLabel>
+	<skos:altLabel>Kouseir</skos:altLabel>
+	<skos:altLabel>Koussaie</skos:altLabel>
+	<skos:altLabel>Kousseir</skos:altLabel>
+	<skos:altLabel>Kuseir</skos:altLabel>
+	<skos:altLabel>Qoussaïr</skos:altLabel>
+	<skos:altLabel>Qusir</skos:altLabel>
+	<skos:altLabel>Quşayr</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Аль-Кусайра</skos:altLabel>
+	<skos:prefLabel>Al Quşayr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/173324/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/169575/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>34.56667</wgs:lat>
+	<wgs:long>36.58333</wgs:long>
+	<skos:altLabel xml:lang="ar">Minţaqat al Quşayr</skos:altLabel>
+	<skos:prefLabel>Minţaqat al Quşayr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/173334/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>36143</europeana:population>
+	<wgs:lat>33.12594</wgs:lat>
+	<wgs:long>35.82461</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Qunayţirah</skos:altLabel>
+	<skos:altLabel>El Kuneitra</skos:altLabel>
+	<skos:altLabel>El Qnaïtra</skos:altLabel>
+	<skos:altLabel>El Quneitra</skos:altLabel>
+	<skos:altLabel>Kuneïtra</skos:altLabel>
+	<skos:altLabel>Qhaitra</skos:altLabel>
+	<skos:altLabel>Qnayţra</skos:altLabel>
+	<skos:altLabel>Qnaïtra</skos:altLabel>
+	<skos:altLabel>Qunayţirah</skos:altLabel>
+	<skos:altLabel>Qunayţurah</skos:altLabel>
+	<skos:altLabel>Quneitra</skos:altLabel>
+	<skos:prefLabel>Al Qunayţirah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/173335/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/173336/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>33.11667</wgs:lat>
+	<wgs:long>35.83333</wgs:long>
+	<skos:altLabel>Gaza of Yolan</skos:altLabel>
+	<skos:altLabel>Jawlan</skos:altLabel>
+	<skos:altLabel>Jolâne</skos:altLabel>
+	<skos:altLabel>Kuneïtra</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Minţaqat al Qunayţirah</skos:altLabel>
+	<skos:altLabel>Qaḑā’ al Qunayţirah</skos:altLabel>
+	<skos:prefLabel>Minţaqat al Qunayţirah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/173336/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>33</wgs:lat>
+	<wgs:long>35.83333</wgs:long>
+	<skos:altLabel>Al Qunayţirah</skos:altLabel>
+	<skos:altLabel>Muḩāfaz̧at al Qunaytirah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at al Qunayţirah</skos:altLabel>
+	<skos:altLabel>Qnnaytrah</skos:altLabel>
+	<skos:altLabel>Quanytra</skos:altLabel>
+	<skos:altLabel xml:lang="en">Quneitra</skos:altLabel>
+	<skos:altLabel xml:lang="no">Quneitra</skos:altLabel>
+	<skos:altLabel xml:lang="en">Quneitra Governorate</skos:altLabel>
+	<skos:altLabel>Quneïtra</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at al Qunayţirah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/173361/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>31748</europeana:population>
+	<wgs:lat>34.23333</wgs:lat>
+	<wgs:long>37.23333</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Qaryatayn</skos:altLabel>
+	<skos:altLabel>El Qaryatein</skos:altLabel>
+	<skos:altLabel>Kariatein</skos:altLabel>
+	<skos:altLabel>Kariateine</skos:altLabel>
+	<skos:altLabel>Karyatein</skos:altLabel>
+	<skos:altLabel>Kuriatein</skos:altLabel>
+	<skos:altLabel>Kuryatein</skos:altLabel>
+	<skos:altLabel>Nezala</skos:altLabel>
+	<skos:altLabel>Qariateïne</skos:altLabel>
+	<skos:altLabel>Qaryatayn</skos:altLabel>
+	<skos:prefLabel>Al Qaryatayn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/173365/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/173578/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>35.45</wgs:lat>
+	<wgs:long>36.06667</wgs:long>
+	<skos:altLabel xml:lang="ar">Minţaqat al Qardāḩah</skos:altLabel>
+	<skos:prefLabel>Minţaqat al Qardāḩah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/173378/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/173813/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>37</wgs:lat>
+	<wgs:long>41.25</wgs:long>
+	<skos:altLabel>Kamichlieh</skos:altLabel>
+	<skos:altLabel>Kamishli</skos:altLabel>
+	<skos:altLabel>Minţaqat al Qamishlī</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Minţaqat al Qāmishl</skos:altLabel>
+	<skos:altLabel>Qamichlîyé</skos:altLabel>
+	<skos:altLabel>Qaḑā’ al Qāmishlī</skos:altLabel>
+	<skos:prefLabel>Minţaqat al Qāmishl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/173435/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/169575/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>34.81667</wgs:lat>
+	<wgs:long>37.18333</wgs:long>
+	<skos:altLabel xml:lang="ar">Minţaqat al Mukharram</skos:altLabel>
+	<skos:prefLabel>Minţaqat al Mukharram</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/173480/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>54534</europeana:population>
+	<wgs:lat>35.01667</wgs:lat>
+	<wgs:long>40.45</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Mayādīn</skos:altLabel>
+	<skos:altLabel>Al-Mayadeen</skos:altLabel>
+	<skos:altLabel>Audattha</skos:altLabel>
+	<skos:altLabel>Mayadine</skos:altLabel>
+	<skos:altLabel>Mayādīn</skos:altLabel>
+	<skos:altLabel>Meyadine</skos:altLabel>
+	<skos:altLabel>Meyedine</skos:altLabel>
+	<skos:altLabel>Meyādīn</skos:altLabel>
+	<skos:prefLabel>Al Mayādīn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/173481/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/170792/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>35</wgs:lat>
+	<wgs:long>40.41667</wgs:long>
+	<skos:altLabel>Mayâdîne</skos:altLabel>
+	<skos:altLabel>Medyadin</skos:altLabel>
+	<skos:altLabel>Meyadin</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Minţaqat al Mayādīn</skos:altLabel>
+	<skos:altLabel>Qaḑā’ al Mayādīn</skos:altLabel>
+	<skos:prefLabel>Minţaqat al Mayādīn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/173576/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>340181</europeana:population>
+	<wgs:lat>35.51667</wgs:lat>
+	<wgs:long>35.78333</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Lādhiqīyah</skos:altLabel>
+	<skos:altLabel>Al-Laziqiyah</skos:altLabel>
+	<skos:altLabel>El Lādhaqiyé</skos:altLabel>
+	<skos:altLabel>El Lādhiqīya</skos:altLabel>
+	<skos:altLabel>Ladhiqiye</skos:altLabel>
+	<skos:altLabel>Ladikis</skos:altLabel>
+	<skos:altLabel>Ladikiya</skos:altLabel>
+	<skos:altLabel>Laodicea</skos:altLabel>
+	<skos:altLabel xml:lang="it">Laodicea</skos:altLabel>
+	<skos:altLabel>Laodicea ad Mare</skos:altLabel>
+	<skos:altLabel>Laodicée</skos:altLabel>
+	<skos:altLabel>Laodikeia</skos:altLabel>
+	<skos:altLabel xml:lang="de">Latakia</skos:altLabel>
+	<skos:altLabel xml:lang="es">Latakia</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Latakia</skos:altLabel>
+	<skos:altLabel xml:lang="it">Latakia</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Latakia</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Latakia</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Latakia</skos:altLabel>
+	<skos:altLabel xml:lang="en">Latakia</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Latakia</skos:altLabel>
+	<skos:altLabel>Latakieh</skos:altLabel>
+	<skos:altLabel>Lattakia</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Lattakia</skos:altLabel>
+	<skos:altLabel>Lattaquié</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Lattaquié</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Lazkiye</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Латакия</skos:altLabel>
+	<skos:altLabel xml:lang="he">לטקיה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">اللاذقية</skos:altLabel>
+	<skos:altLabel xml:lang="ar">لاذقية</skos:altLabel>
+	<skos:altLabel xml:lang="fa">لاذقیه</skos:altLabel>
+	<skos:prefLabel>Latakia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/173577/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/173578/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>35.75</wgs:lat>
+	<wgs:long>35.83333</wgs:long>
+	<skos:altLabel>Latakia</skos:altLabel>
+	<skos:altLabel>Lattaquie</skos:altLabel>
+	<skos:altLabel>Lattaquié</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Minţaqat al Lādhiqīyah</skos:altLabel>
+	<skos:altLabel>Qaḑā’ al Lādhiqīyah</skos:altLabel>
+	<skos:prefLabel>Minţaqat al Lādhiqīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/173578/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>35.5</wgs:lat>
+	<wgs:long>36.16667</wgs:long>
+	<skos:altLabel>Al Lādhiqīyah</skos:altLabel>
+	<skos:altLabel>Latakia</skos:altLabel>
+	<skos:altLabel xml:lang="no">Latakia</skos:altLabel>
+	<skos:altLabel xml:lang="en">Latakia</skos:altLabel>
+	<skos:altLabel xml:lang="en">Latakia Governorate</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at al Lādhiqīyah</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at al Lādhiqīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/173598/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23526</europeana:population>
+	<wgs:lat>33.3572</wgs:lat>
+	<wgs:long>36.24278</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Kiswah</skos:altLabel>
+	<skos:altLabel>Kisoué</skos:altLabel>
+	<skos:altLabel>Kissoue</skos:altLabel>
+	<skos:altLabel>Kisswa</skos:altLabel>
+	<skos:altLabel>Kiswah</skos:altLabel>
+	<skos:altLabel>Kiswe</skos:altLabel>
+	<skos:altLabel>Kisweh</skos:altLabel>
+	<skos:prefLabel>Al Kiswah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/173811/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>81539</europeana:population>
+	<wgs:lat>36.50237</wgs:lat>
+	<wgs:long>40.74772</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Ḩasakah</skos:altLabel>
+	<skos:altLabel>Al-Hasakeh</skos:altLabel>
+	<skos:altLabel>El Haseke</skos:altLabel>
+	<skos:altLabel>Hasakeh</skos:altLabel>
+	<skos:altLabel>Hassetche</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الحسكة</skos:altLabel>
+	<skos:altLabel>Ḩasijih</skos:altLabel>
+	<skos:altLabel>Ḩasskih</skos:altLabel>
+	<skos:prefLabel>Al Ḩasakah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/173812/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/173813/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>36.5</wgs:lat>
+	<wgs:long>41</wgs:long>
+	<skos:altLabel>Al Ḩasijah</skos:altLabel>
+	<skos:altLabel>Hasakeh</skos:altLabel>
+	<skos:altLabel>Hassetche</skos:altLabel>
+	<skos:altLabel>Jezireh</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Minţaqat al Ḩasakah</skos:altLabel>
+	<skos:altLabel>Qaḑā’ al Ḩasakah</skos:altLabel>
+	<skos:altLabel>Qaḑā’ al Ḩasijah</skos:altLabel>
+	<skos:prefLabel>Minţaqat al Ḩasakah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/173813/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>36.5</wgs:lat>
+	<wgs:long>41</wgs:long>
+	<skos:altLabel>Al Jazīrah</skos:altLabel>
+	<skos:altLabel>Al Ḩasakah</skos:altLabel>
+	<skos:altLabel xml:lang="en">Al-Hasakah</skos:altLabel>
+	<skos:altLabel xml:lang="no">Al-Hasakah</skos:altLabel>
+	<skos:altLabel xml:lang="en">Al-Hasakah Governorate</skos:altLabel>
+	<skos:altLabel>Jezireh</skos:altLabel>
+	<skos:altLabel>Muḩāfaz̧at al Jazīrah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at al Ḩasakah</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at al Ḩasakah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/173819/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23784</europeana:population>
+	<wgs:lat>32.74932</wgs:lat>
+	<wgs:long>36.30994</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Ḩarāk</skos:altLabel>
+	<skos:altLabel>El Hrâk</skos:altLabel>
+	<skos:prefLabel>Al Ḩarāk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/173857/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/173578/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>35.66667</wgs:lat>
+	<wgs:long>36.16667</wgs:long>
+	<skos:altLabel>Al-Hiffeh</skos:altLabel>
+	<skos:altLabel>Haffe</skos:altLabel>
+	<skos:altLabel>Haffeh</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Minţaqat al Ḩaffah</skos:altLabel>
+	<skos:altLabel>Qaḑā’ al Ḩaffah</skos:altLabel>
+	<skos:prefLabel>Minţaqat al Ḩaffah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/173885/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/170015/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>35.6</wgs:lat>
+	<wgs:long>36.28333</wgs:long>
+	<skos:altLabel xml:lang="ar">Minţaqat al Ghāb</skos:altLabel>
+	<skos:prefLabel>Minţaqat al Ghāb</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/173901/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>34.78333</wgs:lat>
+	<wgs:long>35.86667</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Fanā’is</skos:altLabel>
+	<skos:altLabel>El Fana Islet</skos:altLabel>
+	<skos:altLabel>El Fanaes</skos:altLabel>
+	<skos:altLabel>El Fanais</skos:altLabel>
+	<skos:prefLabel>Al Fanā’is</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/174018/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>130745</europeana:population>
+	<wgs:lat>36.3725</wgs:lat>
+	<wgs:long>37.51778</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Bāb</skos:altLabel>
+	<skos:altLabel>Al Bālo</skos:altLabel>
+	<skos:altLabel>Bâb</skos:altLabel>
+	<skos:altLabel>El Bāb</skos:altLabel>
+	<skos:prefLabel>Al Bāb</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/174019/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/170062/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>36.33333</wgs:lat>
+	<wgs:long>37.58333</wgs:long>
+	<skos:altLabel>El Bab</skos:altLabel>
+	<skos:altLabel>El Bāb</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Minţaqat al Bāb</skos:altLabel>
+	<skos:altLabel>Qaḑā’ al Bāb</skos:altLabel>
+	<skos:prefLabel>Minţaqat al Bāb</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/174092/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>34.81667</wgs:lat>
+	<wgs:long>35.85</wgs:long>
+	<skos:altLabel xml:lang="ar">Al ‘Abbās</skos:altLabel>
+	<skos:altLabel>El Aabbass</skos:altLabel>
+	<skos:altLabel>El Aabbâs</skos:altLabel>
+	<skos:altLabel>El Abas</skos:altLabel>
+	<skos:altLabel>El ‘Abbās</skos:altLabel>
+	<skos:prefLabel>Al ‘Abbās</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/174184/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/170062/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>36.5</wgs:lat>
+	<wgs:long>36.85</wgs:long>
+	<skos:altLabel>Ifrin</skos:altLabel>
+	<skos:altLabel>Jebel Akrâd</skos:altLabel>
+	<skos:altLabel>Jebel al Akrak</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Minţaqat ‘Afrīn</skos:altLabel>
+	<skos:altLabel>Qaḑā’ ‘Afrīn</skos:altLabel>
+	<skos:prefLabel>Minţaqat ‘Afrīn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/174186/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>48693</europeana:population>
+	<wgs:lat>36.51598</wgs:lat>
+	<wgs:long>36.86305</wgs:long>
+	<skos:altLabel>Aafrîne</skos:altLabel>
+	<skos:altLabel xml:lang="en">Afrin</skos:altLabel>
+	<skos:altLabel xml:lang="no">Afrin</skos:altLabel>
+	<skos:altLabel>Afrine</skos:altLabel>
+	<skos:altLabel xml:lang="ar">‘Afrīn</skos:altLabel>
+	<skos:altLabel>‘Ifrīn</skos:altLabel>
+	<skos:prefLabel>‘Afrīn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/174259/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21987</europeana:population>
+	<wgs:lat>36.21252</wgs:lat>
+	<wgs:long>36.76978</wgs:long>
+	<skos:altLabel>Ad Dānah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ad Dānā</skos:altLabel>
+	<skos:altLabel>Dānā</skos:altLabel>
+	<skos:altLabel>Ed Dâna</skos:altLabel>
+	<skos:prefLabel>Ad Dānā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/174447/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/170792/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>34.66667</wgs:lat>
+	<wgs:long>40.91667</wgs:long>
+	<skos:altLabel>Abou Kémal</skos:altLabel>
+	<skos:altLabel>Abu Kemāl</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Minţaqat Abū Kamāl</skos:altLabel>
+	<skos:altLabel>Qaḑā’ Abū Kamāl</skos:altLabel>
+	<skos:altLabel>Qaḑā’ al Bū Kamāl</skos:altLabel>
+	<skos:prefLabel>Minţaqat Abū Kamāl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/174448/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>57572</europeana:population>
+	<wgs:lat>34.45</wgs:lat>
+	<wgs:long>40.91861</wgs:long>
+	<skos:altLabel>Abou Kemal</skos:altLabel>
+	<skos:altLabel>Abu Kemāl</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Abū Kamāl</skos:altLabel>
+	<skos:altLabel>Al-bu-Kamal</skos:altLabel>
+	<skos:altLabel>Hindané</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Абу-Камаль</skos:altLabel>
+	<skos:prefLabel>Abū Kamāl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/174506/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>29237</europeana:population>
+	<wgs:lat>34.68972</wgs:lat>
+	<wgs:long>40.83</wgs:long>
+	<skos:altLabel>Abou Hardâne</skos:altLabel>
+	<skos:altLabel>Abū Ḩardān</skos:altLabel>
+	<skos:altLabel>Abū Ḩardūb</skos:altLabel>
+	<skos:altLabel>Bou Hardane</skos:altLabel>
+	<skos:altLabel>Hajîne</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Hajīn</skos:altLabel>
+	<skos:prefLabel>Hajīn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/174598/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>34.78333</wgs:lat>
+	<wgs:long>35.9</wgs:long>
+	<skos:altLabel>Abou el Farès</skos:altLabel>
+	<skos:altLabel>Abu el Faris</skos:altLabel>
+	<skos:altLabel>Abualifaris</skos:altLabel>
+	<skos:altLabel>Abualiferis</skos:altLabel>
+	<skos:altLabel>Abu’lfaris</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Abū al Fāris</skos:altLabel>
+	<skos:altLabel>El Faris Islet</skos:altLabel>
+	<skos:prefLabel>Abū al Fāris</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/385901/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>34.87806</wgs:lat>
+	<wgs:long>40.62361</wgs:long>
+	<skos:altLabel xml:lang="ar">Ḩawījat ash Shuwayt</skos:altLabel>
+	<skos:prefLabel>Ḩawījat ash Shuwayt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/385913/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>34.94917</wgs:lat>
+	<wgs:long>40.5725</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat Ḩusayn an Najarīs</skos:altLabel>
+	<skos:prefLabel>Jazīrat Ḩusayn an Najarīs</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/414016/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>36.63417</wgs:lat>
+	<wgs:long>38.96667</wgs:long>
+	<skos:altLabel xml:lang="ar">Ḩuwayjat al ‘Abd</skos:altLabel>
+	<skos:prefLabel>Ḩuwayjat al ‘Abd</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7526653/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.84537</wgs:lat>
+	<wgs:long>35.91536</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Bayyāḑ</skos:altLabel>
+	<skos:altLabel>البياض</skos:altLabel>
+	<skos:prefLabel>Al Bayyāḑ</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7526833/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>34.85847</wgs:lat>
+	<wgs:long>35.85595</wgs:long>
+	<skos:altLabel xml:lang="ar">Bint Arwād</skos:altLabel>
+	<skos:altLabel>بنت أرواد</skos:altLabel>
+	<skos:prefLabel>Bint Arwād</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7631757/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>35.94803</wgs:lat>
+	<wgs:long>39.02605</wgs:long>
+	<skos:altLabel xml:lang="ar">Qaşr al Banāt</skos:altLabel>
+	<skos:altLabel xml:lang="ar">قصر البنات</skos:altLabel>
+	<skos:prefLabel>Qaşr al Banāt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7634792/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>35.35338</wgs:lat>
+	<wgs:long>40.13908</wgs:long>
+	<skos:altLabel xml:lang="ar">حويجة كاطع</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ḩawījat Kāţi‘</skos:altLabel>
+	<skos:prefLabel>Ḩawījat Kāţi‘</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7634796/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>35.31767</wgs:lat>
+	<wgs:long>40.17616</wgs:long>
+	<skos:altLabel xml:lang="ar">حويجة صقر</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ḩawījat Şaqr</skos:altLabel>
+	<skos:prefLabel>Ḩawījat Şaqr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7637142/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>34.72338</wgs:lat>
+	<wgs:long>36.71434</wgs:long>
+	<skos:altLabel xml:lang="ar">Qal‘at Usāmah Bin Zayd</skos:altLabel>
+	<skos:altLabel xml:lang="ar">قلعة أسامة بن زيد</skos:altLabel>
+	<skos:prefLabel>Qal‘at Usāmah Bin Zayd</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7642380/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/163843/"/>
+	<europeana:country>SY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>33.51181</wgs:lat>
+	<wgs:long>36.30221</wgs:long>
+	<skos:altLabel>Qal‘at Dimashq</skos:altLabel>
+	<skos:altLabel xml:lang="ar">قلعة دمشق</skos:altLabel>
+	<skos:prefLabel>Qal‘at Dimashq</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 167 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

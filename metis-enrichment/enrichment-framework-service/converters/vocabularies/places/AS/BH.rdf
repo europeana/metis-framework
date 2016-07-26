@@ -1,0 +1,904 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AS_BH
+Description: Selected fields pulled from Geonames about BH done on Mon May 23 21:13:18 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/290069/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>26.10667</wgs:lat>
+	<wgs:long>50.44528</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat Ya‘şūf</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جَزِيرَة يَعْصُوف</skos:altLabel>
+	<skos:prefLabel>Jazīrat Ya‘şūf</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290071/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>25.65361</wgs:lat>
+	<wgs:long>50.815</wgs:long>
+	<skos:altLabel xml:lang="ar">Juzur al Wukūr</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جُزُر اَلْوُكُور</skos:altLabel>
+	<skos:prefLabel>Juzur al Wukūr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290075/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>25.66278</wgs:lat>
+	<wgs:long>50.77444</wgs:long>
+	<skos:altLabel xml:lang="ar">Umm Kharūrah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">أُمّ خَرُورَة</skos:altLabel>
+	<skos:prefLabel>Umm Kharūrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290083/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>26.22889</wgs:lat>
+	<wgs:long>50.65583</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat Umm ash Shajar</skos:altLabel>
+	<skos:altLabel>Um el Shajar</skos:altLabel>
+	<skos:altLabel>Umm Shajar</skos:altLabel>
+	<skos:altLabel>Umm al-Shadjar</skos:altLabel>
+	<skos:altLabel>Umm ash Shahin</skos:altLabel>
+	<skos:altLabel>Umm ash Shanin</skos:altLabel>
+	<skos:altLabel>Umm ash-Shagar</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جَزِيرَة أُمّ اَلشَّجَر</skos:altLabel>
+	<skos:prefLabel>Jazīrat Umm ash Shajar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290085/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>26.14972</wgs:lat>
+	<wgs:long>50.4</wgs:long>
+	<skos:altLabel>Al-Na‘sān</skos:altLabel>
+	<skos:altLabel>Jazīrat Umm Na‘sān</skos:altLabel>
+	<skos:altLabel>Um Nasan Island</skos:altLabel>
+	<skos:altLabel>Umm Nasam Island</skos:altLabel>
+	<skos:altLabel>Umm Nasan Island</skos:altLabel>
+	<skos:altLabel>Umm Na’asān</skos:altLabel>
+	<skos:altLabel>Umm Na’san</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Umm an Na‘sān</skos:altLabel>
+	<skos:altLabel>Umm an-Nassan</skos:altLabel>
+	<skos:altLabel xml:lang="ar">أُمّ اَلنَّعْسَان</skos:altLabel>
+	<skos:prefLabel>Umm an Na‘sān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290095/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>25.67472</wgs:lat>
+	<wgs:long>50.81</wgs:long>
+	<skos:altLabel>Little Sand Island</skos:altLabel>
+	<skos:altLabel>Sowad Shamaliya</skos:altLabel>
+	<skos:altLabel>Sowad Shamiliya Island</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Suwād ash Shamālīyah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">سُوَاد اَلشَّمَالِيَّة</skos:altLabel>
+	<skos:prefLabel>Suwād ash Shamālīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290096/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>25.6425</wgs:lat>
+	<wgs:long>50.79972</wgs:long>
+	<skos:altLabel>Big Sand Island</skos:altLabel>
+	<skos:altLabel>Jazīrat Suwād</skos:altLabel>
+	<skos:altLabel>Sowad South Island</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Suwād al Janūbīyah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">سُوَاد اَلْجَنُوبِيَّة</skos:altLabel>
+	<skos:prefLabel>Suwād al Janūbīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290103/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>26.15667</wgs:lat>
+	<wgs:long>50.62139</wgs:long>
+	<skos:altLabel>As Sitra</skos:altLabel>
+	<skos:altLabel>Jazīrat Sitrah</skos:altLabel>
+	<skos:altLabel>Jazīrat as Sitra</skos:altLabel>
+	<skos:altLabel>Sitra</skos:altLabel>
+	<skos:altLabel>Sitra Island</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Sitrah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">سِتْرَة</skos:altLabel>
+	<skos:prefLabel>Sitrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290104/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>37657</europeana:population>
+	<wgs:lat>26.15472</wgs:lat>
+	<wgs:long>50.62056</wgs:long>
+	<skos:altLabel>Sitra</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Sitrah</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ситра</skos:altLabel>
+	<skos:altLabel xml:lang="ar">سِتْرَة</skos:altLabel>
+	<skos:prefLabel>Sitrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290110/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>26.05</wgs:lat>
+	<wgs:long>50.63222</wgs:long>
+	<skos:altLabel>Jazirat Ashaikh</skos:altLabel>
+	<skos:altLabel>Jazirat Ashikh</skos:altLabel>
+	<skos:altLabel>Jazirat Mashaikh</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat ash Shaykh</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جَزِيرَة اَلشَّيْخ</skos:altLabel>
+	<skos:prefLabel>Jazīrat ash Shaykh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290117/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>26.27056</wgs:lat>
+	<wgs:long>50.59167</wgs:long>
+	<skos:altLabel>As Sāja</skos:altLabel>
+	<skos:altLabel>Jazirat as Saya</skos:altLabel>
+	<skos:altLabel>Jazīrat as Saja</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat as Sāyah</skos:altLabel>
+	<skos:altLabel>Jazīrat aş Sāyah</skos:altLabel>
+	<skos:altLabel>Saya</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جَزِيرَة اَلسَّايَة</skos:altLabel>
+	<skos:prefLabel>Jazīrat as Sāyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290147/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>25.75083</wgs:lat>
+	<wgs:long>50.78167</wgs:long>
+	<skos:altLabel>Ar Rabādh</skos:altLabel>
+	<skos:altLabel>Djezira Rubadh</skos:altLabel>
+	<skos:altLabel>Jazīrat Rubādh</skos:altLabel>
+	<skos:altLabel>Jazīrat Rubāz̧</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Rabaḑ ash Sharqīyah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">رَبَض اَلشَّرْقِيَّة</skos:altLabel>
+	<skos:prefLabel>Rabaḑ ash Sharqīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290148/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>25.75194</wgs:lat>
+	<wgs:long>50.76611</wgs:long>
+	<skos:altLabel xml:lang="ar">Rabaḑ al Gharbīyah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">رَبَض اَلْغَرْبِيَّة</skos:altLabel>
+	<skos:prefLabel>Rabaḑ al Gharbīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290164/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>25.78861</wgs:lat>
+	<wgs:long>50.60306</wgs:long>
+	<skos:altLabel xml:lang="ar">Qaşşār Nūn</skos:altLabel>
+	<skos:altLabel xml:lang="ar">قَصَّار نُون</skos:altLabel>
+	<skos:prefLabel>Qaşşār Nūn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290165/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>25.77528</wgs:lat>
+	<wgs:long>50.59833</wgs:long>
+	<skos:altLabel xml:lang="ar">حَالَة نُون</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ḩālat Nūn</skos:altLabel>
+	<skos:prefLabel>Ḩālat Nūn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290169/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>26.18111</wgs:lat>
+	<wgs:long>50.58472</wgs:long>
+	<skos:altLabel>Al-Nabīh Şāliḩ</skos:altLabel>
+	<skos:altLabel>An Nabī Şāliḩ</skos:altLabel>
+	<skos:altLabel>An Nabīh Sāliḩ</skos:altLabel>
+	<skos:altLabel>Djezire Nabi Sali</skos:altLabel>
+	<skos:altLabel>Djezire Nebi Sali</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat an Nabī Şāliḩ</skos:altLabel>
+	<skos:altLabel>Nabbi Salih Island</skos:altLabel>
+	<skos:altLabel>Nabi Salib Island</skos:altLabel>
+	<skos:altLabel>Nabih Salih</skos:altLabel>
+	<skos:altLabel>Nebbi Salih</skos:altLabel>
+	<skos:altLabel>Nebi Saleh</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جَزِيرَة اَلنَّبِي صَالِح</skos:altLabel>
+	<skos:prefLabel>Jazīrat an Nabī Şāliḩ</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290170/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>25.66667</wgs:lat>
+	<wgs:long>50.78333</wgs:long>
+	<skos:altLabel>Mahazwarat Island</skos:altLabel>
+	<skos:altLabel>Muhazwara Island</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muḩazwarah Island</skos:altLabel>
+	<skos:prefLabel>Muḩazwarah Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290171/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>26.27139</wgs:lat>
+	<wgs:long>50.63028</wgs:long>
+	<skos:altLabel>Al Muḩarraq</skos:altLabel>
+	<skos:altLabel>Al-Muḩarrak</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat al Muḩarraq</skos:altLabel>
+	<skos:altLabel>Muharraq Island</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جَزِيرَة اَلْمُحَرَّق</skos:altLabel>
+	<skos:altLabel>‘Arad</skos:altLabel>
+	<skos:prefLabel>Jazīrat al Muḩarraq</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290173/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>25.80611</wgs:lat>
+	<wgs:long>50.68167</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat Mashtān</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جَزِيرَة مَشْتَان</skos:altLabel>
+	<skos:prefLabel>Jazīrat Mashtān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290187/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>38090</europeana:population>
+	<wgs:lat>26.17361</wgs:lat>
+	<wgs:long>50.54778</wgs:long>
+	<skos:altLabel>Isa</skos:altLabel>
+	<skos:altLabel>Isa Town</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Madīnat ‘Īsá</skos:altLabel>
+	<skos:altLabel>Medinat Isa</skos:altLabel>
+	<skos:altLabel xml:lang="ar">مَدِينَة عِيسَى</skos:altLabel>
+	<skos:prefLabel>Madīnat ‘Īsá</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290195/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>26.29194</wgs:lat>
+	<wgs:long>50.6225</wgs:long>
+	<skos:altLabel>Jazīrat Khasaifa</skos:altLabel>
+	<skos:altLabel>Jazīrat Khuşayfah</skos:altLabel>
+	<skos:altLabel>Khasaifa Island</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaşşār Khuşayfah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">قَصَّار خُصَيْفَة</skos:altLabel>
+	<skos:prefLabel>Qaşşār Khuşayfah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290208/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>26.19028</wgs:lat>
+	<wgs:long>50.58472</wgs:long>
+	<skos:altLabel>Jazaiyira</skos:altLabel>
+	<skos:altLabel>Jazaiyra</skos:altLabel>
+	<skos:altLabel>Juzayirah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Juzayyirah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جُزَيِّرَة</skos:altLabel>
+	<skos:prefLabel>Juzayyirah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290211/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>26.28389</wgs:lat>
+	<wgs:long>50.66222</wgs:long>
+	<skos:altLabel>Jardi</skos:altLabel>
+	<skos:altLabel>Jazīrat Jurdī</skos:altLabel>
+	<skos:altLabel>Jurdi Rock</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaşşār Jurdī</skos:altLabel>
+	<skos:altLabel xml:lang="ar">قَصَّار جُرْدِي</skos:altLabel>
+	<skos:prefLabel>Qaşşār Jurdī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290215/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>31735</europeana:population>
+	<wgs:lat>26.21861</wgs:lat>
+	<wgs:long>50.54778</wgs:long>
+	<skos:altLabel>Djidd Ḥafṣ</skos:altLabel>
+	<skos:altLabel>Jadd Hafs</skos:altLabel>
+	<skos:altLabel>Jid Hafs</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jidd Ḩafş</skos:altLabel>
+	<skos:altLabel>Judd Ḩafş</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جِدّ حَفْص</skos:altLabel>
+	<skos:prefLabel>Jidd Ḩafş</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290219/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>26.19417</wgs:lat>
+	<wgs:long>50.40167</wgs:long>
+	<skos:altLabel>Cliff Island</skos:altLabel>
+	<skos:altLabel>Djidā</skos:altLabel>
+	<skos:altLabel>Jazīrat Jidi</skos:altLabel>
+	<skos:altLabel>Jeddah</skos:altLabel>
+	<skos:altLabel>Jida Island</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jiddah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جِدَّة</skos:altLabel>
+	<skos:prefLabel>Jiddah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290235/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>26.18333</wgs:lat>
+	<wgs:long>50.6</wgs:long>
+	<skos:altLabel xml:lang="ar">Qaşşār ‘Īsá Bin Sayf al Binālī</skos:altLabel>
+	<skos:altLabel xml:lang="ar">قَصَّار عِيسَى بِن سَيْف اَلْبِنَالِي</skos:altLabel>
+	<skos:prefLabel>Qaşşār ‘Īsá Bin Sayf al Binālī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290243/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>25.65528</wgs:lat>
+	<wgs:long>50.74944</wgs:long>
+	<skos:altLabel>Djezira Hawar</skos:altLabel>
+	<skos:altLabel>Hawar Island</skos:altLabel>
+	<skos:altLabel>Howar</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Ḩawār</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جَزِيرَة حَوَار</skos:altLabel>
+	<skos:altLabel>Ḩuwār</skos:altLabel>
+	<skos:prefLabel>Jazīrat Ḩawār</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290247/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>52718</europeana:population>
+	<wgs:lat>26.11528</wgs:lat>
+	<wgs:long>50.50694</wgs:long>
+	<skos:altLabel>Hamad Town</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Madīnat Ḩamad</skos:altLabel>
+	<skos:altLabel xml:lang="ar">مَدِينَة حَمَد</skos:altLabel>
+	<skos:prefLabel>Madīnat Ḩamad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290269/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>65466</europeana:population>
+	<wgs:lat>26.06861</wgs:lat>
+	<wgs:long>50.50389</wgs:long>
+	<skos:altLabel>Dar Chulaib</skos:altLabel>
+	<skos:altLabel>Dār Kulaib</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Dār Kulayb</skos:altLabel>
+	<skos:altLabel xml:lang="ar">دَار كُلَيْب</skos:altLabel>
+	<skos:prefLabel>Dār Kulayb</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290271/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>25.8</wgs:lat>
+	<wgs:long>50.76667</wgs:long>
+	<skos:altLabel xml:lang="ar">Fasht Bū Thawr</skos:altLabel>
+	<skos:altLabel xml:lang="ar">فَشْت بُو ثَوْر</skos:altLabel>
+	<skos:prefLabel>Fasht Bū Thawr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290273/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>25.62528</wgs:lat>
+	<wgs:long>50.77694</wgs:long>
+	<skos:altLabel>Busdad Island</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Juzur Bū Sadād</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جُزُر بُو سَدَاد</skos:altLabel>
+	<skos:prefLabel>Juzur Bū Sadād</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290289/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>25.99028</wgs:lat>
+	<wgs:long>50.55083</wgs:long>
+	<skos:altLabel xml:lang="en">Bahrain Islands</skos:altLabel>
+	<skos:altLabel>Bahrein Islands</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Illes de Bahrain</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazā’ir al Baḩrayn</skos:altLabel>
+	<skos:altLabel>Tylos</skos:altLabel>
+	<skos:altLabel>Tyros</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جَزَائِر اَلْبَحْرَيْن</skos:altLabel>
+	<skos:prefLabel>Bahrain Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290291/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255147/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>738004</europeana:population>
+	<wgs:lat>26</wgs:lat>
+	<wgs:long>50.5</wgs:long>
+	<skos:altLabel>Al Baḩrayn</skos:altLabel>
+	<skos:altLabel>BH</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ba-ren</skos:altLabel>
+	<skos:altLabel xml:lang="la">Bachrania</skos:altLabel>
+	<skos:altLabel xml:lang="id">Bahrain</skos:altLabel>
+	<skos:altLabel xml:lang="da">Bahrain</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Bahrain</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Bahrain</skos:altLabel>
+	<skos:altLabel xml:lang="de">Bahrain</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Bahrain</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Bahrain</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bahrain</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Bahrain</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Bahrain</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Bahrain</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Bahrain</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Bahrain</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Bahrain</skos:altLabel>
+	<skos:altLabel xml:lang="it">Bahrain</skos:altLabel>
+	<skos:altLabel xml:lang="na">Bahrain</skos:altLabel>
+	<skos:altLabel xml:lang="no">Bahrain</skos:altLabel>
+	<skos:altLabel xml:lang="se">Bahrain</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Bahrain</skos:altLabel>
+	<skos:altLabel xml:lang="io">Bahrain</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Bahrain</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Bahrain</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Bahrain</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Bahrain - البحرين</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Bahraini</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Bahrajn</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Bahrajn</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Bahrajn</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Bahrajn</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Bahrayn</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Bahrayn</skos:altLabel>
+	<skos:altLabel>Bahrein</skos:altLabel>
+	<skos:altLabel xml:lang="af">Bahrein</skos:altLabel>
+	<skos:altLabel xml:lang="et">Bahrein</skos:altLabel>
+	<skos:altLabel xml:lang="it">Bahrein</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Bahrein</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Bahrein</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Bahrein</skos:altLabel>
+	<skos:altLabel xml:lang="an">Bahrein</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Bahrein</skos:altLabel>
+	<skos:altLabel xml:lang="li">Bahrein</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Bahrein</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Bahrein</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Bahrein</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Bahrein</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Bahrein</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Bahreina</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Bahreinas</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Bahreyn</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Bahreyn</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Bahreïn</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Bahruäns</skos:altLabel>
+	<skos:altLabel xml:lang="es">Bahréin</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Bairéin</skos:altLabel>
+	<skos:altLabel xml:lang="is">Barein</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Barein</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Bareine</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Barejno</skos:altLabel>
+	<skos:altLabel xml:lang="so">Baxrayn</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Baħrajn</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Behreyn</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Dawlat al Baḩrayn</skos:altLabel>
+	<skos:altLabel xml:lang="fy">De Barein</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kingdom of Bahrain</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Mamlakat al Baḩrayn</skos:altLabel>
+	<skos:altLabel>Shekdom of Bahrain</skos:altLabel>
+	<skos:altLabel>State of Bahrain</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μπαχρέιν</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Бахрaин</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Бахреин</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Бахреин</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Бахрейн</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бахрейн</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Бахрейн</skos:altLabel>
+	<skos:altLabel xml:lang="os">Бахрейн</skos:altLabel>
+	<skos:altLabel xml:lang="be">Бахрэйн</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Баҳрайн</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Բահրեյն</skos:altLabel>
+	<skos:altLabel xml:lang="he">בחריין</skos:altLabel>
+	<skos:altLabel xml:lang="he">בחרין</skos:altLabel>
+	<skos:altLabel xml:lang="ar">البحرين</skos:altLabel>
+	<skos:altLabel xml:lang="ps">بحرين</skos:altLabel>
+	<skos:altLabel xml:lang="fa">بحرین</skos:altLabel>
+	<skos:altLabel xml:lang="ug">بەھرەين</skos:altLabel>
+	<skos:altLabel xml:lang="ar">دَوْلَة اَلْبَحْرَيْن</skos:altLabel>
+	<skos:altLabel xml:lang="ar">مملكة البحرين</skos:altLabel>
+	<skos:altLabel xml:lang="hi">बहरीन</skos:altLabel>
+	<skos:altLabel xml:lang="hi">बहरैन</skos:altLabel>
+	<skos:altLabel xml:lang="ks">बहरैन</skos:altLabel>
+	<skos:altLabel xml:lang="sa">बहरैन</skos:altLabel>
+	<skos:altLabel xml:lang="bn">বাহরাইন</skos:altLabel>
+	<skos:altLabel xml:lang="bn">বাহারিন</skos:altLabel>
+	<skos:altLabel xml:lang="ta">பஹ்ரேய்ன்</skos:altLabel>
+	<skos:altLabel xml:lang="ta">பஹ்ரைன்</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ബഹറിന്‍</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ബഹ്റൈന്‍</skos:altLabel>
+	<skos:altLabel xml:lang="th">บาห์เรน</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศบาห์เรน</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ບາເລນ</skos:altLabel>
+	<skos:altLabel xml:lang="dz">བཧ་རེན</skos:altLabel>
+	<skos:altLabel xml:lang="bo">བྷཱ་རེན།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ბაჰრეინი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ባህሬን</skos:altLabel>
+	<skos:altLabel xml:lang="km">បារ៉ែន</skos:altLabel>
+	<skos:altLabel xml:lang="ja">バーレーン</skos:altLabel>
+	<skos:altLabel xml:lang="zh">巴林</skos:altLabel>
+	<skos:altLabel xml:lang="ko">바레인</skos:altLabel>
+	<skos:prefLabel>Kingdom of Bahrain</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290297/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>26.22139</wgs:lat>
+	<wgs:long>50.65667</wgs:long>
+	<skos:altLabel>El Azil</skos:altLabel>
+	<skos:altLabel>Jazīrat Umm ash Shujayrah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat al ‘Azl</skos:altLabel>
+	<skos:altLabel>Umm Shiyara</skos:altLabel>
+	<skos:altLabel>Umm ash Shiyaira</skos:altLabel>
+	<skos:altLabel>Umm ash-Shujaira</skos:altLabel>
+	<skos:altLabel>Uum ash Shiyaira</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جَزِيرَة اَلْعَزْل</skos:altLabel>
+	<skos:prefLabel>Jazīrat al ‘Azl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290329/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>25.78667</wgs:lat>
+	<wgs:long>50.71417</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Mu‘tariḑ</skos:altLabel>
+	<skos:altLabel xml:lang="ar">اَلْمُعْتَرِض</skos:altLabel>
+	<skos:prefLabel>Al Mu‘tariḑ</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290332/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLS"/>
+	<europeana:population>97458</europeana:population>
+	<wgs:lat>26.25722</wgs:lat>
+	<wgs:long>50.61194</wgs:long>
+	<skos:altLabel xml:lang="pl">Al Muharrak</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Al Muharraq</skos:altLabel>
+	<skos:altLabel xml:lang="en">Al Muharraq</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Al Muḩarraq</skos:altLabel>
+	<skos:altLabel xml:lang="da">Al-Muharraq</skos:altLabel>
+	<skos:altLabel>Al-Muḥarrak</skos:altLabel>
+	<skos:altLabel>Moharek</skos:altLabel>
+	<skos:altLabel>Muharrak</skos:altLabel>
+	<skos:altLabel>Muharraq</skos:altLabel>
+	<skos:altLabel xml:lang="de">Muharraq</skos:altLabel>
+	<skos:altLabel>Muharraq Town</skos:altLabel>
+	<skos:altLabel>Muhurraq</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Аль-Мухаррак</skos:altLabel>
+	<skos:altLabel xml:lang="ar">اَلْمُحَرَّق</skos:altLabel>
+	<skos:altLabel xml:lang="ar">محرق</skos:altLabel>
+	<skos:prefLabel>Al Muḩarraq</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290333/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>26.25</wgs:lat>
+	<wgs:long>50.61667</wgs:long>
+	<skos:altLabel>Al Muḩarraq</skos:altLabel>
+	<skos:altLabel xml:lang="en">Muharraq</skos:altLabel>
+	<skos:altLabel xml:lang="no">Muharraq</skos:altLabel>
+	<skos:altLabel xml:lang="ar">اَلْمُحَرَّق</skos:altLabel>
+	<skos:prefLabel>Muharraq Governorate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290334/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>26.19944</wgs:lat>
+	<wgs:long>50.43611</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Muḩammadīyah</skos:altLabel>
+	<skos:altLabel>Jazīrat ar Rakā</skos:altLabel>
+	<skos:altLabel>Jazīrat ar Raqah</skos:altLabel>
+	<skos:altLabel>Raka Island</skos:altLabel>
+	<skos:altLabel>Umm Sabaan Island</skos:altLabel>
+	<skos:altLabel>Umm Saban</skos:altLabel>
+	<skos:altLabel>Umm as Subban</skos:altLabel>
+	<skos:altLabel>Umm aş Şabbān</skos:altLabel>
+	<skos:altLabel>Umm-al-Ṣubbān</skos:altLabel>
+	<skos:altLabel xml:lang="ar">اَلْمُحَمَّدِيَّة</skos:altLabel>
+	<skos:prefLabel>Al Muḩammadīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290340/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>147074</europeana:population>
+	<wgs:lat>26.21536</wgs:lat>
+	<wgs:long>50.5832</wgs:long>
+	<skos:altLabel xml:lang="io">Al Manamah</skos:altLabel>
+	<skos:altLabel>Al Manāma</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Al Manāmah</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Al-Manama</skos:altLabel>
+	<skos:altLabel xml:lang="id">Al-Manamah</skos:altLabel>
+	<skos:altLabel xml:lang="de">Manama</skos:altLabel>
+	<skos:altLabel xml:lang="es">Manama</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Manama</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Manama</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Manama</skos:altLabel>
+	<skos:altLabel xml:lang="la">Manama</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Manama</skos:altLabel>
+	<skos:altLabel xml:lang="no">Manama</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Manama</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Manama</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Manama</skos:altLabel>
+	<skos:altLabel xml:lang="en">Manama</skos:altLabel>
+	<skos:altLabel xml:lang="da">Manama</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Manama</skos:altLabel>
+	<skos:altLabel xml:lang="it">Manama</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Manama</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Manama</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Manama</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Manama</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Manama</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Manamah</skos:altLabel>
+	<skos:altLabel>Manameh</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Manamo</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Manáma</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Manáma</skos:altLabel>
+	<skos:altLabel>Menama</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Mänamä</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μανάμα</skos:altLabel>
+	<skos:altLabel xml:lang="os">Манамæ</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Манама</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Манама</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Манама</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Манама</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Манама</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Մանամա</skos:altLabel>
+	<skos:altLabel xml:lang="he">מנאמה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">اَلْمَنَامَة</skos:altLabel>
+	<skos:altLabel xml:lang="ar">منامة</skos:altLabel>
+	<skos:altLabel xml:lang="bn">মানামা</skos:altLabel>
+	<skos:altLabel xml:lang="am">ማናማ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">マナーマ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">麦纳麦</skos:altLabel>
+	<skos:altLabel xml:lang="ko">마나마</skos:altLabel>
+	<skos:prefLabel>Manama</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290357/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>25.7</wgs:lat>
+	<wgs:long>50.8</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Hayiya Island</skos:altLabel>
+	<skos:altLabel>El Hayiya Island</skos:altLabel>
+	<skos:prefLabel>Al Hayiya Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290363/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12797</europeana:population>
+	<wgs:lat>26.24556</wgs:lat>
+	<wgs:long>50.65417</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Ḩadd</skos:altLabel>
+	<skos:altLabel>Al Ḩidd</skos:altLabel>
+	<skos:altLabel>Hadd</skos:altLabel>
+	<skos:altLabel>Hidd</skos:altLabel>
+	<skos:altLabel xml:lang="ar">اَلْحَدّ</skos:altLabel>
+	<skos:prefLabel>Al Ḩadd</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290372/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>26</wgs:lat>
+	<wgs:long>50.55</wgs:long>
+	<skos:altLabel>Al Baḩrain</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Al Baḩrayn</skos:altLabel>
+	<skos:altLabel>Awāl</skos:altLabel>
+	<skos:altLabel>Bahrain</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bahrain Island</skos:altLabel>
+	<skos:altLabel>Bahrayn</skos:altLabel>
+	<skos:altLabel>Bahrein</skos:altLabel>
+	<skos:altLabel>Bahrein Island</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Illa de Bahrain</skos:altLabel>
+	<skos:altLabel>Jazīrat Baḩrayn</skos:altLabel>
+	<skos:altLabel xml:lang="ar">اَلْبَحْرَيْن</skos:altLabel>
+	<skos:prefLabel>Bahrain Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290381/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>25.74</wgs:lat>
+	<wgs:long>50.82333</wgs:long>
+	<skos:altLabel>Ajaira Island</skos:altLabel>
+	<skos:altLabel>Ajīrah</skos:altLabel>
+	<skos:altLabel>Jabalat Ajīrah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat ‘Ajīrah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جَزِيرَة عَجِيرَة</skos:altLabel>
+	<skos:prefLabel>Jazīrat ‘Ajīrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290383/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>26.03333</wgs:lat>
+	<wgs:long>50.71667</wgs:long>
+	<skos:altLabel>Adhom</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Fasht Adham</skos:altLabel>
+	<skos:altLabel xml:lang="ar">فَشْت أَذَم</skos:altLabel>
+	<skos:prefLabel>Fasht Adham</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290390/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>26.235</wgs:lat>
+	<wgs:long>50.66806</wgs:long>
+	<skos:altLabel>Bu Shanin</skos:altLabel>
+	<skos:altLabel>Jazīrat Abū Shāhīn</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaşşār Abū Shāhīn</skos:altLabel>
+	<skos:altLabel xml:lang="ar">قَصَّار أَبُو شَاهِين</skos:altLabel>
+	<skos:prefLabel>Qaşşār Abū Shāhīn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/385038/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>111000</europeana:population>
+	<wgs:lat>26.13</wgs:lat>
+	<wgs:long>50.555</wgs:long>
+	<skos:altLabel>Ar Rifa</skos:altLabel>
+	<skos:altLabel xml:lang="ar">اَلرِّفَاع</skos:altLabel>
+	<skos:prefLabel>Ar Rifā‘</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6942066/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>26.23361</wgs:lat>
+	<wgs:long>50.52056</wgs:long>
+	<skos:prefLabel>Qal'at al-Bahrain</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7090954/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>26.21667</wgs:lat>
+	<wgs:long>50.58333</wgs:long>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at al ‘Āşimah</skos:altLabel>
+	<skos:prefLabel>Capital Governorate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7090972/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>25.86667</wgs:lat>
+	<wgs:long>50.58333</wgs:long>
+	<skos:altLabel xml:lang="ar">al Muḩāfaz̧ah Al Janūbīyah</skos:altLabel>
+	<skos:prefLabel>Southern Governorate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7090973/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>26.16667</wgs:lat>
+	<wgs:long>50.56667</wgs:long>
+	<skos:altLabel xml:lang="ar">al Muḩāfaz̧ah Al Wusţá</skos:altLabel>
+	<skos:prefLabel>Central Governorate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7090974/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>26.15</wgs:lat>
+	<wgs:long>50.46667</wgs:long>
+	<skos:altLabel xml:lang="ar">al Muḩāfaz̧ah Ash Shamālīyah</skos:altLabel>
+	<skos:prefLabel>Northern Governorate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7284881/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290291/"/>
+	<europeana:country>BH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<europeana:population>3875</europeana:population>
+	<wgs:lat>25.64462</wgs:lat>
+	<wgs:long>50.76765</wgs:long>
+	<skos:prefLabel>Hawar Islands</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 51 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

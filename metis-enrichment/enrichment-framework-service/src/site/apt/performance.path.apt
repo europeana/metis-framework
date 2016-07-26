@@ -1,0 +1,27 @@
+            ------
+            Performance
+            ------
+ 
+
+What AnnoCultor spends its time on?
+
+ Mostly, AnnoCultor is computating Path strings. 
+ During conversion AnnoCultor is always busy answering two questions: 
+ 
+ * finding rules that match a Path to be applied to its value
+
+ * finding values of a DataObject when asked by a query path
+
+ If all <<<Path>>>s look like <<<record/title>>> then
+ we can compute hashes of the path strings, and store a map hash-value.
+ This allows very fast search for values by path.
+ 
+ In the most expensive case we have <<<Path>>>s like <<<record[id='123' and kind='presentation']/title>>>.
+ Then, we cannot use a hash map to find values given queries like:
+ <<<record[@id]>>> or <<<record[@kind='presentation']/title>>>.
+ To compute them we need to iterate over each path element, and compare the list of attributes 
+ of the path with the attributes of the query. 
+ This comes with a performance penalty, compared to hash maps.
+ 
+ However, AnnoCultor performance is quite good, see {{{performance.cases.html}use cases.}}
+ 

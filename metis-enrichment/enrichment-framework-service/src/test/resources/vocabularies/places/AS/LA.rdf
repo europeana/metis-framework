@@ -1,0 +1,3112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AS_LA
+Description: Selected fields pulled from Geonames about LA done on Mon May 23 21:13:32 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/1651942/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<europeana:population>80883</europeana:population>
+	<wgs:lat>14.81667</wgs:lat>
+	<wgs:long>106.93333</wgs:long>
+	<skos:altLabel>Muang Sekong</skos:altLabel>
+	<skos:altLabel>Muang Xékong</skos:altLabel>
+	<skos:prefLabel>Muang Xékong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1651944/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>196731</europeana:population>
+	<wgs:lat>17.96667</wgs:lat>
+	<wgs:long>102.6</wgs:long>
+	<skos:altLabel>Nakhon Viangchan</skos:altLabel>
+	<skos:altLabel>Viang chan</skos:altLabel>
+	<skos:altLabel xml:lang="lo">Viangchan</skos:altLabel>
+	<skos:altLabel xml:lang="et">Viangchan</skos:altLabel>
+	<skos:altLabel>Vien Can</skos:altLabel>
+	<skos:altLabel>Vien Chang</skos:altLabel>
+	<skos:altLabel>Vieng-Chan</skos:altLabel>
+	<skos:altLabel>Vieng-Cæn</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Viengtjan</skos:altLabel>
+	<skos:altLabel>Vientane</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Vientian</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Vientianas</skos:altLabel>
+	<skos:altLabel xml:lang="id">Vientiane</skos:altLabel>
+	<skos:altLabel xml:lang="en">Vientiane</skos:altLabel>
+	<skos:altLabel xml:lang="da">Vientiane</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Vientiane</skos:altLabel>
+	<skos:altLabel xml:lang="io">Vientiane</skos:altLabel>
+	<skos:altLabel xml:lang="no">Vientiane</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Vientiane</skos:altLabel>
+	<skos:altLabel xml:lang="de">Vientiane</skos:altLabel>
+	<skos:altLabel xml:lang="es">Vientiane</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Vientiane</skos:altLabel>
+	<skos:altLabel xml:lang="it">Vientiane</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Vientiane</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Vientiane</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Vientiane</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Vientiane</skos:altLabel>
+	<skos:altLabel xml:lang="es">Vientián</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Viêng Chăn</skos:altLabel>
+	<skos:altLabel>Wei-t'ien</skos:altLabel>
+	<skos:altLabel>Wiang Chan</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Wientian</skos:altLabel>
+	<skos:altLabel xml:lang="el">Βιεντιάν</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Вентян</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Вьентьян</skos:altLabel>
+	<skos:altLabel xml:lang="he">ויינטיאן</skos:altLabel>
+	<skos:altLabel xml:lang="fa">وین‌تیان</skos:altLabel>
+	<skos:altLabel xml:lang="th">เวียงจันทน์</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ເຂດພິເສດວຽງຈັນ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཝིན་ཆིའང་</skos:altLabel>
+	<skos:altLabel xml:lang="am">ቭየንትዬን</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ヴィエンチャン</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ヴィエンチャン市</skos:altLabel>
+	<skos:altLabel xml:lang="zh">永珍</skos:altLabel>
+	<skos:altLabel xml:lang="ko">비안티안</skos:altLabel>
+	<skos:prefLabel>Vientiane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1651946/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1904616/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>20.3</wgs:lat>
+	<wgs:long>100.43333</wgs:long>
+	<skos:altLabel>Bokeo</skos:altLabel>
+	<skos:altLabel>Houei Sai</skos:altLabel>
+	<skos:altLabel>Muang Houayxay</skos:altLabel>
+	<skos:prefLabel>Muang Houayxay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1652037/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>20.45</wgs:lat>
+	<wgs:long>103.31667</wgs:long>
+	<skos:altLabel>Muang Son</skos:altLabel>
+	<skos:altLabel>Muang Xon</skos:altLabel>
+	<skos:altLabel>Muongson</skos:altLabel>
+	<skos:altLabel>Xone</skos:altLabel>
+	<skos:prefLabel>Muang Xon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1652041/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>19.8</wgs:lat>
+	<wgs:long>102</wgs:long>
+	<skos:prefLabel>Muang Xôm</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1652070/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1652210/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.75</wgs:lat>
+	<wgs:long>102.18333</wgs:long>
+	<skos:altLabel>Muang Ngeun</skos:altLabel>
+	<skos:altLabel>Muang Xiang-Ngeun</skos:altLabel>
+	<skos:altLabel>Muang Xieng Ngeum</skos:altLabel>
+	<skos:altLabel>Muang Xieng Ngeun</skos:altLabel>
+	<skos:altLabel>Ngeun</skos:altLabel>
+	<skos:prefLabel>Muang Ngeun</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1652076/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1652077/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.33333</wgs:lat>
+	<wgs:long>103.36667</wgs:long>
+	<skos:altLabel>Muang Xiangkhoang</skos:altLabel>
+	<skos:altLabel>Muang Xieng Khouang</skos:altLabel>
+	<skos:prefLabel>Muang Xiangkhoang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1652077/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>19.5</wgs:lat>
+	<wgs:long>103.5</wgs:long>
+	<skos:altLabel>Khoueng Xieng Khouang</skos:altLabel>
+	<skos:altLabel>Khouèng Xiangkhoang</skos:altLabel>
+	<skos:altLabel>Tran Ninh</skos:altLabel>
+	<skos:altLabel>Xiangkhoang</skos:altLabel>
+	<skos:prefLabel>Khouèng Xiangkhoang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1652080/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1657114/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>20.81667</wgs:lat>
+	<wgs:long>104.15</wgs:long>
+	<skos:altLabel>Muang Kho</skos:altLabel>
+	<skos:altLabel>Muang Xiangkho</skos:altLabel>
+	<skos:altLabel>Xieng Kho</skos:altLabel>
+	<skos:prefLabel>Muang Xiengkhor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1652081/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1652210/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.58333</wgs:lat>
+	<wgs:long>100.78333</wgs:long>
+	<skos:altLabel>Muang Xianghon</skos:altLabel>
+	<skos:altLabel>Xieng Hone</skos:altLabel>
+	<skos:prefLabel>Muang Xianghon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1652095/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1653315/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>16.68333</wgs:lat>
+	<wgs:long>106.23333</wgs:long>
+	<skos:altLabel>Muang Xépôn</skos:altLabel>
+	<skos:altLabel>Tchepone</skos:altLabel>
+	<skos:prefLabel>Muang Xépôn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1652096/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>14.63333</wgs:lat>
+	<wgs:long>106.33333</wgs:long>
+	<skos:altLabel>Muang Xépian</skos:altLabel>
+	<skos:altLabel>Sepiene</skos:altLabel>
+	<skos:prefLabel>Muang Xépian</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1652132/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1654491/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>20.7</wgs:lat>
+	<wgs:long>101.98333</wgs:long>
+	<skos:altLabel>Muang Oudômxai</skos:altLabel>
+	<skos:altLabel>Muang Xai</skos:altLabel>
+	<skos:altLabel>Muongsai</skos:altLabel>
+	<skos:altLabel>Say</skos:altLabel>
+	<skos:prefLabel>Muang Xai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1652162/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.03333</wgs:lat>
+	<wgs:long>105.85</wgs:long>
+	<skos:altLabel>Don Xangphai</skos:altLabel>
+	<skos:altLabel>Done Samphay</skos:altLabel>
+	<skos:altLabel>Done Sang Phay</skos:altLabel>
+	<skos:prefLabel>Don Xangphai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1652199/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>19.98333</wgs:lat>
+	<wgs:long>104.63333</wgs:long>
+	<skos:altLabel>Muang Sam Teu</skos:altLabel>
+	<skos:altLabel>Muang Xamteu</skos:altLabel>
+	<skos:altLabel>Samtay</skos:altLabel>
+	<skos:prefLabel>Muang Xamteu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1652202/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1657114/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>20.41667</wgs:lat>
+	<wgs:long>104.03333</wgs:long>
+	<skos:altLabel>Muang Sameua</skos:altLabel>
+	<skos:altLabel>Muang Samneua</skos:altLabel>
+	<skos:altLabel>Muang Xam Nua</skos:altLabel>
+	<skos:prefLabel>Muang Xam Nua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1652203/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>38992</europeana:population>
+	<wgs:lat>20.41972</wgs:lat>
+	<wgs:long>104.04389</wgs:long>
+	<skos:altLabel>Muang Sam</skos:altLabel>
+	<skos:altLabel>Sammeua</skos:altLabel>
+	<skos:altLabel>Samnua</skos:altLabel>
+	<skos:altLabel>Xam Nua</skos:altLabel>
+	<skos:prefLabel>Xam Nua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1652209/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1652210/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.25</wgs:lat>
+	<wgs:long>101.75</wgs:long>
+	<skos:altLabel>Muang Xaignabouli</skos:altLabel>
+	<skos:altLabel>Muang Xaignabouri</skos:altLabel>
+	<skos:altLabel>Sayaboury</skos:altLabel>
+	<skos:prefLabel>Muang Xaignabouli</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1652210/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>18.5</wgs:lat>
+	<wgs:long>101.5</wgs:long>
+	<skos:altLabel>Khoueng Sayaboury</skos:altLabel>
+	<skos:altLabel>Khouèng Xaignabouli</skos:altLabel>
+	<skos:altLabel>Khouèng Xaignabouri</skos:altLabel>
+	<skos:altLabel>Xiagnabouli</skos:altLabel>
+	<skos:prefLabel>Khouèng Xaignabouli</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1652237/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.96667</wgs:lat>
+	<wgs:long>102.6</wgs:long>
+	<skos:prefLabel>Muang Vientiane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1652238/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>18.66667</wgs:lat>
+	<wgs:long>102.16667</wgs:long>
+	<skos:altLabel>Khouèng Vientiane</skos:altLabel>
+	<skos:altLabel>Viangchan</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Viangchan</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Viangchan</skos:altLabel>
+	<skos:prefLabel>Khouèng Viangchan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1652275/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1653333/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>15.66667</wgs:lat>
+	<wgs:long>105.91667</wgs:long>
+	<skos:altLabel>Muang Vapi</skos:altLabel>
+	<skos:altLabel>Wapi</skos:altLabel>
+	<skos:prefLabel>Muang Vapi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1652280/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1904618/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.93333</wgs:lat>
+	<wgs:long>102.45</wgs:long>
+	<skos:altLabel>Vang Vieng</skos:altLabel>
+	<skos:prefLabel>Muang Vangviang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1652341/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1904618/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.43333</wgs:lat>
+	<wgs:long>102.53333</wgs:long>
+	<skos:altLabel>Muang Tourakom</skos:altLabel>
+	<skos:altLabel>Thourakhom</skos:altLabel>
+	<skos:prefLabel>Muang Thoulakhôm</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1652481/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.35</wgs:lat>
+	<wgs:long>103.25</wgs:long>
+	<skos:prefLabel>Don Tiao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1652593/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19</wgs:lat>
+	<wgs:long>103.6</wgs:long>
+	<skos:prefLabel>Muang Thathôm</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1652594/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1904615/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>15.43333</wgs:lat>
+	<wgs:long>106.38333</wgs:long>
+	<skos:prefLabel>Muang Thatèng</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1652643/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.28333</wgs:lat>
+	<wgs:long>104.96667</wgs:long>
+	<skos:altLabel>Done Tham Ngeun</skos:altLabel>
+	<skos:prefLabel>Don Tham Ngoen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1652672/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>15</wgs:lat>
+	<wgs:long>107.23333</wgs:long>
+	<skos:prefLabel>Muang Thac Hiet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1652758/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>14.71667</wgs:lat>
+	<wgs:long>107.41667</wgs:long>
+	<skos:prefLabel>Muang Tassèng</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1652863/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.3</wgs:lat>
+	<wgs:long>104.95</wgs:long>
+	<skos:altLabel>Done Tane</skos:altLabel>
+	<skos:prefLabel>Don Tan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1652864/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.06667</wgs:lat>
+	<wgs:long>105.8</wgs:long>
+	<skos:altLabel>Don Tan</skos:altLabel>
+	<skos:altLabel>Done Tane</skos:altLabel>
+	<skos:prefLabel>Don Tan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1652865/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.98333</wgs:lat>
+	<wgs:long>105.95</wgs:long>
+	<skos:altLabel>Don Tan</skos:altLabel>
+	<skos:altLabel>Done Tane</skos:altLabel>
+	<skos:prefLabel>Don Tan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1652935/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1653333/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>16.16667</wgs:lat>
+	<wgs:long>106.63333</wgs:long>
+	<skos:altLabel>Muang Ta oy</skos:altLabel>
+	<skos:altLabel>Muang Ta-Ôy</skos:altLabel>
+	<skos:altLabel>Muang Tahoi</skos:altLabel>
+	<skos:altLabel>Ta Oi</skos:altLabel>
+	<skos:prefLabel>Muang Ta-Ôy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1652969/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>20.26667</wgs:lat>
+	<wgs:long>104.53333</wgs:long>
+	<skos:altLabel>Muang Soi</skos:altLabel>
+	<skos:altLabel>Muang Sôy</skos:altLabel>
+	<skos:prefLabel>Muang Sôy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1652976/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>15.38333</wgs:lat>
+	<wgs:long>105.81667</wgs:long>
+	<skos:altLabel>Muang Souvannakhili</skos:altLabel>
+	<skos:altLabel>Souvannakhily</skos:altLabel>
+	<skos:prefLabel>Muang Souvannakhili</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1652978/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>15.6</wgs:lat>
+	<wgs:long>106.23333</wgs:long>
+	<skos:altLabel>Soutabaly</skos:altLabel>
+	<skos:prefLabel>Muang Soutabali</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1653008/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1657818/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>14.63333</wgs:lat>
+	<wgs:long>105.8</wgs:long>
+	<skos:prefLabel>Muang Soukhouma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1653070/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1653315/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>16.26667</wgs:lat>
+	<wgs:long>105.3</wgs:long>
+	<skos:altLabel>Muang Songkhon</skos:altLabel>
+	<skos:altLabel>Songkhone</skos:altLabel>
+	<skos:prefLabel>Muang Songkhon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1653094/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.01667</wgs:lat>
+	<wgs:long>105.9</wgs:long>
+	<skos:prefLabel>Don Som</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1653142/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655561/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>21.18333</wgs:lat>
+	<wgs:long>101.15</wgs:long>
+	<skos:altLabel>Muang Sing</skos:altLabel>
+	<skos:altLabel>Muongsing</skos:altLabel>
+	<skos:prefLabel>Muang Sing</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1653304/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.06667</wgs:lat>
+	<wgs:long>102.03333</wgs:long>
+	<skos:prefLabel>Muang Say Fong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1653315/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>769177</europeana:population>
+	<wgs:lat>16.5</wgs:lat>
+	<wgs:long>105.75</wgs:long>
+	<skos:altLabel>Khouèng Savannakhét</skos:altLabel>
+	<skos:altLabel>Savannahkhét</skos:altLabel>
+	<skos:altLabel>Svannakhét</skos:altLabel>
+	<skos:prefLabel>Khouèng Savannakhét</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1653316/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>66553</europeana:population>
+	<wgs:lat>16.55</wgs:lat>
+	<wgs:long>104.75</wgs:long>
+	<skos:altLabel xml:lang="nl">Khwaeng Savannakhet</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Khwaeng_Savannakhet</skos:altLabel>
+	<skos:altLabel>Muang Savannaket</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Province de Savannakhet</skos:altLabel>
+	<skos:altLabel>Savannaket</skos:altLabel>
+	<skos:altLabel xml:lang="de">Savannakhet</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Savannakhet</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Savannakhet</skos:altLabel>
+	<skos:altLabel xml:lang="en">Savannakhet Province</skos:altLabel>
+	<skos:altLabel>Savannakhét</skos:altLabel>
+	<skos:altLabel>Suvannakhet</skos:altLabel>
+	<skos:altLabel>Suwanakhet</skos:altLabel>
+	<skos:altLabel>Svannakhét</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Саваннакхет</skos:altLabel>
+	<skos:altLabel xml:lang="th">แขวงสะหวันนะเขต</skos:altLabel>
+	<skos:altLabel xml:lang="ja">サワンナケート県</skos:altLabel>
+	<skos:prefLabel>Savannakhét</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1653332/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1653333/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>15.71667</wgs:lat>
+	<wgs:long>106.41667</wgs:long>
+	<skos:altLabel>Muang Salavan</skos:altLabel>
+	<skos:altLabel>Muang Saravan</skos:altLabel>
+	<skos:altLabel>Saravane</skos:altLabel>
+	<skos:prefLabel>Muang Salavan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1653333/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>15.75</wgs:lat>
+	<wgs:long>106.25</wgs:long>
+	<skos:altLabel>Khoueng Saravane</skos:altLabel>
+	<skos:altLabel>Khouèng Salavan</skos:altLabel>
+	<skos:altLabel>Khouèng Saravan</skos:altLabel>
+	<skos:altLabel>Salavan</skos:altLabel>
+	<skos:prefLabel>Khouèng Salavan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1653354/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.2</wgs:lat>
+	<wgs:long>105.01667</wgs:long>
+	<skos:altLabel>Done Sanot</skos:altLabel>
+	<skos:prefLabel>Don Sanôt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1653420/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.9</wgs:lat>
+	<wgs:long>101.66667</wgs:long>
+	<skos:prefLabel>Muang Sanakham</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1653439/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.25</wgs:lat>
+	<wgs:long>105.85</wgs:long>
+	<skos:altLabel>Don San</skos:altLabel>
+	<skos:altLabel>Done Sane</skos:altLabel>
+	<skos:prefLabel>Don San</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1653518/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>14.2</wgs:lat>
+	<wgs:long>105.78333</wgs:long>
+	<skos:altLabel>Muang Salam Phao</skos:altLabel>
+	<skos:altLabel>Selamphao</skos:altLabel>
+	<skos:prefLabel>Muang Salam Phao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1653654/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14</wgs:lat>
+	<wgs:long>105.88333</wgs:long>
+	<skos:altLabel>Don Puay</skos:altLabel>
+	<skos:altLabel>Done Puei</skos:altLabel>
+	<skos:prefLabel>Don Puay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1653832/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.26667</wgs:lat>
+	<wgs:long>103.23333</wgs:long>
+	<skos:altLabel>Muang Phrabatphônsan</skos:altLabel>
+	<skos:altLabel>Phone Sanh</skos:altLabel>
+	<skos:prefLabel>Muang Phrabatphônsan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1653858/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.06667</wgs:lat>
+	<wgs:long>105.83333</wgs:long>
+	<skos:altLabel>Don Phouman</skos:altLabel>
+	<skos:altLabel>Done Puman</skos:altLabel>
+	<skos:prefLabel>Don Phouman</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1653885/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.88333</wgs:lat>
+	<wgs:long>104.61667</wgs:long>
+	<skos:altLabel>Bo Phone Tiou</skos:altLabel>
+	<skos:prefLabel>Muang Phôntiou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1653886/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1657818/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>15.08333</wgs:lat>
+	<wgs:long>105.65</wgs:long>
+	<skos:prefLabel>Muang Phônthong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1653887/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>19.45</wgs:lat>
+	<wgs:long>103.21667</wgs:long>
+	<skos:altLabel>Muang Phônsavan</skos:altLabel>
+	<skos:altLabel>Muang Savan</skos:altLabel>
+	<skos:prefLabel>Muang Phônsavan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1653888/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1904618/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.5</wgs:lat>
+	<wgs:long>102.41667</wgs:long>
+	<skos:altLabel>Muang Na Xou</skos:altLabel>
+	<skos:altLabel>Phone Hong</skos:altLabel>
+	<skos:prefLabel>Muang Phôn-Hông</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1653892/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1653893/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>21.68333</wgs:lat>
+	<wgs:long>102.1</wgs:long>
+	<skos:altLabel>Muang Phôngsali</skos:altLabel>
+	<skos:altLabel>Phong Saly</skos:altLabel>
+	<skos:prefLabel>Muang Phôngsali</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1653893/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>21.75</wgs:lat>
+	<wgs:long>102.33333</wgs:long>
+	<skos:altLabel>Khouèng Fong Sali</skos:altLabel>
+	<skos:altLabel>Khouèng Phong Saly</skos:altLabel>
+	<skos:altLabel>Khouèng Phôngsali</skos:altLabel>
+	<skos:altLabel>Phôngsali</skos:altLabel>
+	<skos:prefLabel>Khouèng Phôngsali</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1653894/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>13500</europeana:population>
+	<wgs:lat>21.68333</wgs:lat>
+	<wgs:long>102.10583</wgs:long>
+	<skos:altLabel>Fong Sali</skos:altLabel>
+	<skos:altLabel>Muong Hou</skos:altLabel>
+	<skos:altLabel>Phong Saly</skos:altLabel>
+	<skos:altLabel>Phôngsali</skos:altLabel>
+	<skos:prefLabel>Phôngsali</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1653897/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>16.38333</wgs:lat>
+	<wgs:long>105.43333</wgs:long>
+	<skos:prefLabel>Muang Phong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1653916/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1653315/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>16.53333</wgs:lat>
+	<wgs:long>106.03333</wgs:long>
+	<skos:altLabel>Muang Phin</skos:altLabel>
+	<skos:altLabel>Phine</skos:altLabel>
+	<skos:prefLabel>Muang Phin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1654015/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.95</wgs:lat>
+	<wgs:long>105.98333</wgs:long>
+	<skos:prefLabel>Don Phaphéng</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1654042/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.16667</wgs:lat>
+	<wgs:long>105.76667</wgs:long>
+	<skos:altLabel>Don Phangkhao</skos:altLabel>
+	<skos:altLabel>Done Phang Khèo</skos:altLabel>
+	<skos:prefLabel>Don Phangkhao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1654090/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>16.65</wgs:lat>
+	<wgs:long>105.56667</wgs:long>
+	<skos:altLabel>Phalane</skos:altLabel>
+	<skos:prefLabel>Muang Phalan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1654206/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>20.21667</wgs:lat>
+	<wgs:long>103.86667</wgs:long>
+	<skos:prefLabel>Muang Peun</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1654248/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1652077/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.58333</wgs:lat>
+	<wgs:long>103.31667</wgs:long>
+	<skos:prefLabel>Muang Pèk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1654276/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1657818/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>14.8</wgs:lat>
+	<wgs:long>105.93333</wgs:long>
+	<skos:altLabel>Muang Pathoumphon</skos:altLabel>
+	<skos:altLabel>Muang Pathoumphone</skos:altLabel>
+	<skos:prefLabel>Muang Pathoumphon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1654374/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1657818/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>15.18333</wgs:lat>
+	<wgs:long>106.23333</wgs:long>
+	<skos:altLabel>Muang Pakxong</skos:altLabel>
+	<skos:altLabel>Paksong</skos:altLabel>
+	<skos:prefLabel>Muang Pakxong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1654375/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>20.16667</wgs:lat>
+	<wgs:long>102.66667</wgs:long>
+	<skos:altLabel>Pakseng</skos:altLabel>
+	<skos:prefLabel>Muang Pakxèng</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1654377/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>16.95</wgs:lat>
+	<wgs:long>104.75</wgs:long>
+	<skos:altLabel>Sebangfay</skos:altLabel>
+	<skos:prefLabel>Muang Pakxébangfai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1654378/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1657818/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>15.11667</wgs:lat>
+	<wgs:long>105.78333</wgs:long>
+	<skos:altLabel>Muang Paksé</skos:altLabel>
+	<skos:altLabel>Muang Pakxé</skos:altLabel>
+	<skos:prefLabel>Muang Pakxé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1654379/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>88332</europeana:population>
+	<wgs:lat>15.11667</wgs:lat>
+	<wgs:long>105.78333</wgs:long>
+	<skos:altLabel>Paksé</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Paksé</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Pakxe</skos:altLabel>
+	<skos:altLabel xml:lang="en">Pakxe</skos:altLabel>
+	<skos:altLabel xml:lang="de">Pakxé</skos:altLabel>
+	<skos:altLabel>Pakxé</skos:altLabel>
+	<skos:prefLabel>Pakxé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1654380/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1904617/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.36667</wgs:lat>
+	<wgs:long>103.65</wgs:long>
+	<skos:prefLabel>Muang Pakxan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1654385/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1904616/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>20.1</wgs:lat>
+	<wgs:long>100.6</wgs:long>
+	<skos:prefLabel>Muang Paktha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1654392/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655558/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>20.05</wgs:lat>
+	<wgs:long>102.21667</wgs:long>
+	<skos:prefLabel>Muang Pak-Ou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1654398/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1652210/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.2</wgs:lat>
+	<wgs:long>101.41667</wgs:long>
+	<skos:prefLabel>Muang Paklay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1654415/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1904617/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.31667</wgs:lat>
+	<wgs:long>104</wgs:long>
+	<skos:altLabel>Muang Pakchao</skos:altLabel>
+	<skos:altLabel>Muang Pakkading</skos:altLabel>
+	<skos:altLabel>Pakkading</skos:altLabel>
+	<skos:prefLabel>Muang Pakkading</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1654418/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1654491/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.9</wgs:lat>
+	<wgs:long>101.13333</wgs:long>
+	<skos:prefLabel>Muang Pakbèng</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1654479/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>22.11667</wgs:lat>
+	<wgs:long>101.8</wgs:long>
+	<skos:altLabel>Outay</skos:altLabel>
+	<skos:prefLabel>Muang Ou Tai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1654491/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>20.16667</wgs:lat>
+	<wgs:long>101.5</wgs:long>
+	<skos:altLabel>Khouèng Oudômxai</skos:altLabel>
+	<skos:altLabel>Oudômxai</skos:altLabel>
+	<skos:prefLabel>Khouèng Oudômxai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1654586/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.4</wgs:lat>
+	<wgs:long>104.86667</wgs:long>
+	<skos:prefLabel>Don Nong Lôm</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1654616/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1653315/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>16.36667</wgs:lat>
+	<wgs:long>106.5</wgs:long>
+	<skos:prefLabel>Muang Nong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1654686/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655558/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>20.71667</wgs:lat>
+	<wgs:long>102.68333</wgs:long>
+	<skos:altLabel>Muang Ngoy</skos:altLabel>
+	<skos:altLabel>Ngoi</skos:altLabel>
+	<skos:prefLabel>Muang Ngoy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1654833/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655558/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.48333</wgs:lat>
+	<wgs:long>101.88333</wgs:long>
+	<skos:altLabel>Muang Nan</skos:altLabel>
+	<skos:altLabel>Nane</skos:altLabel>
+	<skos:prefLabel>Muang Nan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1654902/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1654491/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>21</wgs:lat>
+	<wgs:long>101.76667</wgs:long>
+	<skos:prefLabel>Muang Namo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1654981/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655558/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>20.63333</wgs:lat>
+	<wgs:long>102.46667</wgs:long>
+	<skos:prefLabel>Muang Nambak</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1655078/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>25000</europeana:population>
+	<wgs:lat>20.7</wgs:lat>
+	<wgs:long>101.98333</wgs:long>
+	<skos:altLabel>Mouang Sai</skos:altLabel>
+	<skos:altLabel>Muang Xai</skos:altLabel>
+	<skos:altLabel>Muang Xay</skos:altLabel>
+	<skos:altLabel xml:lang="en">Muang Xay</skos:altLabel>
+	<skos:altLabel>Muong Sai</skos:altLabel>
+	<skos:altLabel>Sai</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Муангсай</skos:altLabel>
+	<skos:prefLabel>Muang Xai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1655084/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>13500</europeana:population>
+	<wgs:lat>19.25</wgs:lat>
+	<wgs:long>101.75</wgs:long>
+	<skos:altLabel>Ban Samaboury</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Khwaeng Sainyabuli</skos:altLabel>
+	<skos:altLabel>Muang Xaignabouri</skos:altLabel>
+	<skos:altLabel>Muong Samaboury</skos:altLabel>
+	<skos:altLabel>Muong Sayaboury</skos:altLabel>
+	<skos:altLabel>Saniabouri</skos:altLabel>
+	<skos:altLabel>Sayaboury</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Sayaboury</skos:altLabel>
+	<skos:altLabel xml:lang="de">Sayaboury</skos:altLabel>
+	<skos:altLabel xml:lang="en">Xaignabouli</skos:altLabel>
+	<skos:altLabel>Xaignabouli</skos:altLabel>
+	<skos:altLabel>Xaignabouri</skos:altLabel>
+	<skos:prefLabel>Xaignabouli</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1655087/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>25000</europeana:population>
+	<wgs:lat>18.93333</wgs:lat>
+	<wgs:long>102.45</wgs:long>
+	<skos:altLabel xml:lang="fr">Vang Vieng</skos:altLabel>
+	<skos:altLabel xml:lang="en">Vang Vieng</skos:altLabel>
+	<skos:altLabel>Viangviang</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ванг Вьенг</skos:altLabel>
+	<skos:prefLabel>Muang Vangviang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1655124/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>10112</europeana:population>
+	<wgs:lat>18.49278</wgs:lat>
+	<wgs:long>102.41722</wgs:long>
+	<skos:altLabel>Ban Phon Hong</skos:altLabel>
+	<skos:altLabel>Ban Phong Hong</skos:altLabel>
+	<skos:altLabel>Muang Phone</skos:altLabel>
+	<skos:altLabel>Muang Phone Hong</skos:altLabel>
+	<skos:altLabel>Phone Hong</skos:altLabel>
+	<skos:altLabel>Phong Hong</skos:altLabel>
+	<skos:altLabel>Phonhong</skos:altLabel>
+	<skos:prefLabel>Muang Phôn-Hông</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1655140/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>21967</europeana:population>
+	<wgs:lat>18.36667</wgs:lat>
+	<wgs:long>103.65</wgs:long>
+	<skos:altLabel>Muang Pakxan</skos:altLabel>
+	<skos:altLabel>Paksane</skos:altLabel>
+	<skos:altLabel>Pakxan</skos:altLabel>
+	<skos:prefLabel>Muang Pakxan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1655192/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15000</europeana:population>
+	<wgs:lat>14.11667</wgs:lat>
+	<wgs:long>105.85</wgs:long>
+	<skos:altLabel>Khon</skos:altLabel>
+	<skos:altLabel>Khong</skos:altLabel>
+	<skos:altLabel>Muang Không</skos:altLabel>
+	<skos:altLabel>Muong Khong</skos:altLabel>
+	<skos:prefLabel>Muang Không</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1655199/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>26200</europeana:population>
+	<wgs:lat>17.41027</wgs:lat>
+	<wgs:long>104.83068</wgs:long>
+	<skos:altLabel>Khammouane</skos:altLabel>
+	<skos:altLabel>Muang Khammouan</skos:altLabel>
+	<skos:altLabel>Muang Thakek</skos:altLabel>
+	<skos:altLabel>Tha Khaek</skos:altLabel>
+	<skos:altLabel>Thakhek</skos:altLabel>
+	<skos:altLabel xml:lang="en">Thakhek</skos:altLabel>
+	<skos:altLabel>Thakhet</skos:altLabel>
+	<skos:altLabel>Thakhok</skos:altLabel>
+	<skos:altLabel>Thakhèk</skos:altLabel>
+	<skos:prefLabel>Thakhèk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1655243/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1657818/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>14.33333</wgs:lat>
+	<wgs:long>105.86667</wgs:long>
+	<skos:prefLabel>Muang Mounlapamôk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1655251/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>20.26667</wgs:lat>
+	<wgs:long>103.05</wgs:long>
+	<skos:prefLabel>Muang Mouay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1655320/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.91667</wgs:lat>
+	<wgs:long>104.01667</wgs:long>
+	<skos:prefLabel>Muang Mok</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1655366/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.85</wgs:lat>
+	<wgs:long>101.96667</wgs:long>
+	<skos:prefLabel>Muang Mèt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1655492/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1656538/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>17.41667</wgs:lat>
+	<wgs:long>105.2</wgs:long>
+	<skos:altLabel>Mahaxay</skos:altLabel>
+	<skos:altLabel>Muang Mahaxai</skos:altLabel>
+	<skos:prefLabel>Muang Mahaxai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1655557/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655558/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.86667</wgs:lat>
+	<wgs:long>102.13333</wgs:long>
+	<skos:altLabel>Luang Prabang</skos:altLabel>
+	<skos:altLabel>Muang Louangphabang</skos:altLabel>
+	<skos:altLabel>Muang Louangphrabang</skos:altLabel>
+	<skos:prefLabel>Muang Louangphabang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1655558/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>20.25</wgs:lat>
+	<wgs:long>102.66667</wgs:long>
+	<skos:altLabel>Khoueng Luang Prabang</skos:altLabel>
+	<skos:altLabel>Khouèng Louangphabang</skos:altLabel>
+	<skos:altLabel>Khouèng Louangphrabang</skos:altLabel>
+	<skos:altLabel>Louangphabang</skos:altLabel>
+	<skos:prefLabel>Khouèng Louangphabang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1655559/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>47378</europeana:population>
+	<wgs:lat>19.88556</wgs:lat>
+	<wgs:long>102.13472</wgs:long>
+	<skos:altLabel>Louang Prabang</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Louang Prabang</skos:altLabel>
+	<skos:altLabel>Louangphabang</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Louangphabang</skos:altLabel>
+	<skos:altLabel>Louangphrabang</skos:altLabel>
+	<skos:altLabel>Luan Praban</skos:altLabel>
+	<skos:altLabel>Luang Phrabang</skos:altLabel>
+	<skos:altLabel xml:lang="id">Luang Prabang</skos:altLabel>
+	<skos:altLabel>Luang Prabang</skos:altLabel>
+	<skos:altLabel xml:lang="de">Luang Prabang</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Luang Prabang</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Luang Prabang</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Luang Prabang</skos:altLabel>
+	<skos:altLabel xml:lang="en">Luang Prabang</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Луанг-Прабанг</skos:altLabel>
+	<skos:altLabel xml:lang="th">เมืองหลวงพระบาง</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ຫລວງພະບາງ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ルアンパバーン</skos:altLabel>
+	<skos:altLabel xml:lang="zh">琅勃拉邦</skos:altLabel>
+	<skos:prefLabel>Louangphrabang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1655560/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655561/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>118134</europeana:population>
+	<wgs:lat>20.95</wgs:lat>
+	<wgs:long>101.41667</wgs:long>
+	<skos:altLabel>Luang Nam Tha</skos:altLabel>
+	<skos:altLabel>Luang Namtha</skos:altLabel>
+	<skos:altLabel>Muang Louang Namtha</skos:altLabel>
+	<skos:altLabel>Muang Luong Namtha</skos:altLabel>
+	<skos:prefLabel>Muang Louang Namtha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1655561/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>20.91667</wgs:lat>
+	<wgs:long>101.33333</wgs:long>
+	<skos:altLabel>Hiuakhong</skos:altLabel>
+	<skos:altLabel>Khoueng Namtha</skos:altLabel>
+	<skos:altLabel>Khouèng Louangnamtha</skos:altLabel>
+	<skos:altLabel>Loungnamtha</skos:altLabel>
+	<skos:altLabel>Muong Luang Namtha</skos:altLabel>
+	<skos:altLabel>Province de Haut-Mékong</skos:altLabel>
+	<skos:altLabel>Upper Mekong</skos:altLabel>
+	<skos:prefLabel>Khouèng Louangnamtha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1655597/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.01667</wgs:lat>
+	<wgs:long>105.85</wgs:long>
+	<skos:altLabel>Don Lôppadi</skos:altLabel>
+	<skos:altLabel>Done Lappady</skos:altLabel>
+	<skos:altLabel>Done Lopaddy</skos:altLabel>
+	<skos:prefLabel>Don Lôppadi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1655639/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.05</wgs:lat>
+	<wgs:long>105.88333</wgs:long>
+	<skos:prefLabel>Don Long</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1655640/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.03333</wgs:lat>
+	<wgs:long>105.8</wgs:long>
+	<skos:prefLabel>Don Long</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1655742/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.43333</wgs:lat>
+	<wgs:long>103.51667</wgs:long>
+	<skos:altLabel>Don Leui</skos:altLabel>
+	<skos:altLabel>Done Leui</skos:altLabel>
+	<skos:prefLabel>Don Leui</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1655794/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>14.51667</wgs:lat>
+	<wgs:long>106.91667</wgs:long>
+	<skos:prefLabel>Muang Lave</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1655842/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255147/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>6368162</europeana:population>
+	<wgs:lat>18</wgs:lat>
+	<wgs:long>105</wgs:long>
+	<skos:altLabel>Kingdom of Laos</skos:altLabel>
+	<skos:altLabel>LA</skos:altLabel>
+	<skos:altLabel>Lane Xang</skos:altLabel>
+	<skos:altLabel>Lanxang</skos:altLabel>
+	<skos:altLabel xml:lang="en">Lao People’s Democratic Republic</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Lao, Republica Democratică Populară</skos:altLabel>
+	<skos:altLabel xml:lang="la">Laonia</skos:altLabel>
+	<skos:altLabel xml:lang="id">Laos</skos:altLabel>
+	<skos:altLabel xml:lang="es">Laos</skos:altLabel>
+	<skos:altLabel xml:lang="da">Laos</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Laos</skos:altLabel>
+	<skos:altLabel xml:lang="is">Laos</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Laos</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Laos</skos:altLabel>
+	<skos:altLabel xml:lang="de">Laos</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Laos</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Laos</skos:altLabel>
+	<skos:altLabel xml:lang="it">Laos</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Laos</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Laos</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Laos</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Laos</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Laos</skos:altLabel>
+	<skos:altLabel xml:lang="en">Laos</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Laos</skos:altLabel>
+	<skos:altLabel xml:lang="an">Laos</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Laos</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Laos</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Laos</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Laos</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Laos</skos:altLabel>
+	<skos:altLabel xml:lang="jv">Laos</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Laos</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Laos</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Laos</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Laos</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Laos</skos:altLabel>
+	<skos:altLabel xml:lang="et">Laos</skos:altLabel>
+	<skos:altLabel xml:lang="io">Laos</skos:altLabel>
+	<skos:altLabel xml:lang="li">Laos</skos:altLabel>
+	<skos:altLabel xml:lang="no">Laos</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Laos</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Laos</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Laos</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Laos</skos:altLabel>
+	<skos:altLabel xml:lang="tk">Laos</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Laos</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Laos</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Laos</skos:altLabel>
+	<skos:altLabel xml:lang="se">Laos</skos:altLabel>
+	<skos:altLabel xml:lang="af">Laos</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Laos (Demokratyczna Republika Ludowa)</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Laos, Den folkedemokratiske republikken</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Laos, Den folkedemokratiske republikken</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Laosa</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Laosas</skos:altLabel>
+	<skos:altLabel xml:lang="et">Laose DRV</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Laosi</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Laoska Narodna Demokratska Republika</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Laoská ľudovodemokratická republika</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Laoso</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Laosz</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Laoszi Népi Demokratikus Köztársaság</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Laoän</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Laòs</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Lidově demokratická republika Laos</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Ljudska demokratična republika Laos</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Lào</skos:altLabel>
+	<skos:altLabel>Pharassa Anachak Lao</skos:altLabel>
+	<skos:altLabel>Phrarassa Anachak Lao</skos:altLabel>
+	<skos:altLabel>Phraratsa Anachak Lao</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Pow Lao</skos:altLabel>
+	<skos:altLabel xml:lang="gl">República Democrática Popular Lao - ສາທາລະນະລັດ ປະຊາທິປະໄຕ ປະຊາຊົນ ລາວ</skos:altLabel>
+	<skos:altLabel xml:lang="pt">República Democrática Popular de Lao</skos:altLabel>
+	<skos:altLabel xml:lang="lo">Sathalanalat Paxathipatai Paxaxôn Lao</skos:altLabel>
+	<skos:altLabel xml:lang="el">Λάος</skos:altLabel>
+	<skos:altLabel xml:lang="el">Λατινική Αμερική</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Лаос</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Лаос</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Лаос</skos:altLabel>
+	<skos:altLabel xml:lang="os">Лаос</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Лаос</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Лаос</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Лаос</skos:altLabel>
+	<skos:altLabel xml:lang="be">Лаос</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Лаоська Народно-Демократична Республіка</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Народна Демократична Република Лаос</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Լաոս</skos:altLabel>
+	<skos:altLabel xml:lang="he">לאוס</skos:altLabel>
+	<skos:altLabel xml:lang="ur">لاؤس</skos:altLabel>
+	<skos:altLabel xml:lang="fa">لائوس</skos:altLabel>
+	<skos:altLabel xml:lang="ug">لائوس</skos:altLabel>
+	<skos:altLabel xml:lang="ar">لاوس</skos:altLabel>
+	<skos:altLabel xml:lang="ps">لاوس</skos:altLabel>
+	<skos:altLabel xml:lang="hi">लाओस</skos:altLabel>
+	<skos:altLabel xml:lang="ks">लाओस</skos:altLabel>
+	<skos:altLabel xml:lang="sa">लाओस</skos:altLabel>
+	<skos:altLabel xml:lang="bn">লাওস</skos:altLabel>
+	<skos:altLabel xml:lang="ta">லாவோஸ்</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ലാവോസ്</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศลาว</skos:altLabel>
+	<skos:altLabel xml:lang="th">ลาว</skos:altLabel>
+	<skos:altLabel xml:lang="th">สาธารณรัฐประชาธิปไตยประชาชนลาว</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ປະເທດລາວ</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ລາວ</skos:altLabel>
+	<skos:altLabel xml:lang="dz">ལ་འོསུ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ལཱ་འོས།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ლაოსი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ላኦስ</skos:altLabel>
+	<skos:altLabel xml:lang="km">ឡាវ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ラオス</skos:altLabel>
+	<skos:altLabel xml:lang="zh">老挝</skos:altLabel>
+	<skos:altLabel xml:lang="zh">老挝人民民主共和国</skos:altLabel>
+	<skos:altLabel xml:lang="ko">라오스</skos:altLabel>
+	<skos:prefLabel>Lao People’s Democratic Republic</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1655850/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1653333/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>15.46667</wgs:lat>
+	<wgs:long>106.16667</wgs:long>
+	<skos:prefLabel>Muang Laongam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1655961/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1653333/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>15.9</wgs:lat>
+	<wgs:long>105.56667</wgs:long>
+	<skos:altLabel>Lakhonepheng</skos:altLabel>
+	<skos:altLabel>Muang Lakhonphéng</skos:altLabel>
+	<skos:prefLabel>Muang Lakhonphéng</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1656000/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1654491/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>20.88333</wgs:lat>
+	<wgs:long>102.35</wgs:long>
+	<skos:altLabel>La</skos:altLabel>
+	<skos:altLabel>Muang La</skos:altLabel>
+	<skos:prefLabel>Muang La</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1656027/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.4</wgs:lat>
+	<wgs:long>103.58333</wgs:long>
+	<skos:altLabel>Don Ka Tai</skos:altLabel>
+	<skos:altLabel>Don Kratai</skos:altLabel>
+	<skos:altLabel>Donk Tai</skos:altLabel>
+	<skos:prefLabel>Don Kratai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1656214/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>16</wgs:lat>
+	<wgs:long>107.06667</wgs:long>
+	<skos:prefLabel>Muang Kleum</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1656290/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>21.08333</wgs:lat>
+	<wgs:long>102.51667</wgs:long>
+	<skos:prefLabel>Muang Khoua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1656324/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1653333/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>15.56667</wgs:lat>
+	<wgs:long>105.81667</wgs:long>
+	<skos:altLabel>Khongsedone</skos:altLabel>
+	<skos:altLabel>Muang Khôngxédôn</skos:altLabel>
+	<skos:prefLabel>Muang Khôngxédôn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1656331/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1657818/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>14.11667</wgs:lat>
+	<wgs:long>105.85</wgs:long>
+	<skos:prefLabel>Muang Không</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1656335/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.15</wgs:lat>
+	<wgs:long>105.81667</wgs:long>
+	<skos:altLabel>Don Không</skos:altLabel>
+	<skos:altLabel>Khong Island</skos:altLabel>
+	<skos:prefLabel>Don Không</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1656338/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.4</wgs:lat>
+	<wgs:long>103.28333</wgs:long>
+	<skos:prefLabel>Don Khone Let</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1656383/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.15</wgs:lat>
+	<wgs:long>105.73333</wgs:long>
+	<skos:altLabel>Don Khô</skos:altLabel>
+	<skos:altLabel>Done Khô</skos:altLabel>
+	<skos:prefLabel>Don Khô</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1656458/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>19.78333</wgs:lat>
+	<wgs:long>101.98333</wgs:long>
+	<skos:prefLabel>Muang Khay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1656537/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1656538/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>17.4088</wgs:lat>
+	<wgs:long>104.82639</wgs:long>
+	<skos:altLabel>Muang Khammouan</skos:altLabel>
+	<skos:altLabel>Muang Thakhèk</skos:altLabel>
+	<skos:prefLabel>Muang Thakhèk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1656538/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>17.5</wgs:lat>
+	<wgs:long>105.33333</wgs:long>
+	<skos:altLabel>Khammouan</skos:altLabel>
+	<skos:altLabel>Khammoune</skos:altLabel>
+	<skos:altLabel>Khoueng Thakhek</skos:altLabel>
+	<skos:altLabel>Khouèng Khammouan</skos:altLabel>
+	<skos:altLabel>Khouèng Khammouane</skos:altLabel>
+	<skos:altLabel>Province de Cammon</skos:altLabel>
+	<skos:prefLabel>Khouèng Khammouan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1656546/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1904617/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.25</wgs:lat>
+	<wgs:long>105</wgs:long>
+	<skos:prefLabel>Muang Khamkeut</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1656563/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>19.28333</wgs:lat>
+	<wgs:long>103.06667</wgs:long>
+	<skos:prefLabel>Muang Kham</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1656583/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.41667</wgs:lat>
+	<wgs:long>103.5</wgs:long>
+	<skos:prefLabel>Don Khai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1656626/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.73333</wgs:lat>
+	<wgs:long>101.41667</wgs:long>
+	<skos:altLabel>Kene</skos:altLabel>
+	<skos:altLabel>Kene Thao</skos:altLabel>
+	<skos:altLabel>Muang Kènthao</skos:altLabel>
+	<skos:prefLabel>Muang Kènthao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1656743/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1904618/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.23333</wgs:lat>
+	<wgs:long>102.25</wgs:long>
+	<skos:altLabel>Kassy</skos:altLabel>
+	<skos:altLabel>Kasy</skos:altLabel>
+	<skos:prefLabel>Muang Kasi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1656753/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.76667</wgs:lat>
+	<wgs:long>104.4</wgs:long>
+	<skos:altLabel>Don Ca Xet</skos:altLabel>
+	<skos:prefLabel>Don Kasék</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1656789/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>14.81667</wgs:lat>
+	<wgs:long>106.95</wgs:long>
+	<skos:altLabel>Cao</skos:altLabel>
+	<skos:altLabel>Muang Kao</skos:altLabel>
+	<skos:prefLabel>Muang Kao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1656964/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1654491/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>20.15</wgs:lat>
+	<wgs:long>101.45</wgs:long>
+	<skos:altLabel>Houne</skos:altLabel>
+	<skos:altLabel>Muang Houn</skos:altLabel>
+	<skos:altLabel>Muang Hun</skos:altLabel>
+	<skos:prefLabel>Muang Hun</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1657111/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.13333</wgs:lat>
+	<wgs:long>105.86667</wgs:long>
+	<skos:prefLabel>Don Houat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1657114/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>286383</europeana:population>
+	<wgs:lat>20.5</wgs:lat>
+	<wgs:long>104</wgs:long>
+	<skos:altLabel>Houa Phans</skos:altLabel>
+	<skos:altLabel>Houa Tanh</skos:altLabel>
+	<skos:altLabel>Houaphan</skos:altLabel>
+	<skos:altLabel>Khoueng Samneua</skos:altLabel>
+	<skos:altLabel>Khouèng Houaphan</skos:altLabel>
+	<skos:altLabel>Province de Houaphanh</skos:altLabel>
+	<skos:altLabel>Province des Hua-Panhs</skos:altLabel>
+	<skos:altLabel>Xamnua</skos:altLabel>
+	<skos:prefLabel>Khouèng Houaphan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1657120/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1657114/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>20.15</wgs:lat>
+	<wgs:long>103.63333</wgs:long>
+	<skos:altLabel>Houa Muong</skos:altLabel>
+	<skos:altLabel>Muang Houamuang</skos:altLabel>
+	<skos:prefLabel>Muang Houamuang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1657146/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1652210/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.71667</wgs:lat>
+	<wgs:long>101.33333</wgs:long>
+	<skos:prefLabel>Muang Hôngsa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1657260/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1656538/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>17.58333</wgs:lat>
+	<wgs:long>104.6</wgs:long>
+	<skos:altLabel>Hinboune</skos:altLabel>
+	<skos:altLabel>Muang Hinboun</skos:altLabel>
+	<skos:prefLabel>Muang Hinboun</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1657271/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>20.08333</wgs:lat>
+	<wgs:long>103.36667</wgs:long>
+	<skos:altLabel>Hiem</skos:altLabel>
+	<skos:prefLabel>Muang Hiam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1657277/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.16667</wgs:lat>
+	<wgs:long>105.78333</wgs:long>
+	<skos:prefLabel>Don Hi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1657280/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>21</wgs:lat>
+	<wgs:long>102.93333</wgs:long>
+	<skos:altLabel>Hup</skos:altLabel>
+	<skos:prefLabel>Muang Heup</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1657427/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.6</wgs:lat>
+	<wgs:long>105.16667</wgs:long>
+	<skos:altLabel>Nhommarath</skos:altLabel>
+	<skos:prefLabel>Muang Gnômmarat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1657544/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.45</wgs:lat>
+	<wgs:long>104.76667</wgs:long>
+	<skos:altLabel>Dong Don</skos:altLabel>
+	<skos:prefLabel>Don Dôn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1657592/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.86667</wgs:lat>
+	<wgs:long>105.9</wgs:long>
+	<skos:prefLabel>Don Deng</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1657779/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>15.35</wgs:lat>
+	<wgs:long>107.06667</wgs:long>
+	<skos:altLabel>Muang Chavane</skos:altLabel>
+	<skos:prefLabel>Muang Chavan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1657816/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1653315/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>16.43333</wgs:lat>
+	<wgs:long>105.2</wgs:long>
+	<skos:altLabel>Champhone</skos:altLabel>
+	<skos:altLabel>Muang Champhon</skos:altLabel>
+	<skos:prefLabel>Muang Champhon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1657817/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1657818/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>15.08333</wgs:lat>
+	<wgs:long>105.65</wgs:long>
+	<skos:prefLabel>Muang Champasak</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1657818/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>14.75</wgs:lat>
+	<wgs:long>106</wgs:long>
+	<skos:altLabel>Bassac</skos:altLabel>
+	<skos:altLabel>Champasak</skos:altLabel>
+	<skos:altLabel>Khoueng Champassak</skos:altLabel>
+	<skos:altLabel>Khouèng Champasak</skos:altLabel>
+	<skos:altLabel>Province de Champassac</skos:altLabel>
+	<skos:altLabel>Province de Khong</skos:altLabel>
+	<skos:altLabel>Province de Pakse</skos:altLabel>
+	<skos:prefLabel>Khouèng Champasak</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1657819/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12994</europeana:population>
+	<wgs:lat>14.88333</wgs:lat>
+	<wgs:long>105.86667</wgs:long>
+	<skos:altLabel>Basak</skos:altLabel>
+	<skos:altLabel>Bassac</skos:altLabel>
+	<skos:altLabel>Bassak</skos:altLabel>
+	<skos:altLabel>Champasak</skos:altLabel>
+	<skos:altLabel>Champassac</skos:altLabel>
+	<skos:altLabel>Champassak</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Чампасак</skos:altLabel>
+	<skos:prefLabel>Champasak</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1657843/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>15.78333</wgs:lat>
+	<wgs:long>106.76667</wgs:long>
+	<skos:altLabel>Muong Chakeuy Tay</skos:altLabel>
+	<skos:prefLabel>Muang Chakeuy Tai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1657870/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1653893/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>21.38333</wgs:lat>
+	<wgs:long>101.96667</wgs:long>
+	<skos:altLabel>Bountay</skos:altLabel>
+	<skos:altLabel>Muang Boun Tai</skos:altLabel>
+	<skos:prefLabel>Muang Boun Tai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1657896/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1904617/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.55</wgs:lat>
+	<wgs:long>103.71667</wgs:long>
+	<skos:altLabel>Borikhane</skos:altLabel>
+	<skos:altLabel>Muang Bolikhan</skos:altLabel>
+	<skos:altLabel>Muang Borikhan</skos:altLabel>
+	<skos:prefLabel>Muang Bolikhan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1657942/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1654491/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>20.36667</wgs:lat>
+	<wgs:long>101.73333</wgs:long>
+	<skos:prefLabel>Muang Bèng</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1658245/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.TMPL"/>
+	<wgs:lat>14.86667</wgs:lat>
+	<wgs:long>105.9</wgs:long>
+	<skos:altLabel>Ban Van Pa</skos:altLabel>
+	<skos:altLabel>Ban Vangpa</skos:altLabel>
+	<skos:prefLabel>Ban Vangpa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1658505/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.TMPL"/>
+	<wgs:lat>19.63333</wgs:lat>
+	<wgs:long>103.31667</wgs:long>
+	<skos:prefLabel>Vat Banthong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1658541/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.TMPL"/>
+	<wgs:lat>19.51667</wgs:lat>
+	<wgs:long>103.25</wgs:long>
+	<skos:prefLabel>Vat Bantheun</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1659691/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.TMPL"/>
+	<wgs:lat>19.61667</wgs:lat>
+	<wgs:long>103.33333</wgs:long>
+	<skos:prefLabel>Vat Ban Poat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1659959/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.TMPL"/>
+	<wgs:lat>19.51667</wgs:lat>
+	<wgs:long>102.86667</wgs:long>
+	<skos:prefLabel>Vat Ban Phong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1663158/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.36667</wgs:lat>
+	<wgs:long>102.58333</wgs:long>
+	<skos:prefLabel>Muang Ban Keun</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1663526/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>12500</europeana:population>
+	<wgs:lat>20.2775</wgs:lat>
+	<wgs:long>100.41278</wgs:long>
+	<skos:altLabel>Ban Houayxai</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ban Houayxay</skos:altLabel>
+	<skos:altLabel>Ban Houayxay</skos:altLabel>
+	<skos:altLabel>Ban Houei Sai</skos:altLabel>
+	<skos:altLabel>Ban Huei Sai</skos:altLabel>
+	<skos:altLabel>Ban Hueu Sai</skos:altLabel>
+	<skos:altLabel>Ban Hwei Sai</skos:altLabel>
+	<skos:altLabel>Fort Carnot</skos:altLabel>
+	<skos:altLabel>Houayxay</skos:altLabel>
+	<skos:altLabel>Houei Sai</skos:altLabel>
+	<skos:altLabel>Hovei Sai</skos:altLabel>
+	<skos:altLabel>Huoei Sai</skos:altLabel>
+	<skos:altLabel>Van Houei Sai</skos:altLabel>
+	<skos:prefLabel>Ban Houayxay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1664942/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>19.63333</wgs:lat>
+	<wgs:long>103.56667</wgs:long>
+	<skos:prefLabel>Muang Ban Ban</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1665045/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>14.66667</wgs:lat>
+	<wgs:long>107</wgs:long>
+	<skos:altLabel>Atpu</skos:altLabel>
+	<skos:altLabel>Attapu</skos:altLabel>
+	<skos:altLabel>Khoueng Attapeu</skos:altLabel>
+	<skos:altLabel>Khouèng Attapu</skos:altLabel>
+	<skos:altLabel>Khouèng Attopeu</skos:altLabel>
+	<skos:altLabel>Muang Mai</skos:altLabel>
+	<skos:prefLabel>Khouèng Attapu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904391/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15500</europeana:population>
+	<wgs:lat>20.24528</wgs:lat>
+	<wgs:long>100.45472</wgs:long>
+	<skos:altLabel>Ban Houakhoua</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ban Houayxay</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бан  Хойяксяу</skos:altLabel>
+	<skos:prefLabel>Ban Houakhoua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904615/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>15.5</wgs:lat>
+	<wgs:long>107</wgs:long>
+	<skos:altLabel>Khouèng Xékong</skos:altLabel>
+	<skos:altLabel>Xékong</skos:altLabel>
+	<skos:prefLabel>Khouèng Xékong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904616/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>20.5</wgs:lat>
+	<wgs:long>100.5</wgs:long>
+	<skos:altLabel>Bokèo</skos:altLabel>
+	<skos:altLabel>Khouèng Bokèo</skos:altLabel>
+	<skos:prefLabel>Khouèng Bokèo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904617/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>18.5</wgs:lat>
+	<wgs:long>104.33333</wgs:long>
+	<skos:altLabel>Bolikhamxai</skos:altLabel>
+	<skos:altLabel>Borikhan</skos:altLabel>
+	<skos:altLabel>Khouèng Bolikhamxai</skos:altLabel>
+	<skos:prefLabel>Khouèng Bolikhamxai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904618/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>646807</europeana:population>
+	<wgs:lat>18.08333</wgs:lat>
+	<wgs:long>102.66667</wgs:long>
+	<skos:altLabel>Kamphèng Nakhon Viangchan</skos:altLabel>
+	<skos:altLabel>Prefecture de Vientiane</skos:altLabel>
+	<skos:altLabel>Viangchan</skos:altLabel>
+	<skos:prefLabel>Kamphèng Nakhon Viangchan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904701/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1657818/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>15.25</wgs:lat>
+	<wgs:long>105.91667</wgs:long>
+	<skos:prefLabel>Muang Bachang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904713/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1904615/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>15.46667</wgs:lat>
+	<wgs:long>107.26667</wgs:long>
+	<skos:prefLabel>Muang Dakchung</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904719/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1653333/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>15.91667</wgs:lat>
+	<wgs:long>106.25</wgs:long>
+	<skos:prefLabel>Muang Toumlan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904768/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1904615/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>15.41667</wgs:lat>
+	<wgs:long>106.7</wgs:long>
+	<skos:altLabel>Muang Laman</skos:altLabel>
+	<skos:altLabel>Muang Sekong</skos:altLabel>
+	<skos:altLabel>Muang Xékong</skos:altLabel>
+	<skos:prefLabel>Muang Laman</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904769/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1665045/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>14.8</wgs:lat>
+	<wgs:long>106.93333</wgs:long>
+	<skos:prefLabel>Muang Xaiséttha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904770/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1665045/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>14.8</wgs:lat>
+	<wgs:long>106.83333</wgs:long>
+	<skos:prefLabel>Muang Samakhixai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904771/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1665045/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>14.66667</wgs:lat>
+	<wgs:long>106.58333</wgs:long>
+	<skos:prefLabel>Muang Sanamxai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904772/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1665045/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>14.63333</wgs:lat>
+	<wgs:long>106.95</wgs:long>
+	<skos:prefLabel>Muang Phouvong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904773/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1665045/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>15.1</wgs:lat>
+	<wgs:long>107.16667</wgs:long>
+	<skos:prefLabel>Muang Sanxai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904774/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1657818/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>15.33333</wgs:lat>
+	<wgs:long>105.83333</wgs:long>
+	<skos:prefLabel>Muang Xanasômboun</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904775/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1904615/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>15.79886</wgs:lat>
+	<wgs:long>107.04529</wgs:long>
+	<skos:prefLabel>Muang Khaleum</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904777/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1653315/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>16.05</wgs:lat>
+	<wgs:long>105.83333</wgs:long>
+	<skos:prefLabel>Muang Thapangthong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904778/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1653315/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>16.55</wgs:lat>
+	<wgs:long>104.75</wgs:long>
+	<skos:prefLabel>Muang Khanthabouli</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904780/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1653315/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>16.41667</wgs:lat>
+	<wgs:long>105.36667</wgs:long>
+	<skos:prefLabel>Muang Xônbouli</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904781/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1653333/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>16.41667</wgs:lat>
+	<wgs:long>106.81667</wgs:long>
+	<skos:prefLabel>Muang Samouay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904783/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1653315/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>16.66667</wgs:lat>
+	<wgs:long>105.05</wgs:long>
+	<skos:prefLabel>Muang Outhoumphon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904784/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1653315/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>16.75</wgs:lat>
+	<wgs:long>105.41667</wgs:long>
+	<skos:prefLabel>Muang Alsaphangthong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904785/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1653315/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>16.83333</wgs:lat>
+	<wgs:long>104.75</wgs:long>
+	<skos:prefLabel>Muang Xaibouli</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904786/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1653315/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>16.88333</wgs:lat>
+	<wgs:long>105.33333</wgs:long>
+	<skos:prefLabel>Muang Atsaphan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904787/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1653315/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>16.91667</wgs:lat>
+	<wgs:long>105.91667</wgs:long>
+	<skos:prefLabel>Muang Vilabouli</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904788/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1656538/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>17.08333</wgs:lat>
+	<wgs:long>104.8</wgs:long>
+	<skos:prefLabel>Muang Nongbôk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904789/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1656538/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>17.11667</wgs:lat>
+	<wgs:long>105</wgs:long>
+	<skos:prefLabel>Muang Xebangfai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904790/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1656538/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>17.16667</wgs:lat>
+	<wgs:long>105.58333</wgs:long>
+	<skos:prefLabel>Muang Xaibouathong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904791/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1656538/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>17.33333</wgs:lat>
+	<wgs:long>105.83333</wgs:long>
+	<skos:prefLabel>Muang Boualapha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904792/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1656538/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>17.66667</wgs:lat>
+	<wgs:long>105.16667</wgs:long>
+	<skos:prefLabel>Muang Gnômmalat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904793/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1656538/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>17.75</wgs:lat>
+	<wgs:long>105.13333</wgs:long>
+	<skos:prefLabel>Muang Na Kay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904794/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1904617/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.5</wgs:lat>
+	<wgs:long>104.41667</wgs:long>
+	<skos:prefLabel>Muang Viangthong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904795/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1904617/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.41667</wgs:lat>
+	<wgs:long>103.25</wgs:long>
+	<skos:prefLabel>Muang Thaphabat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904796/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.41667</wgs:lat>
+	<wgs:long>102.9</wgs:long>
+	<skos:prefLabel>Muang Longxan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904797/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1904618/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.5</wgs:lat>
+	<wgs:long>102.5</wgs:long>
+	<skos:prefLabel>Muang Kèo-Oudôm</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904798/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.55</wgs:lat>
+	<wgs:long>102.91667</wgs:long>
+	<skos:prefLabel>Muang Hôm</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904799/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.75</wgs:lat>
+	<wgs:long>103</wgs:long>
+	<skos:prefLabel>Muang Xaisômboun</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904800/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.08333</wgs:lat>
+	<wgs:long>102.78333</wgs:long>
+	<skos:prefLabel>Muang Phoun</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904801/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1904618/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>17.91667</wgs:lat>
+	<wgs:long>101.7</wgs:long>
+	<skos:prefLabel>Muang Xanakham</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904802/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1904618/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.63333</wgs:lat>
+	<wgs:long>101.95</wgs:long>
+	<skos:prefLabel>Muang Fuang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904803/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1652210/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>17.61667</wgs:lat>
+	<wgs:long>101.16667</wgs:long>
+	<skos:prefLabel>Muang Botèn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904804/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1652210/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>17.7</wgs:lat>
+	<wgs:long>101.41667</wgs:long>
+	<skos:prefLabel>Muang Kénthao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904805/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1652210/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.16667</wgs:lat>
+	<wgs:long>101.55</wgs:long>
+	<skos:prefLabel>Muang Phiang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904806/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1652210/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.7</wgs:lat>
+	<wgs:long>100.58333</wgs:long>
+	<skos:prefLabel>Muang Khop</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904807/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655558/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.95</wgs:lat>
+	<wgs:long>102.16667</wgs:long>
+	<skos:prefLabel>Muang Chomphét</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904808/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655558/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.41667</wgs:lat>
+	<wgs:long>102.43333</wgs:long>
+	<skos:prefLabel>Muang Phou Khoun</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904809/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655558/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.91667</wgs:lat>
+	<wgs:long>102.66667</wgs:long>
+	<skos:prefLabel>Muang Phônxai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904810/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655558/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>20.08333</wgs:lat>
+	<wgs:long>102.66667</wgs:long>
+	<skos:prefLabel>Muang Pakxèng</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904811/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655558/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>20.4</wgs:lat>
+	<wgs:long>102.83333</wgs:long>
+	<skos:prefLabel>Muang Viangkhan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904812/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1652077/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.48333</wgs:lat>
+	<wgs:long>104</wgs:long>
+	<skos:prefLabel>Muang Nonghèt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904813/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1652077/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.25</wgs:lat>
+	<wgs:long>103.01667</wgs:long>
+	<skos:prefLabel>Muang Phaxai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904814/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1652077/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.33333</wgs:lat>
+	<wgs:long>103.36667</wgs:long>
+	<skos:prefLabel>Muang Khoun</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904815/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1652077/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.25</wgs:lat>
+	<wgs:long>103.75</wgs:long>
+	<skos:prefLabel>Muang Mok-Mai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904816/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1652077/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.55</wgs:lat>
+	<wgs:long>103.03333</wgs:long>
+	<skos:prefLabel>Muang Phou Kont</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904817/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1657114/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>20</wgs:lat>
+	<wgs:long>104.63333</wgs:long>
+	<skos:prefLabel>Muang Xam-Tai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904818/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1657114/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>20.33333</wgs:lat>
+	<wgs:long>104.41667</wgs:long>
+	<skos:prefLabel>Muang Viangxai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904819/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1657114/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>20.16667</wgs:lat>
+	<wgs:long>103.41667</wgs:long>
+	<skos:prefLabel>Muang Viangthong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904820/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1654491/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>20.33333</wgs:lat>
+	<wgs:long>102</wgs:long>
+	<skos:prefLabel>Muang Nga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904821/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1904616/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>20.16667</wgs:lat>
+	<wgs:long>100.83333</wgs:long>
+	<skos:prefLabel>Muang Pha Oudôm</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904822/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1904616/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>20.33333</wgs:lat>
+	<wgs:long>100.08333</wgs:long>
+	<skos:prefLabel>Muang Tônpheung</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904823/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1904616/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>20.75</wgs:lat>
+	<wgs:long>100.46667</wgs:long>
+	<skos:prefLabel>Muang Meung</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904824/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655561/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>20.5</wgs:lat>
+	<wgs:long>101.41667</wgs:long>
+	<skos:prefLabel>Muang Nalè</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904825/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655561/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>20.75</wgs:lat>
+	<wgs:long>101.08333</wgs:long>
+	<skos:prefLabel>Muang Viangphoukha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904826/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655561/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>20.91667</wgs:lat>
+	<wgs:long>100.83333</wgs:long>
+	<skos:prefLabel>Muang Long</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904827/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1653893/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>21.08333</wgs:lat>
+	<wgs:long>102.41667</wgs:long>
+	<skos:prefLabel>Muang Khoa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904828/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1653893/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>21.08333</wgs:lat>
+	<wgs:long>102.83333</wgs:long>
+	<skos:prefLabel>Muang Mai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904829/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1653893/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>21.66667</wgs:lat>
+	<wgs:long>101.91667</wgs:long>
+	<skos:prefLabel>Muang Boun-Nua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904830/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1653893/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>22.16667</wgs:lat>
+	<wgs:long>101.83333</wgs:long>
+	<skos:prefLabel>Muang Gnot-Ou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904831/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1904618/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18</wgs:lat>
+	<wgs:long>102.61667</wgs:long>
+	<skos:prefLabel>Muang Chanthabouli</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904832/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1904618/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>17.91667</wgs:lat>
+	<wgs:long>102.66667</wgs:long>
+	<skos:prefLabel>Muang Sisattanak</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904833/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1904618/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>17.91667</wgs:lat>
+	<wgs:long>102.75</wgs:long>
+	<skos:prefLabel>Muang Xaiséttha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904834/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1904618/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18</wgs:lat>
+	<wgs:long>102.5</wgs:long>
+	<skos:prefLabel>Muang Sikhôttabong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904835/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1904618/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>17.83333</wgs:lat>
+	<wgs:long>102.75</wgs:long>
+	<skos:prefLabel>Muang Hatxayfong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904836/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1904618/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.2</wgs:lat>
+	<wgs:long>102.75</wgs:long>
+	<skos:prefLabel>Muang Xaithani</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904837/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1904618/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.16667</wgs:lat>
+	<wgs:long>102.41667</wgs:long>
+	<skos:prefLabel>Muang Naxaythong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904838/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1904618/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.2</wgs:lat>
+	<wgs:long>102.2</wgs:long>
+	<skos:prefLabel>Muang Sangthong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1904839/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1904618/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.16667</wgs:lat>
+	<wgs:long>103</wgs:long>
+	<skos:prefLabel>Muang Pakngum</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1941615/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.03194</wgs:lat>
+	<wgs:long>101.87778</wgs:long>
+	<skos:altLabel>Don Kwak</skos:altLabel>
+	<skos:prefLabel>Don Kuak</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1952156/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>37507</europeana:population>
+	<wgs:lat>19.45907</wgs:lat>
+	<wgs:long>103.17999</wgs:long>
+	<skos:altLabel xml:lang="ru">Пхонсаван</skos:altLabel>
+	<skos:prefLabel>Ban Phônsavan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6695759/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.TMPL"/>
+	<wgs:lat>17.97678</wgs:lat>
+	<wgs:long>102.63642</wgs:long>
+	<skos:prefLabel>That Luang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6695764/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>18.00661</wgs:lat>
+	<wgs:long>102.64483</wgs:long>
+	<skos:prefLabel>Kaysone Museum</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6695765/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.TMPL"/>
+	<wgs:lat>17.95779</wgs:lat>
+	<wgs:long>102.61732</wgs:long>
+	<skos:prefLabel>Wat Si Muang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6695767/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.TMPL"/>
+	<wgs:lat>17.96179</wgs:lat>
+	<wgs:long>102.61147</wgs:long>
+	<skos:prefLabel>Wat Ho Phra Keo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6695798/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.OPRA"/>
+	<wgs:lat>17.96632</wgs:lat>
+	<wgs:long>102.60658</wgs:long>
+	<skos:prefLabel>Lao National Cultural Hall</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6695799/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.CSTL"/>
+	<wgs:lat>17.96245</wgs:lat>
+	<wgs:long>102.60985</wgs:long>
+	<skos:prefLabel>Presidential Palace</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6695800/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.TMPL"/>
+	<wgs:lat>17.96811</wgs:lat>
+	<wgs:long>102.61791</wgs:long>
+	<skos:prefLabel>Wat That Foun</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647987/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1653893/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>21.57</wgs:lat>
+	<wgs:long>102.41</wgs:long>
+	<skos:prefLabel>Samphanh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648078/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1653315/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>16.7</wgs:lat>
+	<wgs:long>105.6</wgs:long>
+	<skos:prefLabel>Thaphalanxay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648342/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1657114/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>20.66</wgs:lat>
+	<wgs:long>104.38</wgs:long>
+	<skos:prefLabel>Sopbao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648343/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1657114/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>20.71</wgs:lat>
+	<wgs:long>103.85</wgs:long>
+	<skos:prefLabel>Muang Et</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648644/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1653315/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>16.44072</wgs:lat>
+	<wgs:long>105.56227</wgs:long>
+	<skos:prefLabel>Muang Xonbuly</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648646/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1653333/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>15.48424</wgs:lat>
+	<wgs:long>106.14557</wgs:long>
+	<skos:prefLabel>Muang Lao Ngam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648647/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1653333/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>16.02616</wgs:lat>
+	<wgs:long>106.31641</wgs:long>
+	<skos:prefLabel>Muang Toomlan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648648/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1653333/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>15.76903</wgs:lat>
+	<wgs:long>105.97271</wgs:long>
+	<skos:prefLabel>Muang Vapy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648649/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1657818/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>14.72792</wgs:lat>
+	<wgs:long>106.16587</wgs:long>
+	<skos:prefLabel>Muang Pathoomphone</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648918/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1657114/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>20.3274</wgs:lat>
+	<wgs:long>103.40873</wgs:long>
+	<skos:prefLabel>Muang Viengthong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648919/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1657114/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>20.34447</wgs:lat>
+	<wgs:long>104.34265</wgs:long>
+	<skos:prefLabel>Muang Viengxay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648920/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1657114/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>20.14895</wgs:lat>
+	<wgs:long>103.85822</wgs:long>
+	<skos:prefLabel>Huameung</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648940/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1665045/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>15.02521</wgs:lat>
+	<wgs:long>107.26192</wgs:long>
+	<skos:prefLabel>Sanaxy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648993/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1904615/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>15.40592</wgs:lat>
+	<wgs:long>107.29432</wgs:long>
+	<skos:prefLabel>Dakcheung</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649115/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1656538/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>17.87184</wgs:lat>
+	<wgs:long>105.28965</wgs:long>
+	<skos:prefLabel>Nakai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649116/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1656538/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>17.52184</wgs:lat>
+	<wgs:long>105.33491</wgs:long>
+	<skos:prefLabel>Nhommalath</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649117/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1656538/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>17.1824</wgs:lat>
+	<wgs:long>105.53865</wgs:long>
+	<skos:prefLabel>Xaybouathong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649118/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1655842/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1656538/"/>
+	<europeana:country>LA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>17.71598</wgs:lat>
+	<wgs:long>105.07227</wgs:long>
+	<skos:prefLabel>Xebangfai</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 264 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

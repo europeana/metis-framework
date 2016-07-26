@@ -1,0 +1,4088 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AS_IL
+Description: Selected fields pulled from Geonames about IL done on Mon May 23 21:13:29 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/281184/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>714000</europeana:population>
+	<wgs:lat>31.77902</wgs:lat>
+	<wgs:long>35.2253</wgs:long>
+	<skos:altLabel xml:lang="sh">Adonai-jireh</skos:altLabel>
+	<skos:altLabel xml:lang="la">Aelia Capitolina</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Al Quds</skos:altLabel>
+	<skos:altLabel>Al-Kuds</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ariel</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Baitulmuqaddis</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Bayt al-Maqdis</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Bayt al-Muqaddas</skos:altLabel>
+	<skos:altLabel xml:lang="an">Cherusalén</skos:altLabel>
+	<skos:altLabel xml:lang="la">Colonia Aelia Capitolina</skos:altLabel>
+	<skos:altLabel xml:lang="wa">Djeruzalem</skos:altLabel>
+	<skos:altLabel>El Kuds</skos:altLabel>
+	<skos:altLabel>El Quds esh Sherif</skos:altLabel>
+	<skos:altLabel xml:lang="it">Gerusalemme</skos:altLabel>
+	<skos:altLabel xml:lang="la">Hierosolyma</skos:altLabel>
+	<skos:altLabel xml:lang="la">Hierusalem</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Hierusalem</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Iarúsailéim</skos:altLabel>
+	<skos:altLabel xml:lang="la">Iebus</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Ierusalem</skos:altLabel>
+	<skos:altLabel xml:lang="sm">Ierusalema</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Ierusalim</skos:altLabel>
+	<skos:altLabel xml:lang="he">Ir David</skos:altLabel>
+	<skos:altLabel xml:lang="he">Ir Ha-Qdoosha</skos:altLabel>
+	<skos:altLabel xml:lang="he">Ir Ha-Qodesh</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Jeriwsalem</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Jerozolima</skos:altLabel>
+	<skos:altLabel xml:lang="de">Jerusalem</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Jerusalem</skos:altLabel>
+	<skos:altLabel xml:lang="da">Jerusalem</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Jerusalem</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Jerusalem</skos:altLabel>
+	<skos:altLabel xml:lang="io">Jerusalem</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Jerusalem</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Jerusalem</skos:altLabel>
+	<skos:altLabel xml:lang="no">Jerusalem</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Jerusalem</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Jerusalem</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Jerusalem</skos:altLabel>
+	<skos:altLabel xml:lang="rm">Jerusalem</skos:altLabel>
+	<skos:altLabel xml:lang="en">Jerusalem</skos:altLabel>
+	<skos:altLabel xml:lang="fj">Jerusalemi</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Jerusalemo</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Jerusalém</skos:altLabel>
+	<skos:altLabel xml:lang="es">Jerusalén</skos:altLabel>
+	<skos:altLabel xml:lang="et">Jeruusalemm</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Jeruzalem</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Jeruzalem</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Jeruzalem</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Jeruzalem</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Jeruzalem</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Jeruzalemi</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Jeruzalém</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Jeruzalė</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Jeruzsálem</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Jeruzāleme</skos:altLabel>
+	<skos:altLabel xml:lang="is">Jerúsalem</skos:altLabel>
+	<skos:altLabel xml:lang="yo">Jerúsálẹ́mù</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Jérusalem</skos:altLabel>
+	<skos:altLabel>Kouds</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Kudüs</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Lungsod ng Jerusalem</skos:altLabel>
+	<skos:altLabel xml:lang="la">Moria</skos:altLabel>
+	<skos:altLabel xml:lang="la">Salem</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Shalem</skos:altLabel>
+	<skos:altLabel xml:lang="la">Sion</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Uršalimmu</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Xerusalén</skos:altLabel>
+	<skos:altLabel xml:lang="id">Yerusalem</skos:altLabel>
+	<skos:altLabel xml:lang="jv">Yerusalem</skos:altLabel>
+	<skos:altLabel xml:lang="tw">Yerusalem</skos:altLabel>
+	<skos:altLabel>Yerushalayim</skos:altLabel>
+	<skos:altLabel>Yirushalāyim</skos:altLabel>
+	<skos:altLabel xml:lang="en">Zion</skos:altLabel>
+	<skos:altLabel xml:lang="ar">al-Balat</skos:altLabel>
+	<skos:altLabel xml:lang="ar">al-Quds aš-Šarīf</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ιερουσαλήμ</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Єрусалим</skos:altLabel>
+	<skos:altLabel xml:lang="cu">Їерѹсалимъ</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Јерусалим</skos:altLabel>
+	<skos:altLabel xml:lang="be">Ерусалім</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Иерусалим</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Иерусалим</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Йерусалим</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Երուսաղեմ</skos:altLabel>
+	<skos:altLabel xml:lang="he">אֲרִיאֵל</skos:altLabel>
+	<skos:altLabel xml:lang="he">אֵילִיָּה קַפִּיטוֹלִינָה</skos:altLabel>
+	<skos:altLabel xml:lang="he">אריאל</skos:altLabel>
+	<skos:altLabel xml:lang="he">הַקֹּדֶשׁ</skos:altLabel>
+	<skos:altLabel xml:lang="he">יְבוּס</skos:altLabel>
+	<skos:altLabel xml:lang="he">יְרוּשָׁלַיִם</skos:altLabel>
+	<skos:altLabel xml:lang="he">יְרוּשָׁלַםִ</skos:altLabel>
+	<skos:altLabel xml:lang="he">יְרוּשָׁלָםִ</skos:altLabel>
+	<skos:altLabel xml:lang="he">יבוס</skos:altLabel>
+	<skos:altLabel xml:lang="he">ירושלים</skos:altLabel>
+	<skos:altLabel xml:lang="yi">ירושלים</skos:altLabel>
+	<skos:altLabel xml:lang="he">ירושלם</skos:altLabel>
+	<skos:altLabel xml:lang="he">מוֹרִיָּה</skos:altLabel>
+	<skos:altLabel xml:lang="he">מוריה</skos:altLabel>
+	<skos:altLabel xml:lang="he">צִיּוֹן</skos:altLabel>
+	<skos:altLabel xml:lang="he">ציון</skos:altLabel>
+	<skos:altLabel xml:lang="he">שָׁלֵם</skos:altLabel>
+	<skos:altLabel xml:lang="he">שלם</skos:altLabel>
+	<skos:altLabel xml:lang="ar">إيلياء</skos:altLabel>
+	<skos:altLabel xml:lang="ar">اريئيل</skos:altLabel>
+	<skos:altLabel xml:lang="ar">البلا</skos:altLabel>
+	<skos:altLabel xml:lang="ar">القدس</skos:altLabel>
+	<skos:altLabel xml:lang="ar">القدس الشريف</skos:altLabel>
+	<skos:altLabel xml:lang="fa">اورشلیم</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بيت المقدس</skos:altLabel>
+	<skos:altLabel xml:lang="ur">بیت المقدس</skos:altLabel>
+	<skos:altLabel xml:lang="ar">ساليم</skos:altLabel>
+	<skos:altLabel xml:lang="ar">صهيون</skos:altLabel>
+	<skos:altLabel xml:lang="ar">لقدس</skos:altLabel>
+	<skos:altLabel xml:lang="ar">مريّا</skos:altLabel>
+	<skos:altLabel xml:lang="ar">ورشليم</skos:altLabel>
+	<skos:altLabel xml:lang="ar">يبوس</skos:altLabel>
+	<skos:altLabel xml:lang="ug">يېرۇسالېم</skos:altLabel>
+	<skos:altLabel xml:lang="hi">येरुशलम</skos:altLabel>
+	<skos:altLabel xml:lang="bn">জেরুসালেম</skos:altLabel>
+	<skos:altLabel xml:lang="th">เยรูซาเลม</skos:altLabel>
+	<skos:altLabel xml:lang="ka">იერუსალიმი</skos:altLabel>
+	<skos:altLabel xml:lang="am">እየሩሳሌም</skos:altLabel>
+	<skos:altLabel xml:lang="ja">エルサレム</skos:altLabel>
+	<skos:altLabel xml:lang="zh">耶路撒冷</skos:altLabel>
+	<skos:altLabel xml:lang="ko">예루살렘</skos:altLabel>
+	<skos:prefLabel>Jerusalem</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293004/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ZNB"/>
+	<wgs:lat>31.83333</wgs:lat>
+	<wgs:long>34.96667</wgs:long>
+	<skos:altLabel>Demilitarized Zone</skos:altLabel>
+	<skos:altLabel>Israel-Jordan Demilitarized Zones</skos:altLabel>
+	<skos:altLabel>Neutral Zone</skos:altLabel>
+	<skos:prefLabel>Israel-Jordan Demilitarized Zones</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293058/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.75278</wgs:lat>
+	<wgs:long>35.28056</wgs:long>
+	<skos:altLabel>Ẕippori</skos:altLabel>
+	<skos:prefLabel>Ẕippori</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293099/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>33</wgs:lat>
+	<wgs:long>35.5</wgs:long>
+	<skos:altLabel>Nefat Tsefat</skos:altLabel>
+	<skos:altLabel>Nefat Zefat</skos:altLabel>
+	<skos:altLabel>Safad Sub-district</skos:altLabel>
+	<skos:altLabel>Safed Sub-district</skos:altLabel>
+	<skos:altLabel>Zfat district</skos:altLabel>
+	<skos:prefLabel>Nefat Zefat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293100/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>27816</europeana:population>
+	<wgs:lat>32.96667</wgs:lat>
+	<wgs:long>35.49444</wgs:long>
+	<skos:altLabel>Safad</skos:altLabel>
+	<skos:altLabel>Safed</skos:altLabel>
+	<skos:altLabel>Sfat</skos:altLabel>
+	<skos:altLabel>Tsefat</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Цфат</skos:altLabel>
+	<skos:altLabel>Ẕefat</skos:altLabel>
+	<skos:prefLabel>Ẕefat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293156/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.55</wgs:lat>
+	<wgs:long>34.9</wgs:long>
+	<skos:altLabel>Hammam Island</skos:altLabel>
+	<skos:altLabel>I Yonim</skos:altLabel>
+	<skos:altLabel>Jazirat al Hamam</skos:altLabel>
+	<skos:prefLabel>I Yonim</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293163/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.83333</wgs:lat>
+	<wgs:long>35.27639</wgs:long>
+	<skos:altLabel>Jefât</skos:altLabel>
+	<skos:altLabel>Jotapata</skos:altLabel>
+	<skos:altLabel>Jotbah</skos:altLabel>
+	<skos:altLabel>Khirbat Shifāt</skos:altLabel>
+	<skos:altLabel>Nodfat</skos:altLabel>
+	<skos:altLabel>Yodefat</skos:altLabel>
+	<skos:altLabel>Yotbat</skos:altLabel>
+	<skos:prefLabel>Yodefat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293164/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>32.66667</wgs:lat>
+	<wgs:long>35.25</wgs:long>
+	<skos:altLabel>Jezre‘el Sub-district</skos:altLabel>
+	<skos:altLabel>Nefat Yizre‘el</skos:altLabel>
+	<skos:prefLabel>Nefat Yizre‘el</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293197/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>31.75</wgs:lat>
+	<wgs:long>35</wgs:long>
+	<skos:altLabel>Jerusalem Sub-district</skos:altLabel>
+	<skos:altLabel>Nefat Yerushalayim</skos:altLabel>
+	<skos:prefLabel>Nefat Yerushalayim</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293198/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>31.75</wgs:lat>
+	<wgs:long>35</wgs:long>
+	<skos:altLabel xml:lang="en">Jerusalem District</skos:altLabel>
+	<skos:altLabel>Jerusalem Region</skos:altLabel>
+	<skos:altLabel xml:lang="he">Meẖoz Yerushalayim</skos:altLabel>
+	<skos:altLabel>Yerushalayim</skos:altLabel>
+	<skos:prefLabel>Jerusalem District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293222/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>31774</europeana:population>
+	<wgs:lat>31.87639</wgs:lat>
+	<wgs:long>34.74</wgs:long>
+	<skos:altLabel>Kefar Yavne</skos:altLabel>
+	<skos:altLabel>Kfar Yavne</skos:altLabel>
+	<skos:altLabel>Kfar Yavneh</skos:altLabel>
+	<skos:altLabel>New Yavne</skos:altLabel>
+	<skos:altLabel>Yavne</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Явне</skos:altLabel>
+	<skos:prefLabel>Yavne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293253/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/295548/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>100000</europeana:population>
+	<wgs:lat>32.05043</wgs:lat>
+	<wgs:long>34.75224</wgs:long>
+	<skos:altLabel>Giaffa</skos:altLabel>
+	<skos:altLabel>Iopē</skos:altLabel>
+	<skos:altLabel>Jaffa</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Jaffa</skos:altLabel>
+	<skos:altLabel xml:lang="en">Jaffa</skos:altLabel>
+	<skos:altLabel xml:lang="it">Jaffa</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Jaffa</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Jaffa</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Jaffa</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Jaffa</skos:altLabel>
+	<skos:altLabel xml:lang="es">Jaffa</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Jaffa</skos:altLabel>
+	<skos:altLabel xml:lang="no">Jaffa</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Jaffa</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Jafo</skos:altLabel>
+	<skos:altLabel>Joppa</skos:altLabel>
+	<skos:altLabel>Joppe</skos:altLabel>
+	<skos:altLabel>Yafah</skos:altLabel>
+	<skos:altLabel>Yaffa</skos:altLabel>
+	<skos:altLabel>Yāfa</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Яфо</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Яффа</skos:altLabel>
+	<skos:altLabel xml:lang="he">יפו</skos:altLabel>
+	<skos:altLabel xml:lang="yi">יפו</skos:altLabel>
+	<skos:altLabel xml:lang="ar">يافا</skos:altLabel>
+	<skos:altLabel xml:lang="fa">یافا</skos:altLabel>
+	<skos:prefLabel>Yafo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293282/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.36667</wgs:lat>
+	<wgs:long>35.16667</wgs:long>
+	<skos:prefLabel>Khirbat Umm Sa‘īd</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293286/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>41030</europeana:population>
+	<wgs:lat>32.51583</wgs:lat>
+	<wgs:long>35.1525</wgs:long>
+	<skos:altLabel>El Fahm</skos:altLabel>
+	<skos:altLabel>Umm al Fahm</skos:altLabel>
+	<skos:altLabel>Umm el Faham</skos:altLabel>
+	<skos:altLabel>Umm el Faḥm</skos:altLabel>
+	<skos:prefLabel>Umm el Faḥm</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293308/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18993</europeana:population>
+	<wgs:lat>32.76167</wgs:lat>
+	<wgs:long>34.97194</wgs:long>
+	<skos:altLabel>At Tira</skos:altLabel>
+	<skos:altLabel>Tira</skos:altLabel>
+	<skos:altLabel>Tirah</skos:altLabel>
+	<skos:altLabel>Tirat Carmel</skos:altLabel>
+	<skos:altLabel>Tirat Hakarmel</skos:altLabel>
+	<skos:altLabel>Tirat Karmel</skos:altLabel>
+	<skos:altLabel>Tire</skos:altLabel>
+	<skos:prefLabel>Tirat Karmel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293322/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>39790</europeana:population>
+	<wgs:lat>32.79556</wgs:lat>
+	<wgs:long>35.52861</wgs:long>
+	<skos:altLabel>Tabariyeh</skos:altLabel>
+	<skos:altLabel>Tabarīya</skos:altLabel>
+	<skos:altLabel>Tevaryā</skos:altLabel>
+	<skos:altLabel xml:lang="he">Teverya</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Tiberiado</skos:altLabel>
+	<skos:altLabel xml:lang="de">Tiberias</skos:altLabel>
+	<skos:altLabel xml:lang="da">Tiberias</skos:altLabel>
+	<skos:altLabel xml:lang="la">Tiberias</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Tiberias</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Tiberias</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tiberias</skos:altLabel>
+	<skos:altLabel xml:lang="no">Tiberias</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Tiberias</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Tiberijada</skos:altLabel>
+	<skos:altLabel xml:lang="es">Tiberíades</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Tiberíades</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Tiberíades</skos:altLabel>
+	<skos:altLabel>Tibériade</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Tibériade</skos:altLabel>
+	<skos:altLabel xml:lang="el">Tiveriáda</skos:altLabel>
+	<skos:altLabel>Tubaria</skos:altLabel>
+	<skos:altLabel xml:lang="he">Tverya</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Tyberiada</skos:altLabel>
+	<skos:altLabel xml:lang="he">Təverya</skos:altLabel>
+	<skos:altLabel xml:lang="el">Τιβεριάδα</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Тверия</skos:altLabel>
+	<skos:altLabel xml:lang="he">טבריה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">طبريا</skos:altLabel>
+	<skos:altLabel xml:lang="ar">طبرية</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ṭabariyyah</skos:altLabel>
+	<skos:altLabel xml:lang="he">Ṭəḇeryāh</skos:altLabel>
+	<skos:prefLabel>Tiberias</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293331/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.76667</wgs:lat>
+	<wgs:long>34.98333</wgs:long>
+	<skos:prefLabel>Tel Ẕor‘a</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293333/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.7</wgs:lat>
+	<wgs:long>34.85</wgs:long>
+	<skos:altLabel>Tall as Safi</skos:altLabel>
+	<skos:altLabel>Tel Es Sāfi</skos:altLabel>
+	<skos:altLabel>Tel Tsafit</skos:altLabel>
+	<skos:altLabel>Tel Ẕafit</skos:altLabel>
+	<skos:altLabel>Tell es Sāfi</skos:altLabel>
+	<skos:prefLabel>Tel Ẕafit</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293335/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.66417</wgs:lat>
+	<wgs:long>35.10917</wgs:long>
+	<skos:prefLabel>Tel Yoqne‘am</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293337/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.7</wgs:lat>
+	<wgs:long>34.96667</wgs:long>
+	<skos:altLabel>Khirbat al Yarmuk</skos:altLabel>
+	<skos:altLabel>Tel Yarmut</skos:altLabel>
+	<skos:prefLabel>Tel Yarmut</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293338/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.83333</wgs:lat>
+	<wgs:long>34.95</wgs:long>
+	<skos:altLabel>Shiqmonah</skos:altLabel>
+	<skos:altLabel>Shiqmōnā</skos:altLabel>
+	<skos:altLabel>Tall as Samak</skos:altLabel>
+	<skos:altLabel>Tall as-Samakh</skos:altLabel>
+	<skos:altLabel>Tel Shiqmona</skos:altLabel>
+	<skos:altLabel>Tell es Semak</skos:altLabel>
+	<skos:prefLabel>Tel Shiqmona</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293339/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.56667</wgs:lat>
+	<wgs:long>34.71667</wgs:long>
+	<skos:prefLabel>Tel Sheqef</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293340/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.28222</wgs:lat>
+	<wgs:long>34.4825</wgs:long>
+	<skos:altLabel>Sharuḥen</skos:altLabel>
+	<skos:altLabel>Tel Sharuẖen</skos:altLabel>
+	<skos:prefLabel>Tel Sharuẖen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293341/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.4</wgs:lat>
+	<wgs:long>35.53333</wgs:long>
+	<skos:prefLabel>Tel Shalem</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293342/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.45833</wgs:lat>
+	<wgs:long>35.49722</wgs:long>
+	<skos:prefLabel>Tel Reẖov</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293343/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.75833</wgs:lat>
+	<wgs:long>35.09</wgs:long>
+	<skos:prefLabel>Tel Regev</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293344/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.8</wgs:lat>
+	<wgs:long>35.51667</wgs:long>
+	<skos:prefLabel>Tel Raqqat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293345/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.8</wgs:lat>
+	<wgs:long>35.1</wgs:long>
+	<skos:prefLabel>Tel Qiryat Ye‘arim</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293346/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.53333</wgs:lat>
+	<wgs:long>34.76667</wgs:long>
+	<skos:altLabel>Tel Qeshet</skos:altLabel>
+	<skos:altLabel>Tel el Quneitira</skos:altLabel>
+	<skos:altLabel>Tell el Quneitira</skos:altLabel>
+	<skos:prefLabel>Tel Qeshet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293348/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.11667</wgs:lat>
+	<wgs:long>35.53333</wgs:long>
+	<skos:altLabel>Qadas</skos:altLabel>
+	<skos:altLabel>Qedesh Naftali</skos:altLabel>
+	<skos:altLabel>Tel Qedesh</skos:altLabel>
+	<skos:prefLabel>Tel Qedesh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293349/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.10472</wgs:lat>
+	<wgs:long>34.79889</wgs:long>
+	<skos:altLabel>Tel Qasila</skos:altLabel>
+	<skos:altLabel>Tel el Qasile</skos:altLabel>
+	<skos:altLabel>Tel el Qassile</skos:altLabel>
+	<skos:prefLabel>Tel Qasila</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293350/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.48333</wgs:lat>
+	<wgs:long>35.55</wgs:long>
+	<skos:prefLabel>Tel Peẖa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293351/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.45</wgs:lat>
+	<wgs:long>35.03333</wgs:long>
+	<skos:prefLabel>Tel Narbeta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293352/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.5</wgs:lat>
+	<wgs:long>34.76667</wgs:long>
+	<skos:altLabel>Tall an Najila</skos:altLabel>
+	<skos:altLabel>Tel Nagila</skos:altLabel>
+	<skos:altLabel>Tel el Nejileh</skos:altLabel>
+	<skos:altLabel>Tel en Nājila</skos:altLabel>
+	<skos:altLabel>Tell en Nejīle</skos:altLabel>
+	<skos:altLabel>Tell en Nājila</skos:altLabel>
+	<skos:prefLabel>Tel Nagila</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293353/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.81667</wgs:lat>
+	<wgs:long>34.65</wgs:long>
+	<skos:altLabel>Tall Murra</skos:altLabel>
+	<skos:altLabel>Tall al Kheidar</skos:altLabel>
+	<skos:altLabel>Tel Mor</skos:altLabel>
+	<skos:altLabel>Tell ek Kheidar</skos:altLabel>
+	<skos:prefLabel>Tel Mor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293355/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.78333</wgs:lat>
+	<wgs:long>34.85</wgs:long>
+	<skos:altLabel>Tel Elteqa</skos:altLabel>
+	<skos:altLabel>Tel Elteqe</skos:altLabel>
+	<skos:altLabel>Tel Miqne</skos:altLabel>
+	<skos:prefLabel>Tel Miqne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293356/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.46667</wgs:lat>
+	<wgs:long>34.76667</wgs:long>
+	<skos:altLabel>Tel Milẖa</skos:altLabel>
+	<skos:altLabel>Tell el Muleiha</skos:altLabel>
+	<skos:prefLabel>Tel Milẖa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293357/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.58528</wgs:lat>
+	<wgs:long>35.18472</wgs:long>
+	<skos:altLabel xml:lang="de">Megiddo</skos:altLabel>
+	<skos:altLabel xml:lang="en">Megiddo</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Megiddo</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Megiddo</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Megiddo</skos:altLabel>
+	<skos:altLabel xml:lang="io">Megiddo</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Megiddo</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Megiddo</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Megiddo</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Megiddo</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Megiddo</skos:altLabel>
+	<skos:altLabel>Megiddō</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Megido</skos:altLabel>
+	<skos:altLabel>Tall al Mutasallim</skos:altLabel>
+	<skos:altLabel>Tel Megiddo</skos:altLabel>
+	<skos:altLabel>Tell el Mutasallim</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μεγιδδώ</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Мегиддо</skos:altLabel>
+	<skos:altLabel xml:lang="he">תל מגידו</skos:altLabel>
+	<skos:prefLabel>Tel Megiddo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293358/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.72806</wgs:lat>
+	<wgs:long>35.09667</wgs:long>
+	<skos:altLabel>Tel Geva‘ Shemen</skos:altLabel>
+	<skos:altLabel>Tel Me‘ammer</skos:altLabel>
+	<skos:prefLabel>Tel Me‘ammer</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293359/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.58333</wgs:lat>
+	<wgs:long>34.9</wgs:long>
+	<skos:altLabel>Mareisha</skos:altLabel>
+	<skos:altLabel>Marissa</skos:altLabel>
+	<skos:altLabel>Tall Sandahanna</skos:altLabel>
+	<skos:altLabel>Tel Maresha</skos:altLabel>
+	<skos:prefLabel>Tel Maresha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293360/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.21667</wgs:lat>
+	<wgs:long>35.03333</wgs:long>
+	<skos:altLabel>Tall al Milh</skos:altLabel>
+	<skos:altLabel>Tel Malẖata</skos:altLabel>
+	<skos:altLabel>Tell el Milh</skos:altLabel>
+	<skos:prefLabel>Tel Malẖata</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293363/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.56667</wgs:lat>
+	<wgs:long>34.85</wgs:long>
+	<skos:altLabel>Duwayr</skos:altLabel>
+	<skos:altLabel>Lachish</skos:altLabel>
+	<skos:altLabel>Lakhish</skos:altLabel>
+	<skos:altLabel>Lakish</skos:altLabel>
+	<skos:altLabel>Tall ad Duweir</skos:altLabel>
+	<skos:altLabel>Tel Lachish</skos:altLabel>
+	<skos:altLabel>Tel Lakhish</skos:altLabel>
+	<skos:prefLabel>Tel Lakhish</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293364/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.87306</wgs:lat>
+	<wgs:long>35.15056</wgs:long>
+	<skos:prefLabel>Tel Kison</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293365/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.01667</wgs:lat>
+	<wgs:long>35.56667</wgs:long>
+	<skos:altLabel>Tel H̱aẕor</skos:altLabel>
+	<skos:prefLabel>Tel H̱aẕor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293367/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.55</wgs:lat>
+	<wgs:long>34.73333</wgs:long>
+	<skos:altLabel>Tel H̱asi</skos:altLabel>
+	<skos:altLabel>Tell el Hasī</skos:altLabel>
+	<skos:altLabel>Tell el-Hesy</skos:altLabel>
+	<skos:prefLabel>Tel H̱asi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293369/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.38333</wgs:lat>
+	<wgs:long>34.6</wgs:long>
+	<skos:altLabel>Abu Hureira</skos:altLabel>
+	<skos:altLabel>Hareire</skos:altLabel>
+	<skos:altLabel>Tel Haror</skos:altLabel>
+	<skos:altLabel>Tell Abū Hureira</skos:altLabel>
+	<skos:prefLabel>Tel Haror</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293370/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.7875</wgs:lat>
+	<wgs:long>35.25417</wgs:long>
+	<skos:prefLabel>Tel H̱annaton</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293372/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.38333</wgs:lat>
+	<wgs:long>34.86667</wgs:long>
+	<skos:altLabel>Khuwaylifa</skos:altLabel>
+	<skos:altLabel>Tall Khuweilifa</skos:altLabel>
+	<skos:altLabel>Tel Hualfa</skos:altLabel>
+	<skos:altLabel>Tel H̱alif</skos:altLabel>
+	<skos:altLabel>Tel Tsiqlag</skos:altLabel>
+	<skos:altLabel>Tel Ziklag</skos:altLabel>
+	<skos:altLabel>Tel Ẕiqlag</skos:altLabel>
+	<skos:altLabel>Tell Khuweilifa</skos:altLabel>
+	<skos:prefLabel>Tel H̱alif</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293373/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.63333</wgs:lat>
+	<wgs:long>34.91667</wgs:long>
+	<skos:altLabel>Tel Goded</skos:altLabel>
+	<skos:altLabel>Tel Moreshet Gat</skos:altLabel>
+	<skos:prefLabel>Tel Goded</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293375/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.85639</wgs:lat>
+	<wgs:long>34.86528</wgs:long>
+	<skos:altLabel>Tel Gibbeton</skos:altLabel>
+	<skos:altLabel>Tel Malot</skos:altLabel>
+	<skos:prefLabel>Tel Malot</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293376/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.85972</wgs:lat>
+	<wgs:long>34.9225</wgs:long>
+	<skos:altLabel>Gezer</skos:altLabel>
+	<skos:altLabel>Tel Gezer</skos:altLabel>
+	<skos:prefLabel>Tel Gezer</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293377/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.09306</wgs:lat>
+	<wgs:long>34.80639</wgs:long>
+	<skos:prefLabel>Tel Gerisa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293378/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.38333</wgs:lat>
+	<wgs:long>34.68333</wgs:long>
+	<skos:altLabel>Tall ash Shari‘a</skos:altLabel>
+	<skos:altLabel>Tel Gerar</skos:altLabel>
+	<skos:altLabel>Tel Sera’</skos:altLabel>
+	<skos:altLabel>Tell esh Sharī‘a</skos:altLabel>
+	<skos:prefLabel>Tel Gerar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293379/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.61667</wgs:lat>
+	<wgs:long>34.78333</wgs:long>
+	<skos:altLabel>Tall Sheikh al ‘Areini</skos:altLabel>
+	<skos:altLabel>Tel Gat</skos:altLabel>
+	<skos:altLabel>Tel ‘Erani</skos:altLabel>
+	<skos:altLabel>Tell Sheykh Ahmed el Areyny</skos:altLabel>
+	<skos:prefLabel>Tel Gat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293380/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.38722</wgs:lat>
+	<wgs:long>34.44472</wgs:long>
+	<skos:altLabel>Tel Gama</skos:altLabel>
+	<skos:altLabel>Tel Gamma</skos:altLabel>
+	<skos:altLabel>Tel Gema</skos:altLabel>
+	<skos:prefLabel>Tel Gamma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293381/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.48333</wgs:lat>
+	<wgs:long>34.93333</wgs:long>
+	<skos:altLabel>Tall ‘Eitun</skos:altLabel>
+	<skos:altLabel>Tel ‘Eiton</skos:altLabel>
+	<skos:altLabel>Tel ‘Eton</skos:altLabel>
+	<skos:prefLabel>Tel ‘Eton</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293382/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.48333</wgs:lat>
+	<wgs:long>35.01667</wgs:long>
+	<skos:altLabel>Tall al Asawir</skos:altLabel>
+	<skos:altLabel>Tel Arubot</skos:altLabel>
+	<skos:altLabel>Tel Esur</skos:altLabel>
+	<skos:prefLabel>Tel Esur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293383/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.63333</wgs:lat>
+	<wgs:long>34.86667</wgs:long>
+	<skos:prefLabel>Tel Burna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293385/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.7</wgs:lat>
+	<wgs:long>35.56667</wgs:long>
+	<skos:altLabel>Beit Yerah</skos:altLabel>
+	<skos:altLabel>Bet Yeraẖ</skos:altLabel>
+	<skos:altLabel>Beth Yerak</skos:altLabel>
+	<skos:altLabel>Tel Bet Yeraẖ</skos:altLabel>
+	<skos:prefLabel>Tel Bet Yeraẖ</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293386/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.75</wgs:lat>
+	<wgs:long>34.98333</wgs:long>
+	<skos:altLabel>Beit Shemesh</skos:altLabel>
+	<skos:altLabel>Beth Shemesh</skos:altLabel>
+	<skos:altLabel>Tel Bet Shemesh</skos:altLabel>
+	<skos:prefLabel>Tel Bet Shemesh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293387/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.5</wgs:lat>
+	<wgs:long>35.5</wgs:long>
+	<skos:prefLabel>Tel Bet She’an</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293388/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.45</wgs:lat>
+	<wgs:long>34.91667</wgs:long>
+	<skos:altLabel>Tall Beit Mirsim</skos:altLabel>
+	<skos:altLabel>Tel Bet Mirsham</skos:altLabel>
+	<skos:prefLabel>Tel Bet Mirsham</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293389/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.23333</wgs:lat>
+	<wgs:long>34.85</wgs:long>
+	<skos:prefLabel>Tel Be’er Sheva‘</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293390/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.78333</wgs:lat>
+	<wgs:long>34.91667</wgs:long>
+	<skos:prefLabel>Tel Batash</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293392/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.7</wgs:lat>
+	<wgs:long>34.93333</wgs:long>
+	<skos:prefLabel>Tel ‘Azeqa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293393/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>32.08333</wgs:lat>
+	<wgs:long>34.8</wgs:long>
+	<skos:altLabel>Nefat Tel Aviv-Yafo</skos:altLabel>
+	<skos:altLabel>Tel-Aviv-Jaffa Sub-district</skos:altLabel>
+	<skos:prefLabel>Nefat Tel Aviv-Yafo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293396/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1221600</europeana:population>
+	<wgs:lat>32.08333</wgs:lat>
+	<wgs:long>34.8</wgs:long>
+	<skos:altLabel xml:lang="he">Meẖoz Tel Aviv</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tel Aviv</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tel Aviv District</skos:altLabel>
+	<skos:altLabel>Tel Aviv Region</skos:altLabel>
+	<skos:altLabel>Tel-Aviv District</skos:altLabel>
+	<skos:altLabel>Tel-Aviv-Jaffa District</skos:altLabel>
+	<skos:altLabel xml:lang="he">תל אביב</skos:altLabel>
+	<skos:prefLabel>Tel Aviv District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293397/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/293394/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>250000</europeana:population>
+	<wgs:lat>32.06667</wgs:lat>
+	<wgs:long>34.76667</wgs:long>
+	<skos:altLabel xml:lang="tl">Lungsod ng Tel Aviv-Yafo</skos:altLabel>
+	<skos:altLabel xml:lang="id">Tel Aviv</skos:altLabel>
+	<skos:altLabel xml:lang="no">Tel Aviv</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Tel Aviv</skos:altLabel>
+	<skos:altLabel xml:lang="de">Tel Aviv</skos:altLabel>
+	<skos:altLabel xml:lang="es">Tel Aviv</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Tel Aviv</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Tel Aviv</skos:altLabel>
+	<skos:altLabel xml:lang="it">Tel Aviv</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Tel Aviv</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Tel Aviv</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Tel Aviv</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tel Aviv</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Tel Aviv</skos:altLabel>
+	<skos:altLabel xml:lang="da">Tel Aviv</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Tel Aviv</skos:altLabel>
+	<skos:altLabel xml:lang="io">Tel Aviv</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Tel Aviv</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Tel Aviv</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Tel Aviv</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Tel Aviv</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Tel Aviv</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Tel Aviv</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Tel Aviv</skos:altLabel>
+	<skos:altLabel xml:lang="la">Tel Aviv</skos:altLabel>
+	<skos:altLabel>Tel Aviv</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Tel Avivas</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Tel Awiw</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Tel-Aviv</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Tel-Avivo</skos:altLabel>
+	<skos:altLabel>Tell Abīb</skos:altLabel>
+	<skos:altLabel>Tell Afif</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Тел Авив</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Тел Авив</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Тель-Авив</skos:altLabel>
+	<skos:altLabel xml:lang="yi">תל אביב</skos:altLabel>
+	<skos:altLabel xml:lang="he">תל אביב-יפו</skos:altLabel>
+	<skos:altLabel xml:lang="ar">تل أبيب</skos:altLabel>
+	<skos:altLabel xml:lang="fa">تل‌آویو</skos:altLabel>
+	<skos:altLabel xml:lang="ug">تېل ئاۋىۋ</skos:altLabel>
+	<skos:altLabel xml:lang="ka">თელ-ავივი</skos:altLabel>
+	<skos:altLabel xml:lang="ja">テルアビブ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">特拉维夫</skos:altLabel>
+	<skos:prefLabel>Tel Aviv</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293398/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.26667</wgs:lat>
+	<wgs:long>35.58333</wgs:long>
+	<skos:altLabel>Abel Beth-Maachah</skos:altLabel>
+	<skos:altLabel>Abel-Kemah</skos:altLabel>
+	<skos:altLabel>Abil al Qamh</skos:altLabel>
+	<skos:altLabel>Avel Beit Ma‘akha</skos:altLabel>
+	<skos:altLabel>Avel Beth-Maachah</skos:altLabel>
+	<skos:altLabel>Tel Avel Bet Ma‘akha</skos:altLabel>
+	<skos:altLabel>Tell Abil</skos:altLabel>
+	<skos:prefLabel>Tel Avel Bet Ma‘akha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293400/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.65</wgs:lat>
+	<wgs:long>34.53333</wgs:long>
+	<skos:altLabel>Ascalo</skos:altLabel>
+	<skos:altLabel>Ascalon</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Ascalon</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Ascalon</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Ascaló</skos:altLabel>
+	<skos:altLabel xml:lang="es">Ascalón</skos:altLabel>
+	<skos:altLabel>Ashkelon</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ashkelon</skos:altLabel>
+	<skos:altLabel xml:lang="da">Ashkelon</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Ashkelon</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Ashkelon</skos:altLabel>
+	<skos:altLabel xml:lang="et">Ashqelon</skos:altLabel>
+	<skos:altLabel>Askalan</skos:altLabel>
+	<skos:altLabel>Askalon</skos:altLabel>
+	<skos:altLabel xml:lang="de">Askalon</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Askalon</skos:altLabel>
+	<skos:altLabel>Askelon</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Aszkelon</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Aŝkelon</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Aşkelon</skos:altLabel>
+	<skos:altLabel>Tel Ashqelon</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ασκαλών</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ашкелон</skos:altLabel>
+	<skos:altLabel xml:lang="he">אשקלון</skos:altLabel>
+	<skos:altLabel xml:lang="ar">عسقلان</skos:altLabel>
+	<skos:altLabel>‘Asqalān</skos:altLabel>
+	<skos:prefLabel>Tel Ashqelon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293402/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.75</wgs:lat>
+	<wgs:long>34.65</wgs:long>
+	<skos:altLabel>Khan Isdud</skos:altLabel>
+	<skos:altLabel>Tel Ashdod</skos:altLabel>
+	<skos:prefLabel>Tel Ashdod</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293403/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.46667</wgs:lat>
+	<wgs:long>35.56667</wgs:long>
+	<skos:prefLabel>Tel ‘Artal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293404/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.2</wgs:lat>
+	<wgs:long>34.8</wgs:long>
+	<skos:altLabel>Apollonia</skos:altLabel>
+	<skos:altLabel>Appolonia</skos:altLabel>
+	<skos:altLabel>Arsum</skos:altLabel>
+	<skos:altLabel>Arsūf</skos:altLabel>
+	<skos:altLabel>Rishpon</skos:altLabel>
+	<skos:altLabel>Tel Arshaf</skos:altLabel>
+	<skos:prefLabel>Tel Arshaf</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293405/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.28333</wgs:lat>
+	<wgs:long>35.13333</wgs:long>
+	<skos:altLabel>Tall ‘Arud</skos:altLabel>
+	<skos:altLabel>Tel ‘Arad</skos:altLabel>
+	<skos:altLabel>Tell ‘Urād</skos:altLabel>
+	<skos:altLabel>‘Arad</skos:altLabel>
+	<skos:altLabel>‘Arod</skos:altLabel>
+	<skos:prefLabel>Tel ‘Arad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293407/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.92194</wgs:lat>
+	<wgs:long>35.08833</wgs:long>
+	<skos:altLabel>Mount Coeur de Lion</skos:altLabel>
+	<skos:altLabel>Napoleon’s Hill</skos:altLabel>
+	<skos:altLabel>Tall al Fukhkhar</skos:altLabel>
+	<skos:altLabel>Tel ‘Akko</skos:altLabel>
+	<skos:prefLabel>Tel ‘Akko</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293408/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.05</wgs:lat>
+	<wgs:long>35.1</wgs:long>
+	<skos:altLabel>Achzib</skos:altLabel>
+	<skos:altLabel>Achziv</skos:altLabel>
+	<skos:altLabel>Akhzīv</skos:altLabel>
+	<skos:altLabel>Akziv</skos:altLabel>
+	<skos:altLabel>Az Zib</skos:altLabel>
+	<skos:altLabel>Ez Zib</skos:altLabel>
+	<skos:altLabel>Kaziv</skos:altLabel>
+	<skos:altLabel>Tel Akhziv</skos:altLabel>
+	<skos:prefLabel>Tel Akhziv</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293411/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>33.08333</wgs:lat>
+	<wgs:long>35.1</wgs:long>
+	<skos:prefLabel>I Tekhelet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293420/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21400</europeana:population>
+	<wgs:lat>33.01667</wgs:lat>
+	<wgs:long>35.26667</wgs:long>
+	<skos:altLabel>Me`ona `Ironit</skos:altLabel>
+	<skos:altLabel>Tarchiha</skos:altLabel>
+	<skos:altLabel>Tarshihah</skos:altLabel>
+	<skos:altLabel>Teir Shiha</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Маалот-Таршиха</skos:altLabel>
+	<skos:prefLabel>maalot Tarshīhā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293426/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>25917</europeana:population>
+	<wgs:lat>32.84861</wgs:lat>
+	<wgs:long>35.20472</wgs:long>
+	<skos:altLabel>Tamra</skos:altLabel>
+	<skos:altLabel>Tamrah</skos:altLabel>
+	<skos:altLabel>Temarah</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Тамра</skos:altLabel>
+	<skos:prefLabel>Tamra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293575/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>33.06667</wgs:lat>
+	<wgs:long>35.1</wgs:long>
+	<skos:altLabel>I Shaẖaf</skos:altLabel>
+	<skos:altLabel>Ile Thahaf</skos:altLabel>
+	<skos:prefLabel>I Shaẖaf</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293606/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>33.03333</wgs:lat>
+	<wgs:long>35.06667</wgs:long>
+	<skos:altLabel>I Segavyon</skos:altLabel>
+	<skos:altLabel>Ile Chegafyoun</skos:altLabel>
+	<skos:prefLabel>I Segavyon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293619/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20228</europeana:population>
+	<wgs:lat>31.51667</wgs:lat>
+	<wgs:long>34.58333</wgs:long>
+	<skos:altLabel>Sderot</skos:altLabel>
+	<skos:altLabel xml:lang="de">Sderot</skos:altLabel>
+	<skos:altLabel xml:lang="en">Sderot</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Sderot</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Sderot</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Sderot</skos:altLabel>
+	<skos:altLabel xml:lang="no">Sderot</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Sdérot</skos:altLabel>
+	<skos:altLabel xml:lang="et">Sederot</skos:altLabel>
+	<skos:altLabel xml:lang="es">Sederot</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Sederot</skos:altLabel>
+	<skos:altLabel>Sederot</skos:altLabel>
+	<skos:altLabel>Shederot</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Şderot</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сдерот</skos:altLabel>
+	<skos:altLabel xml:lang="he">שדרות</skos:altLabel>
+	<skos:altLabel xml:lang="yi">שדרות</skos:altLabel>
+	<skos:prefLabel>Sederot</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293655/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>24596</europeana:population>
+	<wgs:lat>32.86222</wgs:lat>
+	<wgs:long>35.29333</wgs:long>
+	<skos:altLabel>Sahrin</skos:altLabel>
+	<skos:altLabel>Sakhnīn</skos:altLabel>
+	<skos:altLabel>Saknīn</skos:altLabel>
+	<skos:altLabel>Sikhnin</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сахнин</skos:altLabel>
+	<skos:prefLabel>Sakhnīn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293703/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>220492</europeana:population>
+	<wgs:lat>31.96417</wgs:lat>
+	<wgs:long>34.80444</wgs:long>
+	<skos:altLabel>Ayun Kara</skos:altLabel>
+	<skos:altLabel>Le Tsīyōn</skos:altLabel>
+	<skos:altLabel>Richon le Sion</skos:altLabel>
+	<skos:altLabel xml:lang="de">Rischon leTzion</skos:altLabel>
+	<skos:altLabel>Rishon Le Zion</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Rishon Le Zion</skos:altLabel>
+	<skos:altLabel xml:lang="da">Rishon LeZion</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Rishon LeZion</skos:altLabel>
+	<skos:altLabel xml:lang="no">Rishon LeZion</skos:altLabel>
+	<skos:altLabel xml:lang="es">Rishon LeZion</skos:altLabel>
+	<skos:altLabel xml:lang="en">Rishon LeZion</skos:altLabel>
+	<skos:altLabel>Rishon Letsiyon</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Rishon Lezion</skos:altLabel>
+	<skos:altLabel>Rishon LeẔiyyon</skos:altLabel>
+	<skos:altLabel>Rishon Lsiyon</skos:altLabel>
+	<skos:altLabel>Rishon le Siyon</skos:altLabel>
+	<skos:altLabel>Rishon le Ziyon</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Riŝon-Le-Ciono</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ришон-ле-Цион</skos:altLabel>
+	<skos:altLabel xml:lang="he">ראשון לציון</skos:altLabel>
+	<skos:altLabel>‘Uyūn Qāra</skos:altLabel>
+	<skos:prefLabel>Rishon LeẔiyyon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293724/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>31.91667</wgs:lat>
+	<wgs:long>34.75</wgs:long>
+	<skos:altLabel>Nefat Reẖovot</skos:altLabel>
+	<skos:altLabel>Rehovot Sub-district</skos:altLabel>
+	<skos:prefLabel>Nefat Reẖovot</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293767/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>31.91667</wgs:lat>
+	<wgs:long>34.91667</wgs:long>
+	<skos:altLabel>Nefat Ramla</skos:altLabel>
+	<skos:altLabel>Nefat Ramle</skos:altLabel>
+	<skos:altLabel>Ramla Sub-district</skos:altLabel>
+	<skos:prefLabel>Nefat Ramla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293768/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>63860</europeana:population>
+	<wgs:lat>31.92528</wgs:lat>
+	<wgs:long>34.86694</wgs:long>
+	<skos:altLabel>Er Ramle</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ramla</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Ramla</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Ramla</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Ramla</skos:altLabel>
+	<skos:altLabel xml:lang="de">Ramla</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Ramla</skos:altLabel>
+	<skos:altLabel xml:lang="da">Ramla</skos:altLabel>
+	<skos:altLabel xml:lang="es">Ramla</skos:altLabel>
+	<skos:altLabel xml:lang="it">Ramla</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Ramla</skos:altLabel>
+	<skos:altLabel>Ramla</skos:altLabel>
+	<skos:altLabel>Ramle</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Ramle</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Рамла</skos:altLabel>
+	<skos:altLabel xml:lang="he">רמלה</skos:altLabel>
+	<skos:prefLabel>Ramla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293783/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>36137</europeana:population>
+	<wgs:lat>32.14722</wgs:lat>
+	<wgs:long>34.84167</wgs:long>
+	<skos:altLabel>Ramat HaSharon</skos:altLabel>
+	<skos:altLabel>Ramat Hash Sharon</skos:altLabel>
+	<skos:altLabel>‘Ir Shalom</skos:altLabel>
+	<skos:prefLabel>Ramat HaSharon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293788/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>128095</europeana:population>
+	<wgs:lat>32.08056</wgs:lat>
+	<wgs:long>34.81417</wgs:long>
+	<skos:altLabel>Gan</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Ramat Gan</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Ramat Gan</skos:altLabel>
+	<skos:altLabel xml:lang="de">Ramat Gan</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Ramat Gan</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ramat Gan</skos:altLabel>
+	<skos:altLabel xml:lang="es">Ramat Gan</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Ramat Gan</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Ramat Gan</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Ramat Gan</skos:altLabel>
+	<skos:altLabel xml:lang="da">Ramat Gan</skos:altLabel>
+	<skos:altLabel>Ramat Gan</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Рамат-Ган</skos:altLabel>
+	<skos:altLabel xml:lang="he">רמת גן</skos:altLabel>
+	<skos:prefLabel>Ramat Gan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293822/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>37639</europeana:population>
+	<wgs:lat>32.85083</wgs:lat>
+	<wgs:long>35.07028</wgs:long>
+	<skos:altLabel xml:lang="de">Kirjat Jam</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Kiryat-Yam</skos:altLabel>
+	<skos:altLabel xml:lang="en">Qiryat Yam</skos:altLabel>
+	<skos:altLabel xml:lang="es">Qiryat Yam</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Qiryat Yam</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Qiryat Yam</skos:altLabel>
+	<skos:altLabel>Qiryat Yam</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кирьят-Ям</skos:altLabel>
+	<skos:altLabel xml:lang="he">קריית ים</skos:altLabel>
+	<skos:prefLabel>Qiryat Yam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293825/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>22035</europeana:population>
+	<wgs:lat>33.20806</wgs:lat>
+	<wgs:long>35.56861</wgs:long>
+	<skos:altLabel>Al Khalisa</skos:altLabel>
+	<skos:altLabel>El Khalisa</skos:altLabel>
+	<skos:altLabel>Halasa</skos:altLabel>
+	<skos:altLabel>Halsa</skos:altLabel>
+	<skos:altLabel>Khalasah</skos:altLabel>
+	<skos:altLabel>Kiryat Shemoneh</skos:altLabel>
+	<skos:altLabel>Qiryat Shemona</skos:altLabel>
+	<skos:altLabel>Qiryat Shemonah</skos:altLabel>
+	<skos:altLabel>Qiryat Shmona</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кирьят-Шмона</skos:altLabel>
+	<skos:prefLabel>Qiryat Shemona</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293831/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>39404</europeana:population>
+	<wgs:lat>32.83639</wgs:lat>
+	<wgs:long>35.07528</wgs:long>
+	<skos:altLabel>Qiryat Motskin</skos:altLabel>
+	<skos:altLabel>Qiryat Motsqin</skos:altLabel>
+	<skos:altLabel>Qiryat Motzkin</skos:altLabel>
+	<skos:altLabel>Qiryat Moẕqin</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кирьят-Моцкин</skos:altLabel>
+	<skos:prefLabel>Qiryat Motzkin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293842/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>47450</europeana:population>
+	<wgs:lat>31.6</wgs:lat>
+	<wgs:long>34.76667</wgs:long>
+	<skos:altLabel xml:lang="ca">Gat</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kirjat Gat</skos:altLabel>
+	<skos:altLabel>Kiryat Gat</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Kiryat Gat</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Kiryat Gat</skos:altLabel>
+	<skos:altLabel>Qastina Alef</skos:altLabel>
+	<skos:altLabel xml:lang="en">Qiryat Gat</skos:altLabel>
+	<skos:altLabel>Qiryat Gat</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кирьят-Гат</skos:altLabel>
+	<skos:altLabel xml:lang="he">קריית גת</skos:altLabel>
+	<skos:prefLabel>Qiryat Gat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293844/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>36551</europeana:population>
+	<wgs:lat>32.8275</wgs:lat>
+	<wgs:long>35.08583</wgs:long>
+	<skos:altLabel>Qiryat Bialik</skos:altLabel>
+	<skos:altLabel>Qiryat Bialiq</skos:altLabel>
+	<skos:altLabel>Qiryat-Beyaliq</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кирьят-Бялик</skos:altLabel>
+	<skos:prefLabel>Qiryat Bialik</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293845/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>48966</europeana:population>
+	<wgs:lat>32.80056</wgs:lat>
+	<wgs:long>35.10639</wgs:long>
+	<skos:altLabel>Kefar ‘Atah</skos:altLabel>
+	<skos:altLabel>Kefar ‘Aṭṭa</skos:altLabel>
+	<skos:altLabel>Kefr Ata</skos:altLabel>
+	<skos:altLabel>Kiryat-Ata</skos:altLabel>
+	<skos:altLabel>Kufritta</skos:altLabel>
+	<skos:altLabel>Qiryat Ata</skos:altLabel>
+	<skos:altLabel>Qiryat Atta</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кирьят-Ата</skos:altLabel>
+	<skos:prefLabel>Qiryat Ata</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293896/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16898</europeana:population>
+	<wgs:lat>32.28472</wgs:lat>
+	<wgs:long>34.97972</wgs:long>
+	<skos:altLabel>Qalansuwa</skos:altLabel>
+	<skos:altLabel>Qalansuwah</skos:altLabel>
+	<skos:altLabel>Qallansawah</skos:altLabel>
+	<skos:prefLabel>Qalansuwa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293917/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>32.11667</wgs:lat>
+	<wgs:long>34.91667</wgs:long>
+	<skos:altLabel>Nefat Petaẖ Tiqwa</skos:altLabel>
+	<skos:altLabel>Petah Tikva Sub-district</skos:altLabel>
+	<skos:altLabel>Petah Tiqva</skos:altLabel>
+	<skos:prefLabel>Nefat Petaẖ Tiqwa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293962/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>30802</europeana:population>
+	<wgs:lat>32.03111</wgs:lat>
+	<wgs:long>34.84583</wgs:long>
+	<skos:altLabel>Or Yehuda</skos:altLabel>
+	<skos:altLabel>Or Yehudah</skos:altLabel>
+	<skos:altLabel>Saqiyyah</skos:altLabel>
+	<skos:altLabel>Sāqiya</skos:altLabel>
+	<skos:prefLabel>Or Yehuda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/293992/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>24311</europeana:population>
+	<wgs:lat>31.28333</wgs:lat>
+	<wgs:long>34.61667</wgs:long>
+	<skos:altLabel>Ofakim</skos:altLabel>
+	<skos:altLabel>Ofaqim</skos:altLabel>
+	<skos:altLabel>Ofiqim</skos:altLabel>
+	<skos:prefLabel>Ofaqim</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294068/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>24564</europeana:population>
+	<wgs:lat>31.41667</wgs:lat>
+	<wgs:long>34.58333</wgs:long>
+	<skos:altLabel>Azata</skos:altLabel>
+	<skos:altLabel>Azzata</skos:altLabel>
+	<skos:altLabel>Netivot</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Нетивот</skos:altLabel>
+	<skos:prefLabel>Netivot</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294071/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>171676</europeana:population>
+	<wgs:lat>32.33361</wgs:lat>
+	<wgs:long>34.85778</wgs:long>
+	<skos:altLabel xml:lang="tl">Lungsod ng Ntanya</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Natania</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Natanja</skos:altLabel>
+	<skos:altLabel>Natanya</skos:altLabel>
+	<skos:altLabel>Nathanya</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Netania</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Netanja</skos:altLabel>
+	<skos:altLabel xml:lang="de">Netanja</skos:altLabel>
+	<skos:altLabel xml:lang="en">Netanya</skos:altLabel>
+	<skos:altLabel xml:lang="es">Netanya</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Netanya</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Netanya</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Netanya</skos:altLabel>
+	<skos:altLabel xml:lang="da">Netanya</skos:altLabel>
+	<skos:altLabel xml:lang="no">Netanya</skos:altLabel>
+	<skos:altLabel>Netanya</skos:altLabel>
+	<skos:altLabel>Ntanya</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Ntanya</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Нетанья</skos:altLabel>
+	<skos:altLabel xml:lang="he">נתניה</skos:altLabel>
+	<skos:prefLabel>Netanya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294074/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>38700</europeana:population>
+	<wgs:lat>31.92933</wgs:lat>
+	<wgs:long>34.79868</wgs:long>
+	<skos:altLabel>Nahalat Reuven</skos:altLabel>
+	<skos:altLabel>Nes Siyona</skos:altLabel>
+	<skos:altLabel>Nes Tsiyonah</skos:altLabel>
+	<skos:altLabel>Nes Ẕiyyona</skos:altLabel>
+	<skos:altLabel>Ness Siona</skos:altLabel>
+	<skos:altLabel>Ness Ziona</skos:altLabel>
+	<skos:altLabel>Neys-Siyona</skos:altLabel>
+	<skos:altLabel>Noss Ziona</skos:altLabel>
+	<skos:altLabel>Nēs Tsīyōnā</skos:altLabel>
+	<skos:altLabel>Nēs Zīyōnā</skos:altLabel>
+	<skos:altLabel>Wadi Hunayn</skos:altLabel>
+	<skos:altLabel>Wady Hanin</skos:altLabel>
+	<skos:altLabel>Wādi Hunein</skos:altLabel>
+	<skos:prefLabel>Ness Ziona</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294078/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21245</europeana:population>
+	<wgs:lat>32.765</wgs:lat>
+	<wgs:long>35.05</wgs:long>
+	<skos:altLabel xml:lang="ca">Neixer</skos:altLabel>
+	<skos:altLabel xml:lang="de">Nescher</skos:altLabel>
+	<skos:altLabel xml:lang="es">Nesher</skos:altLabel>
+	<skos:altLabel xml:lang="en">Nesher</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Nesher</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Nesher</skos:altLabel>
+	<skos:altLabel>Nesher</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Нешер</skos:altLabel>
+	<skos:altLabel xml:lang="he">נשר</skos:altLabel>
+	<skos:prefLabel>Nesher</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294098/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>64800</europeana:population>
+	<wgs:lat>32.70361</wgs:lat>
+	<wgs:long>35.29556</wgs:long>
+	<skos:altLabel>En Nāsira</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Lungsod ng Nazaret</skos:altLabel>
+	<skos:altLabel xml:lang="et">Naatsaret</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Nasaret</skos:altLabel>
+	<skos:altLabel xml:lang="no">Nasaret</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Nasaret</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Nasaret</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Nasıra</skos:altLabel>
+	<skos:altLabel>Natséret</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Natzaret</skos:altLabel>
+	<skos:altLabel xml:lang="la">Nazara</skos:altLabel>
+	<skos:altLabel xml:lang="id">Nazaret</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Nazaret</skos:altLabel>
+	<skos:altLabel xml:lang="es">Nazaret</skos:altLabel>
+	<skos:altLabel xml:lang="an">Nazaret</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Nazaret</skos:altLabel>
+	<skos:altLabel xml:lang="it">Nazaret</skos:altLabel>
+	<skos:altLabel xml:lang="de">Nazaret</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Nazaret</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Nazaretas</skos:altLabel>
+	<skos:altLabel xml:lang="da">Nazareth</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Nazareth</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Nazareth</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Nazareth</skos:altLabel>
+	<skos:altLabel xml:lang="en">Nazareth</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Nazareto</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Nazaré</skos:altLabel>
+	<skos:altLabel xml:lang="he">Naẕerat</skos:altLabel>
+	<skos:altLabel>Naẕẕerat</skos:altLabel>
+	<skos:altLabel>Nātsrat</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ναζαρέτ</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Назарет</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Назарет</skos:altLabel>
+	<skos:altLabel xml:lang="he">נצרת</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الناصرة</skos:altLabel>
+	<skos:altLabel xml:lang="ar">ناصرة</skos:altLabel>
+	<skos:altLabel xml:lang="ta">நாசரேத்து</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ナザレ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">拿撒勒</skos:altLabel>
+	<skos:altLabel xml:lang="ko">나사렛</skos:altLabel>
+	<skos:prefLabel>Nazareth</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294113/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>33.06667</wgs:lat>
+	<wgs:long>35.1</wgs:long>
+	<skos:altLabel>I Naẖli’eli</skos:altLabel>
+	<skos:altLabel>Ile Nahel Eilie</skos:altLabel>
+	<skos:prefLabel>I Naẖli’eli</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294114/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10105</europeana:population>
+	<wgs:lat>32.93333</wgs:lat>
+	<wgs:long>35.31667</wgs:long>
+	<skos:altLabel>Nahaf</skos:altLabel>
+	<skos:altLabel>Nahef</skos:altLabel>
+	<skos:altLabel>Naḥf</skos:altLabel>
+	<skos:prefLabel>Naḥf</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294117/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>50273</europeana:population>
+	<wgs:lat>33.00583</wgs:lat>
+	<wgs:long>35.09472</wgs:long>
+	<skos:altLabel>Nahariya</skos:altLabel>
+	<skos:altLabel>Nahariyah</skos:altLabel>
+	<skos:altLabel>Nahariyya</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Нагария</skos:altLabel>
+	<skos:prefLabel>Nahariyya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294157/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.05</wgs:lat>
+	<wgs:long>35.23333</wgs:long>
+	<skos:altLabel>Monfor</skos:altLabel>
+	<skos:altLabel>Montfort</skos:altLabel>
+	<skos:altLabel>Qalaat el Qourein</skos:altLabel>
+	<skos:altLabel>Starkenburg</skos:altLabel>
+	<skos:prefLabel>Montfort</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294160/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.92861</wgs:lat>
+	<wgs:long>34.99639</wgs:long>
+	<skos:prefLabel>Modi‘im</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294162/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.54611</wgs:lat>
+	<wgs:long>35.13028</wgs:long>
+	<skos:prefLabel>Mo‘a</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294165/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.91667</wgs:lat>
+	<wgs:long>34.61667</wgs:long>
+	<skos:altLabel>Khirba el Mushrifa</skos:altLabel>
+	<skos:altLabel>Mitspe Shiuta</skos:altLabel>
+	<skos:altLabel>Mitspe Shivta</skos:altLabel>
+	<skos:altLabel>Miẕpe Shivta</skos:altLabel>
+	<skos:altLabel>Musheirifa</skos:altLabel>
+	<skos:prefLabel>Miẕpe Shivta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294210/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>24800</europeana:population>
+	<wgs:lat>32.67139</wgs:lat>
+	<wgs:long>35.24056</wgs:long>
+	<skos:altLabel>Magidal</skos:altLabel>
+	<skos:altLabel>Migdal Haemeqck</skos:altLabel>
+	<skos:altLabel>Migdal Hameq</skos:altLabel>
+	<skos:altLabel>Migdal Ha‘Emeq</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Мигдаль ХаЭмек</skos:altLabel>
+	<skos:prefLabel>Migdal Ha‘Emeq</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294223/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.99444</wgs:lat>
+	<wgs:long>35.22111</wgs:long>
+	<skos:altLabel>Judin</skos:altLabel>
+	<skos:altLabel>Meẕudat Gadin</skos:altLabel>
+	<skos:altLabel>Qalat Djeddine</skos:altLabel>
+	<skos:prefLabel>Meẕudat Gadin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294226/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.15</wgs:lat>
+	<wgs:long>35.35</wgs:long>
+	<skos:altLabel>Metsad Ze‘ira</skos:altLabel>
+	<skos:altLabel>Metsad Zohar</skos:altLabel>
+	<skos:altLabel>Meẕad Zohar</skos:altLabel>
+	<skos:altLabel>Qasr ez Zuweira</skos:altLabel>
+	<skos:prefLabel>Meẕad Zohar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294228/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.01667</wgs:lat>
+	<wgs:long>35.23333</wgs:long>
+	<skos:altLabel>Fort Tamar</skos:altLabel>
+	<skos:altLabel>Matsad-Tamar</skos:altLabel>
+	<skos:altLabel>Metsad Tamar</skos:altLabel>
+	<skos:altLabel>Meẕad Tamar</skos:altLabel>
+	<skos:altLabel>Qasr el Juheinīya</skos:altLabel>
+	<skos:altLabel>Tamara</skos:altLabel>
+	<skos:prefLabel>Meẕad Tamar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294229/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.08333</wgs:lat>
+	<wgs:long>34.98333</wgs:long>
+	<skos:altLabel>Kasr el Sir</skos:altLabel>
+	<skos:altLabel>Metsad Sorer</skos:altLabel>
+	<skos:altLabel>Meẕad Sorer</skos:altLabel>
+	<skos:altLabel>Qasr es Sirr</skos:altLabel>
+	<skos:prefLabel>Meẕad Sorer</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294230/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.61583</wgs:lat>
+	<wgs:long>35.18833</wgs:long>
+	<skos:prefLabel>Meẕad Raẖel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294232/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.01667</wgs:lat>
+	<wgs:long>35.3</wgs:long>
+	<skos:altLabel>Khirbat Qarhata</skos:altLabel>
+	<skos:altLabel>Meẕad Qarẖa</skos:altLabel>
+	<skos:prefLabel>Meẕad Qarẖa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294233/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.63333</wgs:lat>
+	<wgs:long>34.91667</wgs:long>
+	<skos:altLabel>Metsad Moḥila</skos:altLabel>
+	<skos:altLabel>Meẕad Moẖila</skos:altLabel>
+	<skos:altLabel>Qaṣr Maḥalla</skos:altLabel>
+	<skos:prefLabel>Meẕad Moẖila</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294234/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.21667</wgs:lat>
+	<wgs:long>35.3</wgs:long>
+	<skos:altLabel>Metsad Ḥatrurim</skos:altLabel>
+	<skos:altLabel>Meẕad H̱atrurim</skos:altLabel>
+	<skos:altLabel>Qasr el Juheiniye</skos:altLabel>
+	<skos:altLabel>Qasr el Juheinīya</skos:altLabel>
+	<skos:prefLabel>Meẕad H̱atrurim</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294235/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.2</wgs:lat>
+	<wgs:long>35.35</wgs:long>
+	<skos:altLabel>Bokek Fort</skos:altLabel>
+	<skos:altLabel>Metsad Boqeq</skos:altLabel>
+	<skos:altLabel>Meẕad Boqeq</skos:altLabel>
+	<skos:altLabel>Qasr Umm Baghaq</skos:altLabel>
+	<skos:prefLabel>Meẕad Boqeq</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294236/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.45</wgs:lat>
+	<wgs:long>35.38333</wgs:long>
+	<skos:prefLabel>Meẕad ‘Arugot</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294244/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>27267</europeana:population>
+	<wgs:lat>31.71667</wgs:lat>
+	<wgs:long>35.1</wgs:long>
+	<skos:altLabel>Mevo Beitar</skos:altLabel>
+	<skos:altLabel>Mevo Beiter</skos:altLabel>
+	<skos:altLabel>Mevo Betar</skos:altLabel>
+	<skos:altLabel>Mevo Beter</skos:altLabel>
+	<skos:altLabel>Mevoot Beitar</skos:altLabel>
+	<skos:altLabel>Mevoot Beiter</skos:altLabel>
+	<skos:altLabel>Mevoot Betar</skos:altLabel>
+	<skos:prefLabel>Mevo Betar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294290/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.41667</wgs:lat>
+	<wgs:long>35.33333</wgs:long>
+	<skos:prefLabel>Me‘arot H̱ever</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294292/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.86667</wgs:lat>
+	<wgs:long>35.51667</wgs:long>
+	<skos:prefLabel>Me‘arat Amira</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294301/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.05</wgs:lat>
+	<wgs:long>34.94972</wgs:long>
+	<skos:altLabel>Al Muzeiri‘a</skos:altLabel>
+	<skos:altLabel>El Mezeireh</skos:altLabel>
+	<skos:altLabel>El Muzeiri‘a</skos:altLabel>
+	<skos:altLabel>Mazor</skos:altLabel>
+	<skos:altLabel>Mizra Har</skos:altLabel>
+	<skos:altLabel>Muzayri‘a</skos:altLabel>
+	<skos:altLabel>Muzeiri‘a</skos:altLabel>
+	<skos:prefLabel>Mazor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294387/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18915</europeana:population>
+	<wgs:lat>32.88694</wgs:lat>
+	<wgs:long>35.40694</wgs:long>
+	<skos:altLabel>El Mansura</skos:altLabel>
+	<skos:altLabel>Maghār</skos:altLabel>
+	<skos:altLabel>Ma‘ariyah</skos:altLabel>
+	<skos:altLabel>Mughar</skos:altLabel>
+	<skos:prefLabel>Maghār</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294421/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>66589</europeana:population>
+	<wgs:lat>31.95139</wgs:lat>
+	<wgs:long>34.89528</wgs:long>
+	<skos:altLabel xml:lang="pt">Lida</skos:altLabel>
+	<skos:altLabel>Lidd</skos:altLabel>
+	<skos:altLabel xml:lang="de">Lod</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Lod</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Lod</skos:altLabel>
+	<skos:altLabel xml:lang="en">Lod</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Lod</skos:altLabel>
+	<skos:altLabel xml:lang="da">Lod</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Lod</skos:altLabel>
+	<skos:altLabel xml:lang="es">Lod</skos:altLabel>
+	<skos:altLabel>Lod</skos:altLabel>
+	<skos:altLabel>Ludd</skos:altLabel>
+	<skos:altLabel>Lydda</skos:altLabel>
+	<skos:altLabel>Lūd</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Лод</skos:altLabel>
+	<skos:altLabel xml:lang="he">לוד</skos:altLabel>
+	<skos:altLabel xml:lang="ar">اللد</skos:altLabel>
+	<skos:prefLabel>Lod</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294446/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.9</wgs:lat>
+	<wgs:long>35.56667</wgs:long>
+	<skos:altLabel>Corozain</skos:altLabel>
+	<skos:altLabel>Kereza</skos:altLabel>
+	<skos:altLabel>Khorazin</skos:altLabel>
+	<skos:altLabel>Korazim</skos:altLabel>
+	<skos:altLabel>Korazin</skos:altLabel>
+	<skos:prefLabel>Korazim</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294447/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.6</wgs:lat>
+	<wgs:long>35.51667</wgs:long>
+	<skos:altLabel>Belvoir</skos:altLabel>
+	<skos:altLabel>Kauab el-Hawa</skos:altLabel>
+	<skos:altLabel>Kohav Hayarden</skos:altLabel>
+	<skos:altLabel>Kokhav HaYarden</skos:altLabel>
+	<skos:altLabel>Star of the Jordan</skos:altLabel>
+	<skos:altLabel>Star of the Wind</skos:altLabel>
+	<skos:prefLabel>Kokhav HaYarden</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294460/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>32.75</wgs:lat>
+	<wgs:long>35.5</wgs:long>
+	<skos:altLabel>Kinneret Sub-district</skos:altLabel>
+	<skos:altLabel>Nefat Kineret</skos:altLabel>
+	<skos:altLabel>Nefat Kinneret</skos:altLabel>
+	<skos:prefLabel>Nefat Kinneret</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294492/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13320</europeana:population>
+	<wgs:lat>32.31667</wgs:lat>
+	<wgs:long>34.93333</wgs:long>
+	<skos:altLabel>Kefar Yona</skos:altLabel>
+	<skos:altLabel>Kefar Yonah</skos:altLabel>
+	<skos:altLabel>Kfar Yona</skos:altLabel>
+	<skos:prefLabel>Kefar Yona</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294514/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>80773</europeana:population>
+	<wgs:lat>32.175</wgs:lat>
+	<wgs:long>34.90694</wgs:long>
+	<skos:altLabel>Kafr Saba</skos:altLabel>
+	<skos:altLabel>Kefar Sava</skos:altLabel>
+	<skos:altLabel>Kefár Saba</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кефар-Сава</skos:altLabel>
+	<skos:altLabel xml:lang="he">כבר סבא</skos:altLabel>
+	<skos:prefLabel>Kefar Sava</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294522/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.88333</wgs:lat>
+	<wgs:long>35.56667</wgs:long>
+	<skos:altLabel>Capernaum</skos:altLabel>
+	<skos:altLabel>Kefar Naẖum</skos:altLabel>
+	<skos:prefLabel>Kefar Naẖum</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294577/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>44382</europeana:population>
+	<wgs:lat>32.91722</wgs:lat>
+	<wgs:long>35.30417</wgs:long>
+	<skos:altLabel>Carmiel</skos:altLabel>
+	<skos:altLabel>Karmi’el</skos:altLabel>
+	<skos:altLabel>Qiryat Karmiel</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кармиэль</skos:altLabel>
+	<skos:prefLabel>Karmi’el</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294604/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17303</europeana:population>
+	<wgs:lat>32.11417</wgs:lat>
+	<wgs:long>34.97389</wgs:long>
+	<skos:altLabel>Kafar Qāsem</skos:altLabel>
+	<skos:altLabel>Kafer-Kassim</skos:altLabel>
+	<skos:altLabel>Kafr Qāsim</skos:altLabel>
+	<skos:altLabel>Kasim</skos:altLabel>
+	<skos:altLabel>Kefar Qesem</skos:altLabel>
+	<skos:altLabel>Kufr Qāsim</skos:altLabel>
+	<skos:prefLabel>Kafr Qāsim</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294608/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15014</europeana:population>
+	<wgs:lat>32.80722</wgs:lat>
+	<wgs:long>35.26028</wgs:long>
+	<skos:altLabel>Kafar Manda</skos:altLabel>
+	<skos:altLabel>Kafer-Manda</skos:altLabel>
+	<skos:altLabel>Kafr Mandā</skos:altLabel>
+	<skos:altLabel>Kefar Mandi</skos:altLabel>
+	<skos:prefLabel>Kafr Mandā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294610/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17606</europeana:population>
+	<wgs:lat>32.75</wgs:lat>
+	<wgs:long>35.34167</wgs:long>
+	<skos:altLabel>Kafr Kannā</skos:altLabel>
+	<skos:altLabel>Kafr Qanah</skos:altLabel>
+	<skos:prefLabel>Kafr Kannā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294622/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17530</europeana:population>
+	<wgs:lat>32.92556</wgs:lat>
+	<wgs:long>35.155</wgs:long>
+	<skos:altLabel>Al Judeida</skos:altLabel>
+	<skos:altLabel>Judaydah</skos:altLabel>
+	<skos:altLabel>Judeida</skos:altLabel>
+	<skos:prefLabel>Judeida</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294640/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255147/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>7353985</europeana:population>
+	<wgs:lat>31.5</wgs:lat>
+	<wgs:long>34.75</wgs:long>
+	<skos:altLabel xml:lang="ar">Dawlat Isrā’īl</skos:altLabel>
+	<skos:altLabel xml:lang="he">Eretz Yisrael</skos:altLabel>
+	<skos:altLabel xml:lang="he">Ereẕ Yisra’el</skos:altLabel>
+	<skos:altLabel xml:lang="vi">I-xra-en</skos:altLabel>
+	<skos:altLabel>IL</skos:altLabel>
+	<skos:altLabel xml:lang="et">Iisrael</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Iosrael</skos:altLabel>
+	<skos:altLabel xml:lang="fj">Isireli</skos:altLabel>
+	<skos:altLabel xml:lang="so">Israaʼiil</skos:altLabel>
+	<skos:altLabel xml:lang="es">Israel</skos:altLabel>
+	<skos:altLabel xml:lang="id">Israel</skos:altLabel>
+	<skos:altLabel xml:lang="en">Israel</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Israel</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Israel</skos:altLabel>
+	<skos:altLabel xml:lang="de">Israel</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Israel</skos:altLabel>
+	<skos:altLabel xml:lang="da">Israel</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Israel</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Israel</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Israel</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Israel</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Israel</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Israel</skos:altLabel>
+	<skos:altLabel xml:lang="af">Israel</skos:altLabel>
+	<skos:altLabel xml:lang="br">Israel</skos:altLabel>
+	<skos:altLabel xml:lang="an">Israel</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Israel</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Israel</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Israel</skos:altLabel>
+	<skos:altLabel xml:lang="io">Israel</skos:altLabel>
+	<skos:altLabel xml:lang="na">Israel</skos:altLabel>
+	<skos:altLabel xml:lang="no">Israel</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Israel</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Israel</skos:altLabel>
+	<skos:altLabel xml:lang="la">Israel</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Israel</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Israel</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Israel</skos:altLabel>
+	<skos:altLabel xml:lang="yo">Israel</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Israel</skos:altLabel>
+	<skos:altLabel xml:lang="se">Israel</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Israel (Do Thái)</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Israel - ישראל</skos:altLabel>
+	<skos:altLabel xml:lang="it">Israele</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Israelo</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Israèl</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Israël</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Israël</skos:altLabel>
+	<skos:altLabel xml:lang="li">Israël</skos:altLabel>
+	<skos:altLabel xml:lang="uz">Isroil</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Izrael</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Izrael</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Izrael</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Izrael</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Izrael</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Izrael</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Izrael</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Izrael</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Izrael</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Izraeli</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Izraelis</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Izrayèl</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Izraēla</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Iżrael</skos:altLabel>
+	<skos:altLabel xml:lang="he">Medinat Yisra’el</skos:altLabel>
+	<skos:altLabel xml:lang="en">State of Israel</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Uyahudi</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Ysrael</skos:altLabel>
+	<skos:altLabel xml:lang="is">Ísrael</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Ísrael</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Îsraîl</skos:altLabel>
+	<skos:altLabel xml:lang="tr">İsrail</skos:altLabel>
+	<skos:altLabel xml:lang="to">ʻIsileli</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ισραήλ</skos:altLabel>
+	<skos:altLabel xml:lang="be">Ізраіль</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Ізраїль</skos:altLabel>
+	<skos:altLabel xml:lang="cu">Їздраил҄ь</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Израел</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Израел</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Израел</skos:altLabel>
+	<skos:altLabel xml:lang="os">Израиль</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Израиль</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Իզրաել</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Իսրայել</skos:altLabel>
+	<skos:altLabel xml:lang="yi">ישראל</skos:altLabel>
+	<skos:altLabel xml:lang="he">ישראל</skos:altLabel>
+	<skos:altLabel xml:lang="yi">מדינת ישראל</skos:altLabel>
+	<skos:altLabel xml:lang="ar">إسرائيل</skos:altLabel>
+	<skos:altLabel xml:lang="ug">ئىسرائىلىيە</skos:altLabel>
+	<skos:altLabel xml:lang="ar">اسرائيل</skos:altLabel>
+	<skos:altLabel xml:lang="fa">اسرائیل</skos:altLabel>
+	<skos:altLabel xml:lang="ur">اسرائیل</skos:altLabel>
+	<skos:altLabel xml:lang="ps">اسرايل</skos:altLabel>
+	<skos:altLabel xml:lang="fa">اسراییل</skos:altLabel>
+	<skos:altLabel xml:lang="hi">इजराइल</skos:altLabel>
+	<skos:altLabel xml:lang="hi">इसराइल</skos:altLabel>
+	<skos:altLabel xml:lang="mr">इस्रायल</skos:altLabel>
+	<skos:altLabel xml:lang="bn">ইসরায়েল</skos:altLabel>
+	<skos:altLabel xml:lang="bn">ইস্রায়েল</skos:altLabel>
+	<skos:altLabel xml:lang="ta">இசுரேல்</skos:altLabel>
+	<skos:altLabel xml:lang="ta">இஸ்ரேல்</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ഇസ്രായേല്‍</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศอิสราเอล</skos:altLabel>
+	<skos:altLabel xml:lang="th">อิสราเอล</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ອິສລະເອວ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཨི་ཛ྄་རེལ།</skos:altLabel>
+	<skos:altLabel xml:lang="dz">ཨིཛ་རཱེལ</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ისრაელი</skos:altLabel>
+	<skos:altLabel xml:lang="am">እስራኤል</skos:altLabel>
+	<skos:altLabel xml:lang="km">អ៊ីស្រាអែល</skos:altLabel>
+	<skos:altLabel xml:lang="ja">イスラエル</skos:altLabel>
+	<skos:altLabel xml:lang="ja">イスラエル国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">以色列</skos:altLabel>
+	<skos:altLabel xml:lang="ko">이스라엘</skos:altLabel>
+	<skos:prefLabel>State of Israel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294658/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11398</europeana:population>
+	<wgs:lat>32.67861</wgs:lat>
+	<wgs:long>35.32222</wgs:long>
+	<skos:altLabel>Iksāl</skos:altLabel>
+	<skos:altLabel>Kessulot</skos:altLabel>
+	<skos:altLabel>Kesulot</skos:altLabel>
+	<skos:altLabel>Kislot Tavor</skos:altLabel>
+	<skos:prefLabel>Iksāl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294681/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.88333</wgs:lat>
+	<wgs:long>34.63333</wgs:long>
+	<skos:altLabel>Chivta</skos:altLabel>
+	<skos:altLabel>Esbeita</skos:altLabel>
+	<skos:altLabel>H̱orvot Shivta</skos:altLabel>
+	<skos:altLabel>Sbeita</skos:altLabel>
+	<skos:altLabel>Shita</skos:altLabel>
+	<skos:altLabel>Shivta</skos:altLabel>
+	<skos:altLabel>Shivtah</skos:altLabel>
+	<skos:altLabel>Subaytah</skos:altLabel>
+	<skos:altLabel>Subeita</skos:altLabel>
+	<skos:altLabel>Tsēfat</skos:altLabel>
+	<skos:prefLabel>H̱orvot Shivta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294682/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.31667</wgs:lat>
+	<wgs:long>35.35</wgs:long>
+	<skos:altLabel>Es-Sebbeh</skos:altLabel>
+	<skos:altLabel>H̱orvot Meẕada</skos:altLabel>
+	<skos:altLabel>Masada</skos:altLabel>
+	<skos:altLabel xml:lang="en">Masada</skos:altLabel>
+	<skos:altLabel xml:lang="es">Masada</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Masada</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Masada</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Masada</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Masada</skos:altLabel>
+	<skos:altLabel xml:lang="de">Masada</skos:altLabel>
+	<skos:altLabel xml:lang="da">Masada</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Masada</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Masada</skos:altLabel>
+	<skos:altLabel xml:lang="it">Masada</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Masada</skos:altLabel>
+	<skos:altLabel xml:lang="no">Masada</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Masada</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Massada</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Massada</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Massada</skos:altLabel>
+	<skos:altLabel>Massada Rock Fortress</skos:altLabel>
+	<skos:altLabel>Metsada</skos:altLabel>
+	<skos:altLabel>Metzada</skos:altLabel>
+	<skos:altLabel>Sabba</skos:altLabel>
+	<skos:altLabel>Sebbe</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Масада</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Массада</skos:altLabel>
+	<skos:altLabel xml:lang="he">מצדה</skos:altLabel>
+	<skos:altLabel>Ḥorvot Metsada</skos:altLabel>
+	<skos:altLabel xml:lang="zh">马萨达</skos:altLabel>
+	<skos:prefLabel>H̱orvot Meẕada</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294683/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.56972</wgs:lat>
+	<wgs:long>35.17556</wgs:long>
+	<skos:altLabel>Al Lajjun</skos:altLabel>
+	<skos:altLabel>El Lejjan</skos:altLabel>
+	<skos:altLabel>H̱orvot Kefar ‘Otnay</skos:altLabel>
+	<skos:altLabel>Lajjūn</skos:altLabel>
+	<skos:altLabel>Lajun</skos:altLabel>
+	<skos:altLabel>Legio</skos:altLabel>
+	<skos:prefLabel>H̱orvot Kefar ‘Otnay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294684/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.1</wgs:lat>
+	<wgs:long>34.65</wgs:long>
+	<skos:altLabel>Beersheba</skos:altLabel>
+	<skos:altLabel>El Khalasa</skos:altLabel>
+	<skos:altLabel>El Khelasa</skos:altLabel>
+	<skos:altLabel>Eluzai</skos:altLabel>
+	<skos:altLabel>Halutsah</skos:altLabel>
+	<skos:altLabel>Hālūtsā</skos:altLabel>
+	<skos:altLabel>H̱orvot H̱aluẕa</skos:altLabel>
+	<skos:altLabel>Khalasa</skos:altLabel>
+	<skos:altLabel>Khalassa</skos:altLabel>
+	<skos:prefLabel>H̱orvot H̱aluẕa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294685/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.8</wgs:lat>
+	<wgs:long>34.76667</wgs:long>
+	<skos:altLabel>Abde</skos:altLabel>
+	<skos:altLabel>Avedat</skos:altLabel>
+	<skos:altLabel>Eboda</skos:altLabel>
+	<skos:altLabel>H̱orvot ‘Avedat</skos:altLabel>
+	<skos:altLabel>‘Abda</skos:altLabel>
+	<skos:altLabel>‘Abdah</skos:altLabel>
+	<skos:altLabel>‘Avdat</skos:altLabel>
+	<skos:prefLabel>H̱orvot ‘Avedat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294693/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.3</wgs:lat>
+	<wgs:long>35.11667</wgs:long>
+	<skos:altLabel>H̱orbat Ẕiyya</skos:altLabel>
+	<skos:altLabel>Khirba Baiyūd</skos:altLabel>
+	<skos:altLabel>Ḥurva Tsiya</skos:altLabel>
+	<skos:prefLabel>H̱orbat Ẕiyya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294694/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.23333</wgs:lat>
+	<wgs:long>34.78333</wgs:long>
+	<skos:prefLabel>H̱orbat Ẕafad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294695/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.92222</wgs:lat>
+	<wgs:long>34.69333</wgs:long>
+	<skos:altLabel>H̱orbat Yavne Yam</skos:altLabel>
+	<skos:altLabel>Minat Rubin</skos:altLabel>
+	<skos:prefLabel>H̱orbat Yavne Yam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294696/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.35</wgs:lat>
+	<wgs:long>35.01667</wgs:long>
+	<skos:altLabel>H̱orbat Yattir</skos:altLabel>
+	<skos:altLabel>Khirba ‘Attīr</skos:altLabel>
+	<skos:altLabel>Khirbat Attir</skos:altLabel>
+	<skos:altLabel>Khirbat ‘Atir</skos:altLabel>
+	<skos:altLabel>Yatir</skos:altLabel>
+	<skos:prefLabel>H̱orbat Yattir</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294697/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.83333</wgs:lat>
+	<wgs:long>35.48333</wgs:long>
+	<skos:prefLabel>H̱orbat Weradim</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294698/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.2</wgs:lat>
+	<wgs:long>35.16667</wgs:long>
+	<skos:altLabel>H̱orbat ‘Uza</skos:altLabel>
+	<skos:altLabel>Khirba Ghazza</skos:altLabel>
+	<skos:altLabel>Khirbat Ghazza</skos:altLabel>
+	<skos:altLabel>Ḥurva ‘Uza</skos:altLabel>
+	<skos:prefLabel>H̱orbat ‘Uza</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294699/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>29.76667</wgs:lat>
+	<wgs:long>34.95</wgs:long>
+	<skos:prefLabel>H̱orbat Timna‘</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294700/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.38333</wgs:lat>
+	<wgs:long>34.85</wgs:long>
+	<skos:altLabel>H̱orbat Tilla</skos:altLabel>
+	<skos:altLabel>Khirbat Khuweilifa</skos:altLabel>
+	<skos:altLabel>Tsiqlag</skos:altLabel>
+	<skos:altLabel>Ziklag</skos:altLabel>
+	<skos:prefLabel>H̱orbat Tilla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294701/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.78333</wgs:lat>
+	<wgs:long>35.65</wgs:long>
+	<skos:altLabel>H̱orbat Susita</skos:altLabel>
+	<skos:altLabel>Qal‘at al Hisn</skos:altLabel>
+	<skos:altLabel>Susita</skos:altLabel>
+	<skos:prefLabel>H̱orbat Susita</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294702/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.67056</wgs:lat>
+	<wgs:long>35.03944</wgs:long>
+	<skos:prefLabel>H̱orbat Sumaq</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294703/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.26667</wgs:lat>
+	<wgs:long>34.71667</wgs:long>
+	<skos:altLabel>H̱orbat Sufa</skos:altLabel>
+	<skos:altLabel>Khirba es Sufī</skos:altLabel>
+	<skos:altLabel>Ḥurva Sufa</skos:altLabel>
+	<skos:prefLabel>H̱orbat Sufa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294704/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.35</wgs:lat>
+	<wgs:long>34.96667</wgs:long>
+	<skos:altLabel>H̱orbat Sira</skos:altLabel>
+	<skos:altLabel>Khirbat Umm Sira</skos:altLabel>
+	<skos:altLabel>Ḥurva Sira</skos:altLabel>
+	<skos:prefLabel>H̱orbat Sira</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294705/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.05</wgs:lat>
+	<wgs:long>35.3</wgs:long>
+	<skos:prefLabel>H̱orbat Siaẖ</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294706/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.35</wgs:lat>
+	<wgs:long>34.66667</wgs:long>
+	<skos:altLabel>H̱orbat Shemarya</skos:altLabel>
+	<skos:altLabel>Khirba Abū Samara</skos:altLabel>
+	<skos:altLabel>Khirba Abū Samāra</skos:altLabel>
+	<skos:prefLabel>H̱orbat Shemarya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294707/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.97778</wgs:lat>
+	<wgs:long>35.43889</wgs:long>
+	<skos:altLabel>H̱orbat Shema‘</skos:altLabel>
+	<skos:altLabel>Khirbat Sham‘</skos:altLabel>
+	<skos:prefLabel>H̱orbat Shema‘</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294708/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.23333</wgs:lat>
+	<wgs:long>35.15</wgs:long>
+	<skos:altLabel>H̱orbat Samar</skos:altLabel>
+	<skos:altLabel>Khirba Sumra</skos:altLabel>
+	<skos:altLabel>Ḥurva Samar</skos:altLabel>
+	<skos:prefLabel>H̱orbat Samar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294709/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.03333</wgs:lat>
+	<wgs:long>34.6</wgs:long>
+	<skos:altLabel>H̱orbat Sa‘adon</skos:altLabel>
+	<skos:altLabel>Khirbaes Sa‘dī</skos:altLabel>
+	<skos:altLabel>Ḥurva Sa‘don</skos:altLabel>
+	<skos:prefLabel>H̱orbat Sa‘adon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294710/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.65</wgs:lat>
+	<wgs:long>34.98333</wgs:long>
+	<skos:prefLabel>H̱orbat Ribbo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294711/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.36667</wgs:lat>
+	<wgs:long>34.86667</wgs:long>
+	<skos:altLabel>Horva Rimmon</skos:altLabel>
+	<skos:altLabel>H̱orbat Remalya</skos:altLabel>
+	<skos:altLabel>H̱orbat Rimon</skos:altLabel>
+	<skos:altLabel>Khirba Umm er Ramālī</skos:altLabel>
+	<skos:altLabel>Khirbat Umm ar Ramali</skos:altLabel>
+	<skos:altLabel>Rimmon</skos:altLabel>
+	<skos:altLabel>Rimon</skos:altLabel>
+	<skos:prefLabel>H̱orbat Remalya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294712/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.03333</wgs:lat>
+	<wgs:long>34.56667</wgs:long>
+	<skos:altLabel>BaNegev</skos:altLabel>
+	<skos:altLabel>El Raheiba</skos:altLabel>
+	<skos:altLabel>Er Ruheibe</skos:altLabel>
+	<skos:altLabel>H̱orbat Reẖovot</skos:altLabel>
+	<skos:altLabel>Khirba Ruheiba</skos:altLabel>
+	<skos:altLabel>Khirbat Ar-Ruhaybah</skos:altLabel>
+	<skos:altLabel>Rehoboth</skos:altLabel>
+	<skos:altLabel>Rehovot</skos:altLabel>
+	<skos:altLabel>Reḥovot Banegev</skos:altLabel>
+	<skos:altLabel>Ruhayba</skos:altLabel>
+	<skos:altLabel>Ruhaybah</skos:altLabel>
+	<skos:altLabel>Ruheiba</skos:altLabel>
+	<skos:altLabel>Rukheibe</skos:altLabel>
+	<skos:altLabel>Rēhōvōth</skos:altLabel>
+	<skos:prefLabel>H̱orbat Reẖovot</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294713/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.05</wgs:lat>
+	<wgs:long>35.03333</wgs:long>
+	<skos:altLabel>H̱orbat Raẖba</skos:altLabel>
+	<skos:altLabel>Khirba Irdeiḥa</skos:altLabel>
+	<skos:altLabel>Ḥurva Raḥba</skos:altLabel>
+	<skos:prefLabel>H̱orbat Raẖba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294714/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.18333</wgs:lat>
+	<wgs:long>35.16667</wgs:long>
+	<skos:altLabel>H̱orbat Qina</skos:altLabel>
+	<skos:altLabel>H̱orbat Radum</skos:altLabel>
+	<skos:altLabel>Khirbat Umm-Radim</skos:altLabel>
+	<skos:altLabel>Qina</skos:altLabel>
+	<skos:altLabel>Qinah</skos:altLabel>
+	<skos:prefLabel>H̱orbat Radum</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294715/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.73333</wgs:lat>
+	<wgs:long>35.11667</wgs:long>
+	<skos:altLabel>Al Qabu</skos:altLabel>
+	<skos:altLabel>Al Qabw</skos:altLabel>
+	<skos:altLabel>El Qabū</skos:altLabel>
+	<skos:altLabel>H̱orbat Qove</skos:altLabel>
+	<skos:altLabel>Qabū</skos:altLabel>
+	<skos:prefLabel>H̱orbat Qove</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294716/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.5</wgs:lat>
+	<wgs:long>34.88333</wgs:long>
+	<skos:altLabel xml:lang="nl">Caesarea</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Caesarea</skos:altLabel>
+	<skos:altLabel>Caesarea Maritima</skos:altLabel>
+	<skos:altLabel xml:lang="en">Caesarea Maritima</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Caesarea Maritima</skos:altLabel>
+	<skos:altLabel xml:lang="es">Cesarea Marítima</skos:altLabel>
+	<skos:altLabel xml:lang="it">Cesarea in Palestina</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Cesareia Maritima</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Cesareia Palestina</skos:altLabel>
+	<skos:altLabel>Césarée</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Césarée</skos:altLabel>
+	<skos:altLabel>H̱orbat Qesari</skos:altLabel>
+	<skos:altLabel>Kaisareia</skos:altLabel>
+	<skos:altLabel>Kaisarie</skos:altLabel>
+	<skos:altLabel>Kaisariya</skos:altLabel>
+	<skos:altLabel>Kaisariyeh</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Lungsod ng Caesarea Palaestina</skos:altLabel>
+	<skos:altLabel>Qeisari</skos:altLabel>
+	<skos:altLabel>Qeisariya</skos:altLabel>
+	<skos:altLabel>Qisarī</skos:altLabel>
+	<skos:altLabel>Qisrī</skos:altLabel>
+	<skos:altLabel>Qīsārya</skos:altLabel>
+	<skos:altLabel xml:lang="he">קיסריה</skos:altLabel>
+	<skos:altLabel xml:lang="ja">カイサリア</skos:altLabel>
+	<skos:prefLabel>H̱orbat Qesari</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294717/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.05</wgs:lat>
+	<wgs:long>35.53333</wgs:long>
+	<skos:prefLabel>H̱orbat Qaẕyon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294718/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.78333</wgs:lat>
+	<wgs:long>35.53333</wgs:long>
+	<skos:prefLabel>H̱orbat Qaẕra Diteverya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294719/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.79722</wgs:lat>
+	<wgs:long>35.45972</wgs:long>
+	<skos:altLabel>Horns of Hattin</skos:altLabel>
+	<skos:altLabel>Horns of Hittin</skos:altLabel>
+	<skos:altLabel>H̱orbat Qarne H̱ittim</skos:altLabel>
+	<skos:altLabel>Qarne H̱ittim</skos:altLabel>
+	<skos:altLabel>Qarnei Hittin</skos:altLabel>
+	<skos:prefLabel>H̱orbat Qarne H̱ittim</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294720/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.08333</wgs:lat>
+	<wgs:long>35.15</wgs:long>
+	<skos:altLabel>H̱orbat Pi Maẕuva</skos:altLabel>
+	<skos:altLabel>H̱orbat Pi Maẕẕuva</skos:altLabel>
+	<skos:prefLabel>H̱orbat Pi Maẕẕuva</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294721/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.31667</wgs:lat>
+	<wgs:long>34.63333</wgs:long>
+	<skos:prefLabel>H̱orbat Nattish</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294722/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.18333</wgs:lat>
+	<wgs:long>34.95</wgs:long>
+	<skos:altLabel>Beit Pelet</skos:altLabel>
+	<skos:altLabel>H̱orbat Bet Pelet</skos:altLabel>
+	<skos:altLabel>H̱orbat Mizbaẖ</skos:altLabel>
+	<skos:altLabel>Khirba el Madhbah</skos:altLabel>
+	<skos:prefLabel>H̱orbat Mizbaẖ</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294723/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.86667</wgs:lat>
+	<wgs:long>35.53333</wgs:long>
+	<skos:altLabel>H̱orbat Minnim</skos:altLabel>
+	<skos:altLabel>Khān Minyā</skos:altLabel>
+	<skos:prefLabel>H̱orbat Minnim</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294724/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.41667</wgs:lat>
+	<wgs:long>34.85</wgs:long>
+	<skos:prefLabel>H̱orbat Migdalit</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294725/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.08333</wgs:lat>
+	<wgs:long>34.95</wgs:long>
+	<skos:prefLabel>H̱orbat Migdal Afeq</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294726/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.65</wgs:lat>
+	<wgs:long>34.93333</wgs:long>
+	<skos:prefLabel>H̱orbat Midras</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294727/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.21667</wgs:lat>
+	<wgs:long>35.55</wgs:long>
+	<skos:altLabel>Castrum Novum</skos:altLabel>
+	<skos:altLabel>Chateau Neuf</skos:altLabel>
+	<skos:altLabel>Hunin</skos:altLabel>
+	<skos:altLabel>H̱orbat Meẕudat Hunin</skos:altLabel>
+	<skos:altLabel>New Castle</skos:altLabel>
+	<skos:altLabel>Qal‘at Hunin</skos:altLabel>
+	<skos:prefLabel>H̱orbat Meẕudat Hunin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294728/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.05</wgs:lat>
+	<wgs:long>35.28333</wgs:long>
+	<skos:altLabel>Burj Misr</skos:altLabel>
+	<skos:altLabel>H̱orbat Meẕad Abbirim</skos:altLabel>
+	<skos:prefLabel>H̱orbat Meẕad Abbirim</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294729/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.23333</wgs:lat>
+	<wgs:long>34.78333</wgs:long>
+	<skos:prefLabel>H̱orbat Matar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294730/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.21667</wgs:lat>
+	<wgs:long>34.96667</wgs:long>
+	<skos:altLabel>H̱arbat Mashash</skos:altLabel>
+	<skos:altLabel>H̱arbat Mashosh</skos:altLabel>
+	<skos:altLabel>H̱orbat Masas</skos:altLabel>
+	<skos:altLabel>H̱orbat Masos</skos:altLabel>
+	<skos:altLabel>Tel Masos</skos:altLabel>
+	<skos:prefLabel>H̱orbat Masos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294731/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.01667</wgs:lat>
+	<wgs:long>35.06667</wgs:long>
+	<skos:altLabel>H̱orbat Mamshit</skos:altLabel>
+	<skos:altLabel>Kurnab</skos:altLabel>
+	<skos:altLabel>Kurnub</skos:altLabel>
+	<skos:altLabel>Mamphis</skos:altLabel>
+	<skos:altLabel>Mamshat</skos:altLabel>
+	<skos:altLabel>Mamshit</skos:altLabel>
+	<skos:altLabel>Qurnab</skos:altLabel>
+	<skos:prefLabel>H̱orbat Mamshit</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294732/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.1</wgs:lat>
+	<wgs:long>35.3</wgs:long>
+	<skos:prefLabel>H̱orbat Kukhim</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294733/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.25</wgs:lat>
+	<wgs:long>35.06667</wgs:long>
+	<skos:altLabel>Akseifi</skos:altLabel>
+	<skos:altLabel>H̱orbat Kasif</skos:altLabel>
+	<skos:altLabel>Khirba Kuseife</skos:altLabel>
+	<skos:altLabel>Kseife</skos:altLabel>
+	<skos:altLabel>Kuseife</skos:altLabel>
+	<skos:altLabel>Malḥata</skos:altLabel>
+	<skos:altLabel>Tel Malhata</skos:altLabel>
+	<skos:prefLabel>H̱orbat Kasif</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294734/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.98139</wgs:lat>
+	<wgs:long>35.19389</wgs:long>
+	<skos:prefLabel>H̱orbat Kalil</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294735/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.26667</wgs:lat>
+	<wgs:long>34.6</wgs:long>
+	<skos:altLabel>H̱orbat H̱asif</skos:altLabel>
+	<skos:altLabel>Khirba el Khasif</skos:altLabel>
+	<skos:altLabel>Ḥurva Hasif</skos:altLabel>
+	<skos:prefLabel>H̱orbat H̱asif</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294736/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.91667</wgs:lat>
+	<wgs:long>35.53333</wgs:long>
+	<skos:prefLabel>H̱orbat Gov Yosef</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294737/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.61667</wgs:lat>
+	<wgs:long>34.93333</wgs:long>
+	<skos:prefLabel>H̱orbat Darkemon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294738/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.24</wgs:lat>
+	<wgs:long>35.01667</wgs:long>
+	<skos:altLabel>H̱orbat Dardar</skos:altLabel>
+	<skos:altLabel>Khirbat al Mudahdara</skos:altLabel>
+	<skos:prefLabel>H̱orbat Dardar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294739/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.73278</wgs:lat>
+	<wgs:long>35.02278</wgs:long>
+	<skos:prefLabel>H̱orbat Damon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294740/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.69667</wgs:lat>
+	<wgs:long>35.12167</wgs:long>
+	<skos:altLabel>Beit She‘arim</skos:altLabel>
+	<skos:altLabel>H̱orbat Bet She‘arim</skos:altLabel>
+	<skos:prefLabel>H̱orbat Bet She‘arim</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294741/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.46667</wgs:lat>
+	<wgs:long>34.91667</wgs:long>
+	<skos:altLabel>H̱orbat Benaya</skos:altLabel>
+	<skos:altLabel>Khirbat Binaya</skos:altLabel>
+	<skos:altLabel>Ḥurva Benaya</skos:altLabel>
+	<skos:prefLabel>H̱orbat Benaya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294742/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.93194</wgs:lat>
+	<wgs:long>35.42083</wgs:long>
+	<skos:prefLabel>H̱orbat Be’er Sheva‘</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294743/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.08333</wgs:lat>
+	<wgs:long>35.28333</wgs:long>
+	<skos:prefLabel>H̱orbat Baẕir</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294744/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.36667</wgs:lat>
+	<wgs:long>34.75</wgs:long>
+	<skos:prefLabel>H̱orbat Baqar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294745/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.78333</wgs:lat>
+	<wgs:long>34.61667</wgs:long>
+	<skos:altLabel>H̱orbat Ashdod Yam</skos:altLabel>
+	<skos:altLabel>Minat Isdud</skos:altLabel>
+	<skos:altLabel>Minat al Qila‘</skos:altLabel>
+	<skos:prefLabel>H̱orbat Ashdod Yam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294746/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.15</wgs:lat>
+	<wgs:long>34.98333</wgs:long>
+	<skos:altLabel>H̱orbat ‘Aro‘er</skos:altLabel>
+	<skos:altLabel>Khirba ‘Ar‘ara</skos:altLabel>
+	<skos:altLabel>‘Aro‘er</skos:altLabel>
+	<skos:altLabel>‘Ar‘ar</skos:altLabel>
+	<skos:prefLabel>H̱orbat ‘Aro‘er</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294747/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.81667</wgs:lat>
+	<wgs:long>35.41667</wgs:long>
+	<skos:prefLabel>H̱orbat ‘Ammudim</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294748/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.65</wgs:lat>
+	<wgs:long>35</wgs:long>
+	<skos:altLabel>H̱orbat ‘Adullam</skos:altLabel>
+	<skos:altLabel>Khirbat Id al Minya</skos:altLabel>
+	<skos:altLabel>Khirbat Jubeil Naqqar</skos:altLabel>
+	<skos:altLabel>Miya</skos:altLabel>
+	<skos:prefLabel>H̱orbat ‘Adullam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294751/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>165787</europeana:population>
+	<wgs:lat>32.01139</wgs:lat>
+	<wgs:long>34.77222</wgs:long>
+	<skos:altLabel xml:lang="de">Cholon</skos:altLabel>
+	<skos:altLabel xml:lang="en">Holon</skos:altLabel>
+	<skos:altLabel xml:lang="da">Holon</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Holon</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Holon</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Holon</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Holon</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Holon</skos:altLabel>
+	<skos:altLabel>H̱olon</skos:altLabel>
+	<skos:altLabel xml:lang="es">Jolón</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Холон</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Холон</skos:altLabel>
+	<skos:altLabel xml:lang="he">חולון</skos:altLabel>
+	<skos:altLabel xml:lang="ar">حولون</skos:altLabel>
+	<skos:prefLabel>H̱olon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294760/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>43185</europeana:population>
+	<wgs:lat>32.15083</wgs:lat>
+	<wgs:long>34.88833</wgs:long>
+	<skos:altLabel>Hada Ramatayim</skos:altLabel>
+	<skos:altLabel>Hadar Ramataim</skos:altLabel>
+	<skos:altLabel>Hadar Ramatayim</skos:altLabel>
+	<skos:altLabel>Hod HaSharon</skos:altLabel>
+	<skos:altLabel>Ramatayim</skos:altLabel>
+	<skos:altLabel xml:lang="he">הוד השרון</skos:altLabel>
+	<skos:prefLabel>Hod HaSharon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294778/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>83600</europeana:population>
+	<wgs:lat>32.16583</wgs:lat>
+	<wgs:long>34.83667</wgs:long>
+	<skos:altLabel>Herseliya</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Hertseliyya</skos:altLabel>
+	<skos:altLabel>Hertsliyah</skos:altLabel>
+	<skos:altLabel xml:lang="de">Hertzlija</skos:altLabel>
+	<skos:altLabel>Hervlia</skos:altLabel>
+	<skos:altLabel>Hervlia B</skos:altLabel>
+	<skos:altLabel>Herzlia B</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Herzlija</skos:altLabel>
+	<skos:altLabel>Herzliya</skos:altLabel>
+	<skos:altLabel xml:lang="es">Herzliya</skos:altLabel>
+	<skos:altLabel xml:lang="en">Herzliya</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Herzliya</skos:altLabel>
+	<skos:altLabel xml:lang="da">Herzliya</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Herzliya</skos:altLabel>
+	<skos:altLabel>Herzliyah</skos:altLabel>
+	<skos:altLabel xml:lang="id">Herzliyya</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Herzliyya</skos:altLabel>
+	<skos:altLabel>Herzliyya</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Herẕliyya</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Lungsod ng Herẕliyya</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Герцлия</skos:altLabel>
+	<skos:altLabel xml:lang="he">הרצליה</skos:altLabel>
+	<skos:prefLabel>Herzliyya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294798/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294800/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>32.83333</wgs:lat>
+	<wgs:long>35</wgs:long>
+	<skos:altLabel>Haifa Sub-district</skos:altLabel>
+	<skos:altLabel>Nefat Heifa</skos:altLabel>
+	<skos:altLabel>Nefat H̱efa</skos:altLabel>
+	<skos:prefLabel>Nefat H̱efa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294800/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>32.58333</wgs:lat>
+	<wgs:long>35</wgs:long>
+	<skos:altLabel xml:lang="no">Haifa</skos:altLabel>
+	<skos:altLabel>Haifa</skos:altLabel>
+	<skos:altLabel>Haifa Region</skos:altLabel>
+	<skos:altLabel xml:lang="he">Meẖoz H̱efa</skos:altLabel>
+	<skos:altLabel>Meẖoz H̱eifa</skos:altLabel>
+	<skos:prefLabel>Haifa District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294801/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>267300</europeana:population>
+	<wgs:lat>32.81556</wgs:lat>
+	<wgs:long>34.98917</wgs:long>
+	<skos:altLabel>Caiffa</skos:altLabel>
+	<skos:altLabel xml:lang="id">Haifa</skos:altLabel>
+	<skos:altLabel xml:lang="de">Haifa</skos:altLabel>
+	<skos:altLabel xml:lang="es">Haifa</skos:altLabel>
+	<skos:altLabel xml:lang="da">Haifa</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Haifa</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Haifa</skos:altLabel>
+	<skos:altLabel xml:lang="it">Haifa</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Haifa</skos:altLabel>
+	<skos:altLabel xml:lang="no">Haifa</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Haifa</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Haifa</skos:altLabel>
+	<skos:altLabel xml:lang="en">Haifa</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Haifa</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Haifa</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Haifa</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Haifa</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Haifa</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Haifa</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Hajfa</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Hajfa</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Hajfo</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Hayfa</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Haïfa</skos:altLabel>
+	<skos:altLabel>Heifā</skos:altLabel>
+	<skos:altLabel xml:lang="he">H̱efa</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Lungsod ng Ḥefa</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Ĥajfo</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Хайфа</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Хайфа</skos:altLabel>
+	<skos:altLabel xml:lang="he">חיפה</skos:altLabel>
+	<skos:altLabel xml:lang="yi">יפֿו</skos:altLabel>
+	<skos:altLabel xml:lang="ar">حيفا</skos:altLabel>
+	<skos:altLabel xml:lang="fa">حیفا</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Ḥeyfa</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ハイファ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">海法</skos:altLabel>
+	<skos:prefLabel>Haifa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294815/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.79917</wgs:lat>
+	<wgs:long>35.25</wgs:long>
+	<skos:altLabel>Hasiba</skos:altLabel>
+	<skos:altLabel>Hatseva</skos:altLabel>
+	<skos:altLabel>H̱aẕeva</skos:altLabel>
+	<skos:altLabel>‘En H̱aẕeva</skos:altLabel>
+	<skos:prefLabel>H̱aẕeva</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294824/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1197985</europeana:population>
+	<wgs:lat>32.83333</wgs:lat>
+	<wgs:long>35.33333</wgs:long>
+	<skos:altLabel xml:lang="he">Meẖoz HaẔafon</skos:altLabel>
+	<skos:altLabel xml:lang="no">Nord-Israel</skos:altLabel>
+	<skos:altLabel xml:lang="en">Northern District</skos:altLabel>
+	<skos:altLabel>Northern Region</skos:altLabel>
+	<skos:altLabel>Tsafon</skos:altLabel>
+	<skos:prefLabel>Northern District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294852/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>32.3</wgs:lat>
+	<wgs:long>34.91667</wgs:long>
+	<skos:altLabel>Nefat HaSharon</skos:altLabel>
+	<skos:altLabel>Sharon Sub-district</skos:altLabel>
+	<skos:prefLabel>Nefat HaSharon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294858/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.68333</wgs:lat>
+	<wgs:long>35.3</wgs:long>
+	<skos:prefLabel>Har Qedumim</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294879/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.72222</wgs:lat>
+	<wgs:long>35.41389</wgs:long>
+	<skos:prefLabel>H̱anot Taggarim</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294880/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.51667</wgs:lat>
+	<wgs:long>35.5</wgs:long>
+	<skos:prefLabel>H̱anot Beshan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294904/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>32.08333</wgs:lat>
+	<wgs:long>34.91667</wgs:long>
+	<skos:altLabel xml:lang="en">Central District</skos:altLabel>
+	<skos:altLabel>Central Region</skos:altLabel>
+	<skos:altLabel>HaMerkaz</skos:altLabel>
+	<skos:altLabel xml:lang="he">Meẖoz HaMerkaz</skos:altLabel>
+	<skos:altLabel xml:lang="no">Sentral-Israel</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Sentral-Israel</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Sentral-Israel</skos:altLabel>
+	<skos:prefLabel>Central District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294929/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>32.58333</wgs:lat>
+	<wgs:long>35.41667</wgs:long>
+	<skos:altLabel>Gilboa Regional Council</skos:altLabel>
+	<skos:altLabel>HaGilboa‘</skos:altLabel>
+	<skos:prefLabel>HaGilboa‘</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294943/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>32.58333</wgs:lat>
+	<wgs:long>35</wgs:long>
+	<skos:altLabel>Hadera Sub-district</skos:altLabel>
+	<skos:altLabel>Nefat H̱adera</skos:altLabel>
+	<skos:prefLabel>Nefat H̱adera</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294946/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>75854</europeana:population>
+	<wgs:lat>32.43528</wgs:lat>
+	<wgs:long>34.9175</wgs:long>
+	<skos:altLabel xml:lang="de">Chadera</skos:altLabel>
+	<skos:altLabel>El Khudeira</skos:altLabel>
+	<skos:altLabel xml:lang="id">Hadera</skos:altLabel>
+	<skos:altLabel xml:lang="no">Hadera</skos:altLabel>
+	<skos:altLabel xml:lang="en">Hadera</skos:altLabel>
+	<skos:altLabel xml:lang="da">Hadera</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Hadera</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Hadera</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Hadera</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Hadera</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Hadera</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Hadera</skos:altLabel>
+	<skos:altLabel xml:lang="es">Hadera</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Hadera</skos:altLabel>
+	<skos:altLabel>Haderah</skos:altLabel>
+	<skos:altLabel>Hadeyra</skos:altLabel>
+	<skos:altLabel>Hedora</skos:altLabel>
+	<skos:altLabel>Hudeira</skos:altLabel>
+	<skos:altLabel>Hědērā</skos:altLabel>
+	<skos:altLabel>H̱adera</skos:altLabel>
+	<skos:altLabel>Khederah</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Хадера</skos:altLabel>
+	<skos:altLabel xml:lang="he">חדרה</skos:altLabel>
+	<skos:prefLabel>H̱adera</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294952/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>30.66667</wgs:lat>
+	<wgs:long>34.83333</wgs:long>
+	<skos:altLabel>Darom</skos:altLabel>
+	<skos:altLabel>HaDarom</skos:altLabel>
+	<skos:altLabel xml:lang="he">Meẖoz HaDarom</skos:altLabel>
+	<skos:altLabel xml:lang="en">Southern District</skos:altLabel>
+	<skos:altLabel>Southern Region</skos:altLabel>
+	<skos:altLabel xml:lang="no">Sør-Israel</skos:altLabel>
+	<skos:prefLabel>Southern District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294981/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18500</europeana:population>
+	<wgs:lat>32.07528</wgs:lat>
+	<wgs:long>34.84667</wgs:long>
+	<skos:altLabel>Giv‘at Shemu’el</skos:altLabel>
+	<skos:altLabel>Giv‘at Shmuel</skos:altLabel>
+	<skos:prefLabel>Giv‘at Shemu’el</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/294999/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>48000</europeana:population>
+	<wgs:lat>32.06972</wgs:lat>
+	<wgs:long>34.81167</wgs:long>
+	<skos:altLabel>Gevataym</skos:altLabel>
+	<skos:altLabel>Giv‘atayim</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гиватаим</skos:altLabel>
+	<skos:prefLabel>Giv‘atayim</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/295064/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14575</europeana:population>
+	<wgs:lat>31.81667</wgs:lat>
+	<wgs:long>34.76667</wgs:long>
+	<skos:altLabel>Gedera</skos:altLabel>
+	<skos:altLabel>Gederah</skos:altLabel>
+	<skos:prefLabel>Gedera</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/295080/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14975</europeana:population>
+	<wgs:lat>31.78333</wgs:lat>
+	<wgs:long>34.71667</wgs:long>
+	<skos:altLabel>Gan Yavne</skos:altLabel>
+	<skos:altLabel>Gan Yavneh</skos:altLabel>
+	<skos:prefLabel>Gan Yavne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/295089/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12213</europeana:population>
+	<wgs:lat>32.06028</wgs:lat>
+	<wgs:long>34.87472</wgs:long>
+	<skos:prefLabel>Ganne Tiqwa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/295127/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20786</europeana:population>
+	<wgs:lat>32.23278</wgs:lat>
+	<wgs:long>34.95028</wgs:long>
+	<skos:altLabel>At Tira</skos:altLabel>
+	<skos:altLabel>Et Tire</skos:altLabel>
+	<skos:altLabel>Eṭ Ṭīra</skos:altLabel>
+	<skos:altLabel>Tirah</skos:altLabel>
+	<skos:altLabel>Tīra</skos:altLabel>
+	<skos:prefLabel>Eṭ Ṭīra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/295130/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>32978</europeana:population>
+	<wgs:lat>32.26472</wgs:lat>
+	<wgs:long>35.00806</wgs:long>
+	<skos:altLabel>At Taiyiba</skos:altLabel>
+	<skos:altLabel>E-Tayibe</skos:altLabel>
+	<skos:altLabel>El Taiyiba</skos:altLabel>
+	<skos:altLabel>Et Taiyibe</skos:altLabel>
+	<skos:altLabel>Et Tayyibeh</skos:altLabel>
+	<skos:altLabel>Eṭ Ṭaiyiba</skos:altLabel>
+	<skos:altLabel>Taibe</skos:altLabel>
+	<skos:altLabel>Taiyba</skos:altLabel>
+	<skos:altLabel>Taiyiba</skos:altLabel>
+	<skos:altLabel>Taiyibah</skos:altLabel>
+	<skos:altLabel>Taiyibi</skos:altLabel>
+	<skos:altLabel>Taybah</skos:altLabel>
+	<skos:altLabel>Tayibeh</skos:altLabel>
+	<skos:altLabel>Tīvā</skos:altLabel>
+	<skos:altLabel>Ṭaiyibe</skos:altLabel>
+	<skos:altLabel>Ṭayibe</skos:altLabel>
+	<skos:prefLabel>Eṭ Ṭaiyiba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/295174/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15621</europeana:population>
+	<wgs:lat>32.72361</wgs:lat>
+	<wgs:long>35.3125</wgs:long>
+	<skos:altLabel>Ar Reina</skos:altLabel>
+	<skos:altLabel>Er Reina</skos:altLabel>
+	<skos:altLabel>Raynah</skos:altLabel>
+	<skos:altLabel>Reina</skos:altLabel>
+	<skos:altLabel>Reine</skos:altLabel>
+	<skos:prefLabel>Er Reina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/295277/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>45588</europeana:population>
+	<wgs:lat>29.56111</wgs:lat>
+	<wgs:long>34.95167</wgs:long>
+	<skos:altLabel>Eilat</skos:altLabel>
+	<skos:altLabel xml:lang="no">Eilat</skos:altLabel>
+	<skos:altLabel xml:lang="en">Eilat</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Eilat</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Eilat</skos:altLabel>
+	<skos:altLabel xml:lang="es">Eilat</skos:altLabel>
+	<skos:altLabel xml:lang="da">Eilat</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Eilat</skos:altLabel>
+	<skos:altLabel xml:lang="it">Eilat</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Eilat</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Eilat</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Ejlat</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Ejlato</skos:altLabel>
+	<skos:altLabel xml:lang="de">Elat</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Elat</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Elat</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Elat</skos:altLabel>
+	<skos:altLabel>Elat</skos:altLabel>
+	<skos:altLabel>Elath</skos:altLabel>
+	<skos:altLabel>Etzion Geber</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Lungsod ng Elat</skos:altLabel>
+	<skos:altLabel>Umm Rashrāsh</skos:altLabel>
+	<skos:altLabel>Umrashash</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Éilat</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Еилат</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Ейлат</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Эйлат</skos:altLabel>
+	<skos:altLabel xml:lang="he">אילת</skos:altLabel>
+	<skos:altLabel xml:lang="ar">إيلات</skos:altLabel>
+	<skos:altLabel xml:lang="ur">ایلات</skos:altLabel>
+	<skos:altLabel xml:lang="ja">エイラート</skos:altLabel>
+	<skos:altLabel xml:lang="zh">埃拉特</skos:altLabel>
+	<skos:prefLabel>Elat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/295278/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>29.58333</wgs:lat>
+	<wgs:long>34.91667</wgs:long>
+	<skos:altLabel>Eilat</skos:altLabel>
+	<skos:altLabel>Elat</skos:altLabel>
+	<skos:altLabel>Hevel Elot</skos:altLabel>
+	<skos:prefLabel>Elat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/295317/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.6</wgs:lat>
+	<wgs:long>34.91667</wgs:long>
+	<skos:prefLabel>Dor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/295328/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>33558</europeana:population>
+	<wgs:lat>31.06667</wgs:lat>
+	<wgs:long>35.03333</wgs:long>
+	<skos:altLabel xml:lang="en">Dimona</skos:altLabel>
+	<skos:altLabel xml:lang="es">Dimona</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Dimona</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Dimona</skos:altLabel>
+	<skos:altLabel xml:lang="de">Dimona</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Dimona</skos:altLabel>
+	<skos:altLabel xml:lang="it">Dimona</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Dimona</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Dimona</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Dimona</skos:altLabel>
+	<skos:altLabel>Dimona</skos:altLabel>
+	<skos:altLabel>Domona</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Димона</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Димона</skos:altLabel>
+	<skos:altLabel xml:lang="he">דימונה</skos:altLabel>
+	<skos:prefLabel>Dimona</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/295365/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>25000</europeana:population>
+	<wgs:lat>32.69361</wgs:lat>
+	<wgs:long>35.04083</wgs:long>
+	<skos:altLabel xml:lang="en">Carmel City</skos:altLabel>
+	<skos:altLabel>Daliyah</skos:altLabel>
+	<skos:altLabel>Daliyat ad-Druz</skos:altLabel>
+	<skos:altLabel>Daliyat al-Karmil</skos:altLabel>
+	<skos:altLabel>Daliyat at Karmil</skos:altLabel>
+	<skos:altLabel>Dāliyat el Karmil</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кармель</skos:altLabel>
+	<skos:prefLabel>Dāliyat el Karmil</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/295432/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>67100</europeana:population>
+	<wgs:lat>31.75</wgs:lat>
+	<wgs:long>35</wgs:long>
+	<skos:altLabel xml:lang="ro">Beit Şemeş</skos:altLabel>
+	<skos:altLabel>Beit-Shemesh</skos:altLabel>
+	<skos:altLabel xml:lang="de">Bet Schemesch</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Bet Shemesh</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bet Shemesh</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Bet Shemesh</skos:altLabel>
+	<skos:altLabel xml:lang="es">Bet Shemesh</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Bet Shemesh</skos:altLabel>
+	<skos:altLabel>Bet Shemesh</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Betxèmeix</skos:altLabel>
+	<skos:altLabel>Maabarat Hartuv</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бейт-Шемеш</skos:altLabel>
+	<skos:altLabel xml:lang="he">בית שמש</skos:altLabel>
+	<skos:prefLabel>Bet Shemesh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/295435/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16800</europeana:population>
+	<wgs:lat>32.5</wgs:lat>
+	<wgs:long>35.5</wgs:long>
+	<skos:altLabel>Beisān</skos:altLabel>
+	<skos:altLabel>Beit Shean</skos:altLabel>
+	<skos:altLabel>Beith Sheān</skos:altLabel>
+	<skos:altLabel>Besan</skos:altLabel>
+	<skos:altLabel xml:lang="de">Bet Sche'an</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bet She'an</skos:altLabel>
+	<skos:altLabel xml:lang="es">Bet She'an</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Bet Shean</skos:altLabel>
+	<skos:altLabel>Bet She’an</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Bet Szean</skos:altLabel>
+	<skos:altLabel>Beth Shan</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Beït Shéan</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Beït-Shéan</skos:altLabel>
+	<skos:altLabel>Scythopolis</skos:altLabel>
+	<skos:altLabel>Skythopolis</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бейт-Шеан</skos:altLabel>
+	<skos:altLabel xml:lang="he">בית שאן</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بيسان</skos:altLabel>
+	<skos:prefLabel>Bet She’an</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/295436/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>32.5</wgs:lat>
+	<wgs:long>35.5</wgs:long>
+	<skos:altLabel>Beitshean</skos:altLabel>
+	<skos:altLabel>Bet She’an</skos:altLabel>
+	<skos:prefLabel>Bet She’an</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/295468/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.6</wgs:lat>
+	<wgs:long>34.9</wgs:long>
+	<skos:altLabel>Bet Guverin</skos:altLabel>
+	<skos:altLabel>Bet Guvrin</skos:altLabel>
+	<skos:prefLabel>Bet Guvrin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/295514/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>144663</europeana:population>
+	<wgs:lat>32.09028</wgs:lat>
+	<wgs:long>34.83972</wgs:long>
+	<skos:altLabel>Benai Beraq</skos:altLabel>
+	<skos:altLabel>Bene Beraq</skos:altLabel>
+	<skos:altLabel>Benei Beraq</skos:altLabel>
+	<skos:altLabel>Beney Beraq</skos:altLabel>
+	<skos:prefLabel>Bene Beraq</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/295523/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10002</europeana:population>
+	<wgs:lat>32.96528</wgs:lat>
+	<wgs:long>35.37944</wgs:long>
+	<skos:altLabel>Bayt Jann</skos:altLabel>
+	<skos:altLabel>Beit Jann</skos:altLabel>
+	<skos:altLabel>Bet Dagan</skos:altLabel>
+	<skos:prefLabel>Beit Jann</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/295527/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>30.66667</wgs:lat>
+	<wgs:long>34.83333</wgs:long>
+	<skos:altLabel>Beersheba</skos:altLabel>
+	<skos:altLabel>Beersheba Sub-district</skos:altLabel>
+	<skos:altLabel>Nefat Be’er Sheva‘</skos:altLabel>
+	<skos:prefLabel>Nefat Be’er Sheva‘</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/295530/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>186600</europeana:population>
+	<wgs:lat>31.25181</wgs:lat>
+	<wgs:long>34.7913</wgs:long>
+	<skos:altLabel>B'eyr-Sheva'</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Be'er Sheva</skos:altLabel>
+	<skos:altLabel xml:lang="it">Be'er Sheva</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Be'er Sheva</skos:altLabel>
+	<skos:altLabel xml:lang="es">Be'er Sheva</skos:altLabel>
+	<skos:altLabel xml:lang="he">Be'er Sheva`</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Be'er Ševa</skos:altLabel>
+	<skos:altLabel xml:lang="et">Be'ér-Sheva‘</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Beer Sheba</skos:altLabel>
+	<skos:altLabel xml:lang="es">Beer Sheva</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Beer Szewa</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Beer Şeva</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Beer Ševa</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Beer-Sheva</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Beer-Sheva</skos:altLabel>
+	<skos:altLabel xml:lang="de">Beerscheba</skos:altLabel>
+	<skos:altLabel xml:lang="id">Beersheba</skos:altLabel>
+	<skos:altLabel xml:lang="en">Beersheba</skos:altLabel>
+	<skos:altLabel xml:lang="da">Beersheba</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Beersheba</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Beersheba</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Beerxeba</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Ber Ševa</skos:altLabel>
+	<skos:altLabel>Bersabée</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Berseba</skos:altLabel>
+	<skos:altLabel>Berséba</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Beër Sjeva</skos:altLabel>
+	<skos:altLabel>Bir el Saba</skos:altLabel>
+	<skos:altLabel>Bir es Sab`</skos:altLabel>
+	<skos:altLabel>Bir es Sabe</skos:altLabel>
+	<skos:altLabel xml:lang="tl">B’er Sheva‘</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Lungsod ng B’er Sheva‘</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Беер Шева</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Беэр-Шева</skos:altLabel>
+	<skos:altLabel xml:lang="he">באר שבע</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بئر السبع</skos:altLabel>
+	<skos:altLabel xml:lang="ko">베에르셰바</skos:altLabel>
+	<skos:prefLabel>Beersheba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/295548/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>128979</europeana:population>
+	<wgs:lat>32.02306</wgs:lat>
+	<wgs:long>34.75028</wgs:long>
+	<skos:altLabel xml:lang="de">Bat Jam</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Bat Yam</skos:altLabel>
+	<skos:altLabel xml:lang="es">Bat Yam</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bat Yam</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Bat Yam</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Bat Yam</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Bat Yam</skos:altLabel>
+	<skos:altLabel xml:lang="it">Bat Yam</skos:altLabel>
+	<skos:altLabel>Bat Yam</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бат-Ям</skos:altLabel>
+	<skos:altLabel xml:lang="he">בת ים</skos:altLabel>
+	<skos:prefLabel>Bat Yam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/295584/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10108</europeana:population>
+	<wgs:lat>32.01917</wgs:lat>
+	<wgs:long>34.81056</wgs:long>
+	<skos:altLabel>Azor</skos:altLabel>
+	<skos:altLabel>Azur</skos:altLabel>
+	<skos:altLabel>Yazir</skos:altLabel>
+	<skos:altLabel>Yazor</skos:altLabel>
+	<skos:altLabel>Yāzūr</skos:altLabel>
+	<skos:prefLabel>Azor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/295614/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.7</wgs:lat>
+	<wgs:long>34.93333</wgs:long>
+	<skos:altLabel>Athlit</skos:altLabel>
+	<skos:altLabel>Castellum Peregrinorum</skos:altLabel>
+	<skos:altLabel>Petra Incisa</skos:altLabel>
+	<skos:altLabel>‘Atlit</skos:altLabel>
+	<skos:prefLabel>‘Atlit</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/295618/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294952/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>31.66667</wgs:lat>
+	<wgs:long>34.75</wgs:long>
+	<skos:altLabel>Ashkelon Sub-district</skos:altLabel>
+	<skos:altLabel>Nefat Ashqelon</skos:altLabel>
+	<skos:prefLabel>Nefat Ashqelon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/295620/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>105995</europeana:population>
+	<wgs:lat>31.66667</wgs:lat>
+	<wgs:long>34.58333</wgs:long>
+	<skos:altLabel>Al Majdal</skos:altLabel>
+	<skos:altLabel>Ashqelon</skos:altLabel>
+	<skos:altLabel>Ashquelon</skos:altLabel>
+	<skos:altLabel>El Majdal</skos:altLabel>
+	<skos:altLabel>El Medjdel</skos:altLabel>
+	<skos:altLabel>Majdal</skos:altLabel>
+	<skos:altLabel>Majdal ‘Asqalān</skos:altLabel>
+	<skos:altLabel>Migdal Ascalon</skos:altLabel>
+	<skos:altLabel>Migdal Ashqelon</skos:altLabel>
+	<skos:altLabel>Migdal Gad</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ашкелон</skos:altLabel>
+	<skos:altLabel xml:lang="he">אַשְׁקְלוֹן</skos:altLabel>
+	<skos:prefLabel>Ashqelon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/295629/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>224656</europeana:population>
+	<wgs:lat>31.81667</wgs:lat>
+	<wgs:long>34.65</wgs:long>
+	<skos:altLabel xml:lang="de">Aschdod</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Asdod</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ashdod</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Ashdod</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Ashdod</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Ashdod</skos:altLabel>
+	<skos:altLabel xml:lang="da">Ashdod</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Ashdod</skos:altLabel>
+	<skos:altLabel xml:lang="es">Ashdod</skos:altLabel>
+	<skos:altLabel>Ashdod</skos:altLabel>
+	<skos:altLabel>Ashdod Yam</skos:altLabel>
+	<skos:altLabel>Ashdod on the Sea</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Aszdod</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Aşdod</skos:altLabel>
+	<skos:altLabel>Ukreir</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ашдод</skos:altLabel>
+	<skos:altLabel xml:lang="he">אשדוד</skos:altLabel>
+	<skos:prefLabel>Ashdod</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/295719/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294824/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>32.91667</wgs:lat>
+	<wgs:long>35.25</wgs:long>
+	<skos:altLabel>Acre Sub-district</skos:altLabel>
+	<skos:altLabel>Nefat ‘Akko</skos:altLabel>
+	<skos:prefLabel>Nefat ‘Akko</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/295721/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>45603</europeana:population>
+	<wgs:lat>32.92361</wgs:lat>
+	<wgs:long>35.07278</wgs:long>
+	<skos:altLabel>Accho</skos:altLabel>
+	<skos:altLabel>Acre</skos:altLabel>
+	<skos:altLabel xml:lang="en">Acre</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Acre</skos:altLabel>
+	<skos:altLabel xml:lang="es">Acre</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Acre</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Acre - עכו</skos:altLabel>
+	<skos:altLabel>Acri</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Akka</skos:altLabel>
+	<skos:altLabel>Akkia</skos:altLabel>
+	<skos:altLabel xml:lang="de">Akko</skos:altLabel>
+	<skos:altLabel xml:lang="af">Akko</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Akko</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Akko</skos:altLabel>
+	<skos:altLabel xml:lang="no">Akko</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Akko</skos:altLabel>
+	<skos:altLabel xml:lang="da">Akko</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Akko</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Akko</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Akko</skos:altLabel>
+	<skos:altLabel>Akre</skos:altLabel>
+	<skos:altLabel>Ptolemais</skos:altLabel>
+	<skos:altLabel>Saint Jean d’Acre</skos:altLabel>
+	<skos:altLabel xml:lang="it">San Giovanni d'Acri</skos:altLabel>
+	<skos:altLabel xml:lang="el">Αντιόχεια</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Акко</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Акко</skos:altLabel>
+	<skos:altLabel xml:lang="he">עכו</skos:altLabel>
+	<skos:altLabel xml:lang="ar">عكا</skos:altLabel>
+	<skos:altLabel>‘Akka</skos:altLabel>
+	<skos:altLabel>‘Akko</skos:altLabel>
+	<skos:altLabel xml:lang="ja">アッコ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">阿卡</skos:altLabel>
+	<skos:prefLabel>‘Akko</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/295722/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>33.03333</wgs:lat>
+	<wgs:long>35.06667</wgs:long>
+	<skos:altLabel>I Akhziv</skos:altLabel>
+	<skos:altLabel>Ile Akhzif</skos:altLabel>
+	<skos:prefLabel>I Akhziv</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/295739/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>40000</europeana:population>
+	<wgs:lat>32.63333</wgs:lat>
+	<wgs:long>35.33333</wgs:long>
+	<skos:altLabel>Upper Afula</skos:altLabel>
+	<skos:altLabel>‘Afula ‘Elit</skos:altLabel>
+	<skos:altLabel>‘Afula ‘Illit</skos:altLabel>
+	<skos:altLabel>‘Afulla ‘Illit</skos:altLabel>
+	<skos:altLabel>‘Afūlāh ‘Ilīth</skos:altLabel>
+	<skos:prefLabel>‘Afula ‘Illit</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/295746/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.1</wgs:lat>
+	<wgs:long>34.93333</wgs:long>
+	<skos:altLabel>Afeq</skos:altLabel>
+	<skos:altLabel>Antipartris</skos:altLabel>
+	<skos:altLabel>Antipatris</skos:altLabel>
+	<skos:altLabel>Tel Afeq</skos:altLabel>
+	<skos:prefLabel>Afeq</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/385753/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.51111</wgs:lat>
+	<wgs:long>35.49444</wgs:long>
+	<skos:prefLabel>Tel Naharon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/385755/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.5125</wgs:lat>
+	<wgs:long>35.49722</wgs:long>
+	<skos:altLabel>Tel Iẕtaba</skos:altLabel>
+	<skos:altLabel>Tel Iẕtabba</skos:altLabel>
+	<skos:prefLabel>Tel Iẕtabba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/385892/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.53056</wgs:lat>
+	<wgs:long>35.40278</wgs:long>
+	<skos:prefLabel>Tel Yosef HaYeshana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/385898/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.56111</wgs:lat>
+	<wgs:long>35.32639</wgs:long>
+	<skos:prefLabel>Tel Yizre‘el</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/386340/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.9125</wgs:lat>
+	<wgs:long>35.29722</wgs:long>
+	<skos:prefLabel>H̱orbat Bata</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/386730/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.49722</wgs:lat>
+	<wgs:long>35.46389</wgs:long>
+	<skos:prefLabel>Tel Sokha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/390332/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.13</wgs:lat>
+	<wgs:long>34.88833</wgs:long>
+	<skos:prefLabel>Tel Qana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/442690/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.60389</wgs:lat>
+	<wgs:long>34.93889</wgs:long>
+	<skos:prefLabel>Mezad Maẖalat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/442696/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.62917</wgs:lat>
+	<wgs:long>34.91</wgs:long>
+	<skos:prefLabel>Mezad Mishhor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/442701/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.68833</wgs:lat>
+	<wgs:long>34.92806</wgs:long>
+	<skos:prefLabel>Meẕad Maẖmal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693674/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>188900</europeana:population>
+	<wgs:lat>32.09174</wgs:lat>
+	<wgs:long>34.88503</wgs:long>
+	<skos:altLabel xml:lang="ru">Петах-Тиква</skos:altLabel>
+	<skos:prefLabel>Petah Tikva</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6945291/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/281184/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>36000</europeana:population>
+	<wgs:lat>31.77667</wgs:lat>
+	<wgs:long>35.23417</wgs:long>
+	<skos:prefLabel>Old City</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7498240/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/294640/"/>
+	<europeana:country>IL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>400000</europeana:population>
+	<wgs:lat>31.78199</wgs:lat>
+	<wgs:long>35.21961</wgs:long>
+	<skos:altLabel>Jerusalem West</skos:altLabel>
+	<skos:altLabel xml:lang="no">Vest-Jerusalem</skos:altLabel>
+	<skos:altLabel xml:lang="da">Vestjerusalem</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Västra Jerusalem</skos:altLabel>
+	<skos:altLabel xml:lang="en">West Jerusalem</skos:altLabel>
+	<skos:altLabel xml:lang="de">Westjerusalem</skos:altLabel>
+	<skos:prefLabel>West Jerusalem</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 263 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

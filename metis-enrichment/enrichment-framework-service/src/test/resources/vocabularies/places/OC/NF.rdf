@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: OC_NF
+Description: Selected fields pulled from Geonames about NF done on Mon May 23 21:17:15 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/2155115/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255151/"/>
+	<europeana:country>NF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLD"/>
+	<europeana:population>1828</europeana:population>
+	<wgs:lat>-29.03333</wgs:lat>
+	<wgs:long>167.95</wgs:long>
+	<skos:altLabel xml:lang="fr">Ile de Norfolk</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Ilha Norfolk</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Illa Norfolk</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Illa Norfolk</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Insula Norfolk</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Insula Norfolk</skos:altLabel>
+	<skos:altLabel xml:lang="es">Isla Norfolk</skos:altLabel>
+	<skos:altLabel>NF</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Norfolk</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Norfolk Adası</skos:altLabel>
+	<skos:altLabel xml:lang="da">Norfolk Island</skos:altLabel>
+	<skos:altLabel xml:lang="en">Norfolk Island</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Norfolk Island</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Norfolk Island</skos:altLabel>
+	<skos:altLabel xml:lang="et">Norfolk Saared</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Norfolk uhartea</skos:altLabel>
+	<skos:altLabel xml:lang="it">Norfolk, isola</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Norfolk, île</skos:altLabel>
+	<skos:altLabel xml:lang="de">Norfolk-Insel</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Norfolk-sziget</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Norfolkas sala</skos:altLabel>
+	<skos:altLabel xml:lang="is">Norfolkey</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Norfolkinsaari</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Norfolkinsulo</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Norfolko sala</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Norfolkön</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Norfolkøya</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Norfolkøyene</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Norfolški otok</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Oileán Norfolk</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Ostrov Norfolk</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Ostrov Norfolk</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Otok Norfolk</skos:altLabel>
+	<skos:altLabel xml:lang="id">Pulau Norfolk</skos:altLabel>
+	<skos:altLabel>Territory of Norfolk Island</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Wyspa Norfolk</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Ynys Norfolk</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Île Norflok</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Đảo Norfolk</skos:altLabel>
+	<skos:altLabel xml:lang="el">Νήσος Νόρφολκ</skos:altLabel>
+	<skos:altLabel xml:lang="be">Норфалкскія астравы</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Норфолк</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Нофролк Остров</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Острво Норфолк</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Остров Норфолк</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Острів Норфолк</skos:altLabel>
+	<skos:altLabel xml:lang="he">איי נורפק</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جزيرة نورفوك</skos:altLabel>
+	<skos:altLabel xml:lang="fa">جزیره ی نورفلک</skos:altLabel>
+	<skos:altLabel xml:lang="ur">جزیرہ نارفولک</skos:altLabel>
+	<skos:altLabel xml:lang="hi">नॉरफ़ॉक आइलैंड</skos:altLabel>
+	<skos:altLabel xml:lang="bn">নরফোক দ্বীপ</skos:altLabel>
+	<skos:altLabel xml:lang="th">เกาะนอร์โฟลก</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ნორფოლკის კუნძული</skos:altLabel>
+	<skos:altLabel xml:lang="am">ኖርፎልክ ደሴት</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ノーフォーク島</skos:altLabel>
+	<skos:altLabel xml:lang="zh">诺福克岛</skos:altLabel>
+	<skos:altLabel xml:lang="ko">노포크 섬</skos:altLabel>
+	<skos:prefLabel>Territory of Norfolk Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6942224/">
+	<europeana:country>NF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-29.11894</wgs:lat>
+	<wgs:long>167.94948</wgs:long>
+	<skos:prefLabel>Phillip Island</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 1 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

@@ -1,0 +1,1194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: NA_BM
+Description: Selected fields pulled from Geonames about BM done on Mon May 23 21:14:19 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/3572952/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.28083</wgs:lat>
+	<wgs:long>-64.82056</wgs:long>
+	<skos:prefLabel>Zeta Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3572955/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.25583</wgs:lat>
+	<wgs:long>-64.84389</wgs:long>
+	<skos:altLabel>Five Star Island</skos:altLabel>
+	<skos:altLabel>Wilson Island</skos:altLabel>
+	<skos:altLabel>Wilson’s Island</skos:altLabel>
+	<skos:prefLabel>Five Star Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3572958/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.37306</wgs:lat>
+	<wgs:long>-64.68111</wgs:long>
+	<skos:altLabel>Kerosene Island</skos:altLabel>
+	<skos:altLabel>White’s Island</skos:altLabel>
+	<skos:prefLabel>White’s Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3572960/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.28806</wgs:lat>
+	<wgs:long>-64.78528</wgs:long>
+	<skos:altLabel>White Island</skos:altLabel>
+	<skos:altLabel>White’s Island</skos:altLabel>
+	<skos:prefLabel>White’s Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3572962/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.27889</wgs:lat>
+	<wgs:long>-64.88139</wgs:long>
+	<skos:prefLabel>Whale Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3572965/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.36222</wgs:lat>
+	<wgs:long>-64.67194</wgs:long>
+	<skos:prefLabel>Westcott Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3572968/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.30611</wgs:lat>
+	<wgs:long>-64.85667</wgs:long>
+	<skos:prefLabel>Watford Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3572972/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573345/"/>
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>8932</europeana:population>
+	<wgs:lat>32.26583</wgs:lat>
+	<wgs:long>-64.80722</wgs:long>
+	<skos:altLabel>Heron Bay</skos:altLabel>
+	<skos:altLabel>Warwick</skos:altLabel>
+	<skos:altLabel>Warwick Parish</skos:altLabel>
+	<skos:prefLabel>Warwick Parish</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3572990/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.33333</wgs:lat>
+	<wgs:long>-64.7275</wgs:long>
+	<skos:prefLabel>Trunk Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573023/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.28722</wgs:lat>
+	<wgs:long>-64.80111</wgs:long>
+	<skos:prefLabel>Spectacle Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573024/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.25889</wgs:lat>
+	<wgs:long>-64.835</wgs:long>
+	<skos:prefLabel>Spectacle Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573026/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573345/"/>
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>6260</europeana:population>
+	<wgs:lat>32.25083</wgs:lat>
+	<wgs:long>-64.85639</wgs:long>
+	<skos:altLabel>Port Royal</skos:altLabel>
+	<skos:altLabel>Southampton</skos:altLabel>
+	<skos:altLabel>Southampton Parish</skos:altLabel>
+	<skos:prefLabel>Southampton Parish</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573027/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.29833</wgs:lat>
+	<wgs:long>-64.87028</wgs:long>
+	<skos:prefLabel>Somerset Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573031/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573345/"/>
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>5852</europeana:population>
+	<wgs:lat>32.31528</wgs:lat>
+	<wgs:long>-64.73528</wgs:long>
+	<skos:altLabel>Harris Bay</skos:altLabel>
+	<skos:altLabel>Smiths</skos:altLabel>
+	<skos:altLabel>Smithʼs</skos:altLabel>
+	<skos:altLabel>Smith’s Parish</skos:altLabel>
+	<skos:prefLabel>Smith’s Parish</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573032/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.37167</wgs:lat>
+	<wgs:long>-64.66528</wgs:long>
+	<skos:prefLabel>Smith’s Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573050/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573345/"/>
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>7723</europeana:population>
+	<wgs:lat>32.29345</wgs:lat>
+	<wgs:long>-64.86828</wgs:long>
+	<skos:altLabel>Sandys</skos:altLabel>
+	<skos:altLabel>Somerset</skos:altLabel>
+	<skos:prefLabel>Sandys Parish</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573054/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.29083</wgs:lat>
+	<wgs:long>-64.80056</wgs:long>
+	<skos:prefLabel>Saltus Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573057/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573345/"/>
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>32.36361</wgs:lat>
+	<wgs:long>-64.67944</wgs:long>
+	<skos:altLabel>Saint Georgeʼs</skos:altLabel>
+	<skos:altLabel>Saint George’s</skos:altLabel>
+	<skos:altLabel>Saint George’s Parish</skos:altLabel>
+	<skos:prefLabel>Saint George’s Parish</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573058/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.38472</wgs:lat>
+	<wgs:long>-64.67778</wgs:long>
+	<skos:prefLabel>Saint George’s Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573062/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573345/"/>
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>32.38417</wgs:lat>
+	<wgs:long>-64.67639</wgs:long>
+	<skos:altLabel>Saint George</skos:altLabel>
+	<skos:prefLabel>Saint George</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573063/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.36278</wgs:lat>
+	<wgs:long>-64.66111</wgs:long>
+	<skos:prefLabel>Saint David’s Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573069/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.3375</wgs:lat>
+	<wgs:long>-64.67389</wgs:long>
+	<skos:prefLabel>Rushy Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573071/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.36444</wgs:lat>
+	<wgs:long>-64.70889</wgs:long>
+	<skos:altLabel>Rogue Island</skos:altLabel>
+	<skos:altLabel>Rogue’s Island</skos:altLabel>
+	<skos:prefLabel>Rogue’s Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573085/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.28306</wgs:lat>
+	<wgs:long>-64.82111</wgs:long>
+	<skos:prefLabel>Ports Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573093/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.26028</wgs:lat>
+	<wgs:long>-64.83139</wgs:long>
+	<skos:altLabel>Crumb-brush Island</skos:altLabel>
+	<skos:altLabel>Perot Island</skos:altLabel>
+	<skos:altLabel>Perot’s Island</skos:altLabel>
+	<skos:prefLabel>Perot’s Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573095/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573345/"/>
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>10249</europeana:population>
+	<wgs:lat>32.29944</wgs:lat>
+	<wgs:long>-64.79278</wgs:long>
+	<skos:altLabel>Pembroke</skos:altLabel>
+	<skos:altLabel>Pembroke Parish</skos:altLabel>
+	<skos:altLabel>Spanish Point</skos:altLabel>
+	<skos:prefLabel>Pembroke Parish</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573101/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.29806</wgs:lat>
+	<wgs:long>-64.80944</wgs:long>
+	<skos:prefLabel>Partridge Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573103/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573345/"/>
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>5179</europeana:population>
+	<wgs:lat>32.27833</wgs:lat>
+	<wgs:long>-64.78167</wgs:long>
+	<skos:altLabel>Crow Lane</skos:altLabel>
+	<skos:altLabel xml:lang="en">Paget</skos:altLabel>
+	<skos:altLabel>Paget Parish</skos:altLabel>
+	<skos:prefLabel>Paget Parish</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573105/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.37528</wgs:lat>
+	<wgs:long>-64.66056</wgs:long>
+	<skos:prefLabel>Paget Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573106/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.38</wgs:lat>
+	<wgs:long>-64.67667</wgs:long>
+	<skos:altLabel>Ordinance Island</skos:altLabel>
+	<skos:altLabel>Ordnance Island</skos:altLabel>
+	<skos:prefLabel>Ordnance Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573108/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.33333</wgs:lat>
+	<wgs:long>-64.66667</wgs:long>
+	<skos:altLabel>Charles Island</skos:altLabel>
+	<skos:altLabel>Charles’ Fort</skos:altLabel>
+	<skos:altLabel>Old Castle</skos:altLabel>
+	<skos:prefLabel>Charles’ Fort</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573111/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.34778</wgs:lat>
+	<wgs:long>-64.66333</wgs:long>
+	<skos:prefLabel>Nonsuch Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573114/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.28417</wgs:lat>
+	<wgs:long>-64.82472</wgs:long>
+	<skos:prefLabel>Nelly Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573124/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.2875</wgs:lat>
+	<wgs:long>-64.87778</wgs:long>
+	<skos:prefLabel>Morgan’s Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573134/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.28333</wgs:lat>
+	<wgs:long>-64.80972</wgs:long>
+	<skos:altLabel>Marshall Island</skos:altLabel>
+	<skos:altLabel>Marshall’s Island</skos:altLabel>
+	<skos:prefLabel>Marshall’s Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573141/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.35722</wgs:lat>
+	<wgs:long>-64.65528</wgs:long>
+	<skos:prefLabel>Long Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573143/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.36222</wgs:lat>
+	<wgs:long>-64.67583</wgs:long>
+	<skos:prefLabel>Long Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573144/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.28611</wgs:lat>
+	<wgs:long>-64.82</wgs:long>
+	<skos:prefLabel>Long Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573145/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.36528</wgs:lat>
+	<wgs:long>-64.69667</wgs:long>
+	<skos:prefLabel>Long Bird Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573155/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.28889</wgs:lat>
+	<wgs:long>-64.83111</wgs:long>
+	<skos:prefLabel>Lambda Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573169/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>32.31556</wgs:lat>
+	<wgs:long>-64.84472</wgs:long>
+	<skos:prefLabel>Ireland Island South</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573170/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>32.325</wgs:lat>
+	<wgs:long>-64.83611</wgs:long>
+	<skos:prefLabel>Ireland Island North</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573172/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.32</wgs:lat>
+	<wgs:long>-64.84167</wgs:long>
+	<skos:prefLabel>Ireland Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573173/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.25861</wgs:lat>
+	<wgs:long>-64.83472</wgs:long>
+	<skos:altLabel>Hunt Island</skos:altLabel>
+	<skos:altLabel>Hunts Island</skos:altLabel>
+	<skos:altLabel>Spectacle Island</skos:altLabel>
+	<skos:prefLabel>Spectacle Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573176/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.37722</wgs:lat>
+	<wgs:long>-64.66472</wgs:long>
+	<skos:prefLabel>Horseshoe Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573182/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.2825</wgs:lat>
+	<wgs:long>-64.80278</wgs:long>
+	<skos:altLabel>Godet Island</skos:altLabel>
+	<skos:altLabel>Hinson Island</skos:altLabel>
+	<skos:altLabel>Hinson’s Island</skos:altLabel>
+	<skos:prefLabel>Hinson’s Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573187/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.37722</wgs:lat>
+	<wgs:long>-64.66333</wgs:long>
+	<skos:prefLabel>Higgs’ Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573190/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.37583</wgs:lat>
+	<wgs:long>-64.67167</wgs:long>
+	<skos:altLabel>Hen Island</skos:altLabel>
+	<skos:altLabel>Saint Michaels Island</skos:altLabel>
+	<skos:prefLabel>Hen Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573192/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.28611</wgs:lat>
+	<wgs:long>-64.82861</wgs:long>
+	<skos:altLabel>Elizabeth Island</skos:altLabel>
+	<skos:altLabel>Hawkins Island</skos:altLabel>
+	<skos:prefLabel>Hawkins Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573195/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573345/"/>
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>5584</europeana:population>
+	<wgs:lat>32.34222</wgs:lat>
+	<wgs:long>-64.72833</wgs:long>
+	<skos:altLabel>Bailey’s Bay</skos:altLabel>
+	<skos:altLabel>Hamilton</skos:altLabel>
+	<skos:altLabel xml:lang="en">Hamilton Parish</skos:altLabel>
+	<skos:altLabel>Hamilton Parish</skos:altLabel>
+	<skos:prefLabel>Hamilton Parish</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573198/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573345/"/>
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>32.29389</wgs:lat>
+	<wgs:long>-64.78361</wgs:long>
+	<skos:altLabel>Hamilton</skos:altLabel>
+	<skos:altLabel xml:lang="en">Hamilton city</skos:altLabel>
+	<skos:prefLabel>Hamilton</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573199/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.33917</wgs:lat>
+	<wgs:long>-64.71306</wgs:long>
+	<skos:altLabel>Hall Island</skos:altLabel>
+	<skos:altLabel>Hall’s Island</skos:altLabel>
+	<skos:prefLabel>Hall’s Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573210/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.35472</wgs:lat>
+	<wgs:long>-64.65639</wgs:long>
+	<skos:altLabel>Grasbury’s Island</skos:altLabel>
+	<skos:altLabel>Grazbury’s Island</skos:altLabel>
+	<skos:prefLabel>Grazbury’s Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573215/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.27333</wgs:lat>
+	<wgs:long>-64.835</wgs:long>
+	<skos:prefLabel>Grace Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573216/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.37167</wgs:lat>
+	<wgs:long>-64.65806</wgs:long>
+	<skos:prefLabel>Governor’s Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573219/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>32.35472</wgs:lat>
+	<wgs:long>-64.66389</wgs:long>
+	<skos:prefLabel>Goat Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573225/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.32306</wgs:lat>
+	<wgs:long>-64.74417</wgs:long>
+	<skos:altLabel>Gallows Island</skos:altLabel>
+	<skos:altLabel>Gibbet Island</skos:altLabel>
+	<skos:altLabel>Gibbet Islet</skos:altLabel>
+	<skos:prefLabel>Gibbet Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573230/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.28111</wgs:lat>
+	<wgs:long>-64.82639</wgs:long>
+	<skos:prefLabel>Gamma Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573246/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.28611</wgs:lat>
+	<wgs:long>-64.81028</wgs:long>
+	<skos:altLabel>Bluck’s Island</skos:altLabel>
+	<skos:altLabel>Denslows Island</skos:altLabel>
+	<skos:altLabel>Dyer Island</skos:altLabel>
+	<skos:prefLabel>Bluck’s Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573250/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.28556</wgs:lat>
+	<wgs:long>-64.7975</wgs:long>
+	<skos:prefLabel>Doctor’s Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573251/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3573345/"/>
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>32.30278</wgs:lat>
+	<wgs:long>-64.75583</wgs:long>
+	<skos:altLabel>Brackish Pond</skos:altLabel>
+	<skos:altLabel>Devonshire</skos:altLabel>
+	<skos:altLabel>Devonshire Parish</skos:altLabel>
+	<skos:prefLabel>Devonshire Parish</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573256/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.28083</wgs:lat>
+	<wgs:long>-64.82444</wgs:long>
+	<skos:prefLabel>Delta Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573259/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.275</wgs:lat>
+	<wgs:long>-64.82111</wgs:long>
+	<skos:altLabel>Darrell Island</skos:altLabel>
+	<skos:altLabel>Darrell’s Island</skos:altLabel>
+	<skos:prefLabel>Darrell’s Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573260/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.30556</wgs:lat>
+	<wgs:long>-64.88278</wgs:long>
+	<skos:altLabel>Daniel Island</skos:altLabel>
+	<skos:altLabel>Daniel’s Island</skos:altLabel>
+	<skos:prefLabel>Daniel’s Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573263/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.31889</wgs:lat>
+	<wgs:long>-64.83722</wgs:long>
+	<skos:altLabel>Cross Island</skos:altLabel>
+	<skos:altLabel>Magazine Island</skos:altLabel>
+	<skos:prefLabel>Cross Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573274/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.35361</wgs:lat>
+	<wgs:long>-64.66</wgs:long>
+	<skos:altLabel>Cooper Island</skos:altLabel>
+	<skos:altLabel>Cooper’s Island</skos:altLabel>
+	<skos:prefLabel>Cooper’s Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573277/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.35889</wgs:lat>
+	<wgs:long>-64.71556</wgs:long>
+	<skos:prefLabel>Coney Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573282/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.30833</wgs:lat>
+	<wgs:long>-64.81944</wgs:long>
+	<skos:prefLabel>Cobbler’s Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573296/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.36389</wgs:lat>
+	<wgs:long>-64.68806</wgs:long>
+	<skos:prefLabel>Cave Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573302/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.34056</wgs:lat>
+	<wgs:long>-64.6725</wgs:long>
+	<skos:altLabel>Castle Island</skos:altLabel>
+	<skos:altLabel>Castle Islet</skos:altLabel>
+	<skos:prefLabel>Castle Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573311/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.37028</wgs:lat>
+	<wgs:long>-64.67194</wgs:long>
+	<skos:prefLabel>Burt’s Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573313/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.27528</wgs:lat>
+	<wgs:long>-64.82556</wgs:long>
+	<skos:altLabel>Burt Island</skos:altLabel>
+	<skos:altLabel>Burt’s Island</skos:altLabel>
+	<skos:prefLabel>Burt’s Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573319/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.25694</wgs:lat>
+	<wgs:long>-64.85889</wgs:long>
+	<skos:prefLabel>Buck Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573321/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.37139</wgs:lat>
+	<wgs:long>-64.67528</wgs:long>
+	<skos:prefLabel>Brooks Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573330/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.30861</wgs:lat>
+	<wgs:long>-64.85306</wgs:long>
+	<skos:prefLabel>Boaz Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573337/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.29639</wgs:lat>
+	<wgs:long>-64.80944</wgs:long>
+	<skos:prefLabel>Bird Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573338/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.285</wgs:lat>
+	<wgs:long>-64.88</wgs:long>
+	<skos:prefLabel>Bethell’s Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573340/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.28167</wgs:lat>
+	<wgs:long>-64.82806</wgs:long>
+	<skos:prefLabel>Beta Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573342/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>32.30444</wgs:lat>
+	<wgs:long>-64.75167</wgs:long>
+	<skos:altLabel>Barmudas</skos:altLabel>
+	<skos:altLabel>Bermoothes</skos:altLabel>
+	<skos:altLabel>Bermuda</skos:altLabel>
+	<skos:altLabel>Bermuda Islands</skos:altLabel>
+	<skos:altLabel>Bermudas</skos:altLabel>
+	<skos:altLabel xml:lang="is">Bermúda</skos:altLabel>
+	<skos:altLabel>Isle of Devils</skos:altLabel>
+	<skos:altLabel>Isles of Devils</skos:altLabel>
+	<skos:altLabel>Somers Islands</skos:altLabel>
+	<skos:altLabel>Sommer Islands</skos:altLabel>
+	<skos:altLabel>Summer Islands</skos:altLabel>
+	<skos:altLabel>Summer Isles</skos:altLabel>
+	<skos:altLabel>Summers Islands</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бермуды</skos:altLabel>
+	<skos:prefLabel>Bermuda Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573343/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.30222</wgs:lat>
+	<wgs:long>-64.75944</wgs:long>
+	<skos:altLabel>Bermuda Island</skos:altLabel>
+	<skos:altLabel>Great Bermuda</skos:altLabel>
+	<skos:altLabel>Hamilton Island</skos:altLabel>
+	<skos:altLabel>Long Island</skos:altLabel>
+	<skos:altLabel>Main Island</skos:altLabel>
+	<skos:altLabel>The Main</skos:altLabel>
+	<skos:prefLabel>Main Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573345/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255149/"/>
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLD"/>
+	<europeana:population>65365</europeana:population>
+	<wgs:lat>32.33333</wgs:lat>
+	<wgs:long>-64.75</wgs:long>
+	<skos:altLabel>BM</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Beirmiúda</skos:altLabel>
+	<skos:altLabel xml:lang="id">Bermuda</skos:altLabel>
+	<skos:altLabel xml:lang="da">Bermuda</skos:altLabel>
+	<skos:altLabel xml:lang="de">Bermuda</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bermuda</skos:altLabel>
+	<skos:altLabel xml:lang="et">Bermuda</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Bermuda</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Bermuda</skos:altLabel>
+	<skos:altLabel xml:lang="it">Bermuda</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Bermuda</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Bermuda</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Bermuda</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Bermuda</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Bermuda</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Bermuda</skos:altLabel>
+	<skos:altLabel xml:lang="se">Bermuda</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Bermuda</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Bermuda</skos:altLabel>
+	<skos:altLabel>Bermuda</skos:altLabel>
+	<skos:altLabel xml:lang="es">Bermudas</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Bermudas</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Bermudes</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Bermudes</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Bermudi</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Bermudi</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Bermudoj</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Bermudu salas</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Bermudy</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Bermudy</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Bermudy</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Bermwda</skos:altLabel>
+	<skos:altLabel xml:lang="is">Bermúda</skos:altLabel>
+	<skos:altLabel xml:lang="is">Bermúdaeyjar</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Insulele Bermude</skos:altLabel>
+	<skos:altLabel xml:lang="el">Βερμούδες</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Бермуда</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Бермуди</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Бермуди</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Бермудски о-ви</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бермудские Острова</skos:altLabel>
+	<skos:altLabel xml:lang="be">Бермудскія астравы</skos:altLabel>
+	<skos:altLabel xml:lang="he">ברמודה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">برمودا</skos:altLabel>
+	<skos:altLabel xml:lang="fa">برمودا</skos:altLabel>
+	<skos:altLabel xml:lang="hi">बरमूडा</skos:altLabel>
+	<skos:altLabel xml:lang="bn">বার্মুডা</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ബര്‍മുഡ</skos:altLabel>
+	<skos:altLabel xml:lang="th">เบอร์มิวด้า</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ເບີມິວດາ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">བར་མུ་ཌ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ბერმუდა</skos:altLabel>
+	<skos:altLabel xml:lang="am">ቤርሙዳ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">バミューダ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">百幕达</skos:altLabel>
+	<skos:altLabel xml:lang="ko">버뮤다</skos:altLabel>
+	<skos:prefLabel>Bermuda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573346/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.35028</wgs:lat>
+	<wgs:long>-64.72611</wgs:long>
+	<skos:prefLabel>Bay Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573347/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.37583</wgs:lat>
+	<wgs:long>-64.69361</wgs:long>
+	<skos:altLabel>Banjo Island</skos:altLabel>
+	<skos:altLabel>Bartram Island</skos:altLabel>
+	<skos:prefLabel>Banjo Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573352/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.28417</wgs:lat>
+	<wgs:long>-64.83222</wgs:long>
+	<skos:prefLabel>Alpha Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573356/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.29361</wgs:lat>
+	<wgs:long>-64.80972</wgs:long>
+	<skos:prefLabel>Agar’s Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3740390/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.31778</wgs:lat>
+	<wgs:long>-64.84167</wgs:long>
+	<skos:prefLabel>Moresby’s Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3740394/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.31222</wgs:lat>
+	<wgs:long>-64.84361</wgs:long>
+	<skos:prefLabel>Regatta Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3740395/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.31167</wgs:lat>
+	<wgs:long>-64.84528</wgs:long>
+	<skos:prefLabel>Crawl Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3740396/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.31222</wgs:lat>
+	<wgs:long>-64.84611</wgs:long>
+	<skos:prefLabel>Hospital Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3740398/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.31167</wgs:lat>
+	<wgs:long>-64.85222</wgs:long>
+	<skos:prefLabel>Malabar Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3740401/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.30583</wgs:lat>
+	<wgs:long>-64.85778</wgs:long>
+	<skos:prefLabel>Current Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3740402/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.30917</wgs:lat>
+	<wgs:long>-64.86361</wgs:long>
+	<skos:prefLabel>One Tree Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3740403/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.31222</wgs:lat>
+	<wgs:long>-64.86194</wgs:long>
+	<skos:prefLabel>Outer Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3740404/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.31167</wgs:lat>
+	<wgs:long>-64.86306</wgs:long>
+	<skos:prefLabel>Middle Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3740405/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.31056</wgs:lat>
+	<wgs:long>-64.86417</wgs:long>
+	<skos:prefLabel>Inner Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3740409/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.28639</wgs:lat>
+	<wgs:long>-64.87917</wgs:long>
+	<skos:prefLabel>Palm Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3740515/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.3325</wgs:lat>
+	<wgs:long>-64.73028</wgs:long>
+	<skos:prefLabel>Rabbit Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3740516/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.33417</wgs:lat>
+	<wgs:long>-64.72556</wgs:long>
+	<skos:prefLabel>Crow Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3740531/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.26167</wgs:lat>
+	<wgs:long>-64.82917</wgs:long>
+	<skos:prefLabel>Riddell’s Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3740533/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.28472</wgs:lat>
+	<wgs:long>-64.82333</wgs:long>
+	<skos:prefLabel>Iota Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3740534/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.28083</wgs:lat>
+	<wgs:long>-64.82278</wgs:long>
+	<skos:prefLabel>Epsilon Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3740535/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.27583</wgs:lat>
+	<wgs:long>-64.82889</wgs:long>
+	<skos:prefLabel>Rickett’s Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3740538/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.28444</wgs:lat>
+	<wgs:long>-64.81917</wgs:long>
+	<skos:prefLabel>Eta Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3740539/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.28556</wgs:lat>
+	<wgs:long>-64.81639</wgs:long>
+	<skos:prefLabel>Theta Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3740540/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.28333</wgs:lat>
+	<wgs:long>-64.81639</wgs:long>
+	<skos:prefLabel>Fern Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3740541/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.28361</wgs:lat>
+	<wgs:long>-64.81472</wgs:long>
+	<skos:prefLabel>No Name Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3740542/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.28194</wgs:lat>
+	<wgs:long>-64.81306</wgs:long>
+	<skos:prefLabel>Irresistible Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3740543/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.285</wgs:lat>
+	<wgs:long>-64.80806</wgs:long>
+	<skos:prefLabel>Watling Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3740544/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.28389</wgs:lat>
+	<wgs:long>-64.79583</wgs:long>
+	<skos:prefLabel>Burnt Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3740548/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.28972</wgs:lat>
+	<wgs:long>-64.81361</wgs:long>
+	<skos:prefLabel>Verrill Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3740551/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.29083</wgs:lat>
+	<wgs:long>-64.81194</wgs:long>
+	<skos:prefLabel>Lefroy Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3745084/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.34528</wgs:lat>
+	<wgs:long>-64.66139</wgs:long>
+	<skos:prefLabel>Idol Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3745102/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.36667</wgs:lat>
+	<wgs:long>-64.66167</wgs:long>
+	<skos:prefLabel>Great Oswego Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3745103/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.3675</wgs:lat>
+	<wgs:long>-64.66083</wgs:long>
+	<skos:prefLabel>Little Oswego Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3745110/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.37472</wgs:lat>
+	<wgs:long>-64.67111</wgs:long>
+	<skos:prefLabel>Peggy’s Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3745112/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>32.37361</wgs:lat>
+	<wgs:long>-64.66556</wgs:long>
+	<skos:prefLabel>Whalers Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3745586/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.30111</wgs:lat>
+	<wgs:long>-64.80972</wgs:long>
+	<skos:prefLabel>Mouse Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3745587/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.29944</wgs:lat>
+	<wgs:long>-64.81</wgs:long>
+	<skos:prefLabel>Cat Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3745589/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.29611</wgs:lat>
+	<wgs:long>-64.80722</wgs:long>
+	<skos:prefLabel>Goat Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3745599/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>32.25667</wgs:lat>
+	<wgs:long>-64.83722</wgs:long>
+	<skos:prefLabel>Bartlett’s Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3745622/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.3225</wgs:lat>
+	<wgs:long>-64.71583</wgs:long>
+	<skos:prefLabel>Turtle Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3745642/">
+	<europeana:country>BM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.3075</wgs:lat>
+	<wgs:long>-64.81333</wgs:long>
+	<skos:prefLabel>Mount Island</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 121 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

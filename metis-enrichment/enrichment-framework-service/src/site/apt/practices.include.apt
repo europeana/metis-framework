@@ -1,0 +1,58 @@
+            ------
+            Including shared parts of XML converters
+            ------
+
+
+Including shared parts of XML converters
+
+ AnnoCultor provides a way to reuse common parts of converters at XML level.
+ The shared part is separated in an XML file (without headers)
+ that is then literally included into the converter.
+ 
+Creating the common block
+
+ Just cut the common part of a converter in XML, and 
+ save it in a separate file, giving it extension <<<.xml>>>.
+
+ Let us call it <<<common.xml>>> and place it one level above the converter itself.
+  
+Linking to the common block  
+ 
+ Add an XML entity pointing to the common XML file:
+ 
++------------------------------------------------------------------+
+ <!DOCTYPE rdf:RDF [
+ 	...
+	        
+    <!ENTITY common SYSTEM '/../common.xml'> 
+    
+]>
++------------------------------------------------------------------+
+ 
+Using the common block
+
+ Use XML entity expansion to (literally) include the common file into a converter.
+ In our example, placing <<<&common;>>> somewhere in the converter
+ would literally replace <<<&common;>>> with the contents of this file.
+
+Resolving common blocks
+
+ The entities are resolved against the profile directory. However,
+ your operating system will try to resolve the filename, as provided in the XML file.
+ 
+
+ To include a file from the profile directory we need to prevent this resolution
+ by artificially moving up-down in file path. For example, imagine that 
+ profiles are stored in directory <<<profile>>> where we want to put our <<<common.xml>>>
+ The following fragment should do it:
+ 
++------------------------------------------------------------------+
+ <!DOCTYPE rdf:RDF [
+ 	...
+	        
+    <!ENTITY common SYSTEM '/../profile/common.xml'> 
+    
+]>
++------------------------------------------------------------------+
+
+ 

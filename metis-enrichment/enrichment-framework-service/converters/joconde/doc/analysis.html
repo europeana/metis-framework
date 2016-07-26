@@ -1,0 +1,591 @@
+<html xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:report="http://e-culture.multimedian.nl/ns/report#">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script type="text/javascript">    
+          function showAll() {
+          var divs = document.getElementsByTagName("div");
+          var i=0;
+          for(i=0;i<divs.length;i++)
+          {
+          divs[i].style.display="block";
+          }
+          };
+          
+          function switchState(boxID, prefix) {
+          var boxObj = document.getElementById(boxID);
+          var buttonObj = document.getElementById(boxID+"_anchor");
+          if (boxObj.style.display=="none") {
+          boxObj.style.display="block";
+          } 
+          else { 
+          boxObj.style.display="none";
+          }
+          }
+     </script><style type="text/css">
+       div.detail {
+        display: none;
+        margin-left: 2em;
+        boder: 1px solid grey;
+       }
+       p {
+          background-color:white;
+          border-top: 1px solid #EEE;
+          }
+         th {
+           background-color: #EEE;
+          font-size: 80%;
+          }
+     </style></head>
+   <body>
+      <p onclick="showAll()"><b>This is the list of properties. Click on it to see the top ten values of each property.Click here to show all top-ten lists.</b></p>
+      <p onclick="switchState('','');return false;" id="_anchor "><code><b></b></code>  
+         , total values:
+         <code></code></p>
+      <div class="detail" style="display:none;" id="">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('BASE','');return false;" id="BASE_anchor "><code><b>BASE</b></code>  
+         , total values:
+         <code>1</code>
+         , ALL UNIQUE
+         
+      </p>
+      <div class="detail" style="display:none;" id="BASE">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code></code></td>
+               <td><code>1</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('BASE*DOMAINE','');return false;" id="BASE*DOMAINE_anchor "><code><b>BASE*DOMAINE</b></code>  
+         , total values:
+         <code>1</code>
+         , ALL UNIQUE
+         
+      </p>
+      <div class="detail" style="display:none;" id="BASE*DOMAINE">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>MUSEES</code></td>
+               <td><code>1</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('BASE*NAME','');return false;" id="BASE*NAME_anchor "><code><b>BASE*NAME</b></code>  
+         , total values:
+         <code>1</code>
+         , ALL UNIQUE
+         
+      </p>
+      <div class="detail" style="display:none;" id="BASE*NAME">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>Joconde</code></td>
+               <td><code>1</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('BASE*NOTICES','');return false;" id="BASE*NOTICES_anchor "><code><b>BASE*NOTICES</b></code>  
+         , total values:
+         <code>1</code>
+         , ALL UNIQUE
+         
+      </p>
+      <div class="detail" style="display:none;" id="BASE*NOTICES">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code></code></td>
+               <td><code>1</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('BASE*NOTICES*NOTICE','');return false;" id="BASE*NOTICES*NOTICE_anchor "><code><b>BASE*NOTICES*NOTICE</b></code>  
+         , total values:
+         <code>1</code>
+         , ALL UNIQUE
+         
+      </p>
+      <div class="detail" style="display:none;" id="BASE*NOTICES*NOTICE">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code></code></td>
+               <td><code>1</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('BASE*NOTICES*NOTICE*ADPT','');return false;" id="BASE*NOTICES*NOTICE*ADPT_anchor "><code><b>BASE*NOTICES*NOTICE*ADPT</b></code>  
+         , total values:
+         <code>1</code>
+         , ALL UNIQUE
+         
+      </p>
+      <div class="detail" style="display:none;" id="BASE*NOTICES*NOTICE*ADPT">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>louvre</code></td>
+               <td><code>1</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('BASE*NOTICES*NOTICE*APTN','');return false;" id="BASE*NOTICES*NOTICE*APTN_anchor "><code><b>BASE*NOTICES*NOTICE*APTN</b></code>  
+         , total values:
+         <code>1</code>
+         , ALL UNIQUE
+         
+      </p>
+      <div class="detail" style="display:none;" id="BASE*NOTICES*NOTICE*APTN">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>Damien</code></td>
+               <td><code>1</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('BASE*NOTICES*NOTICE*AUTR','');return false;" id="BASE*NOTICES*NOTICE*AUTR_anchor "><code><b>BASE*NOTICES*NOTICE*AUTR</b></code>  
+         , total values:
+         <code>1</code>
+         , ALL UNIQUE
+         
+      </p>
+      <div class="detail" style="display:none;" id="BASE*NOTICES*NOTICE*AUTR">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>POUSSIN Nicolas</code></td>
+               <td><code>1</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('BASE*NOTICES*NOTICE*COMM','');return false;" id="BASE*NOTICES*NOTICE*COMM_anchor "><code><b>BASE*NOTICES*NOTICE*COMM</b></code>  
+         , total values:
+         <code>1</code>
+         , ALL UNIQUE
+         
+      </p>
+      <div class="detail" style="display:none;" id="BASE*NOTICES*NOTICE*COMM">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>fragment</code></td>
+               <td><code>1</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('BASE*NOTICES*NOTICE*COOR','');return false;" id="BASE*NOTICES*NOTICE*COOR_anchor "><code><b>BASE*NOTICES*NOTICE*COOR</b></code>  
+         , total values:
+         <code>1</code>
+         , ALL UNIQUE
+         
+      </p>
+      <div class="detail" style="display:none;" id="BASE*NOTICES*NOTICE*COOR">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>Marina Zveguinzoff</code></td>
+               <td><code>1</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('BASE*NOTICES*NOTICE*COPY','');return false;" id="BASE*NOTICES*NOTICE*COPY_anchor "><code><b>BASE*NOTICES*NOTICE*COPY</b></code>  
+         , total values:
+         <code>1</code>
+         , ALL UNIQUE
+         
+      </p>
+      <div class="detail" style="display:none;" id="BASE*NOTICES*NOTICE*COPY">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>© Direction des musées de France</code></td>
+               <td><code>1</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('BASE*NOTICES*NOTICE*DACQ','');return false;" id="BASE*NOTICES*NOTICE*DACQ_anchor "><code><b>BASE*NOTICES*NOTICE*DACQ</b></code>  
+         , total values:
+         <code>1</code>
+         , ALL UNIQUE
+         
+      </p>
+      <div class="detail" style="display:none;" id="BASE*NOTICES*NOTICE*DACQ">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>1995</code></td>
+               <td><code>1</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('BASE*NOTICES*NOTICE*DDPT','');return false;" id="BASE*NOTICES*NOTICE*DDPT_anchor "><code><b>BASE*NOTICES*NOTICE*DDPT</b></code>  
+         , total values:
+         <code>1</code>
+         , ALL UNIQUE
+         
+      </p>
+      <div class="detail" style="display:none;" id="BASE*NOTICES*NOTICE*DDPT">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>1995</code></td>
+               <td><code>1</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('BASE*NOTICES*NOTICE*DENO','');return false;" id="BASE*NOTICES*NOTICE*DENO_anchor "><code><b>BASE*NOTICES*NOTICE*DENO</b></code>  
+         , total values:
+         <code>1</code>
+         , ALL UNIQUE
+         
+      </p>
+      <div class="detail" style="display:none;" id="BASE*NOTICES*NOTICE*DENO">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>masque de momie</code></td>
+               <td><code>1</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('BASE*NOTICES*NOTICE*DIMS','');return false;" id="BASE*NOTICES*NOTICE*DIMS_anchor "><code><b>BASE*NOTICES*NOTICE*DIMS</b></code>  
+         , total values:
+         <code>1</code>
+         , ALL UNIQUE
+         
+      </p>
+      <div class="detail" style="display:none;" id="BASE*NOTICES*NOTICE*DIMS">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>H. 12 ; l. 7</code></td>
+               <td><code>1</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('BASE*NOTICES*NOTICE*DOMN','');return false;" id="BASE*NOTICES*NOTICE*DOMN_anchor "><code><b>BASE*NOTICES*NOTICE*DOMN</b></code>  
+         , total values:
+         <code>1</code>
+         , ALL UNIQUE
+         
+      </p>
+      <div class="detail" style="display:none;" id="BASE*NOTICES*NOTICE*DOMN">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>archéologie ; Egyptien</code></td>
+               <td><code>1</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('BASE*NOTICES*NOTICE*IMAGE','');return false;" id="BASE*NOTICES*NOTICE*IMAGE_anchor "><code><b>BASE*NOTICES*NOTICE*IMAGE</b></code>  
+         , total values:
+         <code>1</code>
+         , ALL UNIQUE
+         
+      </p>
+      <div class="detail" style="display:none;" id="BASE*NOTICES*NOTICE*IMAGE">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>non</code></td>
+               <td><code>1</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('BASE*NOTICES*NOTICE*INV','');return false;" id="BASE*NOTICES*NOTICE*INV_anchor "><code><b>BASE*NOTICES*NOTICE*INV</b></code>  
+         , total values:
+         <code>1</code>
+         , ALL UNIQUE
+         
+      </p>
+      <div class="detail" style="display:none;" id="BASE*NOTICES*NOTICE*INV">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>E 27721</code></td>
+               <td><code>1</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('BASE*NOTICES*NOTICE*LABEL','');return false;" id="BASE*NOTICES*NOTICE*LABEL_anchor "><code><b>BASE*NOTICES*NOTICE*LABEL</b></code>  
+         , total values:
+         <code>1</code>
+         , ALL UNIQUE
+         
+      </p>
+      <div class="detail" style="display:none;" id="BASE*NOTICES*NOTICE*LABEL">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>Musée de France
+                     au sens de la loi n°2002-5 du 4 janvier 2002</code></td>
+               <td><code>1</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('BASE*NOTICES*NOTICE*LOCA','');return false;" id="BASE*NOTICES*NOTICE*LOCA_anchor "><code><b>BASE*NOTICES*NOTICE*LOCA</b></code>  
+         , total values:
+         <code>1</code>
+         , ALL UNIQUE
+         
+      </p>
+      <div class="detail" style="display:none;" id="BASE*NOTICES*NOTICE*LOCA">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>Cannes ; musée de la Castre</code></td>
+               <td><code>1</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('BASE*NOTICES*NOTICE*LOCA2','');return false;" id="BASE*NOTICES*NOTICE*LOCA2_anchor "><code><b>BASE*NOTICES*NOTICE*LOCA2</b></code>  
+         , total values:
+         <code>1</code>
+         , ALL UNIQUE
+         
+      </p>
+      <div class="detail" style="display:none;" id="BASE*NOTICES*NOTICE*LOCA2">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>France ; Provence-Alpes-Côte d'Azur ; Alpes-Maritimes</code></td>
+               <td><code>1</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('BASE*NOTICES*NOTICE*MUSEO','');return false;" id="BASE*NOTICES*NOTICE*MUSEO_anchor "><code><b>BASE*NOTICES*NOTICE*MUSEO</b></code>  
+         , total values:
+         <code>1</code>
+         , ALL UNIQUE
+         
+      </p>
+      <div class="detail" style="display:none;" id="BASE*NOTICES*NOTICE*MUSEO">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>0602901</code></td>
+               <td><code>1</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('BASE*NOTICES*NOTICE*REF','');return false;" id="BASE*NOTICES*NOTICE*REF_anchor "><code><b>BASE*NOTICES*NOTICE*REF</b></code>  
+         , total values:
+         <code>1</code>
+         , ALL UNIQUE
+         
+      </p>
+      <div class="detail" style="display:none;" id="BASE*NOTICES*NOTICE*REF">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>AE037478</code></td>
+               <td><code>1</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('BASE*NOTICES*NOTICE*STAT','');return false;" id="BASE*NOTICES*NOTICE*STAT_anchor "><code><b>BASE*NOTICES*NOTICE*STAT</b></code>  
+         , total values:
+         <code>1</code>
+         , ALL UNIQUE
+         
+      </p>
+      <div class="detail" style="display:none;" id="BASE*NOTICES*NOTICE*STAT">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>propriété de l'Etat ; don ; musée du Louvre Département des Antiquités ég</code></td>
+               <td><code>1</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('BASE*NOTICES*NOTICE*TECH','');return false;" id="BASE*NOTICES*NOTICE*TECH_anchor "><code><b>BASE*NOTICES*NOTICE*TECH</b></code>  
+         , total values:
+         <code>1</code>
+         , ALL UNIQUE
+         
+      </p>
+      <div class="detail" style="display:none;" id="BASE*NOTICES*NOTICE*TECH">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>terre cuite ; étoffe stuquée</code></td>
+               <td><code>1</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('BASE*NOTICES*NOTICE*TICO','');return false;" id="BASE*NOTICES*NOTICE*TICO_anchor "><code><b>BASE*NOTICES*NOTICE*TICO</b></code>  
+         , total values:
+         <code>1</code>
+         , ALL UNIQUE
+         
+      </p>
+      <div class="detail" style="display:none;" id="BASE*NOTICES*NOTICE*TICO">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>masque de momie</code></td>
+               <td><code>1</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+      <p onclick="switchState('BASE*NOTICES*NOTICE[@ID]','');return false;" id="BASE*NOTICES*NOTICE[@ID]_anchor "><code><b>BASE*NOTICES*NOTICE[@ID]</b></code>  
+         , total values:
+         <code>1</code></p>
+      <div class="detail" style="display:none;" id="BASE*NOTICES*NOTICE[@ID]">
+         <table>
+            <tr>
+               <th>Value</th>
+               <th>Occurances this value</th>
+               <th>Coverage records, %        </th>
+            </tr>
+            <tr>
+               <td><code>AE037478</code></td>
+               <td><code>22</code></td>
+               <td><code>100</code></td>
+            </tr>
+         </table>
+      </div>
+   </body>
+</html>

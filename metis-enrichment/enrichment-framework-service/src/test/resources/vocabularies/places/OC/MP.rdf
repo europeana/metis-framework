@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: OC_MP
+Description: Selected fields pulled from Geonames about MP done on Mon May 23 21:17:14 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041113/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.7675</wgs:lat>
+	<wgs:long>145.66722</wgs:long>
+	<skos:prefLabel>Agrihan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041115/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.85167</wgs:lat>
+	<wgs:long>145.55694</wgs:long>
+	<skos:prefLabel>Aguijan Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041123/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.60167</wgs:lat>
+	<wgs:long>145.83833</wgs:long>
+	<skos:prefLabel>Alamagan Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041128/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.35778</wgs:lat>
+	<wgs:long>145.66611</wgs:long>
+	<skos:prefLabel>Anatahan Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041129/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.13444</wgs:lat>
+	<wgs:long>145.12917</wgs:long>
+	<skos:prefLabel>Angyuta Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041142/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.66778</wgs:lat>
+	<wgs:long>145.40444</wgs:long>
+	<skos:prefLabel>Asuncion Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041215/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>14.19028</wgs:lat>
+	<wgs:long>145.23611</wgs:long>
+	<skos:prefLabel>District 1</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041216/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>15.1475</wgs:lat>
+	<wgs:long>145.70806</wgs:long>
+	<skos:prefLabel>District 1</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041217/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>14.88028</wgs:lat>
+	<wgs:long>145.64556</wgs:long>
+	<skos:prefLabel>District 1</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041218/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>15.14889</wgs:lat>
+	<wgs:long>145.78861</wgs:long>
+	<skos:prefLabel>District 10</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041219/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>15.22056</wgs:lat>
+	<wgs:long>145.72417</wgs:long>
+	<skos:prefLabel>District 11</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041220/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>14.14028</wgs:lat>
+	<wgs:long>145.14</wgs:long>
+	<skos:prefLabel>District 2</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041221/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>15.1525</wgs:lat>
+	<wgs:long>145.68083</wgs:long>
+	<skos:prefLabel>District 2</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041222/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>15.04278</wgs:lat>
+	<wgs:long>145.62028</wgs:long>
+	<skos:prefLabel>District 2</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041223/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>14.13333</wgs:lat>
+	<wgs:long>145.09667</wgs:long>
+	<skos:prefLabel>District 3</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041224/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>15.14472</wgs:lat>
+	<wgs:long>145.70417</wgs:long>
+	<skos:prefLabel>District 3</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041225/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>14.11778</wgs:lat>
+	<wgs:long>145.20917</wgs:long>
+	<skos:prefLabel>District 4</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041226/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>15.14806</wgs:lat>
+	<wgs:long>145.67639</wgs:long>
+	<skos:prefLabel>District 4</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041227/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>15.16472</wgs:lat>
+	<wgs:long>145.68639</wgs:long>
+	<skos:prefLabel>District 5</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041228/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>15.12111</wgs:lat>
+	<wgs:long>145.68833</wgs:long>
+	<skos:prefLabel>District 6</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041229/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>15.17139</wgs:lat>
+	<wgs:long>145.71111</wgs:long>
+	<skos:prefLabel>District 7</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041230/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>15.21444</wgs:lat>
+	<wgs:long>145.78</wgs:long>
+	<skos:prefLabel>District 8</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041231/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>15.25639</wgs:lat>
+	<wgs:long>145.81139</wgs:long>
+	<skos:prefLabel>District 9</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041238/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>20.02194</wgs:lat>
+	<wgs:long>145.23528</wgs:long>
+	<skos:prefLabel>East Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041262/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.01917</wgs:lat>
+	<wgs:long>146.0775</wgs:long>
+	<skos:prefLabel>Farallon de Medinilla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041263/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>20.53806</wgs:lat>
+	<wgs:long>144.89806</wgs:long>
+	<skos:prefLabel>Farallon de Pajaros</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041299/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.315</wgs:lat>
+	<wgs:long>145.84778</wgs:long>
+	<skos:prefLabel>Guguan Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041317/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.13583</wgs:lat>
+	<wgs:long>145.81694</wgs:long>
+	<skos:prefLabel>Hira Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041404/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.25611</wgs:lat>
+	<wgs:long>145.81111</wgs:long>
+	<skos:prefLabel>Isleta Maigo Fahang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041405/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.14917</wgs:lat>
+	<wgs:long>145.78861</wgs:long>
+	<skos:prefLabel>Maigo' Lu'ao, Isleta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041422/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.59861</wgs:lat>
+	<wgs:long>145.83861</wgs:long>
+	<skos:prefLabel>Mariana Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041429/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.24</wgs:lat>
+	<wgs:long>145.71056</wgs:long>
+	<skos:prefLabel>Isleta Managaha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041436/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>20.02333</wgs:lat>
+	<wgs:long>145.2225</wgs:long>
+	<skos:prefLabel>Maug Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041450/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.83333</wgs:lat>
+	<wgs:long>145.53028</wgs:long>
+	<skos:prefLabel>Naftan Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041466/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>20.03361</wgs:lat>
+	<wgs:long>145.22194</wgs:long>
+	<skos:prefLabel>North Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041467/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4041468/"/>
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>18.08528</wgs:lat>
+	<wgs:long>145.74333</wgs:long>
+	<skos:altLabel xml:lang="se">Dávvi-Mariánat</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Gżejjer Marjana ta’ Fuq</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Ilhas Marianas do Norte</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Illas Marianas do norte</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Illes Marianes del Nord</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Insulas Marianna del Nord</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Insulele Northern Mariana</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Iparraldeko Mariana uharteak</skos:altLabel>
+	<skos:altLabel xml:lang="es">Islas Mariana del Norte</skos:altLabel>
+	<skos:altLabel xml:lang="id">Kepulauan Mariana Utara</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Kuzey Mariana Adaları</skos:altLabel>
+	<skos:altLabel xml:lang="it">Marianne Settentrionali, isole</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Mariannes du Nord (Commonwealth des îles)</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Marianos šiaurinės salos</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Noordelijke Marianen</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Nord-Marianane</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Nord-Marianene</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Nord-Marianoj</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Nordmarianerna</skos:altLabel>
+	<skos:altLabel xml:lang="da">Nordmarianerne</skos:altLabel>
+	<skos:altLabel xml:lang="en">Northern Mariana Islands</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Northern Mariana Islands</skos:altLabel>
+	<skos:altLabel xml:lang="is">Norður-Maríanaeyjar</skos:altLabel>
+	<skos:altLabel xml:lang="de">Nördliche Marianen</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Oileáin Mariana Thuaidh</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Pohjois-Mariaanit</skos:altLabel>
+	<skos:altLabel xml:lang="et">Põhja Mariaanid</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Quần Đảo Bắc Mariana</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Severni Marianski otoki</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Severné Mariány</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Severní Mariany</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Sjeverni Marijanski Otoci</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Wspólnota Marianów Północnych</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Ynysoedd Gogledd Mariana</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Ziemeļu Marianas salas</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Északi Mariana-szigetek</skos:altLabel>
+	<skos:altLabel xml:lang="el">Νήσοι Βόρειων Μαριάνα</skos:altLabel>
+	<skos:altLabel xml:lang="be">Паўночныя Марыянскія астравы</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Північні Маріанські Острови</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Северна Маријанска Острва</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Северни Мариански О-ви</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Северни Маријанини Острови</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Северные Марианские Острова</skos:altLabel>
+	<skos:altLabel xml:lang="he">מריאנה הצפוניים, איי</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جزر ماريانا الشمالية</skos:altLabel>
+	<skos:altLabel xml:lang="fa">جزیره های شمالی ماریانا</skos:altLabel>
+	<skos:altLabel xml:lang="ur">شمالی ماریاناجزائر</skos:altLabel>
+	<skos:altLabel xml:lang="hi">नॉर्दर्न मारियाना आइलैंड्स</skos:altLabel>
+	<skos:altLabel xml:lang="bn">উত্তর মেরিয়ানা দ্বীপপুঞ্জ</skos:altLabel>
+	<skos:altLabel xml:lang="th">หมู่เกาะนอร์ธเทินมาเรียนา</skos:altLabel>
+	<skos:altLabel xml:lang="am">የሰሜናዊ ማሪያና ደሴቶች</skos:altLabel>
+	<skos:altLabel xml:lang="ja">北マリアナ諸島</skos:altLabel>
+	<skos:altLabel xml:lang="zh">北马里亚纳群岛</skos:altLabel>
+	<skos:altLabel xml:lang="ko">북마리아나 군도</skos:altLabel>
+	<skos:prefLabel>Northern Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041468/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255151/"/>
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLD"/>
+	<europeana:population>86000</europeana:population>
+	<wgs:lat>16</wgs:lat>
+	<wgs:long>146</wgs:long>
+	<skos:altLabel xml:lang="ca">Illes Mariannes Septentrionals</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Insulele Mariane de Nord</skos:altLabel>
+	<skos:altLabel xml:lang="es">Islas Marianas del Norte</skos:altLabel>
+	<skos:altLabel xml:lang="it">Isole Marianne Settentrionali</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Kuzey Mariana Adaları</skos:altLabel>
+	<skos:altLabel>MP</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Marianas Setentrionais</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Marianos Šiaurinės Salos</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Mariany Północne</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Noordelijke Marianen</skos:altLabel>
+	<skos:altLabel xml:lang="no">Nord-Marianene</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Nordmarianerna</skos:altLabel>
+	<skos:altLabel xml:lang="da">Nordmarianerne</skos:altLabel>
+	<skos:altLabel>Northern Mariana Islands</skos:altLabel>
+	<skos:altLabel xml:lang="en">Northern Mariana Islands</skos:altLabel>
+	<skos:altLabel xml:lang="is">Norður-Maríanaeyjar</skos:altLabel>
+	<skos:altLabel xml:lang="de">Nördliche Marianen</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Pohjois-Mariaanit</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Quần đảo Bắc Mariana</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Severní Mariany</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Sjeverna Marijanska Ostrva</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Ziemeļu Marianas Salas</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Északi-Mariana-szigetek</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Îles Mariannes du Nord</skos:altLabel>
+	<skos:altLabel xml:lang="el">Βόρειες Μαριάνες Νήσοι</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Північні Маріанські острови</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Северни Мариански острови</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Северные Марианские острова</skos:altLabel>
+	<skos:altLabel xml:lang="he">איי מריאנה הצפוניים</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جزر ماريانا الشمالية</skos:altLabel>
+	<skos:altLabel xml:lang="th">หมู่เกาะนอร์เทิร์นมาเรียนา</skos:altLabel>
+	<skos:altLabel xml:lang="ja">北マリアナ諸島</skos:altLabel>
+	<skos:altLabel xml:lang="zh">北马里亚纳</skos:altLabel>
+	<skos:altLabel xml:lang="ko">북마리아나 제도</skos:altLabel>
+	<skos:prefLabel>Commonwealth of the Northern Mariana Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041484/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.11083</wgs:lat>
+	<wgs:long>145.77222</wgs:long>
+	<skos:prefLabel>Pagan Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041523/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.15361</wgs:lat>
+	<wgs:long>145.20306</wgs:long>
+	<skos:prefLabel>Rota</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041528/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.LIBR"/>
+	<wgs:lat>14.13944</wgs:lat>
+	<wgs:long>145.13833</wgs:long>
+	<skos:prefLabel>Rota Public Library</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041530/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4041468/"/>
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>3169</europeana:population>
+	<wgs:lat>14.15361</wgs:lat>
+	<wgs:long>145.2</wgs:long>
+	<skos:prefLabel>Municipality of Rota</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041550/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.1925</wgs:lat>
+	<wgs:long>145.74806</wgs:long>
+	<skos:altLabel xml:lang="pl">Saipan</skos:altLabel>
+	<skos:altLabel xml:lang="de">Saipan</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Saipan</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Saipan</skos:altLabel>
+	<skos:altLabel xml:lang="en">Saipan</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Saipan</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Saipan</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Saipan</skos:altLabel>
+	<skos:altLabel xml:lang="es">Saipán</skos:altLabel>
+	<skos:altLabel xml:lang="ja">サイパン島</skos:altLabel>
+	<skos:altLabel xml:lang="zh">塞班岛</skos:altLabel>
+	<skos:prefLabel>Saipan Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041552/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4041468/"/>
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>72059</europeana:population>
+	<wgs:lat>15.19167</wgs:lat>
+	<wgs:long>145.74722</wgs:long>
+	<skos:prefLabel>Municipality of Saipan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041564/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.105</wgs:lat>
+	<wgs:long>145.76361</wgs:long>
+	<skos:prefLabel>Sanmeina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041567/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.70972</wgs:lat>
+	<wgs:long>145.78361</wgs:long>
+	<skos:prefLabel>Sarigan Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041647/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.01333</wgs:lat>
+	<wgs:long>145.62417</wgs:long>
+	<skos:prefLabel>Tinian Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041649/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.LIBR"/>
+	<wgs:lat>14.96833</wgs:lat>
+	<wgs:long>145.62306</wgs:long>
+	<skos:prefLabel>Tinian Public Library</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041650/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4041468/"/>
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>4489</europeana:population>
+	<wgs:lat>15.0125</wgs:lat>
+	<wgs:long>145.625</wgs:long>
+	<skos:prefLabel>Municipality of Tinian</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041653/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.105</wgs:lat>
+	<wgs:long>145.80444</wgs:long>
+	<skos:prefLabel>Togari Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041669/">
+	<europeana:country>MP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>20.02056</wgs:lat>
+	<wgs:long>145.21111</wgs:long>
+	<skos:prefLabel>West Island</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 49 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

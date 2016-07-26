@@ -1,0 +1,84 @@
+
+	<!--
+		This file defines common code used in Getty converters. It is an XML
+		fragment, and it should be included in xconverters using <!ENTITY
+		common SYSTEM "../../common-getty.xml"> Accordingly, this file has
+		neither XML nor DOCTYPE declarations and assumes that the ac namespace
+		is properly defined in the including document.
+	-->
+
+<ac:ObjectRule rdf:about="prefTermRule">
+	<ac:recordSeparator>/ns:Vocabulary/ns:Subject/ns:Terms/ns:Preferred_Term</ac:recordSeparator>
+	<ac:recordIdentifier>ac:useParentId</ac:recordIdentifier>
+	<ac:recordInformalIdentifier>ac:useParentId</ac:recordInformalIdentifier>
+	<ac:parentObjectRule>subjectRule</ac:parentObjectRule>
+
+	<ac:listeners rdf:parseType="Collection">
+		<ac:OnPreCondition>
+			<ac:java>
+				// sample precondition
+				//System.out.println("Passed");
+				return
+				true;
+          	</ac:java>
+		</ac:OnPreCondition>
+	</ac:listeners>
+
+	<ac:propertyRules>
+		<ac:eu.annocultor.rules.RenameLiteralPropertyRule-enforceLang>
+			<ac:srcPath rdf:datatype="ac:Path">ns:Term_Text</ac:srcPath>
+			<ac:dstProperty rdf:datatype="ac:Property">skos:prefLabel</ac:dstProperty>
+			<ac:dstLangCode rdf:datatype="ac:String">en</ac:dstLangCode>
+			<ac:dstGraph rdf:datatype="ac:Graph">Terms</ac:dstGraph>
+		</ac:eu.annocultor.rules.RenameLiteralPropertyRule-enforceLang>
+	</ac:propertyRules>
+</ac:ObjectRule>
+
+<ac:ObjectRule rdf:about="altTermRule">
+	<ac:recordSeparator>/ns:Vocabulary/ns:Subject/ns:Terms/ns:Non-Preferred_Term</ac:recordSeparator>
+	<ac:recordIdentifier>ac:useParentId</ac:recordIdentifier>
+	<ac:recordInformalIdentifier>ac:useParentId</ac:recordInformalIdentifier>
+	<ac:parentObjectRule>subjectRule</ac:parentObjectRule>
+
+	<ac:propertyRules>
+		<ac:eu.annocultor.rules.RenameLiteralPropertyRule-enforceLang>
+			<ac:srcPath rdf:datatype="ac:Path">ns:Term_Text</ac:srcPath>
+			<ac:dstProperty rdf:datatype="ac:Property">skos:altLabel</ac:dstProperty>
+			<ac:dstLangCode rdf:datatype="ac:String">en</ac:dstLangCode>
+			<ac:dstGraph rdf:datatype="ac:Graph">Terms</ac:dstGraph>
+		</ac:eu.annocultor.rules.RenameLiteralPropertyRule-enforceLang>
+	</ac:propertyRules>
+</ac:ObjectRule>
+ 
+ <ac:ObjectRule rdf:about="associationsRule">
+	<ac:recordSeparator>/ns:Vocabulary/ns:Subject/ns:Associative_Relationships/ns:Associative_Relationship</ac:recordSeparator>
+	<ac:recordIdentifier>ac:useParentId</ac:recordIdentifier>
+	<ac:recordInformalIdentifier>ac:useParentId</ac:recordInformalIdentifier>
+	<ac:parentObjectRule>subjectRule</ac:parentObjectRule>
+
+	<ac:propertyRules>
+		<ac:eu.annocultor.rules.FacetRenamePropertyRule-resourceFromProperty>
+			<ac:srcPath rdf:datatype="ac:Path">ns:Relationship_Type</ac:srcPath>
+			<ac:dstNamespaceProperties rdf:datatype="ac:Namespace">ulan</ac:dstNamespaceProperties>
+            <ac:dstNamespaceValues rdf:datatype="ac:Namespace">ulan</ac:dstNamespaceValues>
+			<ac:valuePath rdf:datatype="ac:Path">/ns:Vocabulary/ns:Subject/ns:Associative_Relationships/ns:Associative_Relationship/ns:Related_Subject_ID/ns:VP_Subject_ID</ac:valuePath>
+			<ac:dstGraph rdf:datatype="ac:Graph">Terms</ac:dstGraph>
+			<ac:listeners rdf:parseType="Collection">
+                <ac:OnInvocation>
+                    <ac:java>
+                    // relations are stored like 1111/parent of (family)
+                    // we take only the text part
+                    String relation = sourceTriple.getValue().getValue();
+                    //System.out.println("========== " + relation);
+                    if (relation != null) {
+                      relation = relation.substring(relation.indexOf("/") + 1);
+                    }                 
+                    return sourceTriple.changeValue(new XmlValue(relation));
+                    </ac:java>
+                </ac:OnInvocation>
+            </ac:listeners>
+			
+		</ac:eu.annocultor.rules.FacetRenamePropertyRule-resourceFromProperty>
+	</ac:propertyRules>
+</ac:ObjectRule>
+ 
