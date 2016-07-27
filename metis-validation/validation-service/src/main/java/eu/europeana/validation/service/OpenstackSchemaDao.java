@@ -13,6 +13,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 /**
+ * Openstack Schema loader dao
  * Created by ymamakis on 3/21/16.
  */
 public class OpenstackSchemaDao extends AbstractSchemaDao {

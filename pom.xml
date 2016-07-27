@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+		 Copyright 2007-2013 The Europeana Foundation
+
+		  Licenced under the EUPL, Version 1.1 (the "Licence") and subsequent versions as approved
+		  by the European Commission;
+		  You may not use this work except in compliance with the Licence.
+
+		  You may obtain a copy of the Licence at:
+		  http://joinup.ec.europa.eu/software/page/eupl
+
+		  Unless required by applicable law or agreed to in writing, software distributed under
+		  the Licence is distributed on an "AS IS" basis, without warranties or conditions of
+		  any kind, either express or implied.
+		  See the Licence for the specific language governing permissions and limitations under
+		  the Licence.
+-->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -35,6 +51,11 @@
                 <groupId>org.eluder.coveralls</groupId>
                 <artifactId>coveralls-maven-plugin</artifactId>
                 <version>4.0.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.3</version>
             </plugin>
         </plugins>
     </build>
@@ -126,6 +147,11 @@
             </releases>
         </repository>
     </repositories>
+    <!-- Github connection -->
+    <scm>
+        <developerConnection>scm:git:https://github.com/europeana/metis-framework</developerConnection>
+    </scm>
+
 
     <properties>
         <version.spring>4.2.5.RELEASE</version.spring>
@@ -148,6 +174,7 @@
         <version.commonscompress>1.11</version.commonscompress>
         <version.springSecurity>3.2.8.RELEASE</version.springSecurity>
         <version.springLdap>2.1.0.RELEASE</version.springLdap>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
 </project>

@@ -1,3 +1,19 @@
+/*
+ * Copyright 2007-2013 The Europeana Foundation
+ *
+ *  Licenced under the EUPL, Version 1.1 (the "Licence") and subsequent versions as approved
+ *  by the European Commission;
+ *  You may not use this work except in compliance with the Licence.
+ *
+ *  You may obtain a copy of the Licence at:
+ *  http://joinup.ec.europa.eu/software/page/eupl
+ *
+ *  Unless required by applicable law or agreed to in writing, software distributed under
+ *  the Licence is distributed on an "AS IS" basis, without warranties or conditions of
+ *  any kind, either express or implied.
+ *  See the Licence for the specific language governing permissions and limitations under
+ *  the Licence.
+ */
 package eu.europeana.enrichment.rest;
 
 import eu.europeana.corelib.solr.entity.AgentImpl;
@@ -28,7 +44,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
 
-
+/**
+ * Enrichment REST API
+ */
 @Api("/")
 @Controller(value = "/")
 public class EnrichmentController {
@@ -37,7 +55,11 @@ public class EnrichmentController {
 	private  Enricher enricher;
 
 
-
+	/**
+	 * Delete uris
+	 * @param values the URIs to delete
+	 * @throws Exception
+     */
     @ResponseStatus(value = HttpStatus.OK)
 	@RequestMapping(value = "/delete",method = RequestMethod.DELETE)
 	@ApiOperation(value = "Delete a list of URIs")
@@ -47,6 +69,13 @@ public class EnrichmentController {
     }
 
 
+	/**
+	 * Get an enrichment by URI (rdf:about or owl:sameAs/skos:exactMatch
+	 * @param uri The URI to retrieve
+	 * @param toEdm In xml or in json
+	 * @return
+	 * @throws IOException
+     */
 	@RequestMapping(value = "/getByUri", method = RequestMethod.POST)
 	@ApiOperation(value = "Retrieve an entity by URI or its sameAs", response = EntityWrapper.class)
 	@ResponseBody
@@ -77,6 +106,13 @@ public class EnrichmentController {
 	}
 
 
+	/**
+	 * Enrich a number of values
+	 * @param input A list of values
+	 * @param toXML in XML?
+	 * @return
+	 * @throws Exception
+     */
 	@RequestMapping("/enrich")
 	@ResponseBody
 	@ApiOperation(value = "Enrich a series of field value pairs", response = EntityWrapperList.class)

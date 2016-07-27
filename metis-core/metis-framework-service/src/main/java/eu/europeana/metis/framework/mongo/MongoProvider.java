@@ -1,3 +1,19 @@
+/*
+ * Copyright 2007-2013 The Europeana Foundation
+ *
+ *  Licenced under the EUPL, Version 1.1 (the "Licence") and subsequent versions as approved
+ *  by the European Commission;
+ *  You may not use this work except in compliance with the Licence.
+ *
+ *  You may obtain a copy of the Licence at:
+ *  http://joinup.ec.europa.eu/software/page/eupl
+ *
+ *  Unless required by applicable law or agreed to in writing, software distributed under
+ *  the Licence is distributed on an "AS IS" basis, without warranties or conditions of
+ *  any kind, either express or implied.
+ *  See the Licence for the specific language governing permissions and limitations under
+ *  the Licence.
+ */
 package eu.europeana.metis.framework.mongo;
 
 import com.mongodb.MongoClient;
@@ -31,19 +47,6 @@ public class MongoProvider {
 
 
         Morphia morphia = new Morphia();
-        /*morphia.map(Dataset.class)
-                .map(Organization.class)
-                .map(PrefLabel.class)
-                .map(AltLabel.class)
-                .map(FtpDatasetMetadata.class)
-                .map(FtpMetadata.class)
-                .map(FolderMetadata.class)
-                .map(HttpMetadata.class)
-                .map(HarvestingMetadata.class)
-                .map(OAIMetadata.class)
-                .map(HttpDatasetMetadata.class)
-                .map(OAIDatasetMetadata.class);
-        */
         morphia.map(Dataset.class);
         morphia.map(Organization.class);
         morphia.map(FtpDatasetMetadata.class);
