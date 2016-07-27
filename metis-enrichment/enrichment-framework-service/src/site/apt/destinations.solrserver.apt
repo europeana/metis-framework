@@ -1,0 +1,20 @@
+            ------
+            Destination: SOLR Server
+            ------
+ 
+ In the following configuration data is written to a running Solr server. 
+
++------------------------------------------------------------------+
+<ac:destinations rdf:parseType="Collection">
+  <ac:SolrServer rdf:about="Solr">
+    <ac:url>http://localhost:8983/solr</ac:url>
+    <ac:schema>solr-home/conf/schema.xml</ac:schema>
+  </ac:SolrServer>
+</ac:destinations>
++------------------------------------------------------------------+
+
+ Each data object is converted to a Solr Solrj object under the hood.
+ Source literal values are converted to the appropriate Java objects:
+ strings to String, integers to int, etc.
+ To do this Solr schema is read, parsed, and a map of field names and their corresponding types is extracted.
+ 

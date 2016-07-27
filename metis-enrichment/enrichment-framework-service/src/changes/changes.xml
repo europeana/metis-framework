@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+   <properties>
+      <title>AnnoCultor Core</title>
+      <author>Borys Omelayenko</author>
+   </properties>
+   <body>
+     <!-- fix remove update add -->          
+      <release version="2.3.11" description="Adapting to Europeana.eu workflow">  
+           <action dev="omelayenko" type="fix">
+               Place tagger does not add coordinates for countries, 
+               as they typically point to some middle point. 
+           </action>               
+      </release>
+       <!-- 2.3.2 -->
+      <release version="2.3.2" date="2010-10-01" description="SOLR datasource, merge files with SPARQL, ontology subtractor for maintenance of large RDF files ">  
+           <action dev="omelayenko" type="add">
+               Lookup rules can fetch terms by URI. Typically, we want to fetch concept URI by label, 
+               but sometimes we know the URI and want to fetch terms' labels.
+           </action>               
+           <action dev="omelayenko" type="add">
+               SOLR server as a datasource. Data from a running SOLR server can be converted, 
+               the same way as databases/SQL, ontologies/SPARQL, and XML files.
+           </action>               
+           <action dev="omelayenko" type="add">
+               It is often necessary to add/remove a few statements from the large generated RDF files.
+               New feature OntologySubtractor that allows removing statements from an RDF file (to-be-removed-from) 
+               that are stated in another RDF file (statements-to-be-removed).  
+           </action>               
+           <action dev="omelayenko" type="add">
+               SparqlQueryHelper allows merging a few RDF files (also just-generated conversion results)
+               with an SPARQL statement. Very convenient if the generated file needs to be augmented with some statements
+               from other RDf files.
+           </action>               
+           <action dev="omelayenko" type="add">
+               HierarchyTracingFilter reads a file with top concepts, goes through a bunch of RDF data files and
+               lists all direct or indirect skos:narrower concepts in a separate file, thus making an exhaustive list
+               of all children of the top concepts.  
+           </action>               
+      </release>  
+      <!-- 2.3.1 -->
+      <release version="2.3.1" description="Properties File destination, improved build procedure">  
+           <action dev="omelayenko" type="add">
+               Destination PropertiesFile allows storing subject-value pairs in .properties files.
+               This is handy if these files are then loaded for further processing. 
+           </action>               
+      </release>  
+      <!-- 2.3.0 -->
+      <release version="2.3.0" description="Scalable for Europeana">  
+           <action dev="omelayenko" type="add">
+               Destination RdfGraphSwapNames stored RDF files with
+               swapped parts of the name. Useful if destinations are assigned dynamically
+           </action>               
+           <action dev="omelayenko" type="add">
+               Parameter $ANNOCULTOR_DATASOURCE_ITERATOR_10 in a query
+               converts it to ten queries, where $ANNOCULTOR_DATASOURCE_ITERATOR_10
+               is replaced with 0 to 9. Made for the use case when a query result is too
+               large to fit RAM
+           </action>               
+           <action dev="omelayenko" type="remove">
+               Keeping previous copy of RDF and compare it to the current. 
+               This feature was not used, and DIFF with a version control systems are more useful
+           </action>               
+           <action dev="omelayenko" type="update">
+               Multiple queries are allowed in SQL and SPARQL data sources
+           </action>               
+           <action dev="omelayenko" type="update">
+               Converter parameters are loaded first from annocultor.properties file
+               then from environment, and then the yet not set properties are completed
+                with default values
+           </action>               
+           <action dev="omelayenko" type="add">
+               Record Filters: if conversion result uses a few terms from a vocabulary
+               then it allows creating a shorter version of this vocabulary with 
+               the terms that are used
+           </action>               
+           <action dev="omelayenko" type="add">
+               Flexible data destination. Possibility to
+               extend the RdfDestinationFile with custom destination formats
+           </action>               
+           <action dev="omelayenko" type="add">
+               Flexible datasource. In addition to the built-in XML, SQL, SPARQL, 
+               custom implementations of DataSource interface may be plugged-in
+               to work with custom source formats
+           </action>               
+           <action dev="omelayenko" type="update">
+               Redesigned (XPath-like) path matching routines to achieve nearly 100-fold speed increase.
+           </action>               
+           <action dev="omelayenko" type="update">
+               Redesigned how statistics are collected to make conversion reports. 
+               It used to go out of memory on a few Gb of converted files. 
+               Now swaps large chunks of statistics data to disk and runs with reasonable memory needs.
+               Prepared for porting statistics to a database 
+           </action>               
+           <action dev="omelayenko" type="update">
+               Added SPARQL datasource. Can now convert data coming from XML files, SQL or SPARQL queries.
+           </action>               
+           <action dev="omelayenko" type="update">
+               Converter for Europeana ESE format, originally meant to run enrichment. 
+           </action>               
+           <action dev="omelayenko" type="update">
+               Person name disambiguation utilities (see Europeana ESE converter). 
+           </action>               
+           <action dev="omelayenko" type="update">
+               Place disambiguation utilities (see Europeana ESE converter). 
+           </action>               
+           <action dev="omelayenko" type="update">
+               Enrichment links are given readable comments. 
+           </action>               
+           <action dev="omelayenko" type="fix">
+               Fixed encoding issue with parsing Geonames singe-file-dump into per-country RDF files. 
+           </action>               
+           <action dev="omelayenko" type="fix">
+               Handling of xml:lang.
+           </action>               
+      </release>    
+
+       <!-- 2.2.4 -->
+      <release version="2.2.4" description="XPath">  
+           <action dev="omelayenko" type="update">
+               Support for XPath attr queries
+           </action>               
+      </release>    
+      <release version="2.2.3" description="eu.annocultor">  
+           <action dev="omelayenko" type="update">
+               Move to eu.annocultor packages
+           </action>               
+      </release>    
+      <release version="2.2.2" description="Production and Java 6">  
+           <action dev="omelayenko" type="add">
+               Handling cascading xml:lang
+           </action>               
+           <action dev="omelayenko" type="update">
+               Moved to Java 6 and the Java 6 built-in way of invoking Java Compiler there
+           </action>               
+           <action dev="omelayenko" type="add">
+               Splitting RDF files into volumes of 300.000 triples. Volume number is added to generated RDF file names
+           </action>               
+      </release>    
+      <release version="2.2" description="Maintenance">  
+           <action dev="omelayenko" type="add">
+               Dynamic load of tools.jar from environment variable
+           </action>               
+           <action dev="omelayenko" type="update">
+               Generated URLs. Made them stricter
+           </action>               
+           <action dev="omelayenko" type="fix">
+               Path expressions. Qualified attributes
+           </action>               
+      </release> 
+      <release version="2.1" description="XML format for defining converters">  
+            <action dev="omelayenko" type="add">
+               Conversion progress report: records passed, memory used
+           </action>               
+           <action dev="omelayenko" type="add">
+               Detector of rubbish terms in vocabulary lookup rules and warning. If unlucky, they may seriously deteriorate system performance. 
+           </action>         
+           <action dev="omelayenko" type="update">
+               Performance improvements on computing XML paths
+           </action>         
+           <action dev="omelayenko" type="add">
+               Major change: XML API: converters are written in XML (with occasional small snippets of Java code)
+           </action>                    
+      </release>
+      <release version="1.4 final" date="2008-07-28" description="Final release of version 1">              
+           <action dev="omelayenko" type="fix">
+		On failure Converter.run returns -1 that can be returned by the main methods to let maven see that it has failed
+           </action>         
+           <action dev="omelayenko" type="add">
+               Maven build
+           </action>         
+           <action dev="omelayenko" type="add">
+		Separate XML files can be merged and processed with a single converter run
+           </action>         
+           <action dev="omelayenko" type="add">
+		Local.build.properties file allows setting build properties for ant build (e.g. -Xmx) 
+           </action>         
+           <action dev="omelayenko" type="add">
+		Build numbers in both build system and source
+           </action>         
+           <action dev="omelayenko" type="add">
+		Local file annocultor.properties may override environment properties and ANNOCULTOR_HOME
+           </action>         
+           <action dev="omelayenko" type="add">
+		New conversion report generated into the /doc directory 
+           </action>         
+      </release>
+      <release version="1.3" date="2008-07-28" description="Europeana summer release">   
+           <action dev="omelayenko" type="add">
+		streaming conversion, flat memory profile, but vocabularies are stored in memory
+           </action>         
+           <action dev="omelayenko" type="add">
+		all tests are automaticallt extracted
+           </action>         
+           <action dev="omelayenko" type="add">
+		Path allows expressions like element[attr='value' and attr='value'] in queries
+           </action>         
+           <action dev="omelayenko" type="add">
+		Path allows expressions like element@attr in queries returning attribute value
+           </action>         
+           <action dev="omelayenko" type="add">
+		Environment stores a number of directories
+           </action>         
+           <action dev="omelayenko" type="add">
+		Conversion stores the RDF to be overwritten into /prev, after conversion it does a diff stored in /diff
+           </action>         
+       </release>         
+   </body>
+</document>

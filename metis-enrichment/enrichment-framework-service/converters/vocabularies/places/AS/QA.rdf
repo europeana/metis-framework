@@ -1,0 +1,683 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AS_QA
+Description: Selected fields pulled from Geonames about QA done on Mon May 23 21:13:36 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/289512/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/289688/"/>
+	<europeana:country>QA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.93333</wgs:lat>
+	<wgs:long>50.76667</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat ‘Unaybir</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جَزِيرَة عُنَيْبِر</skos:altLabel>
+	<skos:prefLabel>Jazīrat ‘Unaybir</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/289517/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/289688/"/>
+	<europeana:country>QA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>26.15</wgs:lat>
+	<wgs:long>51.28333</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat Umm Tays</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جَزِيرَة أُمّ تَيْس</skos:altLabel>
+	<skos:prefLabel>Jazīrat Umm Tays</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/289523/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/289688/"/>
+	<europeana:country>QA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>29391</europeana:population>
+	<wgs:lat>25.41694</wgs:lat>
+	<wgs:long>51.40389</wgs:long>
+	<skos:altLabel>Umm Salal Mohammad</skos:altLabel>
+	<skos:altLabel>Umm Ses Salal</skos:altLabel>
+	<skos:altLabel>Umm Silal Mohammed</skos:altLabel>
+	<skos:altLabel>Umm Slal Mohammed</skos:altLabel>
+	<skos:altLabel>Umm es Salal</skos:altLabel>
+	<skos:altLabel>Umm es Slal</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Umm Şalāl Muḩammad</skos:altLabel>
+	<skos:altLabel xml:lang="ar">أُمّ صَلاَل مُحَمَّد</skos:altLabel>
+	<skos:prefLabel>Umm Şalāl Muḩammad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/289645/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/289688/"/>
+	<europeana:country>QA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>25.03333</wgs:lat>
+	<wgs:long>52.23333</wgs:long>
+	<skos:altLabel>Jazīrat Sharā‘awh</skos:altLabel>
+	<skos:altLabel>Jezirat Shura‘awah</skos:altLabel>
+	<skos:altLabel>Sharā‘awah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Sharā‘iwah</skos:altLabel>
+	<skos:altLabel>Sherarrow</skos:altLabel>
+	<skos:altLabel>Sherā’oo</skos:altLabel>
+	<skos:altLabel>Shirā‘awh</skos:altLabel>
+	<skos:altLabel>Shura‘awa</skos:altLabel>
+	<skos:altLabel>Shura‘awah Island</skos:altLabel>
+	<skos:altLabel xml:lang="ar">شَرَاعِوَة</skos:altLabel>
+	<skos:prefLabel>Sharā‘iwah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/289655/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/289688/"/>
+	<europeana:country>QA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>25.68333</wgs:lat>
+	<wgs:long>50.81667</wgs:long>
+	<skos:altLabel xml:lang="ar">جَزِيرَة سَوَاد</skos:altLabel>
+	<skos:prefLabel>Jazīrat Sawād</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/289665/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/289688/"/>
+	<europeana:country>QA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>25.34472</wgs:lat>
+	<wgs:long>51.57528</wgs:long>
+	<skos:altLabel>Al Jazirat al Sâfihah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Al Jazīrah as Sāfilīyah</skos:altLabel>
+	<skos:altLabel>Djezirat as Sifliya</skos:altLabel>
+	<skos:altLabel>Jazīrat an Sāfliya</skos:altLabel>
+	<skos:altLabel>Jazīrat as Sāfliya</skos:altLabel>
+	<skos:altLabel>Jazīrat-as-Sāflīyah</skos:altLabel>
+	<skos:altLabel>Jezirat as Safliyah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">اَلْجَزِيرَة اَلسَّافِلِيَّة</skos:altLabel>
+	<skos:prefLabel>Al Jazīrah as Sāfilīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/289678/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/289688/"/>
+	<europeana:country>QA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>26.18361</wgs:lat>
+	<wgs:long>51.21556</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat Ra’s Rakan</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جَزِيرَة رَأْس رَكَن</skos:altLabel>
+	<skos:prefLabel>Jazīrat Ra’s Rakan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/289688/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/289688/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255147/"/>
+	<europeana:country>QA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>840926</europeana:population>
+	<wgs:lat>25.5</wgs:lat>
+	<wgs:long>51.25</wgs:long>
+	<skos:altLabel>Al Qatar</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ca-ta</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Catar</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Catar</skos:altLabel>
+	<skos:altLabel xml:lang="la">Cataria</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Dawlat Qaţar</skos:altLabel>
+	<skos:altLabel>Katar</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Katar</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Katar</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Katar</skos:altLabel>
+	<skos:altLabel xml:lang="is">Katar</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Katar</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Katar</skos:altLabel>
+	<skos:altLabel xml:lang="af">Katar</skos:altLabel>
+	<skos:altLabel xml:lang="de">Katar</skos:altLabel>
+	<skos:altLabel xml:lang="et">Katar</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Katar</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Katar</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Katar</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Katar</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Katar</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Katar</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Katar</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Katar</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Katar</skos:altLabel>
+	<skos:altLabel xml:lang="li">Katar</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Katara</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Kataras</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Katari</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Kataro</skos:altLabel>
+	<skos:altLabel>QA</skos:altLabel>
+	<skos:altLabel xml:lang="so">Qadar</skos:altLabel>
+	<skos:altLabel xml:lang="id">Qatar</skos:altLabel>
+	<skos:altLabel xml:lang="es">Qatar</skos:altLabel>
+	<skos:altLabel xml:lang="da">Qatar</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Qatar</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Qatar</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Qatar</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Qatar</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Qatar</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Qatar</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Qatar</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Qatar</skos:altLabel>
+	<skos:altLabel xml:lang="en">Qatar</skos:altLabel>
+	<skos:altLabel xml:lang="it">Qatar</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Qatar</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Qatar</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Qatar</skos:altLabel>
+	<skos:altLabel xml:lang="af">Qatar</skos:altLabel>
+	<skos:altLabel xml:lang="no">Qatar</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Qatar</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Qatar</skos:altLabel>
+	<skos:altLabel xml:lang="an">Qatar</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Qatar</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Qatar</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Qatar</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Qatar</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Qatar</skos:altLabel>
+	<skos:altLabel xml:lang="uz">Qatar</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Qatar - قطر</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Qeter</skos:altLabel>
+	<skos:altLabel xml:lang="se">Quatar</skos:altLabel>
+	<skos:altLabel>Shaikhdom of Qatar</skos:altLabel>
+	<skos:altLabel>Sheikhdom of Qatar</skos:altLabel>
+	<skos:altLabel xml:lang="en">State of Qatar</skos:altLabel>
+	<skos:altLabel xml:lang="el">Κατάρ</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Катар</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Катар</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Катар</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Катар</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Катар</skos:altLabel>
+	<skos:altLabel xml:lang="os">Катар</skos:altLabel>
+	<skos:altLabel xml:lang="be">Катар</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Кватар</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Կատար</skos:altLabel>
+	<skos:altLabel xml:lang="he">קאטאר</skos:altLabel>
+	<skos:altLabel xml:lang="he">קטאר</skos:altLabel>
+	<skos:altLabel xml:lang="he">קטר</skos:altLabel>
+	<skos:altLabel xml:lang="ar">دَوْلَة قَطَر</skos:altLabel>
+	<skos:altLabel xml:lang="ug">قاتار</skos:altLabel>
+	<skos:altLabel xml:lang="ar">قطر</skos:altLabel>
+	<skos:altLabel xml:lang="fa">قطر</skos:altLabel>
+	<skos:altLabel xml:lang="hi">कतर</skos:altLabel>
+	<skos:altLabel xml:lang="bn">কাতার</skos:altLabel>
+	<skos:altLabel xml:lang="ta">காடார்</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ഖത്തര്‍</skos:altLabel>
+	<skos:altLabel xml:lang="th">กาตาร์</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศกาตาร์</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ກາຕາ</skos:altLabel>
+	<skos:altLabel xml:lang="dz">ཀ་ཏར</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཀ་ཏཱར།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">კატარი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ኳታር</skos:altLabel>
+	<skos:altLabel xml:lang="km">កាតារ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">カタール</skos:altLabel>
+	<skos:altLabel xml:lang="zh">卡塔尔</skos:altLabel>
+	<skos:altLabel xml:lang="ko">카타르</skos:altLabel>
+	<skos:prefLabel>State of Qatar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/289693/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/289688/"/>
+	<europeana:country>QA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>26.15</wgs:lat>
+	<wgs:long>51.23333</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat Qarrāḑ</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جَزِيرَة قَرَّاض</skos:altLabel>
+	<skos:prefLabel>Jazīrat Qarrāḑ</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/289720/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/289688/"/>
+	<europeana:country>QA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>25.76667</wgs:lat>
+	<wgs:long>50.75</wgs:long>
+	<skos:altLabel>Al Matraz</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Mitrās</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جَزِيرَة مِتْرَاس</skos:altLabel>
+	<skos:prefLabel>Jazīrat Mitrās</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/289722/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/289688/"/>
+	<europeana:country>QA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>25.51667</wgs:lat>
+	<wgs:long>51.53333</wgs:long>
+	<skos:altLabel>Al Maraqqāt</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat al Mikyār</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جَزِيرَة اَلْمِكْيَار</skos:altLabel>
+	<skos:prefLabel>Jazīrat al Mikyār</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/289772/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/289688/"/>
+	<europeana:country>QA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>25.65</wgs:lat>
+	<wgs:long>50.81667</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat Jablah Ajīrah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جَزِيرَة جَبْلَة أَجِيرَة</skos:altLabel>
+	<skos:prefLabel>Jazīrat Jablah Ajīrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/289785/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/289688/"/>
+	<europeana:country>QA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>25.66667</wgs:lat>
+	<wgs:long>50.75</wgs:long>
+	<skos:altLabel>Djezira Hawar</skos:altLabel>
+	<skos:altLabel>Hawar Island Ḩowar</skos:altLabel>
+	<skos:altLabel>Hawār I</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Ḩawār</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جَزِيرَة حَوَار</skos:altLabel>
+	<skos:prefLabel>Jazīrat Ḩawār</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/289790/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/289688/"/>
+	<europeana:country>QA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>25.66667</wgs:lat>
+	<wgs:long>52.41667</wgs:long>
+	<skos:altLabel>Jazīrat Ḩālūl</skos:altLabel>
+	<skos:altLabel xml:lang="ar">حَالُول</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ḩālūl</skos:altLabel>
+	<skos:prefLabel>Ḩālūl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/289823/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/289688/"/>
+	<europeana:country>QA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.96611</wgs:lat>
+	<wgs:long>51.62222</wgs:long>
+	<skos:altLabel>Al Bushairiyah</skos:altLabel>
+	<skos:altLabel>Al Bushayrīyah</skos:altLabel>
+	<skos:altLabel>Jazīrat Bishairīya</skos:altLabel>
+	<skos:altLabel>Jazīrat Bushayrīyah</skos:altLabel>
+	<skos:altLabel>Jazīrat al Bishairīyah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat al Bushayrīyah</skos:altLabel>
+	<skos:altLabel>Mishairyāt</skos:altLabel>
+	<skos:altLabel>Mishiryat</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جَزِيرَة اَلْبُشَيْرِيَّة</skos:altLabel>
+	<skos:prefLabel>Jazīrat al Bushayrīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/289881/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/289688/"/>
+	<europeana:country>QA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.74972</wgs:lat>
+	<wgs:long>51.61167</wgs:long>
+	<skos:altLabel>Al Aşḩāţ</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat al Asḩāţ</skos:altLabel>
+	<skos:altLabel>Las Hat</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جَزِيرَة اَلأَسْحَاط</skos:altLabel>
+	<skos:prefLabel>Jazīrat al Asḩāţ</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/289888/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/289688/"/>
+	<europeana:country>QA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>272465</europeana:population>
+	<wgs:lat>25.29194</wgs:lat>
+	<wgs:long>51.42444</wgs:long>
+	<skos:altLabel>Al Raiyan</skos:altLabel>
+	<skos:altLabel>Al Rayyan</skos:altLabel>
+	<skos:altLabel xml:lang="no">Ar Rayyan</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ar Rayyan</skos:altLabel>
+	<skos:altLabel>Raiyan</skos:altLabel>
+	<skos:altLabel xml:lang="ar">اَلرَّيَّان</skos:altLabel>
+	<skos:prefLabel>Ar Rayyān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/289915/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/289688/"/>
+	<europeana:country>QA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>26436</europeana:population>
+	<wgs:lat>25.16778</wgs:lat>
+	<wgs:long>51.60694</wgs:long>
+	<skos:altLabel>Al Waqra</skos:altLabel>
+	<skos:altLabel>Al Waqrah</skos:altLabel>
+	<skos:altLabel>Wakra</skos:altLabel>
+	<skos:altLabel>Wakrah</skos:altLabel>
+	<skos:altLabel>Waqra</skos:altLabel>
+	<skos:altLabel xml:lang="ar">اَلْوَكْرَة</skos:altLabel>
+	<skos:prefLabel>Al Wakrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/289962/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/289688/"/>
+	<europeana:country>QA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18923</europeana:population>
+	<wgs:lat>25.68389</wgs:lat>
+	<wgs:long>51.50583</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Khawr</skos:altLabel>
+	<skos:altLabel>Al-Khaur</skos:altLabel>
+	<skos:altLabel>Khaur Shaqiq</skos:altLabel>
+	<skos:altLabel>Khaur al-Mahanidah</skos:altLabel>
+	<skos:altLabel>Khawr Shaqīq</skos:altLabel>
+	<skos:altLabel>Khor</skos:altLabel>
+	<skos:altLabel>Khor Shaqīq</skos:altLabel>
+	<skos:altLabel>Khor-al-Mahāndah</skos:altLabel>
+	<skos:altLabel>Shakik</skos:altLabel>
+	<skos:altLabel xml:lang="ar">اَلْخَوْر</skos:altLabel>
+	<skos:prefLabel>Al Khawr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/289982/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/289688/"/>
+	<europeana:country>QA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>25.40639</wgs:lat>
+	<wgs:long>51.56556</wgs:long>
+	<skos:altLabel>Al Jazirat al Aliyah</skos:altLabel>
+	<skos:altLabel>Al Jazirat al ‘Aliya</skos:altLabel>
+	<skos:altLabel>Al Jazīrah al ‘Āliyah</skos:altLabel>
+	<skos:altLabel>Djezirat al Alya</skos:altLabel>
+	<skos:altLabel>Jazīrat al Ulyā</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat al ‘Ālīyah</skos:altLabel>
+	<skos:altLabel>Jazīrat ‘Alya</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جَزِيرَة اَلْعَالِيَّة</skos:altLabel>
+	<skos:prefLabel>Jazīrat al ‘Ālīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290030/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/289688/"/>
+	<europeana:country>QA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>344939</europeana:population>
+	<wgs:lat>25.27932</wgs:lat>
+	<wgs:long>51.52245</wgs:long>
+	<skos:altLabel>Ad Dawḩa</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ad Dawḩah</skos:altLabel>
+	<skos:altLabel>Ad Doha</skos:altLabel>
+	<skos:altLabel>Ad Dowhah</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Ad-Dauha</skos:altLabel>
+	<skos:altLabel xml:lang="et">Ad-Dawḩah</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Dauha</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Dauhá</skos:altLabel>
+	<skos:altLabel>Dawḩat al Qaţar</skos:altLabel>
+	<skos:altLabel xml:lang="id">Doha</skos:altLabel>
+	<skos:altLabel xml:lang="en">Doha</skos:altLabel>
+	<skos:altLabel xml:lang="da">Doha</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Doha</skos:altLabel>
+	<skos:altLabel xml:lang="de">Doha</skos:altLabel>
+	<skos:altLabel xml:lang="es">Doha</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Doha</skos:altLabel>
+	<skos:altLabel xml:lang="it">Doha</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Doha</skos:altLabel>
+	<skos:altLabel xml:lang="io">Doha</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Doha</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Doha</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Doha</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Doha</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Doha</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Doha</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Doha</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Doha</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Dohao</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Däuha</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ντόχα</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Доха</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Доҳа</skos:altLabel>
+	<skos:altLabel xml:lang="he">דוחא</skos:altLabel>
+	<skos:altLabel xml:lang="he">דוחה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">اَلدَّوْحَة</skos:altLabel>
+	<skos:altLabel xml:lang="ar">دوحة</skos:altLabel>
+	<skos:altLabel xml:lang="am">ዶሃ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ドーハ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">多哈</skos:altLabel>
+	<skos:altLabel xml:lang="ko">도하</skos:altLabel>
+	<skos:prefLabel>Doha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290055/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/289688/"/>
+	<europeana:country>QA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>25.61667</wgs:lat>
+	<wgs:long>50.925</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat Abū Falītah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جَزِيرَة أَبُو فَلِيتَة</skos:altLabel>
+	<skos:prefLabel>Jazīrat Abū Falītah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290227/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/289688/"/>
+	<europeana:country>QA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>25.55806</wgs:lat>
+	<wgs:long>50.735</wgs:long>
+	<skos:altLabel>Al Janān</skos:altLabel>
+	<skos:altLabel>Al Jinān</skos:altLabel>
+	<skos:altLabel>Janan Island</skos:altLabel>
+	<skos:altLabel>Janān</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Janān</skos:altLabel>
+	<skos:altLabel>Jazīrat Jinān</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جَزِيرَة جَنَان</skos:altLabel>
+	<skos:prefLabel>Jazīrat Janān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/389462/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/289688/"/>
+	<europeana:country>QA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>5510</europeana:population>
+	<wgs:lat>26.06667</wgs:lat>
+	<wgs:long>51.25</wgs:long>
+	<skos:altLabel xml:lang="ar">Baladīyat Madīnat ash Shamāl</skos:altLabel>
+	<skos:altLabel>Madinat al Shamal</skos:altLabel>
+	<skos:altLabel>Madīnat ash Shamāl</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بَلَدِيَّة مَدِينَة اَلشَّمَال</skos:altLabel>
+	<skos:prefLabel>Baladīyat Madīnat ash Shamāl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/389463/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/289688/"/>
+	<europeana:country>QA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>2332</europeana:population>
+	<wgs:lat>25.78333</wgs:lat>
+	<wgs:long>51.31667</wgs:long>
+	<skos:altLabel>Al Ghuwairiya</skos:altLabel>
+	<skos:altLabel>Al Ghuwayrīyah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Baladīyat al Ghuwayrīyah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بَلَدِيَّة اَلْغُوَيْرِيَّة</skos:altLabel>
+	<skos:prefLabel>Baladīyat al Ghuwayrīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/389465/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/289688/"/>
+	<europeana:country>QA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>33690</europeana:population>
+	<wgs:lat>25.75</wgs:lat>
+	<wgs:long>51.41667</wgs:long>
+	<skos:altLabel>Al Khawr</skos:altLabel>
+	<skos:altLabel>Al Khor</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Baladīyat al Khawr</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بَلَدِيَّة اَلْخَوْر</skos:altLabel>
+	<skos:prefLabel>Baladīyat al Khawr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/389467/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/289688/"/>
+	<europeana:country>QA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>33909</europeana:population>
+	<wgs:lat>25.53333</wgs:lat>
+	<wgs:long>51.41667</wgs:long>
+	<skos:altLabel xml:lang="ar">Baladīyat Umm Şalāl</skos:altLabel>
+	<skos:altLabel>Umm Slal</skos:altLabel>
+	<skos:altLabel>Umm Şalāl</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بَلَدِيَّة أُمّ صَلاَل</skos:altLabel>
+	<skos:prefLabel>Baladīyat Umm Şalāl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/389468/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/289688/"/>
+	<europeana:country>QA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>13424</europeana:population>
+	<wgs:lat>25.41667</wgs:lat>
+	<wgs:long>51</wgs:long>
+	<skos:altLabel>Al Jemailiya</skos:altLabel>
+	<skos:altLabel>Al Jumaylīyah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Baladīyat al Jumaylīyah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بَلَدِيَّة اَلْجُمَيْلِيَّة</skos:altLabel>
+	<skos:prefLabel>Baladīyat al Jumaylīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/389469/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/289688/"/>
+	<europeana:country>QA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>286514</europeana:population>
+	<wgs:lat>25.25</wgs:lat>
+	<wgs:long>51.41667</wgs:long>
+	<skos:altLabel>Al Rayyan</skos:altLabel>
+	<skos:altLabel>Ar Rayyān</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Baladīyat ar Rayyān</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بَلَدِيَّة اَلرَّيَّان</skos:altLabel>
+	<skos:prefLabel>Baladīyat ar Rayyān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/389470/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/289688/"/>
+	<europeana:country>QA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>344939</europeana:population>
+	<wgs:lat>25.25</wgs:lat>
+	<wgs:long>51.5</wgs:long>
+	<skos:altLabel>Ad Dawḩah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Baladīyat ad Dawḩah</skos:altLabel>
+	<skos:altLabel>Doha</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بَلَدِيَّة اَلدَّوْحَة</skos:altLabel>
+	<skos:prefLabel>Baladīyat ad Dawḩah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/389472/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/289688/"/>
+	<europeana:country>QA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>31546</europeana:population>
+	<wgs:lat>25</wgs:lat>
+	<wgs:long>51.5</wgs:long>
+	<skos:altLabel>Al Wakra</skos:altLabel>
+	<skos:altLabel>Al Wakrah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Baladīyat al Wakrah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بَلَدِيَّة اَلْوَكْرَة</skos:altLabel>
+	<skos:prefLabel>Baladīyat al Wakrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/389473/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/289688/"/>
+	<europeana:country>QA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>24.75</wgs:lat>
+	<wgs:long>51.16667</wgs:long>
+	<skos:altLabel xml:lang="ar">Baladīyat Jarayān al Bāţinah</skos:altLabel>
+	<skos:altLabel>Jarayān al Bāţinah</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Jeriyan al Batna</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بَلَدِيَّة جَرَيَان اَلْبَاطِنَة</skos:altLabel>
+	<skos:prefLabel>Baladīyat Jarayān al Bāţinah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/406688/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/289688/"/>
+	<europeana:country>QA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>26.07806</wgs:lat>
+	<wgs:long>51.08361</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat al Ka‘ūd</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جَزِيرَة اَلْكَعُود</skos:altLabel>
+	<skos:prefLabel>Jazīrat al Ka‘ūd</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/411828/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/289688/"/>
+	<europeana:country>QA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>25.305</wgs:lat>
+	<wgs:long>51.52972</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat an Nakhīl</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جَزِيرَة اَلنَّخِيل</skos:altLabel>
+	<skos:prefLabel>Jazīrat an Nakhīl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/443232/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/289688/"/>
+	<europeana:country>QA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>25.63361</wgs:lat>
+	<wgs:long>51.55028</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat Abū Maţar</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جَزِيرَة أَبُو مَطَر</skos:altLabel>
+	<skos:prefLabel>Jazīrat Abū Maţar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/443238/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/289688/"/>
+	<europeana:country>QA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>25.69722</wgs:lat>
+	<wgs:long>51.88361</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Jazīrah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">اَلْجَزِيرَة</skos:altLabel>
+	<skos:prefLabel>Al Jazīrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/443265/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/289688/"/>
+	<europeana:country>QA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>25.625</wgs:lat>
+	<wgs:long>50.83333</wgs:long>
+	<skos:altLabel xml:lang="ar">Juzur ad Dawākhil</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جُزُر اَلدَّوَاخِل</skos:altLabel>
+	<skos:prefLabel>Juzur ad Dawākhil</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6201190/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/289688/"/>
+	<europeana:country>QA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>24.83333</wgs:lat>
+	<wgs:long>51.41667</wgs:long>
+	<skos:altLabel xml:lang="ar">Baladīyat Umm Sa‘īd</skos:altLabel>
+	<skos:altLabel>Umm Sa‘īd</skos:altLabel>
+	<skos:prefLabel>Baladīyat Umm Sa‘īd</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 37 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

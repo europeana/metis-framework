@@ -1,0 +1,21 @@
+            ------
+            Best practices: sort in query
+            ------
+ 
+ Version control {{{provides great benefits}practices.vc.html}} in practical conversion.
+ If a few values of a single property have changed during a new conversion
+ then it is easy to review these changes in a plain-text diff tool.
+ 
+ That works as long as RDF resources are ordered in the same way on each conversion run.
+ Text diff tools do line-by-line comparison, and they are not aware of any RDF semantics.
+ If the order in which RDF resources are saved has changed then text diff tools suddenly become useless:
+ from the line-to-line comparison it looks like every line has changed,
+ while from the RDF perspective the file may remain the same.
+ 
+ A change in the 'WHERE' condition may have dramatic effect on the order in which 
+ records are returned.
+ 
+ Best practice here is: sort query results. In this way you will control their ordering.
+ 
+ Both SQL and SPARQL have the <<<ORDER BY>>> statement for that.
+ 

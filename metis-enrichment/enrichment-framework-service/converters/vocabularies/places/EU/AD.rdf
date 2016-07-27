@@ -1,0 +1,1845 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: EU_AD
+Description: Selected fields pulled from Geonames about AD done on Mon May 23 21:12:22 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/3038817/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.55</wgs:lat>
+	<wgs:long>1.48333</wgs:long>
+	<skos:altLabel>Xixerella</skos:altLabel>
+	<skos:prefLabel>Xixerella</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3038848/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.53333</wgs:lat>
+	<wgs:long>1.5</wgs:long>
+	<skos:prefLabel>Vedat dels Plans</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3038853/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.63333</wgs:lat>
+	<wgs:long>1.51667</wgs:long>
+	<skos:prefLabel>Veda del Castellar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3038869/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.6</wgs:lat>
+	<wgs:long>1.6</wgs:long>
+	<skos:prefLabel>Vall del Riu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3038907/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.58333</wgs:lat>
+	<wgs:long>1.68333</wgs:long>
+	<skos:prefLabel>Tosa d’Incles</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3038981/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.61667</wgs:lat>
+	<wgs:long>1.58333</wgs:long>
+	<skos:prefLabel>Sorteny</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039008/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.45</wgs:lat>
+	<wgs:long>1.51667</wgs:long>
+	<skos:prefLabel>Solanes de la Peguera</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039021/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.55</wgs:lat>
+	<wgs:long>1.66667</wgs:long>
+	<skos:prefLabel>Solana del Forn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039022/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.5</wgs:lat>
+	<wgs:long>1.61667</wgs:long>
+	<skos:prefLabel>Solana de l’Estall Serrer</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039024/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.53333</wgs:lat>
+	<wgs:long>1.61667</wgs:long>
+	<skos:prefLabel>Solana de la Baronia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039028/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.58333</wgs:lat>
+	<wgs:long>1.66667</wgs:long>
+	<skos:prefLabel>Solà de Soldeu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039031/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.56667</wgs:lat>
+	<wgs:long>1.5</wgs:long>
+	<skos:prefLabel>Solà d’Erts</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039032/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.58333</wgs:lat>
+	<wgs:long>1.53333</wgs:long>
+	<skos:prefLabel>Solà de Riambert</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039034/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.5</wgs:lat>
+	<wgs:long>1.58333</wgs:long>
+	<skos:prefLabel>Solà de Ràmio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039037/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.51667</wgs:lat>
+	<wgs:long>1.53333</wgs:long>
+	<skos:prefLabel>Solá d’Engordany</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039038/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.51667</wgs:lat>
+	<wgs:long>1.48333</wgs:long>
+	<skos:prefLabel>Solà d’Enclar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039039/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.53333</wgs:lat>
+	<wgs:long>1.58333</wgs:long>
+	<skos:prefLabel>Solà d’Encamp</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039042/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.45</wgs:lat>
+	<wgs:long>1.46667</wgs:long>
+	<skos:prefLabel>Solà de Mossers</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039044/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.58333</wgs:lat>
+	<wgs:long>1.65</wgs:long>
+	<skos:prefLabel>Solà del Tarter</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039045/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.48333</wgs:lat>
+	<wgs:long>1.56667</wgs:long>
+	<skos:prefLabel>Solà dels Sulls</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039046/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.58333</wgs:lat>
+	<wgs:long>1.63333</wgs:long>
+	<skos:prefLabel>Solà dels Plans</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039048/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.55</wgs:lat>
+	<wgs:long>1.53333</wgs:long>
+	<skos:prefLabel>Solà del Quart Mitger</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039049/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.55</wgs:lat>
+	<wgs:long>1.51667</wgs:long>
+	<skos:prefLabel>Solà del Pui</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039052/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.45</wgs:lat>
+	<wgs:long>1.48333</wgs:long>
+	<skos:prefLabel>Solà de la Moixella</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039054/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.58333</wgs:lat>
+	<wgs:long>1.61667</wgs:long>
+	<skos:prefLabel>Solà de l’Aldosa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039055/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.48333</wgs:lat>
+	<wgs:long>1.6</wgs:long>
+	<skos:prefLabel>Solà de la Farga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039057/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.43333</wgs:lat>
+	<wgs:long>1.48333</wgs:long>
+	<skos:altLabel>Sola d’Arcabell</skos:altLabel>
+	<skos:altLabel>Solà d’Arcavell</skos:altLabel>
+	<skos:prefLabel>Solà d’Arcavell</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039058/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.51667</wgs:lat>
+	<wgs:long>1.5</wgs:long>
+	<skos:prefLabel>Solà d’Andorra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039059/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.48333</wgs:lat>
+	<wgs:long>1.48333</wgs:long>
+	<skos:prefLabel>Solà d’Aixovall</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039071/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.58333</wgs:lat>
+	<wgs:long>1.5</wgs:long>
+	<skos:prefLabel>Sobre dels Camps de la Cortinada</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039082/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.58333</wgs:lat>
+	<wgs:long>1.71667</wgs:long>
+	<skos:prefLabel>Siscaró</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039093/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.46667</wgs:lat>
+	<wgs:long>1.65</wgs:long>
+	<skos:prefLabel>Setut</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039097/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.55</wgs:lat>
+	<wgs:long>1.43333</wgs:long>
+	<skos:prefLabel>Setúria</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039162/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>9448</europeana:population>
+	<wgs:lat>42.46247</wgs:lat>
+	<wgs:long>1.48247</wgs:long>
+	<skos:altLabel xml:lang="ca">Parroquia de Sant Julià de Lòria</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Sant Julià</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Sant Julià de Lòria</skos:altLabel>
+	<skos:altLabel xml:lang="es">Sant Julià de Lòria</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Sant Julià de Lòria</skos:altLabel>
+	<skos:prefLabel>Parròquia de Sant Julià de Lòria</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039245/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.53333</wgs:lat>
+	<wgs:long>1.61667</wgs:long>
+	<skos:prefLabel>Rocs Negres</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039258/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.46667</wgs:lat>
+	<wgs:long>1.48333</wgs:long>
+	<skos:prefLabel>Rocafort</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039266/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.56667</wgs:lat>
+	<wgs:long>1.61667</wgs:long>
+	<skos:prefLabel>Riu del Seig</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039288/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.55</wgs:lat>
+	<wgs:long>1.63333</wgs:long>
+	<skos:prefLabel>Riba Escorjada</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039294/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.65</wgs:lat>
+	<wgs:long>1.55</wgs:long>
+	<skos:prefLabel>Rialb</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039298/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.53333</wgs:lat>
+	<wgs:long>1.58333</wgs:long>
+	<skos:prefLabel>Rep</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039329/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.56667</wgs:lat>
+	<wgs:long>1.58333</wgs:long>
+	<skos:prefLabel>Racons</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039393/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.48333</wgs:lat>
+	<wgs:long>1.55</wgs:long>
+	<skos:prefLabel>Prat Primer</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039450/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.AMTH"/>
+	<wgs:lat>42.48333</wgs:lat>
+	<wgs:long>1.5</wgs:long>
+	<skos:prefLabel>Oratori del Pont d’Aixovall</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039513/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.48333</wgs:lat>
+	<wgs:long>1.63333</wgs:long>
+	<skos:prefLabel>Pla de l’Ingla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039518/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.6</wgs:lat>
+	<wgs:long>1.45</wgs:long>
+	<skos:prefLabel>Pla de l’Estany</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039565/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.58333</wgs:lat>
+	<wgs:long>1.48333</wgs:long>
+	<skos:altLabel>Coma de Percanela</skos:altLabel>
+	<skos:altLabel>Loma de Percanela</skos:altLabel>
+	<skos:altLabel>Percanela</skos:altLabel>
+	<skos:prefLabel>Percanela</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039574/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.46667</wgs:lat>
+	<wgs:long>1.58333</wgs:long>
+	<skos:prefLabel>Perafita</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039605/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.53333</wgs:lat>
+	<wgs:long>1.71667</wgs:long>
+	<skos:prefLabel>Pas de la Casa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039607/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.55</wgs:lat>
+	<wgs:long>1.53333</wgs:long>
+	<skos:prefLabel>Partida de l’Any de la Part</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039608/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.51667</wgs:lat>
+	<wgs:long>1.51667</wgs:long>
+	<skos:prefLabel>Partida de la Grella</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039619/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.56667</wgs:lat>
+	<wgs:long>1.48333</wgs:long>
+	<skos:prefLabel>Palomer</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039661/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.56667</wgs:lat>
+	<wgs:long>1.71667</wgs:long>
+	<skos:prefLabel>Ortafà</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039676/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>3467</europeana:population>
+	<wgs:lat>42.59758</wgs:lat>
+	<wgs:long>1.52573</wgs:long>
+	<skos:altLabel xml:lang="ca">Ordino</skos:altLabel>
+	<skos:altLabel xml:lang="es">Ordino</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Ordino</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Parròquia d'Ordino</skos:altLabel>
+	<skos:prefLabel>Parròquia d'Ordino</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039691/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.5</wgs:lat>
+	<wgs:long>1.46667</wgs:long>
+	<skos:prefLabel>Obaga d’Enclar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039694/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.48333</wgs:lat>
+	<wgs:long>1.6</wgs:long>
+	<skos:prefLabel>Obaga de l’Estall Serrer</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039695/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.55</wgs:lat>
+	<wgs:long>1.53333</wgs:long>
+	<skos:prefLabel>Obaga de la Gonarda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039697/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.43333</wgs:lat>
+	<wgs:long>1.48333</wgs:long>
+	<skos:prefLabel>Obaga de Juberri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039699/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.48333</wgs:lat>
+	<wgs:long>1.58333</wgs:long>
+	<skos:prefLabel>Obaga de Fontverd</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039700/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.56667</wgs:lat>
+	<wgs:long>1.51667</wgs:long>
+	<skos:prefLabel>Obaga d’Ansalonga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039701/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.48333</wgs:lat>
+	<wgs:long>1.51667</wgs:long>
+	<skos:prefLabel>Obaga d’Andorra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039705/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.58333</wgs:lat>
+	<wgs:long>1.68333</wgs:long>
+	<skos:prefLabel>Obac d’Incles</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039706/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.56667</wgs:lat>
+	<wgs:long>1.66667</wgs:long>
+	<skos:prefLabel>Obac de Soldeu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039707/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.51667</wgs:lat>
+	<wgs:long>1.48333</wgs:long>
+	<skos:prefLabel>Obac de Sispony</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039709/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.55</wgs:lat>
+	<wgs:long>1.68333</wgs:long>
+	<skos:prefLabel>Obac d’Envalira</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039710/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.51667</wgs:lat>
+	<wgs:long>1.6</wgs:long>
+	<skos:prefLabel>Obac d’Encamp</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039711/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.56667</wgs:lat>
+	<wgs:long>1.63333</wgs:long>
+	<skos:prefLabel>Obac del Tarter</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039712/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.51667</wgs:lat>
+	<wgs:long>1.61667</wgs:long>
+	<skos:prefLabel>Obac dels Cortals</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039716/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.56667</wgs:lat>
+	<wgs:long>1.63333</wgs:long>
+	<skos:prefLabel>Obac de Canillo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039717/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.53333</wgs:lat>
+	<wgs:long>1.53333</wgs:long>
+	<skos:prefLabel>Obac d’Anyós</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039792/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.6</wgs:lat>
+	<wgs:long>1.46667</wgs:long>
+	<skos:prefLabel>Montmantell</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039796/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.5</wgs:lat>
+	<wgs:long>1.7</wgs:long>
+	<skos:prefLabel>Montmalús</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039805/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.58333</wgs:lat>
+	<wgs:long>1.58333</wgs:long>
+	<skos:prefLabel>Montaup</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039868/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.56667</wgs:lat>
+	<wgs:long>1.58333</wgs:long>
+	<skos:prefLabel>Mereig</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039902/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.45</wgs:lat>
+	<wgs:long>1.45</wgs:long>
+	<skos:prefLabel>Mas d’Alins</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3039963/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.53333</wgs:lat>
+	<wgs:long>1.6</wgs:long>
+	<skos:prefLabel>Lloset</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040013/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.48333</wgs:lat>
+	<wgs:long>1.55</wgs:long>
+	<skos:prefLabel>L’Hospital</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040021/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.61667</wgs:lat>
+	<wgs:long>1.55</wgs:long>
+	<skos:prefLabel>Les Tallades</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040034/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.53333</wgs:lat>
+	<wgs:long>1.6</wgs:long>
+	<skos:prefLabel>Les Planes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040041/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.55</wgs:lat>
+	<wgs:long>1.56667</wgs:long>
+	<skos:prefLabel>Les Neres</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040050/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>42.48333</wgs:lat>
+	<wgs:long>1.6</wgs:long>
+	<skos:prefLabel>Les Fargues</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040051/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>15853</europeana:population>
+	<wgs:lat>42.50729</wgs:lat>
+	<wgs:long>1.53414</wgs:long>
+	<skos:altLabel xml:lang="ca">Escaldes</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Escaldes-Engordany</skos:altLabel>
+	<skos:altLabel xml:lang="en">Escaldes-Engordany</skos:altLabel>
+	<skos:altLabel xml:lang="an">Escaldes-Engordany</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Escaldes-Engordany</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Escaldes-Engordany</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Escaldes-Engordany</skos:altLabel>
+	<skos:altLabel xml:lang="es">Escaldes-Engordany</skos:altLabel>
+	<skos:altLabel xml:lang="de">Escaldes-Engordany</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Escaldes-Engordany</skos:altLabel>
+	<skos:altLabel xml:lang="it">Escaldes-Engordany</skos:altLabel>
+	<skos:altLabel xml:lang="na">Escaldes-Engordany</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Escaldes-Engordany</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Escaldes-Engordany</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Les Escaldes</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Эскальдес-Энджордани</skos:altLabel>
+	<skos:altLabel xml:lang="ja">エスカルデス＝エンゴルダニ教区</skos:altLabel>
+	<skos:altLabel xml:lang="zh">萊塞斯卡爾德-恩戈爾達</skos:altLabel>
+	<skos:altLabel xml:lang="zh">萊塞斯卡爾德－恩戈爾達</skos:altLabel>
+	<skos:prefLabel>les Escaldes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040052/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.53333</wgs:lat>
+	<wgs:long>1.65</wgs:long>
+	<skos:prefLabel>Les Deveses</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040053/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.51667</wgs:lat>
+	<wgs:long>1.55</wgs:long>
+	<skos:prefLabel>Les Costes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040076/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.51667</wgs:lat>
+	<wgs:long>1.6</wgs:long>
+	<skos:prefLabel>Les Agols</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040078/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.58333</wgs:lat>
+	<wgs:long>1.53333</wgs:long>
+	<skos:prefLabel>L’Ensegur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040084/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.55</wgs:lat>
+	<wgs:long>1.51667</wgs:long>
+	<skos:prefLabel>La Uïna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040092/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.58333</wgs:lat>
+	<wgs:long>1.76667</wgs:long>
+	<skos:prefLabel>La Solana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040096/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.45</wgs:lat>
+	<wgs:long>1.48333</wgs:long>
+	<skos:prefLabel>La Senyoreta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040101/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.58333</wgs:lat>
+	<wgs:long>1.6</wgs:long>
+	<skos:prefLabel>L’Armiana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040103/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.63333</wgs:lat>
+	<wgs:long>1.55</wgs:long>
+	<skos:prefLabel>La Rabassa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040104/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.43333</wgs:lat>
+	<wgs:long>1.51667</wgs:long>
+	<skos:altLabel>Bois de la Rabassa</skos:altLabel>
+	<skos:altLabel>Bois de la Rabossa</skos:altLabel>
+	<skos:altLabel>La Rabassa</skos:altLabel>
+	<skos:prefLabel>La Rabassa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040111/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.56667</wgs:lat>
+	<wgs:long>1.71667</wgs:long>
+	<skos:prefLabel>La Portella</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040120/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.45</wgs:lat>
+	<wgs:long>1.53333</wgs:long>
+	<skos:prefLabel>La Peguera</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040124/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.6</wgs:lat>
+	<wgs:long>1.5</wgs:long>
+	<skos:prefLabel>L’Angonella</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040128/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.51667</wgs:lat>
+	<wgs:long>1.6</wgs:long>
+	<skos:prefLabel>La Molina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040131/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>8953</europeana:population>
+	<wgs:lat>42.56667</wgs:lat>
+	<wgs:long>1.48333</wgs:long>
+	<skos:altLabel xml:lang="es">La Massana</skos:altLabel>
+	<skos:altLabel xml:lang="fr">La Massana</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Parròquia de la Massana</skos:altLabel>
+	<skos:altLabel xml:lang="ca">la Massana</skos:altLabel>
+	<skos:prefLabel>Parròquia de la Massana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040133/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.48333</wgs:lat>
+	<wgs:long>1.5</wgs:long>
+	<skos:prefLabel>La Margineda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040134/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.56667</wgs:lat>
+	<wgs:long>1.61667</wgs:long>
+	<skos:prefLabel>La Mandurana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040137/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.55</wgs:lat>
+	<wgs:long>1.63333</wgs:long>
+	<skos:prefLabel>La Llosada</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040139/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.56667</wgs:lat>
+	<wgs:long>1.51667</wgs:long>
+	<skos:prefLabel>La Llonga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040144/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.55</wgs:lat>
+	<wgs:long>1.53333</wgs:long>
+	<skos:prefLabel>La Gonarda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040153/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.58333</wgs:lat>
+	<wgs:long>1.46667</wgs:long>
+	<skos:prefLabel>La Coruvilla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040169/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.51667</wgs:lat>
+	<wgs:long>1.46667</wgs:long>
+	<skos:prefLabel>La Cabanella</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040172/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.55</wgs:lat>
+	<wgs:long>1.58333</wgs:long>
+	<skos:prefLabel>La Bor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040181/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.51667</wgs:lat>
+	<wgs:long>1.56667</wgs:long>
+	<skos:altLabel>La Barta</skos:altLabel>
+	<skos:altLabel>La Bartra</skos:altLabel>
+	<skos:prefLabel>La Bartra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040194/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.6</wgs:lat>
+	<wgs:long>1.71667</wgs:long>
+	<skos:prefLabel>Juclar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040199/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.43333</wgs:lat>
+	<wgs:long>1.48333</wgs:long>
+	<skos:prefLabel>Juberrussa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040331/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.5</wgs:lat>
+	<wgs:long>1.65</wgs:long>
+	<skos:prefLabel>Gargantillar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040340/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.56667</wgs:lat>
+	<wgs:long>1.46667</wgs:long>
+	<skos:prefLabel>Galliner</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040350/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.48333</wgs:lat>
+	<wgs:long>1.43333</wgs:long>
+	<skos:prefLabel>Francolí</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040391/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.5</wgs:lat>
+	<wgs:long>1.6</wgs:long>
+	<skos:prefLabel>Fontverd</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040428/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.AMTH"/>
+	<wgs:lat>42.48333</wgs:lat>
+	<wgs:long>1.48333</wgs:long>
+	<skos:prefLabel>Oratori de la Font de Joans</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040474/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.51667</wgs:lat>
+	<wgs:long>1.6</wgs:long>
+	<skos:prefLabel>Feritxet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040576/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.46667</wgs:lat>
+	<wgs:long>1.61667</wgs:long>
+	<skos:prefLabel>Estall Serrer</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040593/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.53333</wgs:lat>
+	<wgs:long>1.55</wgs:long>
+	<skos:prefLabel>Espeluga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040604/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.55</wgs:lat>
+	<wgs:long>1.5</wgs:long>
+	<skos:prefLabel>Escalluquer</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040616/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.53333</wgs:lat>
+	<wgs:long>1.7</wgs:long>
+	<skos:prefLabel>Envalira</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040625/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.6</wgs:lat>
+	<wgs:long>1.65</wgs:long>
+	<skos:prefLabel>Entor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040644/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.51667</wgs:lat>
+	<wgs:long>1.65</wgs:long>
+	<skos:prefLabel>Ensagents</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040653/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.5</wgs:lat>
+	<wgs:long>1.56667</wgs:long>
+	<skos:prefLabel>Engolasters</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040655/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.51667</wgs:lat>
+	<wgs:long>1.71667</wgs:long>
+	<skos:prefLabel>Engaït</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040682/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.56667</wgs:lat>
+	<wgs:long>1.61667</wgs:long>
+	<skos:prefLabel>Encampadana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040684/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>13685</europeana:population>
+	<wgs:lat>42.53333</wgs:lat>
+	<wgs:long>1.63333</wgs:long>
+	<skos:altLabel xml:lang="ca">Encamp</skos:altLabel>
+	<skos:altLabel xml:lang="es">Encamp</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Encamp</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Parròquia d'Encamp</skos:altLabel>
+	<skos:prefLabel>Parròquia d'Encamp</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040686/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>11223</europeana:population>
+	<wgs:lat>42.53333</wgs:lat>
+	<wgs:long>1.58333</wgs:long>
+	<skos:altLabel xml:lang="fr">Encamp</skos:altLabel>
+	<skos:altLabel xml:lang="de">Encamp</skos:altLabel>
+	<skos:altLabel xml:lang="en">Encamp</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Encamp</skos:altLabel>
+	<skos:altLabel xml:lang="it">Encamp</skos:altLabel>
+	<skos:altLabel xml:lang="na">Encamp</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Encamp</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Encamp</skos:altLabel>
+	<skos:altLabel xml:lang="es">Encamp</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Encamp</skos:altLabel>
+	<skos:altLabel xml:lang="an">Encamp</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Encamp</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Encamp</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Encamp</skos:altLabel>
+	<skos:altLabel>Encamp</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Энкам</skos:altLabel>
+	<skos:altLabel xml:lang="ja">エンカンプ教区</skos:altLabel>
+	<skos:altLabel xml:lang="zh">恩坎普</skos:altLabel>
+	<skos:prefLabel>Encamp</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040689/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.53333</wgs:lat>
+	<wgs:long>1.65</wgs:long>
+	<skos:prefLabel>Emportona</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040695/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.46667</wgs:lat>
+	<wgs:long>1.48333</wgs:long>
+	<skos:prefLabel>El Vedat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040712/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.53333</wgs:lat>
+	<wgs:long>1.51667</wgs:long>
+	<skos:prefLabel>Els Plans</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040713/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.51667</wgs:lat>
+	<wgs:long>1.66667</wgs:long>
+	<skos:prefLabel>Els Pessons</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040727/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.48333</wgs:lat>
+	<wgs:long>1.56667</wgs:long>
+	<skos:prefLabel>Els Graus</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040733/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.5</wgs:lat>
+	<wgs:long>1.46667</wgs:long>
+	<skos:prefLabel>Els Fenerals</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040734/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.48333</wgs:lat>
+	<wgs:long>1.63333</wgs:long>
+	<skos:prefLabel>Els Estanys</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040738/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.53333</wgs:lat>
+	<wgs:long>1.58333</wgs:long>
+	<skos:prefLabel>El Seig</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040740/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.53333</wgs:lat>
+	<wgs:long>1.61667</wgs:long>
+	<skos:prefLabel>Els Cortals</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040746/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.51667</wgs:lat>
+	<wgs:long>1.7</wgs:long>
+	<skos:prefLabel>Els Colells</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040761/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.6</wgs:lat>
+	<wgs:long>1.53333</wgs:long>
+	<skos:prefLabel>El Saquet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040764/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.48333</wgs:lat>
+	<wgs:long>1.55</wgs:long>
+	<skos:prefLabel>El Riguer</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040773/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.55</wgs:lat>
+	<wgs:long>1.5</wgs:long>
+	<skos:prefLabel>El Pardal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040775/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.51667</wgs:lat>
+	<wgs:long>1.55</wgs:long>
+	<skos:prefLabel>El Noguer</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040779/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.56667</wgs:lat>
+	<wgs:long>1.5</wgs:long>
+	<skos:prefLabel>El Mas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040780/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.56667</wgs:lat>
+	<wgs:long>1.73333</wgs:long>
+	<skos:prefLabel>El Maià</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040781/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.48333</wgs:lat>
+	<wgs:long>1.58333</wgs:long>
+	<skos:prefLabel>El Madriu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040783/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.56667</wgs:lat>
+	<wgs:long>1.5</wgs:long>
+	<skos:prefLabel>El Jou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040784/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.53333</wgs:lat>
+	<wgs:long>1.63333</wgs:long>
+	<skos:prefLabel>El Griu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040788/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.55</wgs:lat>
+	<wgs:long>1.6</wgs:long>
+	<skos:prefLabel>El Forn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040791/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.53333</wgs:lat>
+	<wgs:long>1.68333</wgs:long>
+	<skos:prefLabel>El Cubil</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040792/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.51667</wgs:lat>
+	<wgs:long>1.56667</wgs:long>
+	<skos:prefLabel>El Cresper</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040796/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.51667</wgs:lat>
+	<wgs:long>1.58333</wgs:long>
+	<skos:prefLabel>El Confòs</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040800/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.63333</wgs:lat>
+	<wgs:long>1.51667</wgs:long>
+	<skos:prefLabel>El Castellar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040805/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.61667</wgs:lat>
+	<wgs:long>1.53333</wgs:long>
+	<skos:prefLabel>El Brossós</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040871/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.55</wgs:lat>
+	<wgs:long>1.55</wgs:long>
+	<skos:prefLabel>Costa de les Neres</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040964/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.58333</wgs:lat>
+	<wgs:long>1.43333</wgs:long>
+	<skos:altLabel>Coma Pedrosa</skos:altLabel>
+	<skos:prefLabel>Coma Pedrosa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040969/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.6</wgs:lat>
+	<wgs:long>1.55</wgs:long>
+	<skos:prefLabel>Coma Obaga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040976/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.56667</wgs:lat>
+	<wgs:long>1.46667</wgs:long>
+	<skos:prefLabel>Comallempla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040980/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.51667</wgs:lat>
+	<wgs:long>1.68333</wgs:long>
+	<skos:prefLabel>Coma Estremera</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040984/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.6</wgs:lat>
+	<wgs:long>1.63333</wgs:long>
+	<skos:prefLabel>Coma de Ransol</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3040990/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.51667</wgs:lat>
+	<wgs:long>1.61667</wgs:long>
+	<skos:prefLabel>Coma dels Llops</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3041077/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.56667</wgs:lat>
+	<wgs:long>1.68333</wgs:long>
+	<skos:prefLabel>Clots de Massat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3041078/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.58333</wgs:lat>
+	<wgs:long>1.68333</wgs:long>
+	<skos:prefLabel>Clots de l’Ós</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3041092/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.46667</wgs:lat>
+	<wgs:long>1.56667</wgs:long>
+	<skos:prefLabel>Claror</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3041145/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.56667</wgs:lat>
+	<wgs:long>1.55</wgs:long>
+	<skos:prefLabel>Casamanya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3041202/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.46667</wgs:lat>
+	<wgs:long>1.45</wgs:long>
+	<skos:prefLabel>Canòlic</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3041203/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>5067</europeana:population>
+	<wgs:lat>42.58333</wgs:lat>
+	<wgs:long>1.66667</wgs:long>
+	<skos:altLabel xml:lang="ca">Canillo</skos:altLabel>
+	<skos:altLabel xml:lang="es">Canillo</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Canillo</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Parròquia de Canillo</skos:altLabel>
+	<skos:altLabel>Parròquia de Canillo</skos:altLabel>
+	<skos:prefLabel>Parròquia de Canillo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3041275/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.61667</wgs:lat>
+	<wgs:long>1.66667</wgs:long>
+	<skos:prefLabel>Cabana Sorda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3041313/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.55</wgs:lat>
+	<wgs:long>1.55</wgs:long>
+	<skos:prefLabel>Bosc del Coll d’Ordino</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3041327/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.51667</wgs:lat>
+	<wgs:long>1.55</wgs:long>
+	<skos:prefLabel>Bordes de Ramonet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3041389/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.63333</wgs:lat>
+	<wgs:long>1.53333</wgs:long>
+	<skos:prefLabel>Besalí</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3041398/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.53333</wgs:lat>
+	<wgs:long>1.55</wgs:long>
+	<skos:prefLabel>Beixalís</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3041476/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.45</wgs:lat>
+	<wgs:long>1.5</wgs:long>
+	<skos:prefLabel>Aubinyà</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3041551/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.61667</wgs:lat>
+	<wgs:long>1.68333</wgs:long>
+	<skos:prefLabel>Anrodat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3041563/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>20430</europeana:population>
+	<wgs:lat>42.50779</wgs:lat>
+	<wgs:long>1.52109</wgs:long>
+	<skos:altLabel xml:lang="lt">Andora</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Andora</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Andoro Malnova</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Andorra a Vella</skos:altLabel>
+	<skos:altLabel xml:lang="an">Andorra la Biella</skos:altLabel>
+	<skos:altLabel xml:lang="id">Andorra la Vella</skos:altLabel>
+	<skos:altLabel xml:lang="en">Andorra la Vella</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Andorra la Vella</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Andorra la Vella</skos:altLabel>
+	<skos:altLabel xml:lang="it">Andorra la Vella</skos:altLabel>
+	<skos:altLabel xml:lang="na">Andorra la Vella</skos:altLabel>
+	<skos:altLabel xml:lang="no">Andorra la Vella</skos:altLabel>
+	<skos:altLabel xml:lang="tt">Andorra la Vella</skos:altLabel>
+	<skos:altLabel xml:lang="de">Andorra la Vella</skos:altLabel>
+	<skos:altLabel xml:lang="es">Andorra la Vella</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Andorra la Vella</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Andorra la Vella</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Andorra la Vella</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Andorra la Vella</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Andorra la Vella</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Andorra la Vella</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Andorra la Vella</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Andorra la Vella</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Andorra la Vella</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Andorra la Vella</skos:altLabel>
+	<skos:altLabel xml:lang="et">Andorra la Vella</skos:altLabel>
+	<skos:altLabel xml:lang="da">Andorra la Vella</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Andorra-a-Velha</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Andorre-la-Vieille</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Andò-la-Vyèy</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Andòrra la Vièlha</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ανδόρρα</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Андора ла Веля</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Андора ла Веља</skos:altLabel>
+	<skos:altLabel xml:lang="be">Андора ля Вэлья</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Андорра-ла-Велья</skos:altLabel>
+	<skos:altLabel xml:lang="he">אנדורה לה וולה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">أندورا لا فيلا</skos:altLabel>
+	<skos:altLabel xml:lang="am">አንዶራ ላ ቬላ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">アンドラ・ラ・ヴェリャ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">安道爾城</skos:altLabel>
+	<skos:altLabel xml:lang="ko">안도라라베야</skos:altLabel>
+	<skos:prefLabel>Andorra la Vella</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3041565/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255148/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>84000</europeana:population>
+	<wgs:lat>42.5</wgs:lat>
+	<wgs:long>1.5</wgs:long>
+	<skos:altLabel>AD</skos:altLabel>
+	<skos:altLabel xml:lang="id">Andora</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Andora</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Andora</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Andora</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Andora</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Andora</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Andora</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Andora</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Andora</skos:altLabel>
+	<skos:altLabel xml:lang="io">Andora</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Andora</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Andoro</skos:altLabel>
+	<skos:altLabel xml:lang="es">Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="id">Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="en">Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="da">Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="et">Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="it">Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="de">Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="is">Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="af">Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="an">Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="io">Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="jv">Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="la">Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="li">Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="na">Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="no">Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="sc">Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="se">Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="az">Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="br">Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Andorra</skos:altLabel>
+	<skos:altLabel>Andorre</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Andorre</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Andorrë</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Andurra</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Andòrra</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Andóra</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Landorän</skos:altLabel>
+	<skos:altLabel>Les Vallées d’ Andorre</skos:altLabel>
+	<skos:altLabel>L’Andorre</skos:altLabel>
+	<skos:altLabel xml:lang="es">Principado de Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="en">Principality of Andorra</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Principat d’ Andorra</skos:altLabel>
+	<skos:altLabel>Principauté d’ Andorre</skos:altLabel>
+	<skos:altLabel>Valls d’ Andorra</skos:altLabel>
+	<skos:altLabel>Vallées et Suzerainetés d’ Andorre</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ανδόρα</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ανδόρρα</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Андора</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Андора</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Андора</skos:altLabel>
+	<skos:altLabel xml:lang="be">Андора</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Андорра</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Андорра</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Անդորա</skos:altLabel>
+	<skos:altLabel xml:lang="he">אנדורה</skos:altLabel>
+	<skos:altLabel xml:lang="fa">آندورا</skos:altLabel>
+	<skos:altLabel xml:lang="ar">أندورا</skos:altLabel>
+	<skos:altLabel xml:lang="ug">ئاندوررا</skos:altLabel>
+	<skos:altLabel xml:lang="ar">اندورا</skos:altLabel>
+	<skos:altLabel xml:lang="ps">انډورا</skos:altLabel>
+	<skos:altLabel xml:lang="sa">अंडोरा</skos:altLabel>
+	<skos:altLabel xml:lang="hi">अंडोरा</skos:altLabel>
+	<skos:altLabel xml:lang="hi">अन्डोरा</skos:altLabel>
+	<skos:altLabel xml:lang="ne">एण्डोरा</skos:altLabel>
+	<skos:altLabel xml:lang="bn">অ্যান্ডোরা</skos:altLabel>
+	<skos:altLabel xml:lang="bn">আন্ডোরা</skos:altLabel>
+	<skos:altLabel xml:lang="bn">এন্ডোরা</skos:altLabel>
+	<skos:altLabel xml:lang="ta">அன்டோரா</skos:altLabel>
+	<skos:altLabel xml:lang="ml">അന്‍ടോറ</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศอันดอร์รา</skos:altLabel>
+	<skos:altLabel xml:lang="th">อันดอร์รา</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ອັນດໍລາ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཨེན་ཌོ་ར།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ანდორა</skos:altLabel>
+	<skos:altLabel xml:lang="am">አንዶራ</skos:altLabel>
+	<skos:altLabel xml:lang="km">អង់ដូររា</skos:altLabel>
+	<skos:altLabel xml:lang="km">អានដូរ៉ា</skos:altLabel>
+	<skos:altLabel xml:lang="ja">アンドラ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">安道尔</skos:altLabel>
+	<skos:altLabel xml:lang="zh">安道爾</skos:altLabel>
+	<skos:altLabel xml:lang="ko">안도라</skos:altLabel>
+	<skos:prefLabel>Principality of Andorra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3041566/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>24211</europeana:population>
+	<wgs:lat>42.5045</wgs:lat>
+	<wgs:long>1.49414</wgs:long>
+	<skos:altLabel xml:lang="ca">Andorra la Vella</skos:altLabel>
+	<skos:altLabel xml:lang="es">Andorra la Vella</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Andorre-la-Vieille</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Parròquia d'Andorra la Vella</skos:altLabel>
+	<skos:prefLabel>Parròquia d'Andorra la Vella</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3041610/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.48333</wgs:lat>
+	<wgs:long>1.46667</wgs:long>
+	<skos:prefLabel>Aixàs</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3338529/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3041565/"/>
+	<europeana:country>AD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>16391</europeana:population>
+	<wgs:lat>42.5</wgs:lat>
+	<wgs:long>1.56667</wgs:long>
+	<skos:altLabel xml:lang="ca">Escaldes-Engordany</skos:altLabel>
+	<skos:altLabel xml:lang="es">Escaldes-Engordany</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Escaldes-Engordany</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Parròquia d'Escaldes-Engordany</skos:altLabel>
+	<skos:prefLabel>Parròquia d'Escaldes-Engordany</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 173 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

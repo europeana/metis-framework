@@ -1,0 +1,21 @@
+            ------
+            AnnoCultor Converter
+            ------
+ 
+ Converter defines the source datasets (files or databases) that
+ need to be converted, the target files where the results should be stored,
+ and conversion rules.
+ 
+Representation and operation
+
+ AnnoCultor converter is represented as an XML file.
+ During conversion, this XML file is translated to Java program code
+ and this Java code is executed under the hood.
+ However, this process is hidden from the user.
+ Many converters can be write with XML knowledge only, just using any XML editor.
+ 
+ When needed, AnnoCultor allows fine-grained control over the conversion.
+ For this, small Java programs of one or few lines can be easily included
+ into these XML converters.
+ 
+ 

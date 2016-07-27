@@ -1,0 +1,2301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: SA_GY
+Description: Selected fields pulled from Geonames about GY done on Mon May 23 21:15:14 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/3374977/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.7</wgs:lat>
+	<wgs:long>-58.6</wgs:long>
+	<skos:prefLabel>Yukurishi Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3374984/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.23333</wgs:lat>
+	<wgs:long>-58.15</wgs:long>
+	<skos:altLabel>Yawanna Island</skos:altLabel>
+	<skos:altLabel>Yowanna Island</skos:altLabel>
+	<skos:prefLabel>Yowanna Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3374997/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.33333</wgs:lat>
+	<wgs:long>-58.9</wgs:long>
+	<skos:prefLabel>Yesi Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3375044/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.26667</wgs:lat>
+	<wgs:long>-58.56667</wgs:long>
+	<skos:altLabel>Yamura Island</skos:altLabel>
+	<skos:altLabel>Yamuru Island</skos:altLabel>
+	<skos:prefLabel>Yamuru Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3375072/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.71667</wgs:lat>
+	<wgs:long>-58.55</wgs:long>
+	<skos:prefLabel>Worm Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3375075/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.36667</wgs:lat>
+	<wgs:long>-57.58333</wgs:long>
+	<skos:prefLabel>Woodley Park-Bath Village District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3375107/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.25</wgs:lat>
+	<wgs:long>-57.38333</wgs:long>
+	<skos:prefLabel>Williamsburg-Kilcoy Village District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3375138/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.23333</wgs:lat>
+	<wgs:long>-57.31667</wgs:long>
+	<skos:prefLabel>Whim-Bloomfield Local Government District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3375151/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.58333</wgs:lat>
+	<wgs:long>-57.8</wgs:long>
+	<skos:prefLabel>West Mahaicony Village District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3375222/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.75</wgs:lat>
+	<wgs:long>-59.63333</wgs:long>
+	<skos:prefLabel>War Office Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3375252/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.15</wgs:lat>
+	<wgs:long>-58.56667</wgs:long>
+	<skos:prefLabel>Warau Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3375273/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.31667</wgs:lat>
+	<wgs:long>-59.33333</wgs:long>
+	<skos:prefLabel>Warakabra Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3375332/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.96667</wgs:lat>
+	<wgs:long>-58.45</wgs:long>
+	<skos:prefLabel>Wakenaam Local Government District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3375333/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.96667</wgs:lat>
+	<wgs:long>-58.45</wgs:long>
+	<skos:altLabel>Wakenaam Island</skos:altLabel>
+	<skos:altLabel>Wakenaum Island</skos:altLabel>
+	<skos:prefLabel>Wakenaam Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3375353/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.75</wgs:lat>
+	<wgs:long>-58.55</wgs:long>
+	<skos:altLabel>Waipatush Island</skos:altLabel>
+	<skos:altLabel>Waipotosi Island</skos:altLabel>
+	<skos:prefLabel>Waipotosi Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3375423/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.33333</wgs:lat>
+	<wgs:long>-58.58333</wgs:long>
+	<skos:prefLabel>Vigilant Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3375458/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.96667</wgs:lat>
+	<wgs:long>-58.58333</wgs:long>
+	<skos:altLabel>Urarikura Island</skos:altLabel>
+	<skos:altLabel>Urarikuru Island</skos:altLabel>
+	<skos:prefLabel>Urarikuru Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3375463/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>17706</europeana:population>
+	<wgs:lat>2.5</wgs:lat>
+	<wgs:long>-59</wgs:long>
+	<skos:altLabel>Region 9</skos:altLabel>
+	<skos:altLabel>Upper Takutu-Upper Essequibo</skos:altLabel>
+	<skos:altLabel>Upper Takutu-Upper Essequibo Region</skos:altLabel>
+	<skos:prefLabel>Upper Takutu-Upper Essequibo Region</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3375469/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>44878</europeana:population>
+	<wgs:lat>5.5</wgs:lat>
+	<wgs:long>-58.33333</wgs:long>
+	<skos:altLabel>Region 10</skos:altLabel>
+	<skos:altLabel>Upper Demerara-Berbice</skos:altLabel>
+	<skos:altLabel>Upper Demerara-Berbice Region</skos:altLabel>
+	<skos:prefLabel>Upper Demerara-Berbice Region</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3375470/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>5.95</wgs:lat>
+	<wgs:long>-57.15</wgs:long>
+	<skos:prefLabel>Upper Corentyne Local Government District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3375512/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>6.48333</wgs:lat>
+	<wgs:long>-58.58333</wgs:long>
+	<skos:prefLabel>Two Brothers Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3375607/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.8</wgs:lat>
+	<wgs:long>-59.68333</wgs:long>
+	<skos:prefLabel>Tokoropati Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3375611/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.71667</wgs:lat>
+	<wgs:long>-58.21667</wgs:long>
+	<skos:prefLabel>Toevlugt-Patentia Local Government District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3375641/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.05</wgs:lat>
+	<wgs:long>-58.45</wgs:long>
+	<skos:prefLabel>Tiger Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3375642/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.48333</wgs:lat>
+	<wgs:long>-58.86667</wgs:long>
+	<skos:prefLabel>Tiger Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3375643/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.31667</wgs:lat>
+	<wgs:long>-57.7</wgs:long>
+	<skos:prefLabel>Tiger Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3375665/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.46667</wgs:lat>
+	<wgs:long>-58.6</wgs:long>
+	<skos:prefLabel>Three Sisters Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3375668/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>7.28333</wgs:lat>
+	<wgs:long>-58.5</wgs:long>
+	<skos:prefLabel>Three Friends-Walton Hall Local Government District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3375707/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.45</wgs:lat>
+	<wgs:long>-57.65</wgs:long>
+	<skos:prefLabel>Tempe-Seafield Village District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3375745/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.4</wgs:lat>
+	<wgs:long>-57.8</wgs:long>
+	<skos:prefLabel>Tarakuya Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3375771/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.83333</wgs:lat>
+	<wgs:long>-59.43333</wgs:long>
+	<skos:altLabel>Ant Eater Island</skos:altLabel>
+	<skos:altLabel>Tamanua Island</skos:altLabel>
+	<skos:prefLabel>Tamanua Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3375825/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.4</wgs:lat>
+	<wgs:long>-58.65</wgs:long>
+	<skos:prefLabel>Susan Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3375876/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.86667</wgs:lat>
+	<wgs:long>-58.3</wgs:long>
+	<skos:prefLabel>Stewartville Village District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3375881/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.16667</wgs:lat>
+	<wgs:long>-58.56667</wgs:long>
+	<skos:prefLabel>Statander Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3375887/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.56667</wgs:lat>
+	<wgs:long>-58.58333</wgs:long>
+	<skos:prefLabel>Stampa Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3375906/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.46667</wgs:lat>
+	<wgs:long>-58.61667</wgs:long>
+	<skos:prefLabel>South Sister Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3375907/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.65</wgs:lat>
+	<wgs:long>-58.58333</wgs:long>
+	<skos:prefLabel>South Lau Lau Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3375924/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.53333</wgs:lat>
+	<wgs:long>-58.23333</wgs:long>
+	<skos:prefLabel>Soesdyke Village District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3375931/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.4</wgs:lat>
+	<wgs:long>-58.86667</wgs:long>
+	<skos:altLabel>Smiths Post Island</skos:altLabel>
+	<skos:altLabel>Smith’s Post</skos:altLabel>
+	<skos:prefLabel>Smiths Post Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3375935/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>6.36667</wgs:lat>
+	<wgs:long>-58.6</wgs:long>
+	<skos:altLabel>Sloth Island</skos:altLabel>
+	<skos:altLabel>Sloth Islands</skos:altLabel>
+	<skos:prefLabel>Sloth Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3375965/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.05</wgs:lat>
+	<wgs:long>-59.86667</wgs:long>
+	<skos:altLabel>Sipari</skos:altLabel>
+	<skos:altLabel>Sipari Island</skos:altLabel>
+	<skos:prefLabel>Sipari Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3376011/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.23333</wgs:lat>
+	<wgs:long>-58.58333</wgs:long>
+	<skos:prefLabel>Shiparu Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3376018/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.25</wgs:lat>
+	<wgs:long>-57.5</wgs:long>
+	<skos:prefLabel>Sheet Anchor-Cumberland Local Government District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3376071/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.35</wgs:lat>
+	<wgs:long>-58.6</wgs:long>
+	<skos:prefLabel>Schoonahari Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3376079/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.56667</wgs:lat>
+	<wgs:long>-58.28333</wgs:long>
+	<skos:prefLabel>Sawkins Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3376088/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.58333</wgs:lat>
+	<wgs:long>-58.95</wgs:long>
+	<skos:altLabel>Sawarima Island</skos:altLabel>
+	<skos:altLabel>Swarima Island</skos:altLabel>
+	<skos:prefLabel>Sawarima Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3376100/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>2.26667</wgs:lat>
+	<wgs:long>-57.91667</wgs:long>
+	<skos:prefLabel>Saturday Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3376107/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.88333</wgs:lat>
+	<wgs:long>-59.16667</wgs:long>
+	<skos:prefLabel>Sarbub Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3376128/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.35</wgs:lat>
+	<wgs:long>-58.7</wgs:long>
+	<skos:prefLabel>Sant Hoek Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3376154/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.03333</wgs:lat>
+	<wgs:long>-58.95</wgs:long>
+	<skos:prefLabel>Sam Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3376222/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.3</wgs:lat>
+	<wgs:long>-57.55</wgs:long>
+	<skos:prefLabel>Rosignol-Zee Lust Local Government District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3376234/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.81667</wgs:lat>
+	<wgs:long>-59.41667</wgs:long>
+	<skos:prefLabel>Roger Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3376244/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.76667</wgs:lat>
+	<wgs:long>-58.58333</wgs:long>
+	<skos:prefLabel>Rock Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3376251/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>7.05</wgs:lat>
+	<wgs:long>-58.5</wgs:long>
+	<skos:prefLabel>Riverstown-Annandale Local Government District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3376253/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.5</wgs:lat>
+	<wgs:long>-57.68333</wgs:long>
+	<skos:prefLabel>Rising Sun-Eldorado Village District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3376311/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>7.2</wgs:lat>
+	<wgs:long>-58.48333</wgs:long>
+	<skos:prefLabel>Queenstown Village District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3376320/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.75</wgs:lat>
+	<wgs:long>-58.51667</wgs:long>
+	<skos:altLabel>Kwarta-Banabo Island</skos:altLabel>
+	<skos:altLabel>Kwarto Banabu Island</skos:altLabel>
+	<skos:altLabel>Kwatta Banabo</skos:altLabel>
+	<skos:altLabel>Quarto Banabu Island</skos:altLabel>
+	<skos:prefLabel>Quarto Banabu Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3376378/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.95</wgs:lat>
+	<wgs:long>-58.51667</wgs:long>
+	<skos:altLabel>Popraro Island</skos:altLabel>
+	<skos:altLabel>Potararo</skos:altLabel>
+	<skos:altLabel>Potaro Island</skos:altLabel>
+	<skos:altLabel>Potoraro Island</skos:altLabel>
+	<skos:altLabel>Potpraro Island</skos:altLabel>
+	<skos:prefLabel>Potoraro Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3376386/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>6671</europeana:population>
+	<wgs:lat>5</wgs:lat>
+	<wgs:long>-59.5</wgs:long>
+	<skos:altLabel>Potaro-Siparuni</skos:altLabel>
+	<skos:altLabel>Potaro-Siparuni Region</skos:altLabel>
+	<skos:altLabel>Region 8</skos:altLabel>
+	<skos:prefLabel>Potaro-Siparuni Region</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3376407/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>7.08333</wgs:lat>
+	<wgs:long>-58.83333</wgs:long>
+	<skos:altLabel>Pomeroon-Supenaam</skos:altLabel>
+	<skos:altLabel>Pomeroon-Supenaam Region</skos:altLabel>
+	<skos:altLabel>Region 2</skos:altLabel>
+	<skos:prefLabel>Pomeroon-Supenaam Region</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3376412/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.08333</wgs:lat>
+	<wgs:long>-58.9</wgs:long>
+	<skos:prefLabel>Poke Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3376419/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.81667</wgs:lat>
+	<wgs:long>-58.6</wgs:long>
+	<skos:prefLabel>Plantain Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3376420/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.81667</wgs:lat>
+	<wgs:long>-58.11667</wgs:long>
+	<skos:prefLabel>Plaisance-Industry Local Government</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3376446/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.81667</wgs:lat>
+	<wgs:long>-59.66667</wgs:long>
+	<skos:prefLabel>Pigeon Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3376447/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.51667</wgs:lat>
+	<wgs:long>-58.58333</wgs:long>
+	<skos:prefLabel>Pigeon Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3376492/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.7</wgs:lat>
+	<wgs:long>-58.4</wgs:long>
+	<skos:prefLabel>Paumbo Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3376496/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.55</wgs:lat>
+	<wgs:long>-58.23333</wgs:long>
+	<skos:prefLabel>Patterson Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3376517/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.85</wgs:lat>
+	<wgs:long>-58.43333</wgs:long>
+	<skos:prefLabel>Parika-Salem Village District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3376531/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.18333</wgs:lat>
+	<wgs:long>-58.56667</wgs:long>
+	<skos:prefLabel>Paramure Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3376541/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.8</wgs:lat>
+	<wgs:long>-59.23333</wgs:long>
+	<skos:prefLabel>Pap Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3376574/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>6.55</wgs:lat>
+	<wgs:long>-58.61667</wgs:long>
+	<skos:altLabel>Pairawa</skos:altLabel>
+	<skos:altLabel>Pairua Islands</skos:altLabel>
+	<skos:altLabel>Pairuwa Islands</skos:altLabel>
+	<skos:prefLabel>Pairuwa Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3376615/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.06667</wgs:lat>
+	<wgs:long>-59.91667</wgs:long>
+	<skos:prefLabel>Oranapai Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3376712/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.81667</wgs:lat>
+	<wgs:long>-58.23333</wgs:long>
+	<skos:prefLabel>Nouvelle Flanders-La Jalousie Village District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3376716/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.46667</wgs:lat>
+	<wgs:long>-58.61667</wgs:long>
+	<skos:prefLabel>North Sister Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3376718/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.65</wgs:lat>
+	<wgs:long>-58.58333</wgs:long>
+	<skos:prefLabel>North Lau Lau Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3376762/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>35039</europeana:population>
+	<wgs:lat>6.25</wgs:lat>
+	<wgs:long>-57.51667</wgs:long>
+	<skos:altLabel>New Amsterdam</skos:altLabel>
+	<skos:prefLabel>New Amsterdam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3376777/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.41667</wgs:lat>
+	<wgs:long>-57.6</wgs:long>
+	<skos:prefLabel>Naarstigheid-Union Local Government District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3376794/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.21667</wgs:lat>
+	<wgs:long>-58.58333</wgs:long>
+	<skos:prefLabel>Murray Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3376847/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>8.21667</wgs:lat>
+	<wgs:long>-59.76667</wgs:long>
+	<skos:prefLabel>Morawhanna-Mabaruma-Hosororo Village District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3376902/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.01667</wgs:lat>
+	<wgs:long>-58.56667</wgs:long>
+	<skos:altLabel>Monere Island</skos:altLabel>
+	<skos:altLabel>Moneri Island</skos:altLabel>
+	<skos:altLabel>Munuri</skos:altLabel>
+	<skos:prefLabel>Moneri Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3376953/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.35</wgs:lat>
+	<wgs:long>-58.71667</wgs:long>
+	<skos:altLabel>Meyuni Island</skos:altLabel>
+	<skos:altLabel>Sheep Island</skos:altLabel>
+	<skos:prefLabel>Meyuni Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3377055/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.51667</wgs:lat>
+	<wgs:long>-58.88333</wgs:long>
+	<skos:altLabel>Mariwa Island</skos:altLabel>
+	<skos:altLabel>Tiger Island</skos:altLabel>
+	<skos:prefLabel>Mariwa Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3377061/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.28333</wgs:lat>
+	<wgs:long>-59.35</wgs:long>
+	<skos:prefLabel>Maripa-Yaund Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3377080/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.36667</wgs:lat>
+	<wgs:long>-58.68333</wgs:long>
+	<skos:prefLabel>Marie Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3377108/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.8</wgs:lat>
+	<wgs:long>-58.58333</wgs:long>
+	<skos:prefLabel>Maraturia Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3377180/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.71667</wgs:lat>
+	<wgs:long>-58.58333</wgs:long>
+	<skos:prefLabel>Manakura Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3377197/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.6</wgs:lat>
+	<wgs:long>-58.6</wgs:long>
+	<skos:altLabel>Mamarikuru Island</skos:altLabel>
+	<skos:altLabel>Parott Island</skos:altLabel>
+	<skos:altLabel>Parrot Island</skos:altLabel>
+	<skos:prefLabel>Mamarikuru Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3377210/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.7</wgs:lat>
+	<wgs:long>-58.6</wgs:long>
+	<skos:prefLabel>Makwakaru Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3377216/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.46667</wgs:lat>
+	<wgs:long>-58.58333</wgs:long>
+	<skos:altLabel>Makauria Island</skos:altLabel>
+	<skos:altLabel>Makouria Island</skos:altLabel>
+	<skos:prefLabel>Makouria Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3377257/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>6.75</wgs:lat>
+	<wgs:long>-58.58333</wgs:long>
+	<skos:altLabel>Kamarikuri Islands</skos:altLabel>
+	<skos:altLabel>Kamarikuru Islands</skos:altLabel>
+	<skos:altLabel>Maibari Islands</skos:altLabel>
+	<skos:prefLabel>Maibari Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3377268/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.4</wgs:lat>
+	<wgs:long>-58.08333</wgs:long>
+	<skos:prefLabel>Mahaica-Unity Local Government District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3377274/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>6.25</wgs:lat>
+	<wgs:long>-57.83333</wgs:long>
+	<skos:altLabel>Mahaica-Berbice</skos:altLabel>
+	<skos:altLabel>Mahaica-Berbice Region</skos:altLabel>
+	<skos:altLabel>Region 5</skos:altLabel>
+	<skos:prefLabel>Mahaica-Berbice Region</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3377304/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.16667</wgs:lat>
+	<wgs:long>-59.03333</wgs:long>
+	<skos:prefLabel>Maam Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3377335/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.06667</wgs:lat>
+	<wgs:long>-57.2</wgs:long>
+	<skos:prefLabel>Lot Number Fifty-one Good Hope Village District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3377347/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.5</wgs:lat>
+	<wgs:long>-58.86667</wgs:long>
+	<skos:prefLabel>Long Mariwa Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3377362/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.83333</wgs:lat>
+	<wgs:long>-58.56667</wgs:long>
+	<skos:altLabel>Little Trooli</skos:altLabel>
+	<skos:altLabel>Little Troolie Island</skos:altLabel>
+	<skos:altLabel>Little Truli Island</skos:altLabel>
+	<skos:altLabel>Trooli Island</skos:altLabel>
+	<skos:prefLabel>Little Truli Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3377383/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.78333</wgs:lat>
+	<wgs:long>-58.53333</wgs:long>
+	<skos:prefLabel>Little Dukalaba Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3377392/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.38333</wgs:lat>
+	<wgs:long>-58.76667</wgs:long>
+	<skos:prefLabel>Little Batavia Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3377408/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>44690</europeana:population>
+	<wgs:lat>6</wgs:lat>
+	<wgs:long>-58.3</wgs:long>
+	<skos:altLabel>Linden</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Линден</skos:altLabel>
+	<skos:prefLabel>Linden</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3377416/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.81667</wgs:lat>
+	<wgs:long>-58.55</wgs:long>
+	<skos:prefLabel>Liberty Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3377441/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.91667</wgs:lat>
+	<wgs:long>-58.41667</wgs:long>
+	<skos:prefLabel>Leguan Local Government District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3377442/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.91667</wgs:lat>
+	<wgs:long>-58.41667</wgs:long>
+	<skos:altLabel>Leguan Island</skos:altLabel>
+	<skos:altLabel>Lequan Island</skos:altLabel>
+	<skos:prefLabel>Leguan Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3377454/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>6.63333</wgs:lat>
+	<wgs:long>-58.56667</wgs:long>
+	<skos:prefLabel>Lau Lau Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3377455/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>5.83333</wgs:lat>
+	<wgs:long>-59.66667</wgs:long>
+	<skos:prefLabel>Laulau Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3377463/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.78333</wgs:lat>
+	<wgs:long>-58.05</wgs:long>
+	<skos:prefLabel>La Reconnaissance-Mon Repos Village District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3377483/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.81667</wgs:lat>
+	<wgs:long>-59.46667</wgs:long>
+	<skos:prefLabel>Lanciana Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3377487/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.45</wgs:lat>
+	<wgs:long>-58.83333</wgs:long>
+	<skos:altLabel>Laba Island</skos:altLabel>
+	<skos:altLabel>Lana Island</skos:altLabel>
+	<skos:prefLabel>Lana Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3377495/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.38333</wgs:lat>
+	<wgs:long>-58.61667</wgs:long>
+	<skos:prefLabel>Lamun Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3377510/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.76667</wgs:lat>
+	<wgs:long>-58.21667</wgs:long>
+	<skos:prefLabel>La Grange-Nismes Village District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3377516/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.26667</wgs:lat>
+	<wgs:long>-58.58333</wgs:long>
+	<skos:prefLabel>Lady Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3377521/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.46667</wgs:lat>
+	<wgs:long>-58.06667</wgs:long>
+	<skos:prefLabel>La Bonne Intention-Better Hope Village District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3377537/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.38333</wgs:lat>
+	<wgs:long>-58.68333</wgs:long>
+	<skos:prefLabel>Kyk over Al Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3377566/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.6</wgs:lat>
+	<wgs:long>-58.61667</wgs:long>
+	<skos:altLabel>Kwabana</skos:altLabel>
+	<skos:altLabel>Kwabanna Island</skos:altLabel>
+	<skos:altLabel>Kwapana Island</skos:altLabel>
+	<skos:altLabel>Kwapanna Island</skos:altLabel>
+	<skos:prefLabel>Kwapanna Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3377598/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.73333</wgs:lat>
+	<wgs:long>-58.56667</wgs:long>
+	<skos:altLabel>Kukuritikuru</skos:altLabel>
+	<skos:altLabel>Kukuritikuru Island</skos:altLabel>
+	<skos:altLabel>Kururitikuru Island</skos:altLabel>
+	<skos:prefLabel>Kururitikuru Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3377629/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>5.78333</wgs:lat>
+	<wgs:long>-58.61667</wgs:long>
+	<skos:altLabel>Kartuahara Islands</skos:altLabel>
+	<skos:altLabel>Kurtuahara Islands</skos:altLabel>
+	<skos:prefLabel>Kurtuahara Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3377681/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.71667</wgs:lat>
+	<wgs:long>-58.58333</wgs:long>
+	<skos:altLabel>Kumaru Island</skos:altLabel>
+	<skos:altLabel>Southwest Kumaru Island</skos:altLabel>
+	<skos:prefLabel>Kumaru Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3377685/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>6.3</wgs:lat>
+	<wgs:long>-58.58333</wgs:long>
+	<skos:prefLabel>Kumarikuri Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3377839/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.8</wgs:lat>
+	<wgs:long>-58.18333</wgs:long>
+	<skos:prefLabel>Klien Pouderoyen-Best Local Government District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3377882/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>6.16667</wgs:lat>
+	<wgs:long>-57.93333</wgs:long>
+	<skos:prefLabel>Keraha Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3377945/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.31667</wgs:lat>
+	<wgs:long>-58.71667</wgs:long>
+	<skos:prefLabel>Karia Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3377985/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.95</wgs:lat>
+	<wgs:long>-58.53333</wgs:long>
+	<skos:altLabel>Karabaru Island</skos:altLabel>
+	<skos:altLabel>Karubaru Island</skos:altLabel>
+	<skos:prefLabel>Karabaru Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3377992/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.41667</wgs:lat>
+	<wgs:long>-58.61667</wgs:long>
+	<skos:prefLabel>Kaow Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378052/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.91667</wgs:lat>
+	<wgs:long>-58.56667</wgs:long>
+	<skos:prefLabel>Kamakwia Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378057/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>6.71667</wgs:lat>
+	<wgs:long>-58.6</wgs:long>
+	<skos:prefLabel>Kamakuru Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378123/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.4</wgs:lat>
+	<wgs:long>-58.63333</wgs:long>
+	<skos:prefLabel>Kabrito Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378143/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.23333</wgs:lat>
+	<wgs:long>-57.33333</wgs:long>
+	<skos:prefLabel>John-Port Mourant Village District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378144/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.36667</wgs:lat>
+	<wgs:long>-58.7</wgs:long>
+	<skos:prefLabel>John Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378145/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.46667</wgs:lat>
+	<wgs:long>-58.85</wgs:long>
+	<skos:altLabel>John Bull Island</skos:altLabel>
+	<skos:altLabel>Markabo</skos:altLabel>
+	<skos:altLabel>Markabu</skos:altLabel>
+	<skos:prefLabel>John Bull Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378154/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.95</wgs:lat>
+	<wgs:long>-58.51667</wgs:long>
+	<skos:altLabel>Jockey</skos:altLabel>
+	<skos:altLabel>Jockey Island</skos:altLabel>
+	<skos:prefLabel>Jockey Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378174/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.26667</wgs:lat>
+	<wgs:long>-58.56667</wgs:long>
+	<skos:prefLabel>Jacobis Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378182/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.18333</wgs:lat>
+	<wgs:long>-59.35</wgs:long>
+	<skos:prefLabel>Jackass Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378192/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.73333</wgs:lat>
+	<wgs:long>-58.53333</wgs:long>
+	<skos:altLabel>Baboon Island</skos:altLabel>
+	<skos:altLabel>Itura Banabo</skos:altLabel>
+	<skos:altLabel>Ituri Banabu Island</skos:altLabel>
+	<skos:altLabel>Ituri Benabu Island</skos:altLabel>
+	<skos:prefLabel>Ituri Benabu Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378227/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.81667</wgs:lat>
+	<wgs:long>-59.45</wgs:long>
+	<skos:prefLabel>Issano Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378248/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.6</wgs:lat>
+	<wgs:long>-58.21667</wgs:long>
+	<skos:altLabel>Inver Island</skos:altLabel>
+	<skos:altLabel>Number 1 Island</skos:altLabel>
+	<skos:prefLabel>Inver Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378255/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.68333</wgs:lat>
+	<wgs:long>-58.68333</wgs:long>
+	<skos:prefLabel>Indian House Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378273/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.33333</wgs:lat>
+	<wgs:long>-59.85</wgs:long>
+	<skos:prefLabel>Ilowa Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378383/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.16667</wgs:lat>
+	<wgs:long>-58.56667</wgs:long>
+	<skos:prefLabel>Hoog en Droog Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378397/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.21667</wgs:lat>
+	<wgs:long>-57.28333</wgs:long>
+	<skos:prefLabel>Hogstye-Lancaster Local Government District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378402/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.81667</wgs:lat>
+	<wgs:long>-58.53333</wgs:long>
+	<skos:prefLabel>Hog Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378413/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.21667</wgs:lat>
+	<wgs:long>-58.58333</wgs:long>
+	<skos:prefLabel>Hipaia Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378523/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.26667</wgs:lat>
+	<wgs:long>-59.38333</wgs:long>
+	<skos:prefLabel>Haiari Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378535/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255150/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>748486</europeana:population>
+	<wgs:lat>5</wgs:lat>
+	<wgs:long>-59</wgs:long>
+	<skos:altLabel xml:lang="ga">An Ghuáin</skos:altLabel>
+	<skos:altLabel>British Guiana</skos:altLabel>
+	<skos:altLabel>Co-operative Republic of Guyana</skos:altLabel>
+	<skos:altLabel>GY</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Gajana</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Gajāna</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Giyàn</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Guajana</skos:altLabel>
+	<skos:altLabel>Guayana</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Guayana</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Guiana</skos:altLabel>
+	<skos:altLabel xml:lang="la">Guiana</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Guiana</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Guiana</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Guiana</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Gujana</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Gujana</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Gujana</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Gujano</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Guy-a-na</skos:altLabel>
+	<skos:altLabel xml:lang="id">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="da">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="et">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="de">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="en">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="es">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="it">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="an">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="io">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="na">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="no">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="se">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Guyane britannique</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Gvajana</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Gvajana</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Gvajana</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Gvayän</skos:altLabel>
+	<skos:altLabel xml:lang="is">Gvæjana</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Gwayana</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Güiana - Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Wayana</skos:altLabel>
+	<skos:altLabel xml:lang="el">Γουιάνα</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Гайана</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гайана</skos:altLabel>
+	<skos:altLabel xml:lang="be">Гаяна</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Гвајана</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Гвајана</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Гвиана</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Ґайана</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Գայանա</skos:altLabel>
+	<skos:altLabel xml:lang="yi">גויאנע</skos:altLabel>
+	<skos:altLabel xml:lang="he">גיאנה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">غوايانا</skos:altLabel>
+	<skos:altLabel xml:lang="ar">غيانا</skos:altLabel>
+	<skos:altLabel xml:lang="ps">ګيانا</skos:altLabel>
+	<skos:altLabel xml:lang="fa">گویان</skos:altLabel>
+	<skos:altLabel xml:lang="ug">گۋىئانا</skos:altLabel>
+	<skos:altLabel xml:lang="hi">गुयाना</skos:altLabel>
+	<skos:altLabel xml:lang="bn">গিয়ানা</skos:altLabel>
+	<skos:altLabel xml:lang="bn">গিয়ানা</skos:altLabel>
+	<skos:altLabel xml:lang="ta">கயானா</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ഗയാന</skos:altLabel>
+	<skos:altLabel xml:lang="th">กายอานา</skos:altLabel>
+	<skos:altLabel xml:lang="th">กายานา</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศกายอานา</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ກູຢານາ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">གྷུ་ཡཱ་ན།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">გაიანა</skos:altLabel>
+	<skos:altLabel xml:lang="am">ጉያና</skos:altLabel>
+	<skos:altLabel xml:lang="km">ហ្គីយ៉ាណា</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ガイアナ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">圭亚那</skos:altLabel>
+	<skos:altLabel xml:lang="ko">가이아나</skos:altLabel>
+	<skos:prefLabel>Co-operative Republic of Guyana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378542/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.73333</wgs:lat>
+	<wgs:long>-57.95</wgs:long>
+	<skos:prefLabel>Grove-Haslington Local Government District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378559/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.91667</wgs:lat>
+	<wgs:long>-58.53333</wgs:long>
+	<skos:altLabel>Great Trooli</skos:altLabel>
+	<skos:altLabel>Great Troolie Island</skos:altLabel>
+	<skos:altLabel>Great Truli Island</skos:altLabel>
+	<skos:prefLabel>Great Truli Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378568/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>6.4</wgs:lat>
+	<wgs:long>-58.6</wgs:long>
+	<skos:prefLabel>Grass Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378590/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>7.03333</wgs:lat>
+	<wgs:long>-58.5</wgs:long>
+	<skos:prefLabel>Good Hope-Pomona Village District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378624/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.8</wgs:lat>
+	<wgs:long>-58.2</wgs:long>
+	<skos:prefLabel>Goed Fortuin Village District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378628/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.95</wgs:lat>
+	<wgs:long>-58.56667</wgs:long>
+	<skos:prefLabel>Gluck Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378644/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>235017</europeana:population>
+	<wgs:lat>6.80448</wgs:lat>
+	<wgs:long>-58.15527</wgs:long>
+	<skos:altLabel>Demerara</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Džordžtaunas</skos:altLabel>
+	<skos:altLabel xml:lang="id">Georgetown</skos:altLabel>
+	<skos:altLabel xml:lang="en">Georgetown</skos:altLabel>
+	<skos:altLabel xml:lang="da">Georgetown</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Georgetown</skos:altLabel>
+	<skos:altLabel xml:lang="io">Georgetown</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Georgetown</skos:altLabel>
+	<skos:altLabel xml:lang="de">Georgetown</skos:altLabel>
+	<skos:altLabel xml:lang="es">Georgetown</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Georgetown</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Georgetown</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Georgetown</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Georgetown</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Georgetown</skos:altLabel>
+	<skos:altLabel xml:lang="it">Georgetown</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Georgetown</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Georgetown</skos:altLabel>
+	<skos:altLabel xml:lang="no">Georgetown</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Georgetown</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Georgetown</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Georgtaŭno</skos:altLabel>
+	<skos:altLabel xml:lang="el">Τζορτζτάουν</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Джорджтаун</skos:altLabel>
+	<skos:altLabel xml:lang="he">ג'ורג'טאון</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جورج تاون</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جورج توغن</skos:altLabel>
+	<skos:altLabel xml:lang="fa">جورج‌تاو</skos:altLabel>
+	<skos:altLabel xml:lang="fa">جورج‌تاون</skos:altLabel>
+	<skos:altLabel xml:lang="am">ጆርጅታውን</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ジョージタウン</skos:altLabel>
+	<skos:altLabel xml:lang="zh">乔治敦</skos:altLabel>
+	<skos:altLabel xml:lang="ko">조지타운</skos:altLabel>
+	<skos:prefLabel>Georgetown</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378650/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.25</wgs:lat>
+	<wgs:long>-57.55</wgs:long>
+	<skos:prefLabel>Gelderland-Blairmont Village District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378686/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.63333</wgs:lat>
+	<wgs:long>-57.83333</wgs:long>
+	<skos:prefLabel>Foulis-Buxton Local Government District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378693/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.78333</wgs:lat>
+	<wgs:long>-58.51667</wgs:long>
+	<skos:altLabel>Flag Island</skos:altLabel>
+	<skos:altLabel>Fort Island</skos:altLabel>
+	<skos:prefLabel>Fort Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378718/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.83333</wgs:lat>
+	<wgs:long>-58.41667</wgs:long>
+	<skos:prefLabel>Farm Village District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378725/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.28333</wgs:lat>
+	<wgs:long>-58.56667</wgs:long>
+	<skos:prefLabel>Fairmaid Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378741/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>6.66667</wgs:lat>
+	<wgs:long>-58.5</wgs:long>
+	<skos:altLabel>Essequibo Islands-West Demerara</skos:altLabel>
+	<skos:altLabel>Essequibo Islands-West Demerara Region</skos:altLabel>
+	<skos:altLabel>Region 3</skos:altLabel>
+	<skos:prefLabel>Essequibo Islands-West Demerara Region</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378762/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.75</wgs:lat>
+	<wgs:long>-57.98333</wgs:long>
+	<skos:prefLabel>Enmore-Hope Village District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378765/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.73333</wgs:lat>
+	<wgs:long>-58.55</wgs:long>
+	<skos:prefLabel>English Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378814/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.76667</wgs:lat>
+	<wgs:long>-58.16667</wgs:long>
+	<skos:prefLabel>Eccles-Ramsburg Village District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378829/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.56667</wgs:lat>
+	<wgs:long>-57.76667</wgs:long>
+	<skos:prefLabel>East Mahaicony Local Government District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378839/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.3</wgs:lat>
+	<wgs:long>-57.46667</wgs:long>
+	<skos:prefLabel>East Coast Berbice Village District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378840/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>4</wgs:lat>
+	<wgs:long>-58.16667</wgs:long>
+	<skos:altLabel>East Berbice-Corentyne</skos:altLabel>
+	<skos:altLabel>East Berbice-Corentyne Region</skos:altLabel>
+	<skos:altLabel>Region 6</skos:altLabel>
+	<skos:prefLabel>East Berbice-Corentyne Region</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378850/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.33333</wgs:lat>
+	<wgs:long>-58.7</wgs:long>
+	<skos:prefLabel>D’Urban Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378869/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>6.76667</wgs:lat>
+	<wgs:long>-58.53333</wgs:long>
+	<skos:altLabel>Dukalaba Islands</skos:altLabel>
+	<skos:altLabel>Dukalabu Islands</skos:altLabel>
+	<skos:prefLabel>Dukalabu Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378870/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.76667</wgs:lat>
+	<wgs:long>-58.53333</wgs:long>
+	<skos:altLabel>Dukalaba Island</skos:altLabel>
+	<skos:altLabel>Dukalabu Island</skos:altLabel>
+	<skos:prefLabel>Dukalabu Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378876/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.48333</wgs:lat>
+	<wgs:long>-58.58333</wgs:long>
+	<skos:prefLabel>Duck Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378887/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.41667</wgs:lat>
+	<wgs:long>-58.63333</wgs:long>
+	<skos:prefLabel>Dress Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378950/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>6.5</wgs:lat>
+	<wgs:long>-58.08333</wgs:long>
+	<skos:altLabel>Demerara-Mahaica</skos:altLabel>
+	<skos:altLabel>Demerara-Mahaica Region</skos:altLabel>
+	<skos:altLabel>Region 4</skos:altLabel>
+	<skos:prefLabel>Demerara-Mahaica Region</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378964/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.65</wgs:lat>
+	<wgs:long>-58.6</wgs:long>
+	<skos:altLabel>Dehalibana Island</skos:altLabel>
+	<skos:altLabel>Dehalibana Islands</skos:altLabel>
+	<skos:altLabel>Dehalibanna Island</skos:altLabel>
+	<skos:prefLabel>Dehalibana Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378988/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>7.36667</wgs:lat>
+	<wgs:long>-58.5</wgs:long>
+	<skos:prefLabel>Dartmouth Village District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3379002/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.48333</wgs:lat>
+	<wgs:long>-58.58333</wgs:long>
+	<skos:prefLabel>Dalli Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3379023/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>6</wgs:lat>
+	<wgs:long>-60</wgs:long>
+	<skos:altLabel>Cuyuni-Mazaruni</skos:altLabel>
+	<skos:altLabel>Cuyuni-Mazaruni Region</skos:altLabel>
+	<skos:altLabel>Region 7</skos:altLabel>
+	<skos:prefLabel>Cuyuni-Mazaruni Region</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3379040/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.63333</wgs:lat>
+	<wgs:long>-58.18333</wgs:long>
+	<skos:prefLabel>Craig-Caledonia Village District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3379046/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.28333</wgs:lat>
+	<wgs:long>-57.51667</wgs:long>
+	<skos:prefLabel>Crab Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3379198/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.63333</wgs:lat>
+	<wgs:long>-57.91667</wgs:long>
+	<skos:prefLabel>Cane Grove Country District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3379211/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.43333</wgs:lat>
+	<wgs:long>-58.61667</wgs:long>
+	<skos:prefLabel>Calf Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3379231/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.2</wgs:lat>
+	<wgs:long>-57.23333</wgs:long>
+	<skos:prefLabel>Bush Lot-Adventure Local Government District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3379261/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>6.76667</wgs:lat>
+	<wgs:long>-58.51667</wgs:long>
+	<skos:altLabel>Bunia Banabu Islands</skos:altLabel>
+	<skos:altLabel>Bunya Banabo Islands</skos:altLabel>
+	<skos:prefLabel>Bunia Banabu Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3379262/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.76667</wgs:lat>
+	<wgs:long>-58.51667</wgs:long>
+	<skos:prefLabel>Bunia Banabu Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3379270/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.38333</wgs:lat>
+	<wgs:long>-58.68333</wgs:long>
+	<skos:prefLabel>Buck Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3379313/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.58333</wgs:lat>
+	<wgs:long>-58.23333</wgs:long>
+	<skos:altLabel>Borselem</skos:altLabel>
+	<skos:altLabel>Borselen</skos:altLabel>
+	<skos:altLabel>Borslem Island</skos:altLabel>
+	<skos:altLabel>Number 2 Island</skos:altLabel>
+	<skos:altLabel>Second Island</skos:altLabel>
+	<skos:prefLabel>Borslem Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3379350/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.83333</wgs:lat>
+	<wgs:long>-58.26667</wgs:long>
+	<skos:prefLabel>Blankenburg-Hague Village District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3379386/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.98333</wgs:lat>
+	<wgs:long>-59.2</wgs:long>
+	<skos:prefLabel>Bird Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3379411/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.55</wgs:lat>
+	<wgs:long>-58.25</wgs:long>
+	<skos:altLabel>Biesen Island</skos:altLabel>
+	<skos:altLabel>Number 3 Island</skos:altLabel>
+	<skos:prefLabel>Biesen Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3379428/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.13333</wgs:lat>
+	<wgs:long>-58.55</wgs:long>
+	<skos:prefLabel>Bethany Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3379447/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.28333</wgs:lat>
+	<wgs:long>-58.86667</wgs:long>
+	<skos:altLabel>Benhori-Bumoko Island</skos:altLabel>
+	<skos:altLabel>Benhori-bumoka Island</skos:altLabel>
+	<skos:prefLabel>Benhori-Bumoko Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3379473/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.33333</wgs:lat>
+	<wgs:long>-57.56667</wgs:long>
+	<skos:prefLabel>Bel Air-Woodlands Village District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3379494/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.4</wgs:lat>
+	<wgs:long>-58.76667</wgs:long>
+	<skos:prefLabel>Batavia Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3379507/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11157</europeana:population>
+	<wgs:lat>6.4</wgs:lat>
+	<wgs:long>-58.61667</wgs:long>
+	<skos:altLabel>Barteke</skos:altLabel>
+	<skos:altLabel>Bartica</skos:altLabel>
+	<skos:prefLabel>Bartica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3379515/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>7.66667</wgs:lat>
+	<wgs:long>-59.75</wgs:long>
+	<skos:altLabel>Barima-Waini</skos:altLabel>
+	<skos:altLabel>Barima-Waini Region</skos:altLabel>
+	<skos:altLabel>Region 1</skos:altLabel>
+	<skos:prefLabel>Barima-Waini Region</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3379580/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.76667</wgs:lat>
+	<wgs:long>-58.16667</wgs:long>
+	<skos:prefLabel>Bagotstown-Peters Hall Village District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3379582/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.35</wgs:lat>
+	<wgs:long>-58.6</wgs:long>
+	<skos:altLabel>Baganara Island</skos:altLabel>
+	<skos:altLabel>Baganmara Island</skos:altLabel>
+	<skos:prefLabel>Baganara Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3379591/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.78333</wgs:lat>
+	<wgs:long>-58.78333</wgs:long>
+	<skos:prefLabel>Baboon Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3379603/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.5</wgs:lat>
+	<wgs:long>-58.5</wgs:long>
+	<skos:prefLabel>Awartun Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3379642/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.8</wgs:lat>
+	<wgs:long>-59.63333</wgs:long>
+	<skos:altLabel>Assura Island</skos:altLabel>
+	<skos:altLabel>Asura Island</skos:altLabel>
+	<skos:prefLabel>Assura Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3379707/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.36667</wgs:lat>
+	<wgs:long>-58.68333</wgs:long>
+	<skos:prefLabel>Arimai Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3379714/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.4</wgs:lat>
+	<wgs:long>-58.73333</wgs:long>
+	<skos:prefLabel>Arian Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3379782/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.3</wgs:lat>
+	<wgs:long>-59.95</wgs:long>
+	<skos:prefLabel>Aparkwa Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3379876/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>6.41667</wgs:lat>
+	<wgs:long>-58.63333</wgs:long>
+	<skos:altLabel>Almanac Islands</skos:altLabel>
+	<skos:altLabel>Almanack Islands</skos:altLabel>
+	<skos:prefLabel>Almanac Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3379919/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.78333</wgs:lat>
+	<wgs:long>-58.56667</wgs:long>
+	<skos:altLabel>Akorikoria Island</skos:altLabel>
+	<skos:altLabel>Akuraikuru Island</skos:altLabel>
+	<skos:altLabel>Akurikuri Island</skos:altLabel>
+	<skos:altLabel>Akurikuru Island</skos:altLabel>
+	<skos:prefLabel>Akorikoria Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3379952/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.01667</wgs:lat>
+	<wgs:long>-58.58333</wgs:long>
+	<skos:prefLabel>Aharu Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3660935/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.31667</wgs:lat>
+	<wgs:long>-60.28333</wgs:long>
+	<skos:prefLabel>Warong Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3660945/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.45</wgs:lat>
+	<wgs:long>-60.51667</wgs:long>
+	<skos:prefLabel>Waranamu Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3661063/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.76667</wgs:lat>
+	<wgs:long>-60.03333</wgs:long>
+	<skos:prefLabel>Powis Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3661079/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.3</wgs:lat>
+	<wgs:long>-60.23333</wgs:long>
+	<skos:altLabel>Pereroombe Island</skos:altLabel>
+	<skos:altLabel>Pererumbe Island</skos:altLabel>
+	<skos:prefLabel>Pererumbe Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3661173/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.78333</wgs:lat>
+	<wgs:long>-60.68333</wgs:long>
+	<skos:prefLabel>Maipuri Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3661215/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>6.23333</wgs:lat>
+	<wgs:long>-60.23333</wgs:long>
+	<skos:prefLabel>Kumaka Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3661232/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.8</wgs:lat>
+	<wgs:long>-60.81667</wgs:long>
+	<skos:prefLabel>Korapa Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3661267/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.38333</wgs:lat>
+	<wgs:long>-60.38333</wgs:long>
+	<skos:prefLabel>Karatukapai Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3661320/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.38333</wgs:lat>
+	<wgs:long>-60.43333</wgs:long>
+	<skos:prefLabel>Illoma Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3661323/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.31667</wgs:lat>
+	<wgs:long>-60.26667</wgs:long>
+	<skos:prefLabel>Illiwa Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3661390/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.75</wgs:lat>
+	<wgs:long>-60.21667</wgs:long>
+	<skos:prefLabel>Canals Polder Local Government District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3661392/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.38333</wgs:lat>
+	<wgs:long>-60.41667</wgs:long>
+	<skos:prefLabel>Bumbumparu Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3661405/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.16667</wgs:lat>
+	<wgs:long>-60.08333</wgs:long>
+	<skos:prefLabel>Baboon Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3661413/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>6.8</wgs:lat>
+	<wgs:long>-60.8</wgs:long>
+	<skos:prefLabel>Awarabati Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3661417/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.78333</wgs:lat>
+	<wgs:long>-60.75</wgs:long>
+	<skos:prefLabel>Awarabaru Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3661436/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.75</wgs:lat>
+	<wgs:long>-60.88333</wgs:long>
+	<skos:prefLabel>Arlkumataru Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3661447/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.85</wgs:lat>
+	<wgs:long>-60.55</wgs:long>
+	<skos:prefLabel>Arawatta Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3661469/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.33333</wgs:lat>
+	<wgs:long>-60.33333</wgs:long>
+	<skos:prefLabel>Anarabisi Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3661482/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.83333</wgs:lat>
+	<wgs:long>-60.9</wgs:long>
+	<skos:prefLabel>Amakaina Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7303406/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3378535/"/>
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>12448</europeana:population>
+	<wgs:lat>7.26439</wgs:lat>
+	<wgs:long>-58.50769</wgs:long>
+	<skos:prefLabel>Anna Regina</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 219 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

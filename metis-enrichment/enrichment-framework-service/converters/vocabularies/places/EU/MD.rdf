@@ -1,0 +1,1610 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: EU_MD
+Description: Selected fields pulled from Geonames about MD done on Mon May 23 21:12:41 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/617076/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>22872</europeana:population>
+	<wgs:lat>48.16806</wgs:lat>
+	<wgs:long>27.305</wgs:long>
+	<skos:altLabel xml:lang="es">Edineţ</skos:altLabel>
+	<skos:altLabel xml:lang="en">Edineţ</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Edineţ</skos:altLabel>
+	<skos:altLabel>Edineţ</skos:altLabel>
+	<skos:altLabel>Ediniti</skos:altLabel>
+	<skos:altLabel>Ediniţa</skos:altLabel>
+	<skos:altLabel>Ediniţa-Târg</skos:altLabel>
+	<skos:altLabel>Yedintsy</skos:altLabel>
+	<skos:altLabel>Yedintsy-Tyrg</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Единец</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Единцы</skos:altLabel>
+	<skos:altLabel xml:lang="ko">에디네츠</skos:altLabel>
+	<skos:prefLabel>Edineţ</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/617077/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>48.16667</wgs:lat>
+	<wgs:long>27.25</wgs:long>
+	<skos:altLabel xml:lang="nl">Arrondissement Edineţ</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Condado de Edineţ</skos:altLabel>
+	<skos:altLabel>Edineţ</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Raion de Edineţ</skos:altLabel>
+	<skos:altLabel xml:lang="en">Raionul Edineţ</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Raionul Edineţ</skos:altLabel>
+	<skos:altLabel>Raionul Edineţ</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Rejon Edineţ</skos:altLabel>
+	<skos:altLabel>Yedinitskiy Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Единецкий район</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Районул Единец</skos:altLabel>
+	<skos:prefLabel>Raionul Edineţ</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/617096/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14352</europeana:population>
+	<wgs:lat>45.68417</wgs:lat>
+	<wgs:long>28.40278</wgs:long>
+	<skos:altLabel>Valkaneshty</skos:altLabel>
+	<skos:altLabel>Volkaneshty</skos:altLabel>
+	<skos:altLabel>Volkenesht’</skos:altLabel>
+	<skos:altLabel>Volkoneshty</skos:altLabel>
+	<skos:altLabel>Vulcăneşti</skos:altLabel>
+	<skos:altLabel>Vulkaneshty</skos:altLabel>
+	<skos:altLabel>Vulkeneshti</skos:altLabel>
+	<skos:prefLabel>Vulcăneşti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/617180/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>34422</europeana:population>
+	<wgs:lat>47.20417</wgs:lat>
+	<wgs:long>27.79583</wgs:long>
+	<skos:altLabel xml:lang="hu">Nyárádtő</skos:altLabel>
+	<skos:altLabel>Ukgeni Tyrg</skos:altLabel>
+	<skos:altLabel>Ungen</skos:altLabel>
+	<skos:altLabel>Ungeni</skos:altLabel>
+	<skos:altLabel>Ungeny</skos:altLabel>
+	<skos:altLabel>Ungen’ Tyrg</skos:altLabel>
+	<skos:altLabel xml:lang="de">Ungheni</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Ungheni</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ungheni</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Ungheni</skos:altLabel>
+	<skos:altLabel>Ungheni</skos:altLabel>
+	<skos:altLabel>Ungheni Targ</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Унгень</skos:altLabel>
+	<skos:prefLabel>Ungheni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/617181/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>47.33333</wgs:lat>
+	<wgs:long>27.91667</wgs:long>
+	<skos:altLabel xml:lang="nl">Arrondissement Ungheni</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Condado de Ungheni</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Raion de Ungheni</skos:altLabel>
+	<skos:altLabel xml:lang="en">Raionul Ungheni</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Raionul Ungheni</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Raionul Ungheni</skos:altLabel>
+	<skos:altLabel>Raionul Ungheni</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Rejon Ungheni</skos:altLabel>
+	<skos:altLabel>Ungenskiy Rayon</skos:altLabel>
+	<skos:altLabel>Ungheni</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Районул Унгень</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Унгенский район</skos:altLabel>
+	<skos:prefLabel>Raionul Ungheni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/617239/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>157000</europeana:population>
+	<wgs:lat>46.84028</wgs:lat>
+	<wgs:long>29.64333</wgs:long>
+	<skos:altLabel xml:lang="id">Tiraspol</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tiraspol</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Tiraspol</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Tiraspol</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Tiraspol</skos:altLabel>
+	<skos:altLabel xml:lang="de">Tiraspol</skos:altLabel>
+	<skos:altLabel xml:lang="es">Tiraspol</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Tiraspol</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Tiraspol</skos:altLabel>
+	<skos:altLabel xml:lang="it">Tiraspol</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Tiraspol</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Tiraspol</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Tiraspol</skos:altLabel>
+	<skos:altLabel>Tiraspol</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Tiraspole</skos:altLabel>
+	<skos:altLabel xml:lang="it">Tiraspoli</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Tiraspolis</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Tiraspolo</skos:altLabel>
+	<skos:altLabel>Tiraspol’</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Tyraspol</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Тираспол</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Тираспол</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Тирасполь</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Тирасполь</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Тираспољ</skos:altLabel>
+	<skos:altLabel xml:lang="be">Тыраспаль</skos:altLabel>
+	<skos:altLabel xml:lang="he">טירספול</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ティラスポリ</skos:altLabel>
+	<skos:altLabel xml:lang="ko">티라스폴</skos:altLabel>
+	<skos:prefLabel>Tiraspol</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/617255/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>68461</europeana:population>
+	<wgs:lat>47.58333</wgs:lat>
+	<wgs:long>28.5</wgs:long>
+	<skos:altLabel xml:lang="nl">Arrondissement Teleneşti</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Condado de Teleneşti</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Raion de Teleneşti</skos:altLabel>
+	<skos:altLabel xml:lang="en">Raionul Teleneşti</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Raionul Teleneşti</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Raionul Teleneşti</skos:altLabel>
+	<skos:altLabel>Raionul Teleneşti</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Rejon Teleneşti</skos:altLabel>
+	<skos:altLabel>Teleneshtskiy Rayon</skos:altLabel>
+	<skos:altLabel>Teleneşti</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Районул Теленешть</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Теленештский район</skos:altLabel>
+	<skos:prefLabel>Raionul Teleneşti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/617264/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>42282</europeana:population>
+	<wgs:lat>45.91667</wgs:lat>
+	<wgs:long>28.58333</wgs:long>
+	<skos:altLabel xml:lang="nl">Arrondissement Taraclia</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Condado de Taraclia</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Raion de Taraclia</skos:altLabel>
+	<skos:altLabel xml:lang="en">Raionul Taraclia</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Raionul Taraclia</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Raionul Taraclia</skos:altLabel>
+	<skos:altLabel>Raionul Taraclia</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Rejon Taraclia</skos:altLabel>
+	<skos:altLabel>Taraclia</skos:altLabel>
+	<skos:altLabel>Tarakliyskiy Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Районул Тараклия</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Тараклийски район</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Тараклийский район</skos:altLabel>
+	<skos:prefLabel>Raionul Taraclia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/617270/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13512</europeana:population>
+	<wgs:lat>45.9</wgs:lat>
+	<wgs:long>28.66889</wgs:long>
+	<skos:altLabel>Taraclia</skos:altLabel>
+	<skos:altLabel>Tarakliya</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Тараклия</skos:altLabel>
+	<skos:prefLabel>Taraclia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/617283/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>70036</europeana:population>
+	<wgs:lat>46.5</wgs:lat>
+	<wgs:long>29.66667</wgs:long>
+	<skos:altLabel>Ştefan-Vodă</skos:altLabel>
+	<skos:prefLabel>Raionul Ştefan-Vodă</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/617301/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>85614</europeana:population>
+	<wgs:lat>47.16667</wgs:lat>
+	<wgs:long>28.58333</wgs:long>
+	<skos:altLabel xml:lang="nl">Arrondissement Străşeni</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Condado de Străşeni</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Raion de Străşeni</skos:altLabel>
+	<skos:altLabel xml:lang="en">Raionul Străşeni</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Raionul Străşeni</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Raionul Străşeni</skos:altLabel>
+	<skos:altLabel>Raionul Străşeni</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Rejon Străşeni</skos:altLabel>
+	<skos:altLabel>Strashenskiy Rayon</skos:altLabel>
+	<skos:altLabel>Străşeni</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Районул Стрэшень</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Страшенский район</skos:altLabel>
+	<skos:prefLabel>Raionul Străşeni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/617302/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19225</europeana:population>
+	<wgs:lat>47.14139</wgs:lat>
+	<wgs:long>28.61028</wgs:long>
+	<skos:altLabel>Strasheny</skos:altLabel>
+	<skos:altLabel>Strashen’</skos:altLabel>
+	<skos:altLabel>Stresheni</skos:altLabel>
+	<skos:altLabel>Străşeni</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Страшенский район</skos:altLabel>
+	<skos:prefLabel>Străşeni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/617345/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15479</europeana:population>
+	<wgs:lat>47.65639</wgs:lat>
+	<wgs:long>28.04722</wgs:long>
+	<skos:altLabel>Belichany</skos:altLabel>
+	<skos:altLabel>Biliceni</skos:altLabel>
+	<skos:altLabel>Bilicenii Vechi</skos:altLabel>
+	<skos:altLabel>Bilicheni</skos:altLabel>
+	<skos:altLabel>Bilichen’</skos:altLabel>
+	<skos:altLabel>Bliceni</skos:altLabel>
+	<skos:altLabel>Gilicheny</skos:altLabel>
+	<skos:altLabel>Staryye Bilicheny</skos:altLabel>
+	<skos:prefLabel>Bilicenii Vechi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/617365/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>47</wgs:lat>
+	<wgs:long>28.83333</wgs:long>
+	<skos:prefLabel>Sovetskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/617366/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>48.16667</wgs:lat>
+	<wgs:long>28.25</wgs:long>
+	<skos:altLabel xml:lang="nl">Arrondissement Soroca</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Condado de Soroca</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Raion de Soroca</skos:altLabel>
+	<skos:altLabel xml:lang="en">Raionul Soroca</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Raionul Soroca</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Raionul Soroca</skos:altLabel>
+	<skos:altLabel>Raionul Soroca</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Rejon Soroca</skos:altLabel>
+	<skos:altLabel>Soroca</skos:altLabel>
+	<skos:altLabel>Sorokskiy Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Районул Сорока</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сорокский район</skos:altLabel>
+	<skos:prefLabel>Raionul Soroca</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/617367/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>27423</europeana:population>
+	<wgs:lat>48.15583</wgs:lat>
+	<wgs:long>28.2975</wgs:long>
+	<skos:altLabel>Soroca</skos:altLabel>
+	<skos:altLabel>Soroka</skos:altLabel>
+	<skos:altLabel>Soroki</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сорока</skos:altLabel>
+	<skos:prefLabel>Soroca</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/617381/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15356</europeana:population>
+	<wgs:lat>46.72806</wgs:lat>
+	<wgs:long>29.70778</wgs:long>
+	<skos:altLabel>Moldavanskaya-Slobodzaya</skos:altLabel>
+	<skos:altLabel>Slobodzeya</skos:altLabel>
+	<skos:altLabel>Slobodzeya Moldavanskaya</skos:altLabel>
+	<skos:altLabel>Slobozia</skos:altLabel>
+	<skos:prefLabel>Slobozia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/617482/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12893</europeana:population>
+	<wgs:lat>47.95722</wgs:lat>
+	<wgs:long>27.55389</wgs:long>
+	<skos:altLabel>Rashkani-Tyrg</skos:altLabel>
+	<skos:altLabel>Rashkan’ Tyrg</skos:altLabel>
+	<skos:altLabel>Ryshkanovka</skos:altLabel>
+	<skos:altLabel>Ryshkany</skos:altLabel>
+	<skos:altLabel>Râşcani</skos:altLabel>
+	<skos:altLabel>Râşcani Târg</skos:altLabel>
+	<skos:altLabel>Rîşcani</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Рышканы</skos:altLabel>
+	<skos:prefLabel>Rîşcani</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/617483/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>66927</europeana:population>
+	<wgs:lat>47.91667</wgs:lat>
+	<wgs:long>29.08333</wgs:long>
+	<skos:altLabel xml:lang="nl">Arrondissement Rîşcani</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Condado de Rîşcani</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Raion de Rîşcani</skos:altLabel>
+	<skos:altLabel xml:lang="en">Raionul Rîşcani</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Raionul Rîşcani</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Raionul Rîşcani</skos:altLabel>
+	<skos:altLabel>Raionul Rîşcani</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Rejon Rîşcani</skos:altLabel>
+	<skos:altLabel>Ryshkanskiy Rayon</skos:altLabel>
+	<skos:altLabel>Rîşcani</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Районул Рышкань</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Рышканский район</skos:altLabel>
+	<skos:prefLabel>Raionul Rîşcani</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/617486/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>55455</europeana:population>
+	<wgs:lat>47.76639</wgs:lat>
+	<wgs:long>29.00111</wgs:long>
+	<skos:altLabel xml:lang="lv">Ribņica</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Rybnica</skos:altLabel>
+	<skos:altLabel>Rybnitsa</skos:altLabel>
+	<skos:altLabel>Rybniza</skos:altLabel>
+	<skos:altLabel>Râbniţa</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Râbniţa</skos:altLabel>
+	<skos:altLabel xml:lang="it">Râbniţa</skos:altLabel>
+	<skos:altLabel xml:lang="en">Rîbniţa</skos:altLabel>
+	<skos:altLabel xml:lang="de">Rîbniţa</skos:altLabel>
+	<skos:altLabel xml:lang="it">Rîbniţa</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Rîbniţa</skos:altLabel>
+	<skos:altLabel>Rîbniţa</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Рибниця</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Рыбница</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Рыбница</skos:altLabel>
+	<skos:altLabel xml:lang="he">ריבניצה</skos:altLabel>
+	<skos:prefLabel>Rîbniţa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/617501/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>46493</europeana:population>
+	<wgs:lat>47.66667</wgs:lat>
+	<wgs:long>28.83333</wgs:long>
+	<skos:altLabel xml:lang="nl">Arrondissement Rezina</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Condado de Rezina</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Raion de Rezina</skos:altLabel>
+	<skos:altLabel xml:lang="en">Raionul Rezina</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Raionul Rezina</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Raionul Rezina</skos:altLabel>
+	<skos:altLabel>Raionul Rezina</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Rejon Rezina</skos:altLabel>
+	<skos:altLabel>Rezina</skos:altLabel>
+	<skos:altLabel>Rezinskiy Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Районул Резина</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Резинский район</skos:altLabel>
+	<skos:prefLabel>Raionul Rezina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/617638/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>24918</europeana:population>
+	<wgs:lat>47.38306</wgs:lat>
+	<wgs:long>28.82306</wgs:long>
+	<skos:altLabel>Orgeyev</skos:altLabel>
+	<skos:altLabel xml:lang="en">Orhei</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Orhei</skos:altLabel>
+	<skos:altLabel>Orhei</skos:altLabel>
+	<skos:altLabel>Orheiu</skos:altLabel>
+	<skos:altLabel>Orkhey</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Оргеев</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Орхей</skos:altLabel>
+	<skos:prefLabel>Orhei</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/617639/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>47.41667</wgs:lat>
+	<wgs:long>28.83333</wgs:long>
+	<skos:altLabel xml:lang="nl">Arrondissement Orhei</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Condado de Orhei</skos:altLabel>
+	<skos:altLabel>Orgeyevskiy Rayon</skos:altLabel>
+	<skos:altLabel>Orhei</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Raion de Orhei</skos:altLabel>
+	<skos:altLabel xml:lang="en">Raionul Orhei</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Raionul Orhei</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Raionul Orhei</skos:altLabel>
+	<skos:altLabel>Raionul Orhei</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Rejon Orhei</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Оргеевский район</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Районул Орхей</skos:altLabel>
+	<skos:prefLabel>Raionul Orhei</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/617653/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>47</wgs:lat>
+	<wgs:long>28.83333</wgs:long>
+	<skos:altLabel>Stalinskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Oktyabr'skiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/617656/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>55353</europeana:population>
+	<wgs:lat>48.41667</wgs:lat>
+	<wgs:long>27.5</wgs:long>
+	<skos:altLabel xml:lang="nl">Arrondissement Ocniţa</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Condado de Ocniţa</skos:altLabel>
+	<skos:altLabel>Ocniţa</skos:altLabel>
+	<skos:altLabel>Oknitskiy Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Raion de Ocniţa</skos:altLabel>
+	<skos:altLabel xml:lang="en">Raionul Ocniţa</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Raionul Ocniţa</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Raionul Ocniţa</skos:altLabel>
+	<skos:altLabel>Raionul Ocniţa</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Rejon Ocniţa</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Окницкий район</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Районул Окниця</skos:altLabel>
+	<skos:prefLabel>Raionul Ocniţa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/617715/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>80787</europeana:population>
+	<wgs:lat>46.91667</wgs:lat>
+	<wgs:long>29.25</wgs:long>
+	<skos:altLabel>Anenii Noi</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Arrondissement Anenii Noi</skos:altLabel>
+	<skos:altLabel>Bul’bokskiy Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Condado de Anenii Noi</skos:altLabel>
+	<skos:altLabel>Novoanenskiy Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Raion de Anenii Noi</skos:altLabel>
+	<skos:altLabel xml:lang="en">Raionul Anenii Noi</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Raionul Anenii Noi</skos:altLabel>
+	<skos:altLabel>Raionul Anenii Noi</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Rejon Anenii Noi</skos:altLabel>
+	<skos:altLabel xml:lang="mo">АнеНий-Ной</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Новоаненский район</skos:altLabel>
+	<skos:prefLabel>Raionul Anenii Noi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/617753/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11718</europeana:population>
+	<wgs:lat>47.08139</wgs:lat>
+	<wgs:long>28.17833</wgs:long>
+	<skos:altLabel>Nisiporeni</skos:altLabel>
+	<skos:altLabel>Nisporeni</skos:altLabel>
+	<skos:altLabel>Nisporeny</skos:altLabel>
+	<skos:altLabel>Nisporyany</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ниспорены</skos:altLabel>
+	<skos:prefLabel>Nisporeni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/617754/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>63159</europeana:population>
+	<wgs:lat>47.08333</wgs:lat>
+	<wgs:long>28.16667</wgs:long>
+	<skos:altLabel xml:lang="nl">Arrondissement Nisporeni</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Condado de Nisporeni</skos:altLabel>
+	<skos:altLabel>Nisporeni</skos:altLabel>
+	<skos:altLabel>Nisporenskiy Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Raion de Nisporeni</skos:altLabel>
+	<skos:altLabel xml:lang="en">Raionul Nisporeni</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Raionul Nisporeni</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Raionul Nisporeni</skos:altLabel>
+	<skos:altLabel>Raionul Nisporeni</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Rejon Nisporeni</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ниспоренский район</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Районул Ниспорень</skos:altLabel>
+	<skos:prefLabel>Raionul Nisporeni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/617790/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255148/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>4324000</europeana:population>
+	<wgs:lat>47</wgs:lat>
+	<wgs:long>29</wgs:long>
+	<skos:altLabel xml:lang="ga">An Mholdóiv</skos:altLabel>
+	<skos:altLabel>MD</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Maldova</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Moldaavje</skos:altLabel>
+	<skos:altLabel xml:lang="an">Moldabia</skos:altLabel>
+	<skos:altLabel xml:lang="de">Moldau (Republik Moldau)</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Moldava Respubliko</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Moldavi</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Moldavi</skos:altLabel>
+	<skos:altLabel xml:lang="es">Moldavia</skos:altLabel>
+	<skos:altLabel xml:lang="id">Moldavia</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Moldavia</skos:altLabel>
+	<skos:altLabel xml:lang="it">Moldavia</skos:altLabel>
+	<skos:altLabel xml:lang="rm">Moldavia</skos:altLabel>
+	<skos:altLabel xml:lang="la">Moldavia</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Moldavia</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Moldavia</skos:altLabel>
+	<skos:altLabel>Moldavian Soviet Socialist Republic</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Moldavie</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Moldavien</skos:altLabel>
+	<skos:altLabel xml:lang="da">Moldavien</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Moldavija</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Moldavija</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Moldavija</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Moldavija</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Moldavija</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Moldavija, Republika</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Moldavio</skos:altLabel>
+	<skos:altLabel xml:lang="li">Moldavië</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Moldavië</skos:altLabel>
+	<skos:altLabel>Moldavskaya Sovetskaya Sotsialisticheskaya Respublika</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Moldavsko</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Moldavsko</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Moldavsko, republika</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Moldavsko, republika</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Moldavská republika</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Moldavujo</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Moldawien</skos:altLabel>
+	<skos:altLabel xml:lang="de">Moldawien</skos:altLabel>
+	<skos:altLabel xml:lang="af">Moldawië</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Moldofa</skos:altLabel>
+	<skos:altLabel xml:lang="id">Moldova</skos:altLabel>
+	<skos:altLabel xml:lang="en">Moldova</skos:altLabel>
+	<skos:altLabel xml:lang="et">Moldova</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Moldova</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Moldova</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Moldova</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Moldova</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Moldova</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Moldova</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Moldova</skos:altLabel>
+	<skos:altLabel xml:lang="az">Moldova</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Moldova</skos:altLabel>
+	<skos:altLabel xml:lang="io">Moldova</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Moldova</skos:altLabel>
+	<skos:altLabel xml:lang="no">Moldova</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Moldova</skos:altLabel>
+	<skos:altLabel xml:lang="br">Moldova</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Moldova</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Moldova</skos:altLabel>
+	<skos:altLabel xml:lang="da">Moldova</skos:altLabel>
+	<skos:altLabel xml:lang="is">Moldova</skos:altLabel>
+	<skos:altLabel xml:lang="et">Moldova Vabariik</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Moldova, Republica</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Moldova, República de</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Moldovja</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Moldovya</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Moldovya Cumhuriyeti</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Moldàvia</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Moldàvia</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Moldáv Köztársaság</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Moldávia</skos:altLabel>
+	<skos:altLabel xml:lang="se">Moldávia</skos:altLabel>
+	<skos:altLabel xml:lang="is">Moldóva</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Mołdawia</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Mołdawia, Republika</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Mulduwa</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Môn-đô-va</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Môn-đô-va (Moldova)</skos:altLabel>
+	<skos:altLabel xml:lang="en">Republic of Moldova</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Republica Moldova</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Republiek Moldavië</skos:altLabel>
+	<skos:altLabel xml:lang="de">Republik Moldau</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Republika Moldova</skos:altLabel>
+	<skos:altLabel xml:lang="da">Republikken Moldova</skos:altLabel>
+	<skos:altLabel xml:lang="ca">República de Moldàvia</skos:altLabel>
+	<skos:altLabel xml:lang="fr">République de Moldavie</skos:altLabel>
+	<skos:altLabel>Sovetskaya Sotsialisticheskaya Respublika Moldova</skos:altLabel>
+	<skos:altLabel>Soviet Socialist Republic of Moldova</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μολδαβία</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μολδαβία, Δημοκρατία της</skos:altLabel>
+	<skos:altLabel xml:lang="be">Малдова</skos:altLabel>
+	<skos:altLabel xml:lang="be">Малдова, Рэспубліка</skos:altLabel>
+	<skos:altLabel xml:lang="cv">Молдави</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Молдавия</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Молдавија</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Молдавија</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Молдова</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Молдова</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Молдова</skos:altLabel>
+	<skos:altLabel xml:lang="kk">Молдова</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Молдова</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Молдова</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Молдова, Република</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Република Молдова</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Республіка Молдова</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Մոլդովա</skos:altLabel>
+	<skos:altLabel xml:lang="yi">מאָלדאַװיע</skos:altLabel>
+	<skos:altLabel xml:lang="yi">מאלדאוויע</skos:altLabel>
+	<skos:altLabel xml:lang="he">מולדובה</skos:altLabel>
+	<skos:altLabel xml:lang="ur">مالدووا</skos:altLabel>
+	<skos:altLabel xml:lang="ar">مولدافيا</skos:altLabel>
+	<skos:altLabel xml:lang="fa">مولداوی</skos:altLabel>
+	<skos:altLabel xml:lang="fa">مولدوا</skos:altLabel>
+	<skos:altLabel xml:lang="ar">مولدوفا</skos:altLabel>
+	<skos:altLabel xml:lang="fa">مولدووا</skos:altLabel>
+	<skos:altLabel xml:lang="ug">مولدوۋا</skos:altLabel>
+	<skos:altLabel xml:lang="hi">मोल्डाविया</skos:altLabel>
+	<skos:altLabel xml:lang="hi">मोल्दाविया</skos:altLabel>
+	<skos:altLabel xml:lang="ne">मोल्दोवा</skos:altLabel>
+	<skos:altLabel xml:lang="sa">मोल्दोवा</skos:altLabel>
+	<skos:altLabel xml:lang="hi">मोल्दोवा</skos:altLabel>
+	<skos:altLabel xml:lang="bn">মলদোভিয়া</skos:altLabel>
+	<skos:altLabel xml:lang="bn">মোল্দাভিয়া</skos:altLabel>
+	<skos:altLabel xml:lang="ta">மால்டோவா</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศมอลโดวา</skos:altLabel>
+	<skos:altLabel xml:lang="th">มอลโดวา</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ໂມນໂຄວາ</skos:altLabel>
+	<skos:altLabel xml:lang="ka">მოლდოვა</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሞልዶቫ</skos:altLabel>
+	<skos:altLabel xml:lang="km">សាធារណរដ្ឋម៉ុលដាវី</skos:altLabel>
+	<skos:altLabel xml:lang="ja">モルドバ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">モルドバ共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">摩尔多瓦</skos:altLabel>
+	<skos:altLabel xml:lang="zh">摩尔多瓦共和国</skos:altLabel>
+	<skos:altLabel xml:lang="ko">몰도바</skos:altLabel>
+	<skos:prefLabel>Republic of Moldova</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/617903/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>49735</europeana:population>
+	<wgs:lat>46.5</wgs:lat>
+	<wgs:long>28.41667</wgs:long>
+	<skos:altLabel xml:lang="nl">Arrondissement Leova</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Condado de Leova</skos:altLabel>
+	<skos:altLabel>Leova</skos:altLabel>
+	<skos:altLabel>Leovskiy Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Raion de Leova</skos:altLabel>
+	<skos:altLabel xml:lang="en">Raionul Leova</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Raionul Leova</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Raionul Leova</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Rejon Leova</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Леовский район</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Районул Леова</skos:altLabel>
+	<skos:prefLabel>Raionul Leova</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/617904/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14301</europeana:population>
+	<wgs:lat>46.47861</wgs:lat>
+	<wgs:long>28.25528</wgs:long>
+	<skos:altLabel>Leova</skos:altLabel>
+	<skos:altLabel>Leovo</skos:altLabel>
+	<skos:altLabel>Levo</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Леово</skos:altLabel>
+	<skos:prefLabel>Leova</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/617908/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>47</wgs:lat>
+	<wgs:long>28.83333</wgs:long>
+	<skos:prefLabel>Leninskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/617913/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>85657</europeana:population>
+	<wgs:lat>47.66667</wgs:lat>
+	<wgs:long>28.16667</wgs:long>
+	<skos:altLabel xml:lang="nl">Arrondissement Sîngerei</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Condado de Sîngerei</skos:altLabel>
+	<skos:altLabel>Lazovskiy Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Raion de Sîngerei</skos:altLabel>
+	<skos:altLabel xml:lang="en">Raionul Sîngerei</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Raionul Sîngerei</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Raionul Sîngerei</skos:altLabel>
+	<skos:altLabel>Raionul Sîngerei</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Rejon Sîngerei</skos:altLabel>
+	<skos:altLabel>Synzhereyskiy Rayon</skos:altLabel>
+	<skos:altLabel>Sîngerei</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Районул Сынӂерей</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сынжерейский район</skos:altLabel>
+	<skos:prefLabel>Raionul Sîngerei</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/617914/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14600</europeana:population>
+	<wgs:lat>47.64056</wgs:lat>
+	<wgs:long>28.14194</wgs:long>
+	<skos:altLabel>Lazovsk</skos:altLabel>
+	<skos:altLabel>Senzherey</skos:altLabel>
+	<skos:altLabel>Syndzherey</skos:altLabel>
+	<skos:altLabel>Synzhereya</skos:altLabel>
+	<skos:altLabel>Synzheria</skos:altLabel>
+	<skos:altLabel>Sângerei</skos:altLabel>
+	<skos:altLabel>Sîngerei</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сынжерея</skos:altLabel>
+	<skos:prefLabel>Sîngerei</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/617962/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>70186</europeana:population>
+	<wgs:lat>47.16667</wgs:lat>
+	<wgs:long>29</wgs:long>
+	<skos:altLabel xml:lang="pt">Condado de Criuleni</skos:altLabel>
+	<skos:altLabel>Criuleni</skos:altLabel>
+	<skos:altLabel>Kriulyanskiy Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Raion de Criuleni</skos:altLabel>
+	<skos:altLabel xml:lang="en">Raionul Criuleni</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Raionul Criuleni</skos:altLabel>
+	<skos:altLabel>Raionul Criuleni</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Rejon Criuleni</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Криулянский район</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Районул Крюлень</skos:altLabel>
+	<skos:prefLabel>Raionul Criuleni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/617991/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>96436</europeana:population>
+	<wgs:lat>46.83333</wgs:lat>
+	<wgs:long>28.83333</wgs:long>
+	<skos:altLabel xml:lang="nl">Arrondissement Ialoveni</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Condado de Ialoveni</skos:altLabel>
+	<skos:altLabel>Ialoveni</skos:altLabel>
+	<skos:altLabel>Kotovskiy Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Raion de Ialoveni</skos:altLabel>
+	<skos:altLabel xml:lang="en">Raionul Ialoveni</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Raionul Ialoveni</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Raionul Ialoveni</skos:altLabel>
+	<skos:altLabel>Raionul Ialoveni</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Rejon Ialoveni</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Районул Яловень</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Яловенский район</skos:altLabel>
+	<skos:prefLabel>Raionul Ialoveni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/618069/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>47</wgs:lat>
+	<wgs:long>28.83333</wgs:long>
+	<skos:altLabel>Chişinău</skos:altLabel>
+	<skos:altLabel>Gorod Kishinëv</skos:altLabel>
+	<skos:altLabel>Municipiul Chişinău</skos:altLabel>
+	<skos:prefLabel>Municipiul Chişinău</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/618119/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>90369</europeana:population>
+	<wgs:lat>46.91667</wgs:lat>
+	<wgs:long>29.25</wgs:long>
+	<skos:altLabel>Căuşeni</skos:altLabel>
+	<skos:altLabel>Kaushanskiy Rayon</skos:altLabel>
+	<skos:altLabel>Raionul Căuşeni</skos:altLabel>
+	<skos:prefLabel>Raionul Căuşeni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/618120/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>21690</europeana:population>
+	<wgs:lat>46.64417</wgs:lat>
+	<wgs:long>29.41389</wgs:long>
+	<skos:altLabel>Căuşani-Novi</skos:altLabel>
+	<skos:altLabel>Căuşanii-Noui</skos:altLabel>
+	<skos:altLabel xml:lang="en">Căuşeni</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Căuşeni</skos:altLabel>
+	<skos:altLabel>Căuşeni</skos:altLabel>
+	<skos:altLabel>Kaushani</skos:altLabel>
+	<skos:altLabel>Kaushani-Noui</skos:altLabel>
+	<skos:altLabel>Kaushany</skos:altLabel>
+	<skos:altLabel>Noui Căuşanii</skos:altLabel>
+	<skos:altLabel>Novo Kaushani</skos:altLabel>
+	<skos:altLabel>Novyye Kaushany</skos:altLabel>
+	<skos:altLabel>Novyye Keushani</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Каушаны</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Кэушань</skos:altLabel>
+	<skos:prefLabel>Căuşeni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/618142/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>58937</europeana:population>
+	<wgs:lat>46.25</wgs:lat>
+	<wgs:long>28.33333</wgs:long>
+	<skos:altLabel xml:lang="nl">Arrondissement Cantemir</skos:altLabel>
+	<skos:altLabel>Cantemir</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Condado de Cantemir</skos:altLabel>
+	<skos:altLabel>Kantemirskiy Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="en">Raionul Cantemir</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Raionul Cantemir</skos:altLabel>
+	<skos:altLabel>Raionul Cantemir</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Rejon Cantemir</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кантемирский район</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Районул Кантемир</skos:altLabel>
+	<skos:prefLabel>Raionul Cantemir</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/618162/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>73151</europeana:population>
+	<wgs:lat>47.25</wgs:lat>
+	<wgs:long>28.33333</wgs:long>
+	<skos:altLabel>Călăraşi</skos:altLabel>
+	<skos:altLabel>Kalarashskiy Rayon</skos:altLabel>
+	<skos:altLabel>Raionul Călăraşi</skos:altLabel>
+	<skos:prefLabel>Raionul Călăraşi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/618164/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>45.83333</wgs:lat>
+	<wgs:long>28.33333</wgs:long>
+	<skos:altLabel xml:lang="nl">Arrondissement Cahul</skos:altLabel>
+	<skos:altLabel>Cahul</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Condado de Cahul</skos:altLabel>
+	<skos:altLabel>Kagul’skiy Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Raion de Cahul</skos:altLabel>
+	<skos:altLabel xml:lang="en">Raionul Cahul</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Raionul Cahul</skos:altLabel>
+	<skos:altLabel>Raionul Cahul</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Rejon Cahul</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кагульский район</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Районул Кахул</skos:altLabel>
+	<skos:prefLabel>Raionul Cahul</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/618196/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14915</europeana:population>
+	<wgs:lat>46.94306</wgs:lat>
+	<wgs:long>28.77778</wgs:long>
+	<skos:altLabel>Ialoveni</skos:altLabel>
+	<skos:altLabel>Kutuzov</skos:altLabel>
+	<skos:altLabel>Ploreny</skos:altLabel>
+	<skos:altLabel>Ploveny</skos:altLabel>
+	<skos:altLabel>Yaloveny</skos:altLabel>
+	<skos:altLabel>Yaloven’</skos:altLabel>
+	<skos:altLabel>Yalovyany</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Яловены</skos:altLabel>
+	<skos:prefLabel>Ialoveni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/618260/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>59701</europeana:population>
+	<wgs:lat>47.75</wgs:lat>
+	<wgs:long>27.5</wgs:long>
+	<skos:altLabel xml:lang="nl">Arrondissement Glodeni</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Condado de Glodeni</skos:altLabel>
+	<skos:altLabel>Glodeni</skos:altLabel>
+	<skos:altLabel>Glodyanskiy Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Raion de Glodeni</skos:altLabel>
+	<skos:altLabel xml:lang="en">Raionul Glodeni</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Raionul Glodeni</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Raionul Glodeni</skos:altLabel>
+	<skos:altLabel>Raionul Glodeni</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Rejon Glodeni</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Глодянский район</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Районул Глодень</skos:altLabel>
+	<skos:prefLabel>Raionul Glodeni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/618261/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10146</europeana:population>
+	<wgs:lat>47.77083</wgs:lat>
+	<wgs:long>27.51444</wgs:long>
+	<skos:altLabel>Glodeni</skos:altLabel>
+	<skos:altLabel>Gloden’</skos:altLabel>
+	<skos:altLabel>Glodyany</skos:altLabel>
+	<skos:altLabel>Malyye Glodyany</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Глодяны</skos:altLabel>
+	<skos:prefLabel>Glodeni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/618319/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>47</wgs:lat>
+	<wgs:long>28.83333</wgs:long>
+	<skos:prefLabel>Frunzenskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/618329/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16759</europeana:population>
+	<wgs:lat>47.89333</wgs:lat>
+	<wgs:long>28.30139</wgs:long>
+	<skos:altLabel>Floreshti</skos:altLabel>
+	<skos:altLabel>Floreshty</skos:altLabel>
+	<skos:altLabel>Floresht’</skos:altLabel>
+	<skos:altLabel>Floreşti</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Флорешты</skos:altLabel>
+	<skos:prefLabel>Floreşti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/618331/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>86531</europeana:population>
+	<wgs:lat>47.83333</wgs:lat>
+	<wgs:long>28.41667</wgs:long>
+	<skos:altLabel xml:lang="nl">Arrondissement Floreşti</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Condado de Floreşti</skos:altLabel>
+	<skos:altLabel>Floreshtskiy Rayon</skos:altLabel>
+	<skos:altLabel>Floreşti</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Raion de Floreşti</skos:altLabel>
+	<skos:altLabel xml:lang="en">Raionul Floreşti</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Raionul Floreşti</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Raionul Floreşti</skos:altLabel>
+	<skos:altLabel>Raionul Floreşti</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Rejon Floreşti</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Районул Флорешть</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Флорештский район</skos:altLabel>
+	<skos:prefLabel>Raionul Floreşti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/618344/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14377</europeana:population>
+	<wgs:lat>47.57361</wgs:lat>
+	<wgs:long>27.70917</wgs:long>
+	<skos:altLabel>Faleshty</skos:altLabel>
+	<skos:altLabel>Falesht’</skos:altLabel>
+	<skos:altLabel>Feleshti</skos:altLabel>
+	<skos:altLabel>Făleşti</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Фалешты</skos:altLabel>
+	<skos:prefLabel>Făleşti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/618345/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>87838</europeana:population>
+	<wgs:lat>47.58333</wgs:lat>
+	<wgs:long>27.75</wgs:long>
+	<skos:altLabel xml:lang="nl">Arrondissement Făleşti</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Condado de Făleşti</skos:altLabel>
+	<skos:altLabel>Faleshtskiy Rayon</skos:altLabel>
+	<skos:altLabel>Făleşti</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Raion de Faleşti</skos:altLabel>
+	<skos:altLabel xml:lang="en">Raionul Făleşti</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Raionul Făleşti</skos:altLabel>
+	<skos:altLabel>Raionul Făleşti</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Rejon Faleşti</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Районул Фэлешть</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Фалештский район</skos:altLabel>
+	<skos:prefLabel>Raionul Făleşti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/618363/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>47.25</wgs:lat>
+	<wgs:long>29.11667</wgs:long>
+	<skos:altLabel>Dubossarskiy Rayon</skos:altLabel>
+	<skos:altLabel>Dubăsari</skos:altLabel>
+	<skos:altLabel>Raionul Dubăsari</skos:altLabel>
+	<skos:prefLabel>Raionul Dubăsari</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/618365/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>23254</europeana:population>
+	<wgs:lat>47.26306</wgs:lat>
+	<wgs:long>29.16083</wgs:long>
+	<skos:altLabel>Dubosari</skos:altLabel>
+	<skos:altLabel>Dubossary</skos:altLabel>
+	<skos:altLabel xml:lang="en">Dubăsari</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Dubăsari</skos:altLabel>
+	<skos:altLabel>Dubăsari</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Дубоссары</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Дубэсарь</skos:altLabel>
+	<skos:altLabel xml:lang="ko">두버사리</skos:altLabel>
+	<skos:prefLabel>Dubăsari</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/618369/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>85360</europeana:population>
+	<wgs:lat>48.08333</wgs:lat>
+	<wgs:long>27.83333</wgs:long>
+	<skos:altLabel xml:lang="nl">Arrondissement Drochia</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Condado de Drochia</skos:altLabel>
+	<skos:altLabel>Drochia</skos:altLabel>
+	<skos:altLabel>Drokiyevskiy Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Raion de Drochia</skos:altLabel>
+	<skos:altLabel xml:lang="en">Raionul Drochia</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Raionul Drochia</skos:altLabel>
+	<skos:altLabel>Raionul Drochia</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Rejon Drochia</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Дрокиевский район</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Районул Дрокия</skos:altLabel>
+	<skos:prefLabel>Raionul Drochia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/618370/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16080</europeana:population>
+	<wgs:lat>48.035</wgs:lat>
+	<wgs:long>27.81611</wgs:long>
+	<skos:altLabel>Drochia</skos:altLabel>
+	<skos:altLabel>Drokiya</skos:altLabel>
+	<skos:altLabel>Drokiya Sat</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Дрокия</skos:altLabel>
+	<skos:prefLabel>Drochia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/618381/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>44648</europeana:population>
+	<wgs:lat>48.33333</wgs:lat>
+	<wgs:long>27.66667</wgs:long>
+	<skos:altLabel xml:lang="nl">Arrondissement Donduşeni</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Condado de Donduşeni</skos:altLabel>
+	<skos:altLabel>Donduşeni</skos:altLabel>
+	<skos:altLabel>Dondyushanskiy Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Raion de Donduşeni</skos:altLabel>
+	<skos:altLabel xml:lang="en">Raionul Donduşeni</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Raionul Donduşeni</skos:altLabel>
+	<skos:altLabel>Raionul Donduşeni</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Rejon Donduşeni</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Дондюшанский район</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Районул Дондушень</skos:altLabel>
+	<skos:prefLabel>Raionul Donduşeni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/618387/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10426</europeana:population>
+	<wgs:lat>46.62222</wgs:lat>
+	<wgs:long>29.91333</wgs:long>
+	<skos:altLabel>Dnestrovsc</skos:altLabel>
+	<skos:altLabel>Dnestrovsk</skos:altLabel>
+	<skos:prefLabel>Dnestrovsc</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/618405/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>22911</europeana:population>
+	<wgs:lat>46.30028</wgs:lat>
+	<wgs:long>28.65722</wgs:long>
+	<skos:altLabel xml:lang="en">Comrat</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Comrat</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Comrat</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Comrat</skos:altLabel>
+	<skos:altLabel xml:lang="de">Comrat</skos:altLabel>
+	<skos:altLabel xml:lang="et">Comrat</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Comrat</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Comrat</skos:altLabel>
+	<skos:altLabel>Comrat</skos:altLabel>
+	<skos:altLabel>Komrad</skos:altLabel>
+	<skos:altLabel>Komrat</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Komrat</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Komrat</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Комрат</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Комрат</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Комрат</skos:altLabel>
+	<skos:altLabel xml:lang="ko">콤라트</skos:altLabel>
+	<skos:prefLabel>Comrat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/618406/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12464</europeana:population>
+	<wgs:lat>46.52</wgs:lat>
+	<wgs:long>28.78417</wgs:long>
+	<skos:altLabel>Chimishliya</skos:altLabel>
+	<skos:altLabel>Cimişlia</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Чимишлия</skos:altLabel>
+	<skos:prefLabel>Cimişlia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/618426/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>635994</europeana:population>
+	<wgs:lat>47.00556</wgs:lat>
+	<wgs:long>28.8575</wgs:long>
+	<skos:altLabel xml:lang="io">Chisinau</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Chisinau</skos:altLabel>
+	<skos:altLabel xml:lang="rm">Chisinau</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Chisinau</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Chisinau - Chişinău</skos:altLabel>
+	<skos:altLabel xml:lang="es">Chişinău</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Chişinău</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Chişinău</skos:altLabel>
+	<skos:altLabel xml:lang="da">Chişinău</skos:altLabel>
+	<skos:altLabel xml:lang="et">Chişinău</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Chişinău</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Chişinău</skos:altLabel>
+	<skos:altLabel xml:lang="de">Chişinău</skos:altLabel>
+	<skos:altLabel xml:lang="en">Chişinău</skos:altLabel>
+	<skos:altLabel xml:lang="it">Chişinău</skos:altLabel>
+	<skos:altLabel xml:lang="no">Chişinău</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Chişinău</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Chişinău</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Chişinău</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Chişinău</skos:altLabel>
+	<skos:altLabel>Chişinău</skos:altLabel>
+	<skos:altLabel>Kischinew</skos:altLabel>
+	<skos:altLabel>Kiscinev</skos:altLabel>
+	<skos:altLabel>Kishinef</skos:altLabel>
+	<skos:altLabel xml:lang="id">Kishinev</skos:altLabel>
+	<skos:altLabel>Kishiniv</skos:altLabel>
+	<skos:altLabel>Kishinëv</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Kisinyov</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kiszyniów</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Kiŝinevo</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Kişinev</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Kišiniovas</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Kišinjev</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Kišinjev</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Kišinjev</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Kišiněv</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Kišiņeva</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Kišiňov</skos:altLabel>
+	<skos:altLabel xml:lang="el">Κισινάου</skos:altLabel>
+	<skos:altLabel xml:lang="el">Κισιναου</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Кишинев</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Кишинэу</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кишинёв</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Кишињев</skos:altLabel>
+	<skos:altLabel xml:lang="be">Кішынёў</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Կիշինյով</skos:altLabel>
+	<skos:altLabel xml:lang="he">קישינאו</skos:altLabel>
+	<skos:altLabel xml:lang="ar">كيشيناو</skos:altLabel>
+	<skos:altLabel xml:lang="hi">चिशिनाउ</skos:altLabel>
+	<skos:altLabel xml:lang="sa">चिशिनौ</skos:altLabel>
+	<skos:altLabel xml:lang="ka">კიშინიოვი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ኪሺንው</skos:altLabel>
+	<skos:altLabel xml:lang="ja">キシナウ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">基希讷乌</skos:altLabel>
+	<skos:altLabel xml:lang="ko">키시너우</skos:altLabel>
+	<skos:prefLabel>Chişinău</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/618430/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>60046</europeana:population>
+	<wgs:lat>46.58333</wgs:lat>
+	<wgs:long>28.83333</wgs:long>
+	<skos:altLabel xml:lang="nl">Arrondissement Cimişlia</skos:altLabel>
+	<skos:altLabel>Chimishliyskiy Rayon</skos:altLabel>
+	<skos:altLabel>Cimişlia</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Condado de Cimişlia</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Raion de Cimişlia</skos:altLabel>
+	<skos:altLabel xml:lang="en">Raionul Cimişlia</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Raionul Cimişlia</skos:altLabel>
+	<skos:altLabel>Raionul Cimişlia</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Rejon Cimişlia</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Районул Чимишлия</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Чимишлийский район</skos:altLabel>
+	<skos:prefLabel>Raionul Cimişlia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/618450/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>22700</europeana:population>
+	<wgs:lat>46.055</wgs:lat>
+	<wgs:long>28.83028</wgs:long>
+	<skos:altLabel>Ceadâr-Lunga</skos:altLabel>
+	<skos:altLabel>Ceadîr-Lunga</skos:altLabel>
+	<skos:altLabel>Chadyr-Lunga</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Чадыр-Лунга</skos:altLabel>
+	<skos:prefLabel>Ceadîr-Lunga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/618453/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11072</europeana:population>
+	<wgs:lat>48.03194</wgs:lat>
+	<wgs:long>28.69778</wgs:long>
+	<skos:altLabel>Camenca</skos:altLabel>
+	<skos:altLabel>Kamenka</skos:altLabel>
+	<skos:altLabel>Kamenka-Moldavskaya</skos:altLabel>
+	<skos:prefLabel>Camenca</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/618454/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14066</europeana:population>
+	<wgs:lat>47.25444</wgs:lat>
+	<wgs:long>28.30806</wgs:long>
+	<skos:altLabel>Călărasi-Targ</skos:altLabel>
+	<skos:altLabel>Călăraşi</skos:altLabel>
+	<skos:altLabel>Kalarash</skos:altLabel>
+	<skos:altLabel>Kelerashi-Tyrg</skos:altLabel>
+	<skos:prefLabel>Călăraşi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/618456/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>34492</europeana:population>
+	<wgs:lat>45.9075</wgs:lat>
+	<wgs:long>28.19444</wgs:long>
+	<skos:altLabel xml:lang="en">Cahul</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Cahul</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Cahul</skos:altLabel>
+	<skos:altLabel xml:lang="de">Cahul</skos:altLabel>
+	<skos:altLabel xml:lang="es">Cahul</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Cahul</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Cahul</skos:altLabel>
+	<skos:altLabel>Cahul</skos:altLabel>
+	<skos:altLabel>Kagul</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кагул</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Кахул</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Кахул</skos:altLabel>
+	<skos:prefLabel>Cahul</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/618511/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>75978</europeana:population>
+	<wgs:lat>48.25</wgs:lat>
+	<wgs:long>27</wgs:long>
+	<skos:altLabel xml:lang="nl">Arrondissement Briceni</skos:altLabel>
+	<skos:altLabel>Briceni</skos:altLabel>
+	<skos:altLabel>Brichanskiy Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Condado de Briceni</skos:altLabel>
+	<skos:altLabel>Lipkanskiy Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Raion de Briceni</skos:altLabel>
+	<skos:altLabel xml:lang="en">Raionul Briceni</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Raionul Briceni</skos:altLabel>
+	<skos:altLabel>Raionul Briceni</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Rejon Briceni</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бричанский район</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Районул Бричень</skos:altLabel>
+	<skos:prefLabel>Raionul Briceni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/618512/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14132</europeana:population>
+	<wgs:lat>48.35722</wgs:lat>
+	<wgs:long>27.70361</wgs:long>
+	<skos:altLabel>Briceni</skos:altLabel>
+	<skos:altLabel>Brichany</skos:altLabel>
+	<skos:altLabel>Brichen’</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бричаны</skos:altLabel>
+	<skos:prefLabel>Briceni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/618565/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>27741</europeana:population>
+	<wgs:lat>46.41667</wgs:lat>
+	<wgs:long>28.91667</wgs:long>
+	<skos:altLabel xml:lang="nl">Arrondissement Basarabeasca</skos:altLabel>
+	<skos:altLabel>Basarabeasca</skos:altLabel>
+	<skos:altLabel>Bessarabskiy Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Condado de Basarabeasca</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Raion de Basarabeasca</skos:altLabel>
+	<skos:altLabel xml:lang="en">Raionul Basarabeasca</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Raionul Basarabeasca</skos:altLabel>
+	<skos:altLabel>Raionul Basarabeasca</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Rejon Basarabeasca</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Бесарабски район</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бессарабский район</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Районул Басарабяска</skos:altLabel>
+	<skos:prefLabel>Raionul Basarabeasca</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/618577/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>110175</europeana:population>
+	<wgs:lat>46.83056</wgs:lat>
+	<wgs:long>29.47111</wgs:long>
+	<skos:altLabel>Bendary</skos:altLabel>
+	<skos:altLabel>Bender</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Benderai</skos:altLabel>
+	<skos:altLabel>Bendery</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Bendery</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Bendery</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tighina</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Tighina</skos:altLabel>
+	<skos:altLabel xml:lang="no">Tighina</skos:altLabel>
+	<skos:altLabel xml:lang="de">Tighina</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Tighina</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Tighina</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Tighina</skos:altLabel>
+	<skos:altLabel xml:lang="et">Tighina</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Tighina</skos:altLabel>
+	<skos:altLabel>Tighina</skos:altLabel>
+	<skos:altLabel>Tigina</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Tigina</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Бендери</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бендеры</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Тигина</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Тигина</skos:altLabel>
+	<skos:altLabel xml:lang="he">טיגינה</skos:altLabel>
+	<skos:altLabel xml:lang="ko">티기나</skos:altLabel>
+	<skos:prefLabel>Tighina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/618594/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10809</europeana:population>
+	<wgs:lat>46.33111</wgs:lat>
+	<wgs:long>28.97278</wgs:long>
+	<skos:altLabel>Basarabeasca</skos:altLabel>
+	<skos:altLabel>Bessarabka</skos:altLabel>
+	<skos:altLabel>Bessarabskaya</skos:altLabel>
+	<skos:altLabel>Bessarabskiy</skos:altLabel>
+	<skos:altLabel>Romaneshti</skos:altLabel>
+	<skos:altLabel>Romanovka</skos:altLabel>
+	<skos:altLabel>Romanovo</skos:altLabel>
+	<skos:altLabel>Romynesht’</skos:altLabel>
+	<skos:altLabel>Româneşti</skos:altLabel>
+	<skos:prefLabel>Basarabeasca</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/618605/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>125000</europeana:population>
+	<wgs:lat>47.76167</wgs:lat>
+	<wgs:long>27.92889</wgs:long>
+	<skos:altLabel>Baltsy</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Belcai</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Belci</skos:altLabel>
+	<skos:altLabel>Beltsi</skos:altLabel>
+	<skos:altLabel>Bel’tsy</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Bielce</skos:altLabel>
+	<skos:altLabel>Byelcy</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Bălţi</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Bălţi</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Bălţi</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Bălţi</skos:altLabel>
+	<skos:altLabel xml:lang="de">Bălţi</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bălţi</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Bălţi</skos:altLabel>
+	<skos:altLabel>Bălţi</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Municipalité de Bălţi</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Белци</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бельцы</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Бэлць</skos:altLabel>
+	<skos:altLabel xml:lang="he">בלצי</skos:altLabel>
+	<skos:prefLabel>Bălţi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/858803/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>117522</europeana:population>
+	<wgs:lat>46.83333</wgs:lat>
+	<wgs:long>28.41667</wgs:long>
+	<skos:altLabel xml:lang="nl">Arrondissement Hînceşti</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Condado de Hînceşti</skos:altLabel>
+	<skos:altLabel>Hînceşti</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Raion de Hînceşti</skos:altLabel>
+	<skos:altLabel xml:lang="en">Raionul Hînceşti</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Raionul Hînceşti</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Raionul Hînceşti</skos:altLabel>
+	<skos:altLabel>Raionul Hînceşti</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Rejon Hînceşti</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Районул Хынчешть</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Хынчештский район</skos:altLabel>
+	<skos:prefLabel>Raionul Hînceşti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/858808/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>41284</europeana:population>
+	<wgs:lat>47.83333</wgs:lat>
+	<wgs:long>28.66667</wgs:long>
+	<skos:altLabel xml:lang="nl">Arrondissement Şoldăneşti</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Condado de Şoldăneşti</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Raion de Şoldăneşti</skos:altLabel>
+	<skos:altLabel xml:lang="en">Raionul Şoldăneşti</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Raionul Şoldăneşti</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Raionul Şoldăneşti</skos:altLabel>
+	<skos:altLabel>Raionul Şoldăneşti</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Rejon Şoldăneşti</skos:altLabel>
+	<skos:altLabel>Sholdaneshtskiy Rayon</skos:altLabel>
+	<skos:altLabel>Şoldăneşti</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Районул Шолдэнешть</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Шолданештский район</skos:altLabel>
+	<skos:prefLabel>Raionul Şoldăneşti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/858889/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>47.36667</wgs:lat>
+	<wgs:long>29.25</wgs:long>
+	<skos:altLabel>Judeţul Dubăsari</skos:altLabel>
+	<skos:altLabel>Stînga Nistrului</skos:altLabel>
+	<skos:altLabel>Unitatea Teritorială din Stînga Nistrului</skos:altLabel>
+	<skos:prefLabel>Unitatea Teritorială din Stînga Nistrului</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/858895/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>153079</europeana:population>
+	<wgs:lat>46.16667</wgs:lat>
+	<wgs:long>28.66667</wgs:long>
+	<skos:altLabel>Găgăuzia</skos:altLabel>
+	<skos:altLabel>Unitate Teritorială Autonomă Găgăuzia</skos:altLabel>
+	<skos:prefLabel>Unitate Teritorială Autonomă Găgăuzia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/861487/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>46.83333</wgs:lat>
+	<wgs:long>29.45</wgs:long>
+	<skos:altLabel>Bender</skos:altLabel>
+	<skos:altLabel>Municipiul Bender</skos:altLabel>
+	<skos:prefLabel>Municipiul Bender</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/873909/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/617790/"/>
+	<europeana:country>MD</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>47.78333</wgs:lat>
+	<wgs:long>27.91667</wgs:long>
+	<skos:altLabel>Bălţi</skos:altLabel>
+	<skos:altLabel>Municipul Bălţi</skos:altLabel>
+	<skos:prefLabel>Municipul Bălţi</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 75 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

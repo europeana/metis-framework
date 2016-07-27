@@ -1,0 +1,2380 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AS_GE
+Description: Selected fields pulled from Geonames about GE done on Mon May 23 21:13:27 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/610823/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865543/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.46743</wgs:lat>
+	<wgs:long>41.7983</wgs:long>
+	<skos:altLabel>Zugdidis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Zugdidis Raioni</skos:altLabel>
+	<skos:altLabel>Zugdidskiy Rayon</skos:altLabel>
+	<skos:altLabel>ზუგდიდის რაიონი</skos:altLabel>
+	<skos:prefLabel>Zugdidis Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/610824/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>73006</europeana:population>
+	<wgs:lat>42.5088</wgs:lat>
+	<wgs:long>41.87088</wgs:long>
+	<skos:altLabel>Sugdidi</skos:altLabel>
+	<skos:altLabel xml:lang="de">Sugdidi</skos:altLabel>
+	<skos:altLabel xml:lang="da">Sugdidi</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Zugdidi</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Zugdidi</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Zugdidi</skos:altLabel>
+	<skos:altLabel xml:lang="es">Zugdidi</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Zugdidi</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Zugdidi</skos:altLabel>
+	<skos:altLabel xml:lang="en">Zugdidi</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Zugdidi</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Zugdidis</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ЗУГДИДИ</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Зугдиди</skos:altLabel>
+	<skos:altLabel xml:lang="he">זוגדידי</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ზუგდიდი</skos:altLabel>
+	<skos:prefLabel>Zugdidi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/610837/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>42.25</wgs:lat>
+	<wgs:long>43.75</wgs:long>
+	<skos:prefLabel>Znaurskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/610864/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA2"/>
+	<europeana:population>25891</europeana:population>
+	<wgs:lat>42.11</wgs:lat>
+	<wgs:long>43.0525</wgs:long>
+	<skos:altLabel>Dshugeli</skos:altLabel>
+	<skos:altLabel>Dzhugeli</skos:altLabel>
+	<skos:altLabel>Kvirily</skos:altLabel>
+	<skos:altLabel>Namaneva</skos:altLabel>
+	<skos:altLabel>Sestafoni</skos:altLabel>
+	<skos:altLabel>Zestafoni</skos:altLabel>
+	<skos:altLabel xml:lang="en">Zestap'oni</skos:altLabel>
+	<skos:altLabel>Zestap’oni</skos:altLabel>
+	<skos:altLabel xml:lang="en">Zetaponi</skos:altLabel>
+	<skos:altLabel>Zistafoni</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ЗЕСТАФОНИ</skos:altLabel>
+	<skos:prefLabel>Zestap’oni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/610865/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.1</wgs:lat>
+	<wgs:long>43.05</wgs:long>
+	<skos:altLabel>Zestafonskiy Rayon</skos:altLabel>
+	<skos:altLabel>Zestapʼonis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Zestap’onis Raioni</skos:altLabel>
+	<skos:prefLabel>Zestap’onis Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/611068/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.7</wgs:lat>
+	<wgs:long>44.75</wgs:long>
+	<skos:prefLabel>Zavodskoy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/611214/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.01667</wgs:lat>
+	<wgs:long>42.61667</wgs:long>
+	<skos:altLabel>Vanis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Vanis Raioni</skos:altLabel>
+	<skos:altLabel>Vanskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Vanis Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/611402/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>42.33333</wgs:lat>
+	<wgs:long>44.16667</wgs:long>
+	<skos:altLabel>Stalinirskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Tskhinval'skiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/611403/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>30000</europeana:population>
+	<wgs:lat>42.22764</wgs:lat>
+	<wgs:long>43.96861</wgs:long>
+	<skos:altLabel>Stalinir</skos:altLabel>
+	<skos:altLabel>Staliniri</skos:altLabel>
+	<skos:altLabel>Stavinir</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ts'khinvali</skos:altLabel>
+	<skos:altLabel>Ts’khinvali</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Цхинвали</skos:altLabel>
+	<skos:prefLabel>Ts’khinvali</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/611448/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.33333</wgs:lat>
+	<wgs:long>46.25</wgs:long>
+	<skos:altLabel>Dedopʼlistsqaros Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Dedop’listsqaros Raioni</skos:altLabel>
+	<skos:altLabel>Tsiteltskaroyskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Dedop’listsqaros Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/611547/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.63333</wgs:lat>
+	<wgs:long>43.96667</wgs:long>
+	<skos:altLabel>Tsalkinskii Raion</skos:altLabel>
+	<skos:altLabel>Tsalkinskiy Rayon</skos:altLabel>
+	<skos:altLabel>Tsalkis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Tsalkis Raioni</skos:altLabel>
+	<skos:altLabel>Tsalkskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Tsalkis Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/611552/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.66667</wgs:lat>
+	<wgs:long>42.06667</wgs:long>
+	<skos:altLabel>Tsalendzhikhskiy Rayon</skos:altLabel>
+	<skos:altLabel>Tsalenjikhis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Tsalenjikhis Raioni</skos:altLabel>
+	<skos:prefLabel>Tsalenjikhis Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/611565/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.6</wgs:lat>
+	<wgs:long>42.76667</wgs:long>
+	<skos:altLabel>Tsagerskiy Rayon</skos:altLabel>
+	<skos:altLabel>Tsʼageris Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Ts’ageris Raioni</skos:altLabel>
+	<skos:prefLabel>Ts’ageris Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/611583/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17847</europeana:population>
+	<wgs:lat>42.84035</wgs:lat>
+	<wgs:long>41.68007</wgs:long>
+	<skos:altLabel xml:lang="en">Tkuarchal</skos:altLabel>
+	<skos:altLabel>Tkvarcheli</skos:altLabel>
+	<skos:altLabel>Tkvarchely</skos:altLabel>
+	<skos:altLabel>Tkwartscheli</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ткуарчал</skos:altLabel>
+	<skos:prefLabel>Tqvarch'eli</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/611584/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13201</europeana:population>
+	<wgs:lat>42.35121</wgs:lat>
+	<wgs:long>42.99874</wgs:long>
+	<skos:altLabel xml:lang="en">Tkibuli</skos:altLabel>
+	<skos:altLabel>Tkvibeli</skos:altLabel>
+	<skos:altLabel>Tkvibuli</skos:altLabel>
+	<skos:altLabel>Tkwibuli</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tqibuli</skos:altLabel>
+	<skos:altLabel>Tqibuli</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ТКИБУЛИ</skos:altLabel>
+	<skos:prefLabel>Tqibuli</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/611668/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.1</wgs:lat>
+	<wgs:long>45</wgs:long>
+	<skos:altLabel>Tianetskiy Rayon</skos:altLabel>
+	<skos:altLabel>Tʼianetʼis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">T’ianet’is Raioni</skos:altLabel>
+	<skos:prefLabel>T’ianet’is Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/611676/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.6</wgs:lat>
+	<wgs:long>44.5</wgs:long>
+	<skos:altLabel>Tetritskaroyskiy Rayon</skos:altLabel>
+	<skos:altLabel>Tʼetʼritsqaros Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">T’et’ritsqaros Raioni</skos:altLabel>
+	<skos:prefLabel>T’et’ritsqaros Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/611681/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.21667</wgs:lat>
+	<wgs:long>42.9</wgs:long>
+	<skos:altLabel>Chkarskiy Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Terzhol’skiy Rayon</skos:altLabel>
+	<skos:altLabel>Tʼerjolis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">T’erjolis Raioni</skos:altLabel>
+	<skos:prefLabel>T’erjolis Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/611694/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21800</europeana:population>
+	<wgs:lat>41.91978</wgs:lat>
+	<wgs:long>45.47315</wgs:long>
+	<skos:altLabel xml:lang="en">T'elavi</skos:altLabel>
+	<skos:altLabel>Telav</skos:altLabel>
+	<skos:altLabel xml:lang="en">Telavi</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Telavi</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Telavi</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Telavi</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Telavis</skos:altLabel>
+	<skos:altLabel>Telawi</skos:altLabel>
+	<skos:altLabel xml:lang="de">Telawi</skos:altLabel>
+	<skos:altLabel>Telev</skos:altLabel>
+	<skos:altLabel xml:lang="et">Thelavi</skos:altLabel>
+	<skos:altLabel>T’elavi</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ТЕЛАВИ</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Телави</skos:altLabel>
+	<skos:altLabel xml:lang="ka">თელავი</skos:altLabel>
+	<skos:prefLabel>T’elavi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/611716/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1106539</europeana:population>
+	<wgs:lat>41.71667</wgs:lat>
+	<wgs:long>44.83333</wgs:long>
+	<skos:altLabel>Gorod Tbilisi</skos:altLabel>
+	<skos:altLabel xml:lang="nb">T'bilisi</skos:altLabel>
+	<skos:altLabel xml:lang="nn">T'bilisi</skos:altLabel>
+	<skos:altLabel>T'bilisi</skos:altLabel>
+	<skos:prefLabel>K'alak'i T'bilisi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/611717/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>1049498</europeana:population>
+	<wgs:lat>41.69411</wgs:lat>
+	<wgs:long>44.83368</wgs:long>
+	<skos:altLabel xml:lang="id">Tbilisi</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Tbilisi</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Tbilisi</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Tbilisi</skos:altLabel>
+	<skos:altLabel xml:lang="da">Tbilisi</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Tbilisi</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Tbilisi</skos:altLabel>
+	<skos:altLabel xml:lang="io">Tbilisi</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Tbilisi</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Tbilisi</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Tbilisi</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Tbilisi</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Tbilisi</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Tbilisi</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Tbilisi</skos:altLabel>
+	<skos:altLabel xml:lang="az">Tbilisi</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Tbilisi</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Tbilisi</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Tbilisi</skos:altLabel>
+	<skos:altLabel xml:lang="no">Tbilisi</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Tbilisi</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Tbilisi</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tbilisi</skos:altLabel>
+	<skos:altLabel xml:lang="it">Tbilisi</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Tbilisi - თბილისი</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Tbilisis</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Tbilissi</skos:altLabel>
+	<skos:altLabel>Tbilsi</skos:altLabel>
+	<skos:altLabel>Tblisi</skos:altLabel>
+	<skos:altLabel xml:lang="et">Thbilisi</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Tiblîsî</skos:altLabel>
+	<skos:altLabel>Tiflis</skos:altLabel>
+	<skos:altLabel xml:lang="de">Tiflis</skos:altLabel>
+	<skos:altLabel xml:lang="es">Tiflis</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Tiflis</skos:altLabel>
+	<skos:altLabel>Tpilisi</skos:altLabel>
+	<skos:altLabel xml:lang="is">Tíflis</skos:altLabel>
+	<skos:altLabel xml:lang="el">Τιφλίδα</skos:altLabel>
+	<skos:altLabel xml:lang="os">Калак</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ТБИЛИСИ</skos:altLabel>
+	<skos:altLabel xml:lang="av">Тбилиси</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Тбилиси</skos:altLabel>
+	<skos:altLabel xml:lang="cv">Тбилиси</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Тбилиси</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Тбилиси</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Тбилиси</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Тбилиси</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Тбилисӣ</skos:altLabel>
+	<skos:altLabel xml:lang="be">Тбілісі</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Тбілісі</skos:altLabel>
+	<skos:altLabel xml:lang="he">טביליסי</skos:altLabel>
+	<skos:altLabel xml:lang="ar">تبليسي</skos:altLabel>
+	<skos:altLabel xml:lang="fa">تفلیس</skos:altLabel>
+	<skos:altLabel xml:lang="bn">তিবি‌লিসি</skos:altLabel>
+	<skos:altLabel xml:lang="ka">თბილისი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ትብሊሲ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">トビリシ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">第比利斯</skos:altLabel>
+	<skos:altLabel xml:lang="ko">트빌리시</skos:altLabel>
+	<skos:prefLabel>Tbilisi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/611809/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10091</europeana:population>
+	<wgs:lat>42.02431</wgs:lat>
+	<wgs:long>43.55556</wgs:long>
+	<skos:altLabel>Ssuromi</skos:altLabel>
+	<skos:altLabel>Suram</skos:altLabel>
+	<skos:altLabel xml:lang="en">Surami</skos:altLabel>
+	<skos:altLabel>Surami</skos:altLabel>
+	<skos:altLabel xml:lang="ru">СУРАМИ</skos:altLabel>
+	<skos:prefLabel>Surami</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/611818/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6643410/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.25</wgs:lat>
+	<wgs:long>41</wgs:long>
+	<skos:altLabel xml:lang="ka">Sokhumis Raioni</skos:altLabel>
+	<skos:altLabel>Sukhumskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Sokhumis Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/611834/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.33333</wgs:lat>
+	<wgs:long>44</wgs:long>
+	<skos:altLabel>Samkhret' Oset'is AO</skos:altLabel>
+	<skos:altLabel>Samkhret' Oset'is Avtonomiuri Olk'i</skos:altLabel>
+	<skos:altLabel xml:lang="en">South Ossetia</skos:altLabel>
+	<skos:altLabel>South Ossetian Autonomous Oblast</skos:altLabel>
+	<skos:altLabel>Yugo-Osetinskaya AO</skos:altLabel>
+	<skos:altLabel>Yugo-Osetinskaya Avtonoanaya Oblast'</skos:altLabel>
+	<skos:prefLabel>South Ossetia [provisional]</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/611847/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>81546</europeana:population>
+	<wgs:lat>43.00697</wgs:lat>
+	<wgs:long>40.9893</wgs:long>
+	<skos:altLabel xml:lang="vo">Akva</skos:altLabel>
+	<skos:altLabel xml:lang="de">Sochumi</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Sohumi</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Sohumkale</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Sokhumi</skos:altLabel>
+	<skos:altLabel xml:lang="en">Sokhumi</skos:altLabel>
+	<skos:altLabel xml:lang="no">Sokhumi</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Soukhoumi</skos:altLabel>
+	<skos:altLabel>Ssuchum</skos:altLabel>
+	<skos:altLabel>Suchum</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Suchumi</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Suchumi</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Suchumi</skos:altLabel>
+	<skos:altLabel xml:lang="et">Suhhumi</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Suhumi</skos:altLabel>
+	<skos:altLabel xml:lang="es">Sujumi</skos:altLabel>
+	<skos:altLabel xml:lang="id">Sukhum</skos:altLabel>
+	<skos:altLabel>Sukhum</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Sukhumi</skos:altLabel>
+	<skos:altLabel xml:lang="en">Sukhumi</skos:altLabel>
+	<skos:altLabel>Sukhumi</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Suĥumo</skos:altLabel>
+	<skos:altLabel xml:lang="ab">Аҟəа</skos:altLabel>
+	<skos:altLabel xml:lang="ru">СУХУМИ</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сухум</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сухуми</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Сухуми</skos:altLabel>
+	<skos:altLabel xml:lang="he">סוחומי</skos:altLabel>
+	<skos:altLabel xml:lang="ja">スフミ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">苏呼米</skos:altLabel>
+	<skos:altLabel xml:lang="ko">수후미</skos:altLabel>
+	<skos:prefLabel>Sokhumi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/611901/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.56667</wgs:lat>
+	<wgs:long>45.85</wgs:long>
+	<skos:altLabel>Sighnaghis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Sighnaghis Raioni</skos:altLabel>
+	<skos:altLabel>Signakhskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Sighnaghis Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/611935/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>41.66667</wgs:lat>
+	<wgs:long>42.16667</wgs:long>
+	<skos:altLabel xml:lang="ka">Shuakhevis Raioni</skos:altLabel>
+	<skos:altLabel>Shuakhevskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Shuakhevis Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/612051/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865543/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.26791</wgs:lat>
+	<wgs:long>42.06013</wgs:long>
+	<skos:altLabel>Senakis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Senakis Raioni</skos:altLabel>
+	<skos:altLabel>Senakskiy Rayon</skos:altLabel>
+	<skos:altLabel>Tskhakayevskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Senakis Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/612053/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>27752</europeana:population>
+	<wgs:lat>42.27042</wgs:lat>
+	<wgs:long>42.0675</wgs:long>
+	<skos:altLabel>Achal Senaki</skos:altLabel>
+	<skos:altLabel>Akhalsenaki</skos:altLabel>
+	<skos:altLabel>Micha-Zchakaja</skos:altLabel>
+	<skos:altLabel>Mikha Tskhakaya</skos:altLabel>
+	<skos:altLabel>Novo-Senaki</skos:altLabel>
+	<skos:altLabel xml:lang="en">Senaki</skos:altLabel>
+	<skos:altLabel>Senaki</skos:altLabel>
+	<skos:altLabel>Tskhakaya</skos:altLabel>
+	<skos:altLabel>Tskhakuya</skos:altLabel>
+	<skos:altLabel xml:lang="ru">СЕНАКИ</skos:altLabel>
+	<skos:altLabel xml:lang="ka">სენაკი</skos:altLabel>
+	<skos:prefLabel>Senaki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/612124/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865539/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.16667</wgs:lat>
+	<wgs:long>42.35</wgs:long>
+	<skos:altLabel>Samtrediis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Samtrediis Raioni</skos:altLabel>
+	<skos:altLabel>Samtredskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Samtredia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/612126/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>28748</europeana:population>
+	<wgs:lat>42.1537</wgs:lat>
+	<wgs:long>42.33517</wgs:long>
+	<skos:altLabel xml:lang="en">Samtredia</skos:altLabel>
+	<skos:altLabel>Samtredia</skos:altLabel>
+	<skos:altLabel>Ssamtredia</skos:altLabel>
+	<skos:altLabel xml:lang="ru">САМТРЕДИА</skos:altLabel>
+	<skos:prefLabel>Samtredia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/612141/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>41.66667</wgs:lat>
+	<wgs:long>44.91667</wgs:long>
+	<skos:prefLabel>Samgorskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/612230/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12173</europeana:population>
+	<wgs:lat>41.73397</wgs:lat>
+	<wgs:long>45.33148</wgs:long>
+	<skos:altLabel>Sagaredzho</skos:altLabel>
+	<skos:altLabel xml:lang="en">Sagarejo</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Sagarejo</skos:altLabel>
+	<skos:altLabel xml:lang="ru">САГАРЕДЖО</skos:altLabel>
+	<skos:prefLabel>Sagarejo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/612231/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.66667</wgs:lat>
+	<wgs:long>45.25</wgs:long>
+	<skos:altLabel>Sagaredzhoyskiy Rayon</skos:altLabel>
+	<skos:altLabel>Sagarejos Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Sagarejos Raioni</skos:altLabel>
+	<skos:prefLabel>Sagarejos Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/612287/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>50000</europeana:population>
+	<wgs:lat>41.54949</wgs:lat>
+	<wgs:long>44.99323</wgs:long>
+	<skos:altLabel xml:lang="fr">Roustavi</skos:altLabel>
+	<skos:altLabel xml:lang="en">Rust'avi</skos:altLabel>
+	<skos:altLabel xml:lang="en">Rustavi</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Rustavi</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Rustavi</skos:altLabel>
+	<skos:altLabel xml:lang="es">Rustavi</skos:altLabel>
+	<skos:altLabel xml:lang="da">Rustavi</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Rustavi</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Rustavi</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Rustavi</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Rustavis</skos:altLabel>
+	<skos:altLabel xml:lang="de">Rustawi</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Rustawi</skos:altLabel>
+	<skos:altLabel xml:lang="et">Rusthavi</skos:altLabel>
+	<skos:altLabel>Rust’avi</skos:altLabel>
+	<skos:altLabel xml:lang="ru">РУСТАВИ</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Рустави</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Рустави</skos:altLabel>
+	<skos:altLabel xml:lang="he">רוסתווי</skos:altLabel>
+	<skos:altLabel xml:lang="ka">რუსთავი</skos:altLabel>
+	<skos:prefLabel>Rust’avi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/612366/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>47149</europeana:population>
+	<wgs:lat>42.14616</wgs:lat>
+	<wgs:long>41.67197</wgs:long>
+	<skos:altLabel xml:lang="ka">P’ot’i</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Поти</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ფოთი</skos:altLabel>
+	<skos:prefLabel>P’ot’i</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/612422/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.7</wgs:lat>
+	<wgs:long>44.75</wgs:long>
+	<skos:altLabel>Stalinskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Pervomayskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/612535/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.93333</wgs:lat>
+	<wgs:long>42.05</wgs:long>
+	<skos:altLabel>Makharadzevskiy Rayon</skos:altLabel>
+	<skos:altLabel>Ozurgetskiy Rayon</skos:altLabel>
+	<skos:altLabel>Ozurgetʼis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Ozurget’is Raioni</skos:altLabel>
+	<skos:prefLabel>Ozurget’is Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/612571/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.7</wgs:lat>
+	<wgs:long>44.75</wgs:long>
+	<skos:prefLabel>Ordzhonikidzevskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/612590/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.65</wgs:lat>
+	<wgs:long>43.51667</wgs:long>
+	<skos:altLabel>Onis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Onis Raioni</skos:altLabel>
+	<skos:altLabel>Onskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Onis Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/612612/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.7</wgs:lat>
+	<wgs:long>44.75</wgs:long>
+	<skos:prefLabel>Oktyabr'skiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/612651/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.91667</wgs:lat>
+	<wgs:long>41.75</wgs:long>
+	<skos:altLabel>Ochamchirskiy Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Och’amch’iris Raioni</skos:altLabel>
+	<skos:prefLabel>Och’amch’iris Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/612652/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15517</europeana:population>
+	<wgs:lat>42.71232</wgs:lat>
+	<wgs:long>41.46863</wgs:long>
+	<skos:altLabel xml:lang="en">Och'amch'ire</skos:altLabel>
+	<skos:altLabel>Ochamchira</skos:altLabel>
+	<skos:altLabel>Ochemchiri</skos:altLabel>
+	<skos:altLabel>Ochemchiry</skos:altLabel>
+	<skos:altLabel>Ochemechiri</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Och’amch’ire</skos:altLabel>
+	<skos:altLabel>Otschemtschiri</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ОЧАМЧИРА</skos:altLabel>
+	<skos:prefLabel>Och’amch’ire</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/612889/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865541/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.86667</wgs:lat>
+	<wgs:long>44.66667</wgs:long>
+	<skos:altLabel>Mtskhetskiy Rayon</skos:altLabel>
+	<skos:altLabel>Mtsʼkhetʼis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Mts’khet’is Raioni</skos:altLabel>
+	<skos:prefLabel>Mts’khet’is Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/612985/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43.05</wgs:lat>
+	<wgs:long>42.55</wgs:long>
+	<skos:altLabel>Mestiis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Mestiis Raioni</skos:altLabel>
+	<skos:altLabel>Mestiyskiy Rayon</skos:altLabel>
+	<skos:altLabel>Zemo-Svanetskii Raion</skos:altLabel>
+	<skos:altLabel>Zemo-Svanetskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Mestiis Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/613054/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42</wgs:lat>
+	<wgs:long>42.9</wgs:long>
+	<skos:altLabel>Bagdadskiy Rayon</skos:altLabel>
+	<skos:altLabel>Baghdatʼis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Baghdat’is Raioni</skos:altLabel>
+	<skos:altLabel>Mayakovskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Baghdat’is Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/613064/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865543/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.53333</wgs:lat>
+	<wgs:long>42.36667</wgs:long>
+	<skos:altLabel>Gegechkorskiy Rayon</skos:altLabel>
+	<skos:altLabel>Martvilis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Martvilis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Martvil’skiy Rayon</skos:altLabel>
+	<skos:prefLabel>Martvilis Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/613073/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.38333</wgs:lat>
+	<wgs:long>44.85</wgs:long>
+	<skos:altLabel>Borchalinskiy Rayon</skos:altLabel>
+	<skos:altLabel>Marneulis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Marneulis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Marneul’skiy Rayon</skos:altLabel>
+	<skos:prefLabel>Marneulis Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/613074/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18755</europeana:population>
+	<wgs:lat>41.47588</wgs:lat>
+	<wgs:long>44.80894</wgs:long>
+	<skos:altLabel>Borchalo</skos:altLabel>
+	<skos:altLabel xml:lang="en">Marneuli</skos:altLabel>
+	<skos:altLabel>Marneuli</skos:altLabel>
+	<skos:altLabel>Sarvan</skos:altLabel>
+	<skos:altLabel>Sarwan</skos:altLabel>
+	<skos:altLabel xml:lang="ru">МАРНЕУЛИ</skos:altLabel>
+	<skos:prefLabel>Marneuli</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/613225/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.81667</wgs:lat>
+	<wgs:long>42.86667</wgs:long>
+	<skos:altLabel>Kvemosvanetskiy Rayon</skos:altLabel>
+	<skos:altLabel>Lentekhis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Lentekhis Raioni</skos:altLabel>
+	<skos:altLabel>Lentekhskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Lentekhis Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/613226/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10442</europeana:population>
+	<wgs:lat>42.78556</wgs:lat>
+	<wgs:long>42.72611</wgs:long>
+	<skos:altLabel>Leksura</skos:altLabel>
+	<skos:altLabel xml:lang="en">Lentekhi</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ЛЕНТЕХИ</skos:altLabel>
+	<skos:prefLabel>Lentekhi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/613227/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>42.25</wgs:lat>
+	<wgs:long>42.66667</wgs:long>
+	<skos:prefLabel>Leninskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/613228/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.7</wgs:lat>
+	<wgs:long>44.75</wgs:long>
+	<skos:prefLabel>Leninskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/613233/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.21667</wgs:lat>
+	<wgs:long>44.48333</wgs:long>
+	<skos:altLabel>Akhalgoris Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Akhalgoris Raioni</skos:altLabel>
+	<skos:altLabel>Leningorskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Akhalgoris Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/613310/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.1</wgs:lat>
+	<wgs:long>41.95</wgs:long>
+	<skos:altLabel>Lanchkhutskiy Rayon</skos:altLabel>
+	<skos:altLabel>Lanchʼkhutʼis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Lanch’khut’is Raioni</skos:altLabel>
+	<skos:prefLabel>Lanch’khut’is Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/613341/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865537/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.83333</wgs:lat>
+	<wgs:long>46.16667</wgs:long>
+	<skos:altLabel>Lagodekhis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Lagodekhis Raioni</skos:altLabel>
+	<skos:altLabel>Lagodekhskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Lagodekhis Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/613582/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42</wgs:lat>
+	<wgs:long>45.83333</wgs:long>
+	<skos:altLabel xml:lang="ru">Kvarel’skiy Rayon</skos:altLabel>
+	<skos:altLabel>Qvarlis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Qvarlis Raioni</skos:altLabel>
+	<skos:prefLabel>Qvarlis Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/613607/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>178338</europeana:population>
+	<wgs:lat>42.24961</wgs:lat>
+	<wgs:long>42.69974</wgs:long>
+	<skos:altLabel xml:lang="et">Khuthaisi</skos:altLabel>
+	<skos:altLabel>Kutais</skos:altLabel>
+	<skos:altLabel xml:lang="id">Kutaisi</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kutaisi</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kutaisi</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Kutaisi</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Kutaisi</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Kutaisi</skos:altLabel>
+	<skos:altLabel xml:lang="es">Kutaisi</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Kutaisi</skos:altLabel>
+	<skos:altLabel xml:lang="da">Kutaisi</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Kutaisi</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Kutaisi</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Kutaisi</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Kutaisi</skos:altLabel>
+	<skos:altLabel xml:lang="no">Kutaisi</skos:altLabel>
+	<skos:altLabel>Kutaisk</skos:altLabel>
+	<skos:altLabel>Kutaissi</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kutaissi</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Kutayıs</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Kutaïsi</skos:altLabel>
+	<skos:altLabel xml:lang="ru">КУТАИСИ</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Кутаиси</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кутаиси</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Кутаїсі</skos:altLabel>
+	<skos:altLabel xml:lang="he">כותאיסי</skos:altLabel>
+	<skos:altLabel xml:lang="he">קוטאיסי</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ქუთაისი</skos:altLabel>
+	<skos:altLabel xml:lang="ja">クタイシ</skos:altLabel>
+	<skos:altLabel xml:lang="ko">쿠타이시</skos:altLabel>
+	<skos:prefLabel>K'ut'aisi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/613761/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>41.75</wgs:lat>
+	<wgs:long>41.83333</wgs:long>
+	<skos:altLabel>Chakvskiy Rayon</skos:altLabel>
+	<skos:altLabel>Kobuletskiy Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="ka">K’obulet’is Raioni</skos:altLabel>
+	<skos:prefLabel>K’obulet’is Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/613762/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18600</europeana:population>
+	<wgs:lat>41.82</wgs:lat>
+	<wgs:long>41.77528</wgs:long>
+	<skos:altLabel xml:lang="en">K'obulet'i</skos:altLabel>
+	<skos:altLabel>Kobulyety</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кобулети</skos:altLabel>
+	<skos:prefLabel>Kobuleti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/613811/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.7</wgs:lat>
+	<wgs:long>44.75</wgs:long>
+	<skos:prefLabel>Kirovskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/613869/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>41.66667</wgs:lat>
+	<wgs:long>42.41667</wgs:long>
+	<skos:altLabel>Khulinskiy Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Khulis Raioni</skos:altLabel>
+	<skos:altLabel>Khuloyskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Khulis Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/613900/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.4</wgs:lat>
+	<wgs:long>42.5</wgs:long>
+	<skos:altLabel>Khonis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Khonis Raioni</skos:altLabel>
+	<skos:altLabel>Khonskiy Rayon</skos:altLabel>
+	<skos:altLabel>Tsulukidzevskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Khonis Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/613902/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10796</europeana:population>
+	<wgs:lat>42.3226</wgs:lat>
+	<wgs:long>42.42061</wgs:long>
+	<skos:altLabel>Choni</skos:altLabel>
+	<skos:altLabel xml:lang="en">Khoni</skos:altLabel>
+	<skos:altLabel>Khoni</skos:altLabel>
+	<skos:altLabel>Tsulukidze</skos:altLabel>
+	<skos:altLabel>Zulukidse</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ХОНИ</skos:altLabel>
+	<skos:prefLabel>Khoni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/613915/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.25</wgs:lat>
+	<wgs:long>41.8</wgs:long>
+	<skos:altLabel>Khobis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Khobis Raioni</skos:altLabel>
+	<skos:altLabel>Khobskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Khobis Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/613970/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>41.58333</wgs:lat>
+	<wgs:long>41.66667</wgs:long>
+	<skos:altLabel>Batumskiy Rayon</skos:altLabel>
+	<skos:altLabel>Khelvachaurskiy Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Khelvach’auris Raioni</skos:altLabel>
+	<skos:prefLabel>Khelvach’auris Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/613987/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42</wgs:lat>
+	<wgs:long>43.63333</wgs:long>
+	<skos:altLabel xml:lang="en">Khachuri</skos:altLabel>
+	<skos:altLabel>Khashuri</skos:altLabel>
+	<skos:altLabel>Khashuris Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Khashuris Raioni</skos:altLabel>
+	<skos:altLabel>Khashurskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Khashuris Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/613988/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>27811</europeana:population>
+	<wgs:lat>41.99414</wgs:lat>
+	<wgs:long>43.59994</wgs:long>
+	<skos:altLabel>Chaschuri</skos:altLabel>
+	<skos:altLabel xml:lang="en">Khachuri</skos:altLabel>
+	<skos:altLabel xml:lang="en">Khashuri</skos:altLabel>
+	<skos:altLabel>Khashuri</skos:altLabel>
+	<skos:altLabel>Khasuri</skos:altLabel>
+	<skos:altLabel>Mikhailovo</skos:altLabel>
+	<skos:altLabel>Mikhaylovo</skos:altLabel>
+	<skos:altLabel>Stalinissi</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ХАШУРИ</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ხაშური</skos:altLabel>
+	<skos:prefLabel>Khashuri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/614003/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865539/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42</wgs:lat>
+	<wgs:long>43.25</wgs:long>
+	<skos:altLabel xml:lang="en">Kharagauli</skos:altLabel>
+	<skos:altLabel>Kharagaulis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Kharagaulis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Kharagaul’skiy Rayon</skos:altLabel>
+	<skos:altLabel>Ordzhonikidzevskiy Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ХАРАГАУЛИ</skos:altLabel>
+	<skos:prefLabel>Kharagaulis Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/614073/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>41.58333</wgs:lat>
+	<wgs:long>42</wgs:long>
+	<skos:altLabel>Kedskiy Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="ka">K’edis Raioni</skos:altLabel>
+	<skos:prefLabel>K’edis Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/614086/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.6</wgs:lat>
+	<wgs:long>44.55</wgs:long>
+	<skos:altLabel>Kazbegskii Raion</skos:altLabel>
+	<skos:altLabel>Kazbegskiy Rayon</skos:altLabel>
+	<skos:altLabel>Qazbegis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Qazbegis Raioni</skos:altLabel>
+	<skos:prefLabel>Qazbegis Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/614103/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.9</wgs:lat>
+	<wgs:long>44.36667</wgs:long>
+	<skos:altLabel xml:lang="en">Kaspi</skos:altLabel>
+	<skos:altLabel>Kaspis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Kaspis Raioni</skos:altLabel>
+	<skos:altLabel>Kaspskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Kaspis Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/614104/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14734</europeana:population>
+	<wgs:lat>41.9252</wgs:lat>
+	<wgs:long>44.42568</wgs:long>
+	<skos:altLabel>Kasni</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kaspi</skos:altLabel>
+	<skos:altLabel>Kaspi</skos:altLabel>
+	<skos:altLabel xml:lang="ru">КАСПИ</skos:altLabel>
+	<skos:prefLabel>Kaspi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/614130/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.03042</wgs:lat>
+	<wgs:long>43.89553</wgs:long>
+	<skos:altLabel xml:lang="en">Kareli</skos:altLabel>
+	<skos:altLabel>Kareli Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Karel’skiy Rayon</skos:altLabel>
+	<skos:altLabel>Kʼarelis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">K’arelis Raioni</skos:altLabel>
+	<skos:prefLabel>Kareli</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/614171/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.7</wgs:lat>
+	<wgs:long>44.75</wgs:long>
+	<skos:prefLabel>Kalininskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/614278/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.7</wgs:lat>
+	<wgs:long>44.75</wgs:long>
+	<skos:prefLabel>Imeni Dvadtsati Shesti Komissarov Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/614356/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.71667</wgs:lat>
+	<wgs:long>45.75</wgs:long>
+	<skos:altLabel>Gurdzhaanskiy Rayon</skos:altLabel>
+	<skos:altLabel>Gurjaanis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Gurjaanis Raioni</skos:altLabel>
+	<skos:prefLabel>Gurjaanis Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/614378/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>43.08333</wgs:lat>
+	<wgs:long>41.33333</wgs:long>
+	<skos:altLabel xml:lang="ka">Gulrip’shis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Gul’ripshskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Gulrip’shis Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/614407/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>43.25</wgs:lat>
+	<wgs:long>40.66667</wgs:long>
+	<skos:altLabel>Gudautskiy Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Gudaut’is Raioni</skos:altLabel>
+	<skos:prefLabel>Gudaut’is Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/614450/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.06667</wgs:lat>
+	<wgs:long>44.11667</wgs:long>
+	<skos:altLabel xml:lang="en">Gori</skos:altLabel>
+	<skos:altLabel>Goris Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Goris Raioni</skos:altLabel>
+	<skos:altLabel>Goriyskiy Rayon</skos:altLabel>
+	<skos:altLabel>K’alak’i Gori</skos:altLabel>
+	<skos:prefLabel>Goris Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/614455/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>46676</europeana:population>
+	<wgs:lat>41.98422</wgs:lat>
+	<wgs:long>44.11578</wgs:long>
+	<skos:altLabel xml:lang="de">Gori</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Gori</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Gori</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Gori</skos:altLabel>
+	<skos:altLabel xml:lang="no">Gori</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Gori</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Gori</skos:altLabel>
+	<skos:altLabel xml:lang="es">Gori</skos:altLabel>
+	<skos:altLabel xml:lang="en">Gori</skos:altLabel>
+	<skos:altLabel xml:lang="da">Gori</skos:altLabel>
+	<skos:altLabel xml:lang="et">Gori</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Gori</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Gori</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Gori</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Gori</skos:altLabel>
+	<skos:altLabel>Gori</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Goris</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ГОРИ</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гори</skos:altLabel>
+	<skos:altLabel xml:lang="he">גורי</skos:altLabel>
+	<skos:altLabel xml:lang="fa">گوری</skos:altLabel>
+	<skos:altLabel xml:lang="ka">გორი</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ゴリ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">哥里</skos:altLabel>
+	<skos:altLabel xml:lang="ko">고리</skos:altLabel>
+	<skos:prefLabel>Gori</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/614519/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.7</wgs:lat>
+	<wgs:long>44.75</wgs:long>
+	<skos:prefLabel>Gldanskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/614540/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255147/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>4630000</europeana:population>
+	<wgs:lat>41.99998</wgs:lat>
+	<wgs:long>43.4999</wgs:long>
+	<skos:altLabel xml:lang="ga">An tSeoirsia</skos:altLabel>
+	<skos:altLabel xml:lang="an">Cheorchia</skos:altLabel>
+	<skos:altLabel>GE</skos:altLabel>
+	<skos:altLabel xml:lang="id">Georgia</skos:altLabel>
+	<skos:altLabel xml:lang="es">Georgia</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Georgia</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Georgia</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Georgia</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Georgia</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Georgia</skos:altLabel>
+	<skos:altLabel xml:lang="it">Georgia</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Georgia</skos:altLabel>
+	<skos:altLabel xml:lang="en">Georgia</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Georgia</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Georgia</skos:altLabel>
+	<skos:altLabel xml:lang="io">Georgia</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Georgia</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Georgia</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Georgia</skos:altLabel>
+	<skos:altLabel xml:lang="la">Georgia</skos:altLabel>
+	<skos:altLabel xml:lang="na">Georgia</skos:altLabel>
+	<skos:altLabel xml:lang="no">Georgia</skos:altLabel>
+	<skos:altLabel xml:lang="se">Georgia</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Georgia</skos:altLabel>
+	<skos:altLabel xml:lang="en">Georgian Soviet Socialist Republic</skos:altLabel>
+	<skos:altLabel xml:lang="de">Georgien</skos:altLabel>
+	<skos:altLabel xml:lang="da">Georgien</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Georgien</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Georgien</skos:altLabel>
+	<skos:altLabel xml:lang="af">Georgië</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Georgië</skos:altLabel>
+	<skos:altLabel xml:lang="li">Georgië</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Georgän</skos:altLabel>
+	<skos:altLabel xml:lang="is">Georgía</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Geòrgia</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Geórgia</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Geörgje</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Giê-oóc-gi-a (Georgia)</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Gjeorgji</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Gjeorgjia</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Gru-di-a</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Grusiyän</skos:altLabel>
+	<skos:altLabel xml:lang="et">Gruusia</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Gruzia</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Gruzie</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Gruzija</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Gruzija</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Gruzija</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Gruzija</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Gruzija</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Gruzija</skos:altLabel>
+	<skos:altLabel>Gruzinskaya Sovetskaya Sotsialisticheskaya Respublika</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Gruzio</skos:altLabel>
+	<skos:altLabel>Gruziya</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Gruzja</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Gruzínsko</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Grúzia</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Gurcistan</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Géorgie</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Gürcistan</skos:altLabel>
+	<skos:altLabel xml:lang="az">Gürcüstan</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Jeoji</skos:altLabel>
+	<skos:altLabel xml:lang="br">Jorjia</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Kartulsuyu</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Kartvelio</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Kartvelujo</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Pow Grousi</skos:altLabel>
+	<skos:altLabel>Republic of Georgia</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Sakartvelo</skos:altLabel>
+	<skos:altLabel>Sak’art’velos Respublika</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Xeorxia</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Xeorxia - საქართველო</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Ġorġja</skos:altLabel>
+	<skos:altLabel xml:lang="el">Γεωργία</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Џорџија</skos:altLabel>
+	<skos:altLabel xml:lang="cv">Грузи</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Грузия</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Грузия</skos:altLabel>
+	<skos:altLabel xml:lang="kk">Грузия</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Грузија</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Грузија</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Грузія</skos:altLabel>
+	<skos:altLabel xml:lang="be">Грузія</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Гурҷистон</skos:altLabel>
+	<skos:altLabel xml:lang="os">Гуырдзыстон</skos:altLabel>
+	<skos:altLabel xml:lang="kk">Гүржістан</skos:altLabel>
+	<skos:altLabel xml:lang="ab">Қырҭтәыла</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Ӂеорӂия</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Վրաստան</skos:altLabel>
+	<skos:altLabel xml:lang="he">ג'ורג'יה</skos:altLabel>
+	<skos:altLabel xml:lang="he">גאורגיה</skos:altLabel>
+	<skos:altLabel xml:lang="he">גרוזיה</skos:altLabel>
+	<skos:altLabel xml:lang="yi">גרוזיע</skos:altLabel>
+	<skos:altLabel xml:lang="ur">جارجیا</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جورجيا</skos:altLabel>
+	<skos:altLabel xml:lang="ur">جورجیا</skos:altLabel>
+	<skos:altLabel xml:lang="ps">جيورجيا</skos:altLabel>
+	<skos:altLabel xml:lang="fa">گرجستان</skos:altLabel>
+	<skos:altLabel xml:lang="ug">گرۇزىيە</skos:altLabel>
+	<skos:altLabel xml:lang="hi">जॉर्जिया</skos:altLabel>
+	<skos:altLabel xml:lang="hi">जोर्जिया</skos:altLabel>
+	<skos:altLabel xml:lang="bn">জর্জিয়া</skos:altLabel>
+	<skos:altLabel xml:lang="bn">জর্জিয়া</skos:altLabel>
+	<skos:altLabel xml:lang="gu">જ્યોર્જીયા</skos:altLabel>
+	<skos:altLabel xml:lang="ta">ஜார்ஜியா</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ജോര്‍ജിയ</skos:altLabel>
+	<skos:altLabel xml:lang="th">จอร์เจีย</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศจอร์เจีย</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ຈໍເຈຍ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཇོར་ཇི་ཡ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">საქართველო</skos:altLabel>
+	<skos:altLabel xml:lang="am">ጆርጂያ</skos:altLabel>
+	<skos:altLabel xml:lang="km">ហ្សកហ្ស៉ី</skos:altLabel>
+	<skos:altLabel xml:lang="ja">グルジア</skos:altLabel>
+	<skos:altLabel xml:lang="ja">グルジア共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">格鲁吉亚</skos:altLabel>
+	<skos:altLabel xml:lang="ko">그루지아</skos:altLabel>
+	<skos:altLabel xml:lang="ko">그루지야</skos:altLabel>
+	<skos:prefLabel>Georgia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/614573/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.61667</wgs:lat>
+	<wgs:long>45</wgs:long>
+	<skos:altLabel>Gardabanis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Gardabanis Raioni</skos:altLabel>
+	<skos:altLabel>Gardabanskiy Rayon</skos:altLabel>
+	<skos:altLabel>Karayazskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Gardabanis Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/614575/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10972</europeana:population>
+	<wgs:lat>41.46054</wgs:lat>
+	<wgs:long>45.09283</wgs:long>
+	<skos:altLabel xml:lang="en">Gardabani</skos:altLabel>
+	<skos:altLabel>Gardabani</skos:altLabel>
+	<skos:altLabel>Karaya</skos:altLabel>
+	<skos:altLabel>Karayazi</skos:altLabel>
+	<skos:altLabel>Karayazy</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ГАРДАБАНИ</skos:altLabel>
+	<skos:prefLabel>Gardabani</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/614611/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.66667</wgs:lat>
+	<wgs:long>41.75</wgs:long>
+	<skos:altLabel xml:lang="ka">Galis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Gal’skiy Rayon</skos:altLabel>
+	<skos:prefLabel>Galis Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/614613/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11861</europeana:population>
+	<wgs:lat>42.62655</wgs:lat>
+	<wgs:long>41.73808</wgs:long>
+	<skos:altLabel xml:lang="en">Gali</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Gali</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ГАЛИ</skos:altLabel>
+	<skos:altLabel xml:lang="ka">გალი</skos:altLabel>
+	<skos:prefLabel>Gali</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/614792/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.5</wgs:lat>
+	<wgs:long>44.05</wgs:long>
+	<skos:altLabel>Dzhavskiy Rayon</skos:altLabel>
+	<skos:altLabel>Javis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Javis Raioni</skos:altLabel>
+	<skos:prefLabel>Javis Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/614841/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.35</wgs:lat>
+	<wgs:long>44.33333</wgs:long>
+	<skos:altLabel>Dushetskiy Rayon</skos:altLabel>
+	<skos:altLabel>Dushetʼis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Dushet’is Raioni</skos:altLabel>
+	<skos:prefLabel>Dushet’is Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/614889/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.35</wgs:lat>
+	<wgs:long>44.13333</wgs:long>
+	<skos:altLabel>Bashkichetskiy Rayon</skos:altLabel>
+	<skos:altLabel>Dmanisis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Dmanisis Raioni</skos:altLabel>
+	<skos:altLabel>Dmanisskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Dmanisis Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/615117/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865538/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.93333</wgs:lat>
+	<wgs:long>42.36667</wgs:long>
+	<skos:altLabel>Chokhataurskiy Rayon</skos:altLabel>
+	<skos:altLabel>Chʼokhatauris Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Ch’okhatauris Raioni</skos:altLabel>
+	<skos:prefLabel>Ch’okhatauris Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/615141/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865543/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.56667</wgs:lat>
+	<wgs:long>42.2</wgs:long>
+	<skos:altLabel>Chkhorotskuskiy Rayon</skos:altLabel>
+	<skos:altLabel>Chʼkhorotsqus Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Ch’khorotsqus Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tchkhorotsku Raioni</skos:altLabel>
+	<skos:prefLabel>Ch’khorotsqus Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/615400/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.78333</wgs:lat>
+	<wgs:long>43.5</wgs:long>
+	<skos:altLabel>Borjomis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Borjomis Raioni</skos:altLabel>
+	<skos:altLabel>Borzhomskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Borjomis Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/615403/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13825</europeana:population>
+	<wgs:lat>41.85272</wgs:lat>
+	<wgs:long>43.41284</wgs:long>
+	<skos:altLabel xml:lang="tr">Borcomi</skos:altLabel>
+	<skos:altLabel xml:lang="de">Bordschomi</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Bordžomi</skos:altLabel>
+	<skos:altLabel xml:lang="et">Bordžomi</skos:altLabel>
+	<skos:altLabel>Borjam</skos:altLabel>
+	<skos:altLabel xml:lang="es">Borjomi</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Borjomi</skos:altLabel>
+	<skos:altLabel xml:lang="en">Borjomi</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Borjomi</skos:altLabel>
+	<skos:altLabel>Borjomi</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Borjomi - ბორჯომი</skos:altLabel>
+	<skos:altLabel>Borshom</skos:altLabel>
+	<skos:altLabel>Borzhomi</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Borżomi</skos:altLabel>
+	<skos:altLabel xml:lang="ru">БОРЖОМИ</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Боржоми</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Боржоми</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ბორჯომი</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ボルジョミ</skos:altLabel>
+	<skos:altLabel xml:lang="ko">보르조미</skos:altLabel>
+	<skos:prefLabel>Borjomi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/615411/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>42.13333</wgs:lat>
+	<wgs:long>41.66639</wgs:long>
+	<skos:altLabel>Bol’shoi Island</skos:altLabel>
+	<skos:altLabel>Ostrov Bol’shoy</skos:altLabel>
+	<skos:prefLabel>Ostrov Bol’shoy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/615418/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.36667</wgs:lat>
+	<wgs:long>44.51667</wgs:long>
+	<skos:altLabel>Bolnisis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Bolnisis Raioni</skos:altLabel>
+	<skos:altLabel>Bolnisskiy Rayon</skos:altLabel>
+	<skos:altLabel>Lyuksemburgskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Bolnisis Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/615419/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13800</europeana:population>
+	<wgs:lat>41.44794</wgs:lat>
+	<wgs:long>44.53838</wgs:long>
+	<skos:altLabel xml:lang="en">Bolnisi</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Bolnisi</skos:altLabel>
+	<skos:altLabel xml:lang="it">Bolnisi</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Bolnisi</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Bolnisi</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Bolnisi</skos:altLabel>
+	<skos:altLabel>Bolnisi</skos:altLabel>
+	<skos:altLabel xml:lang="de">Bolnissi</skos:altLabel>
+	<skos:altLabel>Luxemburg</skos:altLabel>
+	<skos:altLabel>Luxemburgi</skos:altLabel>
+	<skos:altLabel>Lyuksemburg</skos:altLabel>
+	<skos:altLabel>Lyuksemburg-Gruzinskiy</skos:altLabel>
+	<skos:altLabel>Lyuksemburgi</skos:altLabel>
+	<skos:altLabel>Lyuksemburi</skos:altLabel>
+	<skos:altLabel>Yekaterinofel’d</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Болниси</skos:altLabel>
+	<skos:altLabel xml:lang="he">בולניסי</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ბოლნისი</skos:altLabel>
+	<skos:prefLabel>Bolnisi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/615428/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.25</wgs:lat>
+	<wgs:long>43.7</wgs:long>
+	<skos:altLabel>Bogdanovskiy Rayon</skos:altLabel>
+	<skos:altLabel>Ninotsmindis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Ninotsmindis Raioni</skos:altLabel>
+	<skos:prefLabel>Ninotsmindis Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/615532/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>121806</europeana:population>
+	<wgs:lat>41.64159</wgs:lat>
+	<wgs:long>41.63593</wgs:long>
+	<skos:altLabel xml:lang="en">Bat'umi</skos:altLabel>
+	<skos:altLabel xml:lang="et">Bathumi</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Batoemi</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Batoumi</skos:altLabel>
+	<skos:altLabel>Batum</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Batum</skos:altLabel>
+	<skos:altLabel xml:lang="es">Batum</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Batum</skos:altLabel>
+	<skos:altLabel xml:lang="id">Batumi</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Batumi</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Batumi</skos:altLabel>
+	<skos:altLabel xml:lang="en">Batumi</skos:altLabel>
+	<skos:altLabel xml:lang="de">Batumi</skos:altLabel>
+	<skos:altLabel xml:lang="da">Batumi</skos:altLabel>
+	<skos:altLabel xml:lang="no">Batumi</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Batumi</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Batumi</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Batumi</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Batumi</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Batumi</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Batumis</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Batûm</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Bat’umi</skos:altLabel>
+	<skos:altLabel xml:lang="ru">БАТУМИ</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Батуми</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Батуми</skos:altLabel>
+	<skos:altLabel xml:lang="he">בטומי</skos:altLabel>
+	<skos:altLabel xml:lang="he">בתומי</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ბათუმი</skos:altLabel>
+	<skos:altLabel xml:lang="ja">バトゥミ</skos:altLabel>
+	<skos:altLabel xml:lang="ko">바투미</skos:altLabel>
+	<skos:prefLabel>Bat’umi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/615631/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865539/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.26667</wgs:lat>
+	<wgs:long>42.6</wgs:long>
+	<skos:altLabel>Avtozavodskiy Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="ka">K’alak’i Tsqaltubo</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Tsqaltubo</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Tsqaltubo</skos:altLabel>
+	<skos:altLabel>Tsqaltubo</skos:altLabel>
+	<skos:prefLabel>Tsqaltubo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/615659/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.5</wgs:lat>
+	<wgs:long>43.25</wgs:long>
+	<skos:altLabel>Aspindzis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Aspindzis Raioni</skos:altLabel>
+	<skos:altLabel>Aspindzskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Aspindzis Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/615775/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.56667</wgs:lat>
+	<wgs:long>43.1</wgs:long>
+	<skos:altLabel>Ambrolauris Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Ambrolauris Raioni</skos:altLabel>
+	<skos:altLabel>Ambrolaurskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Ambrolauris Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/615843/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.25</wgs:lat>
+	<wgs:long>45.33333</wgs:long>
+	<skos:altLabel>Akhmetis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Akhmetis Raioni</skos:altLabel>
+	<skos:altLabel>Akhmetskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Akhmetis Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/615856/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.63333</wgs:lat>
+	<wgs:long>43</wgs:long>
+	<skos:altLabel>Akhaltsikhskiy Rayon</skos:altLabel>
+	<skos:altLabel>Akhaltsʼikhis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Akhalts’ikhis Raioni</skos:altLabel>
+	<skos:prefLabel>Akhalts’ikhis Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/615860/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17298</europeana:population>
+	<wgs:lat>41.63901</wgs:lat>
+	<wgs:long>42.98262</wgs:long>
+	<skos:altLabel>Achalziche</skos:altLabel>
+	<skos:altLabel>Achalzych</skos:altLabel>
+	<skos:altLabel xml:lang="en">Akhalts'ikhe</skos:altLabel>
+	<skos:altLabel>Akhaltsikh</skos:altLabel>
+	<skos:altLabel>Akhaltsykha</skos:altLabel>
+	<skos:altLabel>Akhaltsykhe</skos:altLabel>
+	<skos:altLabel>Akhalts’ikhe</skos:altLabel>
+	<skos:altLabel xml:lang="ru">АХАЛЦИХЕ</skos:altLabel>
+	<skos:prefLabel>Akhalts’ikhe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/615891/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865544/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.41665</wgs:lat>
+	<wgs:long>43.4499</wgs:long>
+	<skos:altLabel xml:lang="ka">Akhalkalakis Raioni</skos:altLabel>
+	<skos:altLabel>Akhalkalakskiy Rayon</skos:altLabel>
+	<skos:altLabel>Akhalkʼalakʼis Raioni</skos:altLabel>
+	<skos:prefLabel>Akhalkalakis Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/615912/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>26636</europeana:population>
+	<wgs:lat>43.08056</wgs:lat>
+	<wgs:long>40.83833</wgs:long>
+	<skos:altLabel>Novyy Afon</skos:altLabel>
+	<skos:altLabel>Psirtskha</skos:altLabel>
+	<skos:altLabel>Psyrtskha</skos:altLabel>
+	<skos:altLabel>Stantsiya Akhali-Afoni</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Новый Афон</skos:altLabel>
+	<skos:prefLabel>Stantsiya Novyy Afon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/615929/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>370030</europeana:population>
+	<wgs:lat>41.66667</wgs:lat>
+	<wgs:long>42</wgs:long>
+	<skos:altLabel>Acharis ASSR</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Acharis Avtonomiuri Respublika</skos:altLabel>
+	<skos:altLabel>Acharis Avtonomiuri Sabchot'a Sots'ialisturi Respublika</skos:altLabel>
+	<skos:altLabel>Adzhar A.S.S.R.</skos:altLabel>
+	<skos:altLabel>Adzharskaya ASSR</skos:altLabel>
+	<skos:altLabel>Adzharskaya Avtonomnaya Sovetskaya Sotsialisticheskaya Respublika</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Ajaria</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Ajaria</skos:altLabel>
+	<skos:altLabel>Ajaria</skos:altLabel>
+	<skos:prefLabel>Ajaria</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/615972/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.71667</wgs:lat>
+	<wgs:long>42.73333</wgs:long>
+	<skos:altLabel>Adigenis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Adigenis Raioni</skos:altLabel>
+	<skos:altLabel>Adigenskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Adigenis Raioni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616020/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.2</wgs:lat>
+	<wgs:long>42.2</wgs:long>
+	<skos:altLabel>Abashis Raioni</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Abashis Raioni</skos:altLabel>
+	<skos:altLabel>Abashskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Abasha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/824030/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>42.19263</wgs:lat>
+	<wgs:long>41.75791</wgs:long>
+	<skos:altLabel>Ostrov Sachochuo-Chkoni</skos:altLabel>
+	<skos:prefLabel>Ostrov Sachochuo-Chkoni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/824031/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>42.17626</wgs:lat>
+	<wgs:long>41.77546</wgs:long>
+	<skos:altLabel>Ostrov Patara-Potis-Chkoni</skos:altLabel>
+	<skos:prefLabel>Ostrov Patara-Potis-Chkoni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/824032/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>42.18639</wgs:lat>
+	<wgs:long>41.77704</wgs:long>
+	<skos:altLabel>Ostrov Buas-Chkoni</skos:altLabel>
+	<skos:prefLabel>Ostrov Buas-Chkoni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/824288/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16736</europeana:population>
+	<wgs:lat>42.34129</wgs:lat>
+	<wgs:long>42.5976</wgs:long>
+	<skos:altLabel>Tskaltubo</skos:altLabel>
+	<skos:altLabel>Tskhaltubo</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tsqaltubo</skos:altLabel>
+	<skos:altLabel>Tsqaltubo</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ЦХАЛТУБО</skos:altLabel>
+	<skos:prefLabel>Tsqaltubo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828308/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.28333</wgs:lat>
+	<wgs:long>43.25</wgs:long>
+	<skos:altLabel xml:lang="nb">Chiat'ura</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Chiat'ura</skos:altLabel>
+	<skos:altLabel>Chiat'ura</skos:altLabel>
+	<skos:altLabel xml:lang="en">Chiatura</skos:altLabel>
+	<skos:altLabel xml:lang="ka">K’alak’i Chiat’ura</skos:altLabel>
+	<skos:prefLabel>K’alak’i Chiat’ura</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828310/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.26667</wgs:lat>
+	<wgs:long>42.6</wgs:long>
+	<skos:altLabel xml:lang="nb">K'ut'aisi</skos:altLabel>
+	<skos:altLabel xml:lang="nn">K'ut'aisi</skos:altLabel>
+	<skos:altLabel>K'ut'aisi</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kutaisi</skos:altLabel>
+	<skos:altLabel xml:lang="ka">K’alak’i K’ut’aisi</skos:altLabel>
+	<skos:prefLabel>K’alak’i K’ut’aisi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828311/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.15</wgs:lat>
+	<wgs:long>41.68333</wgs:long>
+	<skos:altLabel xml:lang="ka">K’alak’i P’ot’i</skos:altLabel>
+	<skos:altLabel xml:lang="nb">P'ot'i</skos:altLabel>
+	<skos:altLabel xml:lang="nn">P'ot'i</skos:altLabel>
+	<skos:altLabel>P'ot'i</skos:altLabel>
+	<skos:prefLabel>K’alak’i P’ot’i</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828312/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865536/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.53333</wgs:lat>
+	<wgs:long>45</wgs:long>
+	<skos:altLabel xml:lang="ka">K’alak’i Rust’avi</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Rust'avi</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Rust'avi</skos:altLabel>
+	<skos:altLabel>Rust'avi</skos:altLabel>
+	<skos:prefLabel>K’alak’i Rust’avi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828313/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.33824</wgs:lat>
+	<wgs:long>42.98538</wgs:long>
+	<skos:altLabel xml:lang="ka">K’alak’i Tqibuli</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Tqibuli</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Tqibuli</skos:altLabel>
+	<skos:altLabel>Tqibuli</skos:altLabel>
+	<skos:prefLabel>K’alak’i Tqibuli</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828314/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865543/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.5</wgs:lat>
+	<wgs:long>41.86667</wgs:long>
+	<skos:altLabel xml:lang="ka">K’alak’i Zugdidi</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Zugdidi</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Zugdidi</skos:altLabel>
+	<skos:altLabel>Zugdidi</skos:altLabel>
+	<skos:prefLabel>K’alak’i Zugdidi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/865536/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>518120</europeana:population>
+	<wgs:lat>41.51667</wgs:lat>
+	<wgs:long>44.51667</wgs:long>
+	<skos:altLabel>NATIVE NAME TO BE DETERMINED</skos:altLabel>
+	<skos:prefLabel>Kvemo Kartli</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/865537/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>395456</europeana:population>
+	<wgs:lat>41.75</wgs:lat>
+	<wgs:long>45.71667</wgs:long>
+	<skos:altLabel>NATIVE NAME TO BE DETERMINED</skos:altLabel>
+	<skos:prefLabel>Kakheti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/865538/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>141827</europeana:population>
+	<wgs:lat>41.96667</wgs:lat>
+	<wgs:long>42.2</wgs:long>
+	<skos:altLabel>NATIVE NAME TO BE DETERMINED</skos:altLabel>
+	<skos:prefLabel>Guria</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/865539/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>703485</europeana:population>
+	<wgs:lat>42.16667</wgs:lat>
+	<wgs:long>42.98333</wgs:long>
+	<skos:altLabel>NATIVE NAME TO BE DETERMINED</skos:altLabel>
+	<skos:prefLabel>Imereti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/865540/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>320657</europeana:population>
+	<wgs:lat>42.18333</wgs:lat>
+	<wgs:long>44</wgs:long>
+	<skos:altLabel>NATIVE NAME TO BE DETERMINED</skos:altLabel>
+	<skos:prefLabel>Shida Kartli</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/865541/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>122576</europeana:population>
+	<wgs:lat>42.28333</wgs:lat>
+	<wgs:long>44.75</wgs:long>
+	<skos:altLabel>NATIVE NAME TO BE DETERMINED</skos:altLabel>
+	<skos:prefLabel>Mtskheta-Mtianeti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/865542/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>48571</europeana:population>
+	<wgs:lat>42.63333</wgs:lat>
+	<wgs:long>43.13333</wgs:long>
+	<skos:altLabel>NATIVE NAME TO BE DETERMINED</skos:altLabel>
+	<skos:prefLabel>Racha-Lechkhumi and Kvemo Svaneti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/865543/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>42.70076</wgs:lat>
+	<wgs:long>42.21496</wgs:long>
+	<skos:altLabel xml:lang="en">Samegrelo and Zemo Svaneti</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Samegrelo-Zemo Svanetis Mkhare</skos:altLabel>
+	<skos:altLabel xml:lang="ka">სამეგრელო–ზემო სვანეთი</skos:altLabel>
+	<skos:prefLabel>Samegrelo-Zemo Svanetis Mkhare</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/865544/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>207443</europeana:population>
+	<wgs:lat>41.58333</wgs:lat>
+	<wgs:long>43.26667</wgs:long>
+	<skos:altLabel>NATIVE NAME TO BE DETERMINED</skos:altLabel>
+	<skos:prefLabel>Samtskhe-Javakheti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/873378/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>42.25861</wgs:lat>
+	<wgs:long>44.49972</wgs:long>
+	<skos:altLabel>Tsminda-Giorgi</skos:altLabel>
+	<skos:prefLabel>Tsminda-Giorgi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/874322/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>42.19875</wgs:lat>
+	<wgs:long>41.83348</wgs:long>
+	<skos:altLabel>Ostrov Sagvamichao-Chkoni</skos:altLabel>
+	<skos:prefLabel>Ostrov Sagvamichao-Chkoni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6643410/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>43.0005</wgs:lat>
+	<wgs:long>41.00501</wgs:long>
+	<skos:altLabel>Abasia</skos:altLabel>
+	<skos:altLabel>Abkhasia</skos:altLabel>
+	<skos:altLabel xml:lang="en">Abkhazia</skos:altLabel>
+	<skos:altLabel xml:lang="no">Abkhazia</skos:altLabel>
+	<skos:altLabel>Abkhazian A.S.S.R.</skos:altLabel>
+	<skos:altLabel>Abkhaziya</skos:altLabel>
+	<skos:altLabel>Abkhazskaya ASSR</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Abkhazskaya Avtonomnaya Sovetskaya Sotsialisticheskaya Respublika</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Ap'khazet'i</skos:altLabel>
+	<skos:altLabel>Ap'khazet'is Avtonomiuri Respublika</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Apkhazetis ASSR</skos:altLabel>
+	<skos:altLabel xml:lang="ka">Apkhazetis Avtonomiuri Sabchota Sotsialisturi Respublika</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Абхазия</skos:altLabel>
+	<skos:altLabel xml:lang="ka">აფხაზეთი</skos:altLabel>
+	<skos:prefLabel>Abkhazia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6940391/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA2"/>
+	<europeana:population>15000</europeana:population>
+	<wgs:lat>42.23</wgs:lat>
+	<wgs:long>43.97</wgs:long>
+	<skos:prefLabel>Tskhinvali</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667511/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865539/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.31667</wgs:lat>
+	<wgs:long>42.43333</wgs:long>
+	<skos:prefLabel>Khoni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667553/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865539/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.08333</wgs:lat>
+	<wgs:long>42.83333</wgs:long>
+	<skos:prefLabel>Baghdati</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667554/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865539/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.17806</wgs:lat>
+	<wgs:long>42.98</wgs:long>
+	<skos:prefLabel>Terjola</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667559/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>43</wgs:lat>
+	<wgs:long>42.75</wgs:long>
+	<skos:prefLabel>Mestia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667563/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865543/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.51028</wgs:lat>
+	<wgs:long>42.12917</wgs:long>
+	<skos:prefLabel>Chkhorotsqu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667572/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865543/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.41667</wgs:lat>
+	<wgs:long>42.36667</wgs:long>
+	<skos:prefLabel>Martvili</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667575/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865541/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.08333</wgs:lat>
+	<wgs:long>44.7</wgs:long>
+	<skos:prefLabel>Dusheti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667577/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865536/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.45</wgs:lat>
+	<wgs:long>45.1</wgs:long>
+	<skos:prefLabel>Gardabani</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667578/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865536/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.46361</wgs:lat>
+	<wgs:long>44.81083</wgs:long>
+	<skos:prefLabel>Marneuli</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667580/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865537/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.75</wgs:lat>
+	<wgs:long>45.8</wgs:long>
+	<skos:prefLabel>Gurjaani</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667581/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865537/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.91667</wgs:lat>
+	<wgs:long>45.48333</wgs:long>
+	<skos:prefLabel>Telavi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667584/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865543/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.14194</wgs:lat>
+	<wgs:long>41.67639</wgs:long>
+	<skos:prefLabel>Poti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667648/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865544/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.69996</wgs:lat>
+	<wgs:long>42.69982</wgs:long>
+	<skos:prefLabel>Adigeni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667662/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865544/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.26361</wgs:lat>
+	<wgs:long>43.58877</wgs:long>
+	<skos:prefLabel>Ninotsminda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667683/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865536/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.55</wgs:lat>
+	<wgs:long>44.46667</wgs:long>
+	<skos:prefLabel>Tetri Tsqaro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667685/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865542/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.64722</wgs:lat>
+	<wgs:long>42.76995</wgs:long>
+	<skos:prefLabel>Tsageri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667690/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865542/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.78333</wgs:lat>
+	<wgs:long>42.73333</wgs:long>
+	<skos:prefLabel>Lentekhi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667692/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865541/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.10944</wgs:lat>
+	<wgs:long>44.95528</wgs:long>
+	<skos:prefLabel>Tianeti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667694/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865541/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.12541</wgs:lat>
+	<wgs:long>44.48373</wgs:long>
+	<skos:prefLabel>Akhalgori</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667696/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865541/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.6575</wgs:lat>
+	<wgs:long>44.64528</wgs:long>
+	<skos:prefLabel>Kazbegi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667701/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865537/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.9514</wgs:lat>
+	<wgs:long>45.8017</wgs:long>
+	<skos:prefLabel>Qvareli</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667710/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865537/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.73494</wgs:lat>
+	<wgs:long>45.3241</wgs:long>
+	<skos:prefLabel>Sagarejo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667711/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865537/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.62622</wgs:lat>
+	<wgs:long>45.95306</wgs:long>
+	<skos:prefLabel>Sighnaghi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667712/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865537/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.46389</wgs:lat>
+	<wgs:long>46.11111</wgs:long>
+	<skos:prefLabel>Dedoplis Tskaro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667714/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865536/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.58333</wgs:lat>
+	<wgs:long>44.08333</wgs:long>
+	<skos:prefLabel>Tsalka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667754/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865539/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.34528</wgs:lat>
+	<wgs:long>43.41944</wgs:long>
+	<skos:prefLabel>Sachkhere</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7668882/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865541/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.84066</wgs:lat>
+	<wgs:long>44.70612</wgs:long>
+	<skos:prefLabel>Mtskheta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7668970/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865543/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.60566</wgs:lat>
+	<wgs:long>42.07695</wgs:long>
+	<skos:prefLabel>Tsalenjikha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7668994/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/614540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865538/"/>
+	<europeana:country>GE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.01869</wgs:lat>
+	<wgs:long>42.2435</wgs:long>
+	<skos:prefLabel>Chokhatauri</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 161 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

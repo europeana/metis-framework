@@ -1,0 +1,8 @@
+            ------
+            DataSource: Custom
+            ------
+ 
+ To define a custom converter, e.g. for comma-separated text files,
+ you need to extend <<<AbstractQueryDataSource>>> or any of its descendants.
+ Basic Java programming skills are required to do this.
+ 

@@ -1,0 +1,3818 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AF_MZ
+Description: Selected fields pulled from Geonames about MZ done on Mon May 23 21:16:18 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/345947/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.03333</wgs:lat>
+	<wgs:long>40.73333</wgs:long>
+	<skos:altLabel>Concelho</skos:altLabel>
+	<skos:altLabel>Ilha de Moçambique</skos:altLabel>
+	<skos:altLabel>Mozambique Island</skos:altLabel>
+	<skos:prefLabel>Ilha de Moçambique</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1024061/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-11.37139</wgs:lat>
+	<wgs:long>37.82444</wgs:long>
+	<skos:prefLabel>Ilha Zunda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1024062/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-15.5</wgs:lat>
+	<wgs:long>31</wgs:long>
+	<skos:prefLabel>Circunscrição do Zumbo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1024312/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>3949841</europeana:population>
+	<wgs:lat>-17</wgs:lat>
+	<wgs:long>37</wgs:long>
+	<skos:altLabel>Distrito de Zambézia</skos:altLabel>
+	<skos:altLabel>Provincia da Zambezia</skos:altLabel>
+	<skos:altLabel>Província de Zambézia</skos:altLabel>
+	<skos:altLabel>Zambezi</skos:altLabel>
+	<skos:altLabel>Zambézia</skos:altLabel>
+	<skos:prefLabel>Província de Zambézia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1024506/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-25.83917</wgs:lat>
+	<wgs:long>32.71611</wgs:long>
+	<skos:altLabel>Ilha Chefina Pequena</skos:altLabel>
+	<skos:altLabel>Ilha Xefina Pequena</skos:altLabel>
+	<skos:altLabel>Xefina Pequena</skos:altLabel>
+	<skos:prefLabel>Ilha Xefina Pequena</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1024507/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-25.92139</wgs:lat>
+	<wgs:long>32.69</wgs:long>
+	<skos:altLabel>Ilha Chefina</skos:altLabel>
+	<skos:altLabel>Ilha Chefina Grande</skos:altLabel>
+	<skos:altLabel>Ilha Xefina Grande</skos:altLabel>
+	<skos:altLabel>Xefina Grande</skos:altLabel>
+	<skos:prefLabel>Ilha Xefina Grande</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1024508/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-25.875</wgs:lat>
+	<wgs:long>32.72528</wgs:long>
+	<skos:altLabel>Ilha Chefina do Meio</skos:altLabel>
+	<skos:altLabel>Ilha Xefina do Meio</skos:altLabel>
+	<skos:prefLabel>Ilha Xefina do Meio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1024552/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>127366</europeana:population>
+	<wgs:lat>-25.05194</wgs:lat>
+	<wgs:long>33.64417</wgs:long>
+	<skos:altLabel>Chai Chai</skos:altLabel>
+	<skos:altLabel>Joa Belo</skos:altLabel>
+	<skos:altLabel>João Belo</skos:altLabel>
+	<skos:altLabel>Shai-Shai</skos:altLabel>
+	<skos:altLabel>Vila de João Belo</skos:altLabel>
+	<skos:altLabel>Vila-João-Belo</skos:altLabel>
+	<skos:altLabel xml:lang="es">Xai Xai</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Xai-Xai</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Xai-Xai</skos:altLabel>
+	<skos:altLabel xml:lang="no">Xai-Xai</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Xai-Xai</skos:altLabel>
+	<skos:altLabel xml:lang="en">Xai-Xai</skos:altLabel>
+	<skos:altLabel xml:lang="it">Xai-Xai</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Xai-Xai</skos:altLabel>
+	<skos:altLabel>Xai-Xai</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Šai Šai</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Шаи-Шаи</skos:altLabel>
+	<skos:altLabel xml:lang="ja">シャイシャイ</skos:altLabel>
+	<skos:prefLabel>Xai-Xai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1024601/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-11.13028</wgs:lat>
+	<wgs:long>40.60528</wgs:long>
+	<skos:altLabel>Ilha Vamba</skos:altLabel>
+	<skos:altLabel>Ilha Vumba</skos:altLabel>
+	<skos:prefLabel>Ilha Vumba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1024682/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-22</wgs:lat>
+	<wgs:long>35</wgs:long>
+	<skos:prefLabel>Circunscrição de Vilanculos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1024696/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>78648</europeana:population>
+	<wgs:lat>-19.60944</wgs:lat>
+	<wgs:long>34.74306</wgs:long>
+	<skos:altLabel xml:lang="en">Dondo</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Dondo</skos:altLabel>
+	<skos:altLabel>Dondo</skos:altLabel>
+	<skos:altLabel>Vila do Dondo</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Дондо</skos:altLabel>
+	<skos:prefLabel>Dondo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1024701/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23156</europeana:population>
+	<wgs:lat>-25.02694</wgs:lat>
+	<wgs:long>33.09889</wgs:long>
+	<skos:altLabel>Macia</skos:altLabel>
+	<skos:altLabel>Vila de Macia</skos:altLabel>
+	<skos:prefLabel>Macia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1024707/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-13</wgs:lat>
+	<wgs:long>36.33333</wgs:long>
+	<skos:altLabel>Concelho de Vila Cabral</skos:altLabel>
+	<skos:altLabel>Metónia</skos:altLabel>
+	<skos:prefLabel>Concelho de Vila Cabral</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1024821/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-11.035</wgs:lat>
+	<wgs:long>40.66667</wgs:long>
+	<skos:altLabel>Ilha Uamize</skos:altLabel>
+	<skos:altLabel>Ilha Uanize</skos:altLabel>
+	<skos:altLabel>Ilha Vamizi</skos:altLabel>
+	<skos:prefLabel>Ilha Vamizi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1024845/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-12.5</wgs:lat>
+	<wgs:long>36</wgs:long>
+	<skos:prefLabel>Circunscrição de Valadim</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1024885/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.78833</wgs:lat>
+	<wgs:long>34.80472</wgs:long>
+	<skos:altLabel>Ilha Utanha</skos:altLabel>
+	<skos:altLabel>Ilha Utanhe</skos:altLabel>
+	<skos:prefLabel>Ilha Utanhe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1025677/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.87778</wgs:lat>
+	<wgs:long>34.75806</wgs:long>
+	<skos:prefLabel>Ilha dos Toscanos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1025948/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.81861</wgs:lat>
+	<wgs:long>36.30611</wgs:long>
+	<skos:prefLabel>Ilha Timbué</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1026010/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-15.5</wgs:lat>
+	<wgs:long>33</wgs:long>
+	<skos:altLabel>Distrito de Tete</skos:altLabel>
+	<skos:altLabel>Intendência de Tete</skos:altLabel>
+	<skos:altLabel>Província de Tete</skos:altLabel>
+	<skos:altLabel>Tete</skos:altLabel>
+	<skos:prefLabel>Província de Tete</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1026011/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-16.5</wgs:lat>
+	<wgs:long>33</wgs:long>
+	<skos:prefLabel>Concelho de Tete</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1026014/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>129316</europeana:population>
+	<wgs:lat>-16.15639</wgs:lat>
+	<wgs:long>33.58667</wgs:long>
+	<skos:altLabel xml:lang="es">Tete</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Tete</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Tete</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Tete</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Tete</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tete</skos:altLabel>
+	<skos:altLabel xml:lang="de">Tete</skos:altLabel>
+	<skos:altLabel xml:lang="it">Tete</skos:altLabel>
+	<skos:altLabel xml:lang="no">Tete</skos:altLabel>
+	<skos:altLabel>Tete</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Vila-de-Santiago-Maior</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Тете</skos:altLabel>
+	<skos:altLabel xml:lang="zh">太特</skos:altLabel>
+	<skos:prefLabel>Tete</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1026139/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-10.78333</wgs:lat>
+	<wgs:long>40.65</wgs:long>
+	<skos:altLabel>Ilha Tecomadji</skos:altLabel>
+	<skos:altLabel>Ilha Tecomagi</skos:altLabel>
+	<skos:altLabel>Ilha Tecomaji</skos:altLabel>
+	<skos:altLabel>Ilha Tekomadji</skos:altLabel>
+	<skos:prefLabel>Ilha Tecomaji</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1026184/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.08722</wgs:lat>
+	<wgs:long>40.64306</wgs:long>
+	<skos:altLabel>Ilha Tebo</skos:altLabel>
+	<skos:altLabel>Ilheu Tembo</skos:altLabel>
+	<skos:altLabel>Ilhéu Tebo</skos:altLabel>
+	<skos:prefLabel>Ilha Tebo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1026445/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-11.36528</wgs:lat>
+	<wgs:long>40.63111</wgs:long>
+	<skos:altLabel>Ilha Tambuze</skos:altLabel>
+	<skos:altLabel>Ilha Tambuzi</skos:altLabel>
+	<skos:altLabel>Ilha Tambúzi</skos:altLabel>
+	<skos:prefLabel>Ilha Tambuzi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1026598/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.55</wgs:lat>
+	<wgs:long>35.9</wgs:long>
+	<skos:prefLabel>Ilha Suo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1026620/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-11.30667</wgs:lat>
+	<wgs:long>40.57444</wgs:long>
+	<skos:prefLabel>Ilha Suna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1026694/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-10.53333</wgs:lat>
+	<wgs:long>40.53333</wgs:long>
+	<skos:prefLabel>Ilha Suafo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1026768/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.89472</wgs:lat>
+	<wgs:long>40.78611</wgs:long>
+	<skos:altLabel>Ilha Quissangula</skos:altLabel>
+	<skos:altLabel>Ilha Sombreiro</skos:altLabel>
+	<skos:prefLabel>Ilha Sombreiro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1026791/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.54806</wgs:lat>
+	<wgs:long>36.41361</wgs:long>
+	<skos:prefLabel>Ilha Solimane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1026804/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-19.76472</wgs:lat>
+	<wgs:long>34.92861</wgs:long>
+	<skos:altLabel>Distrito da Beira</skos:altLabel>
+	<skos:altLabel>Provincia de Beira</skos:altLabel>
+	<skos:altLabel>Província de Sofala</skos:altLabel>
+	<skos:altLabel>Sofala</skos:altLabel>
+	<skos:prefLabel>Província de Sofala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1026805/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-20.5</wgs:lat>
+	<wgs:long>34.5</wgs:long>
+	<skos:prefLabel>Circunscrição de Sofala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1026945/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.27306</wgs:lat>
+	<wgs:long>38.79361</wgs:long>
+	<skos:prefLabel>Ilha Silva</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1027033/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.98167</wgs:lat>
+	<wgs:long>40.80111</wgs:long>
+	<skos:altLabel>Ilha Sete Paus</skos:altLabel>
+	<skos:altLabel>Ilha dos Seta Paus</skos:altLabel>
+	<skos:altLabel>Ilha dos Sete Paus</skos:altLabel>
+	<skos:prefLabel>Ilha Sete Paus</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1027073/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.48028</wgs:lat>
+	<wgs:long>40.635</wgs:long>
+	<skos:altLabel>Ilha Samuean</skos:altLabel>
+	<skos:altLabel>Ilha Sencar</skos:altLabel>
+	<skos:altLabel>Ilha Sengar</skos:altLabel>
+	<skos:prefLabel>Ilha Sengar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1027095/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.08361</wgs:lat>
+	<wgs:long>40.76194</wgs:long>
+	<skos:altLabel>Ilha de Sena</skos:altLabel>
+	<skos:altLabel>Ilha de São Tiago</skos:altLabel>
+	<skos:prefLabel>Ilha de Sena</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1027105/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.98528</wgs:lat>
+	<wgs:long>40.71778</wgs:long>
+	<skos:prefLabel>Semilha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1027288/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.03333</wgs:lat>
+	<wgs:long>40.71667</wgs:long>
+	<skos:prefLabel>Ilhéu de São Lourenço</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1027338/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.61556</wgs:lat>
+	<wgs:long>35.34111</wgs:long>
+	<skos:altLabel>Ilha Carolina</skos:altLabel>
+	<skos:altLabel>Ilha Santa Carolina</skos:altLabel>
+	<skos:prefLabel>Ilha Santa Carolina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1027367/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.86167</wgs:lat>
+	<wgs:long>35.42278</wgs:long>
+	<skos:prefLabel>Ilha Sanguiza</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1027368/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.98972</wgs:lat>
+	<wgs:long>35.53611</wgs:long>
+	<skos:prefLabel>Ilha Sanguimbe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1027372/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.09833</wgs:lat>
+	<wgs:long>35.72167</wgs:long>
+	<skos:altLabel>Ilha Sanguaze</skos:altLabel>
+	<skos:altLabel>Ilha Sangueze</skos:altLabel>
+	<skos:prefLabel>Ilha Sangueze</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1027397/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-12.5</wgs:lat>
+	<wgs:long>35.5</wgs:long>
+	<skos:prefLabel>Circunscrição de Sanga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1027594/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.61861</wgs:lat>
+	<wgs:long>36.17917</wgs:long>
+	<skos:altLabel>Ilha Inhatambo</skos:altLabel>
+	<skos:altLabel>Ilha Salia</skos:altLabel>
+	<skos:prefLabel>Ilha Salia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1027759/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-25.5</wgs:lat>
+	<wgs:long>32.25</wgs:long>
+	<skos:prefLabel>Circunscrição do Sábiè</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1027945/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-10.86611</wgs:lat>
+	<wgs:long>40.66333</wgs:long>
+	<skos:prefLabel>Ilha Rongui</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1027967/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.1475</wgs:lat>
+	<wgs:long>40.56472</wgs:long>
+	<skos:altLabel>Ilha das Rolas</skos:altLabel>
+	<skos:altLabel>Ilha das Rotas</skos:altLabel>
+	<skos:prefLabel>Ilha das Rotas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1028053/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-15</wgs:lat>
+	<wgs:long>38</wgs:long>
+	<skos:prefLabel>Circunscrição de Ribauè</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1028099/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.57861</wgs:lat>
+	<wgs:long>35.14722</wgs:long>
+	<skos:prefLabel>Ilha do Remédio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1028122/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-26</wgs:lat>
+	<wgs:long>32.48333</wgs:long>
+	<skos:prefLabel>Ilha do Refúgio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1028156/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.81639</wgs:lat>
+	<wgs:long>35.42667</wgs:long>
+	<skos:prefLabel>Ilha dos Ratos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1028288/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-11.1625</wgs:lat>
+	<wgs:long>40.61028</wgs:long>
+	<skos:prefLabel>Ilha Quisungura</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1028289/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.28333</wgs:lat>
+	<wgs:long>38.05</wgs:long>
+	<skos:prefLabel>Ilha Quisungo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1028293/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.1</wgs:lat>
+	<wgs:long>40.61667</wgs:long>
+	<skos:altLabel>Quissirua</skos:altLabel>
+	<skos:altLabel>Qussirua</skos:altLabel>
+	<skos:prefLabel>Quissirua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1028297/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14</wgs:lat>
+	<wgs:long>40.6</wgs:long>
+	<skos:prefLabel>Ilhéu Quissindja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1028314/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-11.825</wgs:lat>
+	<wgs:long>40.56667</wgs:long>
+	<skos:prefLabel>Ilha Quissanga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1028315/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-12.5</wgs:lat>
+	<wgs:long>40</wgs:long>
+	<skos:prefLabel>Circunscrição da Quissanga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1028320/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.59972</wgs:lat>
+	<wgs:long>40.61556</wgs:long>
+	<skos:altLabel>Ilha Quisiva</skos:altLabel>
+	<skos:altLabel>Ilha Quiziva</skos:altLabel>
+	<skos:prefLabel>Ilha Quisiva</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1028329/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-12.25</wgs:lat>
+	<wgs:long>40.66667</wgs:long>
+	<skos:prefLabel>Ilhas Quirimba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1028330/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.42639</wgs:lat>
+	<wgs:long>40.60694</wgs:long>
+	<skos:altLabel>Ilha Querimba</skos:altLabel>
+	<skos:altLabel>Ilha Quirimba</skos:altLabel>
+	<skos:prefLabel>Ilha Quirimba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1028333/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.36139</wgs:lat>
+	<wgs:long>40.53417</wgs:long>
+	<skos:altLabel>Ilha Kiramba</skos:altLabel>
+	<skos:altLabel>Ilha Ouiramba</skos:altLabel>
+	<skos:altLabel>Ilha Quiramba</skos:altLabel>
+	<skos:altLabel>Ilha Quirambo</skos:altLabel>
+	<skos:prefLabel>Ilha Kiramba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1028340/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.68194</wgs:lat>
+	<wgs:long>40.61333</wgs:long>
+	<skos:altLabel>Ilha Quipaco</skos:altLabel>
+	<skos:altLabel>Ilha Quipão</skos:altLabel>
+	<skos:prefLabel>Ilha Quipaco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1028373/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.49306</wgs:lat>
+	<wgs:long>40.60722</wgs:long>
+	<skos:altLabel>Ilha Penguin</skos:altLabel>
+	<skos:altLabel>Ilha Quilaluia</skos:altLabel>
+	<skos:prefLabel>Ilha Quilaluia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1028376/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-11.18833</wgs:lat>
+	<wgs:long>40.61472</wgs:long>
+	<skos:altLabel>Ilha Quifuque</skos:altLabel>
+	<skos:altLabel>Ilha Quifuqui</skos:altLabel>
+	<skos:prefLabel>Ilha Quifuqui</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1028377/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.0175</wgs:lat>
+	<wgs:long>40.54111</wgs:long>
+	<skos:prefLabel>Ilha Quifula</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1028400/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-11.63333</wgs:lat>
+	<wgs:long>40.56667</wgs:long>
+	<skos:prefLabel>Ilha Quero Niuni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1028401/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-12.25</wgs:lat>
+	<wgs:long>40.66667</wgs:long>
+	<skos:altLabel>Arquipélago das Querimbas</skos:altLabel>
+	<skos:altLabel>Arquipélago de Querimba</skos:altLabel>
+	<skos:altLabel>Arquipélago de Quirimba</skos:altLabel>
+	<skos:altLabel>Kerimba Islands</skos:altLabel>
+	<skos:prefLabel>Arquipélago das Querimbas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1028404/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-10.91556</wgs:lat>
+	<wgs:long>40.61583</wgs:long>
+	<skos:altLabel>Ilha Queramimbi</skos:altLabel>
+	<skos:altLabel>Ilha Querumimbi</skos:altLabel>
+	<skos:prefLabel>Ilha Queramimbi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1028433/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-18</wgs:lat>
+	<wgs:long>37</wgs:long>
+	<skos:prefLabel>Concelho de Quelimane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1028434/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>188964</europeana:population>
+	<wgs:lat>-17.87861</wgs:lat>
+	<wgs:long>36.88833</wgs:long>
+	<skos:altLabel xml:lang="lt">Kelimanė</skos:altLabel>
+	<skos:altLabel xml:lang="es">Quelimane</skos:altLabel>
+	<skos:altLabel xml:lang="af">Quelimane</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Quelimane</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Quelimane</skos:altLabel>
+	<skos:altLabel xml:lang="en">Quelimane</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Quelimane</skos:altLabel>
+	<skos:altLabel xml:lang="no">Quelimane</skos:altLabel>
+	<skos:altLabel xml:lang="de">Quelimane</skos:altLabel>
+	<skos:altLabel>Quelimane</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Келимане</skos:altLabel>
+	<skos:prefLabel>Quelimane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1028536/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.44333</wgs:lat>
+	<wgs:long>39.95083</wgs:long>
+	<skos:prefLabel>Ilha Puga-Puga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1028565/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-17.21667</wgs:lat>
+	<wgs:long>39.13333</wgs:long>
+	<skos:prefLabel>Ilhas Primeiras</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1028598/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-25.95889</wgs:lat>
+	<wgs:long>32.89278</wgs:long>
+	<skos:prefLabel>Ilha dos Portugueses</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1028603/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-13</wgs:lat>
+	<wgs:long>40.25</wgs:long>
+	<skos:altLabel>Concelho de Porto Amélia</skos:altLabel>
+	<skos:altLabel>Pemba</skos:altLabel>
+	<skos:prefLabel>Concelho de Porto Amélia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1028609/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.79639</wgs:lat>
+	<wgs:long>35.43028</wgs:long>
+	<skos:prefLabel>Ilha dos Porcos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1028918/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>108737</europeana:population>
+	<wgs:lat>-12.97395</wgs:lat>
+	<wgs:long>40.51775</wgs:long>
+	<skos:altLabel>Porto Amelia</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Пемба</skos:altLabel>
+	<skos:prefLabel>Pemba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1029230/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.67583</wgs:lat>
+	<wgs:long>36.40194</wgs:long>
+	<skos:altLabel>Ilha Pambane</skos:altLabel>
+	<skos:altLabel>Pembane</skos:altLabel>
+	<skos:prefLabel>Ilha Pambane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1029247/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-11</wgs:lat>
+	<wgs:long>40</wgs:long>
+	<skos:altLabel>Circunscrição de Palma</skos:altLabel>
+	<skos:altLabel>Tungue</skos:altLabel>
+	<skos:prefLabel>Circunscrição de Palma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1029430/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.12583</wgs:lat>
+	<wgs:long>36.90028</wgs:long>
+	<skos:prefLabel>Ilha Olinda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1029695/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-11.26667</wgs:lat>
+	<wgs:long>40.63333</wgs:long>
+	<skos:altLabel>Ilha Niune</skos:altLabel>
+	<skos:altLabel>Ilha Niuni</skos:altLabel>
+	<skos:prefLabel>Ilha Niuni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1030006/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>942435</europeana:population>
+	<wgs:lat>-13</wgs:lat>
+	<wgs:long>37</wgs:long>
+	<skos:altLabel>Distrito de Niassa</skos:altLabel>
+	<skos:altLabel>Niassa</skos:altLabel>
+	<skos:altLabel>Province do Niassa</skos:altLabel>
+	<skos:altLabel>Província de Niassa</skos:altLabel>
+	<skos:prefLabel>Província de Niassa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1030090/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.28333</wgs:lat>
+	<wgs:long>39.9</wgs:long>
+	<skos:prefLabel>Nhialuque</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1030274/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.93528</wgs:lat>
+	<wgs:long>34.78056</wgs:long>
+	<skos:prefLabel>Ilha Nhatitiri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1030275/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.89639</wgs:lat>
+	<wgs:long>34.75306</wgs:long>
+	<skos:prefLabel>Ilha Nhatitiri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1030276/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.88333</wgs:lat>
+	<wgs:long>34.73333</wgs:long>
+	<skos:prefLabel>Ilha Nhatitiri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1030490/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.93389</wgs:lat>
+	<wgs:long>35.48556</wgs:long>
+	<skos:prefLabel>Ilha Nhanzona</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1030566/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.36972</wgs:lat>
+	<wgs:long>35.0225</wgs:long>
+	<skos:prefLabel>Ilha Nhanserere</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1030572/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.17361</wgs:lat>
+	<wgs:long>34.92</wgs:long>
+	<skos:prefLabel>Ilha Nhansate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1030578/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.65472</wgs:lat>
+	<wgs:long>34.17</wgs:long>
+	<skos:prefLabel>Ilha Nhansana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1030600/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.70694</wgs:lat>
+	<wgs:long>35.34472</wgs:long>
+	<skos:prefLabel>Ilha Nhanhe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1030611/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.25</wgs:lat>
+	<wgs:long>34.98333</wgs:long>
+	<skos:prefLabel>Ilha Nhangumba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1030681/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.01083</wgs:lat>
+	<wgs:long>34.85111</wgs:long>
+	<skos:prefLabel>Ilha Nhangango</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1030716/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.61194</wgs:lat>
+	<wgs:long>35.14528</wgs:long>
+	<skos:prefLabel>Ilha Nhandundundo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1030737/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.985</wgs:lat>
+	<wgs:long>34.80833</wgs:long>
+	<skos:prefLabel>Ilha Nhandjuxe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1030739/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.88667</wgs:lat>
+	<wgs:long>34.70972</wgs:long>
+	<skos:prefLabel>Ilha Nhandjali</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1030754/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.02611</wgs:lat>
+	<wgs:long>35.77944</wgs:long>
+	<skos:prefLabel>Ilha Nhandaze</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1030992/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.70278</wgs:lat>
+	<wgs:long>34.23444</wgs:long>
+	<skos:prefLabel>Ilha Nhamitanda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1031007/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.3825</wgs:lat>
+	<wgs:long>35.03944</wgs:long>
+	<skos:prefLabel>Ilha Nhamisseco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1031182/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.91167</wgs:lat>
+	<wgs:long>34.76889</wgs:long>
+	<skos:prefLabel>Ilha Nhambize</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1031205/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.08333</wgs:lat>
+	<wgs:long>34.9</wgs:long>
+	<skos:prefLabel>Ilha Nhambeuá</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1031287/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.49333</wgs:lat>
+	<wgs:long>35.09028</wgs:long>
+	<skos:prefLabel>Ilha Nhamatica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1031288/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.94917</wgs:lat>
+	<wgs:long>34.79778</wgs:long>
+	<skos:prefLabel>Ilha Nhamatica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1031304/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.10778</wgs:lat>
+	<wgs:long>35.70556</wgs:long>
+	<skos:altLabel>Ilha Nhamatarara</skos:altLabel>
+	<skos:altLabel>Ilha Nhamatarora</skos:altLabel>
+	<skos:prefLabel>Ilha Nhamatarara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1031306/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.21667</wgs:lat>
+	<wgs:long>34.95</wgs:long>
+	<skos:altLabel>Ilha Nhamatanga</skos:altLabel>
+	<skos:altLabel>Ilha Nhanatanga</skos:altLabel>
+	<skos:prefLabel>Ilha Nhamatanga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1031307/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.98861</wgs:lat>
+	<wgs:long>34.81972</wgs:long>
+	<skos:prefLabel>Ilha Nhamatanga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1031308/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.9675</wgs:lat>
+	<wgs:long>34.80528</wgs:long>
+	<skos:prefLabel>Ilha Nhamatanga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1031535/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.71806</wgs:lat>
+	<wgs:long>34.33083</wgs:long>
+	<skos:prefLabel>Ilha Nhamacosa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1031784/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.97222</wgs:lat>
+	<wgs:long>34.82139</wgs:long>
+	<skos:prefLabel>Ilha Nhacoro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1031837/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.52861</wgs:lat>
+	<wgs:long>34.73139</wgs:long>
+	<skos:prefLabel>Ilha Nhachecamba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1031869/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.24333</wgs:lat>
+	<wgs:long>33.66278</wgs:long>
+	<skos:prefLabel>Ilha Nhacassango</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1031877/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.83278</wgs:lat>
+	<wgs:long>34.57583</wgs:long>
+	<skos:prefLabel>Ilha Nhacarâmbue</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1032003/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.68694</wgs:lat>
+	<wgs:long>33.06417</wgs:long>
+	<skos:altLabel>Ilha Nhaadgire</skos:altLabel>
+	<skos:altLabel>Ilha Nhaadjire</skos:altLabel>
+	<skos:prefLabel>Ilha Nhaadjire</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1032188/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.55861</wgs:lat>
+	<wgs:long>39.80778</wgs:long>
+	<skos:altLabel>Ilha Nejovo</skos:altLabel>
+	<skos:altLabel>Ilha Njoro</skos:altLabel>
+	<skos:altLabel>Ilha Njovo</skos:altLabel>
+	<skos:prefLabel>Ilha Nejovo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1032343/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.55</wgs:lat>
+	<wgs:long>40.83333</wgs:long>
+	<skos:prefLabel>Ilha Naxipopopo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1032867/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.41667</wgs:lat>
+	<wgs:long>39.83333</wgs:long>
+	<skos:prefLabel>Napala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1033082/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-11.53333</wgs:lat>
+	<wgs:long>37.75</wgs:long>
+	<skos:prefLabel>Ilha Nanguco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1033354/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-15</wgs:lat>
+	<wgs:long>39</wgs:long>
+	<skos:altLabel>Distrito de Nampula</skos:altLabel>
+	<skos:altLabel>Nampula</skos:altLabel>
+	<skos:altLabel>Província de Nampula</skos:altLabel>
+	<skos:prefLabel>Província de Nampula</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1033355/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-15.25</wgs:lat>
+	<wgs:long>39</wgs:long>
+	<skos:prefLabel>Concelho de Nampula</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1033356/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>388526</europeana:population>
+	<wgs:lat>-15.11646</wgs:lat>
+	<wgs:long>39.2666</wgs:long>
+	<skos:altLabel xml:lang="de">Nampula</skos:altLabel>
+	<skos:altLabel xml:lang="es">Nampula</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Nampula</skos:altLabel>
+	<skos:altLabel xml:lang="en">Nampula</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Nampula</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Nampula</skos:altLabel>
+	<skos:altLabel xml:lang="no">Nampula</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Nampula</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Nampula</skos:altLabel>
+	<skos:altLabel xml:lang="it">Nampula</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Нампула</skos:altLabel>
+	<skos:prefLabel>Nampula</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1033773/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.33333</wgs:lat>
+	<wgs:long>39.9</wgs:long>
+	<skos:prefLabel>Namicate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1034310/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-17.5</wgs:lat>
+	<wgs:long>37</wgs:long>
+	<skos:prefLabel>Circunscrição de Namacurra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1034420/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-26</wgs:lat>
+	<wgs:long>32.16667</wgs:long>
+	<skos:prefLabel>Circunscrição da Namaacha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1035018/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.5</wgs:lat>
+	<wgs:long>40.5</wgs:long>
+	<skos:altLabel>Circunscrição de Nacala-a-Velha</skos:altLabel>
+	<skos:altLabel>Nacala</skos:altLabel>
+	<skos:altLabel>Nacala Velha</skos:altLabel>
+	<skos:prefLabel>Circunscrição de Nacala-a-Velha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1035025/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>224795</europeana:population>
+	<wgs:lat>-14.54278</wgs:lat>
+	<wgs:long>40.67278</wgs:long>
+	<skos:altLabel>Cidade de Nacala</skos:altLabel>
+	<skos:altLabel>Fernão Veloso</skos:altLabel>
+	<skos:altLabel>Maaia</skos:altLabel>
+	<skos:altLabel>Maiaia</skos:altLabel>
+	<skos:altLabel>Nacala</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Город-де-Накала</skos:altLabel>
+	<skos:prefLabel>Cidade de Nacala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1035086/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.70556</wgs:lat>
+	<wgs:long>34.28722</wgs:long>
+	<skos:altLabel>Ilha Nabzulo</skos:altLabel>
+	<skos:altLabel>Ilha Nàbezulo</skos:altLabel>
+	<skos:prefLabel>Ilha Nabzulo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1035176/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.1</wgs:lat>
+	<wgs:long>35.06667</wgs:long>
+	<skos:altLabel>Ilha Muvinges</skos:altLabel>
+	<skos:altLabel>Muconde</skos:altLabel>
+	<skos:prefLabel>Ilha Muvinges</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1035250/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.78333</wgs:lat>
+	<wgs:long>39.25</wgs:long>
+	<skos:prefLabel>Ilha Mutirrane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1035304/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-17</wgs:lat>
+	<wgs:long>35</wgs:long>
+	<skos:altLabel>Circunscrição da Mutarara</skos:altLabel>
+	<skos:altLabel>Mutaraba</skos:altLabel>
+	<skos:prefLabel>Circunscrição da Mutarara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1035470/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-15.5</wgs:lat>
+	<wgs:long>38.75</wgs:long>
+	<skos:prefLabel>Circunscrição de Murrupula</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1035732/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-17</wgs:lat>
+	<wgs:long>33.5</wgs:long>
+	<skos:prefLabel>Circunscrição de Mungári</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1035885/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.33333</wgs:lat>
+	<wgs:long>40.61667</wgs:long>
+	<skos:prefLabel>Ilha Mujaca</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1036491/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.97667</wgs:lat>
+	<wgs:long>35.10944</wgs:long>
+	<skos:altLabel>Ilha Meceve</skos:altLabel>
+	<skos:altLabel>Ilha Muceve</skos:altLabel>
+	<skos:prefLabel>Ilha Muceve</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1036700/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.32806</wgs:lat>
+	<wgs:long>36.03806</wgs:long>
+	<skos:prefLabel>Ilha Muaninhosa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1036744/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.96139</wgs:lat>
+	<wgs:long>35.49722</wgs:long>
+	<skos:altLabel>Ilha Muananhoca</skos:altLabel>
+	<skos:altLabel>Ilha Muanhanhoca</skos:altLabel>
+	<skos:prefLabel>Ilha Muananhoca</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1036848/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.98333</wgs:lat>
+	<wgs:long>40.41667</wgs:long>
+	<skos:prefLabel>Muaguide</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1036973/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255146/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>22061451</europeana:population>
+	<wgs:lat>-18.25</wgs:lat>
+	<wgs:long>35</wgs:long>
+	<skos:altLabel>Colónia de Moçambique</skos:altLabel>
+	<skos:altLabel>Estado de Moçambique</skos:altLabel>
+	<skos:altLabel>MZ</skos:altLabel>
+	<skos:altLabel xml:lang="af">Mosambiek</skos:altLabel>
+	<skos:altLabel xml:lang="et">Mosambiik</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Mosambik</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Mosambik</skos:altLabel>
+	<skos:altLabel xml:lang="de">Mosambik</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Mosambik</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Mosambik</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Mosambik</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Mosambik</skos:altLabel>
+	<skos:altLabel xml:lang="no">Mosambik</skos:altLabel>
+	<skos:altLabel xml:lang="se">Mosambik</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Mosambikän</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Mozambic</skos:altLabel>
+	<skos:altLabel xml:lang="it">Mozambico</skos:altLabel>
+	<skos:altLabel xml:lang="la">Mozambicum</skos:altLabel>
+	<skos:altLabel xml:lang="id">Mozambik</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Mozambik</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Mozambik</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Mozambik</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Mozambik</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Mozambik</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Mozambik</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Mozambik</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Mozambik</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Mozambik</skos:altLabel>
+	<skos:altLabel xml:lang="io">Mozambik</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Mozambik</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Mozambik</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Mozambika</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Mozambikas</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Mozambike</skos:altLabel>
+	<skos:altLabel xml:lang="ln">Mozambiki</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Mozambiko</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Mozambiku</skos:altLabel>
+	<skos:altLabel xml:lang="es">Mozambique</skos:altLabel>
+	<skos:altLabel xml:lang="id">Mozambique</skos:altLabel>
+	<skos:altLabel xml:lang="da">Mozambique</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Mozambique</skos:altLabel>
+	<skos:altLabel xml:lang="en">Mozambique</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Mozambique</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Mozambique</skos:altLabel>
+	<skos:altLabel xml:lang="an">Mozambique</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Mozambique</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Mozambique</skos:altLabel>
+	<skos:altLabel xml:lang="ts">Mozambique</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Mozambique</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Mozambique</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Mozambique</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Mozambique</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Mozambique - Moçambique</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Mozambîk</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Moçambic</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Moçambic</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Moçambique</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Moçambique</skos:altLabel>
+	<skos:altLabel xml:lang="da">Moçambique</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Możambik</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Msumbiji</skos:altLabel>
+	<skos:altLabel xml:lang="so">Musambiig</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Mósaimbíc</skos:altLabel>
+	<skos:altLabel xml:lang="is">Mósambík</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Mô-dăm- bích (Mozambique)</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Mô-dăm-bích</skos:altLabel>
+	<skos:altLabel>People’s Republic of Mozambique</skos:altLabel>
+	<skos:altLabel>Portuguese East Africa</skos:altLabel>
+	<skos:altLabel>Província de Moçambique</skos:altLabel>
+	<skos:altLabel xml:lang="en">Republic of Mozambique</skos:altLabel>
+	<skos:altLabel>República Popular de Moçambique</skos:altLabel>
+	<skos:altLabel xml:lang="pt">República de Moçambique</skos:altLabel>
+	<skos:altLabel>State of Mozambique</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μοζαμβίκη</skos:altLabel>
+	<skos:altLabel xml:lang="be">Мазамбік</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Мозамбе</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Мозамбик</skos:altLabel>
+	<skos:altLabel xml:lang="os">Мозамбик</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Мозамбик</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Мозамбик</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Мозамбик</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Мозамбик</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Мозамбік</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Մոզամբիկ</skos:altLabel>
+	<skos:altLabel xml:lang="he">מוזמביק</skos:altLabel>
+	<skos:altLabel xml:lang="ug">موزامبىك</skos:altLabel>
+	<skos:altLabel xml:lang="fa">موزامبیک</skos:altLabel>
+	<skos:altLabel xml:lang="ar">موزمبيق</skos:altLabel>
+	<skos:altLabel xml:lang="ur">موزنبیق</skos:altLabel>
+	<skos:altLabel xml:lang="ks">मोजम्बीक</skos:altLabel>
+	<skos:altLabel xml:lang="sa">मोजम्बीक</skos:altLabel>
+	<skos:altLabel xml:lang="hi">मोज़ाम्बिक</skos:altLabel>
+	<skos:altLabel xml:lang="hi">मोजाम्बिक</skos:altLabel>
+	<skos:altLabel xml:lang="hi">मोस़ाम्बीक</skos:altLabel>
+	<skos:altLabel xml:lang="bn">মোজাম্বিক</skos:altLabel>
+	<skos:altLabel xml:lang="ml">മൊസാംബിക്ക്</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศโมซัมบิก</skos:altLabel>
+	<skos:altLabel xml:lang="th">โมซัมบิก</skos:altLabel>
+	<skos:altLabel xml:lang="th">โมแซมบิค</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ໂມແຊມບິກ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">མོ་ཛམ་བིག།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">მოზამბიკი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሞዛምቢክ</skos:altLabel>
+	<skos:altLabel xml:lang="km">ម៉ូហ្សាំប៊ិក</skos:altLabel>
+	<skos:altLabel xml:lang="ja">モザンビーク</skos:altLabel>
+	<skos:altLabel xml:lang="ja">モザンビーク共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">莫桑比克</skos:altLabel>
+	<skos:altLabel xml:lang="ko">모잠비크</skos:altLabel>
+	<skos:prefLabel>Republic of Mozambique</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1037018/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-21</wgs:lat>
+	<wgs:long>33</wgs:long>
+	<skos:altLabel xml:lang="pt">Circunscrição de Mossurize</skos:altLabel>
+	<skos:prefLabel>Circunscrição de Mossurize</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1037020/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-15</wgs:lat>
+	<wgs:long>40.5</wgs:long>
+	<skos:prefLabel>Circunscrição de Mossuril</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1037109/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-17.75</wgs:lat>
+	<wgs:long>36</wgs:long>
+	<skos:altLabel>Circunscrição de Mopeia</skos:altLabel>
+	<skos:altLabel>Zambeze</skos:altLabel>
+	<skos:prefLabel>Circunscrição de Mopeia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1037123/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-13.5</wgs:lat>
+	<wgs:long>39</wgs:long>
+	<skos:prefLabel>Concelho de Montepuez</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1037125/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>72279</europeana:population>
+	<wgs:lat>-13.12556</wgs:lat>
+	<wgs:long>38.99972</wgs:long>
+	<skos:altLabel xml:lang="es">Montepuez</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Montepuez</skos:altLabel>
+	<skos:altLabel xml:lang="en">Montepuez</skos:altLabel>
+	<skos:altLabel>Montepuez</skos:altLabel>
+	<skos:altLabel>Vila de Montepuez</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Монтепвезе</skos:altLabel>
+	<skos:prefLabel>Montepuez</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1037141/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.23333</wgs:lat>
+	<wgs:long>39.9</wgs:long>
+	<skos:prefLabel>Monico</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1037178/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.75</wgs:lat>
+	<wgs:long>40.16667</wgs:long>
+	<skos:prefLabel>Concelho de Monapo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1037184/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.05</wgs:lat>
+	<wgs:long>38.66667</wgs:long>
+	<skos:prefLabel>Ilha Monaco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1037221/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.85833</wgs:lat>
+	<wgs:long>39.52</wgs:long>
+	<skos:prefLabel>Ilha de Moma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1037222/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-16.5</wgs:lat>
+	<wgs:long>39.25</wgs:long>
+	<skos:prefLabel>Circunscrìção de Moma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1037277/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.04333</wgs:lat>
+	<wgs:long>40.54778</wgs:long>
+	<skos:altLabel>Ilha Mogudula</skos:altLabel>
+	<skos:altLabel>Ilha Mogundula</skos:altLabel>
+	<skos:altLabel>Ilha Mogundulo</skos:altLabel>
+	<skos:altLabel>Ilha Molandulo</skos:altLabel>
+	<skos:prefLabel>Ilha Mogudula</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1037282/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-15.75</wgs:lat>
+	<wgs:long>39.25</wgs:long>
+	<skos:prefLabel>Circunscrìção de Mogovolas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1037286/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-15.5</wgs:lat>
+	<wgs:long>40</wgs:long>
+	<skos:altLabel>Circunscrìção do Mogincual</skos:altLabel>
+	<skos:altLabel>Mongincual</skos:altLabel>
+	<skos:prefLabel>Circunscrìção do Mogincual</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1037326/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.85417</wgs:lat>
+	<wgs:long>35.44222</wgs:long>
+	<skos:altLabel>Ilha Mocucuni Ceu</skos:altLabel>
+	<skos:altLabel>Ilha Mocucuri Cé</skos:altLabel>
+	<skos:prefLabel>Ilha Mocucuri Cé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1037327/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.84639</wgs:lat>
+	<wgs:long>35.39139</wgs:long>
+	<skos:altLabel>Ilha Mocucuni</skos:altLabel>
+	<skos:altLabel>Ilha Mocucuri</skos:altLabel>
+	<skos:prefLabel>Ilha Mocucuri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1037336/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>68984</europeana:population>
+	<wgs:lat>-16.84028</wgs:lat>
+	<wgs:long>38.25694</wgs:long>
+	<skos:prefLabel>Mocuba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1037368/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-11.5</wgs:lat>
+	<wgs:long>40.25</wgs:long>
+	<skos:prefLabel>Concelho de Mocímboa da Praia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1037370/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>27909</europeana:population>
+	<wgs:lat>-11.31667</wgs:lat>
+	<wgs:long>40.35</wgs:long>
+	<skos:prefLabel>Mocímboa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1037387/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.58333</wgs:lat>
+	<wgs:long>33.98333</wgs:long>
+	<skos:prefLabel>Ilha Moçambique</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1037388/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-15</wgs:lat>
+	<wgs:long>40.66667</wgs:long>
+	<skos:prefLabel>Concelho de Moçambique</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1037390/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>54315</europeana:population>
+	<wgs:lat>-15.03417</wgs:lat>
+	<wgs:long>40.73583</wgs:long>
+	<skos:altLabel>Ilha de Moçambique</skos:altLabel>
+	<skos:altLabel>Mozambique</skos:altLabel>
+	<skos:altLabel>Moçambique</skos:altLabel>
+	<skos:prefLabel>Ilha de Moçambique</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1037394/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-15.75</wgs:lat>
+	<wgs:long>34</wgs:long>
+	<skos:prefLabel>Circunscrição de Moatize</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1037405/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.6925</wgs:lat>
+	<wgs:long>36.18278</wgs:long>
+	<skos:prefLabel>Ilha Moanacolongo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1037407/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.21306</wgs:lat>
+	<wgs:long>36.75</wgs:long>
+	<skos:altLabel>Ilha Moana</skos:altLabel>
+	<skos:altLabel>Ilha Moana Balame</skos:altLabel>
+	<skos:prefLabel>Ilha Moana Balame</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1037466/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.28333</wgs:lat>
+	<wgs:long>39.9</wgs:long>
+	<skos:prefLabel>Mitubane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1037511/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.54806</wgs:lat>
+	<wgs:long>36.44111</wgs:long>
+	<skos:prefLabel>Ilha Mitaone</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1037630/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-11.41889</wgs:lat>
+	<wgs:long>40.52194</wgs:long>
+	<skos:altLabel>Ilha Mionge</skos:altLabel>
+	<skos:altLabel>Ilha Mionje</skos:altLabel>
+	<skos:prefLabel>Ilha Mionge</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1037769/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.79778</wgs:lat>
+	<wgs:long>36.2</wgs:long>
+	<skos:altLabel>Ilha Micungune</skos:altLabel>
+	<skos:altLabel>Ilha Moguni</skos:altLabel>
+	<skos:altLabel>Ilha Mogunil</skos:altLabel>
+	<skos:prefLabel>Ilha Micungune</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1037770/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.77917</wgs:lat>
+	<wgs:long>34.515</wgs:long>
+	<skos:prefLabel>Ilha Micune</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1037954/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-11.16444</wgs:lat>
+	<wgs:long>40.68278</wgs:long>
+	<skos:altLabel>Ilha Metudo</skos:altLabel>
+	<skos:altLabel>Ilha Metundo</skos:altLabel>
+	<skos:altLabel>Ilha Mtundo</skos:altLabel>
+	<skos:prefLabel>Ilha Metundo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1038588/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.33028</wgs:lat>
+	<wgs:long>39.93361</wgs:long>
+	<skos:prefLabel>Ilha Mequeli</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1038879/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14</wgs:lat>
+	<wgs:long>40.5</wgs:long>
+	<skos:prefLabel>Circunscrição de Memba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1039040/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.54694</wgs:lat>
+	<wgs:long>40.60083</wgs:long>
+	<skos:altLabel>Ilha Famo</skos:altLabel>
+	<skos:altLabel>Ilha Mefunvo</skos:altLabel>
+	<skos:prefLabel>Ilha Mefunvo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1039094/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.41667</wgs:lat>
+	<wgs:long>40.51667</wgs:long>
+	<skos:prefLabel>Mecuti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1039135/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-12</wgs:lat>
+	<wgs:long>37.5</wgs:long>
+	<skos:prefLabel>Circunscrição de Mecula</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1039148/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-13.5</wgs:lat>
+	<wgs:long>40</wgs:long>
+	<skos:altLabel>Circunscriçāo de Mecúfi</skos:altLabel>
+	<skos:altLabel>Lúrio</skos:altLabel>
+	<skos:prefLabel>Circunscriçāo de Mecúfi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1039173/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.55722</wgs:lat>
+	<wgs:long>36.325</wgs:long>
+	<skos:altLabel>Ilha Mecuandáia</skos:altLabel>
+	<skos:altLabel>Ilha Mecuandária</skos:altLabel>
+	<skos:prefLabel>Ilha Mecuandária</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1039205/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-15.25</wgs:lat>
+	<wgs:long>39.75</wgs:long>
+	<skos:prefLabel>Circunjcrição de Meconta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1039302/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-11.35611</wgs:lat>
+	<wgs:long>40.52556</wgs:long>
+	<skos:altLabel>Ilha Mechanga</skos:altLabel>
+	<skos:altLabel>Ilha Meshanga</skos:altLabel>
+	<skos:altLabel>Ilha Mshanga</skos:altLabel>
+	<skos:prefLabel>Ilha Mechanga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1039536/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>119868</europeana:population>
+	<wgs:lat>-23.85972</wgs:lat>
+	<wgs:long>35.34722</wgs:long>
+	<skos:prefLabel>Maxixe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1039852/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-26</wgs:lat>
+	<wgs:long>32.33333</wgs:long>
+	<skos:prefLabel>Concelho de Matola</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1039854/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>543907</europeana:population>
+	<wgs:lat>-25.96222</wgs:lat>
+	<wgs:long>32.45889</wgs:long>
+	<skos:altLabel>Cidade da Matola</skos:altLabel>
+	<skos:altLabel xml:lang="de">Matola</skos:altLabel>
+	<skos:altLabel xml:lang="af">Matola</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Matola</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Matola</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Matola</skos:altLabel>
+	<skos:altLabel xml:lang="en">Matola</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Matola</skos:altLabel>
+	<skos:altLabel xml:lang="no">Matola</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Matola</skos:altLabel>
+	<skos:altLabel>Matola</skos:altLabel>
+	<skos:altLabel>Vila Salazar</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Матола</skos:altLabel>
+	<skos:prefLabel>Matola</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1039997/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.21556</wgs:lat>
+	<wgs:long>40.59944</wgs:long>
+	<skos:prefLabel>Ilha Matemo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1040208/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-11.61667</wgs:lat>
+	<wgs:long>37.46667</wgs:long>
+	<skos:prefLabel>Ilha Massimbo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1040213/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.31583</wgs:lat>
+	<wgs:long>33.72722</wgs:long>
+	<skos:prefLabel>Ilha Massilumba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1040369/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-13.5</wgs:lat>
+	<wgs:long>37</wgs:long>
+	<skos:prefLabel>Circunscrição de Marrupa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1040396/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-18.5</wgs:lat>
+	<wgs:long>35.75</wgs:long>
+	<skos:prefLabel>Circunscrição de Marromeu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1040438/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.76667</wgs:lat>
+	<wgs:long>39.23333</wgs:long>
+	<skos:prefLabel>Marrebo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1040459/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-25.66667</wgs:lat>
+	<wgs:long>32.66667</wgs:long>
+	<skos:prefLabel>Circunscrição de Marracuene</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1040474/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.93333</wgs:lat>
+	<wgs:long>34.66667</wgs:long>
+	<skos:prefLabel>Ilha Marora</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1040539/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.72194</wgs:lat>
+	<wgs:long>35.29139</wgs:long>
+	<skos:prefLabel>Ilha Mariangona</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1040541/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-25.20667</wgs:lat>
+	<wgs:long>32.96389</wgs:long>
+	<skos:prefLabel>Ilha Mariana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1040587/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-15</wgs:lat>
+	<wgs:long>32</wgs:long>
+	<skos:prefLabel>Circunscrição de Marávia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1040606/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.66306</wgs:lat>
+	<wgs:long>36.22611</wgs:long>
+	<skos:altLabel>Ilha Marabau</skos:altLabel>
+	<skos:altLabel>Ilha Matabau</skos:altLabel>
+	<skos:prefLabel>Ilha Matabau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1040649/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>997945</europeana:population>
+	<wgs:lat>-25.5</wgs:lat>
+	<wgs:long>32.33333</wgs:long>
+	<skos:altLabel>Distrito de Lourenço Marques</skos:altLabel>
+	<skos:altLabel>Intendência de Lourenço Marques</skos:altLabel>
+	<skos:altLabel>Lourenço Marquess</skos:altLabel>
+	<skos:altLabel xml:lang="de">Maputo</skos:altLabel>
+	<skos:altLabel xml:lang="es">Maputo</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Maputo</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Maputo</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Maputo</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Maputo</skos:altLabel>
+	<skos:altLabel xml:lang="no">Maputo</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Maputo</skos:altLabel>
+	<skos:altLabel xml:lang="it">Maputo</skos:altLabel>
+	<skos:altLabel>Maputo</skos:altLabel>
+	<skos:altLabel xml:lang="en">Maputo</skos:altLabel>
+	<skos:altLabel>Maputo Province</skos:altLabel>
+	<skos:altLabel xml:lang="en">Maputo Province</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Maputu provincija</skos:altLabel>
+	<skos:altLabel>Província de Maputo</skos:altLabel>
+	<skos:altLabel xml:lang="ja">マプト州</skos:altLabel>
+	<skos:prefLabel>Província de Maputo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1040650/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-26.5</wgs:lat>
+	<wgs:long>32.5</wgs:long>
+	<skos:prefLabel>Circunscrição do Maputo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1040652/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>1191613</europeana:population>
+	<wgs:lat>-25.96528</wgs:lat>
+	<wgs:long>32.58917</wgs:long>
+	<skos:altLabel>Can Pfumo</skos:altLabel>
+	<skos:altLabel>Kapfumo</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Lourenço Marques</skos:altLabel>
+	<skos:altLabel>Mabutu</skos:altLabel>
+	<skos:altLabel xml:lang="id">Maputo</skos:altLabel>
+	<skos:altLabel xml:lang="de">Maputo</skos:altLabel>
+	<skos:altLabel xml:lang="es">Maputo</skos:altLabel>
+	<skos:altLabel xml:lang="da">Maputo</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Maputo</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Maputo</skos:altLabel>
+	<skos:altLabel xml:lang="it">Maputo</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Maputo</skos:altLabel>
+	<skos:altLabel xml:lang="no">Maputo</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Maputo</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Maputo</skos:altLabel>
+	<skos:altLabel xml:lang="en">Maputo</skos:altLabel>
+	<skos:altLabel xml:lang="af">Maputo</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Maputo</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Maputo</skos:altLabel>
+	<skos:altLabel xml:lang="io">Maputo</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Maputo</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Maputo</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Maputo</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Maputo</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Maputo</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Maputo</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Maputo</skos:altLabel>
+	<skos:altLabel>Maputo</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Maputu</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μαπούτο</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Мапуту</skos:altLabel>
+	<skos:altLabel xml:lang="he">מפוטו</skos:altLabel>
+	<skos:altLabel xml:lang="fa">ماپوتو</skos:altLabel>
+	<skos:altLabel xml:lang="am">ማፑቶ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">マプト</skos:altLabel>
+	<skos:altLabel xml:lang="zh">马普托</skos:altLabel>
+	<skos:altLabel xml:lang="ko">마푸투</skos:altLabel>
+	<skos:prefLabel>Maputo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1040777/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-11.61278</wgs:lat>
+	<wgs:long>37.52306</wgs:long>
+	<skos:prefLabel>Ilha Mapanga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1040847/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.23417</wgs:lat>
+	<wgs:long>40.62556</wgs:long>
+	<skos:altLabel>Ilha Manoel da Silva</skos:altLabel>
+	<skos:altLabel>Ilha Manoet da Silea</skos:altLabel>
+	<skos:altLabel>Ilha Manuel da Silva</skos:altLabel>
+	<skos:prefLabel>Ilha Manuel da Silva</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1040849/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.60389</wgs:lat>
+	<wgs:long>35.15972</wgs:long>
+	<skos:prefLabel>Ilha Manuel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1040901/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.28861</wgs:lat>
+	<wgs:long>34.98056</wgs:long>
+	<skos:altLabel>Ilha Mantikisse</skos:altLabel>
+	<skos:altLabel>Ilha Mantiquisse</skos:altLabel>
+	<skos:prefLabel>Ilha Mantiquisse</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1040936/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-24.71667</wgs:lat>
+	<wgs:long>33.83333</wgs:long>
+	<skos:altLabel>Distrito de Manjacaze</skos:altLabel>
+	<skos:altLabel>Distrito de Muchopes</skos:altLabel>
+	<skos:altLabel>Inchope</skos:altLabel>
+	<skos:prefLabel>Distrito de Manjacaze</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1040938/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>25541</europeana:population>
+	<wgs:lat>-24.71167</wgs:lat>
+	<wgs:long>33.88278</wgs:long>
+	<skos:altLabel>Cheverine</skos:altLabel>
+	<skos:altLabel>Manjacaze</skos:altLabel>
+	<skos:altLabel>Vila de Manjacaze</skos:altLabel>
+	<skos:prefLabel>Manjacaze</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1040946/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-19</wgs:lat>
+	<wgs:long>34</wgs:long>
+	<skos:altLabel>Distrito de Manica e Sofala</skos:altLabel>
+	<skos:altLabel>Provinca de Manica e Sofala</skos:altLabel>
+	<skos:prefLabel>Distrito de Manica e Sofala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1040947/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-19</wgs:lat>
+	<wgs:long>33.5</wgs:long>
+	<skos:altLabel>Distrito de Vila Pery</skos:altLabel>
+	<skos:altLabel>Manica</skos:altLabel>
+	<skos:altLabel>Província de Manica</skos:altLabel>
+	<skos:prefLabel>Província de Manica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1040948/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-19.5</wgs:lat>
+	<wgs:long>33</wgs:long>
+	<skos:prefLabel>Concelho de Manica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1040988/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-25.25194</wgs:lat>
+	<wgs:long>32.74972</wgs:long>
+	<skos:prefLabel>Concelho de Manhiça</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1041189/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14</wgs:lat>
+	<wgs:long>35.75</wgs:long>
+	<skos:prefLabel>Circunscrição de Mandimba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1041199/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.14167</wgs:lat>
+	<wgs:long>35.53056</wgs:long>
+	<skos:altLabel>Ilha Madgenga</skos:altLabel>
+	<skos:altLabel>Ilha Mandenga</skos:altLabel>
+	<skos:altLabel>Ilha Tumbulene</skos:altLabel>
+	<skos:prefLabel>Ilha Mandenga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1041330/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.55</wgs:lat>
+	<wgs:long>40.83333</wgs:long>
+	<skos:altLabel>Ilha Malunculo</skos:altLabel>
+	<skos:altLabel>Ilha Malungulo</skos:altLabel>
+	<skos:prefLabel>Ilha Malungulo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1041479/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.75</wgs:lat>
+	<wgs:long>37.25</wgs:long>
+	<skos:prefLabel>Circunscrição de Malema</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1041576/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.28333</wgs:lat>
+	<wgs:long>39.86667</wgs:long>
+	<skos:prefLabel>Malacone</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1041912/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-16</wgs:lat>
+	<wgs:long>32</wgs:long>
+	<skos:altLabel xml:lang="pt">Circunscrição de Màgoé</skos:altLabel>
+	<skos:prefLabel>Circunscrição de Màgoé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1041965/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.96639</wgs:lat>
+	<wgs:long>35.43028</wgs:long>
+	<skos:altLabel>Ilha Magaruque</skos:altLabel>
+	<skos:altLabel>Ilha Maráruque</skos:altLabel>
+	<skos:altLabel>Ilha Santa Isabel</skos:altLabel>
+	<skos:altLabel>Santa Isabel</skos:altLabel>
+	<skos:altLabel>Xeqine</skos:altLabel>
+	<skos:prefLabel>Ilha Santa Isabel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1042053/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.35222</wgs:lat>
+	<wgs:long>40.03528</wgs:long>
+	<skos:prefLabel>Ilha de Mafamede</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1042449/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-12</wgs:lat>
+	<wgs:long>39</wgs:long>
+	<skos:prefLabel>Circunscrição dos Macondes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1042455/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-12</wgs:lat>
+	<wgs:long>40.25</wgs:long>
+	<skos:altLabel>Circunscrição de Macomia</skos:altLabel>
+	<skos:altLabel>Mucojo</skos:altLabel>
+	<skos:prefLabel>Circunscrição de Macomia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1042796/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.93278</wgs:lat>
+	<wgs:long>35.08528</wgs:long>
+	<skos:prefLabel>Ilha Macau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1042799/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.53472</wgs:lat>
+	<wgs:long>33.39806</wgs:long>
+	<skos:prefLabel>Ilha Macatrina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1042858/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-11.56667</wgs:lat>
+	<wgs:long>36.81278</wgs:long>
+	<skos:prefLabel>Ilha Macanha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1042871/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-15</wgs:lat>
+	<wgs:long>33.5</wgs:long>
+	<skos:prefLabel>Circunscrição da Macanga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1042913/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-11.98306</wgs:lat>
+	<wgs:long>40.58333</wgs:long>
+	<skos:altLabel>Ilha Macalde</skos:altLabel>
+	<skos:altLabel>Ilha Macaloé</skos:altLabel>
+	<skos:altLabel>Ilha Mahato</skos:altLabel>
+	<skos:prefLabel>Ilha Macaloé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1043228/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.13806</wgs:lat>
+	<wgs:long>35.52278</wgs:long>
+	<skos:altLabel>Ilha Lenene</skos:altLabel>
+	<skos:altLabel>Ilha Lunene</skos:altLabel>
+	<skos:altLabel>Ilha Zunene</skos:altLabel>
+	<skos:prefLabel>Ilha Lenene</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1043469/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-25.91667</wgs:lat>
+	<wgs:long>32.58333</wgs:long>
+	<skos:prefLabel>Concelho de Lourenço Marques</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1043539/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.91667</wgs:lat>
+	<wgs:long>39.13333</wgs:long>
+	<skos:prefLabel>Livula</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1043547/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-11.6125</wgs:lat>
+	<wgs:long>37.54056</wgs:long>
+	<skos:altLabel>Ilha Livexa</skos:altLabel>
+	<skos:altLabel>Ilha Liveza</skos:altLabel>
+	<skos:prefLabel>Ilha Livexa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1043667/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-11.34389</wgs:lat>
+	<wgs:long>40.38417</wgs:long>
+	<skos:altLabel>Ilha Lipulala</skos:altLabel>
+	<skos:altLabel>Ilha Lipulula</skos:altLabel>
+	<skos:prefLabel>Ilha Lipulula</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1043737/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-22.5</wgs:lat>
+	<wgs:long>32.5</wgs:long>
+	<skos:altLabel>Alto Limpopo</skos:altLabel>
+	<skos:altLabel>Circunscrição do Limpopo</skos:altLabel>
+	<skos:prefLabel>Circunscrição do Limpopo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1043739/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-25.69278</wgs:lat>
+	<wgs:long>32.69444</wgs:long>
+	<skos:prefLabel>Ilha dos Limões</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1043893/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>109839</europeana:population>
+	<wgs:lat>-13.31278</wgs:lat>
+	<wgs:long>35.24056</wgs:long>
+	<skos:altLabel xml:lang="es">Lichinga</skos:altLabel>
+	<skos:altLabel xml:lang="en">Lichinga</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Lichinga</skos:altLabel>
+	<skos:altLabel xml:lang="de">Lichinga</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Lichinga</skos:altLabel>
+	<skos:altLabel xml:lang="no">Lichinga</skos:altLabel>
+	<skos:altLabel>Lichinga</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Lišinga</skos:altLabel>
+	<skos:altLabel>Vila Cabral</skos:altLabel>
+	<skos:altLabel xml:lang="zh">利欣加</skos:altLabel>
+	<skos:prefLabel>Lichinga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1043951/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-11</wgs:lat>
+	<wgs:long>40.53333</wgs:long>
+	<skos:prefLabel>Ilha Letumba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1044149/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-12.25</wgs:lat>
+	<wgs:long>35</wgs:long>
+	<skos:prefLabel>Circunscrição de Lago</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1044180/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-11.63333</wgs:lat>
+	<wgs:long>40.56667</wgs:long>
+	<skos:altLabel>Ilha Kero Niuni</skos:altLabel>
+	<skos:altLabel>Kero Nyuni</skos:altLabel>
+	<skos:altLabel>Zanga Island</skos:altLabel>
+	<skos:prefLabel>Ilha Kero Niuni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1044768/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.86306</wgs:lat>
+	<wgs:long>40.8275</wgs:long>
+	<skos:altLabel>Ilha Jamala</skos:altLabel>
+	<skos:altLabel>Ilha Jamáli</skos:altLabel>
+	<skos:altLabel>Ilha Quitangonha</skos:altLabel>
+	<skos:prefLabel>Ilha Quitangonha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1044831/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.12611</wgs:lat>
+	<wgs:long>38.54528</wgs:long>
+	<skos:prefLabel>Ilha Iuse</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1044906/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.69056</wgs:lat>
+	<wgs:long>37.10889</wgs:long>
+	<skos:altLabel>Ilha Ionge</skos:altLabel>
+	<skos:altLabel>Ilha Ionje</skos:altLabel>
+	<skos:prefLabel>Ilha Ionge</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1044956/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.00944</wgs:lat>
+	<wgs:long>40.77361</wgs:long>
+	<skos:prefLabel>Ilha Injaca Pequena</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1044957/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.99889</wgs:lat>
+	<wgs:long>40.8</wgs:long>
+	<skos:altLabel>Ilha Inhaca</skos:altLabel>
+	<skos:altLabel>Ilha Injaca</skos:altLabel>
+	<skos:altLabel>Ilha Injaco</skos:altLabel>
+	<skos:prefLabel>Ilha Injaca</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1045034/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.87833</wgs:lat>
+	<wgs:long>36.22944</wgs:long>
+	<skos:prefLabel>Ilha Inhangurué</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1045044/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.43194</wgs:lat>
+	<wgs:long>35.21111</wgs:long>
+	<skos:prefLabel>Ilha de Inhangoma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1045052/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.93361</wgs:lat>
+	<wgs:long>35.12778</wgs:long>
+	<skos:altLabel>Ilha Inhanduje</skos:altLabel>
+	<skos:altLabel>Ilha Inhandunge</skos:altLabel>
+	<skos:altLabel>Ilha Nhanduje</skos:altLabel>
+	<skos:prefLabel>Ilha Nhanduje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1045110/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1371712</europeana:population>
+	<wgs:lat>-23</wgs:lat>
+	<wgs:long>34.5</wgs:long>
+	<skos:altLabel>Distrito de Inhambane</skos:altLabel>
+	<skos:altLabel>Inhambane</skos:altLabel>
+	<skos:altLabel>Intendência de Inhambane</skos:altLabel>
+	<skos:altLabel>Província de Inhambane</skos:altLabel>
+	<skos:prefLabel>Província de Inhambane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1045114/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>73884</europeana:population>
+	<wgs:lat>-23.865</wgs:lat>
+	<wgs:long>35.38333</wgs:long>
+	<skos:altLabel xml:lang="de">Inhambane</skos:altLabel>
+	<skos:altLabel xml:lang="en">Inhambane</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Inhambane</skos:altLabel>
+	<skos:altLabel xml:lang="es">Inhambane</skos:altLabel>
+	<skos:altLabel xml:lang="no">Inhambane</skos:altLabel>
+	<skos:altLabel>Inhambane</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Иньямбане</skos:altLabel>
+	<skos:prefLabel>Inhambane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1045156/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.66444</wgs:lat>
+	<wgs:long>34.96222</wgs:long>
+	<skos:altLabel>Ilha Inhaguaia</skos:altLabel>
+	<skos:altLabel>Ilha Inhanguaia</skos:altLabel>
+	<skos:prefLabel>Ilha Inhanguaia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1045184/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.48333</wgs:lat>
+	<wgs:long>30.38333</wgs:long>
+	<skos:altLabel>Ilha Inhacatenga</skos:altLabel>
+	<skos:prefLabel>Ilha Inhacatenga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1045186/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.66806</wgs:lat>
+	<wgs:long>36.30167</wgs:long>
+	<skos:altLabel>Ilha Inhacamba</skos:altLabel>
+	<skos:altLabel>Ilha Inhacombe</skos:altLabel>
+	<skos:prefLabel>Ilha Inhacamba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1045187/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-26.02778</wgs:lat>
+	<wgs:long>32.90444</wgs:long>
+	<skos:altLabel>Ilha Inhica</skos:altLabel>
+	<skos:altLabel>Ilha da Inhaca</skos:altLabel>
+	<skos:altLabel>Inyak Island</skos:altLabel>
+	<skos:altLabel>Isla da Inhaca</skos:altLabel>
+	<skos:prefLabel>Ilha da Inhaca</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1045251/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.51667</wgs:lat>
+	<wgs:long>40.55</wgs:long>
+	<skos:altLabel>Barra Infusse</skos:altLabel>
+	<skos:altLabel>Ilha Infusse</skos:altLabel>
+	<skos:prefLabel>Ilha Infusse</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1045296/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-25.67056</wgs:lat>
+	<wgs:long>32.69083</wgs:long>
+	<skos:prefLabel>Ilha de Incanine</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1045340/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.5</wgs:lat>
+	<wgs:long>39</wgs:long>
+	<skos:prefLabel>Circunscrição de Imala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1045344/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.09333</wgs:lat>
+	<wgs:long>36.80028</wgs:long>
+	<skos:altLabel>Ilha Iluane</skos:altLabel>
+	<skos:altLabel>Ilha de Iluane</skos:altLabel>
+	<skos:prefLabel>Ilha Iluane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1045351/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-16.25</wgs:lat>
+	<wgs:long>37.5</wgs:long>
+	<skos:prefLabel>Circunscrição do Ile</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1045366/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.73167</wgs:lat>
+	<wgs:long>37.14056</wgs:long>
+	<skos:prefLabel>Ilha Idugo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1045382/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.34278</wgs:lat>
+	<wgs:long>40.6075</wgs:long>
+	<skos:prefLabel>Ilha do Ibo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1045383/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-12.33333</wgs:lat>
+	<wgs:long>40.46667</wgs:long>
+	<skos:prefLabel>Concelho do Ibo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1045634/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.84083</wgs:lat>
+	<wgs:long>35.40167</wgs:long>
+	<skos:altLabel>Ilha Guidjavane</skos:altLabel>
+	<skos:altLabel>Ilha de Guidjavane</skos:altLabel>
+	<skos:prefLabel>Ilha de Guidjavane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1045762/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-22</wgs:lat>
+	<wgs:long>34</wgs:long>
+	<skos:altLabel>Circunscrição do Govuro</skos:altLabel>
+	<skos:altLabel>Covuro</skos:altLabel>
+	<skos:prefLabel>Circunscrição do Govuro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1045789/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-18.5</wgs:lat>
+	<wgs:long>34.25</wgs:long>
+	<skos:altLabel>Circunscrição da Gorongosa</skos:altLabel>
+	<skos:altLabel>Gorongoza</skos:altLabel>
+	<skos:prefLabel>Circunscrição da Gorongosa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1045862/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.32417</wgs:lat>
+	<wgs:long>40.73944</wgs:long>
+	<skos:altLabel>Gomen</skos:altLabel>
+	<skos:altLabel>Ilha Gomen</skos:altLabel>
+	<skos:altLabel>Ilha Gomene</skos:altLabel>
+	<skos:prefLabel>Ilha Gomene</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1045955/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.05417</wgs:lat>
+	<wgs:long>40.78222</wgs:long>
+	<skos:altLabel>Ilha São Jorge</skos:altLabel>
+	<skos:altLabel>Ilha de Goa</skos:altLabel>
+	<skos:prefLabel>Ilha de Goa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1046058/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-23.5</wgs:lat>
+	<wgs:long>33</wgs:long>
+	<skos:altLabel>Distrito de Gaza</skos:altLabel>
+	<skos:altLabel>Gaza</skos:altLabel>
+	<skos:altLabel>Intendência de Gaza</skos:altLabel>
+	<skos:altLabel>Província de Gaza</skos:altLabel>
+	<skos:prefLabel>Província de Gaza</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1046059/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-25</wgs:lat>
+	<wgs:long>33.66667</wgs:long>
+	<skos:prefLabel>Concelho de Gaza</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1046077/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.95194</wgs:lat>
+	<wgs:long>34.80611</wgs:long>
+	<skos:prefLabel>Ilha Gatamane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1046132/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-12.53333</wgs:lat>
+	<wgs:long>40.61667</wgs:long>
+	<skos:altLabel>Gamba</skos:altLabel>
+	<skos:altLabel>Quisirua Gamba</skos:altLabel>
+	<skos:prefLabel>Gamba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1046165/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.20306</wgs:lat>
+	<wgs:long>35.61833</wgs:long>
+	<skos:prefLabel>Ilha Gaga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1046226/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.74722</wgs:lat>
+	<wgs:long>36.23944</wgs:long>
+	<skos:altLabel>Ilha Fumar</skos:altLabel>
+	<skos:altLabel>Ilha Fumbir</skos:altLabel>
+	<skos:prefLabel>Ilha Fumar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1046310/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.23306</wgs:lat>
+	<wgs:long>38.87778</wgs:long>
+	<skos:prefLabel>Ilha do Fogo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1046324/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.36667</wgs:lat>
+	<wgs:long>40.53333</wgs:long>
+	<skos:prefLabel>Ilha Fion</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1046356/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.75</wgs:lat>
+	<wgs:long>40.75</wgs:long>
+	<skos:prefLabel>Concelho de Fernão Veloso</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1046627/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14</wgs:lat>
+	<wgs:long>39.75</wgs:long>
+	<skos:prefLabel>Circunscrição do Eráti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1046640/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.1</wgs:lat>
+	<wgs:long>39.11667</wgs:long>
+	<skos:prefLabel>Ilha Epidendron</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1046815/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.15528</wgs:lat>
+	<wgs:long>35.65611</wgs:long>
+	<skos:prefLabel>Ilha Dumba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1046840/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.65028</wgs:lat>
+	<wgs:long>35.19083</wgs:long>
+	<skos:prefLabel>Ilha Ducuta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1046878/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.66667</wgs:lat>
+	<wgs:long>36.2</wgs:long>
+	<skos:prefLabel>Ilha Dôto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1046915/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-19.25</wgs:lat>
+	<wgs:long>34.25</wgs:long>
+	<skos:prefLabel>Concelho de Dondo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1047166/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.95528</wgs:lat>
+	<wgs:long>35.48028</wgs:long>
+	<skos:prefLabel>Ilha Dembe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1047182/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-11.8175</wgs:lat>
+	<wgs:long>40.60167</wgs:long>
+	<skos:altLabel>Ilha Dejumbe</skos:altLabel>
+	<skos:altLabel>Ilha Djumbe</skos:altLabel>
+	<skos:altLabel>Ilha Mattos</skos:altLabel>
+	<skos:altLabel>Ilha Medjumbe</skos:altLabel>
+	<skos:altLabel>Ilha Medjumbi</skos:altLabel>
+	<skos:altLabel>Ilha M’Djumbe</skos:altLabel>
+	<skos:altLabel>Mjumbi</skos:altLabel>
+	<skos:prefLabel>Ilha Dejumbe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1047199/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.2225</wgs:lat>
+	<wgs:long>36.815</wgs:long>
+	<skos:prefLabel>Ilha Deia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1047456/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.13333</wgs:lat>
+	<wgs:long>35.88333</wgs:long>
+	<skos:prefLabel>Ilha Cunguni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1047641/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.68528</wgs:lat>
+	<wgs:long>34.22944</wgs:long>
+	<skos:prefLabel>Ilha Cuassa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1047660/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>73268</europeana:population>
+	<wgs:lat>-14.80306</wgs:lat>
+	<wgs:long>36.53722</wgs:long>
+	<skos:altLabel xml:lang="de">Cuamba</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Cuamba</skos:altLabel>
+	<skos:altLabel xml:lang="en">Cuamba</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Cuamba</skos:altLabel>
+	<skos:altLabel>Cuamba</skos:altLabel>
+	<skos:altLabel>Cuanda</skos:altLabel>
+	<skos:altLabel>Guamba</skos:altLabel>
+	<skos:altLabel>Kwamba</skos:altLabel>
+	<skos:altLabel>Mucuamba</skos:altLabel>
+	<skos:altLabel>Mukwamba</skos:altLabel>
+	<skos:altLabel>Nova Freixo</skos:altLabel>
+	<skos:altLabel xml:lang="zh">库安巴</skos:altLabel>
+	<skos:altLabel xml:lang="zh">誇姆巴</skos:altLabel>
+	<skos:prefLabel>Cuamba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1047685/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.79556</wgs:lat>
+	<wgs:long>40.83722</wgs:long>
+	<skos:prefLabel>Ilha Crusse</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1047779/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.18528</wgs:lat>
+	<wgs:long>38.94278</wgs:long>
+	<skos:prefLabel>Ilha Coroa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1047844/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-11.27667</wgs:lat>
+	<wgs:long>40.50611</wgs:long>
+	<skos:prefLabel>Ilha Congo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1047915/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.21889</wgs:lat>
+	<wgs:long>34.73833</wgs:long>
+	<skos:prefLabel>Ilha Cômo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1047926/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-10.83861</wgs:lat>
+	<wgs:long>40.64722</wgs:long>
+	<skos:prefLabel>Ilha Comezi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1048329/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.73389</wgs:lat>
+	<wgs:long>34.74528</wgs:long>
+	<skos:prefLabel>Ilha Chongorgue</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1048330/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-11.61667</wgs:lat>
+	<wgs:long>37.55472</wgs:long>
+	<skos:altLabel>Ilha Chogolombe</skos:altLabel>
+	<skos:altLabel>Ilha Chongolombé</skos:altLabel>
+	<skos:prefLabel>Ilha Chogolombe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1048364/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>63695</europeana:population>
+	<wgs:lat>-24.53333</wgs:lat>
+	<wgs:long>32.98333</wgs:long>
+	<skos:altLabel>Chokué</skos:altLabel>
+	<skos:altLabel xml:lang="en">Chokwé</skos:altLabel>
+	<skos:altLabel>Chokwé</skos:altLabel>
+	<skos:altLabel>Choque</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Chókwè</skos:altLabel>
+	<skos:altLabel>Trigo Morais</skos:altLabel>
+	<skos:altLabel>Trigo de Morais</skos:altLabel>
+	<skos:altLabel>Vila Trigo de Morais</skos:altLabel>
+	<skos:prefLabel>Chokwé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1048736/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.77722</wgs:lat>
+	<wgs:long>34.76194</wgs:long>
+	<skos:prefLabel>Ilha Chissanga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1049030/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.91472</wgs:lat>
+	<wgs:long>34.66528</wgs:long>
+	<skos:prefLabel>Ilha Chipafa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1049116/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.12778</wgs:lat>
+	<wgs:long>34.92139</wgs:long>
+	<skos:prefLabel>Ilha Chinguingue</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1049181/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-18.5</wgs:lat>
+	<wgs:long>36.25</wgs:long>
+	<skos:prefLabel>Concelho do Chinde</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1049204/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.08333</wgs:lat>
+	<wgs:long>34.88333</wgs:long>
+	<skos:altLabel>Ilha Chinanaxi</skos:altLabel>
+	<skos:altLabel>Ilha Chinanazi</skos:altLabel>
+	<skos:prefLabel>Ilha Chinanazi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1049260/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-19</wgs:lat>
+	<wgs:long>33.5</wgs:long>
+	<skos:prefLabel>Concelho do Chimoio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1049261/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>256936</europeana:population>
+	<wgs:lat>-19.11639</wgs:lat>
+	<wgs:long>33.48333</wgs:long>
+	<skos:altLabel>Chimoio</skos:altLabel>
+	<skos:altLabel>Chimoyo</skos:altLabel>
+	<skos:altLabel>Vila Pery</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Шимойо</skos:altLabel>
+	<skos:prefLabel>Chimoio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1049349/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.17667</wgs:lat>
+	<wgs:long>35.52361</wgs:long>
+	<skos:altLabel>Ilha Chilonzuene</skos:altLabel>
+	<skos:altLabel>Ilha Chilonzuíne</skos:altLabel>
+	<skos:altLabel>Ilha Chirundure</skos:altLabel>
+	<skos:prefLabel>Ilha Chilonzuíne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1049362/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.64556</wgs:lat>
+	<wgs:long>34.92</wgs:long>
+	<skos:altLabel>Ilha Chiloane</skos:altLabel>
+	<skos:altLabel>Ilhas de Chiluane</skos:altLabel>
+	<skos:prefLabel>Ilha Chiloane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1049450/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.73417</wgs:lat>
+	<wgs:long>34.46028</wgs:long>
+	<skos:altLabel>Ilha Chigomba</skos:altLabel>
+	<skos:altLabel>Ilha Chigombe</skos:altLabel>
+	<skos:prefLabel>Ilha Chigomba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1049456/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.65</wgs:lat>
+	<wgs:long>34.94222</wgs:long>
+	<skos:altLabel>Ilha Chigogori</skos:altLabel>
+	<skos:altLabel>Ilha Chigogoro</skos:altLabel>
+	<skos:prefLabel>Ilha Chigogori</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1049535/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.06222</wgs:lat>
+	<wgs:long>35.08972</wgs:long>
+	<skos:prefLabel>Ilha Chidica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1049858/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-24.25</wgs:lat>
+	<wgs:long>33.5</wgs:long>
+	<skos:prefLabel>Concelho do Chibuto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1049861/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>59165</europeana:population>
+	<wgs:lat>-24.68667</wgs:lat>
+	<wgs:long>33.53056</wgs:long>
+	<skos:altLabel>Chibuto</skos:altLabel>
+	<skos:altLabel>Vila do Chibuto</skos:altLabel>
+	<skos:prefLabel>Chibuto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1050020/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-19</wgs:lat>
+	<wgs:long>35</wgs:long>
+	<skos:prefLabel>Concelho de Cheringoma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1050066/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-11.305</wgs:lat>
+	<wgs:long>37.85528</wgs:long>
+	<skos:altLabel>Ilha Chengam</skos:altLabel>
+	<skos:altLabel>Ilha Chengamoto</skos:altLabel>
+	<skos:prefLabel>Ilha Chengam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1050892/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.11667</wgs:lat>
+	<wgs:long>39.06667</wgs:long>
+	<skos:prefLabel>Ilha Casuarina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1051226/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-24</wgs:lat>
+	<wgs:long>32.5</wgs:long>
+	<skos:prefLabel>Circunscrição de Caniçado</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1051515/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.81333</wgs:lat>
+	<wgs:long>35.39972</wgs:long>
+	<skos:prefLabel>Ilha Cama</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1051532/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.47806</wgs:lat>
+	<wgs:long>35.07083</wgs:long>
+	<skos:prefLabel>Ilha Caluco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1051587/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.61611</wgs:lat>
+	<wgs:long>39.72722</wgs:long>
+	<skos:prefLabel>Ilha Caldeira</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1051823/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1583884</europeana:population>
+	<wgs:lat>-12.5</wgs:lat>
+	<wgs:long>39</wgs:long>
+	<skos:altLabel>Cabo Delgado</skos:altLabel>
+	<skos:altLabel>Distrito de Cabo Delgado</skos:altLabel>
+	<skos:altLabel>Intendência de Cabo Delgado</skos:altLabel>
+	<skos:altLabel>Província de Cabo Delgado</skos:altLabel>
+	<skos:prefLabel>Província de Cabo Delgado</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1051849/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.275</wgs:lat>
+	<wgs:long>39.94778</wgs:long>
+	<skos:altLabel>Ilha Buzlo</skos:altLabel>
+	<skos:altLabel>Ilha do Búzio</skos:altLabel>
+	<skos:prefLabel>Ilha do Búzio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1051852/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-20</wgs:lat>
+	<wgs:long>34.25</wgs:long>
+	<skos:prefLabel>Concelho do Búzi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1051953/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.45972</wgs:lat>
+	<wgs:long>34.68667</wgs:long>
+	<skos:prefLabel>Ilha Buene</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1052260/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-25.16667</wgs:lat>
+	<wgs:long>33.16667</wgs:long>
+	<skos:prefLabel>Concelho do Bilene</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1052327/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.87083</wgs:lat>
+	<wgs:long>35.44194</wgs:long>
+	<skos:altLabel>Ilha Benguérua</skos:altLabel>
+	<skos:altLabel>Ilha de Santo António</skos:altLabel>
+	<skos:prefLabel>Ilha de Santo António</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1052332/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-25.78306</wgs:lat>
+	<wgs:long>32.70667</wgs:long>
+	<skos:altLabel>Ilha Bengalena</skos:altLabel>
+	<skos:altLabel>Ilha Bengalene</skos:altLabel>
+	<skos:prefLabel>Ilha Bengalena</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1052372/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-19.75</wgs:lat>
+	<wgs:long>35</wgs:long>
+	<skos:prefLabel>Concelho da Beira</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1052373/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>530604</europeana:population>
+	<wgs:lat>-19.84361</wgs:lat>
+	<wgs:long>34.83889</wgs:long>
+	<skos:altLabel xml:lang="id">Beira</skos:altLabel>
+	<skos:altLabel xml:lang="de">Beira</skos:altLabel>
+	<skos:altLabel xml:lang="af">Beira</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Beira</skos:altLabel>
+	<skos:altLabel xml:lang="it">Beira</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Beira</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Beira</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Beira</skos:altLabel>
+	<skos:altLabel xml:lang="en">Beira</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Beira</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Beira</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Beira</skos:altLabel>
+	<skos:altLabel xml:lang="no">Beira</skos:altLabel>
+	<skos:altLabel>Beira</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бейра</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ベイラ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">贝拉</skos:altLabel>
+	<skos:prefLabel>Beira</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1052387/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.66278</wgs:lat>
+	<wgs:long>35.46778</wgs:long>
+	<skos:altLabel>Ilha do Bazaruto</skos:altLabel>
+	<skos:prefLabel>Ilha do Bazaruto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1052446/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-17.5</wgs:lat>
+	<wgs:long>33.5</wgs:long>
+	<skos:prefLabel>Circunscrição do Báruè</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1052449/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.17556</wgs:lat>
+	<wgs:long>35.12667</wgs:long>
+	<skos:prefLabel>Ilha Bartolomeu Dias</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1052506/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.03889</wgs:lat>
+	<wgs:long>35.45278</wgs:long>
+	<skos:altLabel>Ilha Bango</skos:altLabel>
+	<skos:altLabel>Ilha Bangue</skos:altLabel>
+	<skos:prefLabel>Ilha Bangue</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1052863/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-16.08333</wgs:lat>
+	<wgs:long>39.83333</wgs:long>
+	<skos:prefLabel>Concelho de António Enes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1052937/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.75</wgs:lat>
+	<wgs:long>34.25</wgs:long>
+	<skos:prefLabel>Circunscrição da Angónia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1052942/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-16.54806</wgs:lat>
+	<wgs:long>39.81944</wgs:long>
+	<skos:prefLabel>Ilhas de Angoche</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1052943/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.33333</wgs:lat>
+	<wgs:long>39.85</wgs:long>
+	<skos:prefLabel>Ilha Angoche</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1052944/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>74624</europeana:population>
+	<wgs:lat>-16.2325</wgs:lat>
+	<wgs:long>39.90861</wgs:long>
+	<skos:altLabel>Angoche</skos:altLabel>
+	<skos:altLabel xml:lang="en">Angoche</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Angoche</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Angoche</skos:altLabel>
+	<skos:altLabel>Antonio Engs</skos:altLabel>
+	<skos:altLabel>Antonio Ennes</skos:altLabel>
+	<skos:altLabel>António Enes</skos:altLabel>
+	<skos:altLabel>Vila de António Enes</skos:altLabel>
+	<skos:prefLabel>António Enes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1052993/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.54167</wgs:lat>
+	<wgs:long>40.84389</wgs:long>
+	<skos:altLabel>Ilha Ancuasi</skos:altLabel>
+	<skos:altLabel>Ilha Ancuaze</skos:altLabel>
+	<skos:altLabel>Ilha Ancuazi</skos:altLabel>
+	<skos:prefLabel>Ilha Ancuaze</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1053021/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.55</wgs:lat>
+	<wgs:long>40.83333</wgs:long>
+	<skos:prefLabel>Ilha Ampite</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1053030/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.61556</wgs:lat>
+	<wgs:long>36.25639</wgs:long>
+	<skos:altLabel>Ilha De Amores</skos:altLabel>
+	<skos:altLabel>Ilha dos Amores</skos:altLabel>
+	<skos:prefLabel>Ilha De Amores</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1053142/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-15.75</wgs:lat>
+	<wgs:long>38</wgs:long>
+	<skos:prefLabel>Circunscrição do Alto Molócuè</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1088155/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>30523</europeana:population>
+	<wgs:lat>-14.87056</wgs:lat>
+	<wgs:long>37.00444</wgs:long>
+	<skos:prefLabel>Mutuáli</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1088820/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.10944</wgs:lat>
+	<wgs:long>40.62444</wgs:long>
+	<skos:prefLabel>Ilha Namanf</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1089189/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.08056</wgs:lat>
+	<wgs:long>30.24333</wgs:long>
+	<skos:prefLabel>Niazawe Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1090030/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-25.52556</wgs:lat>
+	<wgs:long>32.7725</wgs:long>
+	<skos:prefLabel>Ilha Chilembene</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1090055/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLT"/>
+	<wgs:lat>-15.05139</wgs:lat>
+	<wgs:long>40.73083</wgs:long>
+	<skos:altLabel>Ilhea de São Lourenço</skos:altLabel>
+	<skos:altLabel>Ilheu de São Lourenço</skos:altLabel>
+	<skos:prefLabel>Ilhea de São Lourenço</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1090057/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.0375</wgs:lat>
+	<wgs:long>40.73167</wgs:long>
+	<skos:altLabel>Ilha de Moçambique</skos:altLabel>
+	<skos:prefLabel>Ilha de Moçambique</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1094677/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.12361</wgs:lat>
+	<wgs:long>34.89167</wgs:long>
+	<skos:prefLabel>Ilha Cunguni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1094816/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.34028</wgs:lat>
+	<wgs:long>34.99806</wgs:long>
+	<skos:prefLabel>Ilha Nhanserere</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1095385/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.34583</wgs:lat>
+	<wgs:long>39.85639</wgs:long>
+	<skos:prefLabel>Ilha Quilua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1096082/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.94611</wgs:lat>
+	<wgs:long>36.9075</wgs:long>
+	<skos:prefLabel>Ilha Dos Bons Sinais</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1096192/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.87528</wgs:lat>
+	<wgs:long>36.11</wgs:long>
+	<skos:prefLabel>Ilha Inhamissengo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1096400/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.0175</wgs:lat>
+	<wgs:long>36.92306</wgs:long>
+	<skos:prefLabel>Marinhos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1097945/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-24.67667</wgs:lat>
+	<wgs:long>33.46111</wgs:long>
+	<skos:prefLabel>Monumento de Macontene</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1099312/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-25.30333</wgs:lat>
+	<wgs:long>33.25583</wgs:long>
+	<skos:prefLabel>Ilha dos Flamingos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1100302/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.1325</wgs:lat>
+	<wgs:long>35.54306</wgs:long>
+	<skos:prefLabel>Ilha Muvabane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1105539/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-25.01222</wgs:lat>
+	<wgs:long>32.93056</wgs:long>
+	<skos:prefLabel>Ilha Sichalo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1105845/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-25.96528</wgs:lat>
+	<wgs:long>32.58917</wgs:long>
+	<skos:altLabel>Cidade de Maputo</skos:altLabel>
+	<skos:altLabel>Maputo</skos:altLabel>
+	<skos:prefLabel>Cidade de Maputo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6942077/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-12.522</wgs:lat>
+	<wgs:long>40.044</wgs:long>
+	<skos:prefLabel>Quirimbas Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6942134/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-21.63333</wgs:lat>
+	<wgs:long>35.5</wgs:long>
+	<skos:prefLabel>Bazaruto Archipelago</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7646374/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1040947/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-19.15</wgs:lat>
+	<wgs:long>33.66</wgs:long>
+	<skos:prefLabel>Gondola</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7646427/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1036973/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1051823/"/>
+	<europeana:country>MZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-12.89803</wgs:lat>
+	<wgs:long>40.32357</wgs:long>
+	<skos:prefLabel>Pemba</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 347 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

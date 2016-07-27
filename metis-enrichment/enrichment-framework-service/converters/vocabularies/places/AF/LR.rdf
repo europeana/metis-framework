@@ -1,0 +1,2233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AF_LR
+Description: Selected fields pulled from Geonames about LR done on Mon May 23 21:16:17 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/2272491/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>25678</europeana:population>
+	<wgs:lat>6.06667</wgs:lat>
+	<wgs:long>-8.12806</wgs:long>
+	<skos:altLabel>Tchien</skos:altLabel>
+	<skos:altLabel>Zwadhru</skos:altLabel>
+	<skos:altLabel>Zwedru</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Зведру</skos:altLabel>
+	<skos:prefLabel>Zwedru</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2272496/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.28333</wgs:lat>
+	<wgs:long>-10.71667</wgs:long>
+	<skos:prefLabel>Zuwa Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2272532/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2278292/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.25</wgs:lat>
+	<wgs:long>-9.41667</wgs:long>
+	<skos:prefLabel>Zota</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2272565/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2274688/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.86667</wgs:lat>
+	<wgs:long>-8.5</wgs:long>
+	<skos:prefLabel>Zo-Ge</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2272790/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>24695</europeana:population>
+	<wgs:lat>7.57944</wgs:lat>
+	<wgs:long>-8.53778</wgs:long>
+	<skos:altLabel>Lamco</skos:altLabel>
+	<skos:altLabel>Lamco Community</skos:altLabel>
+	<skos:altLabel>New Yekepa</skos:altLabel>
+	<skos:altLabel>Yekepa</skos:altLabel>
+	<skos:prefLabel>New Yekepa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2272794/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275099/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.66667</wgs:lat>
+	<wgs:long>-7.66667</wgs:long>
+	<skos:prefLabel>Yederabo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2272804/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2274688/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.58333</wgs:lat>
+	<wgs:long>-9</wgs:long>
+	<skos:prefLabel>Yawein-Mesono</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2273181/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2273898/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.5</wgs:lat>
+	<wgs:long>-8.41667</wgs:long>
+	<skos:prefLabel>Wedjah-Cabade</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2273186/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2593120/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.91667</wgs:lat>
+	<wgs:long>-7.66667</wgs:long>
+	<skos:prefLabel>Webo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2273190/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2588490/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.58333</wgs:lat>
+	<wgs:long>-8.08333</wgs:long>
+	<skos:altLabel>Webado</skos:altLabel>
+	<skos:altLabel>Wedabo</skos:altLabel>
+	<skos:prefLabel>Webado</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2273272/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275344/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>8.36528</wgs:lat>
+	<wgs:long>-9.59722</wgs:long>
+	<skos:prefLabel>Waiglomai-Woniglomai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2273312/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>26594</europeana:population>
+	<wgs:lat>8.42194</wgs:lat>
+	<wgs:long>-9.74778</wgs:long>
+	<skos:altLabel>Voinjama</skos:altLabel>
+	<skos:altLabel>Voinyamai</skos:altLabel>
+	<skos:altLabel>Vonjama</skos:altLabel>
+	<skos:prefLabel>Voinjama</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2273404/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275099/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.75</wgs:lat>
+	<wgs:long>-7.66667</wgs:long>
+	<skos:prefLabel>Tuobo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2273443/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2593120/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.01278</wgs:lat>
+	<wgs:long>-7.71333</wgs:long>
+	<skos:altLabel>Tuabo</skos:altLabel>
+	<skos:altLabel>Tuobo</skos:altLabel>
+	<skos:prefLabel>Tuobo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2273473/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2273898/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.33333</wgs:lat>
+	<wgs:long>-9.33333</wgs:long>
+	<skos:prefLabel>Toto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2273482/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2273898/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5</wgs:lat>
+	<wgs:long>-8.31667</wgs:long>
+	<skos:prefLabel>Topo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2273511/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2276627/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.66667</wgs:lat>
+	<wgs:long>-11.25</wgs:long>
+	<skos:prefLabel>Tombe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2273524/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.95</wgs:lat>
+	<wgs:long>-10.05</wgs:long>
+	<skos:prefLabel>Tokpo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2273549/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2274890/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.58333</wgs:lat>
+	<wgs:long>-10.41667</wgs:long>
+	<skos:prefLabel>Todi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2273576/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.965</wgs:lat>
+	<wgs:long>-10.25222</wgs:long>
+	<skos:prefLabel>Tingsu Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2273578/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.68333</wgs:lat>
+	<wgs:long>-10.6</wgs:long>
+	<skos:prefLabel>Ting Nyajo Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2273579/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.7</wgs:lat>
+	<wgs:long>-10.6</wgs:long>
+	<skos:prefLabel>Ting Mamu Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2273582/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.6</wgs:lat>
+	<wgs:long>-11.08333</wgs:long>
+	<skos:prefLabel>Ting-Deng Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2273583/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.6</wgs:lat>
+	<wgs:long>-11.06667</wgs:long>
+	<skos:prefLabel>Ting-Ba Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2273599/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2593120/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.16667</wgs:lat>
+	<wgs:long>-8.16667</wgs:long>
+	<skos:prefLabel>Tienpo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2273621/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2276630/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.25</wgs:lat>
+	<wgs:long>-9.33333</wgs:long>
+	<skos:altLabel>3B</skos:altLabel>
+	<skos:altLabel>Three B</skos:altLabel>
+	<skos:prefLabel>Three B</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2273622/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2276630/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6</wgs:lat>
+	<wgs:long>-9.75</wgs:long>
+	<skos:altLabel>3A</skos:altLabel>
+	<skos:altLabel>Three A</skos:altLabel>
+	<skos:prefLabel>Three A</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2273632/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2276627/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.91667</wgs:lat>
+	<wgs:long>-11.28333</wgs:long>
+	<skos:prefLabel>Tewo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2273635/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2276630/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.33333</wgs:lat>
+	<wgs:long>-10.16667</wgs:long>
+	<skos:prefLabel>Tenor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2273657/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2276622/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.99917</wgs:lat>
+	<wgs:long>-8.08389</wgs:long>
+	<skos:altLabel>Chien</skos:altLabel>
+	<skos:altLabel>Tchien</skos:altLabel>
+	<skos:prefLabel>Tchien</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2273679/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2273898/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.16667</wgs:lat>
+	<wgs:long>-9.16667</wgs:long>
+	<skos:prefLabel>Tasu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2273682/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2273898/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.33333</wgs:lat>
+	<wgs:long>-9</wgs:long>
+	<skos:prefLabel>Tarjuazon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2273858/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275099/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.68333</wgs:lat>
+	<wgs:long>-7.93333</wgs:long>
+	<skos:altLabel>Newake</skos:altLabel>
+	<skos:altLabel>Sodoke</skos:altLabel>
+	<skos:prefLabel>Sodoke</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2273898/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>5.33333</wgs:lat>
+	<wgs:long>-8.66667</wgs:long>
+	<skos:altLabel>Sino County</skos:altLabel>
+	<skos:altLabel>Sinoe</skos:altLabel>
+	<skos:altLabel>Sinoe County</skos:altLabel>
+	<skos:prefLabel>Sinoe County</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2274043/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2273898/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.5</wgs:lat>
+	<wgs:long>-9.16667</wgs:long>
+	<skos:prefLabel>Seedor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2274098/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>4.83333</wgs:lat>
+	<wgs:long>-8.5</wgs:long>
+	<skos:prefLabel>Sasstown Territory</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2274101/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2588490/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.83333</wgs:lat>
+	<wgs:long>-8.33333</wgs:long>
+	<skos:altLabel>Judo Sastown</skos:altLabel>
+	<skos:altLabel>Sasstown</skos:altLabel>
+	<skos:prefLabel>Sasstown</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2274124/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2278292/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7</wgs:lat>
+	<wgs:long>-9.91667</wgs:long>
+	<skos:prefLabel>Sanoyie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2274125/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2274688/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.25</wgs:lat>
+	<wgs:long>-8.66667</wgs:long>
+	<skos:prefLabel>Sanokole-Ma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2274129/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>11415</europeana:population>
+	<wgs:lat>7.36222</wgs:lat>
+	<wgs:long>-8.70611</wgs:long>
+	<skos:altLabel>Sanaquelli</skos:altLabel>
+	<skos:altLabel>Sangbui</skos:altLabel>
+	<skos:altLabel>Saniquellie</skos:altLabel>
+	<skos:altLabel>Sanniguellie</skos:altLabel>
+	<skos:altLabel>Sanniquellie</skos:altLabel>
+	<skos:altLabel>Sanokole</skos:altLabel>
+	<skos:altLabel>Sanokwele</skos:altLabel>
+	<skos:altLabel>Sanokwelle</skos:altLabel>
+	<skos:altLabel>Sanoquelli</skos:altLabel>
+	<skos:altLabel>Sanquilly</skos:altLabel>
+	<skos:altLabel>Senbui</skos:altLabel>
+	<skos:prefLabel>Sanniquellie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2274221/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2274688/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.91667</wgs:lat>
+	<wgs:long>-8.83333</wgs:long>
+	<skos:prefLabel>Sagleipie-Ma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2274235/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2593120/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.19889</wgs:lat>
+	<wgs:long>-7.70194</wgs:long>
+	<skos:prefLabel>Sabo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2274252/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.36667</wgs:lat>
+	<wgs:long>-7.7275</wgs:long>
+	<skos:altLabel>Dead Island</skos:altLabel>
+	<skos:altLabel>Russwurm Island</skos:altLabel>
+	<skos:altLabel>Russwurn Island</skos:altLabel>
+	<skos:prefLabel>Russwurm Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2274269/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275099/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.41667</wgs:lat>
+	<wgs:long>-7.75</wgs:long>
+	<skos:prefLabel>Rock Town</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2274273/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2588492/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.55</wgs:lat>
+	<wgs:long>-9.66667</wgs:long>
+	<skos:prefLabel>Rock Cess</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2274275/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>11969</europeana:population>
+	<wgs:lat>6.75333</wgs:lat>
+	<wgs:long>-11.36861</wgs:long>
+	<skos:altLabel>Port Robert</skos:altLabel>
+	<skos:altLabel>Robert Port</skos:altLabel>
+	<skos:altLabel>Robertson</skos:altLabel>
+	<skos:altLabel xml:lang="en">Robertsport</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Robertsport</skos:altLabel>
+	<skos:altLabel>Robertsport</skos:altLabel>
+	<skos:altLabel>Robertstown</skos:altLabel>
+	<skos:prefLabel>Robertsport</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2274312/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2276622/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.66611</wgs:lat>
+	<wgs:long>-8.16861</wgs:long>
+	<skos:prefLabel>Putu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2274317/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.31667</wgs:lat>
+	<wgs:long>-10.8</wgs:long>
+	<skos:altLabel>Carey Island</skos:altLabel>
+	<skos:altLabel>Perseverance Island</skos:altLabel>
+	<skos:altLabel>Providence Island</skos:altLabel>
+	<skos:prefLabel>Providence Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2274322/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.31667</wgs:lat>
+	<wgs:long>-10.8</wgs:long>
+	<skos:prefLabel>Powder Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2274336/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275099/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.58333</wgs:lat>
+	<wgs:long>-8</wgs:long>
+	<skos:altLabel>Kpo River</skos:altLabel>
+	<skos:altLabel>Po River</skos:altLabel>
+	<skos:prefLabel>Po River</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2274351/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2276627/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.33333</wgs:lat>
+	<wgs:long>-11</wgs:long>
+	<skos:prefLabel>Pokpa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2274373/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275099/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.63333</wgs:lat>
+	<wgs:long>-7.58333</wgs:long>
+	<skos:prefLabel>Plibo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2274377/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.25</wgs:lat>
+	<wgs:long>-9.81667</wgs:long>
+	<skos:prefLabel>Plembe Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2274403/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275099/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.66667</wgs:lat>
+	<wgs:long>-8.33333</wgs:long>
+	<skos:prefLabel>Picnicess</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2274476/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275099/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.56667</wgs:lat>
+	<wgs:long>-7.91667</wgs:long>
+	<skos:altLabel>Jonoya</skos:altLabel>
+	<skos:altLabel>Pate</skos:altLabel>
+	<skos:prefLabel>Pate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2274491/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2278292/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.25</wgs:lat>
+	<wgs:long>-9.16667</wgs:long>
+	<skos:prefLabel>Panta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2274502/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2593120/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.28639</wgs:lat>
+	<wgs:long>-7.6375</wgs:long>
+	<skos:prefLabel>Palipo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2274518/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.26667</wgs:lat>
+	<wgs:long>-10.71667</wgs:long>
+	<skos:prefLabel>Pagos Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2274569/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275099/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.66667</wgs:lat>
+	<wgs:long>-7.83333</wgs:long>
+	<skos:altLabel>Nyanbo</skos:altLabel>
+	<skos:altLabel>Nyenbo</skos:altLabel>
+	<skos:prefLabel>Nyanbo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2274578/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2278292/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.83333</wgs:lat>
+	<wgs:long>-10.08333</wgs:long>
+	<skos:altLabel>Niafokole</skos:altLabel>
+	<skos:altLabel>Nyafokole</skos:altLabel>
+	<skos:prefLabel>Nyafokole</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2274591/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2273898/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.86667</wgs:lat>
+	<wgs:long>-8.78333</wgs:long>
+	<skos:prefLabel>Nuohn Point</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2274596/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2273898/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.11694</wgs:lat>
+	<wgs:long>-8.71667</wgs:long>
+	<skos:prefLabel>Numo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2274688/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>6.75</wgs:lat>
+	<wgs:long>-8.75</wgs:long>
+	<skos:altLabel>Nimba</skos:altLabel>
+	<skos:altLabel>Nimba County</skos:altLabel>
+	<skos:altLabel>Nimba Province</skos:altLabel>
+	<skos:prefLabel>Nimba County</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2274719/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2276622/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.25694</wgs:lat>
+	<wgs:long>-8.08389</wgs:long>
+	<skos:prefLabel>Niabo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2274778/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275099/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.55</wgs:lat>
+	<wgs:long>-7.83333</wgs:long>
+	<skos:prefLabel>Nemea</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2274818/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2273898/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.83333</wgs:lat>
+	<wgs:long>-8.71667</wgs:long>
+	<skos:prefLabel>Nana Kru</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2274827/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2273898/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5</wgs:lat>
+	<wgs:long>-8.5</wgs:long>
+	<skos:prefLabel>Nake</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2274890/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>6.5</wgs:lat>
+	<wgs:long>-10.5</wgs:long>
+	<skos:altLabel>Montserrado</skos:altLabel>
+	<skos:altLabel>Montserrado County</skos:altLabel>
+	<skos:prefLabel>Montserrado County</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2274893/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.31667</wgs:lat>
+	<wgs:long>-10.8</wgs:long>
+	<skos:altLabel>Commonwealth District of Monrovia</skos:altLabel>
+	<skos:prefLabel>Commonwealth District of Monrovia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2274895/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>939524</europeana:population>
+	<wgs:lat>6.30054</wgs:lat>
+	<wgs:long>-10.7969</wgs:long>
+	<skos:altLabel xml:lang="id">Monrovia</skos:altLabel>
+	<skos:altLabel xml:lang="de">Monrovia</skos:altLabel>
+	<skos:altLabel xml:lang="es">Monrovia</skos:altLabel>
+	<skos:altLabel xml:lang="da">Monrovia</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Monrovia</skos:altLabel>
+	<skos:altLabel xml:lang="no">Monrovia</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Monrovia</skos:altLabel>
+	<skos:altLabel xml:lang="en">Monrovia</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Monrovia</skos:altLabel>
+	<skos:altLabel xml:lang="io">Monrovia</skos:altLabel>
+	<skos:altLabel xml:lang="it">Monrovia</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Monrovia</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Monrovia</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Monrovia</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Monrovia</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Monrovia</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Monrovia</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Monrovija</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Monrovio</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Monrowia</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Monróvia</skos:altLabel>
+	<skos:altLabel xml:lang="is">Monróvía</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μονρόβια</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Монровия</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Монровија</skos:altLabel>
+	<skos:altLabel xml:lang="he">מונרוביה</skos:altLabel>
+	<skos:altLabel xml:lang="fa">مانروویا</skos:altLabel>
+	<skos:altLabel xml:lang="ar">مونروفيا</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሞንሮቪያ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">モンロビア</skos:altLabel>
+	<skos:altLabel xml:lang="zh">蒙罗维亚</skos:altLabel>
+	<skos:altLabel xml:lang="zh">蒙羅維亞</skos:altLabel>
+	<skos:altLabel xml:lang="ko">몬로비아</skos:altLabel>
+	<skos:prefLabel>Monrovia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2275016/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2278324/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.8</wgs:lat>
+	<wgs:long>-10.58333</wgs:long>
+	<skos:prefLabel>Mecca</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2275067/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2273898/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.16667</wgs:lat>
+	<wgs:long>-8.91667</wgs:long>
+	<skos:prefLabel>Matro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2275087/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.73833</wgs:lat>
+	<wgs:long>-11.32139</wgs:long>
+	<skos:altLabel>Cape Mount Island</skos:altLabel>
+	<skos:altLabel>Masatin Island</skos:altLabel>
+	<skos:altLabel>Masating Island</skos:altLabel>
+	<skos:altLabel>Massatin Island</skos:altLabel>
+	<skos:altLabel>Massatine</skos:altLabel>
+	<skos:prefLabel>Masating Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2275099/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>4.75</wgs:lat>
+	<wgs:long>-7.75</wgs:long>
+	<skos:altLabel>Maryland</skos:altLabel>
+	<skos:altLabel>Maryland County</skos:altLabel>
+	<skos:prefLabel>Maryland County</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2275103/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>6.25</wgs:lat>
+	<wgs:long>-10.5</wgs:long>
+	<skos:prefLabel>Marshall Territory</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2275179/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2588491/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.28333</wgs:lat>
+	<wgs:long>-10.5</wgs:long>
+	<skos:prefLabel>Mamba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2275344/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>339112</europeana:population>
+	<wgs:lat>7.91667</wgs:lat>
+	<wgs:long>-10</wgs:long>
+	<skos:altLabel>Lofa</skos:altLabel>
+	<skos:altLabel>Lofa County</skos:altLabel>
+	<skos:altLabel>Loffa County</skos:altLabel>
+	<skos:prefLabel>Lofa County</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2275351/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275099/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.61667</wgs:lat>
+	<wgs:long>-7.66667</wgs:long>
+	<skos:prefLabel>Little Wrebo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2275384/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255146/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>3685076</europeana:population>
+	<wgs:lat>6.5</wgs:lat>
+	<wgs:long>-9.5</wgs:long>
+	<skos:altLabel xml:lang="ga">An Libéir</skos:altLabel>
+	<skos:altLabel>LR</skos:altLabel>
+	<skos:altLabel xml:lang="so">Laybeeriya</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Li-bê-ri-a</skos:altLabel>
+	<skos:altLabel xml:lang="et">Libeeria</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Liberi</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Liberi</skos:altLabel>
+	<skos:altLabel xml:lang="id">Liberia</skos:altLabel>
+	<skos:altLabel xml:lang="es">Liberia</skos:altLabel>
+	<skos:altLabel xml:lang="da">Liberia</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Liberia</skos:altLabel>
+	<skos:altLabel xml:lang="it">Liberia</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Liberia</skos:altLabel>
+	<skos:altLabel xml:lang="de">Liberia</skos:altLabel>
+	<skos:altLabel xml:lang="en">Liberia</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Liberia</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Liberia</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Liberia</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Liberia</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Liberia</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Liberia</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Liberia</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Liberia</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Liberia</skos:altLabel>
+	<skos:altLabel xml:lang="la">Liberia</skos:altLabel>
+	<skos:altLabel xml:lang="no">Liberia</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Liberia</skos:altLabel>
+	<skos:altLabel xml:lang="an">Liberia</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Liberia</skos:altLabel>
+	<skos:altLabel xml:lang="io">Liberia</skos:altLabel>
+	<skos:altLabel xml:lang="li">Liberia</skos:altLabel>
+	<skos:altLabel xml:lang="rm">Liberia</skos:altLabel>
+	<skos:altLabel xml:lang="se">Liberia</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Liberia</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Liberia</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Liberia</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Liberia</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Liberia</skos:altLabel>
+	<skos:altLabel xml:lang="ln">Liberia</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Liberija</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Liberija</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Liberija</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Liberija</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Liberija</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Liberio</skos:altLabel>
+	<skos:altLabel xml:lang="af">Liberië</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Liberja</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Liberya</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Liberän</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Libèria</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Libèria</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Libéria</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Libéria</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Libéria</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Libéria</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Libérie</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Libērija</skos:altLabel>
+	<skos:altLabel xml:lang="is">Líbería</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Lîberya</skos:altLabel>
+	<skos:altLabel>Republic of Liberia</skos:altLabel>
+	<skos:altLabel xml:lang="el">Λιβερία</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Либериа</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Либериа</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Либерия</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Либерия</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Либерия</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Либерија</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Либерија</skos:altLabel>
+	<skos:altLabel xml:lang="be">Ліберыя</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Ліберія</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Լիբերիա</skos:altLabel>
+	<skos:altLabel xml:lang="he">ליבריה</skos:altLabel>
+	<skos:altLabel xml:lang="ur">لائبیریا</skos:altLabel>
+	<skos:altLabel xml:lang="ps">لایبریا</skos:altLabel>
+	<skos:altLabel xml:lang="ug">لىبېرىيە</skos:altLabel>
+	<skos:altLabel xml:lang="ar">ليبيريا</skos:altLabel>
+	<skos:altLabel xml:lang="fa">لیبریا</skos:altLabel>
+	<skos:altLabel xml:lang="hi">लाइबेरिया</skos:altLabel>
+	<skos:altLabel xml:lang="sa">लायबीरिया</skos:altLabel>
+	<skos:altLabel xml:lang="bn">লাইবিরিয়া</skos:altLabel>
+	<skos:altLabel xml:lang="bn">লাইবিরিয়া</skos:altLabel>
+	<skos:altLabel xml:lang="ta">லைபீரியா</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ലൈബീരിയ</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศไลบีเรีย</skos:altLabel>
+	<skos:altLabel xml:lang="th">ไลบีเรีย</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ລິເບີເລຍ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ལི་བེ་རི་ཡ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ლიბერია</skos:altLabel>
+	<skos:altLabel xml:lang="am">ላይቤሪያ</skos:altLabel>
+	<skos:altLabel xml:lang="km">លីបេរីយ៉ា</skos:altLabel>
+	<skos:altLabel xml:lang="ja">リベリア</skos:altLabel>
+	<skos:altLabel xml:lang="ja">リベリア共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">利比里亚</skos:altLabel>
+	<skos:altLabel xml:lang="ko">라이베리아</skos:altLabel>
+	<skos:prefLabel>Republic of Liberia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2275581/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>4.58333</wgs:lat>
+	<wgs:long>-8.08333</wgs:long>
+	<skos:prefLabel>Kru Coast Territory</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2275592/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2273898/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.99972</wgs:lat>
+	<wgs:long>-8.83333</wgs:long>
+	<skos:altLabel>Kra</skos:altLabel>
+	<skos:altLabel>Kulu</skos:altLabel>
+	<skos:prefLabel>Kulu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2275644/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2274688/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.66667</wgs:lat>
+	<wgs:long>-8.5</wgs:long>
+	<skos:altLabel>Keaple</skos:altLabel>
+	<skos:altLabel>Kpeaple</skos:altLabel>
+	<skos:prefLabel>Keaple</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2275728/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2276622/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.66444</wgs:lat>
+	<wgs:long>-7.83528</wgs:long>
+	<skos:altLabel>Konobo</skos:altLabel>
+	<skos:altLabel>Niabo</skos:altLabel>
+	<skos:prefLabel>Konobo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2275757/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2276627/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.83333</wgs:lat>
+	<wgs:long>-11.16667</wgs:long>
+	<skos:prefLabel>Kone</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2275770/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2593119/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.58333</wgs:lat>
+	<wgs:long>-10.58333</wgs:long>
+	<skos:altLabel>Komga</skos:altLabel>
+	<skos:altLabel>Komgba</skos:altLabel>
+	<skos:prefLabel>Komgba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2275814/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2278292/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.66667</wgs:lat>
+	<wgs:long>-9.33333</wgs:long>
+	<skos:prefLabel>Kokoya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2275896/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2593120/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.25</wgs:lat>
+	<wgs:long>-7.63333</wgs:long>
+	<skos:prefLabel>Kitabo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2275898/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275344/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>8.37583</wgs:lat>
+	<wgs:long>-10.24528</wgs:long>
+	<skos:prefLabel>Kisi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2276054/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275344/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>8.12556</wgs:lat>
+	<wgs:long>-10.42778</wgs:long>
+	<skos:altLabel>Kambo Hills</skos:altLabel>
+	<skos:altLabel>Kamboi Hills</skos:altLabel>
+	<skos:prefLabel>Kambo Hills</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2276086/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>33945</europeana:population>
+	<wgs:lat>6.53</wgs:lat>
+	<wgs:long>-10.35167</wgs:long>
+	<skos:prefLabel>Kakata</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2276087/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2274890/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.66667</wgs:lat>
+	<wgs:long>-10.33333</wgs:long>
+	<skos:prefLabel>Kakata</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2276117/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2273898/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.25</wgs:lat>
+	<wgs:long>-9.25</wgs:long>
+	<skos:prefLabel>Kabor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2276128/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2588491/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.25</wgs:lat>
+	<wgs:long>-10.46667</wgs:long>
+	<skos:prefLabel>Kaba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2276156/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2273898/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.66611</wgs:lat>
+	<wgs:long>-8.7525</wgs:long>
+	<skos:altLabel>Juazohn</skos:altLabel>
+	<skos:altLabel>Sikohn</skos:altLabel>
+	<skos:prefLabel>Sikohn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2276161/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2273898/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.83333</wgs:lat>
+	<wgs:long>-8.5</wgs:long>
+	<skos:prefLabel>Jroh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2276212/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2278292/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.83333</wgs:lat>
+	<wgs:long>-9.58333</wgs:long>
+	<skos:prefLabel>Jokole</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2276354/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2273898/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.66667</wgs:lat>
+	<wgs:long>-9</wgs:long>
+	<skos:prefLabel>Jeetrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2276356/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2273898/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.33333</wgs:lat>
+	<wgs:long>-8.16667</wgs:long>
+	<skos:prefLabel>Jedepo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2276367/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2276630/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.16667</wgs:lat>
+	<wgs:long>-10.16667</wgs:long>
+	<skos:prefLabel>Jayah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2276492/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>32661</europeana:population>
+	<wgs:lat>4.375</wgs:lat>
+	<wgs:long>-7.71694</wgs:long>
+	<skos:altLabel>Cape Palmas</skos:altLabel>
+	<skos:altLabel>Harper</skos:altLabel>
+	<skos:prefLabel>Harper</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2276493/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275099/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.41667</wgs:lat>
+	<wgs:long>-7.63333</wgs:long>
+	<skos:prefLabel>Harper</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2276555/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275344/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>8</wgs:lat>
+	<wgs:long>-10.41667</wgs:long>
+	<skos:prefLabel>Guma-Mendi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2276600/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>16434</europeana:population>
+	<wgs:lat>5.01111</wgs:lat>
+	<wgs:long>-9.03889</wgs:long>
+	<skos:altLabel>Greenville</skos:altLabel>
+	<skos:altLabel>Sino</skos:altLabel>
+	<skos:altLabel>Sinoe</skos:altLabel>
+	<skos:altLabel>Sinu</skos:altLabel>
+	<skos:altLabel>Sinu Village</skos:altLabel>
+	<skos:prefLabel>Greenville</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2276602/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.48722</wgs:lat>
+	<wgs:long>-7.92472</wgs:long>
+	<skos:altLabel>Green Island</skos:altLabel>
+	<skos:altLabel>Green Islet</skos:altLabel>
+	<skos:prefLabel>Green Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2276614/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275099/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.5</wgs:lat>
+	<wgs:long>-7.85</wgs:long>
+	<skos:prefLabel>Grawa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2276622/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>148061</europeana:population>
+	<wgs:lat>5.91667</wgs:lat>
+	<wgs:long>-8.08333</wgs:long>
+	<skos:altLabel>Grand Gedeh</skos:altLabel>
+	<skos:altLabel>Grand Gedeh County</skos:altLabel>
+	<skos:altLabel>Grand Jide County</skos:altLabel>
+	<skos:prefLabel>Grand Gedeh County</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2276626/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275099/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.58333</wgs:lat>
+	<wgs:long>-8.2</wgs:long>
+	<skos:prefLabel>Grand Cess</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2276627/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>7.16667</wgs:lat>
+	<wgs:long>-11</wgs:long>
+	<skos:altLabel>Cape Mount County</skos:altLabel>
+	<skos:altLabel>Grand Cape County</skos:altLabel>
+	<skos:altLabel>Grand Cape Mount</skos:altLabel>
+	<skos:altLabel>Grand Cape Mount County</skos:altLabel>
+	<skos:prefLabel>Grand Cape Mount County</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2276630/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>6.25</wgs:lat>
+	<wgs:long>-9.75</wgs:long>
+	<skos:altLabel>Grand Basa County</skos:altLabel>
+	<skos:altLabel>Grand Bassa</skos:altLabel>
+	<skos:altLabel>Grand Bassa County</skos:altLabel>
+	<skos:prefLabel>Grand Bassa County</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2276661/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2276627/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.03333</wgs:lat>
+	<wgs:long>-10.91667</wgs:long>
+	<skos:prefLabel>Gota Kone</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2276737/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2278324/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.71528</wgs:lat>
+	<wgs:long>-10.91333</wgs:long>
+	<skos:altLabel>Gola</skos:altLabel>
+	<skos:altLabel>Lofa Gola Mecca</skos:altLabel>
+	<skos:prefLabel>Gola</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2276743/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2593119/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.08333</wgs:lat>
+	<wgs:long>-10.58333</wgs:long>
+	<skos:prefLabel>Goije</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2276801/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2276622/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.66556</wgs:lat>
+	<wgs:long>-7.53472</wgs:long>
+	<skos:prefLabel>Glio-Twabo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2276816/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275099/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.51667</wgs:lat>
+	<wgs:long>-7.75</wgs:long>
+	<skos:prefLabel>Glebo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2276820/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2276630/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.16667</wgs:lat>
+	<wgs:long>-9.91667</wgs:long>
+	<skos:prefLabel>Glarkon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2276828/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275344/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.83778</wgs:lat>
+	<wgs:long>-9.66694</wgs:long>
+	<skos:prefLabel>Gizima-Ziema</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2276853/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2278292/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.66667</wgs:lat>
+	<wgs:long>-10</wgs:long>
+	<skos:prefLabel>Gibi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2276908/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275099/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.56667</wgs:lat>
+	<wgs:long>-7.61667</wgs:long>
+	<skos:prefLabel>Gedetarbo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2276909/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275099/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.8</wgs:lat>
+	<wgs:long>-7.91667</wgs:long>
+	<skos:altLabel>Gedabo</skos:altLabel>
+	<skos:altLabel>Gedebo</skos:altLabel>
+	<skos:prefLabel>Gedabo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2276934/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2593120/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.33333</wgs:lat>
+	<wgs:long>-7.5</wgs:long>
+	<skos:altLabel>Gborra</skos:altLabel>
+	<skos:altLabel>Glaro</skos:altLabel>
+	<skos:prefLabel>Glaro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2276973/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2274688/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.8</wgs:lat>
+	<wgs:long>-8.58333</wgs:long>
+	<skos:prefLabel>Gbokole</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2276983/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2276622/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.16667</wgs:lat>
+	<wgs:long>-8.16667</wgs:long>
+	<skos:prefLabel>Gbobo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2277003/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2274688/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.16667</wgs:lat>
+	<wgs:long>-8.91667</wgs:long>
+	<skos:prefLabel>Gbi-Doru</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2277011/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275099/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.7</wgs:lat>
+	<wgs:long>-8.33333</wgs:long>
+	<skos:prefLabel>Gbeta Klepo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2277028/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2274688/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.16667</wgs:lat>
+	<wgs:long>-8.41667</wgs:long>
+	<skos:prefLabel>Gbele-Ge</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2277030/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275099/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.75</wgs:lat>
+	<wgs:long>-8.08333</wgs:long>
+	<skos:prefLabel>Gbelakpo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2277041/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2593120/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.2</wgs:lat>
+	<wgs:long>-8</wgs:long>
+	<skos:prefLabel>Gbeapo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2277043/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2276622/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.16667</wgs:lat>
+	<wgs:long>-8.41667</wgs:long>
+	<skos:prefLabel>Gbazohn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2277060/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>45835</europeana:population>
+	<wgs:lat>6.99556</wgs:lat>
+	<wgs:long>-9.47222</wgs:long>
+	<skos:altLabel>Gbanga</skos:altLabel>
+	<skos:altLabel>Gbanka</skos:altLabel>
+	<skos:altLabel>Gbarnga</skos:altLabel>
+	<skos:altLabel>Gbarnka</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гбарнге</skos:altLabel>
+	<skos:prefLabel>Gbarnga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2277061/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275099/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.58333</wgs:lat>
+	<wgs:long>-7.56667</wgs:long>
+	<skos:prefLabel>Gbarlobo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2277082/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275344/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>8.06667</wgs:lat>
+	<wgs:long>-10.21667</wgs:long>
+	<skos:prefLabel>Gbandi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2277102/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275344/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.45139</wgs:lat>
+	<wgs:long>-9.58194</wgs:long>
+	<skos:prefLabel>Gbalein Faala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2277160/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2276627/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.66667</wgs:lat>
+	<wgs:long>-11.08333</wgs:long>
+	<skos:prefLabel>Gawula</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2277191/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275099/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.53333</wgs:lat>
+	<wgs:long>-7.91667</wgs:long>
+	<skos:prefLabel>Garawe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2277197/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13802</europeana:population>
+	<wgs:lat>7.30222</wgs:lat>
+	<wgs:long>-8.53083</wgs:long>
+	<skos:prefLabel>Ganta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2277288/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2278292/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.97361</wgs:lat>
+	<wgs:long>-10.19333</wgs:long>
+	<skos:prefLabel>Fuama</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2277306/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2276630/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.75056</wgs:lat>
+	<wgs:long>-9.74972</wgs:long>
+	<skos:altLabel>4B</skos:altLabel>
+	<skos:altLabel>Four B</skos:altLabel>
+	<skos:altLabel>Trade Town</skos:altLabel>
+	<skos:prefLabel>Trade Town</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2277359/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275099/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.76667</wgs:lat>
+	<wgs:long>-8.16667</wgs:long>
+	<skos:prefLabel>Flenipo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2277363/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.75</wgs:lat>
+	<wgs:long>-8.6</wgs:long>
+	<skos:altLabel>Flat Island</skos:altLabel>
+	<skos:altLabel>Totwarra</skos:altLabel>
+	<skos:prefLabel>Flat Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2277365/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2588492/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.91667</wgs:lat>
+	<wgs:long>-9.41667</wgs:long>
+	<skos:altLabel>5B</skos:altLabel>
+	<skos:altLabel>Five B</skos:altLabel>
+	<skos:altLabel>Mowe</skos:altLabel>
+	<skos:prefLabel>Mowe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2277366/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2276630/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.66667</wgs:lat>
+	<wgs:long>-9.41667</wgs:long>
+	<skos:altLabel>5A</skos:altLabel>
+	<skos:altLabel>Five A</skos:altLabel>
+	<skos:prefLabel>Five A</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2277375/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275099/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.43333</wgs:lat>
+	<wgs:long>-7.81667</wgs:long>
+	<skos:prefLabel>Fish Town</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2277383/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275099/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.5</wgs:lat>
+	<wgs:long>-7.58333</wgs:long>
+	<skos:prefLabel>Firestone</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2277410/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.3</wgs:lat>
+	<wgs:long>-10.78333</wgs:long>
+	<skos:prefLabel>Federicks Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2277593/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275099/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.75</wgs:lat>
+	<wgs:long>-7.83333</wgs:long>
+	<skos:prefLabel>Dorobo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2277662/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.90694</wgs:lat>
+	<wgs:long>-10.37278</wgs:long>
+	<skos:altLabel>Dobli Island</skos:altLabel>
+	<skos:altLabel>Ting Dowuli</skos:altLabel>
+	<skos:altLabel>Tinsu</skos:altLabel>
+	<skos:prefLabel>Dobli Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2277769/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2274890/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.66667</wgs:lat>
+	<wgs:long>-10.53333</wgs:long>
+	<skos:prefLabel>Ding</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2277838/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.55</wgs:lat>
+	<wgs:long>-10.55</wgs:long>
+	<skos:prefLabel>Demba Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2277849/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2278324/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.53333</wgs:lat>
+	<wgs:long>-10.91667</wgs:long>
+	<skos:prefLabel>Dei</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2277859/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275099/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.8</wgs:lat>
+	<wgs:long>-7.61667</wgs:long>
+	<skos:altLabel>Biabo</skos:altLabel>
+	<skos:altLabel>Dedabo</skos:altLabel>
+	<skos:prefLabel>Dedabo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2277874/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.68333</wgs:lat>
+	<wgs:long>-8.46667</wgs:long>
+	<skos:altLabel>Dead Island</skos:altLabel>
+	<skos:altLabel>Dead Islet</skos:altLabel>
+	<skos:prefLabel>Dead Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2278019/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2593120/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.33333</wgs:lat>
+	<wgs:long>-7.95</wgs:long>
+	<skos:prefLabel>Chelepo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2278062/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275099/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.38333</wgs:lat>
+	<wgs:long>-7.58333</wgs:long>
+	<skos:prefLabel>Cavalla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2278073/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2274890/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.36667</wgs:lat>
+	<wgs:long>-10.5</wgs:long>
+	<skos:prefLabel>Careysburg</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2278080/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2276630/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.5</wgs:lat>
+	<wgs:long>-9.75</wgs:long>
+	<skos:prefLabel>Campwood</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2278113/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2273898/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.13333</wgs:lat>
+	<wgs:long>-9.08333</wgs:long>
+	<skos:prefLabel>Buto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2278117/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.35</wgs:lat>
+	<wgs:long>-10.78333</wgs:long>
+	<skos:prefLabel>Bushrod Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2278158/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>25731</europeana:population>
+	<wgs:lat>5.88083</wgs:lat>
+	<wgs:long>-10.04667</wgs:long>
+	<skos:altLabel>Buchanan</skos:altLabel>
+	<skos:altLabel>Fish Town</skos:altLabel>
+	<skos:altLabel>Grand Bassa</skos:altLabel>
+	<skos:altLabel>Lower Buchanan</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бьюкенен</skos:altLabel>
+	<skos:prefLabel>Buchanan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2278169/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275099/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.91667</wgs:lat>
+	<wgs:long>-8.16667</wgs:long>
+	<skos:altLabel>Bua</skos:altLabel>
+	<skos:altLabel>Buao</skos:altLabel>
+	<skos:prefLabel>Bua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2278250/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2593119/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7</wgs:lat>
+	<wgs:long>-10.5</wgs:long>
+	<skos:prefLabel>Bopolu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2278292/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>7</wgs:lat>
+	<wgs:long>-9.66667</wgs:long>
+	<skos:altLabel>Bong</skos:altLabel>
+	<skos:altLabel>Bong County</skos:altLabel>
+	<skos:prefLabel>Bong County</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2278307/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275344/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>8.25694</wgs:lat>
+	<wgs:long>-9.715</wgs:long>
+	<skos:altLabel>Bonde-Wubomai</skos:altLabel>
+	<skos:altLabel>Bondi-Wubomai</skos:altLabel>
+	<skos:prefLabel>Bonde-Wubomai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2278324/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>6.66667</wgs:lat>
+	<wgs:long>-10.83333</wgs:long>
+	<skos:altLabel>Bomi</skos:altLabel>
+	<skos:altLabel>Bomi County</skos:altLabel>
+	<skos:prefLabel>Bomi County</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2278356/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275099/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.61667</wgs:lat>
+	<wgs:long>-7.63333</wgs:long>
+	<skos:altLabel>Bolobo</skos:altLabel>
+	<skos:altLabel>Borobo</skos:altLabel>
+	<skos:prefLabel>Bolobo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2278361/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2273898/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.93333</wgs:lat>
+	<wgs:long>-8.41667</wgs:long>
+	<skos:prefLabel>Bolo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2278379/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2593119/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.20889</wgs:lat>
+	<wgs:long>-10.09944</wgs:long>
+	<skos:prefLabel>Bokomu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2278584/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.8</wgs:lat>
+	<wgs:long>-10.56667</wgs:long>
+	<skos:prefLabel>Big Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2278611/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2276622/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.16667</wgs:lat>
+	<wgs:long>-8.66667</wgs:long>
+	<skos:prefLabel>Biai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2278682/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>33188</europeana:population>
+	<wgs:lat>6.44611</wgs:lat>
+	<wgs:long>-10.6125</wgs:long>
+	<skos:altLabel>Bensonville</skos:altLabel>
+	<skos:altLabel>Bentol</skos:altLabel>
+	<skos:altLabel>Bentol City</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бенсонвилле</skos:altLabel>
+	<skos:prefLabel>Bensonville</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2278733/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2593119/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.50667</wgs:lat>
+	<wgs:long>-10.03111</wgs:long>
+	<skos:altLabel>Bella</skos:altLabel>
+	<skos:altLabel>Belle</skos:altLabel>
+	<skos:prefLabel>Belle</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2278880/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275099/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5</wgs:lat>
+	<wgs:long>-7.96667</wgs:long>
+	<skos:altLabel>Barobo</skos:altLabel>
+	<skos:altLabel>Barrabo</skos:altLabel>
+	<skos:altLabel>Bawolobo</skos:altLabel>
+	<skos:altLabel>Baworobo Chiefdom</skos:altLabel>
+	<skos:prefLabel>Barobo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2278890/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275099/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.68333</wgs:lat>
+	<wgs:long>-8.23333</wgs:long>
+	<skos:prefLabel>Barclayville</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2278968/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.3</wgs:lat>
+	<wgs:long>-10.78333</wgs:long>
+	<skos:altLabel>Bali Island</skos:altLabel>
+	<skos:altLabel>Balli Island</skos:altLabel>
+	<skos:prefLabel>Bali Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2279025/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.25</wgs:lat>
+	<wgs:long>-9.43333</wgs:long>
+	<skos:altLabel>Baiyah Island</skos:altLabel>
+	<skos:altLabel>Baiyah Islet</skos:altLabel>
+	<skos:prefLabel>Baiyah Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2279133/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2274688/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.5</wgs:lat>
+	<wgs:long>-8.75</wgs:long>
+	<skos:altLabel>Amalgam - Gio</skos:altLabel>
+	<skos:altLabel>Do</skos:altLabel>
+	<skos:prefLabel>Do</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2569974/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275344/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>8.06139</wgs:lat>
+	<wgs:long>-10.41389</wgs:long>
+	<skos:prefLabel>Guma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2588490/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>4.91667</wgs:lat>
+	<wgs:long>-8.25</wgs:long>
+	<skos:altLabel>Grand Kru</skos:altLabel>
+	<skos:altLabel>Grand Kru County</skos:altLabel>
+	<skos:prefLabel>Grand Kru County</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2588491/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>6.5</wgs:lat>
+	<wgs:long>-10.25</wgs:long>
+	<skos:altLabel>Margibi</skos:altLabel>
+	<skos:altLabel>Margibi County</skos:altLabel>
+	<skos:prefLabel>Margibi County</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2588492/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>72000</europeana:population>
+	<wgs:lat>6</wgs:lat>
+	<wgs:long>-9.33333</wgs:long>
+	<skos:altLabel>River Cess</skos:altLabel>
+	<skos:altLabel>River Cess County</skos:altLabel>
+	<skos:prefLabel>River Cess County</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2593119/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>7.16667</wgs:lat>
+	<wgs:long>-10.41667</wgs:long>
+	<skos:altLabel>Gbarpolu</skos:altLabel>
+	<skos:altLabel>Gbarpolu County</skos:altLabel>
+	<skos:prefLabel>Gbarpolu County</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2593120/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>5.25</wgs:lat>
+	<wgs:long>-7.91667</wgs:long>
+	<skos:altLabel>River Gee</skos:altLabel>
+	<skos:altLabel>River Gee County</skos:altLabel>
+	<skos:prefLabel>River Gee County</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7669283/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2278292/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.99902</wgs:lat>
+	<wgs:long>-9.47571</wgs:long>
+	<skos:prefLabel>Jorquelleh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7669284/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2278292/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.98947</wgs:lat>
+	<wgs:long>-9.58248</wgs:long>
+	<skos:prefLabel>Suakoko</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7669285/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2278292/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.74729</wgs:lat>
+	<wgs:long>-10.11034</wgs:long>
+	<skos:prefLabel>Salala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7669286/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2274688/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.23442</wgs:lat>
+	<wgs:long>-8.9875</wgs:long>
+	<skos:prefLabel>Sanniquelleh- Mahn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7669292/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2274890/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.54388</wgs:lat>
+	<wgs:long>-10.41289</wgs:long>
+	<skos:prefLabel>Topee</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7669297/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2274890/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.19841</wgs:lat>
+	<wgs:long>-10.51263</wgs:long>
+	<skos:prefLabel>Mambah-Kaba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7669298/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2274890/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.31257</wgs:lat>
+	<wgs:long>-10.75055</wgs:long>
+	<skos:prefLabel>Greater Monrovia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7669299/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2274688/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.10217</wgs:lat>
+	<wgs:long>-9.08054</wgs:long>
+	<skos:prefLabel>Saclepea-Mah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7669300/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2274890/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.46184</wgs:lat>
+	<wgs:long>-10.7333</wgs:long>
+	<skos:prefLabel>St. Paul River</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7669301/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2276630/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.24263</wgs:lat>
+	<wgs:long>-10.18592</wgs:long>
+	<skos:prefLabel>District #1</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7669302/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2276630/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.30016</wgs:lat>
+	<wgs:long>-9.931</wgs:long>
+	<skos:prefLabel>District #2</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7669303/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2275384/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2276630/"/>
+	<europeana:country>LR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.23302</wgs:lat>
+	<wgs:long>-9.64126</wgs:long>
+	<skos:prefLabel>District #3</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 192 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

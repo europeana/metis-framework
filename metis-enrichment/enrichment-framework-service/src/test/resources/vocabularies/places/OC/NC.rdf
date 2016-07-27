@@ -1,0 +1,3810 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: OC_NC
+Description: Selected fields pulled from Geonames about NC done on Mon May 23 21:17:15 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137638/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.21667</wgs:lat>
+	<wgs:long>164.05</wgs:long>
+	<skos:prefLabel>Île Yéuoé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137641/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.1</wgs:lat>
+	<wgs:long>163.96667</wgs:long>
+	<skos:altLabel>Île Yenghiebane</skos:altLabel>
+	<skos:altLabel>Île Yenghébane</skos:altLabel>
+	<skos:prefLabel>Île Yenghébane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137647/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2140464/"/>
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-22.08333</wgs:lat>
+	<wgs:long>166.75</wgs:long>
+	<skos:prefLabel>Yaté</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137656/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.05</wgs:lat>
+	<wgs:long>163.8</wgs:long>
+	<skos:altLabel>Iandé</skos:altLabel>
+	<skos:altLabel>Nénéma</skos:altLabel>
+	<skos:altLabel>Île Yandé</skos:altLabel>
+	<skos:prefLabel>Île Yandé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137659/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.46667</wgs:lat>
+	<wgs:long>164.08333</wgs:long>
+	<skos:prefLabel>Île Yan’dagouet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137669/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.15</wgs:lat>
+	<wgs:long>164</wgs:long>
+	<skos:prefLabel>Île Yaba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137682/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.45</wgs:lat>
+	<wgs:long>166.46667</wgs:long>
+	<skos:prefLabel>Wégnec</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137690/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>10375</europeana:population>
+	<wgs:lat>-20.91687</wgs:lat>
+	<wgs:long>167.26461</wgs:long>
+	<skos:altLabel>Oué</skos:altLabel>
+	<skos:altLabel>Wé</skos:altLabel>
+	<skos:prefLabel>Wé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137710/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.61667</wgs:lat>
+	<wgs:long>168.95</wgs:long>
+	<skos:prefLabel>Île Walpole</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137733/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.45</wgs:lat>
+	<wgs:long>166.43333</wgs:long>
+	<skos:prefLabel>Wadéa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137742/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.58333</wgs:lat>
+	<wgs:long>166.76667</wgs:long>
+	<skos:prefLabel>Île Vua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137746/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2140685/"/>
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-20.94669</wgs:lat>
+	<wgs:long>164.6854</wgs:long>
+	<skos:prefLabel>Voh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137756/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.98333</wgs:lat>
+	<wgs:long>166.11667</wgs:long>
+	<skos:prefLabel>Île Verte</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137758/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.66667</wgs:lat>
+	<wgs:long>165.45</wgs:long>
+	<skos:altLabel>Île Siandé</skos:altLabel>
+	<skos:altLabel>Îlot Vert</skos:altLabel>
+	<skos:prefLabel>Îlot Vert</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137764/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.15</wgs:lat>
+	<wgs:long>167.58333</wgs:long>
+	<skos:prefLabel>Île Vauvilliers</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137770/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.68333</wgs:lat>
+	<wgs:long>164.95</wgs:long>
+	<skos:altLabel>Le Sphinx</skos:altLabel>
+	<skos:altLabel>Nindio Island</skos:altLabel>
+	<skos:altLabel>Nind’hio</skos:altLabel>
+	<skos:altLabel>Sphinx</skos:altLabel>
+	<skos:altLabel>Île Vao</skos:altLabel>
+	<skos:prefLabel>Île Vao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137783/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.58333</wgs:lat>
+	<wgs:long>166.75</wgs:long>
+	<skos:prefLabel>Île Uua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137789/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.26667</wgs:lat>
+	<wgs:long>167.6</wgs:long>
+	<skos:altLabel>Ile Nie</skos:altLabel>
+	<skos:altLabel>Île Oua</skos:altLabel>
+	<skos:altLabel>Île Uo</skos:altLabel>
+	<skos:altLabel>Île Uoa</skos:altLabel>
+	<skos:prefLabel>Île Oua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137790/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.51667</wgs:lat>
+	<wgs:long>166.76667</wgs:long>
+	<skos:altLabel>Île Ouo</skos:altLabel>
+	<skos:altLabel>Île Uo</skos:altLabel>
+	<skos:prefLabel>Île Uo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137800/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.71667</wgs:lat>
+	<wgs:long>166.93333</wgs:long>
+	<skos:prefLabel>Île Uié</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137803/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.45</wgs:lat>
+	<wgs:long>166.93333</wgs:long>
+	<skos:altLabel>Île Ougo</skos:altLabel>
+	<skos:altLabel>Île Ugo</skos:altLabel>
+	<skos:prefLabel>Île Ugo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137806/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.31667</wgs:lat>
+	<wgs:long>166.46667</wgs:long>
+	<skos:altLabel>Île Ouéré</skos:altLabel>
+	<skos:altLabel>Île Uéré</skos:altLabel>
+	<skos:prefLabel>Île Uéré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137812/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.71667</wgs:lat>
+	<wgs:long>166.78333</wgs:long>
+	<skos:prefLabel>Île Uatio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137813/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.66667</wgs:lat>
+	<wgs:long>166.81667</wgs:long>
+	<skos:prefLabel>Île Uaterembi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137818/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.71667</wgs:lat>
+	<wgs:long>166.81667</wgs:long>
+	<skos:prefLabel>Île Ua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137828/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.28333</wgs:lat>
+	<wgs:long>166.5</wgs:long>
+	<skos:prefLabel>Île Tué</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137845/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-22.06667</wgs:lat>
+	<wgs:long>166.05</wgs:long>
+	<skos:prefLabel>Îlots Trio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137846/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.06667</wgs:lat>
+	<wgs:long>166.06667</wgs:long>
+	<skos:prefLabel>Île Trélon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137851/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.26667</wgs:lat>
+	<wgs:long>165.66667</wgs:long>
+	<skos:altLabel>Île Taveru</skos:altLabel>
+	<skos:altLabel>Île Toveru</skos:altLabel>
+	<skos:altLabel>Îlot Tovérou</skos:altLabel>
+	<skos:prefLabel>Îlot Tovérou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137858/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.7</wgs:lat>
+	<wgs:long>166.41667</wgs:long>
+	<skos:altLabel>Île Toupéti</skos:altLabel>
+	<skos:altLabel>Île Tupéti</skos:altLabel>
+	<skos:prefLabel>Île Toupéti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137864/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.83333</wgs:lat>
+	<wgs:long>163.7</wgs:long>
+	<skos:prefLabel>Toulane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137869/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2140685/"/>
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-20.78597</wgs:lat>
+	<wgs:long>165.24227</wgs:long>
+	<skos:prefLabel>Touho</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137880/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.2</wgs:lat>
+	<wgs:long>164.01667</wgs:long>
+	<skos:prefLabel>Île Touaye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137885/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.71667</wgs:lat>
+	<wgs:long>166.98333</wgs:long>
+	<skos:prefLabel>Île Totéa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137888/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.43333</wgs:lat>
+	<wgs:long>166.5</wgs:long>
+	<skos:prefLabel>Île de la Tortue</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137889/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.64158</wgs:lat>
+	<wgs:long>167.53498</wgs:long>
+	<skos:altLabel>Ile Tare</skos:altLabel>
+	<skos:altLabel>Île Tiare</skos:altLabel>
+	<skos:prefLabel>Île Toré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137907/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.18333</wgs:lat>
+	<wgs:long>166.28333</wgs:long>
+	<skos:altLabel>Ile Tonnedu</skos:altLabel>
+	<skos:altLabel>Te Ndu</skos:altLabel>
+	<skos:altLabel>Île To Ndu</skos:altLabel>
+	<skos:prefLabel>Île To Ndu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137910/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.73333</wgs:lat>
+	<wgs:long>167.55</wgs:long>
+	<skos:altLabel>Sable Tomere</skos:altLabel>
+	<skos:altLabel>Sable Tomoeroe</skos:altLabel>
+	<skos:altLabel>Île Toméré</skos:altLabel>
+	<skos:prefLabel>Île Toméré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137928/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.33472</wgs:lat>
+	<wgs:long>167.01194</wgs:long>
+	<skos:altLabel>Nuu Nyame</skos:altLabel>
+	<skos:altLabel>Taemo Island</skos:altLabel>
+	<skos:altLabel>Île Toémo</skos:altLabel>
+	<skos:prefLabel>Nuu Nyame</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137981/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-22.41667</wgs:lat>
+	<wgs:long>166.76667</wgs:long>
+	<skos:altLabel>Îles Tiaoé</skos:altLabel>
+	<skos:altLabel>Îlots Tioaé</skos:altLabel>
+	<skos:prefLabel>Îlots Tioaé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137986/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.63333</wgs:lat>
+	<wgs:long>167.53333</wgs:long>
+	<skos:prefLabel>Île Tinga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137989/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.23333</wgs:lat>
+	<wgs:long>166.41667</wgs:long>
+	<skos:prefLabel>Îlot Tindu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138011/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.63333</wgs:lat>
+	<wgs:long>164.91667</wgs:long>
+	<skos:altLabel>Ile Tilguit</skos:altLabel>
+	<skos:altLabel>Île Tiguit</skos:altLabel>
+	<skos:altLabel>Île Tilguitt</skos:altLabel>
+	<skos:prefLabel>Île Tiguit</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138013/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.13333</wgs:lat>
+	<wgs:long>167.81667</wgs:long>
+	<skos:altLabel>Ile Boucher</skos:altLabel>
+	<skos:altLabel>Tika Island</skos:altLabel>
+	<skos:altLabel>Île Tiga</skos:altLabel>
+	<skos:prefLabel>Île Tiga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138036/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.11667</wgs:lat>
+	<wgs:long>163.98333</wgs:long>
+	<skos:prefLabel>Île Tié</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138068/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.53333</wgs:lat>
+	<wgs:long>167.43333</wgs:long>
+	<skos:prefLabel>Île Tianoa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138078/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.41667</wgs:lat>
+	<wgs:long>164.03333</wgs:long>
+	<skos:prefLabel>Île Tiam’ bouène</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138087/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.36667</wgs:lat>
+	<wgs:long>164.08333</wgs:long>
+	<skos:prefLabel>Île Ti-Ac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138094/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.36667</wgs:lat>
+	<wgs:long>164.1</wgs:long>
+	<skos:altLabel>Île Ti</skos:altLabel>
+	<skos:altLabel>Île Tienghiène</skos:altLabel>
+	<skos:prefLabel>Île Ti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138101/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2140464/"/>
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-21.60573</wgs:lat>
+	<wgs:long>166.21456</wgs:long>
+	<skos:prefLabel>Thio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138104/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.85</wgs:lat>
+	<wgs:long>163.7</wgs:long>
+	<skos:prefLabel>Thiénamale</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138106/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.88333</wgs:lat>
+	<wgs:long>163.7</wgs:long>
+	<skos:prefLabel>Thiawa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138114/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-21.95</wgs:lat>
+	<wgs:long>165.91667</wgs:long>
+	<skos:prefLabel>Îles Testard</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138116/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.78333</wgs:lat>
+	<wgs:long>165.71667</wgs:long>
+	<skos:prefLabel>Îlot Téremba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138121/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.8</wgs:lat>
+	<wgs:long>166.86667</wgs:long>
+	<skos:prefLabel>Île Teré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138135/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.01667</wgs:lat>
+	<wgs:long>165.93333</wgs:long>
+	<skos:prefLabel>Île Ténia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138146/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.3</wgs:lat>
+	<wgs:long>166.28333</wgs:long>
+	<skos:prefLabel>Te Ndu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138172/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.9</wgs:lat>
+	<wgs:long>163.7</wgs:long>
+	<skos:prefLabel>Téama</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138211/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.38333</wgs:lat>
+	<wgs:long>166.63333</wgs:long>
+	<skos:altLabel>Taretis</skos:altLabel>
+	<skos:altLabel>Île Tarèti</skos:altLabel>
+	<skos:prefLabel>Île Tarèti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138239/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.53333</wgs:lat>
+	<wgs:long>167.41667</wgs:long>
+	<skos:altLabel>Île Tanloro</skos:altLabel>
+	<skos:altLabel>Île Tiantoro</skos:altLabel>
+	<skos:prefLabel>Île Tanloro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138241/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.31667</wgs:lat>
+	<wgs:long>164.06667</wgs:long>
+	<skos:prefLabel>Île Tanlé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138243/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.03333</wgs:lat>
+	<wgs:long>163.93333</wgs:long>
+	<skos:altLabel>Île Taanlai</skos:altLabel>
+	<skos:altLabel>Île Tanlaï</skos:altLabel>
+	<skos:prefLabel>Île Taanlai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138247/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.18333</wgs:lat>
+	<wgs:long>166.26667</wgs:long>
+	<skos:altLabel>Île Iange</skos:altLabel>
+	<skos:altLabel>Île Iangue</skos:altLabel>
+	<skos:altLabel>Île Ndue</skos:altLabel>
+	<skos:altLabel>Île Tangué</skos:altLabel>
+	<skos:prefLabel>Île Tangué</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138252/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.55</wgs:lat>
+	<wgs:long>164.21667</wgs:long>
+	<skos:prefLabel>Île Tangadiou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138267/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.53333</wgs:lat>
+	<wgs:long>163.56667</wgs:long>
+	<skos:altLabel>Tamalé</skos:altLabel>
+	<skos:altLabel>Île Taamalé</skos:altLabel>
+	<skos:prefLabel>Tamalé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138286/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.56667</wgs:lat>
+	<wgs:long>164.18333</wgs:long>
+	<skos:prefLabel>Île de la Table</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138287/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.45833</wgs:lat>
+	<wgs:long>166.43889</wgs:long>
+	<skos:altLabel>Ho</skos:altLabel>
+	<skos:altLabel>Île de la Table</skos:altLabel>
+	<skos:prefLabel>Île de la Table</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138291/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.01667</wgs:lat>
+	<wgs:long>163.93333</wgs:long>
+	<skos:altLabel>Nénéma</skos:altLabel>
+	<skos:altLabel>Île Taanlô</skos:altLabel>
+	<skos:altLabel>Île Taanto</skos:altLabel>
+	<skos:prefLabel>Île Taanlô</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138297/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.53333</wgs:lat>
+	<wgs:long>163.03333</wgs:long>
+	<skos:prefLabel>Île Surprise</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138316/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.63333</wgs:lat>
+	<wgs:long>166.31667</wgs:long>
+	<skos:prefLabel>Sou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138321/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.8</wgs:lat>
+	<wgs:long>166.63333</wgs:long>
+	<skos:prefLabel>Île du Solitaire</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138324/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.45</wgs:lat>
+	<wgs:long>158.96667</wgs:long>
+	<skos:altLabel>Caye Renard</skos:altLabel>
+	<skos:altLabel>Caye Skeleton</skos:altLabel>
+	<skos:altLabel>Skelton Cay</skos:altLabel>
+	<skos:prefLabel>Caye Skeleton</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138354/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2140464/"/>
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-21.64211</wgs:lat>
+	<wgs:long>165.84515</wgs:long>
+	<skos:prefLabel>Sarraméa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138385/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-20.11667</wgs:lat>
+	<wgs:long>164.1</wgs:long>
+	<skos:altLabel>Ilot Sables d’ Olane</skos:altLabel>
+	<skos:altLabel>Sables d’ Olane</skos:altLabel>
+	<skos:altLabel>Îlots Saint-Phalle</skos:altLabel>
+	<skos:prefLabel>Îlots Saint-Phalle</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138386/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.96667</wgs:lat>
+	<wgs:long>166.01667</wgs:long>
+	<skos:altLabel>Île Méouan</skos:altLabel>
+	<skos:altLabel>Île Saint-Phalle</skos:altLabel>
+	<skos:prefLabel>Île Saint-Phalle</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138415/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.03333</wgs:lat>
+	<wgs:long>165.41667</wgs:long>
+	<skos:altLabel>Ta Tipou</skos:altLabel>
+	<skos:altLabel>Île Saint-Ignace</skos:altLabel>
+	<skos:altLabel>Îlot Saint-Ignace</skos:altLabel>
+	<skos:prefLabel>Îlot Saint-Ignace</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138432/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.73333</wgs:lat>
+	<wgs:long>165.65</wgs:long>
+	<skos:prefLabel>Île Saint-Dié</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138443/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.9</wgs:lat>
+	<wgs:long>165.35</wgs:long>
+	<skos:prefLabel>Île de Sable</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138444/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.58333</wgs:lat>
+	<wgs:long>164.83333</wgs:long>
+	<skos:prefLabel>Île de Sable</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138445/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.25</wgs:lat>
+	<wgs:long>159.93333</wgs:long>
+	<skos:altLabel>Sandy Isalnd</skos:altLabel>
+	<skos:altLabel>Île de Sable</skos:altLabel>
+	<skos:prefLabel>Île de Sable</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138446/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.23333</wgs:lat>
+	<wgs:long>163.8</wgs:long>
+	<skos:altLabel>Sand Islet</skos:altLabel>
+	<skos:altLabel>Île de Sable</skos:altLabel>
+	<skos:prefLabel>Île de Sable</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138447/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.56667</wgs:lat>
+	<wgs:long>162.81667</wgs:long>
+	<skos:altLabel>Sand Island</skos:altLabel>
+	<skos:altLabel>Île de Sable</skos:altLabel>
+	<skos:prefLabel>Île de Sable</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138448/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-18.71667</wgs:lat>
+	<wgs:long>162.9</wgs:long>
+	<skos:prefLabel>Cayes de Sable</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138459/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.06667</wgs:lat>
+	<wgs:long>166.01667</wgs:long>
+	<skos:prefLabel>Île Ronhua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138460/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.58333</wgs:lat>
+	<wgs:long>166.26667</wgs:long>
+	<skos:altLabel>Banya Nord</skos:altLabel>
+	<skos:altLabel>Deux Banyans Nord</skos:altLabel>
+	<skos:altLabel>Île Ronde</skos:altLabel>
+	<skos:prefLabel>Banya Nord</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138474/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.23333</wgs:lat>
+	<wgs:long>158.96667</wgs:long>
+	<skos:prefLabel>Île Renard</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138479/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.51667</wgs:lat>
+	<wgs:long>166.61667</wgs:long>
+	<skos:prefLabel>Île Rédika</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138493/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.98333</wgs:lat>
+	<wgs:long>165.95</wgs:long>
+	<skos:altLabel>Ile Pouen</skos:altLabel>
+	<skos:altLabel>Île Puen</skos:altLabel>
+	<skos:prefLabel>Île Puen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138495/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.53333</wgs:lat>
+	<wgs:long>166.85</wgs:long>
+	<skos:altLabel>Île Pouemba</skos:altLabel>
+	<skos:altLabel>Île Puemba</skos:altLabel>
+	<skos:prefLabel>Île Puemba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138519/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2140685/"/>
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-21.34487</wgs:lat>
+	<wgs:long>165.16399</wgs:long>
+	<skos:prefLabel>Poya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138546/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.31667</wgs:lat>
+	<wgs:long>164.31667</wgs:long>
+	<skos:altLabel>Pounole</skos:altLabel>
+	<skos:altLabel>Punoole</skos:altLabel>
+	<skos:altLabel>Île Poumole</skos:altLabel>
+	<skos:altLabel>Île Pounoole</skos:altLabel>
+	<skos:prefLabel>Île Poumole</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138590/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2140685/"/>
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-21.10756</wgs:lat>
+	<wgs:long>164.98341</wgs:long>
+	<skos:prefLabel>Pouembout</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138606/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2140685/"/>
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-20.39291</wgs:lat>
+	<wgs:long>164.58275</wgs:long>
+	<skos:altLabel>Oubatche</skos:altLabel>
+	<skos:altLabel>Poubeo</skos:altLabel>
+	<skos:prefLabel>Pouébo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138617/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.28333</wgs:lat>
+	<wgs:long>164.48333</wgs:long>
+	<skos:altLabel>Île Poudiou</skos:altLabel>
+	<skos:altLabel>Île Poudioué</skos:altLabel>
+	<skos:altLabel>Îlot Poudiou</skos:altLabel>
+	<skos:prefLabel>Îlot Poudiou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138659/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.58333</wgs:lat>
+	<wgs:long>163.6</wgs:long>
+	<skos:prefLabel>Île Pott</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138660/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.15</wgs:lat>
+	<wgs:long>166.95</wgs:long>
+	<skos:prefLabel>Île Potino</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138673/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.33333</wgs:lat>
+	<wgs:long>166.56667</wgs:long>
+	<skos:prefLabel>Île Porc-Épic</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138674/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.9</wgs:lat>
+	<wgs:long>166.61667</wgs:long>
+	<skos:prefLabel>Île Porc-Épic</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138685/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2140685/"/>
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-21.07649</wgs:lat>
+	<wgs:long>165.40054</wgs:long>
+	<skos:prefLabel>Ponérihouen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138702/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.75</wgs:lat>
+	<wgs:long>165.6</wgs:long>
+	<skos:prefLabel>Île Pombé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138715/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2140685/"/>
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-20.95054</wgs:lat>
+	<wgs:long>165.34149</wgs:long>
+	<skos:prefLabel>Poindimié</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138773/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-20.63333</wgs:lat>
+	<wgs:long>166.33333</wgs:long>
+	<skos:altLabel>Pléiades du Sud</skos:altLabel>
+	<skos:altLabel>Southern Pleiades</skos:altLabel>
+	<skos:prefLabel>Pléiades du Sud</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138774/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-20.48333</wgs:lat>
+	<wgs:long>166.35</wgs:long>
+	<skos:altLabel>Northern Pleiades</skos:altLabel>
+	<skos:altLabel>Pléiades du Nord</skos:altLabel>
+	<skos:prefLabel>Pléiades du Nord</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138775/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.03333</wgs:lat>
+	<wgs:long>166.15</wgs:long>
+	<skos:prefLabel>Île Plate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138783/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.2</wgs:lat>
+	<wgs:long>163.98333</wgs:long>
+	<skos:prefLabel>Île Pionne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138787/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.61667</wgs:lat>
+	<wgs:long>167.5</wgs:long>
+	<skos:altLabel>Isle of Pines</skos:altLabel>
+	<skos:altLabel>Kounié</skos:altLabel>
+	<skos:altLabel>The Pines</skos:altLabel>
+	<skos:altLabel>Île Kunié</skos:altLabel>
+	<skos:altLabel>Île des Pins</skos:altLabel>
+	<skos:prefLabel>Île des Pins</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138788/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.43333</wgs:lat>
+	<wgs:long>166.48333</wgs:long>
+	<skos:altLabel>Pine Island</skos:altLabel>
+	<skos:altLabel>Uegnik Island</skos:altLabel>
+	<skos:altLabel>Wagnimouda</skos:altLabel>
+	<skos:altLabel>Île des Pins</skos:altLabel>
+	<skos:prefLabel>Île des Pins</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138794/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.08333</wgs:lat>
+	<wgs:long>164.71667</wgs:long>
+	<skos:prefLabel>Île Pingiane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138799/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.33333</wgs:lat>
+	<wgs:long>164.93333</wgs:long>
+	<skos:prefLabel>Îlot Pindaï</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138805/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.51667</wgs:lat>
+	<wgs:long>166.85</wgs:long>
+	<skos:altLabel>Île Pimbo</skos:altLabel>
+	<skos:altLabel>Île Pumbo</skos:altLabel>
+	<skos:prefLabel>Île Pimbo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138822/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.98333</wgs:lat>
+	<wgs:long>163.93333</wgs:long>
+	<skos:altLabel>Île Pia</skos:altLabel>
+	<skos:altLabel>Île Tia</skos:altLabel>
+	<skos:prefLabel>Île Pia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138835/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.31667</wgs:lat>
+	<wgs:long>166.56667</wgs:long>
+	<skos:altLabel>Petit Charron</skos:altLabel>
+	<skos:altLabel>Îlot Petit Charron</skos:altLabel>
+	<skos:prefLabel>Îlot Petit Charron</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138859/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.73333</wgs:lat>
+	<wgs:long>165.51667</wgs:long>
+	<skos:prefLabel>Île Pembo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138887/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.26667</wgs:lat>
+	<wgs:long>167.03333</wgs:long>
+	<skos:prefLabel>Île Pavé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138892/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22</wgs:lat>
+	<wgs:long>166.08333</wgs:long>
+	<skos:prefLabel>Île Patrice</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138900/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.9125</wgs:lat>
+	<wgs:long>158.37944</wgs:long>
+	<skos:altLabel>Bennett Island</skos:altLabel>
+	<skos:altLabel>Passage Islet</skos:altLabel>
+	<skos:altLabel>Îlot du Passage</skos:altLabel>
+	<skos:prefLabel>Îlot du Passage</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138902/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.96667</wgs:lat>
+	<wgs:long>166.08333</wgs:long>
+	<skos:altLabel>Oui</skos:altLabel>
+	<skos:altLabel>Île Parseval</skos:altLabel>
+	<skos:prefLabel>Île Parseval</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138967/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.25</wgs:lat>
+	<wgs:long>164.28333</wgs:long>
+	<skos:prefLabel>Île Pam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138980/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2140464/"/>
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-22.12985</wgs:lat>
+	<wgs:long>166.36391</wgs:long>
+	<skos:prefLabel>Païta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138981/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12617</europeana:population>
+	<wgs:lat>-22.13333</wgs:lat>
+	<wgs:long>166.36667</wgs:long>
+	<skos:prefLabel>Païta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2138999/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.05</wgs:lat>
+	<wgs:long>166.08333</wgs:long>
+	<skos:prefLabel>Île Page</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139006/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.13333</wgs:lat>
+	<wgs:long>164.03333</wgs:long>
+	<skos:prefLabel>Île Padioté</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139021/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.16667</wgs:lat>
+	<wgs:long>164.01667</wgs:long>
+	<skos:prefLabel>Île Paaïo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139030/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/7521415/"/>
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-20.65</wgs:lat>
+	<wgs:long>166.58333</wgs:long>
+	<skos:prefLabel>Ouvéa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139032/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.58333</wgs:lat>
+	<wgs:long>166.58333</wgs:long>
+	<skos:altLabel>Eath</skos:altLabel>
+	<skos:altLabel>Halgan</skos:altLabel>
+	<skos:altLabel>Iai</skos:altLabel>
+	<skos:altLabel>Ouvéa</skos:altLabel>
+	<skos:altLabel>Uea</skos:altLabel>
+	<skos:altLabel>Urea</skos:altLabel>
+	<skos:altLabel>Île Uvéa</skos:altLabel>
+	<skos:prefLabel>Ouvéa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139049/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.1</wgs:lat>
+	<wgs:long>164.2</wgs:long>
+	<skos:prefLabel>Île Oupe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139066/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.4</wgs:lat>
+	<wgs:long>166.55</wgs:long>
+	<skos:altLabel>Ile Ouénéti</skos:altLabel>
+	<skos:altLabel>Île Ounes</skos:altLabel>
+	<skos:altLabel>Île Uénéti</skos:altLabel>
+	<skos:prefLabel>Île Ounes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139153/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.93333</wgs:lat>
+	<wgs:long>165.93333</wgs:long>
+	<skos:prefLabel>Île Ouernel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139171/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.64167</wgs:lat>
+	<wgs:long>167.40833</wgs:long>
+	<skos:altLabel>Île Ouento</skos:altLabel>
+	<skos:altLabel>Îlot Uento</skos:altLabel>
+	<skos:prefLabel>Île Ouento</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139176/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.08333</wgs:lat>
+	<wgs:long>166.93333</wgs:long>
+	<skos:altLabel>Île Ouénou</skos:altLabel>
+	<skos:altLabel>Île Uenu</skos:altLabel>
+	<skos:prefLabel>Île Ouénou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139231/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.43333</wgs:lat>
+	<wgs:long>166.8</wgs:long>
+	<skos:altLabel>Île Ouen</skos:altLabel>
+	<skos:altLabel>Île Uen</skos:altLabel>
+	<skos:prefLabel>Île Ouen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139258/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2140685/"/>
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-20.34849</wgs:lat>
+	<wgs:long>164.42619</wgs:long>
+	<skos:prefLabel>Ouégoa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139296/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.56667</wgs:lat>
+	<wgs:long>167.51667</wgs:long>
+	<skos:altLabel>Uatomo</skos:altLabel>
+	<skos:altLabel>Île Ouatomo</skos:altLabel>
+	<skos:prefLabel>Île Ouatomo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139303/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.58333</wgs:lat>
+	<wgs:long>167.51667</wgs:long>
+	<skos:altLabel>Ouaté</skos:altLabel>
+	<skos:altLabel>Uate</skos:altLabel>
+	<skos:prefLabel>Ouaté</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139338/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.71667</wgs:lat>
+	<wgs:long>165.15</wgs:long>
+	<skos:altLabel>Île Ouao</skos:altLabel>
+	<skos:altLabel>Île Uao</skos:altLabel>
+	<skos:altLabel>Îlot Ouao</skos:altLabel>
+	<skos:prefLabel>Îlot Ouao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139346/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.35</wgs:lat>
+	<wgs:long>164.01667</wgs:long>
+	<skos:prefLabel>Île Ouanne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139387/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-22.08333</wgs:lat>
+	<wgs:long>166.31667</wgs:long>
+	<skos:prefLabel>Croix d’ Ouambo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139427/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.56667</wgs:lat>
+	<wgs:long>167.51667</wgs:long>
+	<skos:altLabel>Uage</skos:altLabel>
+	<skos:altLabel>Île Ouagé</skos:altLabel>
+	<skos:prefLabel>Île Ouagé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139453/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.36667</wgs:lat>
+	<wgs:long>163.78333</wgs:long>
+	<skos:prefLabel>Île Ongombua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139484/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.45</wgs:lat>
+	<wgs:long>166.5</wgs:long>
+	<skos:prefLabel>Oidet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139494/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.41667</wgs:lat>
+	<wgs:long>158.83333</wgs:long>
+	<skos:altLabel>Caye de l’ Observatoire</skos:altLabel>
+	<skos:altLabel>Observatory Cay</skos:altLabel>
+	<skos:prefLabel>Caye de l’ Observatoire</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139499/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.43333</wgs:lat>
+	<wgs:long>164.11667</wgs:long>
+	<skos:prefLabel>Île Oahimboa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139503/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.2</wgs:lat>
+	<wgs:long>166.41667</wgs:long>
+	<skos:altLabel>Île Noumbo</skos:altLabel>
+	<skos:altLabel>Île Numbo</skos:altLabel>
+	<skos:altLabel>Îlot Numba</skos:altLabel>
+	<skos:prefLabel>Îlot Numba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139504/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.51667</wgs:lat>
+	<wgs:long>166.9</wgs:long>
+	<skos:prefLabel>Nukue</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139509/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.5</wgs:lat>
+	<wgs:long>165.5</wgs:long>
+	<skos:altLabel>La Nouvelle-Calédonie</skos:altLabel>
+	<skos:altLabel xml:lang="en">New Caledonia</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Nouvelle-Calédonie</skos:altLabel>
+	<skos:altLabel>Nýja</skos:altLabel>
+	<skos:altLabel xml:lang="is">Nýja Kaledónía</skos:altLabel>
+	<skos:altLabel>Territoire de la Nouvelle-Calédonie</skos:altLabel>
+	<skos:altLabel>Territoire de la Nouvelle-Calédonie et Dépendances</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Новая Каледония</skos:altLabel>
+	<skos:prefLabel>New Caledonia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139510/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.21667</wgs:lat>
+	<wgs:long>166.98333</wgs:long>
+	<skos:prefLabel>Île Noutié</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139513/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.18333</wgs:lat>
+	<wgs:long>166.4</wgs:long>
+	<skos:prefLabel>Îlot Nouré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139519/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.26667</wgs:lat>
+	<wgs:long>167.01667</wgs:long>
+	<skos:prefLabel>Île Nou Méré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139520/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2140464/"/>
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-22.26667</wgs:lat>
+	<wgs:long>166.46667</wgs:long>
+	<skos:prefLabel>Nouméa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139521/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>93060</europeana:population>
+	<wgs:lat>-22.27631</wgs:lat>
+	<wgs:long>166.4572</wgs:long>
+	<skos:altLabel xml:lang="io">Noumea</skos:altLabel>
+	<skos:altLabel xml:lang="de">Noumea</skos:altLabel>
+	<skos:altLabel xml:lang="en">Noumea</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Noumea</skos:altLabel>
+	<skos:altLabel xml:lang="it">Noumea</skos:altLabel>
+	<skos:altLabel xml:lang="el">Noumea</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Noumea</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Noumea</skos:altLabel>
+	<skos:altLabel xml:lang="de">Nouméa</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Nouméa</skos:altLabel>
+	<skos:altLabel xml:lang="it">Nouméa</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Nouméa</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Nouméa</skos:altLabel>
+	<skos:altLabel xml:lang="en">Nouméa</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Nouméa</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Nouméa</skos:altLabel>
+	<skos:altLabel xml:lang="et">Nouméa</skos:altLabel>
+	<skos:altLabel xml:lang="da">Nouméa</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Nouméa</skos:altLabel>
+	<skos:altLabel>Numea</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Numea</skos:altLabel>
+	<skos:altLabel xml:lang="es">Numea</skos:altLabel>
+	<skos:altLabel>Port de France</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Нумеа</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ヌメア</skos:altLabel>
+	<skos:altLabel xml:lang="ko">누메아</skos:altLabel>
+	<skos:prefLabel>Nouméa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139522/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.63333</wgs:lat>
+	<wgs:long>167.41667</wgs:long>
+	<skos:altLabel>Île Nouma</skos:altLabel>
+	<skos:altLabel>Îlot Numua</skos:altLabel>
+	<skos:prefLabel>Île Nouma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139531/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.41667</wgs:lat>
+	<wgs:long>167.01667</wgs:long>
+	<skos:altLabel>Île Nouaré</skos:altLabel>
+	<skos:altLabel>Île Nuare</skos:altLabel>
+	<skos:prefLabel>Île Nouaré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139533/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.25972</wgs:lat>
+	<wgs:long>167.02917</wgs:long>
+	<skos:altLabel>Nuu</skos:altLabel>
+	<skos:altLabel>Île Nao</skos:altLabel>
+	<skos:altLabel>Île Nau</skos:altLabel>
+	<skos:altLabel>Île Nou</skos:altLabel>
+	<skos:altLabel>Île Nu</skos:altLabel>
+	<skos:prefLabel>Nuu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139534/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.26667</wgs:lat>
+	<wgs:long>166.4</wgs:long>
+	<skos:altLabel>Ile Nouville</skos:altLabel>
+	<skos:altLabel>Île Nou</skos:altLabel>
+	<skos:prefLabel>Île Nou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139591/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.53333</wgs:lat>
+	<wgs:long>167.41667</wgs:long>
+	<skos:prefLabel>Île Noéno</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139595/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.53333</wgs:lat>
+	<wgs:long>166.83333</wgs:long>
+	<skos:prefLabel>Île Noé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139605/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.58333</wgs:lat>
+	<wgs:long>166.23333</wgs:long>
+	<skos:altLabel>Noumboué</skos:altLabel>
+	<skos:altLabel>Île Nioumboua</skos:altLabel>
+	<skos:altLabel>Île Nouim’boua</skos:altLabel>
+	<skos:prefLabel>Île Nioumboua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139640/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.55</wgs:lat>
+	<wgs:long>166.31667</wgs:long>
+	<skos:altLabel>Île Nileouti</skos:altLabel>
+	<skos:altLabel>Île Niléu</skos:altLabel>
+	<skos:altLabel>Île Néléouti</skos:altLabel>
+	<skos:prefLabel>Île Nileouti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139641/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.7</wgs:lat>
+	<wgs:long>166.46667</wgs:long>
+	<skos:prefLabel>Nihap</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139648/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.26667</wgs:lat>
+	<wgs:long>167.01667</wgs:long>
+	<skos:prefLabel>Île Nié</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139678/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.3</wgs:lat>
+	<wgs:long>166.48333</wgs:long>
+	<skos:altLabel>Île Ngéa</skos:altLabel>
+	<skos:altLabel>Île Sainte-Marie</skos:altLabel>
+	<skos:prefLabel>Île Ngéa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139679/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.7</wgs:lat>
+	<wgs:long>166.85</wgs:long>
+	<skos:altLabel>Île Nge</skos:altLabel>
+	<skos:altLabel>Îlot N’Gé</skos:altLabel>
+	<skos:prefLabel>Île Nge</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139680/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.33333</wgs:lat>
+	<wgs:long>166.33333</wgs:long>
+	<skos:prefLabel>Île Nge</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139685/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255151/"/>
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLD"/>
+	<europeana:population>216494</europeana:population>
+	<wgs:lat>-21.5</wgs:lat>
+	<wgs:long>165.5</wgs:long>
+	<skos:altLabel xml:lang="ga">An Nua-Chaladóin</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Caledonia Newydd</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Jaunkaledonija</skos:altLabel>
+	<skos:altLabel xml:lang="id">Kaledonia Baru</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Kaledonia Berria</skos:altLabel>
+	<skos:altLabel>NC</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Naujoji Kaledonija</skos:altLabel>
+	<skos:altLabel xml:lang="de">Neukaledonien</skos:altLabel>
+	<skos:altLabel xml:lang="en">New Caledonia</skos:altLabel>
+	<skos:altLabel xml:lang="ms">New Caledonia</skos:altLabel>
+	<skos:altLabel xml:lang="mt">New Caledonia</skos:altLabel>
+	<skos:altLabel xml:lang="af">Nieu-Kaledonië</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Nieuw-Caledonië</skos:altLabel>
+	<skos:altLabel xml:lang="to">Niu Kaletonia</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Noua Caledonie</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Nouvelle-Calédonie</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Nov-Kaledonio</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Nova Caledonia</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Nova Caledònia</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Nova Caledónia</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Nova Kaledonija</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Nova Kaledonija</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Nove Caledonia</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Nová Kaledonie</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Nová Kaledónia</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Nowa Kaledonia</skos:altLabel>
+	<skos:altLabel xml:lang="es">Nueva Caledonia</skos:altLabel>
+	<skos:altLabel xml:lang="it">Nuova Caledonia</skos:altLabel>
+	<skos:altLabel xml:lang="da">Ny Kaledonien</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Ny-Caledonia</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Ny-Caledonia</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Nya Kaledonien</skos:altLabel>
+	<skos:altLabel xml:lang="is">Nýja-Kaledónía</skos:altLabel>
+	<skos:altLabel xml:lang="se">Ođđa-Kaledonia</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Territoire des Nouvelle-Calédonie et Dépendances</skos:altLabel>
+	<skos:altLabel>Territory of New Caledonia and Dependencies</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Tân Caledonia</skos:altLabel>
+	<skos:altLabel xml:lang="et">Uus Caledonia</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Uusi-Kaledonia</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Yeni İskoçya</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Új-Kaledónia</skos:altLabel>
+	<skos:altLabel xml:lang="el">Νέα Καληδονία</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Нова Каледония</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Нова Каледонија</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Нова Каледонија</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Нова Каледонія</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Новая Каледония</skos:altLabel>
+	<skos:altLabel xml:lang="be">Новая Каледонія</skos:altLabel>
+	<skos:altLabel xml:lang="he">קלדוניה החדשה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">كاليدونيا الجديدة</skos:altLabel>
+	<skos:altLabel xml:lang="ur">نیو کیلیڈونیا</skos:altLabel>
+	<skos:altLabel xml:lang="fa">کالدونیای جدید</skos:altLabel>
+	<skos:altLabel xml:lang="hi">न्यू कैलेडोनिया</skos:altLabel>
+	<skos:altLabel xml:lang="bn">নিউ ক্যালেডোনিয়া</skos:altLabel>
+	<skos:altLabel xml:lang="th">นิวคาลิโดเนีย</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ນິວຄາລິໂຄເນຍ</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ახალი კალედონია</skos:altLabel>
+	<skos:altLabel xml:lang="am">ኒው ካሌዶኒያ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ニューカレドニア</skos:altLabel>
+	<skos:altLabel xml:lang="zh">新卡里多尼亚</skos:altLabel>
+	<skos:altLabel xml:lang="ko">뉴 칼레도니아</skos:altLabel>
+	<skos:prefLabel>Nouvelle-Calédonie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139767/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.25</wgs:lat>
+	<wgs:long>165.68333</wgs:long>
+	<skos:prefLabel>Îlot Néni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139773/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.18333</wgs:lat>
+	<wgs:long>164.05</wgs:long>
+	<skos:altLabel>Île Nendialé</skos:altLabel>
+	<skos:altLabel>Île Nendrale</skos:altLabel>
+	<skos:prefLabel>Île Nendialé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139780/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.68333</wgs:lat>
+	<wgs:long>166.38333</wgs:long>
+	<skos:altLabel>Île Nemou</skos:altLabel>
+	<skos:altLabel>Île Nenu</skos:altLabel>
+	<skos:altLabel>Île Némo</skos:altLabel>
+	<skos:altLabel>Île Nénou</skos:altLabel>
+	<skos:altLabel>Île Saint-Thomas</skos:altLabel>
+	<skos:prefLabel>Île Nemou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139781/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.26944</wgs:lat>
+	<wgs:long>167.02222</wgs:long>
+	<skos:altLabel>Nuu Nèmbo</skos:altLabel>
+	<skos:altLabel>Île Némo</skos:altLabel>
+	<skos:prefLabel>Nuu Nèmbo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139852/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.15</wgs:lat>
+	<wgs:long>163.91667</wgs:long>
+	<skos:altLabel>Nénéma</skos:altLabel>
+	<skos:altLabel>Île Néba</skos:altLabel>
+	<skos:prefLabel>Île Néba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139861/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.35</wgs:lat>
+	<wgs:long>164.1</wgs:long>
+	<skos:altLabel>Yangobo</skos:altLabel>
+	<skos:altLabel>Île Néangambo</skos:altLabel>
+	<skos:prefLabel>Île Néangambo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139868/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.28333</wgs:lat>
+	<wgs:long>167.03333</wgs:long>
+	<skos:altLabel>Île Néa</skos:altLabel>
+	<skos:altLabel>Île Néaé</skos:altLabel>
+	<skos:prefLabel>Île Néaé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139873/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.1</wgs:lat>
+	<wgs:long>166.11667</wgs:long>
+	<skos:prefLabel>Île Ndukué</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139875/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.2</wgs:lat>
+	<wgs:long>166.23333</wgs:long>
+	<skos:altLabel>Île Ndue</skos:altLabel>
+	<skos:altLabel>Île N’Duo</skos:altLabel>
+	<skos:prefLabel>Île Ndue</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139882/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.31667</wgs:lat>
+	<wgs:long>166.46667</wgs:long>
+	<skos:prefLabel>Îlot Ndo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139883/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.68333</wgs:lat>
+	<wgs:long>166.96667</wgs:long>
+	<skos:altLabel>Île Ndo</skos:altLabel>
+	<skos:altLabel>Îlot Ndo</skos:altLabel>
+	<skos:prefLabel>Île Ndo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139889/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.51667</wgs:lat>
+	<wgs:long>167.2</wgs:long>
+	<skos:altLabel>Île Ndié</skos:altLabel>
+	<skos:altLabel>Îlot Ndié</skos:altLabel>
+	<skos:prefLabel>Île Ndié</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139890/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.21667</wgs:lat>
+	<wgs:long>166.4</wgs:long>
+	<skos:altLabel>Île Ndié</skos:altLabel>
+	<skos:altLabel>Île aux Chèvres</skos:altLabel>
+	<skos:prefLabel>Île Ndié</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139896/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.3</wgs:lat>
+	<wgs:long>166.6</wgs:long>
+	<skos:prefLabel>Île Ndé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139902/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.85</wgs:lat>
+	<wgs:long>166.88333</wgs:long>
+	<skos:prefLabel>Île Nda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139960/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.48333</wgs:lat>
+	<wgs:long>166.06667</wgs:long>
+	<skos:prefLabel>Île Nani</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2139966/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.1</wgs:lat>
+	<wgs:long>163.98333</wgs:long>
+	<skos:prefLabel>Îlot Nandahalap</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140004/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.33333</wgs:lat>
+	<wgs:long>164.16667</wgs:long>
+	<skos:prefLabel>Île Naane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140014/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.61667</wgs:lat>
+	<wgs:long>167.4</wgs:long>
+	<skos:prefLabel>Île Muaré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140019/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.7</wgs:lat>
+	<wgs:long>166.41667</wgs:long>
+	<skos:altLabel>Muli Island</skos:altLabel>
+	<skos:altLabel>Île Mouli</skos:altLabel>
+	<skos:altLabel>Île Mouly</skos:altLabel>
+	<skos:prefLabel>Île Mouly</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140027/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-19.89</wgs:lat>
+	<wgs:long>158.47</wgs:long>
+	<skos:altLabel>Anchorage Islets</skos:altLabel>
+	<skos:altLabel>Les 3 Îlots du Mouillage</skos:altLabel>
+	<skos:altLabel>Les Trois Îlots du Mouillage</skos:altLabel>
+	<skos:altLabel>Îlots du Mouillage</skos:altLabel>
+	<skos:prefLabel>Les Trois Îlots du Mouillage</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140040/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.21667</wgs:lat>
+	<wgs:long>164.01667</wgs:long>
+	<skos:altLabel>Île Mouac</skos:altLabel>
+	<skos:altLabel>Île Muac</skos:altLabel>
+	<skos:prefLabel>Île Mouac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140046/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.43333</wgs:lat>
+	<wgs:long>166.48333</wgs:long>
+	<skos:prefLabel>Motouaïnié</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140052/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.98333</wgs:lat>
+	<wgs:long>166.05</wgs:long>
+	<skos:altLabel>Île Doupoua</skos:altLabel>
+	<skos:altLabel>Île des Morts</skos:altLabel>
+	<skos:prefLabel>Île des Morts</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140054/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.65417</wgs:lat>
+	<wgs:long>167.39167</wgs:long>
+	<skos:altLabel>Île Moro</skos:altLabel>
+	<skos:altLabel>Îlot Moro</skos:altLabel>
+	<skos:prefLabel>Île Moro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140055/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.11667</wgs:lat>
+	<wgs:long>166.16667</wgs:long>
+	<skos:prefLabel>Île Moro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140059/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.05</wgs:lat>
+	<wgs:long>164.16667</wgs:long>
+	<skos:altLabel>Tahanlagh</skos:altLabel>
+	<skos:altLabel>Île Mope</skos:altLabel>
+	<skos:prefLabel>Île Mope</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140061/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.38333</wgs:lat>
+	<wgs:long>166.85</wgs:long>
+	<skos:prefLabel>Île Montravel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140065/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2140464/"/>
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-22.27988</wgs:lat>
+	<wgs:long>166.58054</wgs:long>
+	<skos:prefLabel>Le Mont-Dore</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140066/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>24680</europeana:population>
+	<wgs:lat>-22.28333</wgs:lat>
+	<wgs:long>166.58333</wgs:long>
+	<skos:prefLabel>Mont-Dore</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140075/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.54167</wgs:lat>
+	<wgs:long>167.40833</wgs:long>
+	<skos:altLabel>Moenoroe</skos:altLabel>
+	<skos:altLabel>Île Moenoro</skos:altLabel>
+	<skos:altLabel>Île Monéoro</skos:altLabel>
+	<skos:prefLabel>Île Monéoro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140108/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2140464/"/>
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-21.69858</wgs:lat>
+	<wgs:long>165.68035</wgs:long>
+	<skos:prefLabel>Moindou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140147/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.6</wgs:lat>
+	<wgs:long>166.28333</wgs:long>
+	<skos:altLabel>Deux Banyans Sud</skos:altLabel>
+	<skos:altLabel>Île du Milieu</skos:altLabel>
+	<skos:prefLabel>Île du Milieu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140157/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.65</wgs:lat>
+	<wgs:long>166.35</wgs:long>
+	<skos:altLabel>Ilot Motuaïni</skos:altLabel>
+	<skos:altLabel>Metouaïné</skos:altLabel>
+	<skos:prefLabel>Metouaïné</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140168/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.73333</wgs:lat>
+	<wgs:long>165.61667</wgs:long>
+	<skos:prefLabel>Île Méréoyou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140242/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.63333</wgs:lat>
+	<wgs:long>165.41667</wgs:long>
+	<skos:prefLabel>Île Méeniono</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140243/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.63333</wgs:lat>
+	<wgs:long>165.43333</wgs:long>
+	<skos:prefLabel>Île Méecié</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140268/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.25</wgs:lat>
+	<wgs:long>166.23333</wgs:long>
+	<skos:altLabel>Mbe</skos:altLabel>
+	<skos:altLabel>Île Mbo</skos:altLabel>
+	<skos:prefLabel>Île Mbo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140272/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.11667</wgs:lat>
+	<wgs:long>166.13333</wgs:long>
+	<skos:prefLabel>Île M’Bé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140275/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.21667</wgs:lat>
+	<wgs:long>166.2</wgs:long>
+	<skos:prefLabel>Île Mba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140282/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.33333</wgs:lat>
+	<wgs:long>171.33333</wgs:long>
+	<skos:altLabel>Matthew Island</skos:altLabel>
+	<skos:altLabel>Île Matthew</skos:altLabel>
+	<skos:prefLabel>Île Matthew</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140284/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.55</wgs:lat>
+	<wgs:long>166.8</wgs:long>
+	<skos:prefLabel>Île Mato</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140287/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.08333</wgs:lat>
+	<wgs:long>166.1</wgs:long>
+	<skos:altLabel>Ka</skos:altLabel>
+	<skos:altLabel>Île Mathieu</skos:altLabel>
+	<skos:prefLabel>Île Mathieu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140297/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/7521415/"/>
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-21.49109</wgs:lat>
+	<wgs:long>167.99744</wgs:long>
+	<skos:prefLabel>Maré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140298/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.5</wgs:lat>
+	<wgs:long>168</wgs:long>
+	<skos:altLabel>Britannia</skos:altLabel>
+	<skos:altLabel>Mari</skos:altLabel>
+	<skos:altLabel>Maré</skos:altLabel>
+	<skos:altLabel>Mengöne</skos:altLabel>
+	<skos:altLabel>Nengone</skos:altLabel>
+	<skos:prefLabel>Maré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140300/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.98333</wgs:lat>
+	<wgs:long>166.05</wgs:long>
+	<skos:prefLabel>Île Marceau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140306/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.76667</wgs:lat>
+	<wgs:long>165.68333</wgs:long>
+	<skos:prefLabel>Île Mara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140325/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.6</wgs:lat>
+	<wgs:long>163.61667</wgs:long>
+	<skos:prefLabel>Île Mandjaléane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140334/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.76667</wgs:lat>
+	<wgs:long>166.48333</wgs:long>
+	<skos:altLabel>Ile Mamere</skos:altLabel>
+	<skos:altLabel>Îlot Maméré</skos:altLabel>
+	<skos:prefLabel>Îlot Maméré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140347/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.33333</wgs:lat>
+	<wgs:long>166.4</wgs:long>
+	<skos:prefLabel>Îlot Maître</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140357/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.55</wgs:lat>
+	<wgs:long>164.2</wgs:long>
+	<skos:prefLabel>Île Magonne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140360/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.16667</wgs:lat>
+	<wgs:long>164.25</wgs:long>
+	<skos:altLabel>Île Madahandé</skos:altLabel>
+	<skos:altLabel>Île Nendahandé</skos:altLabel>
+	<skos:prefLabel>Île Madahandé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140364/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.31667</wgs:lat>
+	<wgs:long>164.06667</wgs:long>
+	<skos:altLabel>Petit Tanlé</skos:altLabel>
+	<skos:altLabel>Île Maabounghi</skos:altLabel>
+	<skos:prefLabel>Île Maabounghi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140374/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-21</wgs:lat>
+	<wgs:long>167</wgs:long>
+	<skos:altLabel>Britannia Islands</skos:altLabel>
+	<skos:altLabel>Loyalty Islands</skos:altLabel>
+	<skos:altLabel>Îles Loyauté</skos:altLabel>
+	<skos:prefLabel>Îles Loyauté</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140378/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.97</wgs:lat>
+	<wgs:long>158.47333</wgs:long>
+	<skos:altLabel>Loop Islet</skos:altLabel>
+	<skos:altLabel>Île Loop</skos:altLabel>
+	<skos:altLabel>Îlot Loop</skos:altLabel>
+	<skos:prefLabel>Îlot Loop</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140380/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.05</wgs:lat>
+	<wgs:long>166.1</wgs:long>
+	<skos:prefLabel>Île Longue</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140381/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.87</wgs:lat>
+	<wgs:long>158.31056</wgs:long>
+	<skos:altLabel>Long Island</skos:altLabel>
+	<skos:altLabel>Île Longue</skos:altLabel>
+	<skos:prefLabel>Île Longue</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140391/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/7521415/"/>
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-20.96667</wgs:lat>
+	<wgs:long>167.25</wgs:long>
+	<skos:prefLabel>Lifou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140392/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.88333</wgs:lat>
+	<wgs:long>167.21667</wgs:long>
+	<skos:altLabel>Chabrol</skos:altLabel>
+	<skos:altLabel>Drehu</skos:altLabel>
+	<skos:altLabel>Duok</skos:altLabel>
+	<skos:altLabel>Lifou</skos:altLabel>
+	<skos:altLabel>Île Lifu</skos:altLabel>
+	<skos:prefLabel>Lifou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140410/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.46667</wgs:lat>
+	<wgs:long>166.38333</wgs:long>
+	<skos:altLabel>Laoupouka</skos:altLabel>
+	<skos:altLabel>The Twins</skos:altLabel>
+	<skos:altLabel>Île Les Jumeaux</skos:altLabel>
+	<skos:prefLabel>Île Les Jumeaux</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140415/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.98333</wgs:lat>
+	<wgs:long>165.98333</wgs:long>
+	<skos:altLabel>Tand</skos:altLabel>
+	<skos:altLabel>Île Léprédour</skos:altLabel>
+	<skos:altLabel>Île Tani</skos:altLabel>
+	<skos:prefLabel>Île Léprédour</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140423/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.3</wgs:lat>
+	<wgs:long>167.58333</wgs:long>
+	<skos:altLabel>Île Léliogat</skos:altLabel>
+	<skos:altLabel>Île Uo</skos:altLabel>
+	<skos:prefLabel>Île Léliogat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140425/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.33333</wgs:lat>
+	<wgs:long>162.98333</wgs:long>
+	<skos:altLabel>Huon du Milieu</skos:altLabel>
+	<skos:altLabel>Le Leixour Island</skos:altLabel>
+	<skos:altLabel>Le Lezour Island</skos:altLabel>
+	<skos:altLabel>Île Leleizour</skos:altLabel>
+	<skos:prefLabel>Île Leleizour</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140440/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.81667</wgs:lat>
+	<wgs:long>165.75</wgs:long>
+	<skos:prefLabel>Île Lebris</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140444/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.98333</wgs:lat>
+	<wgs:long>166.1</wgs:long>
+	<skos:prefLabel>Île Layrle</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140464/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2139685/"/>
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-21.75</wgs:lat>
+	<wgs:long>165.83333</wgs:long>
+	<skos:prefLabel>Province Sud</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140484/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.26667</wgs:lat>
+	<wgs:long>166.5</wgs:long>
+	<skos:altLabel>Île Kurn</skos:altLabel>
+	<skos:altLabel>Île Kuru</skos:altLabel>
+	<skos:prefLabel>Île Kuru</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140487/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.8</wgs:lat>
+	<wgs:long>165.7</wgs:long>
+	<skos:prefLabel>Îlot Kundogi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140490/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.65</wgs:lat>
+	<wgs:long>167.55</wgs:long>
+	<skos:prefLabel>Île Kuibandui</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140519/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.66667</wgs:lat>
+	<wgs:long>167.53333</wgs:long>
+	<skos:altLabel>Koutomo</skos:altLabel>
+	<skos:altLabel>Kutomo</skos:altLabel>
+	<skos:altLabel>Île Koutoumo</skos:altLabel>
+	<skos:altLabel>Île Kutuma</skos:altLabel>
+	<skos:altLabel>Île Kutumo</skos:altLabel>
+	<skos:prefLabel>Île Koutoumo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140542/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.58333</wgs:lat>
+	<wgs:long>167.51667</wgs:long>
+	<skos:altLabel>Kunguati</skos:altLabel>
+	<skos:altLabel>Île Koungouati</skos:altLabel>
+	<skos:prefLabel>Île Koungouati</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140548/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.62003</wgs:lat>
+	<wgs:long>167.41121</wgs:long>
+	<skos:altLabel>Île Kumo</skos:altLabel>
+	<skos:altLabel>Îlot Kumo</skos:altLabel>
+	<skos:prefLabel>Île Koumo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140556/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2140685/"/>
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-20.55501</wgs:lat>
+	<wgs:long>164.2717</wgs:long>
+	<skos:prefLabel>Koumac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140586/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.63333</wgs:lat>
+	<wgs:long>165.4</wgs:long>
+	<skos:prefLabel>Île Kouenra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140612/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.76667</wgs:lat>
+	<wgs:long>166.8</wgs:long>
+	<skos:prefLabel>Île Kouaré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140616/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.26667</wgs:lat>
+	<wgs:long>167.03333</wgs:long>
+	<skos:prefLabel>Île Kouaounéac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140674/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.15</wgs:lat>
+	<wgs:long>164.81667</wgs:long>
+	<skos:prefLabel>Île Koniène</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140684/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.03333</wgs:lat>
+	<wgs:long>166.18333</wgs:long>
+	<skos:prefLabel>Île Konga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140685/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2139685/"/>
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-21.05</wgs:lat>
+	<wgs:long>164.9</wgs:long>
+	<skos:prefLabel>Province Nord</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140692/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.86667</wgs:lat>
+	<wgs:long>165.78333</wgs:long>
+	<skos:altLabel>Konduio</skos:altLabel>
+	<skos:altLabel>Île Kunduio</skos:altLabel>
+	<skos:altLabel>Îlot Konduyo</skos:altLabel>
+	<skos:prefLabel>Îlot Konduyo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140693/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.23333</wgs:lat>
+	<wgs:long>166.55</wgs:long>
+	<skos:prefLabel>Kondouréou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140698/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.63333</wgs:lat>
+	<wgs:long>165.41667</wgs:long>
+	<skos:altLabel>Île Konaggan</skos:altLabel>
+	<skos:altLabel>Île Koraggan</skos:altLabel>
+	<skos:prefLabel>Île Konaggan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140714/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.9</wgs:lat>
+	<wgs:long>166.95</wgs:long>
+	<skos:prefLabel>Île Koko</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140763/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.6</wgs:lat>
+	<wgs:long>166.33333</wgs:long>
+	<skos:altLabel>Île Kindé</skos:altLabel>
+	<skos:altLabel>Île Kinoé</skos:altLabel>
+	<skos:prefLabel>Île Kindé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140768/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.38333</wgs:lat>
+	<wgs:long>167.06667</wgs:long>
+	<skos:altLabel>Île Kié</skos:altLabel>
+	<skos:altLabel>Île Pins</skos:altLabel>
+	<skos:prefLabel>Île Kié</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140771/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.63333</wgs:lat>
+	<wgs:long>165.43333</wgs:long>
+	<skos:prefLabel>Île Kia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140777/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.43333</wgs:lat>
+	<wgs:long>166.48333</wgs:long>
+	<skos:prefLabel>Kététalo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140785/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.66667</wgs:lat>
+	<wgs:long>164.25</wgs:long>
+	<skos:prefLabel>Île Kendec</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140817/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.08333</wgs:lat>
+	<wgs:long>165.51667</wgs:long>
+	<skos:prefLabel>Îlot Karu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140873/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.23333</wgs:lat>
+	<wgs:long>166.41667</wgs:long>
+	<skos:altLabel>Île Kumere</skos:altLabel>
+	<skos:altLabel>Îlot Kaméré</skos:altLabel>
+	<skos:prefLabel>Îlot Kaméré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140914/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2140685/"/>
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-20.66941</wgs:lat>
+	<wgs:long>164.3977</wgs:long>
+	<skos:altLabel>Gomen</skos:altLabel>
+	<skos:prefLabel>Kaala-Gomén</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140926/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.01667</wgs:lat>
+	<wgs:long>166.06667</wgs:long>
+	<skos:prefLabel>Île Jacqueline</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140934/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.9</wgs:lat>
+	<wgs:long>165.85</wgs:long>
+	<skos:prefLabel>Île Isié</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140937/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.53333</wgs:lat>
+	<wgs:long>167.41667</wgs:long>
+	<skos:altLabel>Île Ioupéré</skos:altLabel>
+	<skos:altLabel>Île Iupere</skos:altLabel>
+	<skos:prefLabel>Île Ioupéré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140938/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.53333</wgs:lat>
+	<wgs:long>167.43333</wgs:long>
+	<skos:prefLabel>Île Ioupé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140939/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.53333</wgs:lat>
+	<wgs:long>167.41667</wgs:long>
+	<skos:prefLabel>Île Ioupaoua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140957/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.23333</wgs:lat>
+	<wgs:long>167</wgs:long>
+	<skos:prefLabel>Île Imo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140958/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2140685/"/>
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>22272</europeana:population>
+	<wgs:lat>-19.73333</wgs:lat>
+	<wgs:long>163.66667</wgs:long>
+	<skos:prefLabel>Bélep</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140960/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2140464/"/>
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-22.61667</wgs:lat>
+	<wgs:long>167.48333</wgs:long>
+	<skos:prefLabel>L’Île des Pins</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140961/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-19.53333</wgs:lat>
+	<wgs:long>163.56667</wgs:long>
+	<skos:prefLabel>Îlots Igué</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140962/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.53333</wgs:lat>
+	<wgs:long>163.56667</wgs:long>
+	<skos:prefLabel>Îlot Igué</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140965/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.6</wgs:lat>
+	<wgs:long>166.83333</wgs:long>
+	<skos:altLabel>Île Iéroué</skos:altLabel>
+	<skos:altLabel>Île Yéroué</skos:altLabel>
+	<skos:altLabel>Île Yérué</skos:altLabel>
+	<skos:prefLabel>Île Iéroué</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140967/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.2</wgs:lat>
+	<wgs:long>166.25</wgs:long>
+	<skos:prefLabel>Île Ié</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140974/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-20.28333</wgs:lat>
+	<wgs:long>164.48333</wgs:long>
+	<skos:prefLabel>Monument Huon de Kermadec</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140975/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.01667</wgs:lat>
+	<wgs:long>162.95</wgs:long>
+	<skos:altLabel>Huon du Nord</skos:altLabel>
+	<skos:altLabel>Île Huon</skos:altLabel>
+	<skos:prefLabel>Île Huon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140977/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.4</wgs:lat>
+	<wgs:long>172.05</wgs:long>
+	<skos:altLabel>Hunter Island</skos:altLabel>
+	<skos:altLabel>Ile Fearn</skos:altLabel>
+	<skos:altLabel>Île Hunter</skos:altLabel>
+	<skos:prefLabel>Île Hunter</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2140984/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.05</wgs:lat>
+	<wgs:long>166.03333</wgs:long>
+	<skos:altLabel>Doumbah</skos:altLabel>
+	<skos:altLabel>Île Hug</skos:altLabel>
+	<skos:altLabel>Île Hugon</skos:altLabel>
+	<skos:prefLabel>Île Hugon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141004/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2140685/"/>
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-21.2865</wgs:lat>
+	<wgs:long>165.63435</wgs:long>
+	<skos:prefLabel>Houaïlou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141013/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.45</wgs:lat>
+	<wgs:long>166.45</wgs:long>
+	<skos:prefLabel>Holo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141036/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.35</wgs:lat>
+	<wgs:long>165.03333</wgs:long>
+	<skos:altLabel>Île Hiyé</skos:altLabel>
+	<skos:altLabel>Île Ie</skos:altLabel>
+	<skos:altLabel>Îlot Hiyé</skos:altLabel>
+	<skos:prefLabel>Îlot Hiyé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141044/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.68333</wgs:lat>
+	<wgs:long>165.08333</wgs:long>
+	<skos:altLabel>Île Iengu</skos:altLabel>
+	<skos:altLabel>Île Yengu</skos:altLabel>
+	<skos:altLabel>Îlot Hiengou</skos:altLabel>
+	<skos:prefLabel>Îlot Hiengou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141046/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.63333</wgs:lat>
+	<wgs:long>164.93333</wgs:long>
+	<skos:altLabel>Ieh Hingen</skos:altLabel>
+	<skos:altLabel>Île Hienghéne</skos:altLabel>
+	<skos:altLabel>Île Yeh-Hingen</skos:altLabel>
+	<skos:altLabel>Île Yen-Hingen</skos:altLabel>
+	<skos:prefLabel>Île Hienghéne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141047/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2140685/"/>
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-20.6874</wgs:lat>
+	<wgs:long>164.93774</wgs:long>
+	<skos:prefLabel>Hienghéne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141051/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.65</wgs:lat>
+	<wgs:long>164.98333</wgs:long>
+	<skos:altLabel>Île Hiengabat</skos:altLabel>
+	<skos:altLabel>Île Iehgabate</skos:altLabel>
+	<skos:altLabel>Île Yehgabat</skos:altLabel>
+	<skos:prefLabel>Île Hiengabat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141052/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.66667</wgs:lat>
+	<wgs:long>165.05</wgs:long>
+	<skos:altLabel>Île Ienga</skos:altLabel>
+	<skos:altLabel>Île Yenga</skos:altLabel>
+	<skos:altLabel>Îlot Hienga</skos:altLabel>
+	<skos:prefLabel>Îlot Hienga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141064/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.48333</wgs:lat>
+	<wgs:long>166.33333</wgs:long>
+	<skos:altLabel>Dengala</skos:altLabel>
+	<skos:altLabel>High Island</skos:altLabel>
+	<skos:altLabel>Île Haute</skos:altLabel>
+	<skos:prefLabel>Île Haute</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141067/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-21.1</wgs:lat>
+	<wgs:long>165.55</wgs:long>
+	<skos:prefLabel>Îlots d’ Harcourt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141080/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.7</wgs:lat>
+	<wgs:long>166.38333</wgs:long>
+	<skos:altLabel>Gece</skos:altLabel>
+	<skos:altLabel>Guetché</skos:altLabel>
+	<skos:altLabel>Îlot Guétié</skos:altLabel>
+	<skos:prefLabel>Gece</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141083/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.68333</wgs:lat>
+	<wgs:long>166.36667</wgs:long>
+	<skos:prefLabel>Gué</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141108/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.36667</wgs:lat>
+	<wgs:long>165</wgs:long>
+	<skos:altLabel>Grimoult</skos:altLabel>
+	<skos:altLabel>Île Grimault</skos:altLabel>
+	<skos:prefLabel>Île Grimault</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141137/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.51667</wgs:lat>
+	<wgs:long>166.13333</wgs:long>
+	<skos:prefLabel>Îlot Gouh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141180/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.15</wgs:lat>
+	<wgs:long>166.15</wgs:long>
+	<skos:altLabel>Mboa</skos:altLabel>
+	<skos:altLabel>Île Goldfield</skos:altLabel>
+	<skos:prefLabel>Île Goldfield</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141188/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.4</wgs:lat>
+	<wgs:long>164.11667</wgs:long>
+	<skos:altLabel>Île Coenghu</skos:altLabel>
+	<skos:altLabel>Île Coen’ghi</skos:altLabel>
+	<skos:altLabel>Île Goenghu</skos:altLabel>
+	<skos:prefLabel>Île Goenghu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141189/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.38333</wgs:lat>
+	<wgs:long>166.4</wgs:long>
+	<skos:prefLabel>Île aux Goélands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141196/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.51667</wgs:lat>
+	<wgs:long>167.40833</wgs:long>
+	<skos:altLabel>Île Gié</skos:altLabel>
+	<skos:altLabel>Îlot Ngié</skos:altLabel>
+	<skos:prefLabel>Île Gié</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141198/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.71667</wgs:lat>
+	<wgs:long>166.86667</wgs:long>
+	<skos:prefLabel>Île Gi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141203/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.53333</wgs:lat>
+	<wgs:long>167.41667</wgs:long>
+	<skos:prefLabel>Île Géréonière</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141205/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22</wgs:lat>
+	<wgs:long>166.1</wgs:long>
+	<skos:prefLabel>Île Geoffroy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141213/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.95</wgs:lat>
+	<wgs:long>166.06667</wgs:long>
+	<skos:altLabel>Île Gaüa</skos:altLabel>
+	<skos:altLabel>Île de la Pointe</skos:altLabel>
+	<skos:prefLabel>Île Gaüa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141216/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.98333</wgs:lat>
+	<wgs:long>164.65</wgs:long>
+	<skos:prefLabel>Île de Gatope</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141256/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.33333</wgs:lat>
+	<wgs:long>166.86667</wgs:long>
+	<skos:prefLabel>Île Gabriel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141263/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.23333</wgs:lat>
+	<wgs:long>166.38333</wgs:long>
+	<skos:altLabel>Île Freycinet</skos:altLabel>
+	<skos:altLabel>Île Ngou</skos:altLabel>
+	<skos:prefLabel>Île Freycinet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141303/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.71667</wgs:lat>
+	<wgs:long>166.46667</wgs:long>
+	<skos:altLabel>Faiava</skos:altLabel>
+	<skos:altLabel>Fayawa</skos:altLabel>
+	<skos:altLabel>Île Faiaua</skos:altLabel>
+	<skos:altLabel>Île Uasau</skos:altLabel>
+	<skos:altLabel>Île Wasau</skos:altLabel>
+	<skos:prefLabel>Faiava</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141314/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2140464/"/>
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-21.66509</wgs:lat>
+	<wgs:long>165.77597</wgs:long>
+	<skos:prefLabel>Farino</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141332/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.33333</wgs:lat>
+	<wgs:long>162.95</wgs:long>
+	<skos:altLabel>Fabert Island</skos:altLabel>
+	<skos:altLabel>Huon du Sud</skos:altLabel>
+	<skos:altLabel>Île Fabre</skos:altLabel>
+	<skos:prefLabel>Île Fabre</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141350/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.7</wgs:lat>
+	<wgs:long>165.48333</wgs:long>
+	<skos:prefLabel>Île Eori</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141365/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.91667</wgs:lat>
+	<wgs:long>165.36667</wgs:long>
+	<skos:altLabel>Ilot Tidianot</skos:altLabel>
+	<skos:altLabel>Île Tidiauot</skos:altLabel>
+	<skos:altLabel>Îlot Ena</skos:altLabel>
+	<skos:prefLabel>Îlot Ena</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141381/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.68333</wgs:lat>
+	<wgs:long>167.45</wgs:long>
+	<skos:prefLabel>Île Duroc</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141390/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2140464/"/>
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-22.14957</wgs:lat>
+	<wgs:long>166.44733</wgs:long>
+	<skos:prefLabel>Dumbéa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141394/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19346</europeana:population>
+	<wgs:lat>-22.15</wgs:lat>
+	<wgs:long>166.45</wgs:long>
+	<skos:prefLabel>Dumbéa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141395/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.35</wgs:lat>
+	<wgs:long>167.73333</wgs:long>
+	<skos:altLabel>Ile Ndounduré</skos:altLabel>
+	<skos:altLabel>Ndoundouré Island</skos:altLabel>
+	<skos:altLabel>Île Dudune</skos:altLabel>
+	<skos:altLabel>Île Ndundure</skos:altLabel>
+	<skos:prefLabel>Île Dudune</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141397/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22</wgs:lat>
+	<wgs:long>166.03333</wgs:long>
+	<skos:altLabel>Ouanon</skos:altLabel>
+	<skos:altLabel>Île Ducos</skos:altLabel>
+	<skos:prefLabel>Île Ducos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141400/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.625</wgs:lat>
+	<wgs:long>167.30833</wgs:long>
+	<skos:altLabel>Du Anna</skos:altLabel>
+	<skos:altLabel>Île Dü-Ana</skos:altLabel>
+	<skos:altLabel>Îlot Dü-Ana</skos:altLabel>
+	<skos:prefLabel>Île Dü-Ana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141401/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.625</wgs:lat>
+	<wgs:long>167.275</wgs:long>
+	<skos:altLabel>Île Dü-Ami</skos:altLabel>
+	<skos:altLabel>Îlot Dü-Ami</skos:altLabel>
+	<skos:prefLabel>Île Dü-Ami</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141406/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.98333</wgs:lat>
+	<wgs:long>166.05</wgs:long>
+	<skos:prefLabel>Île Doumbé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141411/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.46667</wgs:lat>
+	<wgs:long>164.13333</wgs:long>
+	<skos:altLabel>Nemon</skos:altLabel>
+	<skos:altLabel>Île Double</skos:altLabel>
+	<skos:prefLabel>Île Double</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141426/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-20</wgs:lat>
+	<wgs:long>166.08333</wgs:long>
+	<skos:prefLabel>Îlots Dominos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141449/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.45</wgs:lat>
+	<wgs:long>166.4</wgs:long>
+	<skos:prefLabel>Île Djekoutène</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141459/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22</wgs:lat>
+	<wgs:long>166.08333</wgs:long>
+	<skos:prefLabel>Île Dingo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141461/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.63333</wgs:lat>
+	<wgs:long>166.3</wgs:long>
+	<skos:prefLabel>Diétetch</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141463/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.38333</wgs:lat>
+	<wgs:long>165.01667</wgs:long>
+	<skos:prefLabel>Îlot Didot</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141477/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.76667</wgs:lat>
+	<wgs:long>164.31667</wgs:long>
+	<skos:altLabel>Nin’ghit</skos:altLabel>
+	<skos:altLabel>Île Deverd</skos:altLabel>
+	<skos:prefLabel>Île Deverd</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141480/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.98333</wgs:lat>
+	<wgs:long>166.06667</wgs:long>
+	<skos:altLabel>Doui</skos:altLabel>
+	<skos:altLabel>Île Devarenne</skos:altLabel>
+	<skos:prefLabel>Île Devarenne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141502/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.95</wgs:lat>
+	<wgs:long>166.03333</wgs:long>
+	<skos:altLabel>Hali</skos:altLabel>
+	<skos:altLabel>Île Daussy</skos:altLabel>
+	<skos:prefLabel>Île Daussy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141507/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.81667</wgs:lat>
+	<wgs:long>163.68333</wgs:long>
+	<skos:altLabel>Île Daouinth</skos:altLabel>
+	<skos:altLabel>Île Niénane</skos:altLabel>
+	<skos:prefLabel>Île Daouinth</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141509/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.06667</wgs:lat>
+	<wgs:long>164.03333</wgs:long>
+	<skos:prefLabel>Île Daougaé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141512/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-19.88333</wgs:lat>
+	<wgs:long>163.7</wgs:long>
+	<skos:altLabel>Trois Daos du Sud</skos:altLabel>
+	<skos:altLabel>Îles Daos du Sud</skos:altLabel>
+	<skos:prefLabel>Îles Daos du Sud</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141513/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-19.83333</wgs:lat>
+	<wgs:long>163.7</wgs:long>
+	<skos:prefLabel>Îles Daos du Nord</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141514/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-19.86667</wgs:lat>
+	<wgs:long>163.7</wgs:long>
+	<skos:prefLabel>Îles Daos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141516/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.15</wgs:lat>
+	<wgs:long>163.98333</wgs:long>
+	<skos:prefLabel>Île Daomboui</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141530/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.36667</wgs:lat>
+	<wgs:long>166.36667</wgs:long>
+	<skos:prefLabel>Île Crouy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141562/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.46667</wgs:lat>
+	<wgs:long>165.06667</wgs:long>
+	<skos:prefLabel>Île Contrariété</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141584/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.95</wgs:lat>
+	<wgs:long>166.08333</wgs:long>
+	<skos:prefLabel>Île Cocos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141596/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-20</wgs:lat>
+	<wgs:long>159</wgs:long>
+	<skos:altLabel>Chesterfield Archipelago</skos:altLabel>
+	<skos:altLabel>Chesterfield Reefs</skos:altLabel>
+	<skos:altLabel>Récifs et Îles Chesterfield</skos:altLabel>
+	<skos:altLabel>Îles Chesterfield</skos:altLabel>
+	<skos:prefLabel>Îles Chesterfield</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141601/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.95</wgs:lat>
+	<wgs:long>165.95</wgs:long>
+	<skos:prefLabel>Îlot Chengiro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141609/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.31667</wgs:lat>
+	<wgs:long>166.56667</wgs:long>
+	<skos:prefLabel>Île Charron</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141614/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-22.1</wgs:lat>
+	<wgs:long>166.05</wgs:long>
+	<skos:altLabel>Îlots Champignon</skos:altLabel>
+	<skos:altLabel>Îlots Champignons</skos:altLabel>
+	<skos:prefLabel>Îlots Champignons</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141632/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.35833</wgs:lat>
+	<wgs:long>166.84028</wgs:long>
+	<skos:altLabel>Île Casy</skos:altLabel>
+	<skos:altLabel>Île Cazi</skos:altLabel>
+	<skos:prefLabel>Île Cazi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141636/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.38333</wgs:lat>
+	<wgs:long>163.95</wgs:long>
+	<skos:prefLabel>Îlot Carrey</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141648/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.98333</wgs:lat>
+	<wgs:long>166.08333</wgs:long>
+	<skos:prefLabel>Île Canon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141652/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.31667</wgs:lat>
+	<wgs:long>166.43333</wgs:long>
+	<skos:altLabel>Mando</skos:altLabel>
+	<skos:altLabel>Île aux Canards</skos:altLabel>
+	<skos:prefLabel>Île aux Canards</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141656/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2140685/"/>
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-21.51696</wgs:lat>
+	<wgs:long>165.96291</wgs:long>
+	<skos:prefLabel>Canala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141660/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.03333</wgs:lat>
+	<wgs:long>166.15</wgs:long>
+	<skos:prefLabel>Île Caligou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141686/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.3</wgs:lat>
+	<wgs:long>166.41667</wgs:long>
+	<skos:altLabel>Ilot aux Lapins</skos:altLabel>
+	<skos:altLabel>Île de Brun</skos:altLabel>
+	<skos:altLabel>Îlot Brun</skos:altLabel>
+	<skos:prefLabel>Îlot Brun</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141689/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.70826</wgs:lat>
+	<wgs:long>167.45962</wgs:long>
+	<skos:altLabel>Mu</skos:altLabel>
+	<skos:altLabel>Île Alcmène</skos:altLabel>
+	<skos:altLabel>Île Alemène</skos:altLabel>
+	<skos:prefLabel>Îlot Brosse</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141713/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2140464/"/>
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-21.56667</wgs:lat>
+	<wgs:long>165.46667</wgs:long>
+	<skos:prefLabel>Bourail</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141721/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2140464/"/>
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-21.8607</wgs:lat>
+	<wgs:long>166.05131</wgs:long>
+	<skos:altLabel>Boulouparis</skos:altLabel>
+	<skos:prefLabel>Bouloupari</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141733/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.61667</wgs:lat>
+	<wgs:long>163.61667</wgs:long>
+	<skos:prefLabel>Île Bouiano</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141771/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.28333</wgs:lat>
+	<wgs:long>164.23333</wgs:long>
+	<skos:prefLabel>Îlot Bouanop</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141835/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.31667</wgs:lat>
+	<wgs:long>164.1</wgs:long>
+	<skos:prefLabel>Île Boh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141917/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-19.75</wgs:lat>
+	<wgs:long>163.66667</wgs:long>
+	<skos:altLabel>Belep</skos:altLabel>
+	<skos:altLabel xml:lang="en">Belep</skos:altLabel>
+	<skos:altLabel xml:lang="en">Belep Islands</skos:altLabel>
+	<skos:altLabel>Bélep</skos:altLabel>
+	<skos:altLabel>Îles Bélep</skos:altLabel>
+	<skos:prefLabel>Îles Bélep</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141923/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.41667</wgs:lat>
+	<wgs:long>166.13333</wgs:long>
+	<skos:altLabel>Ile Eo</skos:altLabel>
+	<skos:altLabel>Île Beautemps-Beaupré</skos:altLabel>
+	<skos:prefLabel>Île Beautemps-Beaupré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141928/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.675</wgs:lat>
+	<wgs:long>167.41667</wgs:long>
+	<skos:altLabel>Geie</skos:altLabel>
+	<skos:altLabel>Île Bayonnaise</skos:altLabel>
+	<skos:altLabel>Îlot Bayonnaise</skos:altLabel>
+	<skos:prefLabel>Île Bayonnaise</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141965/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.13333</wgs:lat>
+	<wgs:long>158.66667</wgs:long>
+	<skos:prefLabel>Île Bampton</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141969/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.41667</wgs:lat>
+	<wgs:long>166.5</wgs:long>
+	<skos:altLabel>Iseuna Island</skos:altLabel>
+	<skos:altLabel>Motouniou</skos:altLabel>
+	<skos:altLabel>Whale Island</skos:altLabel>
+	<skos:altLabel>Île de la Baleine</skos:altLabel>
+	<skos:prefLabel>Île de la Baleine</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141983/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.11667</wgs:lat>
+	<wgs:long>164.18333</wgs:long>
+	<skos:prefLabel>Île Balabio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141989/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.3</wgs:lat>
+	<wgs:long>166.56667</wgs:long>
+	<skos:altLabel>Ndumbui</skos:altLabel>
+	<skos:altLabel>Île Bailly</skos:altLabel>
+	<skos:prefLabel>Île Bailly</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2141994/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.61667</wgs:lat>
+	<wgs:long>166.28333</wgs:long>
+	<skos:altLabel>Bagaat</skos:altLabel>
+	<skos:altLabel>Bagao</skos:altLabel>
+	<skos:altLabel>Long Island</skos:altLabel>
+	<skos:altLabel>Île Longue</skos:altLabel>
+	<skos:prefLabel>Bagaat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2142002/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.05</wgs:lat>
+	<wgs:long>163.96667</wgs:long>
+	<skos:altLabel>Nénéma</skos:altLabel>
+	<skos:altLabel>Île Baaba</skos:altLabel>
+	<skos:altLabel>Île Paäba</skos:altLabel>
+	<skos:prefLabel>Île Baaba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2142016/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.43333</wgs:lat>
+	<wgs:long>166.48333</wgs:long>
+	<skos:prefLabel>Awa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2142017/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.9</wgs:lat>
+	<wgs:long>163.7</wgs:long>
+	<skos:prefLabel>Awa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2142018/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-19.52333</wgs:lat>
+	<wgs:long>158.24667</wgs:long>
+	<skos:altLabel>Avon Isles</skos:altLabel>
+	<skos:altLabel>Îles Avon</skos:altLabel>
+	<skos:altLabel>Îlots Avon</skos:altLabel>
+	<skos:prefLabel>Îlots Avon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2142020/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22</wgs:lat>
+	<wgs:long>166.08333</wgs:long>
+	<skos:prefLabel>Île Avit</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2142023/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.675</wgs:lat>
+	<wgs:long>167.45833</wgs:long>
+	<skos:altLabel>Tui</skos:altLabel>
+	<skos:altLabel>Île Aventure</skos:altLabel>
+	<skos:altLabel>Îlot Aventure</skos:altLabel>
+	<skos:prefLabel>Île Aventure</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2142028/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.78333</wgs:lat>
+	<wgs:long>165.25</wgs:long>
+	<skos:altLabel>Palétuviers</skos:altLabel>
+	<skos:altLabel>Île Atit</skos:altLabel>
+	<skos:altLabel>Îlot Atit</skos:altLabel>
+	<skos:prefLabel>Îlot Atit</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2142029/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.51667</wgs:lat>
+	<wgs:long>166.58333</wgs:long>
+	<skos:altLabel>Île Atir</skos:altLabel>
+	<skos:altLabel>Île Atire</skos:altLabel>
+	<skos:prefLabel>Île Atire</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2142034/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.65</wgs:lat>
+	<wgs:long>167.53333</wgs:long>
+	<skos:prefLabel>Île Atéré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2142044/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.71667</wgs:lat>
+	<wgs:long>163.65</wgs:long>
+	<skos:prefLabel>Île Art</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2142084/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.5</wgs:lat>
+	<wgs:long>166.23333</wgs:long>
+	<skos:altLabel>Anemëëc</skos:altLabel>
+	<skos:altLabel>Île Anguene</skos:altLabel>
+	<skos:altLabel>Île Anémata</skos:altLabel>
+	<skos:prefLabel>Anemëëc</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2142089/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.63333</wgs:lat>
+	<wgs:long>166.33333</wgs:long>
+	<skos:prefLabel>Anématch</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2142098/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.73249</wgs:lat>
+	<wgs:long>167.58888</wgs:long>
+	<skos:prefLabel>Île Ana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2142099/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.78333</wgs:lat>
+	<wgs:long>166.48333</wgs:long>
+	<skos:prefLabel>Île Amourou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2142115/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.75735</wgs:lat>
+	<wgs:long>167.56966</wgs:long>
+	<skos:prefLabel>Île Ami</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2142118/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.45</wgs:lat>
+	<wgs:long>167.1</wgs:long>
+	<skos:prefLabel>Île Améré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2142123/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.48333</wgs:lat>
+	<wgs:long>166.46667</wgs:long>
+	<skos:prefLabel>Île Amédée</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2142148/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.75</wgs:lat>
+	<wgs:long>165.28333</wgs:long>
+	<skos:prefLabel>Île Aïn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2142154/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.11667</wgs:lat>
+	<wgs:long>165.56667</wgs:long>
+	<skos:prefLabel>Îlot Agué</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2142155/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.45</wgs:lat>
+	<wgs:long>166.4</wgs:long>
+	<skos:altLabel>Île Agnéhu</skos:altLabel>
+	<skos:altLabel>Île Deguala</skos:altLabel>
+	<skos:prefLabel>Île Agnéhu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2142166/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.11667</wgs:lat>
+	<wgs:long>166.15</wgs:long>
+	<skos:prefLabel>Île Abu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2207118/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.625</wgs:lat>
+	<wgs:long>166.29167</wgs:long>
+	<skos:prefLabel>Üjeeteetr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2207119/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.61944</wgs:lat>
+	<wgs:long>166.30833</wgs:long>
+	<skos:prefLabel>Su</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2207120/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.63361</wgs:lat>
+	<wgs:long>166.33611</wgs:long>
+	<skos:prefLabel>Angemëëc</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2207121/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.65833</wgs:lat>
+	<wgs:long>166.35833</wgs:long>
+	<skos:prefLabel>Motu Waaünyi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2207122/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.675</wgs:lat>
+	<wgs:long>166.375</wgs:long>
+	<skos:prefLabel>Gee</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2207124/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.60833</wgs:lat>
+	<wgs:long>166.27778</wgs:long>
+	<skos:prefLabel>Banya Sud</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2207126/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.48361</wgs:lat>
+	<wgs:long>166.325</wgs:long>
+	<skos:prefLabel>Île Haute</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2207128/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.46806</wgs:lat>
+	<wgs:long>166.38611</wgs:long>
+	<skos:prefLabel>Île Les Jumeaux</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2207129/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.45111</wgs:lat>
+	<wgs:long>166.40028</wgs:long>
+	<skos:prefLabel>Jehuten</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2207130/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.45</wgs:lat>
+	<wgs:long>166.40556</wgs:long>
+	<skos:prefLabel>Angeü</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2207131/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.45278</wgs:lat>
+	<wgs:long>166.42361</wgs:long>
+	<skos:prefLabel>Waadeü</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2207132/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.45</wgs:lat>
+	<wgs:long>166.45278</wgs:long>
+	<skos:prefLabel>Hoo Loom</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2207133/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.44167</wgs:lat>
+	<wgs:long>166.47222</wgs:long>
+	<skos:prefLabel>Wenyöök</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2207134/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.4375</wgs:lat>
+	<wgs:long>166.48417</wgs:long>
+	<skos:prefLabel>Hnyeekon Puu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2207135/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.43333</wgs:lat>
+	<wgs:long>166.475</wgs:long>
+	<skos:prefLabel>Motu Veiloa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2207136/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.425</wgs:lat>
+	<wgs:long>166.4875</wgs:long>
+	<skos:prefLabel>Motu Fatu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2207137/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.43333</wgs:lat>
+	<wgs:long>166.49139</wgs:long>
+	<skos:prefLabel>Motu Waaünyi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2207138/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.42222</wgs:lat>
+	<wgs:long>166.49167</wgs:long>
+	<skos:prefLabel>Motu Awa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2207139/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.41639</wgs:lat>
+	<wgs:long>166.49917</wgs:long>
+	<skos:prefLabel>Motu Niu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2208192/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.64444</wgs:lat>
+	<wgs:long>166.4125</wgs:long>
+	<skos:prefLabel>Îlot Koé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2208225/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.78333</wgs:lat>
+	<wgs:long>166.96667</wgs:long>
+	<skos:prefLabel>Caye Mambaé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2208254/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.79167</wgs:lat>
+	<wgs:long>158.26722</wgs:long>
+	<skos:altLabel>Sand Cay</skos:altLabel>
+	<skos:altLabel>Îlot de Sable</skos:altLabel>
+	<skos:prefLabel>Îlot de Sable</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6324398/">
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.64214</wgs:lat>
+	<wgs:long>167.41413</wgs:long>
+	<skos:prefLabel>Ile Koé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521415/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2139685/"/>
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-20.91911</wgs:lat>
+	<wgs:long>167.26135</wgs:long>
+	<skos:prefLabel>Province des îles Loyauté</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521417/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2140685/"/>
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-21.05695</wgs:lat>
+	<wgs:long>164.86633</wgs:long>
+	<skos:prefLabel>Koné</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521418/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2140464/"/>
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-21.70791</wgs:lat>
+	<wgs:long>165.82523</wgs:long>
+	<skos:prefLabel>La Foa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521419/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2140685/"/>
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-21.3957</wgs:lat>
+	<wgs:long>165.82832</wgs:long>
+	<skos:prefLabel>Kouaoua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521420/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2140685/"/>
+	<europeana:country>NC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-20.23683</wgs:lat>
+	<wgs:long>164.02923</wgs:long>
+	<skos:prefLabel>Poum</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 400 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

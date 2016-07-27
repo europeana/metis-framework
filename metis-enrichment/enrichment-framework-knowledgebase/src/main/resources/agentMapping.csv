@@ -1,0 +1,13 @@
+edm:Agent;setAbout
+rdaGr2:biographicalInformation;setRdaGr2BiographicalInformation
+rdaGr2:dateOfBirth;setRdaGr2DateOfBirth
+rdaGr2:placeOfBirth;setRdaGr2PlaceOfBirth
+rdaGr2:placeOfDeath;setRdaGr2PlaceOfDeath
+skos:prefLabel;setPrefLabel
+rdaGr2:dateOfDeath;setRdaGr2DateOfDeath
+skos:altLabel;setAltLabel
+rdaGr2:professionOrOccupation;setRdaGr2ProfessionOrOccupation
+edm:end;setEnd
+dc:identifier;setDcIdentifier
+owl:sameAs;setOwlSameAs
+edm:isRelatedTo;setEdmIsRelatedTo

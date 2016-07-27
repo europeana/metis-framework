@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: OC_WF
+Description: Selected fields pulled from Geonames about WF done on Mon May 23 21:17:26 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034749/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255151/"/>
+	<europeana:country>WF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLD"/>
+	<europeana:population>16025</europeana:population>
+	<wgs:lat>-13.3</wgs:lat>
+	<wgs:long>-176.2</wgs:long>
+	<skos:altLabel xml:lang="pt">Ilhas Wallis e Futuna</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Oileáin Vailís agus Futúna</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Territoire des Îles Wallis et Futuna</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Vailís agus Futúna</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Valiso kaj Futuno</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Volis ir Futūna</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Volisa un Futuna</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Volisa un Futunas salas</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Volisa un Futūna</skos:altLabel>
+	<skos:altLabel>WF</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Wallis a Futuna</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Wallis a Futuna</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Wallis a Futuna</skos:altLabel>
+	<skos:altLabel xml:lang="id">Wallis and Futuna</skos:altLabel>
+	<skos:altLabel xml:lang="en">Wallis and Futuna</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Wallis and Futuna</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Wallis and Futuna</skos:altLabel>
+	<skos:altLabel xml:lang="id">Wallis dan Futuna</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Wallis e Futuna</skos:altLabel>
+	<skos:altLabel xml:lang="it">Wallis e Futuna</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Wallis e Futuna</skos:altLabel>
+	<skos:altLabel xml:lang="io">Wallis e Futuna Insuli</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Wallis en Futuna</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Wallis et Futuna</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Wallis eta Futuna</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Wallis ha Futuna</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Wallis i Futuna</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Wallis i Futuna</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Wallis i Futuna</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Wallis i Futuna</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Wallis in Futuna</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Wallis ir Futuna</skos:altLabel>
+	<skos:altLabel xml:lang="et">Wallis ja Futuna</skos:altLabel>
+	<skos:altLabel xml:lang="se">Wallis ja Futuna</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Wallis och Futuna</skos:altLabel>
+	<skos:altLabel xml:lang="no">Wallis og Futuna</skos:altLabel>
+	<skos:altLabel xml:lang="da">Wallis og Futuna</skos:altLabel>
+	<skos:altLabel xml:lang="is">Wallis og Futuna</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Wallis og Futuna</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Wallis og Futuna</skos:altLabel>
+	<skos:altLabel xml:lang="da">Wallis og Futunaøerne</skos:altLabel>
+	<skos:altLabel xml:lang="de">Wallis und Futuna</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Wallis ve Futuna</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Wallis ve Futuna Adaları</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Wallis và Futuna</skos:altLabel>
+	<skos:altLabel xml:lang="es">Wallis y Futuna</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Wallis és Futuna</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Wallis şi Futuna</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Wallis- ja Futunasaaret</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Wallis- och Futunaöarna</skos:altLabel>
+	<skos:altLabel xml:lang="is">Wallis- og Fútúnaeyjar</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Wallis-et-Futuna</skos:altLabel>
+	<skos:altLabel xml:lang="da">Wallis-og-Futuna</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Wyspy Wallis i Futuna</skos:altLabel>
+	<skos:altLabel xml:lang="to">ʻUvea mo Futuna</skos:altLabel>
+	<skos:altLabel xml:lang="el">Γουάλις και Φουτούνα</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ουώλλις και Φουτούνα</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Валис и Футуна</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Валліс та Футуна</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Волис и Футуна острови</skos:altLabel>
+	<skos:altLabel xml:lang="be">Выспы Ўоліс і Футуна</skos:altLabel>
+	<skos:altLabel xml:lang="ru">О-Ва Уоллис И Футуна</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Острова Уоллис и Футуна</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Уолис и Футуна</skos:altLabel>
+	<skos:altLabel xml:lang="be">Уоліс і Футуна</skos:altLabel>
+	<skos:altLabel xml:lang="he">איי ווליס ופוטונה</skos:altLabel>
+	<skos:altLabel xml:lang="he">ואליס ופוטונה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جزر والس وفوتونا</skos:altLabel>
+	<skos:altLabel xml:lang="ur">والس اور فتونہ</skos:altLabel>
+	<skos:altLabel xml:lang="ar">والس وفوتونا</skos:altLabel>
+	<skos:altLabel xml:lang="fa">والیس و فیوتونا</skos:altLabel>
+	<skos:altLabel xml:lang="hi">वालिस और फ़्यूचूना</skos:altLabel>
+	<skos:altLabel xml:lang="bn">ওয়ালিস ও ফুটুনা</skos:altLabel>
+	<skos:altLabel xml:lang="th">วาลลิสและฟุตูนา</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ვალისი და ფუტუნა</skos:altLabel>
+	<skos:altLabel xml:lang="am">ዋሊስ እና ፉቱና ደሴቶች</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ウォリス・フツナ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ワリー エ フトゥーナ諸島</skos:altLabel>
+	<skos:altLabel xml:lang="zh">瓦利斯及富圖納群島</skos:altLabel>
+	<skos:altLabel xml:lang="zh">瓦利斯和福图纳</skos:altLabel>
+	<skos:altLabel xml:lang="ko">왈라스 &amp; 퓨투나</skos:altLabel>
+	<skos:altLabel xml:lang="ko">월리스 푸투나</skos:altLabel>
+	<skos:prefLabel>Wallis et Futuna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034750/">
+	<europeana:country>WF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-13.3</wgs:lat>
+	<wgs:long>-176.16667</wgs:long>
+	<skos:altLabel>Iles Uea</skos:altLabel>
+	<skos:altLabel>Uvea</skos:altLabel>
+	<skos:altLabel>Wallis Archipelago</skos:altLabel>
+	<skos:altLabel xml:lang="en">Wallis Islands</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Îles Wallis</skos:altLabel>
+	<skos:prefLabel>Wallis Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034758/">
+	<europeana:country>WF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.3</wgs:lat>
+	<wgs:long>-176.16667</wgs:long>
+	<skos:altLabel>Ile Uea</skos:altLabel>
+	<skos:altLabel>Ouvéa</skos:altLabel>
+	<skos:altLabel>Wallis Island</skos:altLabel>
+	<skos:altLabel>Île Uvea</skos:altLabel>
+	<skos:prefLabel>Île Uvea</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034759/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4034749/"/>
+	<europeana:country>WF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-13.3</wgs:lat>
+	<wgs:long>-176.2</wgs:long>
+	<skos:prefLabel>Circonscription d'Uvéa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034764/">
+	<europeana:country>WF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.2</wgs:lat>
+	<wgs:long>-176.15</wgs:long>
+	<skos:prefLabel>Île Uluiutu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034769/">
+	<europeana:country>WF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.26667</wgs:lat>
+	<wgs:long>-176.11667</wgs:long>
+	<skos:prefLabel>Île Tekaviki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034776/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4034749/"/>
+	<europeana:country>WF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1894</europeana:population>
+	<wgs:lat>-14.25</wgs:lat>
+	<wgs:long>-178.15</wgs:long>
+	<skos:altLabel>Singave</skos:altLabel>
+	<skos:prefLabel>Circonscription de Sigavé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034797/">
+	<europeana:country>WF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.2</wgs:lat>
+	<wgs:long>-176.13333</wgs:long>
+	<skos:prefLabel>Île Nukuteatea</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034798/">
+	<europeana:country>WF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.36667</wgs:lat>
+	<wgs:long>-176.18333</wgs:long>
+	<skos:prefLabel>Île Nukutapu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034799/">
+	<europeana:country>WF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.21667</wgs:lat>
+	<wgs:long>-176.13333</wgs:long>
+	<skos:prefLabel>Île Nukutapu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034800/">
+	<europeana:country>WF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.36667</wgs:lat>
+	<wgs:long>-176.16667</wgs:long>
+	<skos:altLabel>Nuku Akimoa</skos:altLabel>
+	<skos:altLabel>Rocher Nukutaakimua</skos:altLabel>
+	<skos:altLabel>Sail Rock</skos:altLabel>
+	<skos:altLabel>Îlot Nukutaakimua</skos:altLabel>
+	<skos:prefLabel>Îlot Nukutaakimua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034801/">
+	<europeana:country>WF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.35</wgs:lat>
+	<wgs:long>-176.18333</wgs:long>
+	<skos:prefLabel>Île Nukuofo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034802/">
+	<europeana:country>WF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.18333</wgs:lat>
+	<wgs:long>-176.15</wgs:long>
+	<skos:prefLabel>Île Nukuloa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034803/">
+	<europeana:country>WF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.18333</wgs:lat>
+	<wgs:long>-176.16667</wgs:long>
+	<skos:prefLabel>Île Nukulaelae</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034804/">
+	<europeana:country>WF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.26667</wgs:lat>
+	<wgs:long>-176.1</wgs:long>
+	<skos:altLabel xml:lang="ca">Illa Nukuhione</skos:altLabel>
+	<skos:altLabel>Île Nukuhione</skos:altLabel>
+	<skos:prefLabel>Île Nukuhione</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034805/">
+	<europeana:country>WF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.28333</wgs:lat>
+	<wgs:long>-176.08333</wgs:long>
+	<skos:prefLabel>Île Nukuhifala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034806/">
+	<europeana:country>WF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.2</wgs:lat>
+	<wgs:long>-176.15</wgs:long>
+	<skos:prefLabel>Île Nukufufulanoa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034807/">
+	<europeana:country>WF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.18333</wgs:lat>
+	<wgs:long>-176.16667</wgs:long>
+	<skos:altLabel>Île Nukufutu</skos:altLabel>
+	<skos:altLabel>Îlot Nukufotu</skos:altLabel>
+	<skos:prefLabel>Îlot Nukufotu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034808/">
+	<europeana:country>WF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.35</wgs:lat>
+	<wgs:long>-176.15</wgs:long>
+	<skos:altLabel>Nuku Futu Island</skos:altLabel>
+	<skos:altLabel>Nukufetao</skos:altLabel>
+	<skos:altLabel>Îlot Nuku Fetau</skos:altLabel>
+	<skos:prefLabel>Îlot Nuku Fetau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034809/">
+	<europeana:country>WF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.36667</wgs:lat>
+	<wgs:long>-176.18333</wgs:long>
+	<skos:altLabel>Nukuatea Island</skos:altLabel>
+	<skos:altLabel>Nukuitea</skos:altLabel>
+	<skos:altLabel>Sainte Marie Island</skos:altLabel>
+	<skos:altLabel>Île Nukuaéta</skos:altLabel>
+	<skos:prefLabel>Île Nukuaéta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034829/">
+	<europeana:country>WF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.26667</wgs:lat>
+	<wgs:long>-176.11667</wgs:long>
+	<skos:prefLabel>Île Luaniva</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034848/">
+	<europeana:country>WF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-14.31667</wgs:lat>
+	<wgs:long>-178.08333</wgs:long>
+	<skos:altLabel>Futuna Archipelago</skos:altLabel>
+	<skos:altLabel>Hoorne Islands</skos:altLabel>
+	<skos:altLabel>Iles Futuna</skos:altLabel>
+	<skos:altLabel>Iles de Hoorn</skos:altLabel>
+	<skos:altLabel>Iles de Horn</skos:altLabel>
+	<skos:altLabel>Îles de Horne</skos:altLabel>
+	<skos:prefLabel>Îles de Horne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034853/">
+	<europeana:country>WF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.36667</wgs:lat>
+	<wgs:long>-176.16667</wgs:long>
+	<skos:prefLabel>Île Haofa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034861/">
+	<europeana:country>WF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.28333</wgs:lat>
+	<wgs:long>-178.15</wgs:long>
+	<skos:altLabel>Île Futuna</skos:altLabel>
+	<skos:prefLabel>Île Futuna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034862/">
+	<europeana:country>WF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.28333</wgs:lat>
+	<wgs:long>-176.11667</wgs:long>
+	<skos:altLabel>Fungalai Island</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Illot Fungalei</skos:altLabel>
+	<skos:altLabel>Îlot Fongalei</skos:altLabel>
+	<skos:altLabel>Îlot Fungalei</skos:altLabel>
+	<skos:prefLabel>Îlot Fungalei</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034870/">
+	<europeana:country>WF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.38333</wgs:lat>
+	<wgs:long>-176.18333</wgs:long>
+	<skos:altLabel>Entrance Island</skos:altLabel>
+	<skos:altLabel>Feletoa</skos:altLabel>
+	<skos:altLabel>Île Fenua Fu</skos:altLabel>
+	<skos:altLabel>Île Fénua Foou</skos:altLabel>
+	<skos:prefLabel>Île Fenua Fu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034876/">
+	<europeana:country>WF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.38333</wgs:lat>
+	<wgs:long>-176.13333</wgs:long>
+	<skos:prefLabel>Île Faïoa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034882/">
+	<europeana:country>WF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.35</wgs:lat>
+	<wgs:long>-178.03333</wgs:long>
+	<skos:altLabel>Alofa</skos:altLabel>
+	<skos:altLabel>Île Alofi</skos:altLabel>
+	<skos:prefLabel>Île Alofi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034884/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4034749/"/>
+	<europeana:country>WF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>2998</europeana:population>
+	<wgs:lat>-14.31667</wgs:lat>
+	<wgs:long>-178.03333</wgs:long>
+	<skos:prefLabel>Circonscription d'Alo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6942150/">
+	<europeana:country>WF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-14.28694</wgs:lat>
+	<wgs:long>-178.13083</wgs:long>
+	<skos:prefLabel>Wallis and Futuna Islands</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 29 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

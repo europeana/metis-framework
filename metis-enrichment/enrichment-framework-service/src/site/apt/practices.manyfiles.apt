@@ -1,0 +1,87 @@
+            ------
+            Best practices: many output files
+            ------
+ 
+ It is highly recommended to split the output into many RDF files with clear 
+ separation criteria. It makes it easier to see the effect of each converter change,
+ when used together with {{{practices.vc.html}version control for output RDF files}}.
+ 
+ AnnoCultor supports two dimensions of output files splitting: horizontal and vertical.
+
+ Split horizontally
+  
+ Fits the case when we want a specific property to be written to a specific file,
+ e.g. to store all preferred labels in one file, and all alternative labels in another file.
+ Technically, it can be done by creating two destinations and using them in the 
+ corresponding property rules:
+ 
++------------------------------------------------------------------+
+<ac:RenameLiteralPropertyRule-default>
+   <ac:srcPath rdf:datatype="ac:Path">prefLabel</ac:srcPath>
+   <ac:dstProperty rdf:datatype="ac:Property">skos:prefLabel</ac:dstProperty>
+   <ac:dstGraph rdf:datatype="ac:Graph">PreferredLabels</ac:dstGraph>
+</ac:RenameLiteralPropertyRule-default>
+<ac:RenameLiteralPropertyRule-default>
+   <ac:srcPath rdf:datatype="ac:Path">altLabel</ac:srcPath>
+   <ac:dstProperty rdf:datatype="ac:Property">skos:altLabel</ac:dstProperty>
+   <ac:dstGraph rdf:datatype="ac:Graph">AlternativeLabels</ac:dstGraph>
+</ac:RenameLiteralPropertyRule-default>
++------------------------------------------------------------------+
+
+ Thus, skos:prefLabel of all records will go to the PreferredLabels RDF file, and skos:altLabel
+ will go to the AlternativeLabels file.
+
+ Split vertically
+ 
+ Fits the case when we want records to be distributed among
+ different files, keeping their properties intact.
+ For example, let us separate all records by gender.
+ 
+ Technically, it can be done by creating a proxy destination, use it in property rules,
+ and having a piece of Java code that assigns the correct destination per-record. 
+   
++------------------------------------------------------------------+
+<ac:destinations rdf:parseType="Collection">
+  <ac:RdfGraph rdf:about="proxy">
+    <ac:comment>Proxy destination, it will be always replaced by male or female, and never written to</ac:comment>
+  </ac:RdfGraph>
+  <ac:RdfGraph rdf:about="male">
+	<ac:comment>Males</ac:comment>
+  </ac:RdfGraph>
+  <ac:RdfGraph rdf:about="female">
+	<ac:comment>Females</ac:comment>
+  </ac:RdfGraph>
+</ac:destinations>
+
+<ac:ObjectRule rdf:about="objectRule">
+   <ac:recordSeparator></ac:recordSeparator>
+   <ac:recordIdentifier>record_id</ac:recordIdentifier>
+   <ac:recordInformalIdentifier>name</ac:recordInformalIdentifier>
+   <ac:listeners rdf:parseType="Collection">
+      <ac:OnPreCondition>
+         <ac:java><![CDATA[
+      
+         // assume there is a field called 'gender'
+         // with values 'male' or 'female'
+         // that accidentally coincides with the corresponding graph names 
+         Value value = sourceDataObject.getFirstValue(factory.makePath("gender"));
+         if (value == null) {
+           throw new Exception("No gender specified in record " + sourceDataObject);
+         }
+         String graphName = value.getValue();
+         Graph destination = factory.makeGraph(graphName);
+         proxy.setRealGraph(destination);
+         ]]></ac:java>
+      </ac:OnPreCondition>
+   </ac:listeners>
+   <ac:propertyRules>
+      <ac:RenameLiteralPropertyRule-default>
+         <ac:srcPath rdf:datatype="ac:Path">name</ac:srcPath>
+         <ac:dstProperty rdf:datatype="ac:Property">skos:prefLabel</ac:dstProperty>
+         <ac:dstGraph rdf:datatype="ac:Graph">proxy</ac:dstGraph>
+      </ac:RenameLiteralPropertyRule-default>
+   </ac:propertyRules>
+</ac:ObjectRule>
++------------------------------------------------------------------+
+ 
+ 

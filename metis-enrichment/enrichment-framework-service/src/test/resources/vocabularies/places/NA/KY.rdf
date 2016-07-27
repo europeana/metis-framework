@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: NA_KY
+Description: Selected fields pulled from Geonames about KY done on Mon May 23 21:14:27 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580477/">
+	<europeana:country>KY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10768</europeana:population>
+	<wgs:lat>19.36667</wgs:lat>
+	<wgs:long>-81.41667</wgs:long>
+	<skos:altLabel>West Bay</skos:altLabel>
+	<skos:altLabel>West End</skos:altLabel>
+	<skos:prefLabel>West Bay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580487/">
+	<europeana:country>KY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.38333</wgs:lat>
+	<wgs:long>-81.35</wgs:long>
+	<skos:prefLabel>Vidal Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580532/">
+	<europeana:country>KY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.25</wgs:lat>
+	<wgs:long>-81.4</wgs:long>
+	<skos:prefLabel>Sand Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580561/">
+	<europeana:country>KY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.66667</wgs:lat>
+	<wgs:long>-80.06667</wgs:long>
+	<skos:prefLabel>Owen Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580613/">
+	<europeana:country>KY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.75</wgs:lat>
+	<wgs:long>-79.73333</wgs:long>
+	<skos:prefLabel>Little Cayman Brac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580614/">
+	<europeana:country>KY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.68333</wgs:lat>
+	<wgs:long>-80.05</wgs:long>
+	<skos:altLabel>Little Cayman</skos:altLabel>
+	<skos:prefLabel>Little Cayman</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580618/">
+	<europeana:country>KY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>19.66667</wgs:lat>
+	<wgs:long>-79.91667</wgs:long>
+	<skos:prefLabel>Lesser Caymans</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580656/">
+	<europeana:country>KY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.33333</wgs:lat>
+	<wgs:long>-81.25</wgs:long>
+	<skos:altLabel>Grand Cayman</skos:altLabel>
+	<skos:prefLabel>Grand Cayman</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580661/">
+	<europeana:country>KY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>29370</europeana:population>
+	<wgs:lat>19.28692</wgs:lat>
+	<wgs:long>-81.36706</wgs:long>
+	<skos:altLabel xml:lang="id">George Town</skos:altLabel>
+	<skos:altLabel xml:lang="de">George Town</skos:altLabel>
+	<skos:altLabel xml:lang="fi">George Town</skos:altLabel>
+	<skos:altLabel xml:lang="en">George Town</skos:altLabel>
+	<skos:altLabel xml:lang="sv">George Town</skos:altLabel>
+	<skos:altLabel xml:lang="sk">George Town</skos:altLabel>
+	<skos:altLabel xml:lang="ca">George Town</skos:altLabel>
+	<skos:altLabel xml:lang="nl">George Town</skos:altLabel>
+	<skos:altLabel xml:lang="fr">George Town</skos:altLabel>
+	<skos:altLabel xml:lang="it">George Town</skos:altLabel>
+	<skos:altLabel xml:lang="da">George Town</skos:altLabel>
+	<skos:altLabel xml:lang="el">George Town</skos:altLabel>
+	<skos:altLabel xml:lang="es">George Town</skos:altLabel>
+	<skos:altLabel xml:lang="pt">George Town</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Georgetown</skos:altLabel>
+	<skos:altLabel xml:lang="io">Georgetown</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Georgetown</skos:altLabel>
+	<skos:altLabel xml:lang="he">ג'ורג' טאון</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ジョージタウン</skos:altLabel>
+	<skos:altLabel xml:lang="zh">喬治敦</skos:altLabel>
+	<skos:prefLabel>George Town</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580680/">
+	<europeana:country>KY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.3</wgs:lat>
+	<wgs:long>-81.3</wgs:long>
+	<skos:prefLabel>Duck Pond Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580718/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255149/"/>
+	<europeana:country>KY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLD"/>
+	<europeana:population>44270</europeana:population>
+	<wgs:lat>19.5</wgs:lat>
+	<wgs:long>-80.66667</wgs:long>
+	<skos:altLabel>Cayman</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Cayman Adaları</skos:altLabel>
+	<skos:altLabel xml:lang="en">Cayman Islands</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Cayman Islands</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Cayman Islands</skos:altLabel>
+	<skos:altLabel>Cayman Islands</skos:altLabel>
+	<skos:altLabel xml:lang="it">Cayman, isole</skos:altLabel>
+	<skos:altLabel xml:lang="de">Cayman-Inseln</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Caymaneilanden</skos:altLabel>
+	<skos:altLabel xml:lang="is">Caymaneyjar</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Caymansaaret</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Caymanöarna</skos:altLabel>
+	<skos:altLabel xml:lang="da">Caymanøerne</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Caymanøyane</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Caymanøyene</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Iles Caïmanes</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Ilhas Cayman</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Illas Caimán</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Illes Caiman</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Insulas de Caiman</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Insulele Cayman</skos:altLabel>
+	<skos:altLabel xml:lang="es">Islas Caimán</skos:altLabel>
+	<skos:altLabel>KY</skos:altLabel>
+	<skos:altLabel xml:lang="af">Kaaimanseilande</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Kaiman Uharteak</skos:altLabel>
+	<skos:altLabel xml:lang="et">Kaimani saared</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Kaimanu salas</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Kaimanų salos</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Kajmanski Otoci</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Kajmanski otoki</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Kajmanské ostrovy</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Kajmanské ostrovy</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kajmany</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Kajmán-szigetek</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Kejmanoj</skos:altLabel>
+	<skos:altLabel xml:lang="id">Kepulauan Cayman</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Oileáin Cayman</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Quần Đảo Cayman</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Ynysoedd Cayman</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Îles Caïman</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Îles Caïmanes</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Îles Caïmans</skos:altLabel>
+	<skos:altLabel xml:lang="el">Νήσοι Κέυμαν</skos:altLabel>
+	<skos:altLabel xml:lang="be">Кайманавы астравы</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Кайманови О-ви</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Каймановы Острова</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Кајманови Острови</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Кајманска Острва</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Острови Кайман</skos:altLabel>
+	<skos:altLabel xml:lang="he">קיימאן, איי</skos:altLabel>
+	<skos:altLabel xml:lang="ur">جزائر کیمن</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جزر الكايمن</skos:altLabel>
+	<skos:altLabel xml:lang="fa">جزیره های کیمن</skos:altLabel>
+	<skos:altLabel xml:lang="hi">केमैन द्वीप</skos:altLabel>
+	<skos:altLabel xml:lang="bn">কেমান দ্বীপপুঞ্জ</skos:altLabel>
+	<skos:altLabel xml:lang="th">หมู่เกาะเคย์แมน</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཁེ་མེན་གླིང་ཕྲན།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">კაიმანის კუნძულები</skos:altLabel>
+	<skos:altLabel xml:lang="am">ካይማን ደሴቶች</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ケイマン諸島</skos:altLabel>
+	<skos:altLabel xml:lang="zh">开曼群岛</skos:altLabel>
+	<skos:altLabel xml:lang="ko">케이만 군도</skos:altLabel>
+	<skos:prefLabel>Cayman Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580719/">
+	<europeana:country>KY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>19.5</wgs:lat>
+	<wgs:long>-80.66667</wgs:long>
+	<skos:altLabel>Cayman Islands</skos:altLabel>
+	<skos:altLabel xml:lang="es">Islas Caimán</skos:altLabel>
+	<skos:altLabel xml:lang="en">The Caymans</skos:altLabel>
+	<skos:prefLabel>Cayman Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580720/">
+	<europeana:country>KY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.71667</wgs:lat>
+	<wgs:long>-79.81667</wgs:long>
+	<skos:altLabel>Cayman Brac</skos:altLabel>
+	<skos:prefLabel>Cayman Brac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580732/">
+	<europeana:country>KY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.33333</wgs:lat>
+	<wgs:long>-81.3</wgs:long>
+	<skos:prefLabel>Booby Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580750/">
+	<europeana:country>KY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.75</wgs:lat>
+	<wgs:long>-79.71667</wgs:long>
+	<skos:prefLabel>Bessy Howard Cay</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 14 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

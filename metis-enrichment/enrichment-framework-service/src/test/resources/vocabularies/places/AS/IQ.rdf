@@ -1,0 +1,4057 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AS_IQ
+Description: Selected fields pulled from Geonames about IQ done on Mon May 23 21:13:29 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/89341/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>30.33333</wgs:lat>
+	<wgs:long>47.25</wgs:long>
+	<skos:altLabel>Al Başrah</skos:altLabel>
+	<skos:altLabel>Basra</skos:altLabel>
+	<skos:altLabel>Basrah</skos:altLabel>
+	<skos:altLabel>Liwā’ al Başrah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at al Başrah</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at al Başrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/89475/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>33.05139</wgs:lat>
+	<wgs:long>44.12583</wgs:long>
+	<skos:altLabel xml:lang="ar">Zawr al Khawāyijah</skos:altLabel>
+	<skos:altLabel>Zawr al Ḩawījah</skos:altLabel>
+	<skos:prefLabel>Zawr al Khawāyijah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/89527/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.93806</wgs:lat>
+	<wgs:long>45.85222</wgs:long>
+	<skos:altLabel xml:lang="ar">Zaqqūrat Ūr</skos:altLabel>
+	<skos:altLabel>Ziggurat of Ur</skos:altLabel>
+	<skos:prefLabel>Zaqqūrat Ūr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/89569/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/97270/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>37.15</wgs:lat>
+	<wgs:long>42.83333</wgs:long>
+	<skos:altLabel xml:lang="ar">Qaḑā’ Zakho</skos:altLabel>
+	<skos:altLabel>Qaḑā’ Zākhū</skos:altLabel>
+	<skos:altLabel>Zākhū</skos:altLabel>
+	<skos:altLabel>Zākhū Qadhā’</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ Zākhū</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/89570/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>95052</europeana:population>
+	<wgs:lat>37.14817</wgs:lat>
+	<wgs:long>42.70008</wgs:long>
+	<skos:altLabel xml:lang="en">Zakho</skos:altLabel>
+	<skos:altLabel>Zakho</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Zaxo</skos:altLabel>
+	<skos:altLabel xml:lang="de">Zaxo</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Zākhū</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Заху</skos:altLabel>
+	<skos:altLabel xml:lang="fa">زاخو</skos:altLabel>
+	<skos:altLabel xml:lang="ar">زاخو</skos:altLabel>
+	<skos:altLabel xml:lang="ku">زاخۆ</skos:altLabel>
+	<skos:prefLabel>Zākhū</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/89610/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.38333</wgs:lat>
+	<wgs:long>44.3</wgs:long>
+	<skos:altLabel>Nuzi</skos:altLabel>
+	<skos:prefLabel>Nuzi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/89693/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>32.75</wgs:lat>
+	<wgs:long>45.41667</wgs:long>
+	<skos:altLabel>Al Kūt</skos:altLabel>
+	<skos:altLabel>Kut</skos:altLabel>
+	<skos:altLabel>Kūt al Imāra</skos:altLabel>
+	<skos:altLabel>Liwā’ al Kūt</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at Wāsiţ</skos:altLabel>
+	<skos:altLabel>Wāsiţ</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at Wāsiţ</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/89719/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>30.56667</wgs:lat>
+	<wgs:long>47.78333</wgs:long>
+	<skos:altLabel>Coal Island</skos:altLabel>
+	<skos:altLabel>Jazīrat Atwiqaf</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat al Waqf al Muḩammadīyah</skos:altLabel>
+	<skos:prefLabel>Jazīrat al Waqf al Muḩammadīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/89748/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.58333</wgs:lat>
+	<wgs:long>46.93333</wgs:long>
+	<skos:altLabel>Wabila</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Wābilah</skos:altLabel>
+	<skos:prefLabel>Wābilah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/89870/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>30.4608</wgs:lat>
+	<wgs:long>48.0439</wgs:long>
+	<skos:altLabel>At Tuwaila</skos:altLabel>
+	<skos:altLabel>Jazīrat Aţ Ţuwaylah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Umm aţ Ţuwaylah</skos:altLabel>
+	<skos:altLabel xml:lang="fa">Jazīreh ol Ţovaylah</skos:altLabel>
+	<skos:altLabel>Taweileh</skos:altLabel>
+	<skos:altLabel>Tuwaila Island</skos:altLabel>
+	<skos:altLabel xml:lang="fa">جزیره الطویله</skos:altLabel>
+	<skos:prefLabel>Jazīreh ol Ţovaylah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/89893/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>30.44358</wgs:lat>
+	<wgs:long>48.11571</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat Umm ar Raşāş</skos:altLabel>
+	<skos:altLabel>Jazīreh-ye Omm Rāsās</skos:altLabel>
+	<skos:altLabel>Um al Rasas</skos:altLabel>
+	<skos:altLabel>Um al Rasas Island</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Umm ar Raşāş</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جزيرة ام الرصاص</skos:altLabel>
+	<skos:prefLabel>Jazīrat Umm ar Raşāş</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/89907/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>30.43243</wgs:lat>
+	<wgs:long>48.12653</wgs:long>
+	<skos:altLabel>Al Jabābī</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Umm al Biyābī</skos:altLabel>
+	<skos:altLabel>Jazīrat Umm al Ubābī</skos:altLabel>
+	<skos:altLabel>Um al Labani</skos:altLabel>
+	<skos:altLabel>Um al Labani Island</skos:altLabel>
+	<skos:altLabel>Umm al Labani</skos:altLabel>
+	<skos:altLabel>Umm al Libābī</skos:altLabel>
+	<skos:altLabel>الجبابي</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جزيرة ام البيابي</skos:altLabel>
+	<skos:prefLabel>Jazīrat Umm al Biyābī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/89913/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>30.43926</wgs:lat>
+	<wgs:long>48.13309</wgs:long>
+	<skos:altLabel>Dabba Island</skos:altLabel>
+	<skos:altLabel>Dabbah</skos:altLabel>
+	<skos:altLabel>Jazīrat Umm al Khaşāşīf</skos:altLabel>
+	<skos:altLabel>Um al Khasasif</skos:altLabel>
+	<skos:altLabel>Umm al Khaşāşīf</skos:altLabel>
+	<skos:altLabel xml:lang="ar">ام الخصاصيف</skos:altLabel>
+	<skos:prefLabel>Umm al Khaşāşīf</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/89985/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.44205</wgs:lat>
+	<wgs:long>43.60305</wgs:long>
+	<skos:altLabel>Al Khaydhar</skos:altLabel>
+	<skos:altLabel>Al Ukhayḑir</skos:altLabel>
+	<skos:altLabel>Qasr al - Akhaidher</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaşr al Ukhayḑir</skos:altLabel>
+	<skos:altLabel>Ukhaidhir</skos:altLabel>
+	<skos:altLabel xml:lang="ar">قصر الاخيضر</skos:altLabel>
+	<skos:prefLabel>Qaşr al Ukhayḑir</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/89992/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>30.4778</wgs:lat>
+	<wgs:long>47.92426</wgs:long>
+	<skos:altLabel>Ajairawiya Island</skos:altLabel>
+	<skos:altLabel xml:lang="ar">عجيراوية</skos:altLabel>
+	<skos:altLabel>‘Ajairawīya</skos:altLabel>
+	<skos:altLabel>‘Ajayrawīyah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">‘Ujayrāwīyah</skos:altLabel>
+	<skos:prefLabel>‘Ujayrāwīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/90026/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>59886</europeana:population>
+	<wgs:lat>34.89046</wgs:lat>
+	<wgs:long>44.62994</wgs:long>
+	<skos:altLabel>Khurmati</skos:altLabel>
+	<skos:altLabel>Touz Hourmato</skos:altLabel>
+	<skos:altLabel>Tozkhurmato</skos:altLabel>
+	<skos:altLabel>Tozkhurmatu</skos:altLabel>
+	<skos:altLabel>Tuz</skos:altLabel>
+	<skos:altLabel>Tuz Kermatli</skos:altLabel>
+	<skos:altLabel>Tuz Khurmatli</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ţūzkhūrmātū</skos:altLabel>
+	<skos:altLabel xml:lang="ar">طوزخورماتو</skos:altLabel>
+	<skos:prefLabel>Ţūzkhūrmātū</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/90148/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/91695/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>34.75</wgs:lat>
+	<wgs:long>43.65</wgs:long>
+	<skos:altLabel xml:lang="ar">Qaḑā’ Tikrīt</skos:altLabel>
+	<skos:altLabel>Tekrīt Qadhā’</skos:altLabel>
+	<skos:altLabel>Tikrit Qadha</skos:altLabel>
+	<skos:altLabel>Tikrīt</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ Tikrīt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/90150/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>42477</europeana:population>
+	<wgs:lat>34.60712</wgs:lat>
+	<wgs:long>43.67822</wgs:long>
+	<skos:altLabel>Tekrit</skos:altLabel>
+	<skos:altLabel>Tikret</skos:altLabel>
+	<skos:altLabel xml:lang="id">Tikrit</skos:altLabel>
+	<skos:altLabel xml:lang="es">Tikrit</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tikrit</skos:altLabel>
+	<skos:altLabel xml:lang="da">Tikrit</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Tikrit</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Tikrit</skos:altLabel>
+	<skos:altLabel xml:lang="de">Tikrit</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Tikrit</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Tikrit</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Tikrit</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Tikrit</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Tikrit</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Tikrit</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Tikrit</skos:altLabel>
+	<skos:altLabel xml:lang="no">Tikrit</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Tikrit</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Tikrit</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Tikritas</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Tikrīt</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Тикрит</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Тикрит</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Тикрит</skos:altLabel>
+	<skos:altLabel xml:lang="he">תיכרית</skos:altLabel>
+	<skos:altLabel xml:lang="ar">تكريت</skos:altLabel>
+	<skos:altLabel xml:lang="fa">تکریت</skos:altLabel>
+	<skos:altLabel xml:lang="ur">تکریت</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ティクリート</skos:altLabel>
+	<skos:altLabel xml:lang="zh">提克里特</skos:altLabel>
+	<skos:prefLabel>Tikrīt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/90287/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.08333</wgs:lat>
+	<wgs:long>44.58333</wgs:long>
+	<skos:altLabel>Arch of Ctesiphon</skos:altLabel>
+	<skos:altLabel xml:lang="es">Ctesifonte</skos:altLabel>
+	<skos:altLabel xml:lang="it">Ctesifonte</skos:altLabel>
+	<skos:altLabel xml:lang="da">Ctesiphon</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Ctesiphon</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ctesiphon</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Ctésiphon</skos:altLabel>
+	<skos:altLabel xml:lang="no">Ktesifon</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Ktezyfon</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Ktésifon</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Ktésifón</skos:altLabel>
+	<skos:altLabel xml:lang="de">Seleukia-Ktesiphon</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ţāq Kisrá</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ктесифон</skos:altLabel>
+	<skos:altLabel xml:lang="he">קטסיפון</skos:altLabel>
+	<skos:altLabel xml:lang="fa">تیسفون</skos:altLabel>
+	<skos:prefLabel>Ctesiphon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/90335/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.16667</wgs:lat>
+	<wgs:long>44.33333</wgs:long>
+	<skos:altLabel xml:lang="ar">Tall ‘Umar</skos:altLabel>
+	<skos:altLabel>Tell Omar</skos:altLabel>
+	<skos:prefLabel>Tall ‘Umar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/90342/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.33229</wgs:lat>
+	<wgs:long>44.2565</wgs:long>
+	<skos:altLabel>Qaţash</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qānish Tappah</skos:altLabel>
+	<skos:altLabel>Tall Qūtish</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Talqoqish</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Tel Qoqsh</skos:altLabel>
+	<skos:altLabel>Tel Qūtīsh</skos:altLabel>
+	<skos:altLabel>تل قوتش</skos:altLabel>
+	<skos:altLabel xml:lang="ku">ته ل قۆقش</skos:altLabel>
+	<skos:altLabel xml:lang="ar">قانش تبه</skos:altLabel>
+	<skos:prefLabel>Qānish Tappah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/90353/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23524</europeana:population>
+	<wgs:lat>36.48944</wgs:lat>
+	<wgs:long>43.11917</wgs:long>
+	<skos:altLabel xml:lang="ar">Qaḑā’ Talkīf</skos:altLabel>
+	<skos:altLabel>Tall Kaif</skos:altLabel>
+	<skos:altLabel>Tall Kayf</skos:altLabel>
+	<skos:altLabel>Tel Kaif</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Талль-Кайф</skos:altLabel>
+	<skos:altLabel xml:lang="ar">قضاء تلكيف</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ Talkīf</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/90354/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.85</wgs:lat>
+	<wgs:long>45.96667</wgs:long>
+	<skos:altLabel xml:lang="ar">Tall Jidr</skos:altLabel>
+	<skos:altLabel>Tell Gidr</skos:altLabel>
+	<skos:prefLabel>Tall Jidr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/90358/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>36.05</wgs:lat>
+	<wgs:long>43.08333</wgs:long>
+	<skos:altLabel xml:lang="ar">Tall Ḩassūnah</skos:altLabel>
+	<skos:altLabel>Tell Hasuna</skos:altLabel>
+	<skos:prefLabel>Tall Ḩassūnah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/90360/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.63333</wgs:lat>
+	<wgs:long>45.6</wgs:long>
+	<skos:altLabel xml:lang="ar">Tall Ḩamām</skos:altLabel>
+	<skos:altLabel>Tell Hamam</skos:altLabel>
+	<skos:prefLabel>Tall Ḩamām</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/90372/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.46667</wgs:lat>
+	<wgs:long>45</wgs:long>
+	<skos:altLabel xml:lang="ar">Tall Asmar</skos:altLabel>
+	<skos:altLabel>Tell Asmer</skos:altLabel>
+	<skos:prefLabel>Tall Asmar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/90383/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.56667</wgs:lat>
+	<wgs:long>46.4</wgs:long>
+	<skos:altLabel xml:lang="ar">Tall al Laḩm</skos:altLabel>
+	<skos:altLabel>Tell laham</skos:altLabel>
+	<skos:prefLabel>Tall al Laḩm</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/90390/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.41667</wgs:lat>
+	<wgs:long>45.15</wgs:long>
+	<skos:altLabel xml:lang="ar">Tall Ajrab</skos:altLabel>
+	<skos:altLabel>Tell Ajrab</skos:altLabel>
+	<skos:prefLabel>Tall Ajrab</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/90392/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/92877/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>36.5</wgs:lat>
+	<wgs:long>42.5</wgs:long>
+	<skos:altLabel xml:lang="ar">Qaḑā’ Tall ‘Afar</skos:altLabel>
+	<skos:altLabel>Qaḑā’ Tal‘afar</skos:altLabel>
+	<skos:altLabel>Tala'afar</skos:altLabel>
+	<skos:altLabel>Tala‘far Qadhā’</skos:altLabel>
+	<skos:altLabel>Tall A‘far Qadhā’</skos:altLabel>
+	<skos:altLabel>Tall ‘Afar</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Tele‘fer</skos:altLabel>
+	<skos:altLabel xml:lang="ku">ته له عفه ر</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ Tall ‘Afar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/90509/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/97019/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>30.85</wgs:lat>
+	<wgs:long>46.7</wgs:long>
+	<skos:altLabel xml:lang="ar">Qaḑā’ Sūq ash Shuyūkh</skos:altLabel>
+	<skos:altLabel>Suq Ash-Sheyukh Qadhā’</skos:altLabel>
+	<skos:altLabel>Suq-Ash-Shuyukh Qadha</skos:altLabel>
+	<skos:altLabel>Sūq ash Shuyūkh</skos:altLabel>
+	<skos:altLabel>Sūq-Sheyūkh Qadhā’</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ Sūq ash Shuyūkh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/90708/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>128776</europeana:population>
+	<wgs:lat>36.80902</wgs:lat>
+	<wgs:long>43.03886</wgs:long>
+	<skos:altLabel>Sina</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Sîne</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Sīnah</skos:altLabel>
+	<skos:altLabel>Sīnā</skos:altLabel>
+	<skos:altLabel xml:lang="ar">سينة</skos:altLabel>
+	<skos:altLabel xml:lang="ku">سينه</skos:altLabel>
+	<skos:prefLabel>Sīnah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/90721/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.28333</wgs:lat>
+	<wgs:long>43.33333</wgs:long>
+	<skos:altLabel xml:lang="ar">Sien</skos:altLabel>
+	<skos:prefLabel>Sien</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/90736/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.06667</wgs:lat>
+	<wgs:long>44.25</wgs:long>
+	<skos:altLabel>Abu Habba</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Sībīyār</skos:altLabel>
+	<skos:prefLabel>Sībīyār</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/91087/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>36.91667</wgs:lat>
+	<wgs:long>44.13333</wgs:long>
+	<skos:altLabel xml:lang="ar">Shanider</skos:altLabel>
+	<skos:prefLabel>Shanider</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/91099/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>30.45</wgs:lat>
+	<wgs:long>48.08333</wgs:long>
+	<skos:altLabel>Ash Shamshamīya</skos:altLabel>
+	<skos:altLabel>Ash Shamshamīya Island</skos:altLabel>
+	<skos:altLabel>Ash Shamshamīyah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat ash Shamshamīyah</skos:altLabel>
+	<skos:prefLabel>Jazīrat ash Shamshamīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/91176/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/98465/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>35.7</wgs:lat>
+	<wgs:long>45.6</wgs:long>
+	<skos:altLabel xml:lang="ar">Qaḑā’ Shahrbāzār</skos:altLabel>
+	<skos:altLabel>Shaharbazar</skos:altLabel>
+	<skos:altLabel>Shaharbāzār Qadhā’</skos:altLabel>
+	<skos:altLabel>Shahrbāzār</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ Shahrbāzār</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/91243/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.10387</wgs:lat>
+	<wgs:long>44.51667</wgs:long>
+	<skos:altLabel xml:lang="ar">Minţaqat as Salūqīyat al Atharīyah</skos:altLabel>
+	<skos:altLabel>Seleucia</skos:altLabel>
+	<skos:altLabel>Slucia</skos:altLabel>
+	<skos:altLabel>Sur</skos:altLabel>
+	<skos:altLabel xml:lang="ar">منطقة السلوقية الاثرية</skos:altLabel>
+	<skos:prefLabel>Minţaqat as Salūqīyat al Atharīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/91594/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/91695/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>34.2</wgs:lat>
+	<wgs:long>43.9</wgs:long>
+	<skos:altLabel xml:lang="ar">Qaḑā’ Sāmarrā’</skos:altLabel>
+	<skos:altLabel>Sāmarrā’</skos:altLabel>
+	<skos:altLabel>Sāmarrā’ Qadhā’</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ Sāmarrā’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/91597/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>158508</europeana:population>
+	<wgs:lat>34.20096</wgs:lat>
+	<wgs:long>43.87562</wgs:long>
+	<skos:altLabel>Saimarreh</skos:altLabel>
+	<skos:altLabel xml:lang="en">Samarra</skos:altLabel>
+	<skos:altLabel>Sāmarrah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Sāmarrā’</skos:altLabel>
+	<skos:altLabel xml:lang="ar">سامراء</skos:altLabel>
+	<skos:prefLabel>Sāmarrā’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/91695/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1032674</europeana:population>
+	<wgs:lat>34.5</wgs:lat>
+	<wgs:long>43.65</wgs:long>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at Şalāḩ ad Dīn</skos:altLabel>
+	<skos:altLabel>Salahuddin</skos:altLabel>
+	<skos:altLabel>Şalāḩ ad Dīn</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at Şalāḩ ad Dīn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/91812/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>30622</europeana:population>
+	<wgs:lat>32.71472</wgs:lat>
+	<wgs:long>44.28028</wgs:long>
+	<skos:altLabel>Al Hindīyah</skos:altLabel>
+	<skos:altLabel>Hindīya</skos:altLabel>
+	<skos:altLabel>Nāḩīyat Saddat al Hindīyah</skos:altLabel>
+	<skos:altLabel>Qaryat Saddat al Hindīyah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Saddat al Hindīyah</skos:altLabel>
+	<skos:prefLabel>Saddat al Hindīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/91911/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>30.43333</wgs:lat>
+	<wgs:long>48.11667</wgs:long>
+	<skos:altLabel>Ar Rumaylah al Kabīrah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Rumaylah</skos:altLabel>
+	<skos:altLabel>Rumailah</skos:altLabel>
+	<skos:altLabel>Rumailah Island</skos:altLabel>
+	<skos:prefLabel>Jazīrat Rumaylah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/92001/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>36.7</wgs:lat>
+	<wgs:long>44.6</wgs:long>
+	<skos:altLabel xml:lang="ar">Qaḑā’ Rawandoz</skos:altLabel>
+	<skos:altLabel>Rawāndūz</skos:altLabel>
+	<skos:altLabel>Rawāndūz Qadhā’</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ Rawandoz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/92002/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>22943</europeana:population>
+	<wgs:lat>36.61578</wgs:lat>
+	<wgs:long>44.52752</wgs:long>
+	<skos:altLabel>Rawandoz</skos:altLabel>
+	<skos:altLabel>Rawndoz</skos:altLabel>
+	<skos:altLabel>Rawāndiz</skos:altLabel>
+	<skos:altLabel>Revandis</skos:altLabel>
+	<skos:altLabel>Rewandus</skos:altLabel>
+	<skos:altLabel>Roandiz</skos:altLabel>
+	<skos:altLabel>Roanduz</skos:altLabel>
+	<skos:altLabel>Rowandūz</skos:altLabel>
+	<skos:altLabel>Ruwan Duz</skos:altLabel>
+	<skos:altLabel>Ruwāndiz</skos:altLabel>
+	<skos:altLabel>Ruwāndūz</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Rāwandūz</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Равандуз</skos:altLabel>
+	<skos:altLabel xml:lang="ar">راوندوز</skos:altLabel>
+	<skos:prefLabel>Rāwandūz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/92004/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20580</europeana:population>
+	<wgs:lat>34.48164</wgs:lat>
+	<wgs:long>41.9093</wgs:long>
+	<skos:altLabel>Rawa</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Rāwah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">راوة</skos:altLabel>
+	<skos:prefLabel>Rāwah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/92051/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/98465/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>36.25</wgs:lat>
+	<wgs:long>44.83333</wgs:long>
+	<skos:altLabel xml:lang="ar">Qaḑā’ Rāniyah</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Rania</skos:altLabel>
+	<skos:altLabel>Rania Qadha</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Ranîe</skos:altLabel>
+	<skos:altLabel>Rāniyah</skos:altLabel>
+	<skos:altLabel>Rānya Qadhā”</skos:altLabel>
+	<skos:altLabel xml:lang="ku">رانيه</skos:altLabel>
+	<skos:prefLabel>رانيه</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/92215/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>30.34698</wgs:lat>
+	<wgs:long>48.18394</wgs:long>
+	<skos:altLabel>Al Qiţ‘ah</skos:altLabel>
+	<skos:altLabel>Gat‘a Island</skos:altLabel>
+	<skos:altLabel>Jazīrat Qaţ‘ah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat al Qaţ‘ah</skos:altLabel>
+	<skos:altLabel xml:lang="fa">Jazīreh-ye Qaţ‘ah</skos:altLabel>
+	<skos:altLabel>Q‘ata Island</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جزيرة القطعة</skos:altLabel>
+	<skos:prefLabel>Jazīrat al Qaţ‘ah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/92309/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.31667</wgs:lat>
+	<wgs:long>43.33333</wgs:long>
+	<skos:altLabel xml:lang="ar">Qaşr al Ukhayḑir</skos:altLabel>
+	<skos:altLabel>Ukhaidhir Palace</skos:altLabel>
+	<skos:prefLabel>Qaşr al Ukhayḑir</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/92430/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>28448</europeana:population>
+	<wgs:lat>36.27146</wgs:lat>
+	<wgs:long>43.37373</wgs:long>
+	<skos:altLabel>Al Hamdaniya</skos:altLabel>
+	<skos:altLabel>Al Hamdaniyah</skos:altLabel>
+	<skos:altLabel>Qarah Qōsh</skos:altLabel>
+	<skos:altLabel>Qarah Qūsh</skos:altLabel>
+	<skos:altLabel>Qaraqosh</skos:altLabel>
+	<skos:altLabel>Qaraqush</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ al Ḩamdānīyah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">قضاء الحمدانية</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ al Ḩamdānīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/92536/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/93540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>31.5</wgs:lat>
+	<wgs:long>47.35</wgs:long>
+	<skos:altLabel>Qal‘at Sāliḩ Qadhā’</skos:altLabel>
+	<skos:altLabel>Qal‘at Şāliḩ</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ Qal‘at Şāliḩ</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ Qal‘at Şāliḩ</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/92743/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>36.06667</wgs:lat>
+	<wgs:long>45.15</wgs:long>
+	<skos:altLabel>Peshdar Qadhā’</skos:altLabel>
+	<skos:altLabel>Pishdar</skos:altLabel>
+	<skos:altLabel>Pishdar Qadhā’</skos:altLabel>
+	<skos:altLabel>Pizhder Qadha</skos:altLabel>
+	<skos:altLabel>Qaḑā’ Bishdar</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ Pishdar</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ Pishdar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/92877/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>36.16667</wgs:lat>
+	<wgs:long>42.58333</wgs:long>
+	<skos:altLabel>Al Mawşil</skos:altLabel>
+	<skos:altLabel>Al Mūşil</skos:altLabel>
+	<skos:altLabel>Liwā’ al Mawşil</skos:altLabel>
+	<skos:altLabel>Liwā’ al Mūşil</skos:altLabel>
+	<skos:altLabel>Mosul</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at Nīnawá</skos:altLabel>
+	<skos:altLabel>Neinewa</skos:altLabel>
+	<skos:altLabel>Nīnawá</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at Nīnawá</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/92882/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.13196</wgs:lat>
+	<wgs:long>45.23373</wgs:long>
+	<skos:altLabel>Atlāl Nufar</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Aţlāl Nafar</skos:altLabel>
+	<skos:altLabel>Niffar</skos:altLabel>
+	<skos:altLabel>Nippur</skos:altLabel>
+	<skos:altLabel xml:lang="ar">اطلال نفر</skos:altLabel>
+	<skos:prefLabel>Aţlāl Nafar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/93006/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>36.09993</wgs:lat>
+	<wgs:long>43.32709</wgs:long>
+	<skos:altLabel>Aţlāl Nimrūd</skos:altLabel>
+	<skos:altLabel>Calah</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Kalah</skos:altLabel>
+	<skos:altLabel>Kalakh</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kalchu</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Kalkhu</skos:altLabel>
+	<skos:altLabel>Namrūd</skos:altLabel>
+	<skos:altLabel xml:lang="en">Nimrud</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Nimrud</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Nimrud</skos:altLabel>
+	<skos:altLabel xml:lang="es">Nimrud</skos:altLabel>
+	<skos:altLabel xml:lang="de">Nimrud</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Nimrud</skos:altLabel>
+	<skos:altLabel xml:lang="no">Nimrud</skos:altLabel>
+	<skos:altLabel>Nimrud Īshān</skos:altLabel>
+	<skos:altLabel>Nimrūd</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Āthār Nimrūd</skos:altLabel>
+	<skos:altLabel xml:lang="he">כלח</skos:altLabel>
+	<skos:altLabel xml:lang="ar">اثار نمرود</skos:altLabel>
+	<skos:prefLabel>Āthār Nimrūd</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/93540/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>32</wgs:lat>
+	<wgs:long>47</wgs:long>
+	<skos:altLabel>Al ‘Amārah</skos:altLabel>
+	<skos:altLabel>Amara</skos:altLabel>
+	<skos:altLabel>Amārah</skos:altLabel>
+	<skos:altLabel>Liwā’ al ‘Amārah</skos:altLabel>
+	<skos:altLabel>Maisan</skos:altLabel>
+	<skos:altLabel xml:lang="en">Maysan</skos:altLabel>
+	<skos:altLabel>Maysān</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at Maysān</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at Maysān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/93633/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.58333</wgs:lat>
+	<wgs:long>44.04167</wgs:long>
+	<skos:altLabel>Holly Shrine of al-Hussain</skos:altLabel>
+	<skos:altLabel xml:lang="en">Imam Husayn Shrine</skos:altLabel>
+	<skos:altLabel xml:lang="en">Imam Hussain Shrine</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Marqad al Imām al Ḩusayn</skos:altLabel>
+	<skos:altLabel>Masjidu l-Hussayn</skos:altLabel>
+	<skos:prefLabel>Marqad al Imām al Ḩusayn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/93708/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/96965/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>33.5</wgs:lat>
+	<wgs:long>45.4</wgs:long>
+	<skos:altLabel>Mandali Qadha</skos:altLabel>
+	<skos:altLabel>Mandalī</skos:altLabel>
+	<skos:altLabel>Mandelī Qadhā”</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ Mandalī</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ Mandalī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/93709/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>29785</europeana:population>
+	<wgs:lat>33.74986</wgs:lat>
+	<wgs:long>45.5541</wgs:long>
+	<skos:altLabel xml:lang="ar">Mandalī</skos:altLabel>
+	<skos:altLabel>Mendali</skos:altLabel>
+	<skos:altLabel>Mendéli</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Мандали</skos:altLabel>
+	<skos:altLabel xml:lang="ar">مندلي</skos:altLabel>
+	<skos:prefLabel>Mandalī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/93817/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/95445/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>35.75</wgs:lat>
+	<wgs:long>43.65</wgs:long>
+	<skos:altLabel>Makhmūr</skos:altLabel>
+	<skos:altLabel>Makhmūr Qadhā’</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Mexmûr</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Mokhmur</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ Makhmūr</skos:altLabel>
+	<skos:altLabel xml:lang="ku">مه خموور</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ Makhmūr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/94016/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>34.9</wgs:lat>
+	<wgs:long>43.51667</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat Laqlaq</skos:altLabel>
+	<skos:altLabel>Laqlaq Island</skos:altLabel>
+	<skos:prefLabel>Jazīrat Laqlaq</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/94023/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.55</wgs:lat>
+	<wgs:long>46.18333</wgs:long>
+	<skos:altLabel>Lagash</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Lakash</skos:altLabel>
+	<skos:prefLabel>Lakash</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/94219/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>36.05</wgs:lat>
+	<wgs:long>44.5</wgs:long>
+	<skos:altLabel>Koi-Sanjaq Qada</skos:altLabel>
+	<skos:altLabel>Koysanjaq Qadha</skos:altLabel>
+	<skos:altLabel>Kūysanjaq</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ Kou Senjaq</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ Kou Senjaq</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/94220/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>44987</europeana:population>
+	<wgs:lat>36.08616</wgs:lat>
+	<wgs:long>44.62941</wgs:long>
+	<skos:altLabel xml:lang="ar">Koi Sanjaq</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Kosinîe</skos:altLabel>
+	<skos:altLabel>Kou Senaq</skos:altLabel>
+	<skos:altLabel>Kou Senjaq</skos:altLabel>
+	<skos:altLabel>Koy Senjaq</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Koysinjaq</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Kūysanjaq</skos:altLabel>
+	<skos:altLabel>كويسنجق</skos:altLabel>
+	<skos:altLabel xml:lang="ku">كۆسنيه</skos:altLabel>
+	<skos:prefLabel>Kūysanjaq</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/94273/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.91667</wgs:lat>
+	<wgs:long>47.98333</wgs:long>
+	<skos:altLabel xml:lang="ar">Kishk al Başrī</skos:altLabel>
+	<skos:prefLabel>Kishk al Başrī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/94277/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.53333</wgs:lat>
+	<wgs:long>44.7</wgs:long>
+	<skos:altLabel xml:lang="de">Kisch</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kish</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Kish</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Kish</skos:altLabel>
+	<skos:altLabel xml:lang="it">Kish</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Kish</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Kish</skos:altLabel>
+	<skos:altLabel xml:lang="es">Kish</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Kish</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Kish</skos:altLabel>
+	<skos:altLabel xml:lang="no">Kish</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kisz</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Kiş</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Kiš</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Kīsh</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Киш</skos:altLabel>
+	<skos:altLabel xml:lang="ar">كيش</skos:altLabel>
+	<skos:altLabel xml:lang="fa">کیش</skos:altLabel>
+	<skos:altLabel xml:lang="ka">კიში</skos:altLabel>
+	<skos:altLabel xml:lang="ja">キシュ</skos:altLabel>
+	<skos:prefLabel>Kīsh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/94296/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/98465/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>34.9</wgs:lat>
+	<wgs:long>45.1</wgs:long>
+	<skos:altLabel>Kifri Qadhā’</skos:altLabel>
+	<skos:altLabel>Kifrī</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ Kifrī</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ Kifrī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/94298/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>30143</europeana:population>
+	<wgs:lat>34.69587</wgs:lat>
+	<wgs:long>44.9661</wgs:long>
+	<skos:altLabel>Kiffrī</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Kifrī</skos:altLabel>
+	<skos:altLabel>Kufrī</skos:altLabel>
+	<skos:altLabel>Salahie</skos:altLabel>
+	<skos:altLabel>Salahiyeh</skos:altLabel>
+	<skos:altLabel>Sallahiya</skos:altLabel>
+	<skos:altLabel>Sallahiyah</skos:altLabel>
+	<skos:altLabel>Salāhīya</skos:altLabel>
+	<skos:altLabel>Zeng Ābād</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кифри</skos:altLabel>
+	<skos:altLabel xml:lang="ar">كفري</skos:altLabel>
+	<skos:prefLabel>Kifrī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/94590/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/96965/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>34.5</wgs:lat>
+	<wgs:long>45.35</wgs:long>
+	<skos:altLabel>Khānaqīn</skos:altLabel>
+	<skos:altLabel>Khānaqīn Qadhā’</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ Khānaqīn</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ Khānaqīn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/94729/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.95</wgs:lat>
+	<wgs:long>45.65</wgs:long>
+	<skos:altLabel>Abū Hatab</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Kaysūrā</skos:altLabel>
+	<skos:altLabel>Kisurra</skos:altLabel>
+	<skos:prefLabel>Kaysūrā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/94750/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.93333</wgs:lat>
+	<wgs:long>46.95</wgs:long>
+	<skos:altLabel xml:lang="ar">Kauli</skos:altLabel>
+	<skos:prefLabel>Kauli</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/94786/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/98410/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>35.5</wgs:lat>
+	<wgs:long>44.3</wgs:long>
+	<skos:altLabel>Karkuk</skos:altLabel>
+	<skos:altLabel>Karkūk Qadhā”</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Kerkuk</skos:altLabel>
+	<skos:altLabel>Kirkuk Qadha</skos:altLabel>
+	<skos:altLabel>Kirkūk</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ Karkūk</skos:altLabel>
+	<skos:altLabel>Qaḑā’ Kirkūk</skos:altLabel>
+	<skos:altLabel xml:lang="ku">كه ركوك</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ Kirkūk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/94787/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>601433</europeana:population>
+	<wgs:lat>35.46806</wgs:lat>
+	<wgs:long>44.39222</wgs:long>
+	<skos:altLabel>Karkh Slukh</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Karkuk</skos:altLabel>
+	<skos:altLabel>Karkūk</skos:altLabel>
+	<skos:altLabel>Kerkouk</skos:altLabel>
+	<skos:altLabel>Kerkuk</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Kerkûk</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Kerkük</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Kirkoek</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Kirkouk</skos:altLabel>
+	<skos:altLabel xml:lang="id">Kirkuk</skos:altLabel>
+	<skos:altLabel xml:lang="da">Kirkuk</skos:altLabel>
+	<skos:altLabel xml:lang="io">Kirkuk</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kirkuk</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Kirkuk</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Kirkuk</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kirkuk</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kirkuk</skos:altLabel>
+	<skos:altLabel xml:lang="no">Kirkuk</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Kirkuk</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Kirkuk</skos:altLabel>
+	<skos:altLabel xml:lang="es">Kirkuk</skos:altLabel>
+	<skos:altLabel>Kirkūk</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Киркук</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Киркук</skos:altLabel>
+	<skos:altLabel xml:lang="ar">كركوك</skos:altLabel>
+	<skos:altLabel>كركوك</skos:altLabel>
+	<skos:altLabel xml:lang="ku">كه ركوك</skos:altLabel>
+	<skos:altLabel xml:lang="ku">كه‌ركووك</skos:altLabel>
+	<skos:altLabel xml:lang="fa">کرکوک</skos:altLabel>
+	<skos:altLabel xml:lang="ja">キルクーク</skos:altLabel>
+	<skos:altLabel xml:lang="ko">키르쿠크</skos:altLabel>
+	<skos:prefLabel>Kirkuk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/94822/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/94823/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>32.5</wgs:lat>
+	<wgs:long>43.75</wgs:long>
+	<skos:altLabel>Karbalā’</skos:altLabel>
+	<skos:altLabel>Karbalā’ Qadhā’</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā Karbalā’</skos:altLabel>
+	<skos:prefLabel>Qaḑā Karbalā’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/94823/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>32.5</wgs:lat>
+	<wgs:long>43.83333</wgs:long>
+	<skos:altLabel>Karbala</skos:altLabel>
+	<skos:altLabel>Karbalāʼ</skos:altLabel>
+	<skos:altLabel>Liwā Karbalā”</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at Karbalā’</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at Karbalā’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/94824/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>434450</europeana:population>
+	<wgs:lat>32.61144</wgs:lat>
+	<wgs:long>44.00847</wgs:long>
+	<skos:altLabel xml:lang="id">Karbala</skos:altLabel>
+	<skos:altLabel xml:lang="da">Karbala</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Karbala</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Karbala</skos:altLabel>
+	<skos:altLabel xml:lang="en">Karbala</skos:altLabel>
+	<skos:altLabel xml:lang="no">Karbala</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Karbala</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Karbala</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Karbala</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Karbala</skos:altLabel>
+	<skos:altLabel>Karbalaa</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Karbalā’</skos:altLabel>
+	<skos:altLabel>Karbila</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Kerbala</skos:altLabel>
+	<skos:altLabel xml:lang="es">Kerbala</skos:altLabel>
+	<skos:altLabel xml:lang="it">Kerbala</skos:altLabel>
+	<skos:altLabel>Kerbela</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kerbela</skos:altLabel>
+	<skos:altLabel xml:lang="it">Kerbela</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Kerbela</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Kerbela</skos:altLabel>
+	<skos:altLabel>Meshed Hussain</skos:altLabel>
+	<skos:altLabel>Meshed Hussein</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Nainawa</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Shathi'ul-Furat</skos:altLabel>
+	<skos:altLabel xml:lang="ar">al-Ghadiriya</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Вилояти Карбало</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Карбала</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Кербала</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кербела</skos:altLabel>
+	<skos:altLabel xml:lang="he">כרבלא</skos:altLabel>
+	<skos:altLabel xml:lang="he">מחוז כרבלא</skos:altLabel>
+	<skos:altLabel xml:lang="ug">كةربالا</skos:altLabel>
+	<skos:altLabel xml:lang="ar">كربلاء</skos:altLabel>
+	<skos:altLabel xml:lang="ar">محافظة كربلاء</skos:altLabel>
+	<skos:altLabel xml:lang="fa">کربلا</skos:altLabel>
+	<skos:altLabel xml:lang="ja">カルバラー</skos:altLabel>
+	<skos:altLabel xml:lang="ja">カルバラー県</skos:altLabel>
+	<skos:prefLabel>Karbalā’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/95090/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.71667</wgs:lat>
+	<wgs:long>45.95</wgs:long>
+	<skos:altLabel xml:lang="ar">Jūkhah</skos:altLabel>
+	<skos:altLabel>Umma</skos:altLabel>
+	<skos:prefLabel>Jūkhah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/95171/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>31.18284</wgs:lat>
+	<wgs:long>45.91019</wgs:long>
+	<skos:altLabel>Jazīrat Shaham</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Shaḩān</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جزيرة شحان</skos:altLabel>
+	<skos:prefLabel>Jazīrat Shaḩān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/95275/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.56667</wgs:lat>
+	<wgs:long>44.73333</wgs:long>
+	<skos:altLabel>Gemdat Nasr</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jamdat Naşr</skos:altLabel>
+	<skos:altLabel>Jemdat Nasr</skos:altLabel>
+	<skos:altLabel>Jemdet Nasr</skos:altLabel>
+	<skos:prefLabel>Jamdat Naşr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/95444/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/95445/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>1384321</europeana:population>
+	<wgs:lat>36.1</wgs:lat>
+	<wgs:long>44</wgs:long>
+	<skos:altLabel xml:lang="ar">Arbīl</skos:altLabel>
+	<skos:altLabel>Arbīl Qadhā”</skos:altLabel>
+	<skos:altLabel>Irbīl</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ Arbīl</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ Irbīl</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ Arbīl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/95445/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>36.16667</wgs:lat>
+	<wgs:long>44</wgs:long>
+	<skos:altLabel>Arbīl</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Arbīl</skos:altLabel>
+	<skos:altLabel>Erbil</skos:altLabel>
+	<skos:altLabel>Hawler</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Hewlêr</skos:altLabel>
+	<skos:altLabel>Irbīl</skos:altLabel>
+	<skos:altLabel>Liwā’ Irbīl</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at Arbīl</skos:altLabel>
+	<skos:altLabel>Muḩāfaz̧at Irbīl</skos:altLabel>
+	<skos:altLabel>اربيل</skos:altLabel>
+	<skos:altLabel xml:lang="ku">هه ولێر</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at Arbīl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/95446/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>932800</europeana:population>
+	<wgs:lat>36.19257</wgs:lat>
+	<wgs:long>44.01062</wgs:long>
+	<skos:altLabel>(Erbil)</skos:altLabel>
+	<skos:altLabel>Arba‘ilu</skos:altLabel>
+	<skos:altLabel>Arbeel</skos:altLabel>
+	<skos:altLabel xml:lang="de">Arbil</skos:altLabel>
+	<skos:altLabel xml:lang="en">Arbil Governorate</skos:altLabel>
+	<skos:altLabel>Arbēla</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Arbīl</skos:altLabel>
+	<skos:altLabel xml:lang="es">Erbil</skos:altLabel>
+	<skos:altLabel>Hawler</skos:altLabel>
+	<skos:altLabel>Hawlēr</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Hewlêr</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Irbil</skos:altLabel>
+	<skos:altLabel>Irbīl</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Арбил</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Вилояти Арбӣл</skos:altLabel>
+	<skos:altLabel xml:lang="he">מחוז ארביל</skos:altLabel>
+	<skos:altLabel xml:lang="ar">أربيل</skos:altLabel>
+	<skos:altLabel>إربيل</skos:altLabel>
+	<skos:altLabel xml:lang="fa">اربیل</skos:altLabel>
+	<skos:altLabel xml:lang="ar">محافظة أربيل</skos:altLabel>
+	<skos:altLabel xml:lang="ku">هەولێر</skos:altLabel>
+	<skos:altLabel xml:lang="ja">アルビール県</skos:altLabel>
+	<skos:altLabel xml:lang="zh">埃爾比勒省</skos:altLabel>
+	<skos:prefLabel>Arbīl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/95788/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>31901</europeana:population>
+	<wgs:lat>33.64159</wgs:lat>
+	<wgs:long>42.82509</wgs:long>
+	<skos:altLabel>Hit</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Hīt</skos:altLabel>
+	<skos:altLabel xml:lang="ar">هيت</skos:altLabel>
+	<skos:prefLabel>Hīt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/96204/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/98465/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>35.18202</wgs:lat>
+	<wgs:long>45.96792</wgs:long>
+	<skos:altLabel>Halabjah Qadha</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ Ḩalabchah</skos:altLabel>
+	<skos:altLabel>Qaḑā’ Ḩalabjah</skos:altLabel>
+	<skos:altLabel>حلبچة</skos:altLabel>
+	<skos:altLabel xml:lang="ar">قضاء حلبچة</skos:altLabel>
+	<skos:altLabel>قضاء حلبچه</skos:altLabel>
+	<skos:altLabel>Ḩalabcha Qadhā’</skos:altLabel>
+	<skos:altLabel>Ḩalabchah</skos:altLabel>
+	<skos:altLabel>Ḩalabjah</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ Ḩalabchah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/96205/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>57333</europeana:population>
+	<wgs:lat>35.17778</wgs:lat>
+	<wgs:long>45.98611</wgs:long>
+	<skos:altLabel>Alabja</skos:altLabel>
+	<skos:altLabel xml:lang="de">Halabdscha</skos:altLabel>
+	<skos:altLabel>Halabia</skos:altLabel>
+	<skos:altLabel>Halabja</skos:altLabel>
+	<skos:altLabel xml:lang="id">Halabja</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Halabja</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Halabja</skos:altLabel>
+	<skos:altLabel xml:lang="en">Halabja</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Halabja</skos:altLabel>
+	<skos:altLabel xml:lang="no">Halabja</skos:altLabel>
+	<skos:altLabel>Halebdja</skos:altLabel>
+	<skos:altLabel>Halebja</skos:altLabel>
+	<skos:altLabel>Halebjeh</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Halepçe</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Helepçe</skos:altLabel>
+	<skos:altLabel xml:lang="de">Helepçe</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Халабджа</skos:altLabel>
+	<skos:altLabel xml:lang="ar">حلبجة</skos:altLabel>
+	<skos:altLabel xml:lang="fa">حلبچه</skos:altLabel>
+	<skos:prefLabel>Ḩalabjah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/96309/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>30925</europeana:population>
+	<wgs:lat>34.13972</wgs:lat>
+	<wgs:long>42.37806</wgs:long>
+	<skos:altLabel>Al Ḩadīthah</skos:altLabel>
+	<skos:altLabel>Haditha</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Хадита</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ḩadīthah</skos:altLabel>
+	<skos:prefLabel>Ḩadīthah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/96331/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.58556</wgs:lat>
+	<wgs:long>42.7175</wgs:long>
+	<skos:altLabel>Al Ḩaḑar</skos:altLabel>
+	<skos:altLabel xml:lang="es">Hatra</skos:altLabel>
+	<skos:altLabel xml:lang="en">Hatra</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Hatra</skos:altLabel>
+	<skos:altLabel xml:lang="de">Hatra</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Hatra</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Hatra</skos:altLabel>
+	<skos:altLabel xml:lang="no">Hatra</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Hatra</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Hatra</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ma‘bad al Ḩaḑar</skos:altLabel>
+	<skos:altLabel>Ma‘bad al Ḩaḑr</skos:altLabel>
+	<skos:altLabel>Temple of Hatra</skos:altLabel>
+	<skos:altLabel>Temple of Haţra</skos:altLabel>
+	<skos:altLabel xml:lang="ar">مدينة الحضر</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ハトラ</skos:altLabel>
+	<skos:prefLabel>Ma‘bad al Ḩaḑar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/96834/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.78871</wgs:lat>
+	<wgs:long>45.94532</wgs:long>
+	<skos:altLabel>Abu Shahrain</skos:altLabel>
+	<skos:altLabel>Abu Shahrein</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Eridu</skos:altLabel>
+	<skos:altLabel xml:lang="de">Eridu</skos:altLabel>
+	<skos:altLabel xml:lang="en">Eridu</skos:altLabel>
+	<skos:altLabel xml:lang="es">Eridu</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Eridu</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Eridu</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Eridu</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Eridu</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Eridu</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Eridu</skos:altLabel>
+	<skos:altLabel xml:lang="it">Eridu</skos:altLabel>
+	<skos:altLabel>Eridu</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Tall Arīdū</skos:altLabel>
+	<skos:altLabel xml:lang="ar">تل اريدو</skos:altLabel>
+	<skos:altLabel xml:lang="ja">エリドゥ</skos:altLabel>
+	<skos:prefLabel>Tall Arīdū</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/96868/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.08333</wgs:lat>
+	<wgs:long>45.46667</wgs:long>
+	<skos:altLabel>Drehem</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Durayhim</skos:altLabel>
+	<skos:prefLabel>Durayhim</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/96965/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1244425</europeana:population>
+	<wgs:lat>34</wgs:lat>
+	<wgs:long>45</wgs:long>
+	<skos:altLabel xml:lang="en">Diyala</skos:altLabel>
+	<skos:altLabel xml:lang="en">Diyala Province</skos:altLabel>
+	<skos:altLabel>Diyālá</skos:altLabel>
+	<skos:altLabel>Liwā’ Diyālá</skos:altLabel>
+	<skos:altLabel>Muhafadha Diala</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at Diyālá</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at Diyālá</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/97019/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1386335</europeana:population>
+	<wgs:lat>31</wgs:lat>
+	<wgs:long>46</wgs:long>
+	<skos:altLabel>Al Muntafik</skos:altLabel>
+	<skos:altLabel>Al Muntafiq</skos:altLabel>
+	<skos:altLabel>An Nāşirīyah</skos:altLabel>
+	<skos:altLabel xml:lang="en">Dhi Qar</skos:altLabel>
+	<skos:altLabel>Dhigar</skos:altLabel>
+	<skos:altLabel>Dhī Qār</skos:altLabel>
+	<skos:altLabel>Liwā’ al Muntafik</skos:altLabel>
+	<skos:altLabel>Liwā’ al Muntafiq</skos:altLabel>
+	<skos:altLabel>Liwā’ an Nāşirīyah</skos:altLabel>
+	<skos:altLabel>Muntafik</skos:altLabel>
+	<skos:altLabel>Muntafiq</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at Dhī Qār</skos:altLabel>
+	<skos:altLabel>Thi-Qar Muhafadha</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at Dhī Qār</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/97194/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>34.04972</wgs:lat>
+	<wgs:long>44.10056</wgs:long>
+	<skos:altLabel>Darawish Island</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat ad Darāwīsh</skos:altLabel>
+	<skos:prefLabel>Jazīrat ad Darāwīsh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/97269/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/97270/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>36.95</wgs:lat>
+	<wgs:long>43</wgs:long>
+	<skos:altLabel>Dahūk</skos:altLabel>
+	<skos:altLabel>Dehōk Qadhā’</skos:altLabel>
+	<skos:altLabel>Dohuk Qadha</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ Dahūk</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ Dahūk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/97270/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>37</wgs:lat>
+	<wgs:long>43.25</wgs:long>
+	<skos:altLabel>Dahūk</skos:altLabel>
+	<skos:altLabel>Duhok Governorate</skos:altLabel>
+	<skos:altLabel>Duhok Province</skos:altLabel>
+	<skos:altLabel>Duhuk</skos:altLabel>
+	<skos:altLabel>Liwā’ Dahūk</skos:altLabel>
+	<skos:altLabel>Muhafadha Dhok</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at Dahūk</skos:altLabel>
+	<skos:altLabel>Province of Dehok</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at Dahūk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/97416/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/98465/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>35.45</wgs:lat>
+	<wgs:long>45</wgs:long>
+	<skos:altLabel>Chamchamāl</skos:altLabel>
+	<skos:altLabel>Chamchamāl Qadhā’</skos:altLabel>
+	<skos:altLabel>Chemchamal Qadha</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ Chamchamal</skos:altLabel>
+	<skos:altLabel>Qaḑā’ Jamjamāl</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ Chamchamal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/97417/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>75634</europeana:population>
+	<wgs:lat>35.53653</wgs:lat>
+	<wgs:long>44.83167</wgs:long>
+	<skos:altLabel xml:lang="ar">Chamchamāl</skos:altLabel>
+	<skos:altLabel>Chemchemāl</skos:altLabel>
+	<skos:altLabel>Shamshamāl</skos:altLabel>
+	<skos:altLabel xml:lang="ar">چمچمال</skos:altLabel>
+	<skos:prefLabel>Chamchamāl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/97783/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>36454</europeana:population>
+	<wgs:lat>34.93114</wgs:lat>
+	<wgs:long>43.487</wgs:long>
+	<skos:altLabel>Baiji</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Bayjī</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Байджи</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بيجي</skos:altLabel>
+	<skos:prefLabel>Bayjī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/97803/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32</wgs:lat>
+	<wgs:long>46.28333</wgs:long>
+	<skos:altLabel xml:lang="ar">Bawwābat Wāsiţ</skos:altLabel>
+	<skos:altLabel>Wasit Gate</skos:altLabel>
+	<skos:prefLabel>Bawwābat Wāsiţ</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/97811/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>30.4673</wgs:lat>
+	<wgs:long>48.045</wgs:long>
+	<skos:altLabel>Jazira al Bawārīn</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat al Bawārīn</skos:altLabel>
+	<skos:altLabel xml:lang="fa">Jazīreh-ye Bavārīn</skos:altLabel>
+	<skos:altLabel xml:lang="fa">جزیره بوارین</skos:altLabel>
+	<skos:prefLabel>Jazīreh-ye Bavārīn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/97927/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.37944</wgs:lat>
+	<wgs:long>44.26111</wgs:long>
+	<skos:altLabel>Jabal Barghān</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Tall Būrghān al Atharī</skos:altLabel>
+	<skos:prefLabel>Tall Būrghān al Atharī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/97988/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/98180/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>33.66667</wgs:lat>
+	<wgs:long>44.9</wgs:long>
+	<skos:altLabel>Ba‘qūba Qadhā”</skos:altLabel>
+	<skos:altLabel>Ba‘qūbah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ Ba‘qūbah</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ Ba‘qūbah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/97990/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>152550</europeana:population>
+	<wgs:lat>33.74846</wgs:lat>
+	<wgs:long>44.65545</wgs:long>
+	<skos:altLabel xml:lang="fr">Bakouba</skos:altLabel>
+	<skos:altLabel>Bakuba</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Bakuba</skos:altLabel>
+	<skos:altLabel xml:lang="es">Baquba</skos:altLabel>
+	<skos:altLabel xml:lang="de">Baquba</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Baquba</skos:altLabel>
+	<skos:altLabel xml:lang="da">Baquba</skos:altLabel>
+	<skos:altLabel>Baquba</skos:altLabel>
+	<skos:altLabel xml:lang="en">Baqubah</skos:altLabel>
+	<skos:altLabel>Baqubeh</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ba‘qūbah</skos:altLabel>
+	<skos:altLabel>Ba’qūba</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Бакуба</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بعقوبة</skos:altLabel>
+	<skos:altLabel xml:lang="zh">巴古拜</skos:altLabel>
+	<skos:prefLabel>Ba‘qūbah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98012/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>27116</europeana:population>
+	<wgs:lat>35.6183</wgs:lat>
+	<wgs:long>45.9541</wgs:long>
+	<skos:altLabel>Banjuwayn</skos:altLabel>
+	<skos:altLabel>Banjwīn</skos:altLabel>
+	<skos:altLabel>Pandjvin</skos:altLabel>
+	<skos:altLabel>Panjvin</skos:altLabel>
+	<skos:altLabel>Panjwīn</skos:altLabel>
+	<skos:altLabel>Paynjuwayn</skos:altLabel>
+	<skos:altLabel>Pendjevin</skos:altLabel>
+	<skos:altLabel>Pendjevine</skos:altLabel>
+	<skos:altLabel>Pendsevine</skos:altLabel>
+	<skos:altLabel>Penjevin</skos:altLabel>
+	<skos:altLabel xml:lang="fa">Penjvīn</skos:altLabel>
+	<skos:altLabel>Penjwen</skos:altLabel>
+	<skos:altLabel>Penjwin</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Pêncwên</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بنجوين</skos:altLabel>
+	<skos:altLabel>پنجوین</skos:altLabel>
+	<skos:altLabel>پينجوین</skos:altLabel>
+	<skos:altLabel xml:lang="ku">پێنجوێن</skos:altLabel>
+	<skos:prefLabel>Paynjuwayn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98112/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>42088</europeana:population>
+	<wgs:lat>34.01638</wgs:lat>
+	<wgs:long>44.14531</wgs:long>
+	<skos:altLabel xml:lang="ar">Balad</skos:altLabel>
+	<skos:altLabel>Belad</skos:altLabel>
+	<skos:altLabel>Beled</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Балада</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بلد</skos:altLabel>
+	<skos:prefLabel>Balad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98179/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/98180/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>33.3</wgs:lat>
+	<wgs:long>44.6</wgs:long>
+	<skos:altLabel>Baghdād</skos:altLabel>
+	<skos:altLabel>Baghdād Qadhā’</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ Baghdād</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ Baghdād</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98180/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>33.13333</wgs:lat>
+	<wgs:long>44.25</wgs:long>
+	<skos:altLabel>Baghdād</skos:altLabel>
+	<skos:altLabel>Liwā’ Baghdād</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at Baghdād</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at Baghdād</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98182/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>5672513</europeana:population>
+	<wgs:lat>33.34058</wgs:lat>
+	<wgs:long>44.40088</wgs:long>
+	<skos:altLabel xml:lang="id">Bagdad</skos:altLabel>
+	<skos:altLabel xml:lang="es">Bagdad</skos:altLabel>
+	<skos:altLabel xml:lang="de">Bagdad</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Bagdad</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Bagdad</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Bagdad</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Bagdad</skos:altLabel>
+	<skos:altLabel xml:lang="da">Bagdad</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Bagdad</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Bagdad</skos:altLabel>
+	<skos:altLabel xml:lang="is">Bagdad</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Bagdad</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Bagdad</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Bagdad</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Bagdad</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Bagdad</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Bagdad</skos:altLabel>
+	<skos:altLabel xml:lang="io">Bagdad</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Bagdad</skos:altLabel>
+	<skos:altLabel xml:lang="no">Bagdad</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Bagdad</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Bagdad</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Bagdad</skos:altLabel>
+	<skos:altLabel xml:lang="et">Bagdad</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Bagdad</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Bagdadas</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Bagdado</skos:altLabel>
+	<skos:altLabel xml:lang="la">Bagdatum</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Bagdá</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Bagdád</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Baghdad</skos:altLabel>
+	<skos:altLabel xml:lang="it">Baghdad</skos:altLabel>
+	<skos:altLabel xml:lang="en">Baghdad</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Baghdad</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Baghdād</skos:altLabel>
+	<skos:altLabel xml:lang="az">Bağdad</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Bağdat</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Bexda</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Lungsod ng Baghdad</skos:altLabel>
+	<skos:altLabel xml:lang="el">Βαγδάτη</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Багдад</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Багдад</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Багдад</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Багдад</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Багдад</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Бағдод</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Բաղդադ</skos:altLabel>
+	<skos:altLabel xml:lang="he">בגדאד</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بغداد</skos:altLabel>
+	<skos:altLabel xml:lang="fa">بغداد</skos:altLabel>
+	<skos:altLabel xml:lang="ur">بغداد</skos:altLabel>
+	<skos:altLabel xml:lang="mr">बगदाद</skos:altLabel>
+	<skos:altLabel xml:lang="ta">பாக்தாத்</skos:altLabel>
+	<skos:altLabel xml:lang="bo">པ་ག་ཏ</skos:altLabel>
+	<skos:altLabel xml:lang="am">ባግዳድ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">バグダード</skos:altLabel>
+	<skos:altLabel xml:lang="zh">巴格达</skos:altLabel>
+	<skos:altLabel xml:lang="ko">바그다드</skos:altLabel>
+	<skos:prefLabel>Baghdad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98197/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/89693/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>33.08333</wgs:lat>
+	<wgs:long>45.9</wgs:long>
+	<skos:altLabel>Badra Qadhā’</skos:altLabel>
+	<skos:altLabel>Badrah</skos:altLabel>
+	<skos:altLabel>Badrah Qadha</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ Badrah</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ Badrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98222/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.53333</wgs:lat>
+	<wgs:long>46.9</wgs:long>
+	<skos:altLabel>Bab Salmeti</skos:altLabel>
+	<skos:altLabel>Badselmeti</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Bāb Sālmītī</skos:altLabel>
+	<skos:prefLabel>Bāb Sālmītī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98227/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>32.66667</wgs:lat>
+	<wgs:long>44.58333</wgs:long>
+	<skos:altLabel>Al Ḩillah</skos:altLabel>
+	<skos:altLabel>Bābil</skos:altLabel>
+	<skos:altLabel>Hilla</skos:altLabel>
+	<skos:altLabel>Liwā’ al Ḩillah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at Bābil</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at Bābil</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98245/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>122676</europeana:population>
+	<wgs:lat>30.39447</wgs:lat>
+	<wgs:long>47.70114</wgs:long>
+	<skos:altLabel>Az Zubair</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Az Zubayr</skos:altLabel>
+	<skos:altLabel>Az Zuhair</skos:altLabel>
+	<skos:altLabel>El Zubair</skos:altLabel>
+	<skos:altLabel>Zobier</skos:altLabel>
+	<skos:altLabel>Zubair</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الزبير</skos:altLabel>
+	<skos:prefLabel>Az Zubayr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98247/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/89341/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>30.38333</wgs:lat>
+	<wgs:long>47.71667</wgs:long>
+	<skos:altLabel>Qaḑā” az Zubayr</skos:altLabel>
+	<skos:altLabel>Zubair Qadha</skos:altLabel>
+	<skos:prefLabel>Qaḑā' az Zubayr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98251/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.35</wgs:lat>
+	<wgs:long>45.1</wgs:long>
+	<skos:altLabel xml:lang="ar">Az Ziblīyāt</skos:altLabel>
+	<skos:altLabel>Zibliyat</skos:altLabel>
+	<skos:prefLabel>Az Ziblīyāt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98253/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/97270/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>37.06667</wgs:lat>
+	<wgs:long>44.06667</wgs:long>
+	<skos:altLabel xml:lang="ar">Qaḑā’ az Zībār</skos:altLabel>
+	<skos:altLabel>Qaḑā” az Zībār</skos:altLabel>
+	<skos:altLabel>Zībār Qadhā”</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ az Zībār</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98410/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>35.25</wgs:lat>
+	<wgs:long>44.16667</wgs:long>
+	<skos:altLabel>Al-Ta”mim Governorate</skos:altLabel>
+	<skos:altLabel>At Taʼmīm</skos:altLabel>
+	<skos:altLabel>Kirkūk</skos:altLabel>
+	<skos:altLabel>Liwā” Karkūk</skos:altLabel>
+	<skos:altLabel>Liwā” Kirkūk</skos:altLabel>
+	<skos:altLabel>Muhafazat Ta’mim</skos:altLabel>
+	<skos:altLabel>Muḩāfaz̧at Kirkūk</skos:altLabel>
+	<skos:altLabel>Muḩāfaz̧at at Ta’mīm</skos:altLabel>
+	<skos:altLabel>Nationalization Province</skos:altLabel>
+	<skos:altLabel>Tamim Province</skos:altLabel>
+	<skos:altLabel>كركوك</skos:altLabel>
+	<skos:altLabel>محافظة كركوك</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at Kirkūk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98444/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.83333</wgs:lat>
+	<wgs:long>43.3</wgs:long>
+	<skos:altLabel xml:lang="ar">Ath Thawr al Mujannaḩ</skos:altLabel>
+	<skos:altLabel>The Wing Bull</skos:altLabel>
+	<skos:prefLabel>Ath Thawr al Mujannaḩ</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98459/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>42354</europeana:population>
+	<wgs:lat>32.92556</wgs:lat>
+	<wgs:long>44.77583</wgs:long>
+	<skos:altLabel xml:lang="ar">Aş Şuwayrah</skos:altLabel>
+	<skos:altLabel>Jazīra</skos:altLabel>
+	<skos:altLabel>Jumeiseh</skos:altLabel>
+	<skos:altLabel>Juweimiseh</skos:altLabel>
+	<skos:altLabel>Sewairah</skos:altLabel>
+	<skos:altLabel>Suwaira</skos:altLabel>
+	<skos:altLabel>Suweireh</skos:altLabel>
+	<skos:altLabel>Suweiri</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сувайра</skos:altLabel>
+	<skos:prefLabel>Aş Şuwayrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98460/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/89693/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>32.9</wgs:lat>
+	<wgs:long>45</wgs:long>
+	<skos:altLabel xml:lang="ar">Qaḑā’ aş Şuwayrah</skos:altLabel>
+	<skos:altLabel>Suwairah Qadha</skos:altLabel>
+	<skos:altLabel>Suwarah Qadha</skos:altLabel>
+	<skos:altLabel>Şwaira Qadhā’</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ aş Şuwayrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98463/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>723170</europeana:population>
+	<wgs:lat>35.56113</wgs:lat>
+	<wgs:long>45.43749</wgs:long>
+	<skos:altLabel>Al-Sulaimaniya</skos:altLabel>
+	<skos:altLabel xml:lang="ar">As Sulaymānīyah</skos:altLabel>
+	<skos:altLabel xml:lang="sv">As-Sulaymaniyah</skos:altLabel>
+	<skos:altLabel xml:lang="de">Silemani</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Silêmanî</skos:altLabel>
+	<skos:altLabel>Sleimāni</skos:altLabel>
+	<skos:altLabel>Slēmānī</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Souleymaniah</skos:altLabel>
+	<skos:altLabel>Sulaimania</skos:altLabel>
+	<skos:altLabel>Sulaimanieh</skos:altLabel>
+	<skos:altLabel>Sulaimaniya</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Sulaimaniya</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Sulajmanijja</skos:altLabel>
+	<skos:altLabel xml:lang="en">Sulaymaniyah</skos:altLabel>
+	<skos:altLabel xml:lang="da">Sulaymaniyah</skos:altLabel>
+	<skos:altLabel>Sulaymānīyah</skos:altLabel>
+	<skos:altLabel xml:lang="no">Suleimania</skos:altLabel>
+	<skos:altLabel xml:lang="es">Suleimaniya</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Süleymaniye</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сулеймания</skos:altLabel>
+	<skos:altLabel xml:lang="ar">السليمانية</skos:altLabel>
+	<skos:altLabel xml:lang="ku">سلێمانی</skos:altLabel>
+	<skos:altLabel xml:lang="fa">شهر سلیمانیه</skos:altLabel>
+	<skos:prefLabel>As Sulaymānīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98464/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/98465/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>35.55</wgs:lat>
+	<wgs:long>45.41667</wgs:long>
+	<skos:altLabel xml:lang="ar">Qaḑā’ as Sulaymānīyah</skos:altLabel>
+	<skos:altLabel>Sulaimaniyah Qadha</skos:altLabel>
+	<skos:altLabel>Sulaimāniya Qadhā”</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ as Sulaymānīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98465/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>35.66667</wgs:lat>
+	<wgs:long>45.5</wgs:long>
+	<skos:altLabel>As Sulaymānīyah</skos:altLabel>
+	<skos:altLabel>Liwā’ as Sulaymānīyah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at as Sulaymānīyah</skos:altLabel>
+	<skos:altLabel>Sulaimani</skos:altLabel>
+	<skos:altLabel>Sulaimaniya</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at as Sulaymānīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98530/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>152890</europeana:population>
+	<wgs:lat>31.33198</wgs:lat>
+	<wgs:long>45.2944</wgs:long>
+	<skos:altLabel xml:lang="ar">As Samāwah</skos:altLabel>
+	<skos:altLabel>SAMAWA</skos:altLabel>
+	<skos:altLabel>Samawa</skos:altLabel>
+	<skos:altLabel>Samāwah</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Самава</skos:altLabel>
+	<skos:altLabel xml:lang="ar">السماوه</skos:altLabel>
+	<skos:prefLabel>As Samāwah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98532/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99032/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>31.4</wgs:lat>
+	<wgs:long>45.4</wgs:long>
+	<skos:altLabel>Al-Samawa Qadha</skos:altLabel>
+	<skos:altLabel>As-Samāwa Qadhā’</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ as Samāwah</skos:altLabel>
+	<skos:altLabel>Samāwa Qadhā’</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ as Samāwah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98534/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99032/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>30.5</wgs:lat>
+	<wgs:long>44.53333</wgs:long>
+	<skos:altLabel xml:lang="ar">Qaḑā’ as Salmān</skos:altLabel>
+	<skos:altLabel>Salman Qadha</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ as Salmān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98589/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>22643</europeana:population>
+	<wgs:lat>31.58737</wgs:lat>
+	<wgs:long>44.66016</wgs:long>
+	<skos:altLabel>Ash Shināfīyah</skos:altLabel>
+	<skos:altLabel>Chinafiyah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Nāḩiyat ash Shināfīyah</skos:altLabel>
+	<skos:altLabel>Shannafiuah</skos:altLabel>
+	<skos:altLabel>Shenāfiya</skos:altLabel>
+	<skos:altLabel>Shinafie</skos:altLabel>
+	<skos:altLabel>Shinafiyeh</skos:altLabel>
+	<skos:altLabel>Shināfiya</skos:altLabel>
+	<skos:altLabel>الشنافية</skos:altLabel>
+	<skos:altLabel xml:lang="ar">ناحية الشنافية</skos:altLabel>
+	<skos:prefLabel>Nāḩiyat ash Shināfīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98612/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/92877/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>36.7</wgs:lat>
+	<wgs:long>43.3</wgs:long>
+	<skos:altLabel>Ash Shīkhān Qadhā’</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ ash Shaykhān</skos:altLabel>
+	<skos:altLabel>Shaikhān Qadhā’</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ ash Shaykhān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98622/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>82732</europeana:population>
+	<wgs:lat>31.41171</wgs:lat>
+	<wgs:long>46.17418</wgs:long>
+	<skos:altLabel xml:lang="ar">Ash Shaţrah</skos:altLabel>
+	<skos:altLabel>Shatra</skos:altLabel>
+	<skos:altLabel>Shatrat al Muntafiq</skos:altLabel>
+	<skos:altLabel>Shatreh</skos:altLabel>
+	<skos:altLabel>Shatret el Muntefiq</skos:altLabel>
+	<skos:altLabel>Shattra</skos:altLabel>
+	<skos:altLabel>Shattrah el Muntifik</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الشطرة</skos:altLabel>
+	<skos:prefLabel>Ash Shaţrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98623/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/97019/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>31.4</wgs:lat>
+	<wgs:long>46.3</wgs:long>
+	<skos:altLabel xml:lang="ar">Qaḑā’ ash Shaţrah</skos:altLabel>
+	<skos:altLabel>Shatrah Qadha</skos:altLabel>
+	<skos:altLabel>Shaţra Qadhā’</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ ash Shaţrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98629/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>57661</europeana:population>
+	<wgs:lat>31.96362</wgs:lat>
+	<wgs:long>44.59904</wgs:long>
+	<skos:altLabel>Ash Shāmīya</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ash Shāmīyah</skos:altLabel>
+	<skos:altLabel>Shamiya</skos:altLabel>
+	<skos:altLabel>Ummal Barur</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الشامية</skos:altLabel>
+	<skos:prefLabel>Ash Shāmīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98634/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99022/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>31.75</wgs:lat>
+	<wgs:long>44.65</wgs:long>
+	<skos:altLabel>Al-Shamiya Qadha</skos:altLabel>
+	<skos:altLabel>Ash-Shāmiya Qadhā”</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ ash Shāmīyah</skos:altLabel>
+	<skos:altLabel>Qaḑā” ash Shāmīyah</skos:altLabel>
+	<skos:altLabel>Shāmiya Qadhā”</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ ash Shāmīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98665/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.56667</wgs:lat>
+	<wgs:long>44.41667</wgs:long>
+	<skos:altLabel xml:lang="ar">Asad Bābil</skos:altLabel>
+	<skos:altLabel>Lion of Babylon</skos:altLabel>
+	<skos:prefLabel>Asad Bābil</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98677/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>22370</europeana:population>
+	<wgs:lat>33.03807</wgs:lat>
+	<wgs:long>40.28482</wgs:long>
+	<skos:altLabel>Al Rutbah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ar Ruţbah</skos:altLabel>
+	<skos:altLabel>Rutba</skos:altLabel>
+	<skos:altLabel>Rutbah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الرطبة</skos:altLabel>
+	<skos:prefLabel>Ar Ruţbah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98678/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99592/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>33</wgs:lat>
+	<wgs:long>41</wgs:long>
+	<skos:altLabel>Al Bādiya ash Shimāliya</skos:altLabel>
+	<skos:altLabel>Al Bādiyah ash Shamālīyah</skos:altLabel>
+	<skos:altLabel>Northern Desert Territory</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ ar Ruţbah</skos:altLabel>
+	<skos:altLabel>Rutba Qadha</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ ar Ruţbah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98685/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>47248</europeana:population>
+	<wgs:lat>31.52629</wgs:lat>
+	<wgs:long>45.20246</wgs:long>
+	<skos:altLabel>Al-Rumitha</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ar Rumaythah</skos:altLabel>
+	<skos:altLabel>Rumaith</skos:altLabel>
+	<skos:altLabel>Rumaitha</skos:altLabel>
+	<skos:altLabel>Rumaithah</skos:altLabel>
+	<skos:altLabel>Rumeitheh</skos:altLabel>
+	<skos:altLabel>Rumetha</skos:altLabel>
+	<skos:altLabel>Ubaiyidh</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الرميثة</skos:altLabel>
+	<skos:prefLabel>Ar Rumaythah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98700/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/97019/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>31.7</wgs:lat>
+	<wgs:long>46.1</wgs:long>
+	<skos:altLabel>Ar-Refā‘ī Qadhā”</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ ar Rifā‘</skos:altLabel>
+	<skos:altLabel>Qaḑā” ar Rifā‘ī</skos:altLabel>
+	<skos:altLabel>Refā‘ī Qadhā”</skos:altLabel>
+	<skos:altLabel>Rufai Qadha</skos:altLabel>
+	<skos:prefLabel>Qaḑā” ar Rifā‘ī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98717/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>274539</europeana:population>
+	<wgs:lat>33.42257</wgs:lat>
+	<wgs:long>43.30584</wgs:long>
+	<skos:altLabel xml:lang="da">Al-Rumadi</skos:altLabel>
+	<skos:altLabel>Al-Rumadi</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ar Ramādī</skos:altLabel>
+	<skos:altLabel>Ramadi</skos:altLabel>
+	<skos:altLabel xml:lang="id">Ramadi</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ramadi</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Ramadi</skos:altLabel>
+	<skos:altLabel xml:lang="de">Ramadi</skos:altLabel>
+	<skos:altLabel xml:lang="es">Ramadi</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Ramadi</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Ramadi</skos:altLabel>
+	<skos:altLabel>Ramadie</skos:altLabel>
+	<skos:altLabel>Ramadieh</skos:altLabel>
+	<skos:altLabel>Ramadiyah</skos:altLabel>
+	<skos:altLabel>Rumādīya</skos:altLabel>
+	<skos:altLabel>Rumādīyeh</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Рамади</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الرمادي</skos:altLabel>
+	<skos:altLabel xml:lang="fa">رمادی</skos:altLabel>
+	<skos:prefLabel>Ar Ramādī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98718/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99592/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>33.5</wgs:lat>
+	<wgs:long>43</wgs:long>
+	<skos:altLabel>Al-Ramadi Qadha</skos:altLabel>
+	<skos:altLabel>Al-Rumadi</skos:altLabel>
+	<skos:altLabel>Ar Rumadi</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ ar Ramād</skos:altLabel>
+	<skos:altLabel>Qaḑā’ ar Ramādī</skos:altLabel>
+	<skos:altLabel>Ramādī Qadhā”</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ ar Ramādī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98820/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>36.75</wgs:lat>
+	<wgs:long>43.9</wgs:long>
+	<skos:altLabel>Akra</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Akrê</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ ‘Aqrah</skos:altLabel>
+	<skos:altLabel xml:lang="ku">ئاكرێ</skos:altLabel>
+	<skos:altLabel xml:lang="ar">عقره</skos:altLabel>
+	<skos:altLabel xml:lang="ar">‘Aqrah</skos:altLabel>
+	<skos:altLabel>‘Aqrah Qadhā’</skos:altLabel>
+	<skos:prefLabel>‘Aqrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98854/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>400249</europeana:population>
+	<wgs:lat>31.05205</wgs:lat>
+	<wgs:long>46.26102</wgs:long>
+	<skos:altLabel>Al-Nasiriya</skos:altLabel>
+	<skos:altLabel>An Nāsirīya</skos:altLabel>
+	<skos:altLabel xml:lang="ar">An Nāşirīyah</skos:altLabel>
+	<skos:altLabel xml:lang="sv">An-Nasiriya</skos:altLabel>
+	<skos:altLabel>Muntafik</skos:altLabel>
+	<skos:altLabel>Muntifik</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Nasirijja</skos:altLabel>
+	<skos:altLabel xml:lang="es">Nasiriya</skos:altLabel>
+	<skos:altLabel xml:lang="it">Nasiriya</skos:altLabel>
+	<skos:altLabel xml:lang="en">Nasiriyah</skos:altLabel>
+	<skos:altLabel xml:lang="da">Nasiriyah</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Nasiriyah</skos:altLabel>
+	<skos:altLabel>Nasiriyeh</skos:altLabel>
+	<skos:altLabel xml:lang="de">Nasiriyya</skos:altLabel>
+	<skos:altLabel>Nasrie</skos:altLabel>
+	<skos:altLabel>Nasriye</skos:altLabel>
+	<skos:altLabel>Nāsirīyah</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Насирия</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الناصرية</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الناصريه</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ナーシリーヤ</skos:altLabel>
+	<skos:prefLabel>An Nāşirīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98855/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/97019/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>31.05</wgs:lat>
+	<wgs:long>46.25</wgs:long>
+	<skos:altLabel>An-Nāşiriya Qadhā’</skos:altLabel>
+	<skos:altLabel>Nasriyah Qadha</skos:altLabel>
+	<skos:altLabel>Nāşiriya Qadhā’</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ an Nāşirīyah</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ an Nāşirīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98859/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.5</wgs:lat>
+	<wgs:long>45.08333</wgs:long>
+	<skos:altLabel xml:lang="ar">An Najmī</skos:altLabel>
+	<skos:altLabel>Najmi</skos:altLabel>
+	<skos:prefLabel>An Najmī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98860/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>482576</europeana:population>
+	<wgs:lat>31.99854</wgs:lat>
+	<wgs:long>44.33976</wgs:long>
+	<skos:altLabel>Al Najaf al Ashraf</skos:altLabel>
+	<skos:altLabel>An Najaf</skos:altLabel>
+	<skos:altLabel xml:lang="ar">An Najaf al Ashraf</skos:altLabel>
+	<skos:altLabel xml:lang="et">An-Najaf</skos:altLabel>
+	<skos:altLabel>Meshed ’Ali</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Nadjaf</skos:altLabel>
+	<skos:altLabel xml:lang="de">Nadschaf</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Nadżaf</skos:altLabel>
+	<skos:altLabel>Najaf</skos:altLabel>
+	<skos:altLabel xml:lang="id">Najaf</skos:altLabel>
+	<skos:altLabel xml:lang="en">Najaf</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Najaf</skos:altLabel>
+	<skos:altLabel xml:lang="da">Najaf</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Najaf</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Najaf</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Najaf</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Najaf</skos:altLabel>
+	<skos:altLabel xml:lang="it">Najaf</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Najaf</skos:altLabel>
+	<skos:altLabel xml:lang="no">Najaf</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Najaf - نجف</skos:altLabel>
+	<skos:altLabel xml:lang="es">Nayaf</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Naĝaf</skos:altLabel>
+	<skos:altLabel>Nedjef</skos:altLabel>
+	<skos:altLabel>Neshed Ali</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Наджаф</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Наџаф</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Эн-Наджаф</skos:altLabel>
+	<skos:altLabel xml:lang="he">נג'ף</skos:altLabel>
+	<skos:altLabel xml:lang="ar">النجف</skos:altLabel>
+	<skos:altLabel xml:lang="ar">النجف الاشرف</skos:altLabel>
+	<skos:altLabel xml:lang="fa">نجف</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ナジャフ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">納杰夫</skos:altLabel>
+	<skos:prefLabel>An Najaf al Ashraf</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98861/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/98862/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>32.11667</wgs:lat>
+	<wgs:long>44.11667</wgs:long>
+	<skos:altLabel>Al-Najaf Qadha</skos:altLabel>
+	<skos:altLabel>An-Najaf Qadhā’</skos:altLabel>
+	<skos:altLabel>Najaf Qadhā’</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ an Najaf</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ an Najaf</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98862/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>31.25</wgs:lat>
+	<wgs:long>43.83333</wgs:long>
+	<skos:altLabel>An Najaf</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at an Najaf</skos:altLabel>
+	<skos:altLabel>Najaf</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at an Najaf</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98882/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.43333</wgs:lat>
+	<wgs:long>47.61667</wgs:long>
+	<skos:altLabel xml:lang="ar">Anas Bin Mālik</skos:altLabel>
+	<skos:altLabel>Anis Bin Malik</skos:altLabel>
+	<skos:prefLabel>Anas Bin Mālik</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98884/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99592/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>34.35</wgs:lat>
+	<wgs:long>41.5</wgs:long>
+	<skos:altLabel>Anah Qadha</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ ‘Ānah</skos:altLabel>
+	<skos:altLabel>‘Āna Qadhā’</skos:altLabel>
+	<skos:altLabel>‘Ānah</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ ‘Ānah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98885/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLW"/>
+	<europeana:population>19719</europeana:population>
+	<wgs:lat>34.46589</wgs:lat>
+	<wgs:long>41.9331</wgs:long>
+	<skos:altLabel>Ana</skos:altLabel>
+	<skos:altLabel>Anah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">عنة القديمة</skos:altLabel>
+	<skos:altLabel xml:lang="ar">‘Anat al Qadīmah</skos:altLabel>
+	<skos:altLabel>‘Ānah</skos:altLabel>
+	<skos:prefLabel>‘Anat al Qadīmah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/98994/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/89341/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>31</wgs:lat>
+	<wgs:long>47.5</wgs:long>
+	<skos:altLabel>Al-Qurna Qadhā’</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ al Qurnah</skos:altLabel>
+	<skos:altLabel>Qurna Qadhā’</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ al Qurnah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99010/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>36992</europeana:population>
+	<wgs:lat>32.29799</wgs:lat>
+	<wgs:long>44.68281</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Qāsim</skos:altLabel>
+	<skos:altLabel>Imam Qasim</skos:altLabel>
+	<skos:altLabel>Qāsim</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Аль-Касим</skos:altLabel>
+	<skos:altLabel xml:lang="ar">القاسم</skos:altLabel>
+	<skos:prefLabel>Al Qāsim</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99020/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.09717</wgs:lat>
+	<wgs:long>43.95913</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Jāsīyah</skos:altLabel>
+	<skos:altLabel>Al Qādisīyah</skos:altLabel>
+	<skos:altLabel>Qadisiya</skos:altLabel>
+	<skos:altLabel>Sūr Atharī</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الجاسية</skos:altLabel>
+	<skos:altLabel>سور أثري</skos:altLabel>
+	<skos:prefLabel>Al Jāsīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99021/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.58333</wgs:lat>
+	<wgs:long>44.43333</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Qādisīyah</skos:altLabel>
+	<skos:altLabel>Qadisiya</skos:altLabel>
+	<skos:altLabel>Qudisiyah</skos:altLabel>
+	<skos:prefLabel>Al Qādisīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99022/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>908192</europeana:population>
+	<wgs:lat>31.58333</wgs:lat>
+	<wgs:long>45</wgs:long>
+	<skos:altLabel>Ad Dīwānīyah</skos:altLabel>
+	<skos:altLabel>Al Qādisīyah</skos:altLabel>
+	<skos:altLabel>Diwaniya</skos:altLabel>
+	<skos:altLabel>Līwā’ ad Dīwānīyah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at al Qādisīyah</skos:altLabel>
+	<skos:altLabel>Qadissiya Muhafadha</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at al Qādisīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99032/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>30.5</wgs:lat>
+	<wgs:long>45</wgs:long>
+	<skos:altLabel>Al Muthanná</skos:altLabel>
+	<skos:altLabel>As-Samawah Province</skos:altLabel>
+	<skos:altLabel>Liwā’ as Samāwah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at al Muthanná</skos:altLabel>
+	<skos:altLabel>Muḩāfz̧at al Muthanná</skos:altLabel>
+	<skos:altLabel>Samawa</skos:altLabel>
+	<skos:altLabel>Southern Desert Territory</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at al Muthanná</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99039/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>42901</europeana:population>
+	<wgs:lat>32.78332</wgs:lat>
+	<wgs:long>44.28251</wgs:long>
+	<skos:altLabel>Al Musaiyib</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Al Musayyib</skos:altLabel>
+	<skos:altLabel>Mosayab</skos:altLabel>
+	<skos:altLabel>Musayyib</skos:altLabel>
+	<skos:altLabel>Musaīyib</skos:altLabel>
+	<skos:altLabel>Museyib</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Аль-Эль-Мусайибе</skos:altLabel>
+	<skos:altLabel xml:lang="ar">المسيب</skos:altLabel>
+	<skos:prefLabel>Al Musayyib</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99040/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/98227/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>32.78333</wgs:lat>
+	<wgs:long>44.31667</wgs:long>
+	<skos:altLabel>Al-Musaiyib Qadha</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ al Musayyib</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ al Musayyib</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99060/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23189</europeana:population>
+	<wgs:lat>31.80416</wgs:lat>
+	<wgs:long>44.49107</wgs:long>
+	<skos:altLabel>Al Fayşalīyah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Al Mishkhāb</skos:altLabel>
+	<skos:altLabel>Faisailiya</skos:altLabel>
+	<skos:altLabel xml:lang="ar">المشخاب</skos:altLabel>
+	<skos:prefLabel>Al Mishkhāb</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99062/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>50698</europeana:population>
+	<wgs:lat>33.97861</wgs:lat>
+	<wgs:long>44.93694</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Miqdādīyah</skos:altLabel>
+	<skos:altLabel>Muqdadiyah</skos:altLabel>
+	<skos:altLabel>Shahroban</skos:altLabel>
+	<skos:altLabel>Shahrābān</skos:altLabel>
+	<skos:prefLabel>Al Miqdādīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99063/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/96965/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>33.97576</wgs:lat>
+	<wgs:long>44.9703</wgs:long>
+	<skos:altLabel>Al Miqdādīyah</skos:altLabel>
+	<skos:altLabel>Al-Miqdadyea</skos:altLabel>
+	<skos:altLabel>Meqdādiya Qadhā’</skos:altLabel>
+	<skos:altLabel>Miqdadiya Qadha</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ al Miqdādīyah</skos:altLabel>
+	<skos:altLabel>المقدادية</skos:altLabel>
+	<skos:altLabel xml:lang="ar">قضاء المقدادية</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ al Miqdādīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99071/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99072/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>2065597</europeana:population>
+	<wgs:lat>36.33464</wgs:lat>
+	<wgs:long>43.09777</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Mawşil al Jadīdah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الموصل الجديدة</skos:altLabel>
+	<skos:prefLabel>Al Mawşil al Jadīdah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99072/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>1739800</europeana:population>
+	<wgs:lat>36.335</wgs:lat>
+	<wgs:long>43.11889</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Mawşil</skos:altLabel>
+	<skos:altLabel>Al Mūşil</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Mosoel</skos:altLabel>
+	<skos:altLabel>Mossoul</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Mossoul</skos:altLabel>
+	<skos:altLabel xml:lang="it">Mossul</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Mossul</skos:altLabel>
+	<skos:altLabel xml:lang="de">Mosul</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Mosul</skos:altLabel>
+	<skos:altLabel xml:lang="no">Mosul</skos:altLabel>
+	<skos:altLabel xml:lang="es">Mosul</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Mosul</skos:altLabel>
+	<skos:altLabel xml:lang="da">Mosul</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Mosul</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Mosul</skos:altLabel>
+	<skos:altLabel xml:lang="en">Mosul</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Mosul</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Mosula</skos:altLabel>
+	<skos:altLabel>Moussoul</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Musul</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Mûsil</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Мосул</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Мосул</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Мосул</skos:altLabel>
+	<skos:altLabel xml:lang="he">מוסול</skos:altLabel>
+	<skos:altLabel xml:lang="ar">موصل</skos:altLabel>
+	<skos:altLabel xml:lang="fa">موصل</skos:altLabel>
+	<skos:altLabel xml:lang="ja">モースル</skos:altLabel>
+	<skos:altLabel xml:lang="ko">모술</skos:altLabel>
+	<skos:prefLabel>Mosul</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99073/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>36.4</wgs:lat>
+	<wgs:long>43.2</wgs:long>
+	<skos:altLabel>Al Mn̈sul Qadhā’</skos:altLabel>
+	<skos:altLabel>Mn̈sul Qadhā’</skos:altLabel>
+	<skos:altLabel>Mosul</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ al Mawşil</skos:altLabel>
+	<skos:altLabel>Qaḑā’ al Mūşil</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ al Mawşil</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99097/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>35515</europeana:population>
+	<wgs:lat>31.58607</wgs:lat>
+	<wgs:long>47.169</wgs:long>
+	<skos:altLabel>Al Majar al Kabīr</skos:altLabel>
+	<skos:altLabel>Al Majarr al Kabīr</skos:altLabel>
+	<skos:altLabel>Al Mijar al Kabīr</skos:altLabel>
+	<skos:altLabel>Majar al Kabīr</skos:altLabel>
+	<skos:altLabel xml:lang="ar">المجر الكبير</skos:altLabel>
+	<skos:prefLabel>Al Majar al Kabīr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99101/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/98227/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>33.08333</wgs:lat>
+	<wgs:long>44.25</wgs:long>
+	<skos:altLabel>Al-Mahmūdiya Qadhā’</skos:altLabel>
+	<skos:altLabel>Mahmoodiyeh Qadha</skos:altLabel>
+	<skos:altLabel>Mahmudiyeh</skos:altLabel>
+	<skos:altLabel>Mahmūdiya Qadhā’</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ al Maḩmūdīyah</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ al Maḩmūdīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99108/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.26667</wgs:lat>
+	<wgs:long>44.31667</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Ma’dhanah al Malwīyah</skos:altLabel>
+	<skos:altLabel>Sprial Minaret</skos:altLabel>
+	<skos:prefLabel>Al Ma’dhanah al Malwīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99131/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>315162</europeana:population>
+	<wgs:lat>32.5147</wgs:lat>
+	<wgs:long>45.81902</wgs:long>
+	<skos:altLabel xml:lang="nl">Al Koet</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Al Kūt</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kut</skos:altLabel>
+	<skos:altLabel xml:lang="es">Kut</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kut</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Kut</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Kut</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Kut</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kut</skos:altLabel>
+	<skos:altLabel>Kut al Imāra</skos:altLabel>
+	<skos:altLabel>Kut-al-Almārah</skos:altLabel>
+	<skos:altLabel>Kūt</skos:altLabel>
+	<skos:altLabel>Kūt al ‘Amārah</skos:altLabel>
+	<skos:altLabel>Kūt-al-Imārah</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Кут</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الكوت</skos:altLabel>
+	<skos:altLabel xml:lang="ar">كوت</skos:altLabel>
+	<skos:prefLabel>Al Kūt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99132/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/89693/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>32.55</wgs:lat>
+	<wgs:long>45.8</wgs:long>
+	<skos:altLabel>Kūt Qadhā’</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ al Kūt</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ al Kūt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99169/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>70046</europeana:population>
+	<wgs:lat>33.81996</wgs:lat>
+	<wgs:long>44.52637</wgs:long>
+	<skos:altLabel>Al Khāliş</skos:altLabel>
+	<skos:altLabel>Diltāwah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Khāliş</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Аль-Халиса</skos:altLabel>
+	<skos:altLabel xml:lang="ar">خالص</skos:altLabel>
+	<skos:prefLabel>Khāliş</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99170/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/96965/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>34</wgs:lat>
+	<wgs:long>44.6</wgs:long>
+	<skos:altLabel>Al-Khalis Qadha</skos:altLabel>
+	<skos:altLabel>Khālis Qadhā’</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ al Khāliş</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ al Khāliş</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99173/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/98180/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>33.45</wgs:lat>
+	<wgs:long>44.16667</wgs:long>
+	<skos:altLabel>Al-Kāzemiya Qadhā’</skos:altLabel>
+	<skos:altLabel>Kadhimain Qadha</skos:altLabel>
+	<skos:altLabel>Kāzemiya Qadhā’</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ al Kāz̧imīyah</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ al Kāz̧imīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99185/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/97019/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>31</wgs:lat>
+	<wgs:long>47</wgs:long>
+	<skos:altLabel>Chibayish Qadha</skos:altLabel>
+	<skos:altLabel>Qaḑā al Chibāyish</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ al Chabaish</skos:altLabel>
+	<skos:altLabel>Qaḑā’ al Kabā’ish</skos:altLabel>
+	<skos:prefLabel>Qaḑā al Chibāyish</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99237/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255147/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>29671605</europeana:population>
+	<wgs:lat>33</wgs:lat>
+	<wgs:long>44</wgs:long>
+	<skos:altLabel>Al Jumhūrīyah al ‘Irāqīyah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Al `Irāq</skos:altLabel>
+	<skos:altLabel xml:lang="ga">An Iaráic</skos:altLabel>
+	<skos:altLabel xml:lang="so">Ciraaq</skos:altLabel>
+	<skos:altLabel xml:lang="vi">I-rắc</skos:altLabel>
+	<skos:altLabel>IQ</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Iorac</skos:altLabel>
+	<skos:altLabel xml:lang="et">Iraak</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Irac</skos:altLabel>
+	<skos:altLabel>Irak</skos:altLabel>
+	<skos:altLabel xml:lang="es">Irak</skos:altLabel>
+	<skos:altLabel xml:lang="id">Irak</skos:altLabel>
+	<skos:altLabel xml:lang="de">Irak</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Irak</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Irak</skos:altLabel>
+	<skos:altLabel xml:lang="af">Irak</skos:altLabel>
+	<skos:altLabel xml:lang="da">Irak</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Irak</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Irak</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Irak</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Irak</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Irak</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Irak</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Irak</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Irak</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Irak</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Irak</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Irak</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Irak</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Irak</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Irak</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Irak</skos:altLabel>
+	<skos:altLabel xml:lang="li">Irak</skos:altLabel>
+	<skos:altLabel xml:lang="na">Irak</skos:altLabel>
+	<skos:altLabel xml:lang="no">Irak</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Irak</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Irak</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Irak</skos:altLabel>
+	<skos:altLabel xml:lang="io">Irak</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Irak</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Irak</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Irak</skos:altLabel>
+	<skos:altLabel xml:lang="se">Irak</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Irakas</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Iraki</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Irako</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Iraku</skos:altLabel>
+	<skos:altLabel xml:lang="es">Iraq</skos:altLabel>
+	<skos:altLabel xml:lang="id">Iraq</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Iraq</skos:altLabel>
+	<skos:altLabel xml:lang="it">Iraq</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Iraq</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Iraq</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Iraq</skos:altLabel>
+	<skos:altLabel xml:lang="en">Iraq</skos:altLabel>
+	<skos:altLabel xml:lang="br">Iraq</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Iraq</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Iraq</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Iraq</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Iraq</skos:altLabel>
+	<skos:altLabel xml:lang="an">Iraq</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Iraq</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Iraq</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Iraq</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Iraq</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Iraq - العراق</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Iraque</skos:altLabel>
+	<skos:altLabel xml:lang="la">Iraquia</skos:altLabel>
+	<skos:altLabel xml:lang="uz">Iroq</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Irák</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Irāka</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jumhūrīyat al ‘Irāq</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Lirakän</skos:altLabel>
+	<skos:altLabel xml:lang="la">Mesopotamia</skos:altLabel>
+	<skos:altLabel xml:lang="en">Republic of Iraq</skos:altLabel>
+	<skos:altLabel xml:lang="is">Írak</skos:altLabel>
+	<skos:altLabel xml:lang="tt">Ğíraq</skos:altLabel>
+	<skos:altLabel xml:lang="az">İraq</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ιράκ</skos:altLabel>
+	<skos:altLabel xml:lang="be">Ірак</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Ірак</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Ирак</skos:altLabel>
+	<skos:altLabel xml:lang="cv">Ирак</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Ирак</skos:altLabel>
+	<skos:altLabel xml:lang="os">Ирак</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Ирак</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Ирак</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ирак</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Ироқ</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Իրաք</skos:altLabel>
+	<skos:altLabel xml:lang="yi">איראק</skos:altLabel>
+	<skos:altLabel xml:lang="he">עיראק</skos:altLabel>
+	<skos:altLabel xml:lang="he">עירק</skos:altLabel>
+	<skos:altLabel xml:lang="ug">ئىراق</skos:altLabel>
+	<skos:altLabel xml:lang="ar">العراق</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جمهورية العراق</skos:altLabel>
+	<skos:altLabel xml:lang="ur">عراق</skos:altLabel>
+	<skos:altLabel xml:lang="fa">عراق</skos:altLabel>
+	<skos:altLabel xml:lang="ps">عراق</skos:altLabel>
+	<skos:altLabel xml:lang="hi">इराक</skos:altLabel>
+	<skos:altLabel xml:lang="mr">इराक</skos:altLabel>
+	<skos:altLabel xml:lang="hi">इराक़</skos:altLabel>
+	<skos:altLabel xml:lang="sa">ईराक</skos:altLabel>
+	<skos:altLabel xml:lang="hi">ईराक</skos:altLabel>
+	<skos:altLabel xml:lang="bn">ইরাক</skos:altLabel>
+	<skos:altLabel xml:lang="ta">இராக்</skos:altLabel>
+	<skos:altLabel xml:lang="ta">ஈராக்</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ഇറാക്ക്</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ഇറാഖ്‌</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศอิรัก</skos:altLabel>
+	<skos:altLabel xml:lang="th">อิรัก</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ອີລັກ</skos:altLabel>
+	<skos:altLabel xml:lang="dz">ཨི་རཀ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཨི་རག།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ერაყი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ኢራቅ</skos:altLabel>
+	<skos:altLabel xml:lang="km">អ៊ីរ៉ាក់</skos:altLabel>
+	<skos:altLabel xml:lang="ja">イラク</skos:altLabel>
+	<skos:altLabel xml:lang="ja">イラク共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">伊拉克</skos:altLabel>
+	<skos:altLabel xml:lang="ko">이라크</skos:altLabel>
+	<skos:prefLabel>Republic of Iraq</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99305/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/93540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>32.5</wgs:lat>
+	<wgs:long>46.55</wgs:long>
+	<skos:altLabel xml:lang="ar">Qaḑā’ ‘Alī al Gharbī</skos:altLabel>
+	<skos:altLabel>‘Alī al Gharbī</skos:altLabel>
+	<skos:altLabel>‘Alī al Gharbī Qadhā”</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ ‘Alī al Gharbī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99306/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19711</europeana:population>
+	<wgs:lat>32.46326</wgs:lat>
+	<wgs:long>46.68637</wgs:long>
+	<skos:altLabel>Ali Gharbi</skos:altLabel>
+	<skos:altLabel>Ali el Gharbi</skos:altLabel>
+	<skos:altLabel>Imām Ali Gherbi</skos:altLabel>
+	<skos:altLabel xml:lang="ar">علي الغربي</skos:altLabel>
+	<skos:altLabel xml:lang="ar">‘Alī al Gharbī</skos:altLabel>
+	<skos:prefLabel>‘Alī al Gharbī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99344/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>57490</europeana:population>
+	<wgs:lat>32.54333</wgs:lat>
+	<wgs:long>44.2225</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Hindīyah</skos:altLabel>
+	<skos:altLabel>Hindīya</skos:altLabel>
+	<skos:altLabel>Qaḑā’ al Hindīyah</skos:altLabel>
+	<skos:altLabel>Tuwairji</skos:altLabel>
+	<skos:altLabel>Tuwairīj</skos:altLabel>
+	<skos:altLabel>Ţuwayrīj</skos:altLabel>
+	<skos:prefLabel>Al Hindīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99345/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/98227/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>32.54742</wgs:lat>
+	<wgs:long>44.20443</wgs:long>
+	<skos:altLabel>Al Hindīyah</skos:altLabel>
+	<skos:altLabel>Al-Hindiya Qadhā’</skos:altLabel>
+	<skos:altLabel>Hindiya Qadhā’</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ al Hindīyah</skos:altLabel>
+	<skos:altLabel>الهنديه</skos:altLabel>
+	<skos:altLabel xml:lang="ar">قضاء الهنديه</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ al Hindīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99347/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>289709</europeana:population>
+	<wgs:lat>32.48014</wgs:lat>
+	<wgs:long>44.43526</wgs:long>
+	<skos:altLabel xml:lang="pl">Al Hilla</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Al Hillah</skos:altLabel>
+	<skos:altLabel xml:lang="en">Al Hillah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Al Ḩillah</skos:altLabel>
+	<skos:altLabel>Al-Hella</skos:altLabel>
+	<skos:altLabel>Hilah</skos:altLabel>
+	<skos:altLabel>Hilla</skos:altLabel>
+	<skos:altLabel xml:lang="de">Hilla</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Hilla</skos:altLabel>
+	<skos:altLabel xml:lang="da">Hilla</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Hilla</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Hilla</skos:altLabel>
+	<skos:altLabel>Hillé</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Аль-Хилла</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الحلة</skos:altLabel>
+	<skos:prefLabel>Al Ḩillah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99348/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/98227/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>32.6</wgs:lat>
+	<wgs:long>44.55</wgs:long>
+	<skos:altLabel>Al-Hilla Qadhā’</skos:altLabel>
+	<skos:altLabel>Al-Hillah Qadha</skos:altLabel>
+	<skos:altLabel>Hilla Qadhā’</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ al Ḩillah</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ al Ḩillah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99350/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>78272</europeana:population>
+	<wgs:lat>32.17349</wgs:lat>
+	<wgs:long>46.0433</wgs:long>
+	<skos:altLabel>Al Hai</skos:altLabel>
+	<skos:altLabel>Al Hay</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Al Ḩayy</skos:altLabel>
+	<skos:altLabel>Kut al Hai</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Аль-Хая</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الحي</skos:altLabel>
+	<skos:prefLabel>Al Ḩayy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99351/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/89693/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>32.2</wgs:lat>
+	<wgs:long>46</wgs:long>
+	<skos:altLabel>Hai Qadha</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ al Ḩayy</skos:altLabel>
+	<skos:altLabel>Qaḑā” al Ḩayy</skos:altLabel>
+	<skos:altLabel>Ḩay Qadhā”</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ al Ḩayy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99358/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/98227/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>32.35</wgs:lat>
+	<wgs:long>44.75</wgs:long>
+	<skos:altLabel>Al-Hāshemiya Qadhā’</skos:altLabel>
+	<skos:altLabel>Hāshemiya Qadhā’</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ al Hāshimīyah</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ al Hāshimīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99369/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>92395</europeana:population>
+	<wgs:lat>30.71861</wgs:lat>
+	<wgs:long>47.72083</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Hārithah</skos:altLabel>
+	<skos:altLabel>Hartha</skos:altLabel>
+	<skos:altLabel>Harthah</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Аль-Харриса</skos:altLabel>
+	<skos:prefLabel>Al Hārithah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99414/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/92877/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>35.5</wgs:lat>
+	<wgs:long>42</wgs:long>
+	<skos:altLabel>Bādiyat al Jazīrah</skos:altLabel>
+	<skos:altLabel>Hadhr Qadha</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ al Ḩaḑr</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ al Ḩaḑr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99434/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>30909</europeana:population>
+	<wgs:lat>31.74311</wgs:lat>
+	<wgs:long>44.6196</wgs:long>
+	<skos:altLabel>Al Ghammās</skos:altLabel>
+	<skos:altLabel>Ghammās</skos:altLabel>
+	<skos:altLabel>Nāḩiyat Ghammās</skos:altLabel>
+	<skos:altLabel>غماس</skos:altLabel>
+	<skos:altLabel xml:lang="ar">ناحية غماس</skos:altLabel>
+	<skos:prefLabel>Nāḩiyat Ghammās</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99439/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21551</europeana:population>
+	<wgs:lat>30.96972</wgs:lat>
+	<wgs:long>46.72278</wgs:long>
+	<skos:altLabel>Al Fuhūd</skos:altLabel>
+	<skos:altLabel>Fuhūd</skos:altLabel>
+	<skos:prefLabel>Nāḩiyat al Fuhūd</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99446/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>104569</europeana:population>
+	<wgs:lat>29.97763</wgs:lat>
+	<wgs:long>48.47412</wgs:long>
+	<skos:altLabel>Al Faw</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Al Fāw</skos:altLabel>
+	<skos:altLabel>Fao</skos:altLabel>
+	<skos:altLabel>Fao Terminal</skos:altLabel>
+	<skos:altLabel>Fava</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Аль-Фау</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الفاو</skos:altLabel>
+	<skos:prefLabel>Al Fāw</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99454/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>190159</europeana:population>
+	<wgs:lat>33.3538</wgs:lat>
+	<wgs:long>43.77951</wgs:long>
+	<skos:altLabel xml:lang="pl">Al Falludża</skos:altLabel>
+	<skos:altLabel>Al Fallūja</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Al Fallūjah</skos:altLabel>
+	<skos:altLabel>Al Falooja</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Falloujah</skos:altLabel>
+	<skos:altLabel xml:lang="de">Falludscha</skos:altLabel>
+	<skos:altLabel>Falluja</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Falluja</skos:altLabel>
+	<skos:altLabel xml:lang="it">Falluja</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Falluja</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Falluja</skos:altLabel>
+	<skos:altLabel xml:lang="en">Fallujah</skos:altLabel>
+	<skos:altLabel xml:lang="da">Fallujah</skos:altLabel>
+	<skos:altLabel xml:lang="no">Fallujah</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Fallujah</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Fallujah</skos:altLabel>
+	<skos:altLabel>Fallūjah</skos:altLabel>
+	<skos:altLabel xml:lang="es">Faluya</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Faluĝa</skos:altLabel>
+	<skos:altLabel>Feludja</skos:altLabel>
+	<skos:altLabel>Feluja</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Фалуджа</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Фалуџа</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الفلوجة</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ファルージャ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">费卢杰</skos:altLabel>
+	<skos:prefLabel>Al Fallūjah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99455/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99592/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>33.3</wgs:lat>
+	<wgs:long>43.8</wgs:long>
+	<skos:altLabel>Al-Falluja Qadha</skos:altLabel>
+	<skos:altLabel>Fallūja Qadhā’</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ al Fallūjah</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ al Fallūjah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99532/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>2600000</europeana:population>
+	<wgs:lat>30.53488</wgs:lat>
+	<wgs:long>47.78885</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Başrah</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Al-Basra</skos:altLabel>
+	<skos:altLabel xml:lang="es">Basora</skos:altLabel>
+	<skos:altLabel>Basra</skos:altLabel>
+	<skos:altLabel xml:lang="id">Basra</skos:altLabel>
+	<skos:altLabel xml:lang="en">Basra</skos:altLabel>
+	<skos:altLabel xml:lang="da">Basra</skos:altLabel>
+	<skos:altLabel xml:lang="no">Basra</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Basra</skos:altLabel>
+	<skos:altLabel xml:lang="de">Basra</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Basra</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Basra</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Basra</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Basra</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Basra</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Basra</skos:altLabel>
+	<skos:altLabel>Basrah</skos:altLabel>
+	<skos:altLabel>Bassora</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Bassora</skos:altLabel>
+	<skos:altLabel>Bassorah</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Bassorah</skos:altLabel>
+	<skos:altLabel>Bassra</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Baçorá</skos:altLabel>
+	<skos:altLabel>Busra</skos:altLabel>
+	<skos:altLabel>Busrah</skos:altLabel>
+	<skos:altLabel>Bussora</skos:altLabel>
+	<skos:altLabel xml:lang="it">Bàssora</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Басра</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Басра</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Басра</skos:altLabel>
+	<skos:altLabel xml:lang="he">בצרה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">البصرة</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بصرة</skos:altLabel>
+	<skos:altLabel xml:lang="fa">بصره</skos:altLabel>
+	<skos:altLabel xml:lang="ja">バスラ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">巴士拉</skos:altLabel>
+	<skos:altLabel xml:lang="zh">巴斯拉</skos:altLabel>
+	<skos:prefLabel>Al Başrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99534/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/89341/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>30.5</wgs:lat>
+	<wgs:long>47.78333</wgs:long>
+	<skos:altLabel>Al-Başra Qadhā’</skos:altLabel>
+	<skos:altLabel>Basrah</skos:altLabel>
+	<skos:altLabel>Başra Qadhā’</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ al Başrah</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ al Başrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99542/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.98333</wgs:lat>
+	<wgs:long>44.95</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Baḩrīyāt</skos:altLabel>
+	<skos:altLabel>Isin</skos:altLabel>
+	<skos:prefLabel>Al Baḩrīyāt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99548/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>44751</europeana:population>
+	<wgs:lat>32.90583</wgs:lat>
+	<wgs:long>45.06163</wgs:long>
+	<skos:altLabel>Al ‘Aziziya</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Al ‘Azīzīyah</skos:altLabel>
+	<skos:altLabel>Al-Azīzya</skos:altLabel>
+	<skos:altLabel>Azizie</skos:altLabel>
+	<skos:altLabel>Azizīya</skos:altLabel>
+	<skos:altLabel>Azīzīyah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">العزيزية</skos:altLabel>
+	<skos:altLabel>‘Aziziyeh</skos:altLabel>
+	<skos:prefLabel>Al ‘Azīzīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99592/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>33</wgs:lat>
+	<wgs:long>41.75</wgs:long>
+	<skos:altLabel>Ad Dulaym</skos:altLabel>
+	<skos:altLabel>Al Anbār</skos:altLabel>
+	<skos:altLabel xml:lang="en">Anbar</skos:altLabel>
+	<skos:altLabel>Ar Ramādī</skos:altLabel>
+	<skos:altLabel>Dulaim</skos:altLabel>
+	<skos:altLabel>Liwā’ ad Dulaym</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at al Anbār</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at al Anbār</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99608/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>323302</europeana:population>
+	<wgs:lat>31.84064</wgs:lat>
+	<wgs:long>47.1396</wgs:long>
+	<skos:altLabel xml:lang="ar">Al ‘Amārah</skos:altLabel>
+	<skos:altLabel>Amara</skos:altLabel>
+	<skos:altLabel>Amarah</skos:altLabel>
+	<skos:altLabel>Amaré</skos:altLabel>
+	<skos:altLabel xml:lang="ar">العماره</skos:altLabel>
+	<skos:altLabel>‘Amāra</skos:altLabel>
+	<skos:prefLabel>Al ‘Amārah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99610/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/93540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>31.9</wgs:lat>
+	<wgs:long>47.1</wgs:long>
+	<skos:altLabel xml:lang="ar">Qaḑā al ‘Amārah</skos:altLabel>
+	<skos:altLabel>Qaḑā’ al ‘Amārah</skos:altLabel>
+	<skos:altLabel>‘Amāra Qadhā’</skos:altLabel>
+	<skos:prefLabel>Qaḑā al ‘Amārah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99612/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/97270/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>37.1</wgs:lat>
+	<wgs:long>43.5</wgs:long>
+	<skos:altLabel>Al ‘Amādiya Qadhā’</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Al ‘Amādīyah</skos:altLabel>
+	<skos:altLabel>Amadiyah Qadha</skos:altLabel>
+	<skos:altLabel>Amedy</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Amêdî</skos:altLabel>
+	<skos:altLabel>Qaḑā’ al ‘Amādīyah</skos:altLabel>
+	<skos:altLabel xml:lang="ku">ئامێدى</skos:altLabel>
+	<skos:altLabel xml:lang="ar">العمادية</skos:altLabel>
+	<skos:altLabel>‘Amādiya Qadhā’</skos:altLabel>
+	<skos:prefLabel>Al ‘Amādīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99737/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99022/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>32.05</wgs:lat>
+	<wgs:long>45.3</wgs:long>
+	<skos:altLabel>Afag Qadha</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ ‘Afak</skos:altLabel>
+	<skos:altLabel>‘Afak</skos:altLabel>
+	<skos:altLabel>‘Ifag Qadhā”</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ ‘Afak</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99738/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21888</europeana:population>
+	<wgs:lat>32.06898</wgs:lat>
+	<wgs:long>45.25055</wgs:long>
+	<skos:altLabel>Afag</skos:altLabel>
+	<skos:altLabel>Afaq</skos:altLabel>
+	<skos:altLabel>Sok el Afej</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Афак</skos:altLabel>
+	<skos:altLabel xml:lang="ar">عفك</skos:altLabel>
+	<skos:altLabel xml:lang="ar">‘Afak</skos:altLabel>
+	<skos:prefLabel>‘Afak</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99759/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>26362</europeana:population>
+	<wgs:lat>33.84667</wgs:lat>
+	<wgs:long>44.23444</wgs:long>
+	<skos:altLabel xml:lang="ar">Ad Dujayl</skos:altLabel>
+	<skos:altLabel>Al Ibrāhīmīyah</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Doujaïl</skos:altLabel>
+	<skos:altLabel xml:lang="de">Dudschail</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Dudžail</skos:altLabel>
+	<skos:altLabel>Dujail</skos:altLabel>
+	<skos:altLabel xml:lang="id">Dujail</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Dujail</skos:altLabel>
+	<skos:altLabel xml:lang="en">Dujail</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Dujail</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Dujail</skos:altLabel>
+	<skos:altLabel>Dujayl</skos:altLabel>
+	<skos:altLabel>Nahiya Sumaīka</skos:altLabel>
+	<skos:altLabel>Nāḩiyat ad Dujayl</skos:altLabel>
+	<skos:altLabel>Sumaicha</skos:altLabel>
+	<skos:altLabel>Sumaichah</skos:altLabel>
+	<skos:altLabel>Sumaikcheh</skos:altLabel>
+	<skos:altLabel>Sumaykah</skos:altLabel>
+	<skos:altLabel>Sumaīka</skos:altLabel>
+	<skos:altLabel>Sumeicha</skos:altLabel>
+	<skos:altLabel>Sumeikeh</skos:altLabel>
+	<skos:altLabel>Sumekche</skos:altLabel>
+	<skos:altLabel>Summeicha</skos:altLabel>
+	<skos:altLabel>Suneiki</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ドゥジャイル</skos:altLabel>
+	<skos:prefLabel>Ad Dujayl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99762/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>318801</europeana:population>
+	<wgs:lat>31.99051</wgs:lat>
+	<wgs:long>44.93063</wgs:long>
+	<skos:altLabel>Ad Diwania</skos:altLabel>
+	<skos:altLabel>Ad Dīwānīya</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ad Dīwānīyah</skos:altLabel>
+	<skos:altLabel>Al-Diwaniya</skos:altLabel>
+	<skos:altLabel>Diwanie</skos:altLabel>
+	<skos:altLabel>Diwaniyan</skos:altLabel>
+	<skos:altLabel>Diwaniyeh</skos:altLabel>
+	<skos:altLabel>Dīwanīya</skos:altLabel>
+	<skos:altLabel>Hiska</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Дивания</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الديوانية</skos:altLabel>
+	<skos:prefLabel>Ad Dīwānīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99763/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/98862/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>31.8</wgs:lat>
+	<wgs:long>44.95</wgs:long>
+	<skos:altLabel>Ad-Dīwāniya Qadhā”</skos:altLabel>
+	<skos:altLabel>Dīwāniya Qadhā”</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ ad Dīwānīyah</skos:altLabel>
+	<skos:altLabel>Qaḑā” ad Dīwānīyah</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ ad Dīwānīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/99833/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/98862/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>31.75</wgs:lat>
+	<wgs:long>44.45</wgs:long>
+	<skos:altLabel>Abi-Sekhair Qadha</skos:altLabel>
+	<skos:altLabel>Abi-Sukhair Qadha</skos:altLabel>
+	<skos:altLabel>Abū Şkhair Qadhā</skos:altLabel>
+	<skos:altLabel>Abū Şukhayr</skos:altLabel>
+	<skos:altLabel>Qaḑā’ Abī Şukhayr</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ Abū Şukhayr</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ Abū Şukhayr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/100022/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>30.37056</wgs:lat>
+	<wgs:long>48.18167</wgs:long>
+	<skos:prefLabel>Jazīrat Abū Dā’ūd</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/100049/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/89341/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>30.25</wgs:lat>
+	<wgs:long>48.1</wgs:long>
+	<skos:altLabel>Abul-Khasib Qadha</skos:altLabel>
+	<skos:altLabel>Abū Al Khasīb Qadhā”</skos:altLabel>
+	<skos:altLabel>Abū al Khaşīb</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ Abū al Khaşīb</skos:altLabel>
+	<skos:altLabel>Qaḑā” Abī al Khaşīb</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ Abū al Khaşīb</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/100077/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>900000</europeana:population>
+	<wgs:lat>33.30833</wgs:lat>
+	<wgs:long>44.185</wgs:long>
+	<skos:altLabel xml:lang="fr">Abou Ghraib</skos:altLabel>
+	<skos:altLabel xml:lang="es">Abu Ghraib</skos:altLabel>
+	<skos:altLabel xml:lang="da">Abu Ghraib</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Abu Ghraib</skos:altLabel>
+	<skos:altLabel xml:lang="en">Abu Ghraib</skos:altLabel>
+	<skos:altLabel xml:lang="it">Abu Ghraib</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Abu Ghraib - أبو غريب</skos:altLabel>
+	<skos:altLabel xml:lang="de">Abu Ghuraib</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Abū Ghraib Farms</skos:altLabel>
+	<skos:altLabel>Abū Ghurayb</skos:altLabel>
+	<skos:altLabel>Mazāri‘ Abī Ghurayb</skos:altLabel>
+	<skos:altLabel>Mazārı‘ Abī Gharīb</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Абу-Грейб</skos:altLabel>
+	<skos:altLabel xml:lang="he">אבו גרייב</skos:altLabel>
+	<skos:altLabel xml:lang="ur">ابو غریب</skos:altLabel>
+	<skos:prefLabel>Abū Ghurayb</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/385018/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>36.84667</wgs:lat>
+	<wgs:long>42.935</wgs:long>
+	<skos:altLabel xml:lang="ar">Khirbat Ma‘althāyā</skos:altLabel>
+	<skos:prefLabel>Khirbat Ma‘althāyā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/387292/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>33.2875</wgs:lat>
+	<wgs:long>44.36833</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat Umm al Khanāzīr</skos:altLabel>
+	<skos:prefLabel>Jazīrat Umm al Khanāzīr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/388349/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99532/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>2015483</europeana:population>
+	<wgs:lat>30.49721</wgs:lat>
+	<wgs:long>47.81491</wgs:long>
+	<skos:altLabel>Al Başrah al Qadīmah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Al Başrat al Qadīmah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">البصرة القديمة</skos:altLabel>
+	<skos:prefLabel>Al Başrat al Qadīmah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/412880/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>30.37056</wgs:lat>
+	<wgs:long>48.18167</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat Abū Dāwūd</skos:altLabel>
+	<skos:prefLabel>Jazīrat Abū Dāwūd</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/435807/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>33.36875</wgs:lat>
+	<wgs:long>43.33301</wgs:long>
+	<skos:altLabel>Jazrat al Ḩuwayjah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat al Ḩuwayjah</skos:altLabel>
+	<skos:altLabel>جزرة الحويجة</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جزيرة الحويجة</skos:altLabel>
+	<skos:prefLabel>Jazīrat al Ḩuwayjah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/442267/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>36.27272</wgs:lat>
+	<wgs:long>43.63387</wgs:long>
+	<skos:altLabel>Askī Kalak</skos:altLabel>
+	<skos:altLabel>Kalak</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Kelek</skos:altLabel>
+	<skos:altLabel>Khabat</skos:altLabel>
+	<skos:altLabel>Nāḩiyah Kalak</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Nāḩiyat Kalak</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Xebat</skos:altLabel>
+	<skos:altLabel xml:lang="ku">خه بات</skos:altLabel>
+	<skos:altLabel>كلك</skos:altLabel>
+	<skos:altLabel xml:lang="ku">كه له ك</skos:altLabel>
+	<skos:altLabel xml:lang="ar">ناحية كلك</skos:altLabel>
+	<skos:prefLabel>Nāḩiyat Kalak</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/445012/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>30.59803</wgs:lat>
+	<wgs:long>47.76277</wgs:long>
+	<skos:altLabel>Jazīrat al Muḩammadīyah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat ash Shalhah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جزيرة الشلهه</skos:altLabel>
+	<skos:prefLabel>Jazīrat ash Shalhah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/445018/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>30.49096</wgs:lat>
+	<wgs:long>47.90999</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat aş Şāliḩīyah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جزيرة الصالحية</skos:altLabel>
+	<skos:prefLabel>Jazīrat aş Şāliḩīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/445023/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>30.57722</wgs:lat>
+	<wgs:long>47.77722</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat as Sindibād</skos:altLabel>
+	<skos:prefLabel>Jazīrat as Sindibād</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/448143/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.39678</wgs:lat>
+	<wgs:long>44.35444</wgs:long>
+	<skos:altLabel>Birs Nimrud</skos:altLabel>
+	<skos:altLabel>Borsippa</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Āthār an Namrūd</skos:altLabel>
+	<skos:altLabel>Īshān Nimrūd</skos:altLabel>
+	<skos:altLabel xml:lang="ar">اثار النمرود</skos:altLabel>
+	<skos:altLabel>ثار النمرود</skos:altLabel>
+	<skos:prefLabel>Āthār an Namrūd</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/448149/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>38294</europeana:population>
+	<wgs:lat>36.32092</wgs:lat>
+	<wgs:long>41.87542</wgs:long>
+	<skos:altLabel xml:lang="ku">Sinjar</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Sinjār</skos:altLabel>
+	<skos:altLabel xml:lang="ku">سنجار</skos:altLabel>
+	<skos:prefLabel>سنجار</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/448788/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>33.0725</wgs:lat>
+	<wgs:long>43.54041</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat Jawayyat Maḩmūd</skos:altLabel>
+	<skos:altLabel>Jazīrat Jawbat Maḩmūd</skos:altLabel>
+	<skos:altLabel>جزيرة جوبة محمود</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جزيرة جوية محمود</skos:altLabel>
+	<skos:prefLabel>Jazīrat Jawayyat Maḩmūd</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/448789/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>33.05119</wgs:lat>
+	<wgs:long>43.55457</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat al Kunayţarah</skos:altLabel>
+	<skos:altLabel>Jazīrat al Qunayţarah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جزيرة كنيطرة</skos:altLabel>
+	<skos:prefLabel>Jazīrat al Kunayţarah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6647872/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>33.277</wgs:lat>
+	<wgs:long>44.41394</wgs:long>
+	<skos:altLabel>Jazīrat Abū Rumayl</skos:altLabel>
+	<skos:altLabel>جزيرة أبورميل</skos:altLabel>
+	<skos:prefLabel>Jazīrat Abū Rumayl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6687112/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>32.8992</wgs:lat>
+	<wgs:long>46.3287</wgs:long>
+	<skos:altLabel xml:lang="fa">استان کوت</skos:altLabel>
+	<skos:prefLabel>Ostān-e Kūt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6687138/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>32.8376</wgs:lat>
+	<wgs:long>46.4555</wgs:long>
+	<skos:altLabel xml:lang="fa">استان العماره</skos:altLabel>
+	<skos:prefLabel>Ostān-e Al‘emarah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6687626/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>30.4544</wgs:lat>
+	<wgs:long>48.0794</wgs:long>
+	<skos:altLabel xml:lang="fa">Al Moshāremah</skos:altLabel>
+	<skos:altLabel xml:lang="fa">Jazīreh-ye Māhī</skos:altLabel>
+	<skos:altLabel xml:lang="fa">المشارمه</skos:altLabel>
+	<skos:altLabel xml:lang="fa">جزیره ماهی</skos:altLabel>
+	<skos:prefLabel>Jazīreh-ye Māhī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6687629/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>30.4414</wgs:lat>
+	<wgs:long>48.0812</wgs:long>
+	<skos:altLabel xml:lang="fa">Jazīreh-ye Yalḩānīyah</skos:altLabel>
+	<skos:altLabel xml:lang="fa">جزیره یلحانیّه</skos:altLabel>
+	<skos:prefLabel>Jazīreh-ye Yalḩānīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6733769/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.67162</wgs:lat>
+	<wgs:long>45.30519</wgs:long>
+	<skos:altLabel xml:lang="ar">Dabūnī</skos:altLabel>
+	<skos:altLabel xml:lang="ar">دبوني</skos:altLabel>
+	<skos:prefLabel>Dabūnī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6739183/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.12175</wgs:lat>
+	<wgs:long>45.0302</wgs:long>
+	<skos:altLabel xml:lang="ar">Tall az Zāmī</skos:altLabel>
+	<skos:altLabel xml:lang="ar">تل الزامي</skos:altLabel>
+	<skos:prefLabel>Tall az Zāmī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6751196/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>30.02547</wgs:lat>
+	<wgs:long>47.96392</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazrat Ḩajm</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جزرة حجم</skos:altLabel>
+	<skos:prefLabel>Jazrat Ḩajm</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6754638/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/89693/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>32.93268</wgs:lat>
+	<wgs:long>44.75502</wgs:long>
+	<skos:altLabel>Al-Swerah</skos:altLabel>
+	<skos:altLabel>Aş Şuwīrah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ aş Şuwīrah</skos:altLabel>
+	<skos:altLabel>الصويرة</skos:altLabel>
+	<skos:altLabel xml:lang="ar">قضاء الصويرة</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ aş Şuwīrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6765480/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99592/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>34.12866</wgs:lat>
+	<wgs:long>42.358</wgs:long>
+	<skos:altLabel>Haditha</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ Ḩadīthah</skos:altLabel>
+	<skos:altLabel>حديثة</skos:altLabel>
+	<skos:altLabel xml:lang="ar">قضاء حديثة</skos:altLabel>
+	<skos:altLabel>Ḩadīthah</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ Ḩadīthah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6770659/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/98410/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>35.32698</wgs:lat>
+	<wgs:long>43.75421</wgs:long>
+	<skos:altLabel>Al Ḩawījah</skos:altLabel>
+	<skos:altLabel>Qadaa Al-Haweeja</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ al Ḩawījah</skos:altLabel>
+	<skos:altLabel>الحويجة</skos:altLabel>
+	<skos:altLabel xml:lang="ar">قضاء الحويجة</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ al Ḩawījah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6781164/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>32.25456</wgs:lat>
+	<wgs:long>44.35787</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat Umm Shuhaybah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جزيرة ام شهيبة</skos:altLabel>
+	<skos:prefLabel>Jazīrat Umm Shuhaybah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6781281/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/98862/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>32.03904</wgs:lat>
+	<wgs:long>44.39102</wgs:long>
+	<skos:altLabel>Al Kūfah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ al Kūfah</skos:altLabel>
+	<skos:altLabel>الكوفة</skos:altLabel>
+	<skos:altLabel xml:lang="ar">قضاء الكوفة</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ al Kūfah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6783103/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/91695/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>34.46188</wgs:lat>
+	<wgs:long>43.80792</wgs:long>
+	<skos:altLabel>Ad Dawr</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ ad Dawr</skos:altLabel>
+	<skos:altLabel>الدور</skos:altLabel>
+	<skos:altLabel xml:lang="ar">قضاء الدور</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ ad Dawr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6786685/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>36.184</wgs:lat>
+	<wgs:long>42.47549</wgs:long>
+	<skos:altLabel xml:lang="ar">Farshākh</skos:altLabel>
+	<skos:altLabel xml:lang="ar">فرشاخ</skos:altLabel>
+	<skos:prefLabel>Farshākh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6798444/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>33.36283</wgs:lat>
+	<wgs:long>43.42426</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat Ḩusayn al Ḩamādī</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جزيرة حسين الحمادي</skos:altLabel>
+	<skos:prefLabel>Jazīrat Ḩusayn al Ḩamādī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6804454/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/91695/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>35.5292</wgs:lat>
+	<wgs:long>43.21998</wgs:long>
+	<skos:altLabel>Ash Sharqāţ</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ ash Sharqāţ</skos:altLabel>
+	<skos:altLabel>الشرقاط</skos:altLabel>
+	<skos:altLabel xml:lang="ar">قضاء الشرقاط</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ ash Sharqāţ</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6805736/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/98180/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>33.99613</wgs:lat>
+	<wgs:long>44.13826</wgs:long>
+	<skos:altLabel>Balad</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ Balad</skos:altLabel>
+	<skos:altLabel>بلد</skos:altLabel>
+	<skos:altLabel xml:lang="ar">قضاء بلد</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ Balad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6806376/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>33.15921</wgs:lat>
+	<wgs:long>44.52365</wgs:long>
+	<skos:altLabel xml:lang="ar">Ghābāt al Mahá</skos:altLabel>
+	<skos:altLabel xml:lang="ar">غابات المهى</skos:altLabel>
+	<skos:prefLabel>Ghābāt al Mahá</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6818313/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/98227/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>32.6633</wgs:lat>
+	<wgs:long>44.41648</wgs:long>
+	<skos:altLabel>Al Maḩāwīl</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ al Maḩāwīl</skos:altLabel>
+	<skos:altLabel>المحاويل</skos:altLabel>
+	<skos:altLabel xml:lang="ar">قضاء المحاويل</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ al Maḩāwīl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6850588/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99022/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>31.72224</wgs:lat>
+	<wgs:long>44.98503</wgs:long>
+	<skos:altLabel>Al Ḩamzah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ al Ḩamzah</skos:altLabel>
+	<skos:altLabel>الحمزة</skos:altLabel>
+	<skos:altLabel xml:lang="ar">قضاء الحمزة</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ al Ḩamzah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6860779/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>36.251</wgs:lat>
+	<wgs:long>43.28532</wgs:long>
+	<skos:altLabel xml:lang="ar">Tall Ashūr al Atharī</skos:altLabel>
+	<skos:altLabel xml:lang="ar">تل اشور الاثري</skos:altLabel>
+	<skos:prefLabel>Tall Ashūr al Atharī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6872046/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/91695/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>34.93006</wgs:lat>
+	<wgs:long>43.50472</wgs:long>
+	<skos:altLabel>Bayjī</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaḑā’ Bayjī</skos:altLabel>
+	<skos:altLabel>بيجي</skos:altLabel>
+	<skos:altLabel xml:lang="ar">قضاء بيجي</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ Bayjī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7011739/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>31.27627</wgs:lat>
+	<wgs:long>46.95686</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat Daf‘ah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جزيرة دفعه</skos:altLabel>
+	<skos:prefLabel>Jazīrat Daf‘ah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7046745/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>36.65675</wgs:lat>
+	<wgs:long>42.61882</wgs:long>
+	<skos:altLabel xml:lang="ar">Nāḩiyat Zummār</skos:altLabel>
+	<skos:altLabel xml:lang="ar">ناحية زمار</skos:altLabel>
+	<skos:prefLabel>Nāḩiyat Zummār</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7110723/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.59027</wgs:lat>
+	<wgs:long>42.71764</wgs:long>
+	<skos:altLabel xml:lang="ar">Āthār al Ḩaḑar</skos:altLabel>
+	<skos:altLabel xml:lang="ar">اثار الحضر</skos:altLabel>
+	<skos:prefLabel>Āthār al Ḩaḑar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7426256/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>35.86099</wgs:lat>
+	<wgs:long>45.09344</wgs:long>
+	<skos:altLabel xml:lang="ar">Nāḩiyat Sūrdāsh al Qadīmah</skos:altLabel>
+	<skos:altLabel>Sūrdāsh al Qadīmah</skos:altLabel>
+	<skos:altLabel>سورداش القديمة</skos:altLabel>
+	<skos:altLabel xml:lang="ar">ناحية سورداش القديمة</skos:altLabel>
+	<skos:altLabel>ناحيه سورداش القديمة</skos:altLabel>
+	<skos:prefLabel>Nāḩiyat Sūrdāsh al Qadīmah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7454913/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>35.25475</wgs:lat>
+	<wgs:long>45.93242</wgs:long>
+	<skos:altLabel xml:lang="ar">Nāḩiyat Sīrwān</skos:altLabel>
+	<skos:altLabel>Sīrwān</skos:altLabel>
+	<skos:altLabel>سيروان</skos:altLabel>
+	<skos:altLabel xml:lang="ar">ناحية سيروان</skos:altLabel>
+	<skos:prefLabel>Nāḩiyat Sīrwān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7455017/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>35.31178</wgs:lat>
+	<wgs:long>45.65883</wgs:long>
+	<skos:altLabel xml:lang="ar">Nāḩiyat Zarāyan</skos:altLabel>
+	<skos:altLabel xml:lang="ar">ناحية زراين</skos:altLabel>
+	<skos:prefLabel>Nāḩiyat Zarāyan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7539070/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/99237/"/>
+	<europeana:country>IQ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>36.8379</wgs:lat>
+	<wgs:long>44.29688</wgs:long>
+	<skos:altLabel>Mirga Sūr</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Nāḩiyat Mirga Sūr</skos:altLabel>
+	<skos:altLabel>مرگه سور</skos:altLabel>
+	<skos:altLabel>ناحية مرگه سور</skos:altLabel>
+	<skos:prefLabel>Nāḩiyat Mirga Sūr</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 245 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

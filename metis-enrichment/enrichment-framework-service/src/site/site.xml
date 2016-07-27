@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="AnnoCultor">
+ <publishDate position="navigation-bottom" format="dd-MM-yy" />
+ <bannerLeft>
+  <name>AnnoCultor</name>
+<!-- 
+  <src>images/annocultor-small.gif</src>
+ -->  
+ <href>http://annocultor.sourceforge.net</href>
+ </bannerLeft>
+ <bannerRight>
+  <name>convert &amp; tag</name>
+ </bannerRight>
+ <body>
+  <head>
+   <link rel="stylesheet" href="../css/site.css" type="text/css" />
+  </head>
+  <menu ref="parent" />
+  <menu name="Overview">
+   <item name="Home" href="index.html" />
+   <item name="Overview" href="overview.html" />
+   <item name="Download" href="download.html" />
+   <item name="Publications" href="pubs.html" />
+   <item name="Contact" href="contact.html" />
+   <item name="Changes" href="statistics.html" />
+   <item name="Acknowledgements" href="ack.html" />
+   <item name="Project reports" href="project-reports.html" />
+  </menu>
+  <menu name="Converters">
+   <item name="Getting started" href="converters.gettingstarted.html" />
+   <item name="Getty AAT, ULAN" href="converters.getty.html" />
+   <item name="Geonames" href="converters.geonames.html" />
+   <item name="Louvre" href="converters.louvre.html" />
+   <item name="Joconde" href="converters.joconde.html" />
+   <item name="ICN" href="converters.icn.html" />
+   <item name="Aziatische keramiek " href="converters.ak.html" />
+  </menu>
+  <menu name="Tutorial">
+   <item name="How to run" href="tutorial.howtorun.html" />
+   <item name="Analyse XML" href="tutorial.analysexml.html" />
+   <item name="First converter" href="tutorial.first.html" />
+   <item name="Custom rules" href="tutorial.rules.html" />
+   <item name="Java snippets" href="tutorial.events.html" />
+   <item name="Using vocabularies" href="tutorial.vocabularies.html" />
+   <item name="Reports" href="tutorial.reports.html" />
+  </menu>
+  <menu name="Rules">
+   <item name="Create constant" href="rules.CreateResourcePropertyRule.html" />
+   <item name="Rename resource property" href="rules.RenameResourcePropertyRule.html" />
+   <item name="Rename literal property" href="rules.RenameLiteralPropertyRule.html" />
+   <item name="Replace value" href="rules.ReplaceValuesRule.html" />
+   <item name="Sequence" href="rules.SequenceRule.html" />
+   <item name="Lookup person" href="rules.LookupPersonRule.html" />
+   <item name="Lookup place" href="rules.LookupPlaceRule.html" />
+   <item name="Lookup term" href="rules.LookupTermRule.html" />
+   <item name="Facet rename property" href="rules.FacetRenamePropertyRule.html" />
+   <item name="Batch" href="rules.BatchRule.html" />
+   <item name="Use value of other path" href="rules.UseOtherPathValueRule.html" />
+   <item name="Use other subject" href="rules.UseOtherSubjectRule.html" />
+  </menu>
+  <menu name="Data sources">
+   <item name="XML" href="datasources.xml.html" />
+   <item name="Databases SQL" href="datasources.sql.html" />
+   <item name="RDF SPARQL" href="datasources.sparql.html" />
+   <item name="Custom formats" href="datasources.custom.html" />
+  </menu>  
+  <menu name="Data destinations">
+   <item name="RDF" href="destinations.rdf.html" />
+   <item name="Solr server" href="destinations.solrserver.html" />
+   <item name="Solr files" href="destinations.solrfile.html" />
+  </menu>  
+  <menu name="Best practices">
+   <item name="Version control" href="practices.vc.html" />
+   <item name="Many files" href="practices.manyfiles.html" />
+   <item name="Sort in query" href="practices.sort.html" />
+   <item name="Common XML" href="practices.include.html" />
+   <item name="Filter records" href="practices.filter.html" />
+   <item name="Techy overview" href="techy.html" />
+  </menu>
+  <menu name="Running">
+   <item name="tools.jar" href="running.tools.html" />
+  </menu>
+  <menu name="Performance">
+   <item name="Use cases" href="performance.cases.html" />
+   <item name="Path" href="performance.path.html" />
+  </menu>
+  <!--  <menu ref="reports" />  -->
+  <!--	<menu name="" inherit="top"/>-->
+ </body>
+   <poweredBy>
+   <logo name="Get AnnoCultor at SourceForge.net. Fast, secure and Free Open Source software downloads" href="http://sourceforge.net/projects/annocultor"
+          img="http://sflogo.sourceforge.net/sflogo.php?group_id=194406&amp;type=13"/>
+    <logo name="Maven" href="http://maven.apache.org/"
+          img="http://maven.apache.org/images/logos/build-by-maven-white.png"/>
+  </poweredBy>
+ 
+</project>

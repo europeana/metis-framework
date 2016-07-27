@@ -1,0 +1,1366 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AS_TM
+Description: Selected fields pulled from Geonames about TM done on Mon May 23 21:13:39 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/161415/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>39.3</wgs:lat>
+	<wgs:long>53.56667</wgs:long>
+	<skos:prefLabel>Ostrov Yagly</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/161427/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>39.58333</wgs:lat>
+	<wgs:long>53.81667</wgs:long>
+	<skos:prefLabel>Ostrov Uzun-Ada</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/161514/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>37.95</wgs:lat>
+	<wgs:long>58.38333</wgs:long>
+	<skos:altLabel>Stalinskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Sovetskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/161534/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>39.71667</wgs:lat>
+	<wgs:long>53.1</wgs:long>
+	<skos:prefLabel>Ostrov Shinkorenko</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/161572/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>37.95</wgs:lat>
+	<wgs:long>58.38333</wgs:long>
+	<skos:prefLabel>Proletarskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/161587/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>39.6925</wgs:lat>
+	<wgs:long>53.11333</wgs:long>
+	<skos:prefLabel>Ostrov Osushnoy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/161598/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>38.92167</wgs:lat>
+	<wgs:long>53.04167</wgs:long>
+	<skos:altLabel>Ogurchinski Island</skos:altLabel>
+	<skos:altLabel>Ogurja Ada</skos:altLabel>
+	<skos:altLabel>Ogurjaly</skos:altLabel>
+	<skos:altLabel>Ostrov Aydak</skos:altLabel>
+	<skos:altLabel>Ostrov Gurchin</skos:altLabel>
+	<skos:altLabel>Ostrov Gurchinski</skos:altLabel>
+	<skos:altLabel>Ostrov Ogurchinskiy</skos:altLabel>
+	<skos:altLabel>Ostrov Ogurdzhaly</skos:altLabel>
+	<skos:prefLabel>Ogurja Ada</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/161616/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>87822</europeana:population>
+	<wgs:lat>39.51194</wgs:lat>
+	<wgs:long>54.365</wgs:long>
+	<skos:altLabel xml:lang="de">Balkanabat</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Balkanabat</skos:altLabel>
+	<skos:altLabel xml:lang="en">Balkanabat</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Balkanabat</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Balkanabat</skos:altLabel>
+	<skos:altLabel>Balkanabat</skos:altLabel>
+	<skos:altLabel xml:lang="tk">Nebit-Dag</skos:altLabel>
+	<skos:altLabel>Nebitdag</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Nebitdag</skos:altLabel>
+	<skos:altLabel>Neftedag</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Балканабат</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Небит-Даг</skos:altLabel>
+	<skos:prefLabel>Balkanabat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/161667/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>37.95</wgs:lat>
+	<wgs:long>58.38333</wgs:long>
+	<skos:prefLabel>Leninskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/161751/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>39.63333</wgs:lat>
+	<wgs:long>53.55</wgs:long>
+	<skos:prefLabel>Ostrov Klych</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/161764/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>38.33333</wgs:lat>
+	<wgs:long>55</wgs:long>
+	<skos:prefLabel>Kizyl-Atrekskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/161765/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>39.5</wgs:lat>
+	<wgs:long>56.75</wgs:long>
+	<skos:prefLabel>Kizyl-Arvatskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/161837/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>40</wgs:lat>
+	<wgs:long>56</wgs:long>
+	<skos:prefLabel>Kazandzhikskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/161868/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>38.33333</wgs:lat>
+	<wgs:long>56.5</wgs:long>
+	<skos:prefLabel>Kara-Kalinskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/161884/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>38.7</wgs:lat>
+	<wgs:long>53.85</wgs:long>
+	<skos:altLabel>Ostrov Karadashli</skos:altLabel>
+	<skos:altLabel>Ostrov Kradashli</skos:altLabel>
+	<skos:prefLabel>Ostrov Karadashli</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/161901/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18545</europeana:population>
+	<wgs:lat>37.35</wgs:lat>
+	<wgs:long>59.6</wgs:long>
+	<skos:altLabel>Kaakhka</skos:altLabel>
+	<skos:altLabel>Kaka</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кака</skos:altLabel>
+	<skos:prefLabel>Kaka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/161907/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>38</wgs:lat>
+	<wgs:long>59.41667</wgs:long>
+	<skos:prefLabel>Kaakhkinskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/161931/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12000</europeana:population>
+	<wgs:lat>38.97556</wgs:lat>
+	<wgs:long>56.27778</wgs:long>
+	<skos:altLabel>Gyzylarbat</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kizil-Arvat</skos:altLabel>
+	<skos:altLabel>Kizyl-Arvat</skos:altLabel>
+	<skos:altLabel>Kyzyl-Arvat</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кизил-Арват</skos:altLabel>
+	<skos:prefLabel>Gyzylarbat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/161933/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>37.86667</wgs:lat>
+	<wgs:long>58.51667</wgs:long>
+	<skos:prefLabel>Gyaurskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/161943/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>24312</europeana:population>
+	<wgs:lat>39.20611</wgs:lat>
+	<wgs:long>54.59056</wgs:long>
+	<skos:altLabel>Gumdag</skos:altLabel>
+	<skos:altLabel>Khudaidag</skos:altLabel>
+	<skos:altLabel>Khuday-Dag</skos:altLabel>
+	<skos:altLabel>Kum-Dag</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гумдаге</skos:altLabel>
+	<skos:prefLabel>Gumdag</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/161961/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>38.83333</wgs:lat>
+	<wgs:long>58.08333</wgs:long>
+	<skos:prefLabel>Geok-Tepinskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/161974/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21090</europeana:population>
+	<wgs:lat>39.24306</wgs:lat>
+	<wgs:long>55.51694</wgs:long>
+	<skos:altLabel>Gazanjyk</skos:altLabel>
+	<skos:altLabel>Kasandshik</skos:altLabel>
+	<skos:altLabel>Kazandzhik</skos:altLabel>
+	<skos:altLabel>Kazanjik</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Газанджык</skos:altLabel>
+	<skos:prefLabel>Gazanjyk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/161979/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>38.5</wgs:lat>
+	<wgs:long>54.08333</wgs:long>
+	<skos:prefLabel>Gasan-Kuliyskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/162003/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>39.41667</wgs:lat>
+	<wgs:long>55.13333</wgs:long>
+	<skos:altLabel>Pamyatnik Dvadtsati Shesti Bakinskikh Komissarov</skos:altLabel>
+	<skos:altLabel>Pamyatnik Dvadtsati Shesti Bakinskim Komissaram</skos:altLabel>
+	<skos:prefLabel>Pamyatnik Dvadtsati Shesti Bakinskim Komissaram</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/162048/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>39.96667</wgs:lat>
+	<wgs:long>53.45</wgs:long>
+	<skos:prefLabel>Ostrov Dag-Ada</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/162088/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>38.8</wgs:lat>
+	<wgs:long>53.91667</wgs:long>
+	<skos:prefLabel>Ostrov Chashman</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/162099/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>39481</europeana:population>
+	<wgs:lat>38.05167</wgs:lat>
+	<wgs:long>58.21</wgs:long>
+	<skos:altLabel>Bezmein</skos:altLabel>
+	<skos:altLabel>Büzmeýin</skos:altLabel>
+	<skos:prefLabel>Büzmeýin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/162105/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>39.56667</wgs:lat>
+	<wgs:long>53.53333</wgs:long>
+	<skos:altLabel>Ostrov Bogurulyar</skos:altLabel>
+	<skos:altLabel>Ostrov Bugulyar</skos:altLabel>
+	<skos:prefLabel>Ostrov Bugulyar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/162152/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>551996</europeana:population>
+	<wgs:lat>40</wgs:lat>
+	<wgs:long>54.5</wgs:long>
+	<skos:altLabel>Balkan</skos:altLabel>
+	<skos:altLabel>Balkan Welaýaty</skos:altLabel>
+	<skos:altLabel>Balkanskaya Oblast’</skos:altLabel>
+	<skos:altLabel>Balkanskiy Velayat</skos:altLabel>
+	<skos:altLabel>Krasnovodsk Oblast</skos:altLabel>
+	<skos:altLabel>Krasnovodskaya Oblast’</skos:altLabel>
+	<skos:altLabel>Krasnowodsk Oblasty</skos:altLabel>
+	<skos:prefLabel>Balkan Welaýaty</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/162157/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>39</wgs:lat>
+	<wgs:long>57.5</wgs:long>
+	<skos:prefLabel>Bakhardenskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/162158/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>22991</europeana:population>
+	<wgs:lat>38.43028</wgs:lat>
+	<wgs:long>57.43694</wgs:long>
+	<skos:altLabel>Bakharden</skos:altLabel>
+	<skos:altLabel>Bäherden</skos:altLabel>
+	<skos:prefLabel>Bäherden</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/162172/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>39.43333</wgs:lat>
+	<wgs:long>53.5</wgs:long>
+	<skos:prefLabel>Ostrov Aulak</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/162179/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>39.1</wgs:lat>
+	<wgs:long>53.7</wgs:long>
+	<skos:prefLabel>Ostrov Ata-Ada</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/162180/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>39</wgs:lat>
+	<wgs:long>58.91667</wgs:long>
+	<skos:prefLabel>Ashkhabadskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/162181/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>38.25</wgs:lat>
+	<wgs:long>59.75</wgs:long>
+	<skos:altLabel>Ahal</skos:altLabel>
+	<skos:altLabel>Ahal Welaýaty</skos:altLabel>
+	<skos:altLabel>Akhalskiy Velayat</skos:altLabel>
+	<skos:altLabel>Ashgabad Oblasty</skos:altLabel>
+	<skos:altLabel>Ashgabat Oblasty</skos:altLabel>
+	<skos:altLabel>Ashkhabad Oblast</skos:altLabel>
+	<skos:altLabel>Ashkhabadskaya Oblast’</skos:altLabel>
+	<skos:prefLabel>Ahal Welaýaty</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/162182/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/162181/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>840229</europeana:population>
+	<wgs:lat>37.95</wgs:lat>
+	<wgs:long>58.38333</wgs:long>
+	<skos:altLabel>Ashgabat Shäheri</skos:altLabel>
+	<skos:altLabel>Aşgabat Şäheri</skos:altLabel>
+	<skos:altLabel>Gorod Ashkhabad</skos:altLabel>
+	<skos:prefLabel>Aşgabat Şäheri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/162183/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>727700</europeana:population>
+	<wgs:lat>37.95</wgs:lat>
+	<wgs:long>58.38333</wgs:long>
+	<skos:altLabel xml:lang="fr">Achgabat</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Achkhabad - Aşgabat</skos:altLabel>
+	<skos:altLabel xml:lang="id">Ashgabat</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Ashgabat</skos:altLabel>
+	<skos:altLabel xml:lang="it">Ashgabat</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Ashgabat</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ashgabat</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ashkabad</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Ashkhabad</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ashkhabad</skos:altLabel>
+	<skos:altLabel>Ashqabad</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Asjchabad</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Asjchabad</skos:altLabel>
+	<skos:altLabel xml:lang="da">Asjkhabad</skos:altLabel>
+	<skos:altLabel>Askabad</skos:altLabel>
+	<skos:altLabel>Askhabad</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Aszchabad</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Aŝgabato</skos:altLabel>
+	<skos:altLabel xml:lang="tk">Aşgabat</skos:altLabel>
+	<skos:altLabel xml:lang="de">Aşgabat</skos:altLabel>
+	<skos:altLabel xml:lang="es">Aşgabat</skos:altLabel>
+	<skos:altLabel xml:lang="br">Aşgabat</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Aşgabat</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Aşgabat</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Aşgabat</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Aşgabat</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Aşgabat</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Aşgabat</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Aşgabat</skos:altLabel>
+	<skos:altLabel xml:lang="az">Aşqabad</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Ašchabad</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Ašchabad</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Ašchabadas</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Ašgabat</skos:altLabel>
+	<skos:altLabel>Poltoratsk</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ασγκαμπάτ</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Ашгабат</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Ашхабад</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ашхабад</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Ашхобад</skos:altLabel>
+	<skos:altLabel xml:lang="he">אשגאבט</skos:altLabel>
+	<skos:altLabel xml:lang="fa">عشق‌آباد</skos:altLabel>
+	<skos:altLabel xml:lang="ka">აშხაბადი</skos:altLabel>
+	<skos:altLabel xml:lang="am">አሽጋባት</skos:altLabel>
+	<skos:altLabel xml:lang="ja">アシガバート</skos:altLabel>
+	<skos:altLabel xml:lang="zh">阿什哈巴德</skos:altLabel>
+	<skos:altLabel xml:lang="ko">아시가바트</skos:altLabel>
+	<skos:prefLabel>Ashgabat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/162199/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>27526</europeana:population>
+	<wgs:lat>37.88833</wgs:lat>
+	<wgs:long>58.52806</wgs:long>
+	<skos:altLabel>Anau</skos:altLabel>
+	<skos:altLabel>Annau</skos:altLabel>
+	<skos:altLabel>Enev</skos:altLabel>
+	<skos:altLabel>Änew</skos:altLabel>
+	<skos:prefLabel>Änew</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/162219/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>39</wgs:lat>
+	<wgs:long>53.98333</wgs:long>
+	<skos:prefLabel>Ostrov Ak-Sayra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/601459/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>42.06667</wgs:lat>
+	<wgs:long>59.96667</wgs:long>
+	<skos:prefLabel>Tel’manskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/601464/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>41.83333</wgs:lat>
+	<wgs:long>59.91667</wgs:long>
+	<skos:prefLabel>Tashauzskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/601465/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>41</wgs:lat>
+	<wgs:long>58.5</wgs:long>
+	<skos:altLabel>Dashhowuz Oblasty</skos:altLabel>
+	<skos:altLabel>Dashhowuz Welayaty</skos:altLabel>
+	<skos:altLabel>Dashkhovuzskiy Velayat</skos:altLabel>
+	<skos:altLabel>Dashoguzskiy Velayat</skos:altLabel>
+	<skos:altLabel>Daşoguz</skos:altLabel>
+	<skos:altLabel>Daşoguz Welaýaty</skos:altLabel>
+	<skos:altLabel>Tashauz Oblast</skos:altLabel>
+	<skos:altLabel>Tashauzskaya Oblast’</skos:altLabel>
+	<skos:prefLabel>Daşoguz Welaýaty</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/601469/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>40.7</wgs:lat>
+	<wgs:long>54.16667</wgs:long>
+	<skos:altLabel>Ostrov Taraba</skos:altLabel>
+	<skos:altLabel>Ostrov Tarava</skos:altLabel>
+	<skos:prefLabel>Ostrov Taraba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/601474/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>41.66667</wgs:lat>
+	<wgs:long>59.91667</wgs:long>
+	<skos:prefLabel>Takhtinskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/601475/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16635</europeana:population>
+	<wgs:lat>41.65</wgs:lat>
+	<wgs:long>59.9</wgs:long>
+	<skos:altLabel>Tagta</skos:altLabel>
+	<skos:altLabel>Takhta</skos:altLabel>
+	<skos:prefLabel>Tagta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/601496/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>40.95</wgs:lat>
+	<wgs:long>54.33333</wgs:long>
+	<skos:prefLabel>Ostrov Sekstan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/601531/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>42.36667</wgs:lat>
+	<wgs:long>58.81667</wgs:long>
+	<skos:prefLabel>Oktyabr’skiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/601550/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42</wgs:lat>
+	<wgs:long>59.41667</wgs:long>
+	<skos:prefLabel>Leninskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/601551/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14177</europeana:population>
+	<wgs:lat>42.05</wgs:lat>
+	<wgs:long>59.4</wgs:long>
+	<skos:altLabel>Ak-Tepe</skos:altLabel>
+	<skos:altLabel>Ak-Tyube</skos:altLabel>
+	<skos:altLabel>Akdepe</skos:altLabel>
+	<skos:altLabel>Leninsk</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Акдепе</skos:altLabel>
+	<skos:prefLabel>Akdepe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/601583/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.41667</wgs:lat>
+	<wgs:long>59</wgs:long>
+	<skos:prefLabel>Kunya-Urgenchskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/601594/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>68292</europeana:population>
+	<wgs:lat>40.02306</wgs:lat>
+	<wgs:long>52.96972</wgs:long>
+	<skos:altLabel>Krasnovodsk</skos:altLabel>
+	<skos:altLabel xml:lang="es">Krasnovodsk</skos:altLabel>
+	<skos:altLabel>Krasnowodsk</skos:altLabel>
+	<skos:altLabel>Krassnowodsk</skos:altLabel>
+	<skos:altLabel>Turkmenbashi</skos:altLabel>
+	<skos:altLabel xml:lang="it">Turkmenbashi</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Turkmenbaszy</skos:altLabel>
+	<skos:altLabel>Türkmenbashy</skos:altLabel>
+	<skos:altLabel xml:lang="en">Türkmenbaşy</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Türkmenbaşy</skos:altLabel>
+	<skos:altLabel xml:lang="de">Türkmenbaşy</skos:altLabel>
+	<skos:altLabel xml:lang="tk">Türkmenbaşy</skos:altLabel>
+	<skos:altLabel xml:lang="et">Türkmenbaşy</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Türkmenbaşy</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Türkmenbaşy</skos:altLabel>
+	<skos:altLabel>Türkmenbaşy</skos:altLabel>
+	<skos:altLabel>Türkmenbaşı</skos:altLabel>
+	<skos:altLabel xml:lang="ru">КРАСНОВОДСК</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Красноводск</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Туркменбаші</skos:altLabel>
+	<skos:prefLabel>Türkmenbaşy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/601598/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>41</wgs:lat>
+	<wgs:long>55</wgs:long>
+	<skos:prefLabel>Krasnovodskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/601608/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>30000</europeana:population>
+	<wgs:lat>42.31667</wgs:lat>
+	<wgs:long>59.16667</wgs:long>
+	<skos:altLabel xml:lang="tk">Gadymy Ürgenç</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Kounya-Ourguentch</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Kunja-Urgentj</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kunya Urgench</skos:altLabel>
+	<skos:altLabel>Kunya-Urgen</skos:altLabel>
+	<skos:altLabel>Kunya-Urgench</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Kunya-Urgench</skos:altLabel>
+	<skos:altLabel>Köneürgench</skos:altLabel>
+	<skos:altLabel xml:lang="de">Köneürgenç</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Куня-Ургенч</skos:altLabel>
+	<skos:altLabel xml:lang="fa">گرگانج</skos:altLabel>
+	<skos:altLabel xml:lang="ko">코네우르겐치</skos:altLabel>
+	<skos:prefLabel>Köneürgench</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/601656/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>41.5</wgs:lat>
+	<wgs:long>52.5</wgs:long>
+	<skos:altLabel>Ostrov Kara-Ida</skos:altLabel>
+	<skos:altLabel>Ostrov Karaada</skos:altLabel>
+	<skos:prefLabel>Ostrov Karaada</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/601660/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.16667</wgs:lat>
+	<wgs:long>59.66667</wgs:long>
+	<skos:prefLabel>Kalininskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/601661/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21159</europeana:population>
+	<wgs:lat>42.13333</wgs:lat>
+	<wgs:long>59.66667</wgs:long>
+	<skos:altLabel>Boldumsaz</skos:altLabel>
+	<skos:altLabel>Kalinin</skos:altLabel>
+	<skos:altLabel>Kalininsk</skos:altLabel>
+	<skos:altLabel>Porsu</skos:altLabel>
+	<skos:altLabel>Porsy</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Болдумсаз</skos:altLabel>
+	<skos:prefLabel>Boldumsaz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/601703/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>41.91667</wgs:lat>
+	<wgs:long>59.66667</wgs:long>
+	<skos:prefLabel>Il’yalinskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/601734/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>166500</europeana:population>
+	<wgs:lat>41.83333</wgs:lat>
+	<wgs:long>59.96667</wgs:long>
+	<skos:altLabel>Dashhowuz</skos:altLabel>
+	<skos:altLabel>Dashkhovuz</skos:altLabel>
+	<skos:altLabel xml:lang="en">Daşoguz</skos:altLabel>
+	<skos:altLabel xml:lang="de">Daşoguz</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Daşoguz</skos:altLabel>
+	<skos:altLabel xml:lang="tk">Daşoguz</skos:altLabel>
+	<skos:altLabel>Daşoguz</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Daşoğuz</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Dašhowuz</skos:altLabel>
+	<skos:altLabel>Tashauz</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Taszauz</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Дашогуз</skos:altLabel>
+	<skos:prefLabel>Daşoguz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1218021/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>32706</europeana:population>
+	<wgs:lat>37.3</wgs:lat>
+	<wgs:long>62.35</wgs:long>
+	<skos:altLabel>Iolotan’</skos:altLabel>
+	<skos:altLabel>Yolotan</skos:altLabel>
+	<skos:altLabel>Yolöten</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Иолотань</skos:altLabel>
+	<skos:prefLabel>Yolöten</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1218115/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>37.61667</wgs:lat>
+	<wgs:long>61.91667</wgs:long>
+	<skos:prefLabel>Vekil’-Bazarskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1218194/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>37.16667</wgs:lat>
+	<wgs:long>62.58333</wgs:long>
+	<skos:prefLabel>Turkmen-Kalinskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1218197/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255147/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>4940916</europeana:population>
+	<wgs:lat>40</wgs:lat>
+	<wgs:long>60</wgs:long>
+	<skos:altLabel xml:lang="ga">An Tuircméanastáin</skos:altLabel>
+	<skos:altLabel xml:lang="ca">El Turkmenistan</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Pow Turkmen</skos:altLabel>
+	<skos:altLabel>TM</skos:altLabel>
+	<skos:altLabel xml:lang="la">Turcmenia</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Turcmenistan</skos:altLabel>
+	<skos:altLabel xml:lang="la">Turcomannia</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Turcomenistán - Türkmenostan</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Turcomenistão</skos:altLabel>
+	<skos:altLabel xml:lang="uz">Turkmaniston</skos:altLabel>
+	<skos:altLabel>Turkmen Soviet Socialist Republic</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Turkmenia</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Turkmenia</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Turkmenio</skos:altLabel>
+	<skos:altLabel xml:lang="id">Turkmenistan</skos:altLabel>
+	<skos:altLabel xml:lang="de">Turkmenistan</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Turkmenistan</skos:altLabel>
+	<skos:altLabel xml:lang="it">Turkmenistan</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Turkmenistan</skos:altLabel>
+	<skos:altLabel xml:lang="da">Turkmenistan</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Turkmenistan</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Turkmenistan</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Turkmenistan</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Turkmenistan</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Turkmenistan</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Turkmenistan</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Turkmenistan</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Turkmenistan</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Turkmenistan</skos:altLabel>
+	<skos:altLabel xml:lang="en">Turkmenistan</skos:altLabel>
+	<skos:altLabel xml:lang="af">Turkmenistan</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Turkmenistan</skos:altLabel>
+	<skos:altLabel xml:lang="io">Turkmenistan</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Turkmenistan</skos:altLabel>
+	<skos:altLabel xml:lang="no">Turkmenistan</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Turkmenistan</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Turkmenistan</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Turkmenistan</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Turkmenistan</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Turkmenistan</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Turkmenistan</skos:altLabel>
+	<skos:altLabel xml:lang="li">Turkmenistan</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Turkmenistan</skos:altLabel>
+	<skos:altLabel xml:lang="se">Turkmenistan</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Turkmenistan</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Turkmenistani</skos:altLabel>
+	<skos:altLabel xml:lang="es">Turkmenistán</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Turkmenistán</skos:altLabel>
+	<skos:altLabel xml:lang="an">Turkmenistán</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Turkmenistán</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Turkmenistāna</skos:altLabel>
+	<skos:altLabel xml:lang="af">Turkmenië</skos:altLabel>
+	<skos:altLabel>Turkmenskaya Sovetskaya Sotsialisticheskaya Respublika</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Turkmenujo</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Turkmenän</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Turkminsuyu</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Turkménistan</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Turkménsko</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Turkmėnija</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Turkmėnistanas</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Turquemenistão</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Tuốc-mê-ni-xtan</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Tuốc-mê-ni-xtan (Turkmenistan)</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Tyrcmenistan</skos:altLabel>
+	<skos:altLabel xml:lang="is">Túrkmenistan</skos:altLabel>
+	<skos:altLabel xml:lang="tk">Türkmenistan</skos:altLabel>
+	<skos:altLabel xml:lang="et">Türkmenistan</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Türkmenistan</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Türkmenisztán</skos:altLabel>
+	<skos:altLabel xml:lang="az">Türkmənistan</skos:altLabel>
+	<skos:altLabel xml:lang="el">Τουρκμενιστάν</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Туркманистон</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Туркменистан</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Туркменистан</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Туркменистан</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Туркменистан</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Туркменистан</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Туркмения</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Туркменістан</skos:altLabel>
+	<skos:altLabel xml:lang="be">Туркменістан</skos:altLabel>
+	<skos:altLabel xml:lang="be">Туркмэністан</skos:altLabel>
+	<skos:altLabel xml:lang="ky">Түркмөнстан</skos:altLabel>
+	<skos:altLabel xml:lang="kk">Түрікменстан</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Թուրքմենիստան</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Թուրքմենստան</skos:altLabel>
+	<skos:altLabel xml:lang="he">טורקמניסטאן</skos:altLabel>
+	<skos:altLabel xml:lang="he">טורקמניסטן</skos:altLabel>
+	<skos:altLabel xml:lang="ar">تركمانستان</skos:altLabel>
+	<skos:altLabel xml:lang="ur">ترکمانستان</skos:altLabel>
+	<skos:altLabel xml:lang="fa">ترکمنستان</skos:altLabel>
+	<skos:altLabel xml:lang="ur">ترکمنستان</skos:altLabel>
+	<skos:altLabel xml:lang="ug">تىركمةنعستان</skos:altLabel>
+	<skos:altLabel xml:lang="hi">तुर्कमेनिस्तान</skos:altLabel>
+	<skos:altLabel xml:lang="bn">তুর্কমেনিয়া</skos:altLabel>
+	<skos:altLabel xml:lang="bn">তুর্কমেনিয়া</skos:altLabel>
+	<skos:altLabel xml:lang="gu">તુર્ક્મનિસ્તાન</skos:altLabel>
+	<skos:altLabel xml:lang="ta">துர்க்மெனிஸ்தான்</skos:altLabel>
+	<skos:altLabel xml:lang="ml">തുര്‍ക്ക് മേനിസ്ഥാന്‍</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศเติร์กเมนิสถาน</skos:altLabel>
+	<skos:altLabel xml:lang="th">เติร์กเมนิสถาน</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ເຕຣີກເມນິສະຖານ</skos:altLabel>
+	<skos:altLabel xml:lang="ka">თურქმენეთი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ቱርክሜኒስታን</skos:altLabel>
+	<skos:altLabel xml:lang="km">ទួគមេនីស្តង់</skos:altLabel>
+	<skos:altLabel xml:lang="ja">トルクメニスタン</skos:altLabel>
+	<skos:altLabel xml:lang="zh">土库曼斯坦</skos:altLabel>
+	<skos:altLabel xml:lang="ko">투르크메니스탄</skos:altLabel>
+	<skos:altLabel xml:lang="ko">투르크멘</skos:altLabel>
+	<skos:prefLabel>Turkmenistan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1218239/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>67294</europeana:population>
+	<wgs:lat>37.37861</wgs:lat>
+	<wgs:long>60.49611</wgs:long>
+	<skos:altLabel>Tedjen</skos:altLabel>
+	<skos:altLabel>Tedzhen</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Tedżen</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tejen</skos:altLabel>
+	<skos:altLabel xml:lang="tk">Tejen</skos:altLabel>
+	<skos:altLabel>Tejen</skos:altLabel>
+	<skos:altLabel>Tejend</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Теджен</skos:altLabel>
+	<skos:prefLabel>Tejen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1218245/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>37.33333</wgs:lat>
+	<wgs:long>60.5</wgs:long>
+	<skos:prefLabel>Tedzhenskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1218305/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218666/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>36</wgs:lat>
+	<wgs:long>63</wgs:long>
+	<skos:altLabel xml:lang="tk">Tagtabazar Etrap</skos:altLabel>
+	<skos:altLabel>Takhta-Bazarskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Tagtabazar Etrap</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1218420/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17762</europeana:population>
+	<wgs:lat>39.41667</wgs:lat>
+	<wgs:long>62.9</wgs:long>
+	<skos:altLabel>Neftezavodsk</skos:altLabel>
+	<skos:altLabel>Seydi</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сейди</skos:altLabel>
+	<skos:prefLabel>Seydi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1218434/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>38</wgs:lat>
+	<wgs:long>63.83333</wgs:long>
+	<skos:prefLabel>Sayatskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1218436/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17762</europeana:population>
+	<wgs:lat>38.78111</wgs:lat>
+	<wgs:long>63.88667</wgs:long>
+	<skos:prefLabel>Saýat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1218469/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>38.93333</wgs:lat>
+	<wgs:long>63.75</wgs:long>
+	<skos:prefLabel>Sakarskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1218471/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>38</wgs:lat>
+	<wgs:long>61</wgs:long>
+	<skos:altLabel>Sagar-Chaginskiy Rayon</skos:altLabel>
+	<skos:altLabel>Sakar-Chaginskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Sakar-Chaginskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1218611/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>37</wgs:lat>
+	<wgs:long>61.58333</wgs:long>
+	<skos:altLabel>Murgabskiy Rayon</skos:altLabel>
+	<skos:altLabel>Stalinskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Murgabskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1218612/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13199</europeana:population>
+	<wgs:lat>37.5</wgs:lat>
+	<wgs:long>61.96667</wgs:long>
+	<skos:altLabel>Murgab</skos:altLabel>
+	<skos:altLabel>Stalino</skos:altLabel>
+	<skos:prefLabel>Murgab</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1218665/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>38</wgs:lat>
+	<wgs:long>61.75</wgs:long>
+	<skos:prefLabel>Maryyskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1218666/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1536553</europeana:population>
+	<wgs:lat>37</wgs:lat>
+	<wgs:long>62.5</wgs:long>
+	<skos:altLabel>Mary</skos:altLabel>
+	<skos:altLabel>Mary Oblast</skos:altLabel>
+	<skos:altLabel>Mary Oblasty</skos:altLabel>
+	<skos:altLabel>Mary Welaýaty</skos:altLabel>
+	<skos:altLabel>Maryiskaya Oblast</skos:altLabel>
+	<skos:altLabel>Maryyskaya Oblast’</skos:altLabel>
+	<skos:altLabel>Maryyskiy Velayat</skos:altLabel>
+	<skos:altLabel>Mervskaya Oblast’</skos:altLabel>
+	<skos:prefLabel>Mary Welaýaty</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1218667/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>114680</europeana:population>
+	<wgs:lat>37.6</wgs:lat>
+	<wgs:long>61.83333</wgs:long>
+	<skos:altLabel xml:lang="fr">Mary</skos:altLabel>
+	<skos:altLabel xml:lang="de">Mary</skos:altLabel>
+	<skos:altLabel xml:lang="tk">Mary</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Mary</skos:altLabel>
+	<skos:altLabel xml:lang="en">Mary</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Mary</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Mary</skos:altLabel>
+	<skos:altLabel>Mary</skos:altLabel>
+	<skos:altLabel>Merv</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Мары</skos:altLabel>
+	<skos:prefLabel>Mary</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1218742/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218666/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>35.26667</wgs:lat>
+	<wgs:long>62.33333</wgs:long>
+	<skos:altLabel xml:lang="tk">Guşgy Etrap</skos:altLabel>
+	<skos:altLabel>Kushkinskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Guşgy Etrap</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1218836/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>38.51667</wgs:lat>
+	<wgs:long>64.2</wgs:long>
+	<skos:prefLabel>Ostrov Kosh-Dzhangel’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1218894/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>37.7</wgs:lat>
+	<wgs:long>60.38333</wgs:long>
+	<skos:prefLabel>Kirovskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1218927/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>38.5</wgs:lat>
+	<wgs:long>64.66667</wgs:long>
+	<skos:prefLabel>Khodzhambasskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1218986/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>38.06667</wgs:lat>
+	<wgs:long>64.86667</wgs:long>
+	<skos:prefLabel>Khalachskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1218998/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>37.5</wgs:lat>
+	<wgs:long>65</wgs:long>
+	<skos:prefLabel>Kerkinskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1219002/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>33242</europeana:population>
+	<wgs:lat>37.83444</wgs:lat>
+	<wgs:long>65.20972</wgs:long>
+	<skos:altLabel>Atamyrat</skos:altLabel>
+	<skos:altLabel>Kerki</skos:altLabel>
+	<skos:altLabel>Qārki</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Атамырат</skos:altLabel>
+	<skos:prefLabel>Atamyrat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1219106/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>37.75</wgs:lat>
+	<wgs:long>61.96667</wgs:long>
+	<skos:prefLabel>Karakumskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1219147/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>38</wgs:lat>
+	<wgs:long>64.16667</wgs:long>
+	<skos:prefLabel>Karabekaul’skiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1219218/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>36.75</wgs:lat>
+	<wgs:long>62.5</wgs:long>
+	<skos:prefLabel>Iolotanskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1219392/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>34745</europeana:population>
+	<wgs:lat>37.80694</wgs:lat>
+	<wgs:long>66.05667</wgs:long>
+	<skos:altLabel>Gaurdak</skos:altLabel>
+	<skos:altLabel>Gaurdakstroy</skos:altLabel>
+	<skos:altLabel>Gaurdstroi</skos:altLabel>
+	<skos:altLabel>Gaurdstroy</skos:altLabel>
+	<skos:altLabel>Gowurdak</skos:altLabel>
+	<skos:prefLabel>Gowurdak</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1219431/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14503</europeana:population>
+	<wgs:lat>39.17139</wgs:lat>
+	<wgs:long>63.60306</wgs:long>
+	<skos:altLabel>Farab</skos:altLabel>
+	<skos:altLabel>Farap</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Фарап</skos:altLabel>
+	<skos:prefLabel>Farap</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1219432/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>39.25</wgs:lat>
+	<wgs:long>63.58333</wgs:long>
+	<skos:prefLabel>Farabskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1219512/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>37.75</wgs:lat>
+	<wgs:long>65.3</wgs:long>
+	<skos:prefLabel>Dostlukskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1219524/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>40</wgs:lat>
+	<wgs:long>62</wgs:long>
+	<skos:prefLabel>Deynauskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1219646/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>37.75</wgs:lat>
+	<wgs:long>66.16667</wgs:long>
+	<skos:prefLabel>Charshanginskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1219649/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>234817</europeana:population>
+	<wgs:lat>39.10139</wgs:lat>
+	<wgs:long>63.575</wgs:long>
+	<skos:altLabel>Chardzha</skos:altLabel>
+	<skos:altLabel>Chardzhou</skos:altLabel>
+	<skos:altLabel>Chardzhui</skos:altLabel>
+	<skos:altLabel>Chardzhuy</skos:altLabel>
+	<skos:altLabel>Charjou</skos:altLabel>
+	<skos:altLabel>Chärjew</skos:altLabel>
+	<skos:altLabel>Leninsk-Turkmenski</skos:altLabel>
+	<skos:altLabel>Leninsk-Turmenski</skos:altLabel>
+	<skos:altLabel>Nov Chārjui</skos:altLabel>
+	<skos:altLabel>Novo Chardzhou</skos:altLabel>
+	<skos:altLabel>Novo-Chardzhuy</skos:altLabel>
+	<skos:altLabel>Turkmenabad</skos:altLabel>
+	<skos:altLabel xml:lang="id">Turkmenabat</skos:altLabel>
+	<skos:altLabel xml:lang="en">Turkmenabat</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Turkmenabat</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Türkmenabat</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Türkmenabat</skos:altLabel>
+	<skos:altLabel xml:lang="de">Türkmenabat</skos:altLabel>
+	<skos:altLabel xml:lang="tk">Türkmenabat</skos:altLabel>
+	<skos:altLabel xml:lang="en">Türkmenabat</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Türkmenabat</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Türkmenabat</skos:altLabel>
+	<skos:altLabel xml:lang="es">Türkmenabat</skos:altLabel>
+	<skos:altLabel>Türkmenabat</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Туркменабат</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Туркменабат</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Туркменабат</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Чарджоу</skos:altLabel>
+	<skos:altLabel xml:lang="ja">テュルクメナバート</skos:altLabel>
+	<skos:altLabel xml:lang="ko">투르크메나바트</skos:altLabel>
+	<skos:prefLabel>Türkmenabat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1219650/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>39</wgs:lat>
+	<wgs:long>62.5</wgs:long>
+	<skos:prefLabel>Chardzhouskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1219651/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1388461</europeana:population>
+	<wgs:lat>39</wgs:lat>
+	<wgs:long>63</wgs:long>
+	<skos:altLabel>Chardzhou Oblast</skos:altLabel>
+	<skos:altLabel>Chardzhouskaya Oblast’</skos:altLabel>
+	<skos:altLabel>Chärzhew Oblasty</skos:altLabel>
+	<skos:altLabel>Lebap</skos:altLabel>
+	<skos:altLabel>Lebap</skos:altLabel>
+	<skos:altLabel>Lebap Welaýaty</skos:altLabel>
+	<skos:altLabel>Lebapskiy Velayat</skos:altLabel>
+	<skos:prefLabel>Lebap Welaýaty</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1219665/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>38.35</wgs:lat>
+	<wgs:long>64.35</wgs:long>
+	<skos:prefLabel>Ostrov Chakur-Dzhangel’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1219762/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>75797</europeana:population>
+	<wgs:lat>37.61667</wgs:lat>
+	<wgs:long>62.16667</wgs:long>
+	<skos:altLabel>Bairam Ali</skos:altLabel>
+	<skos:altLabel>Bayram-Ali</skos:altLabel>
+	<skos:altLabel>Bayramaly</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Байрамалийского</skos:altLabel>
+	<skos:prefLabel>Bayramaly</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1219763/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>38</wgs:lat>
+	<wgs:long>62.5</wgs:long>
+	<skos:prefLabel>Bayram-Aliyskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1219780/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>38.34583</wgs:lat>
+	<wgs:long>64.39111</wgs:long>
+	<skos:prefLabel>Ostrov Bash-Dzhangel’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1514792/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21021</europeana:population>
+	<wgs:lat>41.18333</wgs:lat>
+	<wgs:long>61.4</wgs:long>
+	<skos:altLabel>Gaz-Achak</skos:altLabel>
+	<skos:altLabel>Gazojak</skos:altLabel>
+	<skos:prefLabel>Gazojak</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1514799/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1218197/"/>
+	<europeana:country>TM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>40.5</wgs:lat>
+	<wgs:long>61.33333</wgs:long>
+	<skos:prefLabel>Dargan-Atinskiy Rayon</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 99 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

@@ -1,0 +1,1221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AF_MW
+Description: Selected fields pulled from Geonames about MW done on Mon May 23 21:16:18 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/235659/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>-9.7</wgs:lat>
+	<wgs:long>33.38333</wgs:long>
+	<skos:prefLabel>Ncherenge</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/235715/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>34207</europeana:population>
+	<wgs:lat>-9.93333</wgs:lat>
+	<wgs:long>33.93333</wgs:long>
+	<skos:altLabel xml:lang="de">Karonga</skos:altLabel>
+	<skos:altLabel xml:lang="en">Karonga</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Karonga</skos:altLabel>
+	<skos:altLabel>Karonga</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Каронга</skos:altLabel>
+	<skos:prefLabel>Karonga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/235749/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>144179</europeana:population>
+	<wgs:lat>-9.92726</wgs:lat>
+	<wgs:long>33.42541</wgs:long>
+	<skos:altLabel>Chitipa</skos:altLabel>
+	<skos:altLabel>Chitipa District</skos:altLabel>
+	<skos:prefLabel>Chitipa District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/923292/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-15.43007</wgs:lat>
+	<wgs:long>35.41829</wgs:long>
+	<skos:altLabel>Zomba</skos:altLabel>
+	<skos:altLabel>Zomba District</skos:altLabel>
+	<skos:prefLabel>Zomba District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/923295/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>80932</europeana:population>
+	<wgs:lat>-15.38596</wgs:lat>
+	<wgs:long>35.3188</wgs:long>
+	<skos:altLabel xml:lang="de">Zomba</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Zomba</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Zomba</skos:altLabel>
+	<skos:altLabel xml:lang="en">Zomba</skos:altLabel>
+	<skos:altLabel xml:lang="et">Zomba</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Zomba</skos:altLabel>
+	<skos:altLabel xml:lang="is">Zomba</skos:altLabel>
+	<skos:altLabel>Zomba</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Зомба</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ゾンバ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">松巴</skos:altLabel>
+	<skos:prefLabel>Zomba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/923556/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14</wgs:lat>
+	<wgs:long>34.88333</wgs:long>
+	<skos:altLabel>Bird Island</skos:altLabel>
+	<skos:altLabel>Mumbo Island</skos:altLabel>
+	<skos:altLabel>Tumbi Island West</skos:altLabel>
+	<skos:altLabel>West Tumbi Island</skos:altLabel>
+	<skos:prefLabel>Tumbi Island West</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/923557/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.05</wgs:lat>
+	<wgs:long>34.93333</wgs:long>
+	<skos:altLabel>Dimwe Island</skos:altLabel>
+	<skos:altLabel>East Tumbi Island</skos:altLabel>
+	<skos:altLabel>Tumbi Island</skos:altLabel>
+	<skos:altLabel>Tumbi Island East</skos:altLabel>
+	<skos:prefLabel>Tumbi Island East</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/923681/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-15.21781</wgs:lat>
+	<wgs:long>35.71032</wgs:long>
+	<skos:altLabel>Thongwe Islands</skos:altLabel>
+	<skos:altLabel>Tongwe Islands</skos:altLabel>
+	<skos:prefLabel>Thongwe Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/923746/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.84209</wgs:lat>
+	<wgs:long>35.29969</wgs:long>
+	<skos:prefLabel>Temba Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/924053/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>288028</europeana:population>
+	<wgs:lat>-13.71959</wgs:lat>
+	<wgs:long>34.40184</wgs:long>
+	<skos:altLabel>Salima</skos:altLabel>
+	<skos:altLabel>Salima District</skos:altLabel>
+	<skos:prefLabel>Salima District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/924055/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>30052</europeana:population>
+	<wgs:lat>-13.78333</wgs:lat>
+	<wgs:long>34.43333</wgs:long>
+	<skos:altLabel xml:lang="de">Salima</skos:altLabel>
+	<skos:altLabel xml:lang="en">Salima</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Salima</skos:altLabel>
+	<skos:altLabel>Salima</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Салима</skos:altLabel>
+	<skos:prefLabel>Salima</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/924100/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>152065</europeana:population>
+	<wgs:lat>-10.80292</wgs:lat>
+	<wgs:long>33.80524</wgs:long>
+	<skos:altLabel>Rumphi</skos:altLabel>
+	<skos:altLabel>Rumphi District</skos:altLabel>
+	<skos:altLabel>Rumpi District</skos:altLabel>
+	<skos:altLabel>Rumpil District</skos:altLabel>
+	<skos:prefLabel>Rumphi District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/924102/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>20727</europeana:population>
+	<wgs:lat>-11.01667</wgs:lat>
+	<wgs:long>33.86667</wgs:long>
+	<skos:altLabel>Rumphi</skos:altLabel>
+	<skos:altLabel>Rumpi</skos:altLabel>
+	<skos:altLabel>Rumpi Boma</skos:altLabel>
+	<skos:prefLabel>Rumphi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/924267/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.03333</wgs:lat>
+	<wgs:long>34.81667</wgs:long>
+	<skos:prefLabel>Otter Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/924490/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>199341</europeana:population>
+	<wgs:lat>-13.29574</wgs:lat>
+	<wgs:long>33.90798</wgs:long>
+	<skos:altLabel>Nchisi District</skos:altLabel>
+	<skos:altLabel>Ntchisi</skos:altLabel>
+	<skos:altLabel>Ntchisi District</skos:altLabel>
+	<skos:prefLabel>Ntchisi District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/924492/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>10445</europeana:population>
+	<wgs:lat>-14.81667</wgs:lat>
+	<wgs:long>34.63333</wgs:long>
+	<skos:altLabel>Ncheu</skos:altLabel>
+	<skos:altLabel>Nitcheu</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ntcheu</skos:altLabel>
+	<skos:altLabel xml:lang="de">Ntcheu</skos:altLabel>
+	<skos:altLabel>Ntcheu</skos:altLabel>
+	<skos:prefLabel>Ntcheu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/924519/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.91667</wgs:lat>
+	<wgs:long>34.66667</wgs:long>
+	<skos:prefLabel>Ntadza Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/924535/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.36667</wgs:lat>
+	<wgs:long>35.01667</wgs:long>
+	<skos:prefLabel>Nsua Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/924567/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>194768</europeana:population>
+	<wgs:lat>-16.75</wgs:lat>
+	<wgs:long>35.16667</wgs:long>
+	<skos:altLabel>Lower River</skos:altLabel>
+	<skos:altLabel>Lower Shire District</skos:altLabel>
+	<skos:altLabel>Nsanje</skos:altLabel>
+	<skos:altLabel>Nsanje District</skos:altLabel>
+	<skos:altLabel>Port Herald District</skos:altLabel>
+	<skos:prefLabel>Nsanje District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/924572/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>21774</europeana:population>
+	<wgs:lat>-16.91667</wgs:lat>
+	<wgs:long>35.26667</wgs:long>
+	<skos:altLabel>Chimombi</skos:altLabel>
+	<skos:altLabel xml:lang="en">Nsanje</skos:altLabel>
+	<skos:altLabel xml:lang="de">Nsanje</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Nsanje</skos:altLabel>
+	<skos:altLabel>Nsanje</skos:altLabel>
+	<skos:altLabel>Port Herald</skos:altLabel>
+	<skos:prefLabel>Nsanje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/924703/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>286519</europeana:population>
+	<wgs:lat>-12.80417</wgs:lat>
+	<wgs:long>34.08298</wgs:long>
+	<skos:altLabel>Kota Kota District</skos:altLabel>
+	<skos:altLabel>Mkhotakota</skos:altLabel>
+	<skos:altLabel>Nkhota Kota District</skos:altLabel>
+	<skos:altLabel>Nkhotakota</skos:altLabel>
+	<skos:altLabel>Nkhotakota District</skos:altLabel>
+	<skos:prefLabel>Nkhotakota District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/924705/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>24865</europeana:population>
+	<wgs:lat>-12.91667</wgs:lat>
+	<wgs:long>34.3</wgs:long>
+	<skos:altLabel>Kota Kota</skos:altLabel>
+	<skos:altLabel xml:lang="de">Nkhotakota</skos:altLabel>
+	<skos:altLabel xml:lang="en">Nkhotakota</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Nkhotakota</skos:altLabel>
+	<skos:altLabel>Nkhotakota</skos:altLabel>
+	<skos:prefLabel>Nkhotakota</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/924730/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>191061</europeana:population>
+	<wgs:lat>-11.65304</wgs:lat>
+	<wgs:long>34.05322</wgs:long>
+	<skos:altLabel>Chinteche District</skos:altLabel>
+	<skos:altLabel>Nkata Bay District</skos:altLabel>
+	<skos:altLabel>Nkhata Bay</skos:altLabel>
+	<skos:altLabel>Nkhata Bay District</skos:altLabel>
+	<skos:prefLabel>Nkhata Bay District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/924732/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>11721</europeana:population>
+	<wgs:lat>-11.6</wgs:lat>
+	<wgs:long>34.3</wgs:long>
+	<skos:altLabel>Nkata</skos:altLabel>
+	<skos:altLabel>Nkata Bay</skos:altLabel>
+	<skos:altLabel xml:lang="en">Nkhata Bay</skos:altLabel>
+	<skos:altLabel xml:lang="de">Nkhata Bay</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Nkhata Bay</skos:altLabel>
+	<skos:altLabel>Nkhata Bay</skos:altLabel>
+	<skos:prefLabel>Nkhata Bay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/924825/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.49604</wgs:lat>
+	<wgs:long>35.74963</wgs:long>
+	<skos:altLabel>Njalo Island</skos:altLabel>
+	<skos:altLabel>Njalu Island</skos:altLabel>
+	<skos:prefLabel>Njalo Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/925065/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.33333</wgs:lat>
+	<wgs:long>35.63333</wgs:long>
+	<skos:altLabel>Chilwa Island</skos:altLabel>
+	<skos:altLabel>Nchisi Island</skos:altLabel>
+	<skos:altLabel>Shirwa Island</skos:altLabel>
+	<skos:prefLabel>Nchisi Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/925072/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>382590</europeana:population>
+	<wgs:lat>-14.75</wgs:lat>
+	<wgs:long>34.75</wgs:long>
+	<skos:altLabel>Ncheu District</skos:altLabel>
+	<skos:altLabel>Ntcheu</skos:altLabel>
+	<skos:altLabel>Ntcheu District</skos:altLabel>
+	<skos:prefLabel>Ntcheu District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/925393/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.71667</wgs:lat>
+	<wgs:long>34.61667</wgs:long>
+	<skos:altLabel>Mikombe Rock</skos:altLabel>
+	<skos:altLabel>Namalenje Island</skos:altLabel>
+	<skos:altLabel>Namikombi Island</skos:altLabel>
+	<skos:prefLabel>Namalenje Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/925435/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.91667</wgs:lat>
+	<wgs:long>34.65</wgs:long>
+	<skos:prefLabel>Nakantenga Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/925496/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>612086</europeana:population>
+	<wgs:lat>-11.85428</wgs:lat>
+	<wgs:long>33.60778</wgs:long>
+	<skos:altLabel>Mzimba</skos:altLabel>
+	<skos:altLabel>Mzimba District</skos:altLabel>
+	<skos:prefLabel>Mzimba District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/925498/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>19308</europeana:population>
+	<wgs:lat>-11.9</wgs:lat>
+	<wgs:long>33.6</wgs:long>
+	<skos:altLabel xml:lang="en">Mzimba</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Mzimba</skos:altLabel>
+	<skos:altLabel xml:lang="de">Mzimba</skos:altLabel>
+	<skos:altLabel>Mzimba</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Мзимба</skos:altLabel>
+	<skos:prefLabel>Mzimba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/925595/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>148763</europeana:population>
+	<wgs:lat>-15.63337</wgs:lat>
+	<wgs:long>34.51682</wgs:long>
+	<skos:altLabel>Mwanza</skos:altLabel>
+	<skos:altLabel>Mwanza District</skos:altLabel>
+	<skos:prefLabel>Mwanza District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/925596/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>11379</europeana:population>
+	<wgs:lat>-15.60959</wgs:lat>
+	<wgs:long>34.52237</wgs:long>
+	<skos:altLabel xml:lang="de">Mwanza</skos:altLabel>
+	<skos:altLabel>Mwanza</skos:altLabel>
+	<skos:prefLabel>Mwanza</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/925769/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.98333</wgs:lat>
+	<wgs:long>34.75</wgs:long>
+	<skos:prefLabel>Mumbo Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/925788/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>432418</europeana:population>
+	<wgs:lat>-15.9344</wgs:lat>
+	<wgs:long>35.4999</wgs:long>
+	<skos:altLabel>Mlange District</skos:altLabel>
+	<skos:altLabel>Mlanje District</skos:altLabel>
+	<skos:altLabel>Mulanje</skos:altLabel>
+	<skos:altLabel>Mulanje District</skos:altLabel>
+	<skos:prefLabel>Mulanje District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/925789/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>16483</europeana:population>
+	<wgs:lat>-16.02544</wgs:lat>
+	<wgs:long>35.50402</wgs:long>
+	<skos:altLabel>Mlange</skos:altLabel>
+	<skos:altLabel>Mlanje</skos:altLabel>
+	<skos:altLabel>Mlanje Boma</skos:altLabel>
+	<skos:altLabel xml:lang="en">Mulanje</skos:altLabel>
+	<skos:altLabel xml:lang="de">Mulanje</skos:altLabel>
+	<skos:altLabel>Mulanje</skos:altLabel>
+	<skos:prefLabel>Mulanje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/926087/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11222</europeana:population>
+	<wgs:lat>-13.51667</wgs:lat>
+	<wgs:long>33.71667</wgs:long>
+	<skos:altLabel>Mponela</skos:altLabel>
+	<skos:prefLabel>Mponela</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/926186/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-11.91667</wgs:lat>
+	<wgs:long>34.18333</wgs:long>
+	<skos:prefLabel>Mphandikucha Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/926241/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.18333</wgs:lat>
+	<wgs:long>35.05</wgs:long>
+	<skos:prefLabel>Mpandi Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/926308/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11619</europeana:population>
+	<wgs:lat>-14.08333</wgs:lat>
+	<wgs:long>34.91667</wgs:long>
+	<skos:altLabel>Lusumbwe</skos:altLabel>
+	<skos:altLabel>Monkey Bay</skos:altLabel>
+	<skos:prefLabel>Monkey Bay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/926706/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.05</wgs:lat>
+	<wgs:long>34.61667</wgs:long>
+	<skos:prefLabel>Membe Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/926745/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>367483</europeana:population>
+	<wgs:lat>-13.75</wgs:lat>
+	<wgs:long>33.08333</wgs:long>
+	<skos:altLabel>Fort Manning District</skos:altLabel>
+	<skos:altLabel>Mchinji</skos:altLabel>
+	<skos:altLabel>Mchinji District</skos:altLabel>
+	<skos:prefLabel>Mchinji District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/926747/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>18305</europeana:population>
+	<wgs:lat>-13.8</wgs:lat>
+	<wgs:long>32.9</wgs:long>
+	<skos:altLabel>Chimji</skos:altLabel>
+	<skos:altLabel>Fort Manning</skos:altLabel>
+	<skos:altLabel xml:lang="de">Mchinji</skos:altLabel>
+	<skos:altLabel xml:lang="en">Mchinji</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Mchinji</skos:altLabel>
+	<skos:altLabel>Mchinji</skos:altLabel>
+	<skos:prefLabel>Mchinji</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/926796/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-12.08333</wgs:lat>
+	<wgs:long>34.75</wgs:long>
+	<skos:prefLabel>Mbuzi Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/926820/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-11.18333</wgs:lat>
+	<wgs:long>34.21667</wgs:long>
+	<skos:altLabel>Mbowe Island</skos:altLabel>
+	<skos:altLabel>Usiska Island</skos:altLabel>
+	<skos:prefLabel>Mbowe Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/926876/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.43333</wgs:lat>
+	<wgs:long>34.46667</wgs:long>
+	<skos:altLabel>Benji Island</skos:altLabel>
+	<skos:altLabel>Mbenje Island</skos:altLabel>
+	<skos:altLabel>Mbenji Island</skos:altLabel>
+	<skos:altLabel>M’Bengi Island</skos:altLabel>
+	<skos:prefLabel>Mbenji Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/926916/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-12.06667</wgs:lat>
+	<wgs:long>34.75</wgs:long>
+	<skos:prefLabel>Mbamba Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/927114/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.1</wgs:lat>
+	<wgs:long>34.73333</wgs:long>
+	<skos:prefLabel>Masimbwe Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/927245/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>674224</europeana:population>
+	<wgs:lat>-14.39296</wgs:lat>
+	<wgs:long>35.34658</wgs:long>
+	<skos:altLabel>Fort Johnston District</skos:altLabel>
+	<skos:altLabel>Mangoche District</skos:altLabel>
+	<skos:altLabel>Mangochi</skos:altLabel>
+	<skos:altLabel>Mangochi District</skos:altLabel>
+	<skos:altLabel>South Nyasa District</skos:altLabel>
+	<skos:prefLabel>Mangochi District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/927246/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>40236</europeana:population>
+	<wgs:lat>-14.46667</wgs:lat>
+	<wgs:long>35.26667</wgs:long>
+	<skos:altLabel>Fort Johnston</skos:altLabel>
+	<skos:altLabel>Mangoche</skos:altLabel>
+	<skos:altLabel xml:lang="de">Mangochi</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Mangochi</skos:altLabel>
+	<skos:altLabel xml:lang="en">Mangochi</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Mangochi</skos:altLabel>
+	<skos:altLabel>Mangochi</skos:altLabel>
+	<skos:altLabel>Mponda</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Мангочи</skos:altLabel>
+	<skos:prefLabel>Mangochi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/927287/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.9</wgs:lat>
+	<wgs:long>34.61667</wgs:long>
+	<skos:prefLabel>Mamkoma Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/927357/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.9</wgs:lat>
+	<wgs:long>34.63333</wgs:long>
+	<skos:altLabel>Maleri Island</skos:altLabel>
+	<skos:altLabel>Mareli Island</skos:altLabel>
+	<skos:prefLabel>Maleri Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/927384/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255146/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>15447500</europeana:population>
+	<wgs:lat>-13.5</wgs:lat>
+	<wgs:long>34</wgs:long>
+	<skos:altLabel xml:lang="ga">An Mhaláiv</skos:altLabel>
+	<skos:altLabel>MW</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ma-la-uy</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ma-la-uy (Malawi)</skos:altLabel>
+	<skos:altLabel xml:lang="so">Malaawi</skos:altLabel>
+	<skos:altLabel xml:lang="an">Malaui</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Malaui</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Malaui - Malawi</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Malauí</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Malavi</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Malavi</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Malavi</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Malavi</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Malavi</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Malavi</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Malavi</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Malavio</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Malavis</skos:altLabel>
+	<skos:altLabel xml:lang="la">Malavium</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Malaviyän</skos:altLabel>
+	<skos:altLabel xml:lang="is">Malaví</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Malavî</skos:altLabel>
+	<skos:altLabel xml:lang="id">Malawi</skos:altLabel>
+	<skos:altLabel xml:lang="es">Malawi</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Malawi</skos:altLabel>
+	<skos:altLabel xml:lang="da">Malawi</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Malawi</skos:altLabel>
+	<skos:altLabel xml:lang="de">Malawi</skos:altLabel>
+	<skos:altLabel xml:lang="en">Malawi</skos:altLabel>
+	<skos:altLabel xml:lang="et">Malawi</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Malawi</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Malawi</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Malawi</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Malawi</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Malawi</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Malawi</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Malawi</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Malawi</skos:altLabel>
+	<skos:altLabel xml:lang="it">Malawi</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Malawi</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Malawi</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Malawi</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Malawi</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Malawi</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Malawi</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Malawi</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Malawi</skos:altLabel>
+	<skos:altLabel xml:lang="af">Malawi</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Malawi</skos:altLabel>
+	<skos:altLabel xml:lang="io">Malawi</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Malawi</skos:altLabel>
+	<skos:altLabel xml:lang="li">Malawi</skos:altLabel>
+	<skos:altLabel xml:lang="no">Malawi</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Malawi</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Malawi</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Malawi</skos:altLabel>
+	<skos:altLabel xml:lang="se">Malawi</skos:altLabel>
+	<skos:altLabel xml:lang="ny">Malaŵi</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Malevia</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Malāvija</skos:altLabel>
+	<skos:altLabel>Nyasaland</skos:altLabel>
+	<skos:altLabel>Republic of Malawi</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μαλάουι</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Малави</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Малави</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Малави</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Малави</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Малави</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Малаві</skos:altLabel>
+	<skos:altLabel xml:lang="be">Малаві</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Մալավի</skos:altLabel>
+	<skos:altLabel xml:lang="he">מלאווי</skos:altLabel>
+	<skos:altLabel xml:lang="fa">مالاوی</skos:altLabel>
+	<skos:altLabel xml:lang="ug">مالاۋى</skos:altLabel>
+	<skos:altLabel xml:lang="ar">ملاوي</skos:altLabel>
+	<skos:altLabel xml:lang="ur">ملاوی</skos:altLabel>
+	<skos:altLabel xml:lang="hi">मलावी</skos:altLabel>
+	<skos:altLabel xml:lang="ks">मलावी</skos:altLabel>
+	<skos:altLabel xml:lang="sa">मलावी</skos:altLabel>
+	<skos:altLabel xml:lang="bn">মালাউয়ি</skos:altLabel>
+	<skos:altLabel xml:lang="ta">மலாவி</skos:altLabel>
+	<skos:altLabel xml:lang="ta">மலாவீ</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศมาลาวี</skos:altLabel>
+	<skos:altLabel xml:lang="th">มาลาวี</skos:altLabel>
+	<skos:altLabel xml:lang="bo">མཱ་ལཱ་ཝི།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">მალავი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ማላዊ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">マラウィ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">マラウイ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">マラウイ共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">马拉维</skos:altLabel>
+	<skos:altLabel xml:lang="ko">말라위</skos:altLabel>
+	<skos:prefLabel>Republic of Malawi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/927539/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.05</wgs:lat>
+	<wgs:long>34.76667</wgs:long>
+	<skos:prefLabel>Maingano Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/927642/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>410411</europeana:population>
+	<wgs:lat>-14.94583</wgs:lat>
+	<wgs:long>35.57367</wgs:long>
+	<skos:altLabel>Kasupe District</skos:altLabel>
+	<skos:altLabel>Machinga</skos:altLabel>
+	<skos:altLabel>Machinga District</skos:altLabel>
+	<skos:prefLabel>Machinga District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/927647/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.01667</wgs:lat>
+	<wgs:long>34.61667</wgs:long>
+	<skos:prefLabel>Machili Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/927792/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11939</europeana:population>
+	<wgs:lat>-16.00693</wgs:lat>
+	<wgs:long>35.30948</wgs:long>
+	<skos:altLabel>Luchenya</skos:altLabel>
+	<skos:altLabel>Luchenza</skos:altLabel>
+	<skos:altLabel>Lughenza</skos:altLabel>
+	<skos:prefLabel>Luchenza</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/927834/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>22469</europeana:population>
+	<wgs:lat>-15.06667</wgs:lat>
+	<wgs:long>35.21667</wgs:long>
+	<skos:altLabel>Liwonde</skos:altLabel>
+	<skos:altLabel>Old Liwonde Boma</skos:altLabel>
+	<skos:prefLabel>Liwonde</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/927964/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-14.01962</wgs:lat>
+	<wgs:long>33.68407</wgs:long>
+	<skos:altLabel>Lilongwe</skos:altLabel>
+	<skos:altLabel>Lilongwe District</skos:altLabel>
+	<skos:prefLabel>Lilongwe District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/927967/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>646750</europeana:population>
+	<wgs:lat>-13.98333</wgs:lat>
+	<wgs:long>33.78333</wgs:long>
+	<skos:altLabel xml:lang="lt">Lilongvė</skos:altLabel>
+	<skos:altLabel xml:lang="de">Lilongwe</skos:altLabel>
+	<skos:altLabel xml:lang="es">Lilongwe</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Lilongwe</skos:altLabel>
+	<skos:altLabel xml:lang="is">Lilongwe</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Lilongwe</skos:altLabel>
+	<skos:altLabel xml:lang="no">Lilongwe</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Lilongwe</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Lilongwe</skos:altLabel>
+	<skos:altLabel xml:lang="en">Lilongwe</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Lilongwe</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Lilongwe</skos:altLabel>
+	<skos:altLabel xml:lang="io">Lilongwe</skos:altLabel>
+	<skos:altLabel xml:lang="it">Lilongwe</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Lilongwe</skos:altLabel>
+	<skos:altLabel xml:lang="ny">Lilongwe</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Lilongwe</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Lilongwe</skos:altLabel>
+	<skos:altLabel xml:lang="et">Lilongwe</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Lilongwe</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Lilongwe</skos:altLabel>
+	<skos:altLabel xml:lang="da">Lilongwe</skos:altLabel>
+	<skos:altLabel>Lilongwe</skos:altLabel>
+	<skos:altLabel xml:lang="es">Lilongüe</skos:altLabel>
+	<skos:altLabel xml:lang="is">Lílongve</skos:altLabel>
+	<skos:altLabel xml:lang="el">Λιλόνγκουε</skos:altLabel>
+	<skos:altLabel xml:lang="os">Лилонгве</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Лилонгве</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Լիլոնգվե</skos:altLabel>
+	<skos:altLabel xml:lang="he">לילונגווה</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሊሎንግዌ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">リロングウェ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">利隆圭</skos:altLabel>
+	<skos:altLabel xml:lang="ko">릴롱궤</skos:altLabel>
+	<skos:prefLabel>Lilongwe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/927989/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.06667</wgs:lat>
+	<wgs:long>34.73333</wgs:long>
+	<skos:altLabel>Likoma Island</skos:altLabel>
+	<skos:prefLabel>Likoma Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/928531/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>594371</europeana:population>
+	<wgs:lat>-13</wgs:lat>
+	<wgs:long>33.41667</wgs:long>
+	<skos:altLabel>Kasungu</skos:altLabel>
+	<skos:altLabel>Kasungu District</skos:altLabel>
+	<skos:prefLabel>Kasungu District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/928534/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>42555</europeana:population>
+	<wgs:lat>-13.03333</wgs:lat>
+	<wgs:long>33.48333</wgs:long>
+	<skos:altLabel xml:lang="de">Kasungu</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kasungu</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Kasungu</skos:altLabel>
+	<skos:altLabel>Kasungu</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Касунгу</skos:altLabel>
+	<skos:prefLabel>Kasungu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/928657/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>224948</europeana:population>
+	<wgs:lat>-10.11153</wgs:lat>
+	<wgs:long>33.88151</wgs:long>
+	<skos:altLabel>Karonga</skos:altLabel>
+	<skos:altLabel>Karonga District</skos:altLabel>
+	<skos:altLabel>North Nyasa District</skos:altLabel>
+	<skos:prefLabel>Karonga District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/928957/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-11.95</wgs:lat>
+	<wgs:long>34.13333</wgs:long>
+	<skos:altLabel>Kande Island</skos:altLabel>
+	<skos:altLabel>Khande Island</skos:altLabel>
+	<skos:prefLabel>Kande Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/928970/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.1</wgs:lat>
+	<wgs:long>34.93333</wgs:long>
+	<skos:prefLabel>Kanchedza Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/929975/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>462730</europeana:population>
+	<wgs:lat>-13.60098</wgs:lat>
+	<wgs:long>33.82378</wgs:long>
+	<skos:altLabel>Dowa</skos:altLabel>
+	<skos:altLabel>Dowa District</skos:altLabel>
+	<skos:prefLabel>Dowa District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/929984/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.98333</wgs:lat>
+	<wgs:long>34.83333</wgs:long>
+	<skos:altLabel>Domwe Island</skos:altLabel>
+	<skos:altLabel>Mumbo Island</skos:altLabel>
+	<skos:prefLabel>Domwe Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/930023/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>526771</europeana:population>
+	<wgs:lat>-14.26273</wgs:lat>
+	<wgs:long>34.18559</wgs:long>
+	<skos:altLabel>Dedza</skos:altLabel>
+	<skos:altLabel>Dedza District</skos:altLabel>
+	<skos:prefLabel>Dedza District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/930025/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>15608</europeana:population>
+	<wgs:lat>-14.36667</wgs:lat>
+	<wgs:long>34.33333</wgs:long>
+	<skos:altLabel xml:lang="de">Dedza</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Dedza</skos:altLabel>
+	<skos:altLabel xml:lang="en">Dedza</skos:altLabel>
+	<skos:altLabel>Dedza</skos:altLabel>
+	<skos:prefLabel>Dedza</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/930283/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>472144</europeana:population>
+	<wgs:lat>-16.10583</wgs:lat>
+	<wgs:long>35.1506</wgs:long>
+	<skos:altLabel>Cholo District</skos:altLabel>
+	<skos:altLabel>Thyolo</skos:altLabel>
+	<skos:altLabel>Thyolo District</skos:altLabel>
+	<skos:prefLabel>Thyolo District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/930384/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.78333</wgs:lat>
+	<wgs:long>35.86667</wgs:long>
+	<skos:prefLabel>Chiuta Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/930473/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.01667</wgs:lat>
+	<wgs:long>34.61667</wgs:long>
+	<skos:altLabel>Chisamula Island</skos:altLabel>
+	<skos:altLabel>Chisamulo Island</skos:altLabel>
+	<skos:altLabel>Chisamulu Island</skos:altLabel>
+	<skos:altLabel>Chisumulu Island</skos:altLabel>
+	<skos:altLabel>Chizumulu Island</skos:altLabel>
+	<skos:altLabel>Risumulo Island</skos:altLabel>
+	<skos:prefLabel>Chisumulu Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/930543/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-10.45</wgs:lat>
+	<wgs:long>34.28333</wgs:long>
+	<skos:prefLabel>Chirwa Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/930579/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>246489</europeana:population>
+	<wgs:lat>-15.75268</wgs:lat>
+	<wgs:long>35.21576</wgs:long>
+	<skos:altLabel>Chiradzulu</skos:altLabel>
+	<skos:altLabel>Chiradzulu District</skos:altLabel>
+	<skos:prefLabel>Chiradzulu District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/930706/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.83333</wgs:lat>
+	<wgs:long>34.95</wgs:long>
+	<skos:prefLabel>Chinyankwazi Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/931067/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>362918</europeana:population>
+	<wgs:lat>-16.16667</wgs:lat>
+	<wgs:long>34.75</wgs:long>
+	<skos:altLabel>Chikwawa</skos:altLabel>
+	<skos:altLabel>Chikwawa District</skos:altLabel>
+	<skos:altLabel>Lower River</skos:altLabel>
+	<skos:prefLabel>Chikwawa District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/931244/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.26395</wgs:lat>
+	<wgs:long>35.63591</wgs:long>
+	<skos:altLabel>Chidiampiri Island</skos:altLabel>
+	<skos:altLabel>Python Island</skos:altLabel>
+	<skos:prefLabel>Chidiampiri Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/931313/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-15.48004</wgs:lat>
+	<wgs:long>35.76263</wgs:long>
+	<skos:altLabel>Chengerlani Island</skos:altLabel>
+	<skos:altLabel>Chenjeriani Islands</skos:altLabel>
+	<skos:prefLabel>Chenjeriani Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/931752/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.25</wgs:lat>
+	<wgs:long>35.15</wgs:long>
+	<skos:prefLabel>Boadzulu Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/931754/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-15.64732</wgs:lat>
+	<wgs:long>34.93956</wgs:long>
+	<skos:altLabel>Blantyre</skos:altLabel>
+	<skos:altLabel>Blantyre District</skos:altLabel>
+	<skos:prefLabel>Blantyre District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/931755/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>584877</europeana:population>
+	<wgs:lat>-15.78682</wgs:lat>
+	<wgs:long>35.01387</wgs:long>
+	<skos:altLabel xml:lang="lt">Blantairas</skos:altLabel>
+	<skos:altLabel xml:lang="id">Blantyre</skos:altLabel>
+	<skos:altLabel xml:lang="en">Blantyre</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Blantyre</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Blantyre</skos:altLabel>
+	<skos:altLabel xml:lang="de">Blantyre</skos:altLabel>
+	<skos:altLabel xml:lang="es">Blantyre</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Blantyre</skos:altLabel>
+	<skos:altLabel xml:lang="is">Blantyre</skos:altLabel>
+	<skos:altLabel>Blantyre</skos:altLabel>
+	<skos:altLabel>Kapeni</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Блантайр</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ブランタイヤ</skos:altLabel>
+	<skos:prefLabel>Blantyre</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/931865/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>18902</europeana:population>
+	<wgs:lat>-14.98333</wgs:lat>
+	<wgs:long>34.95</wgs:long>
+	<skos:altLabel xml:lang="en">Balaka</skos:altLabel>
+	<skos:altLabel xml:lang="de">Balaka</skos:altLabel>
+	<skos:altLabel>Balaka</skos:altLabel>
+	<skos:altLabel>Balakas</skos:altLabel>
+	<skos:altLabel>Palaka</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Балака</skos:altLabel>
+	<skos:prefLabel>Balaka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1105840/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>277072</europeana:population>
+	<wgs:lat>-15.04839</wgs:lat>
+	<wgs:long>35.0591</wgs:long>
+	<skos:altLabel>Balaka</skos:altLabel>
+	<skos:altLabel>Balaka District</skos:altLabel>
+	<skos:prefLabel>Balaka District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1105841/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-12.08333</wgs:lat>
+	<wgs:long>34.66667</wgs:long>
+	<skos:altLabel>Likoma</skos:altLabel>
+	<skos:altLabel>Likoma District</skos:altLabel>
+	<skos:prefLabel>Likoma District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1105842/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>237747</europeana:population>
+	<wgs:lat>-15.66667</wgs:lat>
+	<wgs:long>35.66667</wgs:long>
+	<skos:altLabel>Phalombe</skos:altLabel>
+	<skos:altLabel>Phalombe District</skos:altLabel>
+	<skos:prefLabel>Phalombe District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628385/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/927384/"/>
+	<europeana:country>MW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-15.45051</wgs:lat>
+	<wgs:long>34.70034</wgs:long>
+	<skos:prefLabel>Neno District</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 86 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

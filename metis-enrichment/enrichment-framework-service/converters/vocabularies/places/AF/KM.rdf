@@ -1,0 +1,1050 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AF_KM
+Description: Selected fields pulled from Geonames about KM done on Mon May 23 21:16:16 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/921657/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.71667</wgs:lat>
+	<wgs:long>45.15</wgs:long>
+	<skos:altLabel>Verte Islet</skos:altLabel>
+	<skos:altLabel>Île Verte</skos:altLabel>
+	<skos:prefLabel>Île Verte</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921659/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.76667</wgs:lat>
+	<wgs:long>45.26667</wgs:long>
+	<skos:altLabel>Vatou</skos:altLabel>
+	<skos:altLabel>Vatou Islet</skos:altLabel>
+	<skos:altLabel>Îlot Vatou</skos:altLabel>
+	<skos:prefLabel>Îlot Vatou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921666/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-11.4</wgs:lat>
+	<wgs:long>43.41667</wgs:long>
+	<skos:altLabel>Tortues Island</skos:altLabel>
+	<skos:altLabel>Île aux Tortues</skos:altLabel>
+	<skos:prefLabel>Île aux Tortues</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921675/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10374</europeana:population>
+	<wgs:lat>-12.19556</wgs:lat>
+	<wgs:long>44.27667</wgs:long>
+	<skos:prefLabel>Sima</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921682/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.4</wgs:lat>
+	<wgs:long>43.73333</wgs:long>
+	<skos:prefLabel>Îlot Sanzi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921684/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.35</wgs:lat>
+	<wgs:long>43.88333</wgs:long>
+	<skos:altLabel>Samia Islet</skos:altLabel>
+	<skos:altLabel>Îlot Samia</skos:altLabel>
+	<skos:prefLabel>Îlot Samia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921693/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.81667</wgs:lat>
+	<wgs:long>45.3</wgs:long>
+	<skos:altLabel>Ile du Recif</skos:altLabel>
+	<skos:altLabel>Reef Islet</skos:altLabel>
+	<skos:altLabel>Îlot du Récif</skos:altLabel>
+	<skos:prefLabel>Îlot du Récif</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921708/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.78333</wgs:lat>
+	<wgs:long>45.31667</wgs:long>
+	<skos:altLabel>Pamanzi</skos:altLabel>
+	<skos:altLabel>Pamanzi Be</skos:altLabel>
+	<skos:altLabel>Pamanzi Island</skos:altLabel>
+	<skos:altLabel>Île Pamanzi</skos:altLabel>
+	<skos:prefLabel>Île Pamanzi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921717/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.39806</wgs:lat>
+	<wgs:long>43.70611</wgs:long>
+	<skos:altLabel>Chissioua Ouénéfou</skos:altLabel>
+	<skos:altLabel>Wenefu</skos:altLabel>
+	<skos:altLabel>Île Ouénéfou</skos:altLabel>
+	<skos:prefLabel>Chissioua Ouénéfou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921721/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10179</europeana:population>
+	<wgs:lat>-12.13222</wgs:lat>
+	<wgs:long>44.42583</wgs:long>
+	<skos:altLabel>Oani</skos:altLabel>
+	<skos:altLabel>Ouani</skos:altLabel>
+	<skos:altLabel>Ouany</skos:altLabel>
+	<skos:prefLabel>Ouani</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921751/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.65</wgs:lat>
+	<wgs:long>45.03333</wgs:long>
+	<skos:altLabel>Chissioi M’Zamboro</skos:altLabel>
+	<skos:altLabel>Ile M’Zambaurou</skos:altLabel>
+	<skos:altLabel>M’Zamborou</skos:altLabel>
+	<skos:altLabel>Zamburu Island</skos:altLabel>
+	<skos:altLabel>Île M’Zamboro</skos:altLabel>
+	<skos:altLabel>Île M’Zambourou</skos:altLabel>
+	<skos:prefLabel>Chissioi M’Zamboro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921753/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23594</europeana:population>
+	<wgs:lat>-12.16278</wgs:lat>
+	<wgs:long>44.39639</wgs:long>
+	<skos:altLabel>Matsamudu</skos:altLabel>
+	<skos:altLabel>Moutsamoudou</skos:altLabel>
+	<skos:altLabel>Mutsamudu</skos:altLabel>
+	<skos:prefLabel>Moutsamoudou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921754/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.35</wgs:lat>
+	<wgs:long>43.93333</wgs:long>
+	<skos:altLabel>Muchaco Island</skos:altLabel>
+	<skos:altLabel>Muchaco Islet</skos:altLabel>
+	<skos:altLabel>Rocher Blanc</skos:altLabel>
+	<skos:altLabel>White Rock</skos:altLabel>
+	<skos:altLabel>Îlot Muchaco</skos:altLabel>
+	<skos:prefLabel>Îlot Muchaco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921772/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>42872</europeana:population>
+	<wgs:lat>-11.70216</wgs:lat>
+	<wgs:long>43.25506</wgs:long>
+	<skos:altLabel xml:lang="id">Moroni</skos:altLabel>
+	<skos:altLabel xml:lang="en">Moroni</skos:altLabel>
+	<skos:altLabel xml:lang="de">Moroni</skos:altLabel>
+	<skos:altLabel xml:lang="es">Moroni</skos:altLabel>
+	<skos:altLabel xml:lang="da">Moroni</skos:altLabel>
+	<skos:altLabel xml:lang="io">Moroni</skos:altLabel>
+	<skos:altLabel xml:lang="no">Moroni</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Moroni</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Moroni</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Moroni</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Moroni</skos:altLabel>
+	<skos:altLabel xml:lang="it">Moroni</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Moroni</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Moroni</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Moroni</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Moroni</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Moroni</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Moroni</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Moroni</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Moroni</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Moronis</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μορονί</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Морони</skos:altLabel>
+	<skos:altLabel xml:lang="he">מורוני</skos:altLabel>
+	<skos:altLabel xml:lang="ar">موروني</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሞሮኒ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">モロニ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">莫洛尼</skos:altLabel>
+	<skos:altLabel xml:lang="ko">모로니</skos:altLabel>
+	<skos:prefLabel>Moroni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921779/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.25</wgs:lat>
+	<wgs:long>43.75</wgs:long>
+	<skos:altLabel>Ile Moheli</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Mūhaylī</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Mūwaylī</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Moheli</skos:altLabel>
+	<skos:altLabel xml:lang="it">Moheli</skos:altLabel>
+	<skos:altLabel xml:lang="no">Moheli</skos:altLabel>
+	<skos:altLabel>Mohilla Island</skos:altLabel>
+	<skos:altLabel xml:lang="de">Mohéli</skos:altLabel>
+	<skos:altLabel xml:lang="es">Mohéli</skos:altLabel>
+	<skos:altLabel xml:lang="en">Mohéli</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Mohéli</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Mohéli</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Mohéli</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Mohéli</skos:altLabel>
+	<skos:altLabel>Mwali</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جزيرة موهيلي</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جزيرة مويلي</skos:altLabel>
+	<skos:altLabel xml:lang="ja">モヘリ</skos:altLabel>
+	<skos:altLabel xml:lang="ko">모엘리 섬</skos:altLabel>
+	<skos:prefLabel>Mwali</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921780/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-12.25</wgs:lat>
+	<wgs:long>43.75</wgs:long>
+	<skos:altLabel>Mohéli</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Mūhaylī</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Mūwaylī</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Île Autonome de Mohéli</skos:altLabel>
+	<skos:altLabel>موهيلي</skos:altLabel>
+	<skos:altLabel>مويلي</skos:altLabel>
+	<skos:prefLabel>Île Autonome de Mohéli</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921781/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.76667</wgs:lat>
+	<wgs:long>45.26667</wgs:long>
+	<skos:altLabel>Mognameri Island</skos:altLabel>
+	<skos:altLabel>Mouniameri</skos:altLabel>
+	<skos:altLabel>Mouniameri Island</skos:altLabel>
+	<skos:altLabel>Îlot Mognameri</skos:altLabel>
+	<skos:altLabel>Îlot Mogne Ameri</skos:altLabel>
+	<skos:prefLabel>Îlot Mognameri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921782/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.36667</wgs:lat>
+	<wgs:long>43.75</wgs:long>
+	<skos:altLabel>Choa Moa</skos:altLabel>
+	<skos:altLabel>Ile Choa Moa</skos:altLabel>
+	<skos:altLabel>Moa Island</skos:altLabel>
+	<skos:altLabel>Îlot Moa</skos:altLabel>
+	<skos:prefLabel>Îlot Moa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921795/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.4</wgs:lat>
+	<wgs:long>43.86667</wgs:long>
+	<skos:altLabel>Miahgoni Island</skos:altLabel>
+	<skos:altLabel>Miangoni Islet</skos:altLabel>
+	<skos:altLabel>Îlot Miangoni</skos:altLabel>
+	<skos:prefLabel>Îlot Miangoni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921796/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.36667</wgs:lat>
+	<wgs:long>43.9</wgs:long>
+	<skos:altLabel>Mianga Islet</skos:altLabel>
+	<skos:altLabel>Îlot Mianga</skos:altLabel>
+	<skos:prefLabel>Îlot Mianga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921804/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.36667</wgs:lat>
+	<wgs:long>43.75</wgs:long>
+	<skos:altLabel>Choambouhou</skos:altLabel>
+	<skos:altLabel>Ile M. Bouhou</skos:altLabel>
+	<skos:altLabel>Mbuhu Islet</skos:altLabel>
+	<skos:altLabel>Îlot Mbuhu</skos:altLabel>
+	<skos:prefLabel>Îlot Mbuhu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921811/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.83333</wgs:lat>
+	<wgs:long>45.16667</wgs:long>
+	<skos:altLabel>Grande Terre</skos:altLabel>
+	<skos:altLabel>Ile Mayotte</skos:altLabel>
+	<skos:altLabel>Mahore</skos:altLabel>
+	<skos:altLabel>Maote</skos:altLabel>
+	<skos:altLabel>Mayotta Island</skos:altLabel>
+	<skos:altLabel>Mayotte</skos:altLabel>
+	<skos:prefLabel>Mayotte</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921812/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.38333</wgs:lat>
+	<wgs:long>43.66667</wgs:long>
+	<skos:altLabel>Ile Marosi</skos:altLabel>
+	<skos:altLabel>Maoussi</skos:altLabel>
+	<skos:altLabel>Maussi Island</skos:altLabel>
+	<skos:altLabel>Îlot Maussi</skos:altLabel>
+	<skos:prefLabel>Îlot Maussi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921819/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.38333</wgs:lat>
+	<wgs:long>43.65</wgs:long>
+	<skos:altLabel>Ile Magnonni</skos:altLabel>
+	<skos:altLabel>Magnuni Island</skos:altLabel>
+	<skos:altLabel>Îlot Magnuni</skos:altLabel>
+	<skos:prefLabel>Îlot Magnuni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921827/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.16028</wgs:lat>
+	<wgs:long>44.20389</wgs:long>
+	<skos:altLabel>La Selle</skos:altLabel>
+	<skos:altLabel>Saddle Island</skos:altLabel>
+	<skos:altLabel>Île de La Selle</skos:altLabel>
+	<skos:altLabel>Îlot de La Selle</skos:altLabel>
+	<skos:prefLabel>Île de La Selle</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921881/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-11.58611</wgs:lat>
+	<wgs:long>43.33306</wgs:long>
+	<skos:altLabel>Angaziga</skos:altLabel>
+	<skos:altLabel>Comoro Island</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Grande Comore</skos:altLabel>
+	<skos:altLabel>Ile de la Grande Comore</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Inghāzīgā</skos:altLabel>
+	<skos:altLabel>Njazidja</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جزيرة انغازيجا</skos:altLabel>
+	<skos:prefLabel>Grande Comore</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921882/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>345513</europeana:population>
+	<wgs:lat>-11.58333</wgs:lat>
+	<wgs:long>43.33333</wgs:long>
+	<skos:altLabel>Grande Comore</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Inghāzījā</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Île Autonome de Grande Comore</skos:altLabel>
+	<skos:altLabel>انغازيجا</skos:altLabel>
+	<skos:prefLabel>Île Autonome de Grande Comore</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921885/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.37306</wgs:lat>
+	<wgs:long>43.76139</wgs:long>
+	<skos:altLabel>Chissioua Foro</skos:altLabel>
+	<skos:altLabel>Foro Islet</skos:altLabel>
+	<skos:altLabel>Îlot Foro</skos:altLabel>
+	<skos:prefLabel>Chissioua Foro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921889/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14966</europeana:population>
+	<wgs:lat>-12.28</wgs:lat>
+	<wgs:long>43.7425</wgs:long>
+	<skos:altLabel>Fomboni</skos:altLabel>
+	<skos:altLabel>Fumboni</skos:altLabel>
+	<skos:prefLabel>Fomboni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921894/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-12.75</wgs:lat>
+	<wgs:long>45.26667</wgs:long>
+	<skos:altLabel>Nosi Effatsi</skos:altLabel>
+	<skos:altLabel>Nossi Effatsi</skos:altLabel>
+	<skos:altLabel>Nosy Effatsy</skos:altLabel>
+	<skos:altLabel>Îlots Effatsy</skos:altLabel>
+	<skos:prefLabel>Îlots Effatsy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921896/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.68333</wgs:lat>
+	<wgs:long>45.15</wgs:long>
+	<skos:altLabel>Dzugoma Island</skos:altLabel>
+	<skos:altLabel>Dzugomo Island</skos:altLabel>
+	<skos:altLabel>Îlot Dzugoma</skos:altLabel>
+	<skos:prefLabel>Îlot Dzugoma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921899/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.78333</wgs:lat>
+	<wgs:long>45.28333</wgs:long>
+	<skos:altLabel>Dzaudzi</skos:altLabel>
+	<skos:altLabel>Zaudzi Island</skos:altLabel>
+	<skos:altLabel>Îlot Dzaoudzi</skos:altLabel>
+	<skos:prefLabel>Îlot Dzaoudzi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921906/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14509</europeana:population>
+	<wgs:lat>-12.25694</wgs:lat>
+	<wgs:long>44.53194</wgs:long>
+	<skos:altLabel>Deumoni</skos:altLabel>
+	<skos:altLabel>Domoni</skos:altLabel>
+	<skos:prefLabel>Domoni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921909/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.38333</wgs:lat>
+	<wgs:long>43.71667</wgs:long>
+	<skos:altLabel>Choa Djoumadjini</skos:altLabel>
+	<skos:altLabel>Chumadini</skos:altLabel>
+	<skos:altLabel>Chumadini Island</skos:altLabel>
+	<skos:altLabel>Ile Djoumadjini</skos:altLabel>
+	<skos:altLabel>Ile Djumadjim</skos:altLabel>
+	<skos:altLabel>Ile Djumadjini</skos:altLabel>
+	<skos:altLabel>Jumajini Island</skos:altLabel>
+	<skos:altLabel>Îlot Djumadjini</skos:altLabel>
+	<skos:prefLabel>Îlot Djumadjini</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921929/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255146/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>773407</europeana:population>
+	<wgs:lat>-12.16667</wgs:lat>
+	<wgs:long>44.25</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Qumur</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Comor-szigetek</skos:altLabel>
+	<skos:altLabel xml:lang="es">Comoras</skos:altLabel>
+	<skos:altLabel xml:lang="an">Comoras</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Comoras</skos:altLabel>
+	<skos:altLabel xml:lang="af">Comore</skos:altLabel>
+	<skos:altLabel xml:lang="it">Comore</skos:altLabel>
+	<skos:altLabel xml:lang="li">Comore</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Comore</skos:altLabel>
+	<skos:altLabel xml:lang="af">Comore-eilande</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Comore-szigetek</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Comoren</skos:altLabel>
+	<skos:altLabel xml:lang="da">Comorerne</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Comores</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Comores</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Comores</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Comores</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Comores (Archipel)</skos:altLabel>
+	<skos:altLabel>Comoro Islands</skos:altLabel>
+	<skos:altLabel xml:lang="en">Comoros</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Comoros</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Comoros</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Comoros</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Comoros</skos:altLabel>
+	<skos:altLabel xml:lang="na">Comoros</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Comoros</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Comoros</skos:altLabel>
+	<skos:altLabel xml:lang="et">Comoros</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Comoros</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Comoros</skos:altLabel>
+	<skos:altLabel xml:lang="is">Comoros</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Comòras</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Cô-mô</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Cô-mô (Comoros)</skos:altLabel>
+	<skos:altLabel>Federal Islamic Republic of the Comoros</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Ilhas Comores</skos:altLabel>
+	<skos:altLabel xml:lang="la">Insulae Comorianae</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ittiḩad al Qamar</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jumhūrīyat Juzur al Qamar al Ittiḩādīyah al Islāmīyah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jumhūrīyat Juzur al Qamar al Muttaḩidah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jumhūrīyat al Qamar al Muttaḩidah</skos:altLabel>
+	<skos:altLabel>Jumhūrīyat al Qumur al Ittiḩādīyah al Islāmīyah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Juzur al Qamar</skos:altLabel>
+	<skos:altLabel>KM</skos:altLabel>
+	<skos:altLabel xml:lang="et">Komoorid</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Komor</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Komorai</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Komorane</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Komore</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Komoreak</skos:altLabel>
+	<skos:altLabel xml:lang="de">Komoren</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Komorene</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Komorene</skos:altLabel>
+	<skos:altLabel xml:lang="no">Komorene</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Komorerna</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Komori</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Komori</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Komori</skos:altLabel>
+	<skos:altLabel xml:lang="io">Komori</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Komori</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Komorit</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Komorlar</skos:altLabel>
+	<skos:altLabel xml:lang="id">Komoro</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Komoro</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Komoroj</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Komorooyggjarnar</skos:altLabel>
+	<skos:altLabel xml:lang="id">Komoros</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Komoros</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Komoros</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Komoros</skos:altLabel>
+	<skos:altLabel xml:lang="se">Komorosullot</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Komoru salas</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Komoruäns</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Komory</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Komory</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Komory</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Komorys</skos:altLabel>
+	<skos:altLabel xml:lang="is">Kómoreyjar</skos:altLabel>
+	<skos:altLabel>Las Comoras</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Oileáin Chomóra</skos:altLabel>
+	<skos:altLabel>Republic of the Comoros</skos:altLabel>
+	<skos:altLabel>République Fédérale Islamique des Comores</skos:altLabel>
+	<skos:altLabel>République Fédérale et Islamique des Comores</skos:altLabel>
+	<skos:altLabel>République des Comores</skos:altLabel>
+	<skos:altLabel>Territoire des Comores</skos:altLabel>
+	<skos:altLabel>Territory of the Comoro Islands</skos:altLabel>
+	<skos:altLabel>Udzima wa Komori</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Union des Comores</skos:altLabel>
+	<skos:altLabel xml:lang="en">Union of the Comoros</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Visiwa vya Komoro</skos:altLabel>
+	<skos:altLabel>État Comorien</skos:altLabel>
+	<skos:altLabel xml:lang="el">Κομόρες</skos:altLabel>
+	<skos:altLabel xml:lang="el">Κομόρος</skos:altLabel>
+	<skos:altLabel xml:lang="be">Каморскія Астравы</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Комори</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Комори</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Комори</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Коморос</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Коморос</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Коморска Острва</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Коморски о-ви</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Коморски острови</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Коморские Острова</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Коморские острова</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Коморскі острови</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Коморські Острови</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Коморські острови</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Ҷазираҳои Комор</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Կոմորոս</skos:altLabel>
+	<skos:altLabel xml:lang="he">קומורו</skos:altLabel>
+	<skos:altLabel xml:lang="he">קומורוס</skos:altLabel>
+	<skos:altLabel xml:lang="ar">إتَّحَاد اَلْقَمَر</skos:altLabel>
+	<skos:altLabel xml:lang="ar">اتحاد جزر القمر</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جزر القمر</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جمهورية القمر المتحدة</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جمهورية جزر القمر الاتحادية الإسلامية</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جمهورية جزرالقمر المتحدة</skos:altLabel>
+	<skos:altLabel xml:lang="ug">كومورو</skos:altLabel>
+	<skos:altLabel xml:lang="fa">کمورس</skos:altLabel>
+	<skos:altLabel xml:lang="fa">کومور</skos:altLabel>
+	<skos:altLabel xml:lang="fa">کومورو</skos:altLabel>
+	<skos:altLabel xml:lang="ps">کوموروس</skos:altLabel>
+	<skos:altLabel xml:lang="ur">کوموروس</skos:altLabel>
+	<skos:altLabel xml:lang="hi">कोमोरस</skos:altLabel>
+	<skos:altLabel xml:lang="sa">कोमोरोस</skos:altLabel>
+	<skos:altLabel xml:lang="mr">कोमोरोस</skos:altLabel>
+	<skos:altLabel xml:lang="hi">कोमोरोस</skos:altLabel>
+	<skos:altLabel xml:lang="bn">কমোরস</skos:altLabel>
+	<skos:altLabel xml:lang="bn">কোমোরোস</skos:altLabel>
+	<skos:altLabel xml:lang="ta">கோமரோஸ்</skos:altLabel>
+	<skos:altLabel xml:lang="th">คอโมโรส</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ໂຄໂມຣອດ</skos:altLabel>
+	<skos:altLabel xml:lang="ka">კომორის კუნძულები</skos:altLabel>
+	<skos:altLabel xml:lang="am">ኮሞሮስ</skos:altLabel>
+	<skos:altLabel xml:lang="km">កុំម៉ូរ៉ូស</skos:altLabel>
+	<skos:altLabel xml:lang="ja">コモロ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">コモロ・イスラム連邦共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">科摩罗</skos:altLabel>
+	<skos:altLabel xml:lang="zh">葛摩</skos:altLabel>
+	<skos:altLabel xml:lang="ko">코모로</skos:altLabel>
+	<skos:altLabel xml:lang="ko">코모르</skos:altLabel>
+	<skos:prefLabel>Union of the Comoros</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921930/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-12.16667</wgs:lat>
+	<wgs:long>44.25</wgs:long>
+	<skos:altLabel>Comores</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Comores Archipel des</skos:altLabel>
+	<skos:altLabel>Comores Archipelago</skos:altLabel>
+	<skos:altLabel xml:lang="en">Comoro Islands</skos:altLabel>
+	<skos:altLabel>Îles Comores</skos:altLabel>
+	<skos:prefLabel>Comoro Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921936/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-12.68333</wgs:lat>
+	<wgs:long>45.06667</wgs:long>
+	<skos:altLabel>Choazil Islands</skos:altLabel>
+	<skos:altLabel>Malandzamia Islands</skos:altLabel>
+	<skos:altLabel>Îles Choazil</skos:altLabel>
+	<skos:prefLabel>Îles Choazil</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921945/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.40306</wgs:lat>
+	<wgs:long>43.71833</wgs:long>
+	<skos:altLabel>Chissioua Chandzi</skos:altLabel>
+	<skos:altLabel>Choa Sanzi</skos:altLabel>
+	<skos:altLabel>Ile Chandzi</skos:altLabel>
+	<skos:altLabel>Ile Sanzi</skos:altLabel>
+	<skos:altLabel>Sanzi Islet</skos:altLabel>
+	<skos:altLabel>Îlot Sanzi</skos:altLabel>
+	<skos:prefLabel>Chissioua Chandzi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921950/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.93333</wgs:lat>
+	<wgs:long>45.16667</wgs:long>
+	<skos:altLabel>Caroni Islet</skos:altLabel>
+	<skos:altLabel>Île Caroni</skos:altLabel>
+	<skos:prefLabel>Île Caroni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921951/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.39806</wgs:lat>
+	<wgs:long>43.66944</wgs:long>
+	<skos:altLabel>Canzuni Island</skos:altLabel>
+	<skos:altLabel>Chissioua Canzoni</skos:altLabel>
+	<skos:altLabel>Chissioua Kanzoni</skos:altLabel>
+	<skos:altLabel>Choa Canzouni</skos:altLabel>
+	<skos:altLabel>Ile Canzouni</skos:altLabel>
+	<skos:altLabel>Ile Canzuni</skos:altLabel>
+	<skos:altLabel>Ile Maoussi</skos:altLabel>
+	<skos:altLabel>Kanzuni Island</skos:altLabel>
+	<skos:altLabel>Nosy Canzouni</skos:altLabel>
+	<skos:prefLabel>Chissioua Kanzoni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921952/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.76667</wgs:lat>
+	<wgs:long>45.26667</wgs:long>
+	<skos:altLabel>Cacazou</skos:altLabel>
+	<skos:altLabel>Cacazou Islet</skos:altLabel>
+	<skos:altLabel>Îlot Cacazou</skos:altLabel>
+	<skos:prefLabel>Îlot Cacazou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921954/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.81667</wgs:lat>
+	<wgs:long>45.25</wgs:long>
+	<skos:altLabel>Bouzi</skos:altLabel>
+	<skos:altLabel>Buzi</skos:altLabel>
+	<skos:altLabel>Buzi Islet</skos:altLabel>
+	<skos:altLabel>Sisoa Bouzi</skos:altLabel>
+	<skos:altLabel>Îlot Bouzi</skos:altLabel>
+	<skos:prefLabel>Sisoa Bouzi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921955/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13</wgs:lat>
+	<wgs:long>45.15</wgs:long>
+	<skos:altLabel>Buni Islet</skos:altLabel>
+	<skos:altLabel>Ile Bouni</skos:altLabel>
+	<skos:altLabel>Îlot Bouni</skos:altLabel>
+	<skos:prefLabel>Îlot Bouni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921978/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.9</wgs:lat>
+	<wgs:long>45.25</wgs:long>
+	<skos:altLabel>Bandeli Island</skos:altLabel>
+	<skos:altLabel>Bandéli</skos:altLabel>
+	<skos:altLabel>Chissioi Bandele</skos:altLabel>
+	<skos:altLabel>Ile Bandélé</skos:altLabel>
+	<skos:altLabel>Îlot Bandeli</skos:altLabel>
+	<skos:prefLabel>Chissioi Bandele</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921989/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.93333</wgs:lat>
+	<wgs:long>45.21667</wgs:long>
+	<skos:altLabel>Bambo Island</skos:altLabel>
+	<skos:altLabel>Île Bambo</skos:altLabel>
+	<skos:prefLabel>Île Bambo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921995/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.3</wgs:lat>
+	<wgs:long>43.63333</wgs:long>
+	<skos:altLabel>Ile Luala</skos:altLabel>
+	<skos:altLabel>Île Avourina</skos:altLabel>
+	<skos:altLabel>îlot Luala</skos:altLabel>
+	<skos:prefLabel>Île Avourina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/921997/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.75</wgs:lat>
+	<wgs:long>45.28333</wgs:long>
+	<skos:altLabel>Aombe Islet</skos:altLabel>
+	<skos:altLabel>Aombé</skos:altLabel>
+	<skos:altLabel>Îlot Aombe</skos:altLabel>
+	<skos:prefLabel>Îlot Aombe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/922000/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.25</wgs:lat>
+	<wgs:long>44.41667</wgs:long>
+	<skos:altLabel xml:lang="de">Anjouan</skos:altLabel>
+	<skos:altLabel xml:lang="en">Anjouan</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Anjouan</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Anjouan</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Anjouan</skos:altLabel>
+	<skos:altLabel xml:lang="es">Anjouan</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Anjouan</skos:altLabel>
+	<skos:altLabel xml:lang="it">Anjouan</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Anjouan</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Anjouan</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Anjouan</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Anjouan</skos:altLabel>
+	<skos:altLabel>Anjouan Island</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Anjwān</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Hanzwān</skos:altLabel>
+	<skos:altLabel>Johanna</skos:altLabel>
+	<skos:altLabel>Johanna Island</skos:altLabel>
+	<skos:altLabel>Nzwani</skos:altLabel>
+	<skos:altLabel>Île Anjouan</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جزيرة أنجوان</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جزيرة هنزوان</skos:altLabel>
+	<skos:altLabel xml:lang="ja">アンジュアン</skos:altLabel>
+	<skos:altLabel xml:lang="ko">앙주앙 섬</skos:altLabel>
+	<skos:prefLabel>Anjouan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/922001/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>270255</europeana:population>
+	<wgs:lat>-12.25</wgs:lat>
+	<wgs:long>44.41667</wgs:long>
+	<skos:altLabel>Anjouan</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Anjwān</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Hanzwān</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Île Autonome d'Anjouan</skos:altLabel>
+	<skos:altLabel>أنجوان</skos:altLabel>
+	<skos:altLabel>هنزوان</skos:altLabel>
+	<skos:prefLabel>Île Autonome d'Anjouan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/922004/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.66667</wgs:lat>
+	<wgs:long>45.13333</wgs:long>
+	<skos:altLabel>Andrema Island</skos:altLabel>
+	<skos:altLabel>Chissioi Andréma</skos:altLabel>
+	<skos:altLabel>Ile Andrema</skos:altLabel>
+	<skos:prefLabel>Chissioi Andréma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/922011/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-12.83333</wgs:lat>
+	<wgs:long>45.26667</wgs:long>
+	<skos:altLabel>Ajangua Islands</skos:altLabel>
+	<skos:altLabel>Iles Ajangua</skos:altLabel>
+	<skos:altLabel>Îlots Ajangua</skos:altLabel>
+	<skos:prefLabel>Îlots Ajangua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1090514/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.28361</wgs:lat>
+	<wgs:long>43.61639</wgs:long>
+	<skos:prefLabel>Chissioua Bouélachamba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1090522/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.39472</wgs:lat>
+	<wgs:long>43.64222</wgs:long>
+	<skos:prefLabel>Chissioua Magnougni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1090523/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.39972</wgs:lat>
+	<wgs:long>43.65694</wgs:long>
+	<skos:prefLabel>Chissioua Dzaha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1090524/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.39111</wgs:lat>
+	<wgs:long>43.69583</wgs:long>
+	<skos:prefLabel>Chissioua Mbouzi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1090525/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.395</wgs:lat>
+	<wgs:long>43.72861</wgs:long>
+	<skos:prefLabel>Chissioua Mbougo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1090526/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.37889</wgs:lat>
+	<wgs:long>43.73667</wgs:long>
+	<skos:prefLabel>Chissioua Méa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1090600/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-12.35694</wgs:lat>
+	<wgs:long>43.66111</wgs:long>
+	<skos:prefLabel>Mbo Mbili</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1090601/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.36361</wgs:lat>
+	<wgs:long>43.72306</wgs:long>
+	<skos:prefLabel>Chissioua Bouélamiradji</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1090839/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.38389</wgs:lat>
+	<wgs:long>43.87111</wgs:long>
+	<skos:prefLabel>Chissioua Chikoundou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1090840/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLT"/>
+	<wgs:lat>-12.37833</wgs:lat>
+	<wgs:long>43.86889</wgs:long>
+	<skos:prefLabel>Chissioua Bouélamanga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1090841/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.36972</wgs:lat>
+	<wgs:long>43.87556</wgs:long>
+	<skos:prefLabel>Chissioua Mbouzi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1090851/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-12.33361</wgs:lat>
+	<wgs:long>43.85139</wgs:long>
+	<skos:prefLabel>Chissioua Bouélamahombé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1090854/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.37472</wgs:lat>
+	<wgs:long>43.89389</wgs:long>
+	<skos:prefLabel>Chissioua Gnandza</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1090855/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.36583</wgs:lat>
+	<wgs:long>43.91806</wgs:long>
+	<skos:prefLabel>Chissioua Mchaco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1090933/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.18639</wgs:lat>
+	<wgs:long>44.3025</wgs:long>
+	<skos:prefLabel>Mchakojou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1091117/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10168</europeana:population>
+	<wgs:lat>-12.15667</wgs:lat>
+	<wgs:long>44.40806</wgs:long>
+	<skos:altLabel>Mirontsi</skos:altLabel>
+	<skos:prefLabel>Mirontsi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1091693/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/921929/"/>
+	<europeana:country>KM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-11.40639</wgs:lat>
+	<wgs:long>43.40417</wgs:long>
+	<skos:altLabel>Choua-Chandroudé</skos:altLabel>
+	<skos:altLabel>Île aux Tortues</skos:altLabel>
+	<skos:prefLabel>Choua-Chandroudé</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 67 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

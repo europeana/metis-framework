@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AS_CX
+Description: Selected fields pulled from Geonames about CX done on Mon May 23 21:13:25 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/2078138/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255147/"/>
+	<europeana:country>CX</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLD"/>
+	<europeana:population>1500</europeana:population>
+	<wgs:lat>-10.5</wgs:lat>
+	<wgs:long>105.66667</wgs:long>
+	<skos:altLabel xml:lang="hr">Božićni Otok</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Božični otok</skos:altLabel>
+	<skos:altLabel>CX</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Christmas Adası</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Christmas Island</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Christmas Island</skos:altLabel>
+	<skos:altLabel xml:lang="en">Christmas Island</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Christmas uhartea</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Christmas, île</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Christmaseiland</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Christmasøya</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Christmasøya</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Ilha Natal</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Illa Christmas</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Illa Christmas</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Insula Christmas</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Insula de Natal</skos:altLabel>
+	<skos:altLabel xml:lang="es">Isla Navidad</skos:altLabel>
+	<skos:altLabel xml:lang="it">Isole del Natale</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Joulusaari</skos:altLabel>
+	<skos:altLabel xml:lang="da">Juleøen</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Julön</skos:altLabel>
+	<skos:altLabel xml:lang="is">Jólaeyja</skos:altLabel>
+	<skos:altLabel xml:lang="is">Jólaeyjar</skos:altLabel>
+	<skos:altLabel xml:lang="et">Jõulusaar</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Kalėdų salos</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Karácsony-sziget</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Oileán na Nollag</skos:altLabel>
+	<skos:altLabel xml:lang="id">Pulau Christmas</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Territoire de l'Île Christmas</skos:altLabel>
+	<skos:altLabel>Territory of Christmas Island</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Vianočný ostrov</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Vánoční ostrov</skos:altLabel>
+	<skos:altLabel xml:lang="de">Weihnachtsinsel</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Wyspa Bożego Narodzenia</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Ynys y Nadolig</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Ziemsvētku sala</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Île Christmas</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Đảo Giáng Sinh</skos:altLabel>
+	<skos:altLabel xml:lang="el">Νήσος Χριστουγέννων</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Божићна острва</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Божиќни Острови</skos:altLabel>
+	<skos:altLabel xml:lang="be">Калядаў востраў</skos:altLabel>
+	<skos:altLabel xml:lang="bg">О-в Рождество</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Рождественские острова</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Різдвяні острови</skos:altLabel>
+	<skos:altLabel xml:lang="he">קריסמס, אי</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جزيرة الكريسماس</skos:altLabel>
+	<skos:altLabel xml:lang="fa">جزیره ی کریستمس</skos:altLabel>
+	<skos:altLabel xml:lang="ur">جزیرہ کرسمس</skos:altLabel>
+	<skos:altLabel xml:lang="hi">क्रिसमस आइलैंड</skos:altLabel>
+	<skos:altLabel xml:lang="bn">ক্রিসমাস দ্বীপপুঞ্জ</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ക്രിസ്മസ് ദ്വീപ്</skos:altLabel>
+	<skos:altLabel xml:lang="th">เกาะคริสมาสต์</skos:altLabel>
+	<skos:altLabel xml:lang="ka">შობის კუნძული</skos:altLabel>
+	<skos:altLabel xml:lang="am">የገና ደሴቶች</skos:altLabel>
+	<skos:altLabel xml:lang="ja">クリスマス諸島</skos:altLabel>
+	<skos:altLabel xml:lang="zh">圣诞岛</skos:altLabel>
+	<skos:altLabel xml:lang="ko">크리스마스 아일랜드</skos:altLabel>
+	<skos:prefLabel>Territory of Christmas Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2078139/">
+	<europeana:country>CX</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-10.5</wgs:lat>
+	<wgs:long>105.66667</wgs:long>
+	<skos:altLabel>Christmas Island</skos:altLabel>
+	<skos:prefLabel>Christmas Island</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 1 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

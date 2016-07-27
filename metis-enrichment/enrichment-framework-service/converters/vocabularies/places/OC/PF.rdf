@@ -1,0 +1,3577 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: OC_PF
+Description: Selected fields pulled from Geonames about PF done on Mon May 23 21:17:16 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/2194173/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-27.91667</wgs:lat>
+	<wgs:long>-143.43333</wgs:long>
+	<skos:altLabel>Bass Islands</skos:altLabel>
+	<skos:altLabel>Bass Isles</skos:altLabel>
+	<skos:altLabel>Bass Rocks</skos:altLabel>
+	<skos:altLabel>Four Crowns</skos:altLabel>
+	<skos:altLabel>Maretiri</skos:altLabel>
+	<skos:altLabel>Marotiri Islands</skos:altLabel>
+	<skos:altLabel>Marutiri Island</skos:altLabel>
+	<skos:altLabel>Morotiri</skos:altLabel>
+	<skos:altLabel>Îles Marotiri</skos:altLabel>
+	<skos:altLabel>Îles de Bass</skos:altLabel>
+	<skos:altLabel>Îlots de Bass</skos:altLabel>
+	<skos:prefLabel>Îles Marotiri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4019892/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-8.9</wgs:lat>
+	<wgs:long>-139.55</wgs:long>
+	<skos:altLabel>Hua-ka</skos:altLabel>
+	<skos:altLabel>Huahuka</skos:altLabel>
+	<skos:altLabel>Huahuna</skos:altLabel>
+	<skos:altLabel>Massachusett Island</skos:altLabel>
+	<skos:altLabel>Ouahouka</skos:altLabel>
+	<skos:altLabel>Roahuga</skos:altLabel>
+	<skos:altLabel>Ua Huka</skos:altLabel>
+	<skos:altLabel>Uahuga</skos:altLabel>
+	<skos:altLabel>Uauka</skos:altLabel>
+	<skos:altLabel>Washington Island</skos:altLabel>
+	<skos:altLabel>Île Ua Huka</skos:altLabel>
+	<skos:prefLabel>Ua Huka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4019900/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-8.95</wgs:lat>
+	<wgs:long>-139.6</wgs:long>
+	<skos:altLabel>Hat Island</skos:altLabel>
+	<skos:altLabel>Ile Tenana</skos:altLabel>
+	<skos:altLabel>Teuaua</skos:altLabel>
+	<skos:altLabel>Teuaua Island</skos:altLabel>
+	<skos:prefLabel>Teuaua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4019923/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-9.95</wgs:lat>
+	<wgs:long>-139.08333</wgs:long>
+	<skos:altLabel>Ile Taouata</skos:altLabel>
+	<skos:altLabel>Resolution Island</skos:altLabel>
+	<skos:altLabel>Santa Christina</skos:altLabel>
+	<skos:altLabel>Santa Christina Island</skos:altLabel>
+	<skos:altLabel>Santa Cristina</skos:altLabel>
+	<skos:altLabel>Tahuata</skos:altLabel>
+	<skos:altLabel>Taou-ata</skos:altLabel>
+	<skos:altLabel>Tau-ata</skos:altLabel>
+	<skos:altLabel>Vaitahu</skos:altLabel>
+	<skos:altLabel>Île Tahuata</skos:altLabel>
+	<skos:prefLabel>Tahuata</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4019924/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-9.75</wgs:lat>
+	<wgs:long>-138.8</wgs:long>
+	<skos:altLabel>Motu Tabu</skos:altLabel>
+	<skos:altLabel>Motu Tapu</skos:altLabel>
+	<skos:prefLabel>Motu Tabu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4019925/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-8.86667</wgs:lat>
+	<wgs:long>-139.55</wgs:long>
+	<skos:prefLabel>Motu Tabu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4019942/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-9.9</wgs:lat>
+	<wgs:long>-139.03333</wgs:long>
+	<skos:prefLabel>Patioti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4019945/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-8.93333</wgs:lat>
+	<wgs:long>-139.55</wgs:long>
+	<skos:prefLabel>Motu Papa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4019948/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-9.75</wgs:lat>
+	<wgs:long>-138.78333</wgs:long>
+	<skos:prefLabel>Motu Ofio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4019960/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.45</wgs:lat>
+	<wgs:long>-138.6</wgs:long>
+	<skos:altLabel>Motu Tui</skos:altLabel>
+	<skos:altLabel>Motutui</skos:altLabel>
+	<skos:prefLabel>Motutui</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4019968/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-9.9</wgs:lat>
+	<wgs:long>-139.06667</wgs:long>
+	<skos:prefLabel>Motu Mokohe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4019969/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-9.35</wgs:lat>
+	<wgs:long>-139.98333</wgs:long>
+	<skos:prefLabel>Motu Mokoe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4019970/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-9.98333</wgs:lat>
+	<wgs:long>-138.81667</wgs:long>
+	<skos:altLabel>Moho Tane</skos:altLabel>
+	<skos:altLabel>Mohotani</skos:altLabel>
+	<skos:altLabel>Motane</skos:altLabel>
+	<skos:altLabel>O Niteio</skos:altLabel>
+	<skos:altLabel>San Pedro</skos:altLabel>
+	<skos:altLabel>San Pedro Island</skos:altLabel>
+	<skos:altLabel>Île Motane</skos:altLabel>
+	<skos:prefLabel>Mohotani</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4019977/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-9</wgs:lat>
+	<wgs:long>-139.5</wgs:long>
+	<skos:altLabel>Archipel des Marquises</skos:altLabel>
+	<skos:altLabel>Las Islas Marquesas de Mendoza</skos:altLabel>
+	<skos:altLabel>Marquesas Islands</skos:altLabel>
+	<skos:altLabel>Marquezas</skos:altLabel>
+	<skos:altLabel>Mendaña</skos:altLabel>
+	<skos:altLabel>Papatea</skos:altLabel>
+	<skos:altLabel>Îles Marquises</skos:altLabel>
+	<skos:altLabel>Îles Marquises de Mendoça</skos:altLabel>
+	<skos:prefLabel>Îles Marquises</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4019982/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-8.95</wgs:lat>
+	<wgs:long>-139.6</wgs:long>
+	<skos:prefLabel>Motu Keo Keo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4019991/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030656/"/>
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>8982</europeana:population>
+	<wgs:lat>-9</wgs:lat>
+	<wgs:long>-139.5</wgs:long>
+	<skos:altLabel>Circonscription administrative des Îles Marquises</skos:altLabel>
+	<skos:altLabel>Marquezas Islands</skos:altLabel>
+	<skos:prefLabel>Îles Marquises</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4019996/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-9.75</wgs:lat>
+	<wgs:long>-139</wgs:long>
+	<skos:altLabel>Dominica</skos:altLabel>
+	<skos:altLabel>Dominica Island</skos:altLabel>
+	<skos:altLabel>Hiva Oa</skos:altLabel>
+	<skos:altLabel>Hiva hoa</skos:altLabel>
+	<skos:altLabel>Hiva roa</skos:altLabel>
+	<skos:altLabel>Hiwaoa</skos:altLabel>
+	<skos:altLabel>Ile Hiva-Oa</skos:altLabel>
+	<skos:altLabel>La Dominique</skos:altLabel>
+	<skos:prefLabel>Hiva Oa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4020054/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-9.81667</wgs:lat>
+	<wgs:long>-139.03333</wgs:long>
+	<skos:altLabel>Hanake</skos:altLabel>
+	<skos:altLabel>Hanake Island</skos:altLabel>
+	<skos:altLabel>Ile Hanaké</skos:altLabel>
+	<skos:altLabel>Ilot Hanake</skos:altLabel>
+	<skos:prefLabel>Hanake</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4020079/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-8.93333</wgs:lat>
+	<wgs:long>-139.53333</wgs:long>
+	<skos:altLabel>Motu Haane</skos:altLabel>
+	<skos:altLabel>Motu Hanné</skos:altLabel>
+	<skos:prefLabel>Motu Haane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4020084/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-9.41667</wgs:lat>
+	<wgs:long>-138.9</wgs:long>
+	<skos:altLabel>Fatou-houkou</skos:altLabel>
+	<skos:altLabel>Fatu Huku</skos:altLabel>
+	<skos:altLabel>Fatu Hutu</skos:altLabel>
+	<skos:altLabel>Feto Hougo</skos:altLabel>
+	<skos:altLabel>Fetu-huku</skos:altLabel>
+	<skos:altLabel>Hood Island</skos:altLabel>
+	<skos:altLabel>Hoods Island</skos:altLabel>
+	<skos:altLabel>Ile Fatu Huku</skos:altLabel>
+	<skos:prefLabel>Fatu Huku</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4020088/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-8.95</wgs:lat>
+	<wgs:long>-139.6</wgs:long>
+	<skos:altLabel>Emeni</skos:altLabel>
+	<skos:altLabel>Height Island</skos:altLabel>
+	<skos:altLabel>Hemeni Island</skos:altLabel>
+	<skos:altLabel>Ile Emeni</skos:altLabel>
+	<skos:altLabel>Ile Hemeni</skos:altLabel>
+	<skos:prefLabel>Emeni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030489/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.48333</wgs:lat>
+	<wgs:long>-135.63333</wgs:long>
+	<skos:prefLabel>Vaitutaki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030493/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.0575</wgs:lat>
+	<wgs:long>-134.90667</wgs:long>
+	<skos:altLabel>Vaiatekeoue</skos:altLabel>
+	<skos:altLabel>Vaiatekeue</skos:altLabel>
+	<skos:prefLabel>Vaiatekeue</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030498/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.07778</wgs:lat>
+	<wgs:long>-134.89</wgs:long>
+	<skos:altLabel>Totegegie</skos:altLabel>
+	<skos:altLabel>Tétégégié</skos:altLabel>
+	<skos:prefLabel>Totegegie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030501/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.53333</wgs:lat>
+	<wgs:long>-135.51667</wgs:long>
+	<skos:prefLabel>Tivaava</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030502/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.55</wgs:lat>
+	<wgs:long>-135.53333</wgs:long>
+	<skos:prefLabel>Tiovaava</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030505/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.5</wgs:lat>
+	<wgs:long>-135.48333</wgs:long>
+	<skos:prefLabel>Teupukahaia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030508/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.81667</wgs:lat>
+	<wgs:long>-138.58333</wgs:long>
+	<skos:prefLabel>Tetavakeroa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030511/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.16583</wgs:lat>
+	<wgs:long>-135.04222</wgs:long>
+	<skos:altLabel>Ile Tepou-nui</skos:altLabel>
+	<skos:altLabel>Tepu-Nui</skos:altLabel>
+	<skos:prefLabel>Tepu-Nui</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030517/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.07111</wgs:lat>
+	<wgs:long>-135.01306</wgs:long>
+	<skos:altLabel>Ile Tenoko</skos:altLabel>
+	<skos:altLabel>Tenoko</skos:altLabel>
+	<skos:prefLabel>Tenoko</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030521/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.33333</wgs:lat>
+	<wgs:long>-134.48333</wgs:long>
+	<skos:altLabel>Crescent Island</skos:altLabel>
+	<skos:altLabel>Temoe</skos:altLabel>
+	<skos:altLabel>Timoe Island</skos:altLabel>
+	<skos:altLabel>Timoé</skos:altLabel>
+	<skos:prefLabel>Temoe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030524/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.85</wgs:lat>
+	<wgs:long>-138.51667</wgs:long>
+	<skos:prefLabel>Tekaruga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030525/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.20833</wgs:lat>
+	<wgs:long>-134.97611</wgs:long>
+	<skos:altLabel>Ile Motou Teiko</skos:altLabel>
+	<skos:altLabel>Motu Teiko</skos:altLabel>
+	<skos:altLabel>Île Motu Teiku</skos:altLabel>
+	<skos:prefLabel>Île Motu Teiku</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030527/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.48333</wgs:lat>
+	<wgs:long>-135.5</wgs:long>
+	<skos:prefLabel>Teavamotu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030531/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.86667</wgs:lat>
+	<wgs:long>-138.55</wgs:long>
+	<skos:prefLabel>Teamuiga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030533/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.16167</wgs:lat>
+	<wgs:long>-134.85306</wgs:long>
+	<skos:altLabel>Teakava</skos:altLabel>
+	<skos:altLabel>Tekava</skos:altLabel>
+	<skos:prefLabel>Tekava</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030539/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.14306</wgs:lat>
+	<wgs:long>-134.85278</wgs:long>
+	<skos:prefLabel>Tauna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030543/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.14722</wgs:lat>
+	<wgs:long>-135.03861</wgs:long>
+	<skos:altLabel>Belcher Island</skos:altLabel>
+	<skos:altLabel>Taravai</skos:altLabel>
+	<skos:altLabel>Taravai Island</skos:altLabel>
+	<skos:altLabel>Île Taravai</skos:altLabel>
+	<skos:prefLabel>Île Taravai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030544/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.10611</wgs:lat>
+	<wgs:long>-134.85639</wgs:long>
+	<skos:prefLabel>Tarauru Roa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030553/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.11056</wgs:lat>
+	<wgs:long>-134.99139</wgs:long>
+	<skos:altLabel>Rumarei</skos:altLabel>
+	<skos:altLabel>Îlot Rumarei</skos:altLabel>
+	<skos:prefLabel>Îlot Rumarei</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030561/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.01361</wgs:lat>
+	<wgs:long>-134.91861</wgs:long>
+	<skos:altLabel>Poua-umu</skos:altLabel>
+	<skos:altLabel>Puaumu</skos:altLabel>
+	<skos:altLabel>Puaumu Sud</skos:altLabel>
+	<skos:prefLabel>Puaumu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030562/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.00306</wgs:lat>
+	<wgs:long>-134.94694</wgs:long>
+	<skos:altLabel>Papouri</skos:altLabel>
+	<skos:altLabel>Papuri</skos:altLabel>
+	<skos:altLabel>Pouaoumou</skos:altLabel>
+	<skos:altLabel>Puaumu Nord</skos:altLabel>
+	<skos:altLabel>Tepapuri</skos:altLabel>
+	<skos:prefLabel>Tepapuri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030576/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.28333</wgs:lat>
+	<wgs:long>-138.83333</wgs:long>
+	<skos:altLabel>Nukutavake</skos:altLabel>
+	<skos:altLabel>Nukutavake Island</skos:altLabel>
+	<skos:altLabel>Nukutavaki</skos:altLabel>
+	<skos:altLabel>Nukutawake</skos:altLabel>
+	<skos:altLabel>Queen Charlotte</skos:altLabel>
+	<skos:altLabel>Queen Charlotte Island</skos:altLabel>
+	<skos:prefLabel>Nukutavake</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030590/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.17111</wgs:lat>
+	<wgs:long>-134.92167</wgs:long>
+	<skos:altLabel>Mekiro</skos:altLabel>
+	<skos:altLabel>Île Mekiro</skos:altLabel>
+	<skos:prefLabel>Île Mekiro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030600/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.22889</wgs:lat>
+	<wgs:long>-134.94611</wgs:long>
+	<skos:altLabel>Ile Manoui</skos:altLabel>
+	<skos:altLabel>Manui</skos:altLabel>
+	<skos:altLabel>Île Manui</skos:altLabel>
+	<skos:prefLabel>Île Manui</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030601/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.48333</wgs:lat>
+	<wgs:long>-135.56667</wgs:long>
+	<skos:prefLabel>Motu Manu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030604/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.55</wgs:lat>
+	<wgs:long>-135.61667</wgs:long>
+	<skos:prefLabel>Makoe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030605/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.21556</wgs:lat>
+	<wgs:long>-134.97167</wgs:long>
+	<skos:altLabel>Makaroa</skos:altLabel>
+	<skos:altLabel>Makaroa Island</skos:altLabel>
+	<skos:altLabel>Marsh Island</skos:altLabel>
+	<skos:altLabel>Île Makaroa</skos:altLabel>
+	<skos:prefLabel>Île Makaroa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030606/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.19639</wgs:lat>
+	<wgs:long>-134.92417</wgs:long>
+	<skos:altLabel>Ile Maka-pou</skos:altLabel>
+	<skos:altLabel>Maka Pou</skos:altLabel>
+	<skos:altLabel>Maka-Pu</skos:altLabel>
+	<skos:altLabel>Île Makapu</skos:altLabel>
+	<skos:prefLabel>Île Makapu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030608/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.09917</wgs:lat>
+	<wgs:long>-134.96694</wgs:long>
+	<skos:altLabel>Magareva</skos:altLabel>
+	<skos:altLabel>Mangarava</skos:altLabel>
+	<skos:altLabel>Mangareva</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Mangareva</skos:altLabel>
+	<skos:altLabel xml:lang="en">Mangareva</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Mangareva</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Mangareva</skos:altLabel>
+	<skos:altLabel xml:lang="es">Mangareva</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Mangareva</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Mangareva</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Mangareva</skos:altLabel>
+	<skos:altLabel>Mangareva Island</skos:altLabel>
+	<skos:altLabel>Mangarewa</skos:altLabel>
+	<skos:altLabel>Peard Island</skos:altLabel>
+	<skos:altLabel>Île Mangareva</skos:altLabel>
+	<skos:prefLabel>Île Mangareva</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030614/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.20583</wgs:lat>
+	<wgs:long>-134.85944</wgs:long>
+	<skos:altLabel>Kouakou</skos:altLabel>
+	<skos:altLabel>Kouaku</skos:altLabel>
+	<skos:altLabel>Kuaku</skos:altLabel>
+	<skos:prefLabel>Kouaku</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030618/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.24028</wgs:lat>
+	<wgs:long>-134.95889</wgs:long>
+	<skos:altLabel>Collie Island</skos:altLabel>
+	<skos:altLabel>Kamaka</skos:altLabel>
+	<skos:altLabel>Kamaka Island</skos:altLabel>
+	<skos:altLabel>Île Kamaka</skos:altLabel>
+	<skos:prefLabel>Île Kamaka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030621/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030656/"/>
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>16267</europeana:population>
+	<wgs:lat>-19</wgs:lat>
+	<wgs:long>-139</wgs:long>
+	<skos:altLabel>Circonscription administrative des Îles Tuamotu et Gambier</skos:altLabel>
+	<skos:altLabel>Gambier Group</skos:altLabel>
+	<skos:altLabel>Tuamotu Group</skos:altLabel>
+	<skos:altLabel>Îles Tuamotu et Gambier</skos:altLabel>
+	<skos:prefLabel>Îles Tuamotu-Gambier</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030623/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.85</wgs:lat>
+	<wgs:long>-138.56667</wgs:long>
+	<skos:prefLabel>Hapai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030655/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-23.14722</wgs:lat>
+	<wgs:long>-134.95833</wgs:long>
+	<skos:altLabel>Gambier Islands</skos:altLabel>
+	<skos:altLabel>Mangareva</skos:altLabel>
+	<skos:altLabel>Îles Gambier</skos:altLabel>
+	<skos:altLabel>Îsles Gambier</skos:altLabel>
+	<skos:prefLabel>Îles Gambier</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030656/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255151/"/>
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLD"/>
+	<europeana:population>270485</europeana:population>
+	<wgs:lat>-15</wgs:lat>
+	<wgs:long>-140</wgs:long>
+	<skos:altLabel xml:lang="cs">Francouzská Polynésie</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Frans-Polynesië</skos:altLabel>
+	<skos:altLabel xml:lang="no">Fransk Polynesia</skos:altLabel>
+	<skos:altLabel xml:lang="da">Fransk Polynesien</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Franska Polynesien</skos:altLabel>
+	<skos:altLabel xml:lang="is">Franska Pólýnesía</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Fransız Polinezyası</skos:altLabel>
+	<skos:altLabel xml:lang="de">Französisch-Polynesien</skos:altLabel>
+	<skos:altLabel>French Establishments in Oceania</skos:altLabel>
+	<skos:altLabel>French Oceania</skos:altLabel>
+	<skos:altLabel xml:lang="en">French Polynesia</skos:altLabel>
+	<skos:altLabel>French Settlements in Oceania</skos:altLabel>
+	<skos:altLabel>PF</skos:altLabel>
+	<skos:altLabel xml:lang="es">Polinesia Francesa</skos:altLabel>
+	<skos:altLabel xml:lang="it">Polinesia francese</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Polinezja Francuska</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Polinèsia Francesa</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Polinésia Francesa</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Polynésie Française</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Polynésie thuộc Pháp</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Prancūzijos Polinezija</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Ranskan Polynesia</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Territoire de la Polynésie Française</skos:altLabel>
+	<skos:altLabel>Établissements Français de l’ Océanie</skos:altLabel>
+	<skos:altLabel xml:lang="el">Γαλλική Πολυνησία</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Французская Полинезия</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بولينسيا الفرنسية</skos:altLabel>
+	<skos:altLabel xml:lang="th">เฟรนช์โปลินีเซีย</skos:altLabel>
+	<skos:altLabel xml:lang="ja">フランス領ポリネシア</skos:altLabel>
+	<skos:altLabel xml:lang="zh">法屬玻里尼西亞</skos:altLabel>
+	<skos:prefLabel>Polynésie Française</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030657/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-10.46667</wgs:lat>
+	<wgs:long>-138.63333</wgs:long>
+	<skos:altLabel>Fatou-Hiva</skos:altLabel>
+	<skos:altLabel>Fatu Hiva</skos:altLabel>
+	<skos:altLabel>Fatu Iva</skos:altLabel>
+	<skos:altLabel>Ile Fatou-Hiva</skos:altLabel>
+	<skos:altLabel>Ile Fatu-Hiva</skos:altLabel>
+	<skos:altLabel>Ile Madeleine</skos:altLabel>
+	<skos:altLabel>Madalena</skos:altLabel>
+	<skos:altLabel>Magdalena Island</skos:altLabel>
+	<skos:altLabel>Santa Magdalena</skos:altLabel>
+	<skos:prefLabel>Fatu Hiva</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030669/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.12861</wgs:lat>
+	<wgs:long>-134.90389</wgs:long>
+	<skos:altLabel>Aukena</skos:altLabel>
+	<skos:altLabel>Aukena Island</skos:altLabel>
+	<skos:altLabel>Île Aukena</skos:altLabel>
+	<skos:prefLabel>Île Aukena</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030670/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.19556</wgs:lat>
+	<wgs:long>-134.90694</wgs:long>
+	<skos:altLabel>Atumata</skos:altLabel>
+	<skos:altLabel>Île Atoumata</skos:altLabel>
+	<skos:altLabel>Île Atumata</skos:altLabel>
+	<skos:prefLabel>Île Atumata</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030676/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.14778</wgs:lat>
+	<wgs:long>-135.0225</wgs:long>
+	<skos:altLabel>Motu Ari</skos:altLabel>
+	<skos:altLabel>Île Motu-ari</skos:altLabel>
+	<skos:altLabel>Îlot Motu-o-ari</skos:altLabel>
+	<skos:prefLabel>Îlot Motu-o-ari</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030677/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.46667</wgs:lat>
+	<wgs:long>-135.51667</wgs:long>
+	<skos:prefLabel>Araumu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030680/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.5</wgs:lat>
+	<wgs:long>-139.2</wgs:long>
+	<skos:altLabel>Akiaki</skos:altLabel>
+	<skos:altLabel>Ile des Lanciers</skos:altLabel>
+	<skos:altLabel>Lancier Island</skos:altLabel>
+	<skos:altLabel>Thrum Cap</skos:altLabel>
+	<skos:altLabel>Thrum Gap</skos:altLabel>
+	<skos:prefLabel>Akiaki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030683/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.18194</wgs:lat>
+	<wgs:long>-134.91444</wgs:long>
+	<skos:altLabel>Aka Marou</skos:altLabel>
+	<skos:altLabel>Akamaru</skos:altLabel>
+	<skos:altLabel>Akamaru Island</skos:altLabel>
+	<skos:altLabel>Ile Aka-Marou</skos:altLabel>
+	<skos:altLabel>Île Akamaru</skos:altLabel>
+	<skos:prefLabel>Île Akamaru</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030684/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.11222</wgs:lat>
+	<wgs:long>-134.84</wgs:long>
+	<skos:altLabel>Aioio</skos:altLabel>
+	<skos:altLabel>Gaioio</skos:altLabel>
+	<skos:prefLabel>Gaioio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030688/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.16278</wgs:lat>
+	<wgs:long>-135.03583</wgs:long>
+	<skos:altLabel>Aga Kaouitai</skos:altLabel>
+	<skos:altLabel>Agakauitai</skos:altLabel>
+	<skos:altLabel>Ile Aga-kaouitai</skos:altLabel>
+	<skos:altLabel>Île Agakauitai</skos:altLabel>
+	<skos:prefLabel>Île Agakauitai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030689/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-21.33333</wgs:lat>
+	<wgs:long>-136.5</wgs:long>
+	<skos:altLabel>Actaeon Group</skos:altLabel>
+	<skos:altLabel>Actaeon Islands</skos:altLabel>
+	<skos:altLabel>Amphitrite</skos:altLabel>
+	<skos:altLabel>Groupe Actaeon</skos:altLabel>
+	<skos:altLabel>Groupe Actéon</skos:altLabel>
+	<skos:prefLabel>Groupe Actéon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030804/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.00083</wgs:lat>
+	<wgs:long>-134.95528</wgs:long>
+	<skos:prefLabel>Teauaone</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030805/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.05917</wgs:lat>
+	<wgs:long>-134.90667</wgs:long>
+	<skos:prefLabel>Apou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030806/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.06</wgs:lat>
+	<wgs:long>-134.90556</wgs:long>
+	<skos:prefLabel>Teauotu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030807/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.06222</wgs:lat>
+	<wgs:long>-134.90389</wgs:long>
+	<skos:prefLabel>Tuaeu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030839/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-23.16639</wgs:lat>
+	<wgs:long>-135.04694</wgs:long>
+	<skos:prefLabel>Îlots Tekoreu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030841/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.17444</wgs:lat>
+	<wgs:long>-134.89111</wgs:long>
+	<skos:prefLabel>Îlot Teohootepohatu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030865/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.08194</wgs:lat>
+	<wgs:long>-134.95333</wgs:long>
+	<skos:prefLabel>Îlot Temotu Nui</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030866/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.07083</wgs:lat>
+	<wgs:long>-134.94861</wgs:long>
+	<skos:prefLabel>Îlot Temotu Iti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030983/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-9.38333</wgs:lat>
+	<wgs:long>-140.05</wgs:long>
+	<skos:altLabel>Adam Island</skos:altLabel>
+	<skos:altLabel>Adams</skos:altLabel>
+	<skos:altLabel>Adams Island</skos:altLabel>
+	<skos:altLabel>Hua Pou</skos:altLabel>
+	<skos:altLabel>Hua-Po</skos:altLabel>
+	<skos:altLabel>Huapu</skos:altLabel>
+	<skos:altLabel>Ile Ua Pou</skos:altLabel>
+	<skos:altLabel>Ile Ua-Pu</skos:altLabel>
+	<skos:altLabel>Jefferson Island</skos:altLabel>
+	<skos:altLabel>Marchand</skos:altLabel>
+	<skos:altLabel>Oua-pou</skos:altLabel>
+	<skos:altLabel>Roapoa</skos:altLabel>
+	<skos:altLabel>Roapoua</skos:altLabel>
+	<skos:altLabel>Roua Poua</skos:altLabel>
+	<skos:altLabel>Trevenen</skos:altLabel>
+	<skos:altLabel>Ua Pou</skos:altLabel>
+	<skos:altLabel>Ua Pu</skos:altLabel>
+	<skos:altLabel>Uapoa</skos:altLabel>
+	<skos:prefLabel>Ua Pou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030989/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-9.46667</wgs:lat>
+	<wgs:long>-140.03333</wgs:long>
+	<skos:altLabel>Motu Tahaké</skos:altLabel>
+	<skos:altLabel>Motu Takahe</skos:altLabel>
+	<skos:prefLabel>Motu Takahe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030994/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-16.63333</wgs:lat>
+	<wgs:long>-151.5</wgs:long>
+	<skos:altLabel>Leeward Group</skos:altLabel>
+	<skos:altLabel>Leeward Islands</skos:altLabel>
+	<skos:altLabel>Îles Sous le Vent</skos:altLabel>
+	<skos:prefLabel>Îles Sous le Vent</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030995/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-8.95</wgs:lat>
+	<wgs:long>-140.1</wgs:long>
+	<skos:altLabel>Ile Sentinelle de L'Est</skos:altLabel>
+	<skos:altLabel>Sentinelle de l'Ouest</skos:altLabel>
+	<skos:altLabel>West Sentinel Island</skos:altLabel>
+	<skos:prefLabel>Sentinelle de l'Ouest</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030996/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-8.95</wgs:lat>
+	<wgs:long>-140.08333</wgs:long>
+	<skos:altLabel>East Sentinel Island</skos:altLabel>
+	<skos:altLabel>Ile Sentinelle de L'Ourst</skos:altLabel>
+	<skos:altLabel>Sentinelle de l'Est</skos:altLabel>
+	<skos:prefLabel>Sentinelle de l'Est</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030997/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-7.88333</wgs:lat>
+	<wgs:long>-140.36667</wgs:long>
+	<skos:altLabel>Clark Islands</skos:altLabel>
+	<skos:altLabel>Coral Island</skos:altLabel>
+	<skos:altLabel>Coral Islands</skos:altLabel>
+	<skos:altLabel>Cotar</skos:altLabel>
+	<skos:altLabel>Ile de Corail</skos:altLabel>
+	<skos:altLabel>Iles de Sable</skos:altLabel>
+	<skos:altLabel>Île de Sable</skos:altLabel>
+	<skos:prefLabel>Île de Sable</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4031004/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-8.8</wgs:lat>
+	<wgs:long>-140.01667</wgs:long>
+	<skos:altLabel>Ile Poiku</skos:altLabel>
+	<skos:altLabel>Poiku</skos:altLabel>
+	<skos:prefLabel>Poiku</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4031006/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-9.33333</wgs:lat>
+	<wgs:long>-140.03333</wgs:long>
+	<skos:prefLabel>Motu Papai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4031012/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-9.46667</wgs:lat>
+	<wgs:long>-140.01667</wgs:long>
+	<skos:prefLabel>Motu Oa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4031013/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-8.9</wgs:lat>
+	<wgs:long>-140.1</wgs:long>
+	<skos:altLabel>Adams</skos:altLabel>
+	<skos:altLabel>Baux</skos:altLabel>
+	<skos:altLabel>Ile Nouka-Hiva</skos:altLabel>
+	<skos:altLabel>Ile Nuku-Hiva</skos:altLabel>
+	<skos:altLabel>Madison Island</skos:altLabel>
+	<skos:altLabel>Marchand Island</skos:altLabel>
+	<skos:altLabel>Nukahiva</skos:altLabel>
+	<skos:altLabel>Nuku Hiva</skos:altLabel>
+	<skos:altLabel>Nuuhiva</skos:altLabel>
+	<skos:altLabel>Sir Henry Martin's</skos:altLabel>
+	<skos:prefLabel>Nuku Hiva</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4031020/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-9.33333</wgs:lat>
+	<wgs:long>-140.05</wgs:long>
+	<skos:prefLabel>Motu Kuee</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4031021/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>-9.41667</wgs:lat>
+	<wgs:long>-140.08333</wgs:long>
+	<skos:prefLabel>Motu Kuara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4031022/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-8.68333</wgs:lat>
+	<wgs:long>-140.6</wgs:long>
+	<skos:altLabel>Franklin</skos:altLabel>
+	<skos:altLabel>Groupe Motu-Iti</skos:altLabel>
+	<skos:altLabel>Hergest</skos:altLabel>
+	<skos:altLabel>Hergest Rocks</skos:altLabel>
+	<skos:altLabel>Les Deaux Frères</skos:altLabel>
+	<skos:altLabel>Motu Iti</skos:altLabel>
+	<skos:altLabel>Motu Iti Rocks</skos:altLabel>
+	<skos:altLabel>Motuiti</skos:altLabel>
+	<skos:prefLabel>Motu Iti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4031030/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-7.93333</wgs:lat>
+	<wgs:long>-140.53333</wgs:long>
+	<skos:altLabel>Chanal</skos:altLabel>
+	<skos:altLabel>Chanal Island</skos:altLabel>
+	<skos:altLabel>Fattu-uhu</skos:altLabel>
+	<skos:altLabel>Fetou-houhou</skos:altLabel>
+	<skos:altLabel>Fetu-uhu</skos:altLabel>
+	<skos:altLabel>Hancock</skos:altLabel>
+	<skos:altLabel>Hatoutou</skos:altLabel>
+	<skos:altLabel>Hatutaa</skos:altLabel>
+	<skos:altLabel>Hatutu</skos:altLabel>
+	<skos:altLabel>Ile Hatutu</skos:altLabel>
+	<skos:altLabel>Langdon</skos:altLabel>
+	<skos:altLabel>Nexsen Island</skos:altLabel>
+	<skos:prefLabel>Hatutu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4031058/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-8</wgs:lat>
+	<wgs:long>-140.66667</wgs:long>
+	<skos:altLabel>Eiao</skos:altLabel>
+	<skos:altLabel>Eiao Island</skos:altLabel>
+	<skos:altLabel>Eiau</skos:altLabel>
+	<skos:altLabel>Freemantle</skos:altLabel>
+	<skos:altLabel>Hiaou</skos:altLabel>
+	<skos:altLabel>Hiau</skos:altLabel>
+	<skos:altLabel>Knox</skos:altLabel>
+	<skos:altLabel>Masse</skos:altLabel>
+	<skos:altLabel>Masse Island</skos:altLabel>
+	<skos:altLabel>New York Island</skos:altLabel>
+	<skos:altLabel>Île Eiao</skos:altLabel>
+	<skos:prefLabel>Eiao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4031060/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>-8.93333</wgs:lat>
+	<wgs:long>-140.08333</wgs:long>
+	<skos:prefLabel>Fort Collet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033032/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-17.5</wgs:lat>
+	<wgs:long>-149.5</wgs:long>
+	<skos:altLabel>Windward Group</skos:altLabel>
+	<skos:altLabel>Îles du Vent</skos:altLabel>
+	<skos:prefLabel>Îles du Vent</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033033/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.88333</wgs:lat>
+	<wgs:long>-147.61667</wgs:long>
+	<skos:prefLabel>Motu Veiamanu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033038/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.71667</wgs:lat>
+	<wgs:long>-150.96667</wgs:long>
+	<skos:prefLabel>Motu Vavara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033040/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.58333</wgs:lat>
+	<wgs:long>-149.3</wgs:long>
+	<skos:altLabel>Ile Variararu</skos:altLabel>
+	<skos:altLabel>Ile Variarau</skos:altLabel>
+	<skos:altLabel>Variararu</skos:altLabel>
+	<skos:altLabel>Variararu Island</skos:altLabel>
+	<skos:prefLabel>Variararu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033093/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-17.76667</wgs:lat>
+	<wgs:long>-149.28333</wgs:long>
+	<skos:altLabel>District de Vairao</skos:altLabel>
+	<skos:altLabel>Vairao</skos:altLabel>
+	<skos:prefLabel>District de Vairao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033129/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.76667</wgs:lat>
+	<wgs:long>-151.01667</wgs:long>
+	<skos:altLabel>Ile Vaiorea</skos:altLabel>
+	<skos:altLabel>Vaiorea</skos:altLabel>
+	<skos:prefLabel>Vaiorea</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033190/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.25</wgs:lat>
+	<wgs:long>-147.23333</wgs:long>
+	<skos:prefLabel>Vahituri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033199/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.25</wgs:lat>
+	<wgs:long>-145.61667</wgs:long>
+	<skos:prefLabel>Motu Vahapiapia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033207/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.35</wgs:lat>
+	<wgs:long>-145.48333</wgs:long>
+	<skos:altLabel>Utukainga</skos:altLabel>
+	<skos:altLabel>Utukaïna</skos:altLabel>
+	<skos:prefLabel>Utukainga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033208/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.53333</wgs:lat>
+	<wgs:long>-149.56667</wgs:long>
+	<skos:altLabel>Ile Motu-uta</skos:altLabel>
+	<skos:altLabel>Motu Uta</skos:altLabel>
+	<skos:prefLabel>Motu Uta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033226/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.31667</wgs:lat>
+	<wgs:long>-146.75</wgs:long>
+	<skos:prefLabel>Motu Tutaemaro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033244/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.86667</wgs:lat>
+	<wgs:long>-147.7</wgs:long>
+	<skos:altLabel>Motu Tuitui</skos:altLabel>
+	<skos:altLabel>Îlot Tui-Tui</skos:altLabel>
+	<skos:prefLabel>Motu Tuitui</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033250/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-23</wgs:lat>
+	<wgs:long>-150</wgs:long>
+	<skos:altLabel>Archipel Tubuaï</skos:altLabel>
+	<skos:altLabel>Austral Islands</skos:altLabel>
+	<skos:altLabel>Iles Toubouaï</skos:altLabel>
+	<skos:altLabel>Tubuai Group</skos:altLabel>
+	<skos:altLabel>Tubuai Islands</skos:altLabel>
+	<skos:altLabel>Îles Australes</skos:altLabel>
+	<skos:altLabel>Îles Tubuaï</skos:altLabel>
+	<skos:prefLabel>Îles Tubuaï</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033252/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.38333</wgs:lat>
+	<wgs:long>-149.46667</wgs:long>
+	<skos:altLabel>Ile Toubouaï</skos:altLabel>
+	<skos:altLabel>Manua</skos:altLabel>
+	<skos:altLabel>Tubuai</skos:altLabel>
+	<skos:altLabel xml:lang="de">Tubuai</skos:altLabel>
+	<skos:altLabel xml:lang="es">Tubuai</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Tubuai</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tubuai</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Tubuai</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Tubuai</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Tubuai</skos:altLabel>
+	<skos:altLabel>Tubuai Island</skos:altLabel>
+	<skos:altLabel>Tubuaï</skos:altLabel>
+	<skos:altLabel>Île Tupuai</skos:altLabel>
+	<skos:altLabel xml:lang="he">טובואיי</skos:altLabel>
+	<skos:altLabel xml:lang="ja">トゥブアイ諸島</skos:altLabel>
+	<skos:prefLabel>Tubuaï</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033260/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.86667</wgs:lat>
+	<wgs:long>-147.58333</wgs:long>
+	<skos:prefLabel>Motu Tuapua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033263/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-19</wgs:lat>
+	<wgs:long>-142</wgs:long>
+	<skos:altLabel>Archipel Dangereux</skos:altLabel>
+	<skos:altLabel>Archipel des Pomotou</skos:altLabel>
+	<skos:altLabel>Archipel des Tuamotu</skos:altLabel>
+	<skos:altLabel>Iles Lointaines</skos:altLabel>
+	<skos:altLabel>Iles Pomotou</skos:altLabel>
+	<skos:altLabel>Low Archipelago</skos:altLabel>
+	<skos:altLabel>Niedrige Inseln</skos:altLabel>
+	<skos:altLabel>Ostrova Nizmennyye</skos:altLabel>
+	<skos:altLabel>Ostrová Nízmennie</skos:altLabel>
+	<skos:altLabel>Ostrová Rossiyán</skos:altLabel>
+	<skos:altLabel>Paumotu</skos:altLabel>
+	<skos:altLabel>Quirós Tierras de</skos:altLabel>
+	<skos:altLabel>Tuamotu</skos:altLabel>
+	<skos:altLabel>Tuamotu Archipelago</skos:altLabel>
+	<skos:altLabel>Tuamotu Group</skos:altLabel>
+	<skos:altLabel>Tuamotu Islands</skos:altLabel>
+	<skos:altLabel>Îles Basses</skos:altLabel>
+	<skos:altLabel>Îles Touamotou</skos:altLabel>
+	<skos:altLabel>Îles Tuamotu</skos:altLabel>
+	<skos:prefLabel>Archipel des Tuamotu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033264/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-27.56667</wgs:lat>
+	<wgs:long>-144.31667</wgs:long>
+	<skos:altLabel>Ile Tuamotu</skos:altLabel>
+	<skos:altLabel>Tuamotu</skos:altLabel>
+	<skos:prefLabel>Tuamotu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033265/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.3</wgs:lat>
+	<wgs:long>-146.88333</wgs:long>
+	<skos:prefLabel>Tuaiva</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033269/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.43333</wgs:lat>
+	<wgs:long>-152.23333</wgs:long>
+	<skos:altLabel>Motou Touanaé</skos:altLabel>
+	<skos:altLabel>Motu Touanae</skos:altLabel>
+	<skos:prefLabel>Motu Touanae</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033276/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.76667</wgs:lat>
+	<wgs:long>-151.48333</wgs:long>
+	<skos:altLabel>Ile Torea</skos:altLabel>
+	<skos:altLabel>Torea</skos:altLabel>
+	<skos:prefLabel>Torea</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033278/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.38333</wgs:lat>
+	<wgs:long>-140.81667</wgs:long>
+	<skos:prefLabel>Topitere</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033281/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.73333</wgs:lat>
+	<wgs:long>-150.96667</wgs:long>
+	<skos:prefLabel>Motu Topati</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033282/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.53333</wgs:lat>
+	<wgs:long>-151.76667</wgs:long>
+	<skos:altLabel>Toopua Iti</skos:altLabel>
+	<skos:altLabel>Tupua Iti</skos:altLabel>
+	<skos:prefLabel>Toopua Iti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033284/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.51667</wgs:lat>
+	<wgs:long>-151.76667</wgs:long>
+	<skos:altLabel>Marion Island</skos:altLabel>
+	<skos:altLabel>Toopua</skos:altLabel>
+	<skos:altLabel>Tupua Island</skos:altLabel>
+	<skos:altLabel>Île Toopua</skos:altLabel>
+	<skos:prefLabel>Toopua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033296/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>-16.48333</wgs:lat>
+	<wgs:long>-151.7</wgs:long>
+	<skos:prefLabel>Motu Tofari</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033299/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.35</wgs:lat>
+	<wgs:long>-149.4</wgs:long>
+	<skos:prefLabel>Motu Toena</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033301/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.71667</wgs:lat>
+	<wgs:long>-151.46667</wgs:long>
+	<skos:altLabel>Toatoatu</skos:altLabel>
+	<skos:altLabel>Îlot Toatoatu</skos:altLabel>
+	<skos:prefLabel>Toatoatu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033310/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.66667</wgs:lat>
+	<wgs:long>-151.46667</wgs:long>
+	<skos:altLabel>Ile Toapuhi</skos:altLabel>
+	<skos:altLabel>Toapuhi</skos:altLabel>
+	<skos:prefLabel>Toapuhi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033317/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.85</wgs:lat>
+	<wgs:long>-151.48333</wgs:long>
+	<skos:altLabel>Ile Toamaro</skos:altLabel>
+	<skos:altLabel>Toamaro</skos:altLabel>
+	<skos:prefLabel>Toamaro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033324/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.65</wgs:lat>
+	<wgs:long>-151.41667</wgs:long>
+	<skos:altLabel>Toahotu</skos:altLabel>
+	<skos:altLabel>Île Toahotu</skos:altLabel>
+	<skos:prefLabel>Toahotu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033341/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.78333</wgs:lat>
+	<wgs:long>-151.36667</wgs:long>
+	<skos:altLabel>Ile Tipaemau</skos:altLabel>
+	<skos:altLabel>Tipaemau</skos:altLabel>
+	<skos:prefLabel>Tipaemau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033346/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.96667</wgs:lat>
+	<wgs:long>-144.53333</wgs:long>
+	<skos:altLabel>Bedrieglijk</skos:altLabel>
+	<skos:altLabel>Romanzoff</skos:altLabel>
+	<skos:altLabel>Romanzov</skos:altLabel>
+	<skos:altLabel>Rumyántsov</skos:altLabel>
+	<skos:altLabel>Tikei</skos:altLabel>
+	<skos:altLabel>Tikei Island</skos:altLabel>
+	<skos:prefLabel>Tikei</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033352/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.83333</wgs:lat>
+	<wgs:long>-149.11667</wgs:long>
+	<skos:altLabel>Ile Tiere</skos:altLabel>
+	<skos:altLabel>Tiere</skos:altLabel>
+	<skos:prefLabel>Tiere</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033355/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-17.55</wgs:lat>
+	<wgs:long>-149.36667</wgs:long>
+	<skos:altLabel>District de Tiarei</skos:altLabel>
+	<skos:altLabel>Tiarei</skos:altLabel>
+	<skos:prefLabel>District de Tiarei</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033362/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.46667</wgs:lat>
+	<wgs:long>-152.25</wgs:long>
+	<skos:altLabel>Motou Té Apaa</skos:altLabel>
+	<skos:altLabel>Motu Te Apaa</skos:altLabel>
+	<skos:altLabel>Motu Tiapaa</skos:altLabel>
+	<skos:prefLabel>Motu Tiapaa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033365/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.83333</wgs:lat>
+	<wgs:long>-151.46667</wgs:long>
+	<skos:altLabel>Ile Tiano</skos:altLabel>
+	<skos:altLabel>Tiano</skos:altLabel>
+	<skos:prefLabel>Tiano</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033369/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.48728</wgs:lat>
+	<wgs:long>-149.89564</wgs:long>
+	<skos:altLabel>Ilot Tiahura</skos:altLabel>
+	<skos:altLabel>Motu Tiahura</skos:altLabel>
+	<skos:altLabel>Tiahura</skos:altLabel>
+	<skos:altLabel>Tiahura Island</skos:altLabel>
+	<skos:prefLabel>Motu Tiahura</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033374/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.46667</wgs:lat>
+	<wgs:long>-151.78333</wgs:long>
+	<skos:altLabel>Teveiroa</skos:altLabel>
+	<skos:altLabel>Île Teveiroa</skos:altLabel>
+	<skos:prefLabel>Teveiroa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033394/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.75</wgs:lat>
+	<wgs:long>-151.41667</wgs:long>
+	<skos:altLabel>Tetaro</skos:altLabel>
+	<skos:altLabel>Îlot Tetaro</skos:altLabel>
+	<skos:prefLabel>Tetaro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033435/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.13333</wgs:lat>
+	<wgs:long>-141.4</wgs:long>
+	<skos:altLabel>Otooho</skos:altLabel>
+	<skos:altLabel>Tepoto</skos:altLabel>
+	<skos:altLabel>Tetopoto</skos:altLabel>
+	<skos:altLabel>Tetopoto Island</skos:altLabel>
+	<skos:altLabel>Topoto</skos:altLabel>
+	<skos:altLabel>Wytoohe</skos:altLabel>
+	<skos:prefLabel>Tepoto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033464/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.5</wgs:lat>
+	<wgs:long>-145.36667</wgs:long>
+	<skos:prefLabel>Tematahoa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033467/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.33333</wgs:lat>
+	<wgs:long>-145.56667</wgs:long>
+	<skos:prefLabel>Temarie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033488/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.83333</wgs:lat>
+	<wgs:long>-149.11667</wgs:long>
+	<skos:prefLabel>Tehua Roto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033498/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.83333</wgs:lat>
+	<wgs:long>-147.6</wgs:long>
+	<skos:prefLabel>Motu Tehau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033501/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.13333</wgs:lat>
+	<wgs:long>-140.88333</wgs:long>
+	<skos:prefLabel>Tehakoro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033512/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-17.51667</wgs:lat>
+	<wgs:long>-149.78333</wgs:long>
+	<skos:altLabel>District de Teavaro</skos:altLabel>
+	<skos:altLabel>Teavaro</skos:altLabel>
+	<skos:prefLabel>District de Teavaro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033519/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.83333</wgs:lat>
+	<wgs:long>-151.35</wgs:long>
+	<skos:altLabel>Teautavaha</skos:altLabel>
+	<skos:altLabel>Îlot Teautavaha</skos:altLabel>
+	<skos:prefLabel>Teautavaha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033526/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.13333</wgs:lat>
+	<wgs:long>-145.81667</wgs:long>
+	<skos:prefLabel>Teatea</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033528/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-17.83333</wgs:lat>
+	<wgs:long>-149.2</wgs:long>
+	<skos:altLabel>District de Teahupo</skos:altLabel>
+	<skos:altLabel>District de Tearupoo</skos:altLabel>
+	<skos:altLabel>Teahupu</skos:altLabel>
+	<skos:prefLabel>District de Tearupoo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033545/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-17.48333</wgs:lat>
+	<wgs:long>-149.8</wgs:long>
+	<skos:altLabel>District de Teaharoa</skos:altLabel>
+	<skos:altLabel>Teaharoa</skos:altLabel>
+	<skos:prefLabel>District de Teaharoa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033550/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-27.63333</wgs:lat>
+	<wgs:long>-144.3</wgs:long>
+	<skos:altLabel>Ile Tauturau</skos:altLabel>
+	<skos:altLabel>Tauturau</skos:altLabel>
+	<skos:prefLabel>Tauturau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033551/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.56667</wgs:lat>
+	<wgs:long>-151.51667</wgs:long>
+	<skos:altLabel>Ile Tautu</skos:altLabel>
+	<skos:altLabel>Tautu</skos:altLabel>
+	<skos:prefLabel>Tautu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033555/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-17.78333</wgs:lat>
+	<wgs:long>-149.16667</wgs:long>
+	<skos:altLabel>District de Tautira</skos:altLabel>
+	<skos:altLabel>Tautira</skos:altLabel>
+	<skos:prefLabel>District de Tautira</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033561/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-27.61667</wgs:lat>
+	<wgs:long>-144.35</wgs:long>
+	<skos:altLabel>Ile Taura</skos:altLabel>
+	<skos:altLabel>Taura</skos:altLabel>
+	<skos:prefLabel>Taura</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033568/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-27.6</wgs:lat>
+	<wgs:long>-144.28333</wgs:long>
+	<skos:altLabel>Ile Tauna</skos:altLabel>
+	<skos:altLabel>Tauna</skos:altLabel>
+	<skos:prefLabel>Tauna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033580/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.48333</wgs:lat>
+	<wgs:long>-149.91667</wgs:long>
+	<skos:altLabel>Ilot Tarehu</skos:altLabel>
+	<skos:altLabel>Tarehu</skos:altLabel>
+	<skos:prefLabel>Tarehu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033588/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-27.58333</wgs:lat>
+	<wgs:long>-144.28333</wgs:long>
+	<skos:altLabel>Ile Tarakoi</skos:altLabel>
+	<skos:altLabel>Tarakoi</skos:altLabel>
+	<skos:prefLabel>Tarakoi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033593/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.86667</wgs:lat>
+	<wgs:long>-151.45</wgs:long>
+	<skos:prefLabel>Motu Tapute</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033594/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-27.6</wgs:lat>
+	<wgs:long>-144.33333</wgs:long>
+	<skos:altLabel>Ile Tapui</skos:altLabel>
+	<skos:altLabel>Tapui</skos:altLabel>
+	<skos:prefLabel>Tapui</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033600/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.5</wgs:lat>
+	<wgs:long>-151.78333</wgs:long>
+	<skos:prefLabel>Motu Tapu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033605/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-27.63333</wgs:lat>
+	<wgs:long>-144.3</wgs:long>
+	<skos:altLabel>Ile Tapiko</skos:altLabel>
+	<skos:altLabel>Tapiko</skos:altLabel>
+	<skos:prefLabel>Tapiko</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033606/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>-16.5</wgs:lat>
+	<wgs:long>-151.7</wgs:long>
+	<skos:altLabel>Motu Tape</skos:altLabel>
+	<skos:altLabel>Motu Tupe</skos:altLabel>
+	<skos:prefLabel>Motu Tape</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033611/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.75</wgs:lat>
+	<wgs:long>-151.41667</wgs:long>
+	<skos:altLabel>Taoru</skos:altLabel>
+	<skos:altLabel>Taoru Island</skos:altLabel>
+	<skos:altLabel>Îlot Taoru</skos:altLabel>
+	<skos:prefLabel>Taoru</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033619/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.56667</wgs:lat>
+	<wgs:long>-146.25</wgs:long>
+	<skos:prefLabel>Motu Tamaro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033622/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16</wgs:lat>
+	<wgs:long>-142.43333</wgs:long>
+	<skos:altLabel>Ilot Takoke</skos:altLabel>
+	<skos:altLabel>Takeke</skos:altLabel>
+	<skos:altLabel>Takoke Island</skos:altLabel>
+	<skos:prefLabel>Takeke</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033645/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.75</wgs:lat>
+	<wgs:long>-151.48333</wgs:long>
+	<skos:prefLabel>Tahu-Naoe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033646/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.8</wgs:lat>
+	<wgs:long>-149.13333</wgs:long>
+	<skos:prefLabel>Tahuna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033649/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.61667</wgs:lat>
+	<wgs:long>-149.45</wgs:long>
+	<skos:altLabel>Isla de Amat</skos:altLabel>
+	<skos:altLabel>King George III's Island</skos:altLabel>
+	<skos:altLabel>La Nouvelle Cythère</skos:altLabel>
+	<skos:altLabel>Otaheite</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tahiti</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Tahiti</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Tahiti</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Tahiti</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Tahiti</skos:altLabel>
+	<skos:altLabel xml:lang="de">Tahiti</skos:altLabel>
+	<skos:altLabel xml:lang="da">Tahiti</skos:altLabel>
+	<skos:altLabel xml:lang="et">Tahiti</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Tahiti</skos:altLabel>
+	<skos:altLabel xml:lang="it">Tahiti</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Tahiti</skos:altLabel>
+	<skos:altLabel xml:lang="no">Tahiti</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Tahiti</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Tahiti</skos:altLabel>
+	<skos:altLabel xml:lang="ty">Tahiti</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Tahiti</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Tahiti</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Tahiti</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Tahiti</skos:altLabel>
+	<skos:altLabel>Tahiti</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Tahitio</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Tahití</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Tahití</skos:altLabel>
+	<skos:altLabel xml:lang="es">Tahití</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Taiti</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Taitis</skos:altLabel>
+	<skos:altLabel>Taïti</skos:altLabel>
+	<skos:altLabel>Île Tahiti</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Таити</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Таити</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Тахити</skos:altLabel>
+	<skos:altLabel xml:lang="he">טהיטי</skos:altLabel>
+	<skos:altLabel xml:lang="ar">تاهيتي</skos:altLabel>
+	<skos:altLabel xml:lang="ja">タヒチ島</skos:altLabel>
+	<skos:altLabel xml:lang="zh">塔希提</skos:altLabel>
+	<skos:altLabel xml:lang="zh">大溪地</skos:altLabel>
+	<skos:prefLabel>Tahiti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033650/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.55</wgs:lat>
+	<wgs:long>-149.6</wgs:long>
+	<skos:altLabel>Ile Motu Tahiri</skos:altLabel>
+	<skos:altLabel>Motu Tahiri</skos:altLabel>
+	<skos:altLabel>Motu Tehiri</skos:altLabel>
+	<skos:prefLabel>Motu Tahiri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033661/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.63333</wgs:lat>
+	<wgs:long>-151.5</wgs:long>
+	<skos:altLabel>Otaha</skos:altLabel>
+	<skos:altLabel>Tahaa</skos:altLabel>
+	<skos:altLabel>Tahaa Island</skos:altLabel>
+	<skos:altLabel>Tahao</skos:altLabel>
+	<skos:altLabel>Upolu</skos:altLabel>
+	<skos:altLabel>Île Tahaa</skos:altLabel>
+	<skos:prefLabel>Tahaa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033666/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.2</wgs:lat>
+	<wgs:long>-146.8</wgs:long>
+	<skos:prefLabel>Motu Tae</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033679/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.8</wgs:lat>
+	<wgs:long>-154.68333</wgs:long>
+	<skos:prefLabel>Île du Sud</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033681/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-17</wgs:lat>
+	<wgs:long>-150</wgs:long>
+	<skos:altLabel>Archipel de Tahiti</skos:altLabel>
+	<skos:altLabel>Gesellschafts Inseln</skos:altLabel>
+	<skos:altLabel>Ostrová Óbshchestva</skos:altLabel>
+	<skos:altLabel xml:lang="en">Society Islands</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Îles de la Société</skos:altLabel>
+	<skos:prefLabel>Society Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033684/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.76667</wgs:lat>
+	<wgs:long>-149.41667</wgs:long>
+	<skos:altLabel>Sand Island</skos:altLabel>
+	<skos:altLabel>Îlot de Sable</skos:altLabel>
+	<skos:prefLabel>Îlot de Sable</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033685/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.43333</wgs:lat>
+	<wgs:long>-151.33333</wgs:long>
+	<skos:altLabel>Hiti-roa</skos:altLabel>
+	<skos:altLabel>Ile Rurutu</skos:altLabel>
+	<skos:altLabel>Ohetehoa</skos:altLabel>
+	<skos:altLabel>Oheteroa</skos:altLabel>
+	<skos:altLabel>Rorutu Island</skos:altLabel>
+	<skos:altLabel>Rouroutou</skos:altLabel>
+	<skos:altLabel>Rurutu</skos:altLabel>
+	<skos:altLabel>Rurutu Island</skos:altLabel>
+	<skos:altLabel>Rurutua</skos:altLabel>
+	<skos:prefLabel>Rurutu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033692/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.9</wgs:lat>
+	<wgs:long>-147.68333</wgs:long>
+	<skos:prefLabel>Motu Ruahuata</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033694/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>-16.5</wgs:lat>
+	<wgs:long>-151.7</wgs:long>
+	<skos:altLabel>Motu Roa</skos:altLabel>
+	<skos:altLabel>Motu Rua</skos:altLabel>
+	<skos:prefLabel>Motu Rua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033704/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-14.53333</wgs:lat>
+	<wgs:long>-145.13333</wgs:long>
+	<skos:altLabel>Iles du Roi George</skos:altLabel>
+	<skos:altLabel>King George Islands</skos:altLabel>
+	<skos:altLabel>King Georges Islands</skos:altLabel>
+	<skos:altLabel>Îles du Roi Georges</skos:altLabel>
+	<skos:prefLabel>Îles du Roi Georges</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033708/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.88333</wgs:lat>
+	<wgs:long>-151.45</wgs:long>
+	<skos:prefLabel>Motu Roa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033711/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.63333</wgs:lat>
+	<wgs:long>-152.85</wgs:long>
+	<skos:altLabel>Rimatara</skos:altLabel>
+	<skos:altLabel>Rimatara Island</skos:altLabel>
+	<skos:altLabel>Rimitara</skos:altLabel>
+	<skos:altLabel>Rimitera</skos:altLabel>
+	<skos:altLabel>Île Rimatara</skos:altLabel>
+	<skos:prefLabel>Rimatara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033730/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.01667</wgs:lat>
+	<wgs:long>-142.45</wgs:long>
+	<skos:altLabel>Garumaoa</skos:altLabel>
+	<skos:altLabel>Ile Raroïa</skos:altLabel>
+	<skos:altLabel>Raroia</skos:altLabel>
+	<skos:altLabel>Raroia Island</skos:altLabel>
+	<skos:prefLabel>Raroia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033732/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-27.56667</wgs:lat>
+	<wgs:long>-144.35</wgs:long>
+	<skos:altLabel>Ile Rarapai</skos:altLabel>
+	<skos:altLabel>Rarapai</skos:altLabel>
+	<skos:prefLabel>Rarapai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033734/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-27.61667</wgs:lat>
+	<wgs:long>-144.28333</wgs:long>
+	<skos:altLabel>Rapa Iti</skos:altLabel>
+	<skos:altLabel>Île Rapa Iti</skos:altLabel>
+	<skos:altLabel>Îlot Rapa Iti</skos:altLabel>
+	<skos:prefLabel>Rapa Iti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033736/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-27.6</wgs:lat>
+	<wgs:long>-144.33333</wgs:long>
+	<skos:altLabel>Ile Rapa</skos:altLabel>
+	<skos:altLabel>Ile Rapa Iti</skos:altLabel>
+	<skos:altLabel>Oparo</skos:altLabel>
+	<skos:altLabel>Oparu</skos:altLabel>
+	<skos:altLabel>Rapa</skos:altLabel>
+	<skos:altLabel>Rapa Island</skos:altLabel>
+	<skos:altLabel>Rapa Ita</skos:altLabel>
+	<skos:altLabel>Rapa Iti</skos:altLabel>
+	<skos:prefLabel>Rapa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033738/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.86667</wgs:lat>
+	<wgs:long>-147.66667</wgs:long>
+	<skos:altLabel>High Island</skos:altLabel>
+	<skos:altLabel>Ile Raevavae</skos:altLabel>
+	<skos:altLabel>Ile Raïvavae</skos:altLabel>
+	<skos:altLabel>Ile Vavitou</skos:altLabel>
+	<skos:altLabel>Ile Vavitu</skos:altLabel>
+	<skos:altLabel>Raevavae</skos:altLabel>
+	<skos:altLabel>Raivavae</skos:altLabel>
+	<skos:altLabel>Raivavae Island</skos:altLabel>
+	<skos:altLabel>Raizavae</skos:altLabel>
+	<skos:altLabel>Ravaivai</skos:altLabel>
+	<skos:altLabel>Rawaiwai</skos:altLabel>
+	<skos:altLabel>Santa Rosa</skos:altLabel>
+	<skos:altLabel>Vavitao</skos:altLabel>
+	<skos:altLabel>Vavitoo</skos:altLabel>
+	<skos:altLabel>Vavitu</skos:altLabel>
+	<skos:altLabel>Vivitau</skos:altLabel>
+	<skos:altLabel>Wawitao</skos:altLabel>
+	<skos:prefLabel>Raivavae</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033741/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-23.88333</wgs:lat>
+	<wgs:long>-147.66667</wgs:long>
+	<skos:altLabel>District de Rairua</skos:altLabel>
+	<skos:altLabel>District de Raiurua</skos:altLabel>
+	<skos:altLabel>Raiurua</skos:altLabel>
+	<skos:prefLabel>District de Rairua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033744/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.83333</wgs:lat>
+	<wgs:long>-151.41667</wgs:long>
+	<skos:altLabel>Havai</skos:altLabel>
+	<skos:altLabel>La Princesa</skos:altLabel>
+	<skos:altLabel>Princessa</skos:altLabel>
+	<skos:altLabel>Raiatea</skos:altLabel>
+	<skos:altLabel>Raiatea Island</skos:altLabel>
+	<skos:altLabel>Ulietea</skos:altLabel>
+	<skos:altLabel>Île Raiatea</skos:altLabel>
+	<skos:prefLabel>Raiatea</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033748/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-16.75</wgs:lat>
+	<wgs:long>-144.23333</wgs:long>
+	<skos:altLabel>Groupe Raevski</skos:altLabel>
+	<skos:altLabel>Iles Raeffsky</skos:altLabel>
+	<skos:altLabel>Raeffskoy</skos:altLabel>
+	<skos:altLabel>Raeffsky</skos:altLabel>
+	<skos:altLabel>Raevscoi</skos:altLabel>
+	<skos:altLabel>Raevski</skos:altLabel>
+	<skos:altLabel>Raevski Group</skos:altLabel>
+	<skos:altLabel>Raevski Islands</skos:altLabel>
+	<skos:altLabel>Raieffsky</skos:altLabel>
+	<skos:altLabel>Rayevskiy</skos:altLabel>
+	<skos:altLabel>Sea Gull Group</skos:altLabel>
+	<skos:altLabel>Sea Gull Islands</skos:altLabel>
+	<skos:altLabel>Seagull</skos:altLabel>
+	<skos:prefLabel>Groupe Raevski</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033750/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.56667</wgs:lat>
+	<wgs:long>-149.3</wgs:long>
+	<skos:altLabel>Ile Motu Puuru</skos:altLabel>
+	<skos:altLabel>Motu Puuru</skos:altLabel>
+	<skos:prefLabel>Motu Puuru</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033756/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.45</wgs:lat>
+	<wgs:long>-145.46667</wgs:long>
+	<skos:prefLabel>Putuahara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033761/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.76667</wgs:lat>
+	<wgs:long>-149.38333</wgs:long>
+	<skos:altLabel>Ile Pururu</skos:altLabel>
+	<skos:altLabel>Ilot Boise</skos:altLabel>
+	<skos:altLabel>Pururu</skos:altLabel>
+	<skos:prefLabel>Pururu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033773/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.51667</wgs:lat>
+	<wgs:long>-143.81667</wgs:long>
+	<skos:prefLabel>Punaruku</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033777/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-17.61667</wgs:lat>
+	<wgs:long>-149.58333</wgs:long>
+	<skos:prefLabel>Punaauia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033779/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>25750</europeana:population>
+	<wgs:lat>-17.63333</wgs:lat>
+	<wgs:long>-149.6</wgs:long>
+	<skos:altLabel>Punaauia</skos:altLabel>
+	<skos:altLabel>Punaavia</skos:altLabel>
+	<skos:prefLabel>Punaauia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033791/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-17.75</wgs:lat>
+	<wgs:long>-149.23333</wgs:long>
+	<skos:altLabel>District de Pueu</skos:altLabel>
+	<skos:altLabel>Pueu</skos:altLabel>
+	<skos:prefLabel>District de Pueu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033795/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.96667</wgs:lat>
+	<wgs:long>-148.08333</wgs:long>
+	<skos:prefLabel>Motu Puarua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033828/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.41667</wgs:lat>
+	<wgs:long>-149.41667</wgs:long>
+	<skos:altLabel>Flat Islet</skos:altLabel>
+	<skos:altLabel>Îlot Plat</skos:altLabel>
+	<skos:prefLabel>Îlot Plat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033830/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.55</wgs:lat>
+	<wgs:long>-151.73333</wgs:long>
+	<skos:altLabel>Piti u Uta</skos:altLabel>
+	<skos:altLabel>Pitiuu Uta</skos:altLabel>
+	<skos:prefLabel>Piti u Uta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033831/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.55</wgs:lat>
+	<wgs:long>-151.71667</wgs:long>
+	<skos:altLabel>Piti u Tai</skos:altLabel>
+	<skos:altLabel>Pitiuu Tai</skos:altLabel>
+	<skos:prefLabel>Piti u Tai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033832/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.48333</wgs:lat>
+	<wgs:long>-152.25</wgs:long>
+	<skos:altLabel>Motou Té Iti Ahe</skos:altLabel>
+	<skos:altLabel>Motu Iti Ahe</skos:altLabel>
+	<skos:altLabel>Motu Pitiahe</skos:altLabel>
+	<skos:prefLabel>Motu Pitiahe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033833/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.53333</wgs:lat>
+	<wgs:long>-151.7</wgs:long>
+	<skos:prefLabel>Motu Piti Aau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033837/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-17.53333</wgs:lat>
+	<wgs:long>-149.51667</wgs:long>
+	<skos:altLabel>District de Pare</skos:altLabel>
+	<skos:altLabel>District de Pirae</skos:altLabel>
+	<skos:altLabel>Pare</skos:altLabel>
+	<skos:altLabel>Pirae</skos:altLabel>
+	<skos:prefLabel>District de Pirae</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033838/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14729</europeana:population>
+	<wgs:lat>-17.51667</wgs:lat>
+	<wgs:long>-149.53333</wgs:long>
+	<skos:prefLabel>Pirae</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033857/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.71667</wgs:lat>
+	<wgs:long>-151.03333</wgs:long>
+	<skos:prefLabel>Motu Peihi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033859/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.51667</wgs:lat>
+	<wgs:long>-149.76667</wgs:long>
+	<skos:altLabel>Ile Motu Pehue</skos:altLabel>
+	<skos:altLabel>Motu Pehue</skos:altLabel>
+	<skos:altLabel>Motu Pohue</skos:altLabel>
+	<skos:prefLabel>Motu Pehue</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033889/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.88333</wgs:lat>
+	<wgs:long>-151.46667</wgs:long>
+	<skos:altLabel>Motu Paria</skos:altLabel>
+	<skos:altLabel>Îlot Motu Paria</skos:altLabel>
+	<skos:prefLabel>Motu Paria</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033897/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.88333</wgs:lat>
+	<wgs:long>-147.71667</wgs:long>
+	<skos:prefLabel>Motu Pararuu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033905/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>-16.68333</wgs:lat>
+	<wgs:long>-150.98333</wgs:long>
+	<skos:prefLabel>Motu Papiti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033909/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-17.5</wgs:lat>
+	<wgs:long>-149.86667</wgs:long>
+	<skos:altLabel>District de Papetoai</skos:altLabel>
+	<skos:altLabel>Papetoai</skos:altLabel>
+	<skos:prefLabel>District de Papetoai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033919/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-17.58333</wgs:lat>
+	<wgs:long>-149.43333</wgs:long>
+	<skos:altLabel>District de Papenoo</skos:altLabel>
+	<skos:altLabel>Haapaiano</skos:altLabel>
+	<skos:altLabel>Papenoo</skos:altLabel>
+	<skos:altLabel>Papenu</skos:altLabel>
+	<skos:prefLabel>District de Papenoo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033936/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>26357</europeana:population>
+	<wgs:lat>-17.53333</wgs:lat>
+	<wgs:long>-149.56667</wgs:long>
+	<skos:altLabel xml:lang="es">Papeete</skos:altLabel>
+	<skos:altLabel xml:lang="en">Papeete</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Papeete</skos:altLabel>
+	<skos:altLabel xml:lang="it">Papeete</skos:altLabel>
+	<skos:altLabel xml:lang="no">Papeete</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Papeete</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Papeete</skos:altLabel>
+	<skos:altLabel xml:lang="de">Papeete</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Papeete</skos:altLabel>
+	<skos:altLabel xml:lang="io">Papeete</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Papeete</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Papeete</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Papeete</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Papeete</skos:altLabel>
+	<skos:altLabel xml:lang="da">Papeete</skos:altLabel>
+	<skos:altLabel xml:lang="el">Papeete</skos:altLabel>
+	<skos:altLabel>Papeete</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Papeetė</skos:altLabel>
+	<skos:altLabel>Papeiti</skos:altLabel>
+	<skos:altLabel xml:lang="ty">Pape’ete</skos:altLabel>
+	<skos:altLabel>Papiete</skos:altLabel>
+	<skos:altLabel>Papiti</skos:altLabel>
+	<skos:altLabel>Vaiete</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Папеете</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Папете</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Папеэте</skos:altLabel>
+	<skos:altLabel xml:lang="ja">パペーテ</skos:altLabel>
+	<skos:altLabel xml:lang="ko">파피에테</skos:altLabel>
+	<skos:prefLabel>Papeete</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033941/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-17.71667</wgs:lat>
+	<wgs:long>-149.35</wgs:long>
+	<skos:altLabel>District de Papeari</skos:altLabel>
+	<skos:altLabel>Papeari</skos:altLabel>
+	<skos:prefLabel>District de Papeari</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033949/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-17.73333</wgs:lat>
+	<wgs:long>-149.5</wgs:long>
+	<skos:altLabel>District de Papara</skos:altLabel>
+	<skos:altLabel>Papara</skos:altLabel>
+	<skos:prefLabel>District de Papara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033951/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10360</europeana:population>
+	<wgs:lat>-17.75</wgs:lat>
+	<wgs:long>-149.55</wgs:long>
+	<skos:altLabel>Papao</skos:altLabel>
+	<skos:altLabel>Papara</skos:altLabel>
+	<skos:prefLabel>Papao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033963/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.63333</wgs:lat>
+	<wgs:long>-146.83333</wgs:long>
+	<skos:prefLabel>Motu Panao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033964/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-15.5</wgs:lat>
+	<wgs:long>-146.5</wgs:long>
+	<skos:altLabel>Groupe des Îles Palliser</skos:altLabel>
+	<skos:altLabel>Iles Pallisser</skos:altLabel>
+	<skos:altLabel>Palliser Islands</skos:altLabel>
+	<skos:altLabel>Palliser Isles</skos:altLabel>
+	<skos:altLabel>Îles Palliser</skos:altLabel>
+	<skos:prefLabel>Îles Palliser</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033971/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.01667</wgs:lat>
+	<wgs:long>-147.75</wgs:long>
+	<skos:prefLabel>Motu Paio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033987/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.71667</wgs:lat>
+	<wgs:long>-150.96667</wgs:long>
+	<skos:prefLabel>Motu Pahare</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034004/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-17.66667</wgs:lat>
+	<wgs:long>-149.58333</wgs:long>
+	<skos:altLabel>District de Paea</skos:altLabel>
+	<skos:altLabel>Paea</skos:altLabel>
+	<skos:prefLabel>District de Paea</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034005/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13359</europeana:population>
+	<wgs:lat>-17.68333</wgs:lat>
+	<wgs:long>-149.58333</wgs:long>
+	<skos:altLabel>Paca</skos:altLabel>
+	<skos:altLabel>Paea</skos:altLabel>
+	<skos:prefLabel>Paea</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034019/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.8</wgs:lat>
+	<wgs:long>-154.7</wgs:long>
+	<skos:prefLabel>Île de l'Ouest</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034020/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>-16.68333</wgs:lat>
+	<wgs:long>-151.01667</wgs:long>
+	<skos:prefLabel>Motu Oue</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034034/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.43333</wgs:lat>
+	<wgs:long>-145.5</wgs:long>
+	<skos:prefLabel>Otepipi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034035/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.31667</wgs:lat>
+	<wgs:long>-147.46667</wgs:long>
+	<skos:prefLabel>Otepipi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034080/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.45</wgs:lat>
+	<wgs:long>-151.73333</wgs:long>
+	<skos:prefLabel>Motu Ome</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034081/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.66667</wgs:lat>
+	<wgs:long>-145.25</wgs:long>
+	<skos:prefLabel>Okukina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034099/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.4</wgs:lat>
+	<wgs:long>-149.41667</wgs:long>
+	<skos:prefLabel>Motu Ofai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034101/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>-16.7</wgs:lat>
+	<wgs:long>-150.98333</wgs:long>
+	<skos:prefLabel>Motu Oavarei</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034103/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.85</wgs:lat>
+	<wgs:long>-151.31667</wgs:long>
+	<skos:altLabel>Ile Oatara</skos:altLabel>
+	<skos:altLabel>Oatara</skos:altLabel>
+	<skos:prefLabel>Oatara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034110/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.46667</wgs:lat>
+	<wgs:long>-146.45</wgs:long>
+	<skos:prefLabel>Motu Nuutina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034112/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.88333</wgs:lat>
+	<wgs:long>-151.45</wgs:long>
+	<skos:prefLabel>Motu Nuutere</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034116/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.88333</wgs:lat>
+	<wgs:long>-147.61667</wgs:long>
+	<skos:prefLabel>Motu Nuumiri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034120/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-16.51667</wgs:lat>
+	<wgs:long>-151.75</wgs:long>
+	<skos:prefLabel>District de Nunue</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034124/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-16.45</wgs:lat>
+	<wgs:long>-152.26667</wgs:long>
+	<skos:prefLabel>Marae de Nououbouré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034126/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.78333</wgs:lat>
+	<wgs:long>-154.66667</wgs:long>
+	<skos:prefLabel>Île du Nordêt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034128/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.71667</wgs:lat>
+	<wgs:long>-149.28333</wgs:long>
+	<skos:altLabel>Motu Nono</skos:altLabel>
+	<skos:altLabel>Îlot Motu Nono</skos:altLabel>
+	<skos:prefLabel>Motu Nono</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034138/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.15</wgs:lat>
+	<wgs:long>-146.35</wgs:long>
+	<skos:altLabel>Faau</skos:altLabel>
+	<skos:altLabel>Greig Island</skos:altLabel>
+	<skos:altLabel>Niau</skos:altLabel>
+	<skos:altLabel>Niau Atoll</skos:altLabel>
+	<skos:altLabel>Niau Island</skos:altLabel>
+	<skos:prefLabel>Niau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034139/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.05</wgs:lat>
+	<wgs:long>-142.48333</wgs:long>
+	<skos:prefLabel>Ngnarumaova</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034142/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.38333</wgs:lat>
+	<wgs:long>-140.71667</wgs:long>
+	<skos:prefLabel>Ngake</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034147/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.2</wgs:lat>
+	<wgs:long>-141.25</wgs:long>
+	<skos:altLabel>Desappointement</skos:altLabel>
+	<skos:altLabel>Isle of Disappointment</skos:altLabel>
+	<skos:altLabel>Napuka</skos:altLabel>
+	<skos:altLabel>Napuka Island</skos:altLabel>
+	<skos:altLabel>Tepukaamaruia</skos:altLabel>
+	<skos:altLabel>Tepukaruga</skos:altLabel>
+	<skos:altLabel>Weituhi</skos:altLabel>
+	<skos:altLabel>Wytoohee</skos:altLabel>
+	<skos:prefLabel>Napuka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034151/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.16667</wgs:lat>
+	<wgs:long>-147.51667</wgs:long>
+	<skos:prefLabel>Motu Naonao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034152/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.91667</wgs:lat>
+	<wgs:long>-151.41667</wgs:long>
+	<skos:altLabel>Nao Nao</skos:altLabel>
+	<skos:altLabel>Îlot Nao Nao</skos:altLabel>
+	<skos:prefLabel>Nao Nao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034153/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.56667</wgs:lat>
+	<wgs:long>-149.3</wgs:long>
+	<skos:altLabel>Ile Nansouty</skos:altLabel>
+	<skos:altLabel>Ilot de Nansouty</skos:altLabel>
+	<skos:altLabel>Nansouty</skos:altLabel>
+	<skos:altLabel>Nansouty Island</skos:altLabel>
+	<skos:altLabel>Îlot Nausouty</skos:altLabel>
+	<skos:prefLabel>Nansouty</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034156/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.45</wgs:lat>
+	<wgs:long>-151.76667</wgs:long>
+	<skos:altLabel>Motu Moute</skos:altLabel>
+	<skos:altLabel>Motu Mute</skos:altLabel>
+	<skos:prefLabel>Motu Mute</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034157/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>-16.75</wgs:lat>
+	<wgs:long>-150.95</wgs:long>
+	<skos:prefLabel>Motu Muri Maora</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034169/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.36667</wgs:lat>
+	<wgs:long>-149.38333</wgs:long>
+	<skos:prefLabel>Motu Moturaa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034179/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.38333</wgs:lat>
+	<wgs:long>-149.38333</wgs:long>
+	<skos:prefLabel>Motu Motihia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034181/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.66667</wgs:lat>
+	<wgs:long>-151.43333</wgs:long>
+	<skos:altLabel>Ile Motea</skos:altLabel>
+	<skos:altLabel>Motea</skos:altLabel>
+	<skos:prefLabel>Motea</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034185/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.53333</wgs:lat>
+	<wgs:long>-149.83333</wgs:long>
+	<skos:altLabel>Duke of York's Island</skos:altLabel>
+	<skos:altLabel>Eimeo</skos:altLabel>
+	<skos:altLabel>Ile Moorea</skos:altLabel>
+	<skos:altLabel xml:lang="de">Moorea</skos:altLabel>
+	<skos:altLabel xml:lang="es">Moorea</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Moorea</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Moorea</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Moorea</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Moorea</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Moorea</skos:altLabel>
+	<skos:altLabel xml:lang="en">Moorea</skos:altLabel>
+	<skos:altLabel xml:lang="et">Moorea</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Moorea</skos:altLabel>
+	<skos:altLabel>Moorea</skos:altLabel>
+	<skos:altLabel>Mooréa Island</skos:altLabel>
+	<skos:altLabel>Morea</skos:altLabel>
+	<skos:altLabel xml:lang="ty">Mo’orea</skos:altLabel>
+	<skos:altLabel>Murea</skos:altLabel>
+	<skos:altLabel>Santo Domingo</skos:altLabel>
+	<skos:altLabel xml:lang="ja">モーレア島</skos:altLabel>
+	<skos:prefLabel>Moorea</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034198/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.86667</wgs:lat>
+	<wgs:long>-148.05</wgs:long>
+	<skos:altLabel>Cerro de San Cristóbal</skos:altLabel>
+	<skos:altLabel>Ile Mehetia</skos:altLabel>
+	<skos:altLabel>Le Boudoir</skos:altLabel>
+	<skos:altLabel>Maitea</skos:altLabel>
+	<skos:altLabel>Meetia</skos:altLabel>
+	<skos:altLabel>Mehetia</skos:altLabel>
+	<skos:altLabel>Mehetu</skos:altLabel>
+	<skos:altLabel>Méhétia Island</skos:altLabel>
+	<skos:altLabel>Osnaburgh</skos:altLabel>
+	<skos:altLabel>Pic de la Boudeuse</skos:altLabel>
+	<skos:altLabel>Tuhua</skos:altLabel>
+	<skos:prefLabel>Mehetia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034200/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.35</wgs:lat>
+	<wgs:long>-149.4</wgs:long>
+	<skos:prefLabel>Motu Mautaro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034203/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.45</wgs:lat>
+	<wgs:long>-152.25</wgs:long>
+	<skos:altLabel>Marua</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Maupiti</skos:altLabel>
+	<skos:altLabel xml:lang="de">Maupiti</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Maupiti</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Maupiti</skos:altLabel>
+	<skos:altLabel xml:lang="ty">Maupiti</skos:altLabel>
+	<skos:altLabel xml:lang="es">Maupiti</skos:altLabel>
+	<skos:altLabel xml:lang="en">Maupiti</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Maupiti</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Maupiti</skos:altLabel>
+	<skos:altLabel>Maupiti</skos:altLabel>
+	<skos:altLabel>Maupiti Island</skos:altLabel>
+	<skos:altLabel>Maurua</skos:altLabel>
+	<skos:altLabel>San Antonio</skos:altLabel>
+	<skos:altLabel>Île Maupiti</skos:altLabel>
+	<skos:prefLabel>Maupiti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034235/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-17.81667</wgs:lat>
+	<wgs:long>-149.26667</wgs:long>
+	<skos:altLabel>District de Mataoae</skos:altLabel>
+	<skos:altLabel>Mataoae</skos:altLabel>
+	<skos:prefLabel>District de Mataoae</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034240/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-17.73333</wgs:lat>
+	<wgs:long>-149.41667</wgs:long>
+	<skos:altLabel>District de Mataiea</skos:altLabel>
+	<skos:altLabel>Mataiea</skos:altLabel>
+	<skos:prefLabel>District de Mataiea</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034260/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-17.53333</wgs:lat>
+	<wgs:long>-149.9</wgs:long>
+	<skos:prefLabel>Marae</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034268/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.76667</wgs:lat>
+	<wgs:long>-149.41667</wgs:long>
+	<skos:altLabel>Ile Mapeti</skos:altLabel>
+	<skos:altLabel>Mapeti</skos:altLabel>
+	<skos:altLabel>Mapeti Island</skos:altLabel>
+	<skos:prefLabel>Mapeti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034281/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>-16.68333</wgs:lat>
+	<wgs:long>-151</wgs:long>
+	<skos:prefLabel>Motu Manounou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034282/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.9</wgs:lat>
+	<wgs:long>-147.7</wgs:long>
+	<skos:prefLabel>Motu Mano</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034285/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-16.45</wgs:lat>
+	<wgs:long>-151.78333</wgs:long>
+	<skos:prefLabel>Motus Manini</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034294/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.83333</wgs:lat>
+	<wgs:long>-148.25</wgs:long>
+	<skos:altLabel>Aurora</skos:altLabel>
+	<skos:altLabel>Aurora Island</skos:altLabel>
+	<skos:altLabel>Eyland van Verkwikking</skos:altLabel>
+	<skos:altLabel>Ma-atea</skos:altLabel>
+	<skos:altLabel>Macatea</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Makatea</skos:altLabel>
+	<skos:altLabel xml:lang="de">Makatea</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Makatea</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Makatea</skos:altLabel>
+	<skos:altLabel xml:lang="es">Makatea</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Makatea</skos:altLabel>
+	<skos:altLabel xml:lang="en">Makatea</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Makatea</skos:altLabel>
+	<skos:altLabel>Makatea</skos:altLabel>
+	<skos:altLabel>Makatéa Island</skos:altLabel>
+	<skos:altLabel>Metia</skos:altLabel>
+	<skos:altLabel>Recreation Island</skos:altLabel>
+	<skos:altLabel>Refreshment Island</skos:altLabel>
+	<skos:altLabel>Sagitaria</skos:altLabel>
+	<skos:prefLabel>Makatea</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034300/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.65278</wgs:lat>
+	<wgs:long>-150.63</wgs:long>
+	<skos:altLabel>Ile Tubuai-Manu</skos:altLabel>
+	<skos:altLabel>Isla de los Pajaros</skos:altLabel>
+	<skos:altLabel>La Pelada</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Maiao</skos:altLabel>
+	<skos:altLabel xml:lang="en">Maiao</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Maiao</skos:altLabel>
+	<skos:altLabel xml:lang="es">Maiao</skos:altLabel>
+	<skos:altLabel xml:lang="de">Maiao</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Maiao</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Maiao</skos:altLabel>
+	<skos:altLabel>Maiao Iti</skos:altLabel>
+	<skos:altLabel>Maio</skos:altLabel>
+	<skos:altLabel xml:lang="ty">Mai’ao</skos:altLabel>
+	<skos:altLabel>Mauiti</skos:altLabel>
+	<skos:altLabel>Maïa-iti</skos:altLabel>
+	<skos:altLabel>Maïao</skos:altLabel>
+	<skos:altLabel>Saunders Island</skos:altLabel>
+	<skos:altLabel>Sir Charles Saunders'Island</skos:altLabel>
+	<skos:altLabel>Tapamanoa</skos:altLabel>
+	<skos:altLabel>Tapamanu</skos:altLabel>
+	<skos:altLabel>Tapuaemanu</skos:altLabel>
+	<skos:altLabel>Tubaii</skos:altLabel>
+	<skos:altLabel>Tubuai-Manu</skos:altLabel>
+	<skos:altLabel>Tupuai Manu</skos:altLabel>
+	<skos:prefLabel>Maïao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034301/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.91667</wgs:lat>
+	<wgs:long>-148.06667</wgs:long>
+	<skos:prefLabel>Maiai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034306/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-17.55</wgs:lat>
+	<wgs:long>-149.48333</wgs:long>
+	<skos:altLabel>District de Mahina</skos:altLabel>
+	<skos:altLabel>Mahina</skos:altLabel>
+	<skos:prefLabel>District de Mahina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034307/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14224</europeana:population>
+	<wgs:lat>-17.5</wgs:lat>
+	<wgs:long>-149.45</wgs:long>
+	<skos:prefLabel>Mahina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034310/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.65</wgs:lat>
+	<wgs:long>-151.41667</wgs:long>
+	<skos:altLabel>Ile Mahea</skos:altLabel>
+	<skos:altLabel>Mahea</skos:altLabel>
+	<skos:prefLabel>Mahea</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034319/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-17.58333</wgs:lat>
+	<wgs:long>-149.36667</wgs:long>
+	<skos:altLabel>District de Mahaena</skos:altLabel>
+	<skos:altLabel>Mahaena</skos:altLabel>
+	<skos:prefLabel>District de Mahaena</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034322/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.83333</wgs:lat>
+	<wgs:long>-146.61667</wgs:long>
+	<skos:altLabel>Motu Maava</skos:altLabel>
+	<skos:altLabel>Motu Maia</skos:altLabel>
+	<skos:prefLabel>Motu Maava</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034324/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-17.56667</wgs:lat>
+	<wgs:long>-149.83333</wgs:long>
+	<skos:altLabel>District de Maatea</skos:altLabel>
+	<skos:altLabel>Maatea</skos:altLabel>
+	<skos:prefLabel>District de Maatea</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034339/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16</wgs:lat>
+	<wgs:long>-142.43333</wgs:long>
+	<skos:altLabel>Ilot Kumekume</skos:altLabel>
+	<skos:altLabel>Kumekume</skos:altLabel>
+	<skos:altLabel>Kumekume Island</skos:altLabel>
+	<skos:prefLabel>Kumekume</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034350/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-27.63333</wgs:lat>
+	<wgs:long>-144.31667</wgs:long>
+	<skos:altLabel>Ile Karapo Iti</skos:altLabel>
+	<skos:altLabel>Karapo Iti</skos:altLabel>
+	<skos:prefLabel>Karapo Iti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034351/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-27.63333</wgs:lat>
+	<wgs:long>-144.31667</wgs:long>
+	<skos:altLabel>Ile Karapo Hari</skos:altLabel>
+	<skos:altLabel>Karapo Hari</skos:altLabel>
+	<skos:prefLabel>Karapo Hari</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034359/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.8</wgs:lat>
+	<wgs:long>-151.36667</wgs:long>
+	<skos:altLabel>Ile Iriru</skos:altLabel>
+	<skos:altLabel>Iriru</skos:altLabel>
+	<skos:prefLabel>Iriru</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034360/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.48333</wgs:lat>
+	<wgs:long>-149.9</wgs:long>
+	<skos:altLabel>Ilot Irioa</skos:altLabel>
+	<skos:altLabel>Irioa</skos:altLabel>
+	<skos:altLabel>Irioa Island</skos:altLabel>
+	<skos:prefLabel>Irioa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034364/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030656/"/>
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>31814</europeana:population>
+	<wgs:lat>-16.66667</wgs:lat>
+	<wgs:long>-151.5</wgs:long>
+	<skos:altLabel>Circonscription administrative des Îles Sous-le-Vent</skos:altLabel>
+	<skos:altLabel>Leeward Islands</skos:altLabel>
+	<skos:altLabel>Sous de Vent</skos:altLabel>
+	<skos:prefLabel>Îles Sous-le-Vent</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034365/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030656/"/>
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>194939</europeana:population>
+	<wgs:lat>-17.5</wgs:lat>
+	<wgs:long>-149.5</wgs:long>
+	<skos:altLabel>Circonscription administrative des Îles du Vent</skos:altLabel>
+	<skos:altLabel>Tahiti</skos:altLabel>
+	<skos:altLabel>Windward Islands</skos:altLabel>
+	<skos:prefLabel>Îles du Vent</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034366/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030656/"/>
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>6288</europeana:population>
+	<wgs:lat>-23</wgs:lat>
+	<wgs:long>-150</wgs:long>
+	<skos:altLabel>Circonscription administrative des Îles Australes</skos:altLabel>
+	<skos:prefLabel>Îles Australes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034374/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.71667</wgs:lat>
+	<wgs:long>-151</wgs:long>
+	<skos:altLabel>Grande Huahine</skos:altLabel>
+	<skos:altLabel>Huahine Nui</skos:altLabel>
+	<skos:altLabel>Ile Houahine Noui</skos:altLabel>
+	<skos:prefLabel>Huahine Nui</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034375/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.76667</wgs:lat>
+	<wgs:long>-150.96667</wgs:long>
+	<skos:altLabel>Huahine Iti</skos:altLabel>
+	<skos:altLabel>Ile Houahine Iti</skos:altLabel>
+	<skos:altLabel>Petite Huahine</skos:altLabel>
+	<skos:prefLabel>Huahine Iti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034377/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-16.75</wgs:lat>
+	<wgs:long>-151</wgs:long>
+	<skos:altLabel>Huaheine</skos:altLabel>
+	<skos:altLabel>Huahine</skos:altLabel>
+	<skos:altLabel>Huahiné Island</skos:altLabel>
+	<skos:altLabel>Ile Houahine</skos:altLabel>
+	<skos:altLabel>La Hermosa</skos:altLabel>
+	<skos:altLabel>Île Huahine</skos:altLabel>
+	<skos:prefLabel>Huahine</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034382/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.86667</wgs:lat>
+	<wgs:long>-147.61667</wgs:long>
+	<skos:altLabel>Hotuatua</skos:altLabel>
+	<skos:altLabel>Ile Hotuatua</skos:altLabel>
+	<skos:prefLabel>Hotuatua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034390/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.81667</wgs:lat>
+	<wgs:long>-151.48333</wgs:long>
+	<skos:altLabel>Horea</skos:altLabel>
+	<skos:altLabel>Île Horea</skos:altLabel>
+	<skos:prefLabel>Horea</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034396/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.71667</wgs:lat>
+	<wgs:long>-151.03333</wgs:long>
+	<skos:prefLabel>Motu Hiumoo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034400/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-17.60574</wgs:lat>
+	<wgs:long>-149.30523</wgs:long>
+	<skos:altLabel>Hitiaa</skos:altLabel>
+	<skos:prefLabel>Hitiaa O Te Ra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034401/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-16.46667</wgs:lat>
+	<wgs:long>-151.76667</wgs:long>
+	<skos:prefLabel>District d'Hitiaa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034405/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.45</wgs:lat>
+	<wgs:long>-145.36667</wgs:long>
+	<skos:prefLabel>Hirifa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034407/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.8</wgs:lat>
+	<wgs:long>-151.36667</wgs:long>
+	<skos:altLabel>Hinahuruvi</skos:altLabel>
+	<skos:altLabel>Îlot Hinahuruvi</skos:altLabel>
+	<skos:prefLabel>Hinahuruvi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034428/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.23333</wgs:lat>
+	<wgs:long>-145.7</wgs:long>
+	<skos:prefLabel>Motu Hakono</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034437/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-17.53333</wgs:lat>
+	<wgs:long>-149.9</wgs:long>
+	<skos:altLabel>District de Haapiti</skos:altLabel>
+	<skos:altLabel>Haapiti</skos:altLabel>
+	<skos:prefLabel>District de Haapiti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034446/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.9</wgs:lat>
+	<wgs:long>-151.41667</wgs:long>
+	<skos:altLabel>Haaio</skos:altLabel>
+	<skos:altLabel>Île Haaio</skos:altLabel>
+	<skos:prefLabel>Haaio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034447/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.9</wgs:lat>
+	<wgs:long>-147.66667</wgs:long>
+	<skos:prefLabel>Motu Haa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034452/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.23333</wgs:lat>
+	<wgs:long>-147.76667</wgs:long>
+	<skos:prefLabel>Fenuaroa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034453/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.83333</wgs:lat>
+	<wgs:long>-149.11667</wgs:long>
+	<skos:altLabel>Fenuaino</skos:altLabel>
+	<skos:altLabel>Ile Fenuaïno</skos:altLabel>
+	<skos:prefLabel>Fenuaino</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034460/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.68333</wgs:lat>
+	<wgs:long>-151.45</wgs:long>
+	<skos:altLabel>Fatu Fatu</skos:altLabel>
+	<skos:altLabel>Îlot Fatu Fatu</skos:altLabel>
+	<skos:prefLabel>Fatu Fatu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034466/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.8</wgs:lat>
+	<wgs:long>-146.48333</wgs:long>
+	<skos:altLabel>Faro</skos:altLabel>
+	<skos:altLabel>Motu Faroa</skos:altLabel>
+	<skos:prefLabel>Faro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034483/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.48333</wgs:lat>
+	<wgs:long>-149.91667</wgs:long>
+	<skos:altLabel>Fareone</skos:altLabel>
+	<skos:altLabel>Fareone Island</skos:altLabel>
+	<skos:altLabel>Ilot Fareone</skos:altLabel>
+	<skos:altLabel>Ilot Motu Fareone</skos:altLabel>
+	<skos:prefLabel>Fareone</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034547/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-17.68333</wgs:lat>
+	<wgs:long>-149.35</wgs:long>
+	<skos:prefLabel>District de Faaone</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034549/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-16.48333</wgs:lat>
+	<wgs:long>-151.73333</wgs:long>
+	<skos:prefLabel>District de Faanui</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034559/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-17.56667</wgs:lat>
+	<wgs:long>-149.58333</wgs:long>
+	<skos:altLabel>District de Faaa</skos:altLabel>
+	<skos:altLabel>Faa</skos:altLabel>
+	<skos:altLabel>Faaa</skos:altLabel>
+	<skos:prefLabel>District de Faaa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034561/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>29388</europeana:population>
+	<wgs:lat>-17.55</wgs:lat>
+	<wgs:long>-149.6</wgs:long>
+	<skos:altLabel>Faaa</skos:altLabel>
+	<skos:altLabel>Torea</skos:altLabel>
+	<skos:prefLabel>Faaa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034565/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16</wgs:lat>
+	<wgs:long>-142.43333</wgs:long>
+	<skos:altLabel>Emari</skos:altLabel>
+	<skos:altLabel>Emari Island</skos:altLabel>
+	<skos:altLabel>Ilot Emari</skos:altLabel>
+	<skos:altLabel>Temari</skos:altLabel>
+	<skos:prefLabel>Emari</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034568/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.63333</wgs:lat>
+	<wgs:long>-143.33333</wgs:long>
+	<skos:altLabel>Anou Islands</skos:altLabel>
+	<skos:altLabel>Duke of Gloucester Group</skos:altLabel>
+	<skos:altLabel>Duke of Gloucester Islands</skos:altLabel>
+	<skos:altLabel>Gloucester Islands</skos:altLabel>
+	<skos:altLabel>Groupe du Duc de Gloucester</skos:altLabel>
+	<skos:altLabel>Îles Duc de Gloucester</skos:altLabel>
+	<skos:altLabel>Îles du Duc de Gloucester</skos:altLabel>
+	<skos:prefLabel>Îles du Duc de Gloucester</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034571/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-14.16667</wgs:lat>
+	<wgs:long>-141.33333</wgs:long>
+	<skos:altLabel>Disappointment Group</skos:altLabel>
+	<skos:altLabel>Disappointment Islands</skos:altLabel>
+	<skos:altLabel>Îles du Désappointement</skos:altLabel>
+	<skos:prefLabel>Îles du Désappointement</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034574/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.8</wgs:lat>
+	<wgs:long>-154.68333</wgs:long>
+	<skos:prefLabel>Île Centrale</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034582/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.5</wgs:lat>
+	<wgs:long>-151.75</wgs:long>
+	<skos:altLabel>Bola-bola</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Bora Bora</skos:altLabel>
+	<skos:altLabel xml:lang="de">Bora Bora</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bora Bora</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Bora Bora</skos:altLabel>
+	<skos:altLabel xml:lang="es">Bora Bora</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Bora Bora</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Bora Bora</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Bora Bora</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Bora Bora</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Bora-Bora</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Bora-Bora</skos:altLabel>
+	<skos:altLabel>Bora-Bora</skos:altLabel>
+	<skos:altLabel>Borabora Island</skos:altLabel>
+	<skos:altLabel>Faanui</skos:altLabel>
+	<skos:altLabel>Ile Bora-Bora</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Insula Bora Bora</skos:altLabel>
+	<skos:altLabel>Porapora</skos:altLabel>
+	<skos:altLabel xml:lang="ty">Porapora</skos:altLabel>
+	<skos:altLabel>San Pedro</skos:altLabel>
+	<skos:altLabel>Vavao</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Бора Бора</skos:altLabel>
+	<skos:altLabel xml:lang="he">בורה בורה</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ボラボラ島</skos:altLabel>
+	<skos:prefLabel>Bora-Bora</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034591/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.93333</wgs:lat>
+	<wgs:long>-147.85</wgs:long>
+	<skos:prefLabel>Avatika</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034610/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.48333</wgs:lat>
+	<wgs:long>-149.46667</wgs:long>
+	<skos:prefLabel>Motu Au</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034611/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-27.56667</wgs:lat>
+	<wgs:long>-144.33333</wgs:long>
+	<skos:altLabel>Aturopa</skos:altLabel>
+	<skos:altLabel>Ile Aturopa</skos:altLabel>
+	<skos:prefLabel>Aturopa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034615/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-16.53333</wgs:lat>
+	<wgs:long>-151.73333</wgs:long>
+	<skos:prefLabel>District d'Atitia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034635/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-17.51667</wgs:lat>
+	<wgs:long>-149.51667</wgs:long>
+	<skos:altLabel>Arue</skos:altLabel>
+	<skos:altLabel>District d'Arue</skos:altLabel>
+	<skos:prefLabel>District d'Arue</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034659/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.8</wgs:lat>
+	<wgs:long>-150.96667</wgs:long>
+	<skos:altLabel>Motu Aaraa</skos:altLabel>
+	<skos:altLabel>Motu Araara</skos:altLabel>
+	<skos:prefLabel>Motu Araara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034660/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.88333</wgs:lat>
+	<wgs:long>-147.6</wgs:long>
+	<skos:prefLabel>Motu Araao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034666/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>-16.5</wgs:lat>
+	<wgs:long>-151.7</wgs:long>
+	<skos:altLabel>Motu Apomeo</skos:altLabel>
+	<skos:altLabel>Motu Apumeo</skos:altLabel>
+	<skos:prefLabel>Motu Apomeo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034676/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.43333</wgs:lat>
+	<wgs:long>-152.28333</wgs:long>
+	<skos:altLabel>Motou Aouéra</skos:altLabel>
+	<skos:altLabel>Motu Aouera</skos:altLabel>
+	<skos:prefLabel>Motu Aouera</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034686/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-16.5</wgs:lat>
+	<wgs:long>-151.73333</wgs:long>
+	<skos:prefLabel>District d'Anau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034689/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-23.86667</wgs:lat>
+	<wgs:long>-147.63333</wgs:long>
+	<skos:altLabel>Anatonu</skos:altLabel>
+	<skos:altLabel>District d'Anatonu</skos:altLabel>
+	<skos:prefLabel>District d'Anatonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034714/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.83333</wgs:lat>
+	<wgs:long>-149.11667</wgs:long>
+	<skos:altLabel>Aihuta</skos:altLabel>
+	<skos:altLabel>Ile Aïhuta</skos:altLabel>
+	<skos:prefLabel>Aihuta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034717/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.41667</wgs:lat>
+	<wgs:long>-152.26667</wgs:long>
+	<skos:altLabel>Motou Aié</skos:altLabel>
+	<skos:altLabel>Motu Aie</skos:altLabel>
+	<skos:prefLabel>Motu Aie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034719/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.83333</wgs:lat>
+	<wgs:long>-146.66667</wgs:long>
+	<skos:prefLabel>Motu Aiai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034726/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.48333</wgs:lat>
+	<wgs:long>-151.78333</wgs:long>
+	<skos:altLabel>Entrance Island</skos:altLabel>
+	<skos:altLabel>Ile de l'Entrée</skos:altLabel>
+	<skos:altLabel>Motu Ahuna</skos:altLabel>
+	<skos:prefLabel>Motu Ahuna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034731/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.55</wgs:lat>
+	<wgs:long>-149.78333</wgs:long>
+	<skos:altLabel>Ilot Motu Ahi</skos:altLabel>
+	<skos:altLabel>Motu Ahi</skos:altLabel>
+	<skos:prefLabel>Motu Ahi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034732/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.41667</wgs:lat>
+	<wgs:long>-152.26667</wgs:long>
+	<skos:altLabel>Motou Ahi</skos:altLabel>
+	<skos:altLabel>Motu Ahi</skos:altLabel>
+	<skos:prefLabel>Motu Ahi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034738/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-17.53333</wgs:lat>
+	<wgs:long>-149.8</wgs:long>
+	<skos:altLabel>Afareaitu</skos:altLabel>
+	<skos:altLabel>District d'Afareaitu</skos:altLabel>
+	<skos:prefLabel>District d'Afareaitu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034744/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-17.73333</wgs:lat>
+	<wgs:long>-149.3</wgs:long>
+	<skos:altLabel>Afaahiti</skos:altLabel>
+	<skos:altLabel>District d'Afaahiti</skos:altLabel>
+	<skos:prefLabel>District d'Afaahiti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4036376/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.99167</wgs:lat>
+	<wgs:long>-149.58194</wgs:long>
+	<skos:prefLabel>Tiaraunu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4036377/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.98556</wgs:lat>
+	<wgs:long>-149.56667</wgs:long>
+	<skos:prefLabel>Tauini</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4036378/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.98722</wgs:lat>
+	<wgs:long>-149.58167</wgs:long>
+	<skos:prefLabel>Auroa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4036379/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.98667</wgs:lat>
+	<wgs:long>-149.55833</wgs:long>
+	<skos:prefLabel>Hiraanaa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4036380/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.99056</wgs:lat>
+	<wgs:long>-149.54333</wgs:long>
+	<skos:prefLabel>Oroatera</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4036381/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.01</wgs:lat>
+	<wgs:long>-149.53611</wgs:long>
+	<skos:prefLabel>Aié</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4036382/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.03056</wgs:lat>
+	<wgs:long>-149.54889</wgs:long>
+	<skos:prefLabel>Tahuna Rahi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4036383/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.04</wgs:lat>
+	<wgs:long>-149.54694</wgs:long>
+	<skos:prefLabel>Tahuna Iti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4036384/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.04833</wgs:lat>
+	<wgs:long>-149.54944</wgs:long>
+	<skos:prefLabel>Reiono</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4036385/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.02917</wgs:lat>
+	<wgs:long>-149.56</wgs:long>
+	<skos:prefLabel>Rimatuu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4036386/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.02056</wgs:lat>
+	<wgs:long>-149.59194</wgs:long>
+	<skos:prefLabel>Onetahi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4036387/">
+	<europeana:country>PF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.01</wgs:lat>
+	<wgs:long>-149.58667</wgs:long>
+	<skos:prefLabel>Honuea</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 324 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

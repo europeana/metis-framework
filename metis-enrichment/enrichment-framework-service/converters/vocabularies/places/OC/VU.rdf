@@ -1,0 +1,2145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: OC_VU
+Description: Selected fields pulled from Geonames about VU done on Mon May 23 21:17:26 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/2134013/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-19.25</wgs:lat>
+	<wgs:long>169.25</wgs:long>
+	<skos:altLabel>Circonscription de Tanna</skos:altLabel>
+	<skos:altLabel>Southern District</skos:altLabel>
+	<skos:prefLabel>Circonscription de Tanna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2134014/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.5</wgs:lat>
+	<wgs:long>167.5</wgs:long>
+	<skos:altLabel>Circonscription de Santo</skos:altLabel>
+	<skos:altLabel>Northern District</skos:altLabel>
+	<skos:prefLabel>Circonscription de Santo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2134117/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.63333</wgs:lat>
+	<wgs:long>167.51667</wgs:long>
+	<skos:prefLabel>Île Wosou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2134204/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.61667</wgs:lat>
+	<wgs:long>167.13333</wgs:long>
+	<skos:altLabel>Île Tortue</skos:altLabel>
+	<skos:altLabel>Île Wékésa</skos:altLabel>
+	<skos:prefLabel>Île Wékésa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2134266/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.96667</wgs:lat>
+	<wgs:long>167.36667</wgs:long>
+	<skos:altLabel>Wala</skos:altLabel>
+	<skos:altLabel>Île Ouala</skos:altLabel>
+	<skos:altLabel>Île Valla</skos:altLabel>
+	<skos:altLabel>Île Wala</skos:altLabel>
+	<skos:prefLabel>Wala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2134292/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.55</wgs:lat>
+	<wgs:long>167.78333</wgs:long>
+	<skos:altLabel>Vulaï</skos:altLabel>
+	<skos:altLabel>Île Woulei</skos:altLabel>
+	<skos:altLabel>Île Wulei</skos:altLabel>
+	<skos:prefLabel>Vulaï</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2134350/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.25</wgs:lat>
+	<wgs:long>167.63333</wgs:long>
+	<skos:altLabel>Vatou Randi</skos:altLabel>
+	<skos:altLabel>Vatu Randi</skos:altLabel>
+	<skos:altLabel>Vatu Rhandi</skos:altLabel>
+	<skos:altLabel>Vot Tandé</skos:altLabel>
+	<skos:altLabel>Île Vatganai</skos:altLabel>
+	<skos:altLabel>Île Vétaoundé</skos:altLabel>
+	<skos:prefLabel>Vot Tandé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2134394/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.6</wgs:lat>
+	<wgs:long>167.03333</wgs:long>
+	<skos:altLabel>Île Venui</skos:altLabel>
+	<skos:altLabel>Île Vénoui</skos:altLabel>
+	<skos:prefLabel>Île Vénoui</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2134430/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.9</wgs:lat>
+	<wgs:long>167.3</wgs:long>
+	<skos:altLabel>Vao</skos:altLabel>
+	<skos:altLabel>Île Vao</skos:altLabel>
+	<skos:prefLabel>Vao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2134431/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255151/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>221552</europeana:population>
+	<wgs:lat>-16</wgs:lat>
+	<wgs:long>167</wgs:long>
+	<skos:altLabel>Condominium des Nouvelles-Hébrides</skos:altLabel>
+	<skos:altLabel>New Hebrides Condominium</skos:altLabel>
+	<skos:altLabel xml:lang="en">Republic of Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="bi">Ripablik blong Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="fr">République de Vanuatu</skos:altLabel>
+	<skos:altLabel>VU</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Va-nu-a-tu</skos:altLabel>
+	<skos:altLabel xml:lang="is">Vanatú</skos:altLabel>
+	<skos:altLabel xml:lang="id">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="da">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="et">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="de">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="it">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="en">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="af">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="io">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="la">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="an">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="bi">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="no">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="se">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="to">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Vanuatu Cumhuriyeti</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Vanuatuo</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Vanuatuäns</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Vanuatú</skos:altLabel>
+	<skos:altLabel xml:lang="es">Vanutu</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Vanwatu</skos:altLabel>
+	<skos:altLabel xml:lang="is">Vanúatú</skos:altLabel>
+	<skos:altLabel xml:lang="el">Βανουάτου</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Ванату</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Ванату</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Вануату</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Вануату</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Вануату</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Вануату</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Вануату</skos:altLabel>
+	<skos:altLabel xml:lang="be">Вануату</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Վանուատու</skos:altLabel>
+	<skos:altLabel xml:lang="he">ואמוטו</skos:altLabel>
+	<skos:altLabel xml:lang="he">ואנואטו</skos:altLabel>
+	<skos:altLabel xml:lang="he">ונואטו</skos:altLabel>
+	<skos:altLabel xml:lang="ar">فانوآتو</skos:altLabel>
+	<skos:altLabel xml:lang="ar">فانواتو</skos:altLabel>
+	<skos:altLabel xml:lang="fa">وانواتو</skos:altLabel>
+	<skos:altLabel xml:lang="ur">وانواٹو</skos:altLabel>
+	<skos:altLabel xml:lang="ps">ونواتو</skos:altLabel>
+	<skos:altLabel xml:lang="ug">ۋانۇئاتۇ</skos:altLabel>
+	<skos:altLabel xml:lang="hi">वन्वातु</skos:altLabel>
+	<skos:altLabel xml:lang="hi">वानुअतु</skos:altLabel>
+	<skos:altLabel xml:lang="bn">ভানুয়াটু</skos:altLabel>
+	<skos:altLabel xml:lang="ta">வனுவாட்டு</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศวานูอาตู</skos:altLabel>
+	<skos:altLabel xml:lang="th">วานูอาตู</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ວານົວຕູ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཝ་ནུ་ཨ་ཐུ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ვანუატუ</skos:altLabel>
+	<skos:altLabel xml:lang="am">ቫኑአቱ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">バヌアツ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">バヌアツ共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">瓦努阿图</skos:altLabel>
+	<skos:altLabel xml:lang="ko">바누아투</skos:altLabel>
+	<skos:prefLabel>Republic of Vanuatu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2134432/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.83333</wgs:lat>
+	<wgs:long>167.46667</wgs:long>
+	<skos:altLabel>Great Banks Island</skos:altLabel>
+	<skos:altLabel>Ile Vanua Lava</skos:altLabel>
+	<skos:altLabel>Vanua Lava</skos:altLabel>
+	<skos:altLabel>Île Vanoua Lava</skos:altLabel>
+	<skos:prefLabel>Vanua Lava</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2134451/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.08333</wgs:lat>
+	<wgs:long>167.45</wgs:long>
+	<skos:altLabel>Uripiv</skos:altLabel>
+	<skos:altLabel>Île Ouripiv</skos:altLabel>
+	<skos:altLabel>Île Uripiv</skos:altLabel>
+	<skos:prefLabel>Uripiv</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2134452/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.1</wgs:lat>
+	<wgs:long>167.45</wgs:long>
+	<skos:altLabel>Uri</skos:altLabel>
+	<skos:altLabel>Île Ouri</skos:altLabel>
+	<skos:altLabel>Île Uri</skos:altLabel>
+	<skos:prefLabel>Uri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2134453/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.53333</wgs:lat>
+	<wgs:long>167.33333</wgs:long>
+	<skos:altLabel>Bligh Island</skos:altLabel>
+	<skos:altLabel>Ile Ourouparapara</skos:altLabel>
+	<skos:altLabel>Norbarbar</skos:altLabel>
+	<skos:altLabel>Ouréparapara</skos:altLabel>
+	<skos:altLabel>Uréparapara</skos:altLabel>
+	<skos:altLabel>Île Parapara</skos:altLabel>
+	<skos:prefLabel>Uréparapara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2134454/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.61667</wgs:lat>
+	<wgs:long>167.01667</wgs:long>
+	<skos:altLabel>Urélapa</skos:altLabel>
+	<skos:altLabel>Île Oulilapa</skos:altLabel>
+	<skos:altLabel>Île Ulilapa</skos:altLabel>
+	<skos:prefLabel>Urélapa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2134460/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.56667</wgs:lat>
+	<wgs:long>167.26667</wgs:long>
+	<skos:altLabel>Tutuba</skos:altLabel>
+	<skos:altLabel>Île Setovi</skos:altLabel>
+	<skos:altLabel>Île Toutouba</skos:altLabel>
+	<skos:altLabel>Île Tutuba</skos:altLabel>
+	<skos:prefLabel>Tutuba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2134510/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.61667</wgs:lat>
+	<wgs:long>167.01667</wgs:long>
+	<skos:altLabel>Île Toubana</skos:altLabel>
+	<skos:altLabel>Île Tubana</skos:altLabel>
+	<skos:prefLabel>Île Toubana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2134515/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.36667</wgs:lat>
+	<wgs:long>167.2</wgs:long>
+	<skos:altLabel>Malao Island</skos:altLabel>
+	<skos:altLabel>Malila Island</skos:altLabel>
+	<skos:altLabel>Turtle Island</skos:altLabel>
+	<skos:altLabel>Île de la Tortue</skos:altLabel>
+	<skos:prefLabel>Malao Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2134517/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-13.25</wgs:lat>
+	<wgs:long>166.61667</wgs:long>
+	<skos:altLabel>Ababa</skos:altLabel>
+	<skos:altLabel>Iles Vava</skos:altLabel>
+	<skos:altLabel>Torres Islands</skos:altLabel>
+	<skos:altLabel>Îles Torrés</skos:altLabel>
+	<skos:prefLabel>Torres Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2134530/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.9</wgs:lat>
+	<wgs:long>168.55</wgs:long>
+	<skos:altLabel>Ile Tonoa</skos:altLabel>
+	<skos:altLabel>Kuwaé</skos:altLabel>
+	<skos:altLabel>Tongoa</skos:altLabel>
+	<skos:altLabel>Île Tonga</skos:altLabel>
+	<skos:prefLabel>Tongoa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2134531/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.01667</wgs:lat>
+	<wgs:long>168.61667</wgs:long>
+	<skos:prefLabel>Tongariki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2134534/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.6</wgs:lat>
+	<wgs:long>167.46667</wgs:long>
+	<skos:altLabel>Ile Oure</skos:altLabel>
+	<skos:altLabel>Toman</skos:altLabel>
+	<skos:altLabel>Tomman</skos:altLabel>
+	<skos:altLabel>Ur</skos:altLabel>
+	<skos:altLabel>Ure</skos:altLabel>
+	<skos:altLabel>Urur</skos:altLabel>
+	<skos:altLabel>Île Tomman</skos:altLabel>
+	<skos:altLabel>Île Uru</skos:altLabel>
+	<skos:prefLabel>Tomman</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2134548/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.43333</wgs:lat>
+	<wgs:long>166.68333</wgs:long>
+	<skos:altLabel>Ile du Sud</skos:altLabel>
+	<skos:altLabel>South Island</skos:altLabel>
+	<skos:altLabel>Toga</skos:altLabel>
+	<skos:altLabel>Île Toga</skos:altLabel>
+	<skos:prefLabel>Toga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2134581/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.03333</wgs:lat>
+	<wgs:long>167.08333</wgs:long>
+	<skos:altLabel>Diosne</skos:altLabel>
+	<skos:altLabel>Dolphin Island</skos:altLabel>
+	<skos:altLabel>Thion</skos:altLabel>
+	<skos:altLabel>Île Dauphin</skos:altLabel>
+	<skos:altLabel>Île Dionn</skos:altLabel>
+	<skos:prefLabel>Thion</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2134595/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.5</wgs:lat>
+	<wgs:long>167.41667</wgs:long>
+	<skos:prefLabel>Îlot Ten Sticks</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2134616/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.25</wgs:lat>
+	<wgs:long>166.61667</wgs:long>
+	<skos:altLabel>Ile Tegouan</skos:altLabel>
+	<skos:altLabel>Ile Tegua</skos:altLabel>
+	<skos:altLabel>Ile Teguan</skos:altLabel>
+	<skos:altLabel>Middle Island</skos:altLabel>
+	<skos:altLabel>Tégua</skos:altLabel>
+	<skos:altLabel>Île Tégoua</skos:altLabel>
+	<skos:altLabel>Île du Milieu</skos:altLabel>
+	<skos:prefLabel>Tégua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2134617/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.81667</wgs:lat>
+	<wgs:long>168.53333</wgs:long>
+	<skos:altLabel>Téfala</skos:altLabel>
+	<skos:altLabel>Île Tévala</skos:altLabel>
+	<skos:prefLabel>Téfala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2134636/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.63333</wgs:lat>
+	<wgs:long>166.9</wgs:long>
+	<skos:altLabel>Île Taviako</skos:altLabel>
+	<skos:altLabel>Île Taviata</skos:altLabel>
+	<skos:prefLabel>Île Taviako</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2134687/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.5</wgs:lat>
+	<wgs:long>169.33333</wgs:long>
+	<skos:altLabel>Aipere</skos:altLabel>
+	<skos:altLabel>Ipari</skos:altLabel>
+	<skos:altLabel>Tana</skos:altLabel>
+	<skos:altLabel xml:lang="es">Tanna</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tanna</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Tanna</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Tanna</skos:altLabel>
+	<skos:altLabel xml:lang="de">Tanna</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Tanna</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Tanna</skos:altLabel>
+	<skos:altLabel>Tanna</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Тана</skos:altLabel>
+	<skos:prefLabel>Tanna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2134696/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.6</wgs:lat>
+	<wgs:long>166.98333</wgs:long>
+	<skos:altLabel>Tangoa Island</skos:altLabel>
+	<skos:altLabel>Île Tangoa</skos:altLabel>
+	<skos:prefLabel>Tangoa Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2134697/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.6</wgs:lat>
+	<wgs:long>167.01667</wgs:long>
+	<skos:prefLabel>Île Tangis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2134732/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.1</wgs:lat>
+	<wgs:long>167.43333</wgs:long>
+	<skos:prefLabel>Îlot Taïtaka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2134739/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-19.5</wgs:lat>
+	<wgs:long>169.5</wgs:long>
+	<skos:altLabel>Tafea</skos:altLabel>
+	<skos:altLabel>Tafea Province</skos:altLabel>
+	<skos:prefLabel>Tafea Province</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2134769/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.58333</wgs:lat>
+	<wgs:long>167.01667</wgs:long>
+	<skos:prefLabel>Île Soyés</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2134770/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.13333</wgs:lat>
+	<wgs:long>167.45</wgs:long>
+	<skos:prefLabel>Îlot Sowan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2134803/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.63333</wgs:lat>
+	<wgs:long>167.18333</wgs:long>
+	<skos:altLabel>Île Souchounlagré</skos:altLabel>
+	<skos:altLabel>Île Suchunlagre</skos:altLabel>
+	<skos:prefLabel>Île Souchounlagré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2134804/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.11667</wgs:lat>
+	<wgs:long>167.45</wgs:long>
+	<skos:prefLabel>Îlot Souaro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2134837/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-16.91667</wgs:lat>
+	<wgs:long>168.58333</wgs:long>
+	<skos:altLabel>Shepherd Group</skos:altLabel>
+	<skos:altLabel>Shepherd Islands</skos:altLabel>
+	<skos:altLabel>Îles Shephead</skos:altLabel>
+	<skos:altLabel>Îles Shepherd</skos:altLabel>
+	<skos:prefLabel>Shepherd Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2134898/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>42868</europeana:population>
+	<wgs:lat>-15.33333</wgs:lat>
+	<wgs:long>166.75</wgs:long>
+	<skos:altLabel>Sanma</skos:altLabel>
+	<skos:altLabel>Sanma Province</skos:altLabel>
+	<skos:altLabel>Santo/Malo</skos:altLabel>
+	<skos:prefLabel>Sanma Province</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2134936/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.96667</wgs:lat>
+	<wgs:long>167.11667</wgs:long>
+	<skos:altLabel>Ile Sakaou</skos:altLabel>
+	<skos:altLabel>Ladhi</skos:altLabel>
+	<skos:altLabel>Lath hi</skos:altLabel>
+	<skos:altLabel>Lathi</skos:altLabel>
+	<skos:altLabel>Île Sackau</skos:altLabel>
+	<skos:altLabel>Île Sakao</skos:altLabel>
+	<skos:altLabel>Île Sakau</skos:altLabel>
+	<skos:prefLabel>Lathi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2134937/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.5</wgs:lat>
+	<wgs:long>167.81667</wgs:long>
+	<skos:altLabel>Ile Sakaou</skos:altLabel>
+	<skos:altLabel>Khoti</skos:altLabel>
+	<skos:altLabel>Sakao</skos:altLabel>
+	<skos:altLabel>Île Sakao</skos:altLabel>
+	<skos:altLabel>Île Sakau</skos:altLabel>
+	<skos:prefLabel>Sakao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2134954/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.6</wgs:lat>
+	<wgs:long>167.53333</wgs:long>
+	<skos:altLabel>Rovo</skos:altLabel>
+	<skos:altLabel>Rowa</skos:altLabel>
+	<skos:altLabel>Île Rowa</skos:altLabel>
+	<skos:altLabel>Île Rowo</skos:altLabel>
+	<skos:prefLabel>Rowa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2134957/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-13.61667</wgs:lat>
+	<wgs:long>167.53333</wgs:long>
+	<skos:altLabel>Ilots Récifs</skos:altLabel>
+	<skos:altLabel>Reef Islets</skos:altLabel>
+	<skos:altLabel>Rowa Islands</skos:altLabel>
+	<skos:altLabel>Îles Rowa</skos:altLabel>
+	<skos:prefLabel>Rowa Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2135042/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.78333</wgs:lat>
+	<wgs:long>167.55</wgs:long>
+	<skos:altLabel>Ravenga</skos:altLabel>
+	<skos:altLabel>Revenga</skos:altLabel>
+	<skos:altLabel>Île Ravena</skos:altLabel>
+	<skos:altLabel>Île Revena</skos:altLabel>
+	<skos:prefLabel>Ravenga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2135044/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.61667</wgs:lat>
+	<wgs:long>167.18333</wgs:long>
+	<skos:altLabel>Île Ratoua</skos:altLabel>
+	<skos:altLabel>Île Ratua</skos:altLabel>
+	<skos:prefLabel>Île Ratoua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2135071/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.98333</wgs:lat>
+	<wgs:long>167.38333</wgs:long>
+	<skos:altLabel>Rano</skos:altLabel>
+	<skos:altLabel>Île Rano</skos:altLabel>
+	<skos:prefLabel>Rano</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2135113/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.71667</wgs:lat>
+	<wgs:long>167.63333</wgs:long>
+	<skos:altLabel>Ara</skos:altLabel>
+	<skos:altLabel>Ara Island</skos:altLabel>
+	<skos:altLabel>Araa</skos:altLabel>
+	<skos:altLabel>Ra</skos:altLabel>
+	<skos:altLabel>Raa</skos:altLabel>
+	<skos:altLabel>Île Iraa</skos:altLabel>
+	<skos:prefLabel>Ra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2135116/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.91667</wgs:lat>
+	<wgs:long>167.53333</wgs:long>
+	<skos:prefLabel>Île Pwotin’wol</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2135171/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>35901</europeana:population>
+	<wgs:lat>-17.73381</wgs:lat>
+	<wgs:long>168.32188</wgs:long>
+	<skos:altLabel>Fila</skos:altLabel>
+	<skos:altLabel>Port Fila</skos:altLabel>
+	<skos:altLabel xml:lang="id">Port Vila</skos:altLabel>
+	<skos:altLabel xml:lang="en">Port Vila</skos:altLabel>
+	<skos:altLabel xml:lang="bi">Port Vila</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Port Vila</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Port Vila</skos:altLabel>
+	<skos:altLabel xml:lang="it">Port Vila</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Port Vila</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Port Vila</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Port Vila</skos:altLabel>
+	<skos:altLabel xml:lang="de">Port Vila</skos:altLabel>
+	<skos:altLabel xml:lang="es">Port Vila</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Port Vila</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Port Vila</skos:altLabel>
+	<skos:altLabel xml:lang="io">Port Vila</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Port Vila</skos:altLabel>
+	<skos:altLabel xml:lang="no">Port Vila</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Port Vila</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Port Vila</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Port Vila</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Port Vila</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Port-Vila</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Port-Vila</skos:altLabel>
+	<skos:altLabel xml:lang="da">Port-Vila</skos:altLabel>
+	<skos:altLabel>Vila</skos:altLabel>
+	<skos:altLabel xml:lang="el">Βίλα</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Порт Вила</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Порт-Вила</skos:altLabel>
+	<skos:altLabel xml:lang="he">פורט וילה</skos:altLabel>
+	<skos:altLabel xml:lang="am">ፖርት ቪላ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ポートビラ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">維拉港</skos:altLabel>
+	<skos:altLabel xml:lang="ko">포트빌라</skos:altLabel>
+	<skos:prefLabel>Port-Vila</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2135267/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.75</wgs:lat>
+	<wgs:long>168.16667</wgs:long>
+	<skos:altLabel>Araga</skos:altLabel>
+	<skos:altLabel>Aragh</skos:altLabel>
+	<skos:altLabel>Aragh-Aragh</skos:altLabel>
+	<skos:altLabel>Pentecost</skos:altLabel>
+	<skos:altLabel>Pentecôte</skos:altLabel>
+	<skos:altLabel>Raga</skos:altLabel>
+	<skos:altLabel>Ragha</skos:altLabel>
+	<skos:altLabel>Whitsuntide</skos:altLabel>
+	<skos:prefLabel>Pentecost</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2135270/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.43333</wgs:lat>
+	<wgs:long>167.2</wgs:long>
+	<skos:altLabel>Maltinérava Island</skos:altLabel>
+	<skos:altLabel>Île Pénoui</skos:altLabel>
+	<skos:altLabel>Île Pénouni</skos:altLabel>
+	<skos:prefLabel>Maltinérava Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2135291/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.5</wgs:lat>
+	<wgs:long>168.4</wgs:long>
+	<skos:altLabel>Pele Island</skos:altLabel>
+	<skos:altLabel>P̄élé</skos:altLabel>
+	<skos:altLabel>Île Pélé</skos:altLabel>
+	<skos:prefLabel>Pele Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2135370/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLT"/>
+	<wgs:lat>-15.48333</wgs:lat>
+	<wgs:long>167.25</wgs:long>
+	<skos:altLabel>Palikulo Island</skos:altLabel>
+	<skos:altLabel>Um-Una</skos:altLabel>
+	<skos:altLabel>Île Palikoulo</skos:altLabel>
+	<skos:altLabel>Île Palikulo</skos:altLabel>
+	<skos:altLabel>Île Pallikulo</skos:altLabel>
+	<skos:prefLabel>Palikulo Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2135378/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.88333</wgs:lat>
+	<wgs:long>167.61667</wgs:long>
+	<skos:prefLabel>Îlot Paknérénou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2135387/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.46667</wgs:lat>
+	<wgs:long>168.21667</wgs:long>
+	<skos:altLabel>Ile Paou Ouma</skos:altLabel>
+	<skos:altLabel>Pa Uma</skos:altLabel>
+	<skos:altLabel>Paama</skos:altLabel>
+	<skos:altLabel>Pama</skos:altLabel>
+	<skos:altLabel>Paoom</skos:altLabel>
+	<skos:altLabel>Île Paama</skos:altLabel>
+	<skos:altLabel>Île Pau Uma</skos:altLabel>
+	<skos:prefLabel>Paama</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2135409/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.61667</wgs:lat>
+	<wgs:long>166.9</wgs:long>
+	<skos:prefLabel>Île Ouréouré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2135410/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.05</wgs:lat>
+	<wgs:long>166.98333</wgs:long>
+	<skos:prefLabel>Île Ouré Ouré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2135518/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.06667</wgs:lat>
+	<wgs:long>167.4</wgs:long>
+	<skos:altLabel>Île Norsup</skos:altLabel>
+	<skos:altLabel>Îlot Norsoup</skos:altLabel>
+	<skos:prefLabel>Îlot Norsoup</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2135578/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.43333</wgs:lat>
+	<wgs:long>168.35</wgs:long>
+	<skos:altLabel>Hinchinbrook Island</skos:altLabel>
+	<skos:altLabel>Montagu Island</skos:altLabel>
+	<skos:altLabel>Muna</skos:altLabel>
+	<skos:altLabel>Nguna</skos:altLabel>
+	<skos:altLabel>Nguna Island</skos:altLabel>
+	<skos:altLabel>Île Montague</skos:altLabel>
+	<skos:altLabel>Île Ngouna</skos:altLabel>
+	<skos:altLabel>Île Nguna</skos:altLabel>
+	<skos:prefLabel>Nguna Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2135587/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.88333</wgs:lat>
+	<wgs:long>167.61667</wgs:long>
+	<skos:altLabel>Nawila</skos:altLabel>
+	<skos:altLabel>Ngéré Néwet</skos:altLabel>
+	<skos:altLabel>Île Nivoula</skos:altLabel>
+	<skos:altLabel>Île Niwula</skos:altLabel>
+	<skos:altLabel>Île Nowéla</skos:altLabel>
+	<skos:prefLabel>Ngéré Néwet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2135600/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-16</wgs:lat>
+	<wgs:long>167</wgs:long>
+	<skos:altLabel>Les Grandes Cyclades</skos:altLabel>
+	<skos:altLabel xml:lang="en">New Hebrides</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Nouvelles-Hébrides</skos:altLabel>
+	<skos:prefLabel>Nouvelles-Hébrides</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2135765/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.83333</wgs:lat>
+	<wgs:long>168.36667</wgs:long>
+	<skos:altLabel>Namuka</skos:altLabel>
+	<skos:altLabel>Île Namouka</skos:altLabel>
+	<skos:altLabel>Île Namuka</skos:altLabel>
+	<skos:prefLabel>Namuka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2135840/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.38333</wgs:lat>
+	<wgs:long>167.18333</wgs:long>
+	<skos:altLabel>Malparavu Island</skos:altLabel>
+	<skos:altLabel>Île Matté Vulu</skos:altLabel>
+	<skos:altLabel>Île Mounparap</skos:altLabel>
+	<skos:prefLabel>Malparavu Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2135842/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.66667</wgs:lat>
+	<wgs:long>167.66667</wgs:long>
+	<skos:altLabel>Ile Valoua</skos:altLabel>
+	<skos:altLabel>Ile de la Selle</skos:altLabel>
+	<skos:altLabel>Mota Lava</skos:altLabel>
+	<skos:altLabel>Saddle Island</skos:altLabel>
+	<skos:altLabel>Valuwa</skos:altLabel>
+	<skos:altLabel>Île Motlav</skos:altLabel>
+	<skos:altLabel>Île Valua</skos:altLabel>
+	<skos:prefLabel>Mota Lava</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2135843/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.85</wgs:lat>
+	<wgs:long>167.7</wgs:long>
+	<skos:altLabel>Mota</skos:altLabel>
+	<skos:altLabel>Motrig</skos:altLabel>
+	<skos:altLabel>Sugar Loaf Island</skos:altLabel>
+	<skos:altLabel>Île Mota</skos:altLabel>
+	<skos:altLabel>Île Pain de Sucre</skos:altLabel>
+	<skos:prefLabel>Mota</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2135845/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.53333</wgs:lat>
+	<wgs:long>168.25</wgs:long>
+	<skos:altLabel>Moso</skos:altLabel>
+	<skos:altLabel>Moso Island</skos:altLabel>
+	<skos:altLabel>Île Déception</skos:altLabel>
+	<skos:altLabel>Île Moso</skos:altLabel>
+	<skos:altLabel>Île Verao</skos:altLabel>
+	<skos:prefLabel>Moso Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2135861/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.61667</wgs:lat>
+	<wgs:long>167.53333</wgs:long>
+	<skos:altLabel>Sana</skos:altLabel>
+	<skos:altLabel>Sanna</skos:altLabel>
+	<skos:altLabel>Île Moïe</skos:altLabel>
+	<skos:altLabel>Île de Sable</skos:altLabel>
+	<skos:prefLabel>Île Moïe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2135864/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.51667</wgs:lat>
+	<wgs:long>168.4</wgs:long>
+	<skos:altLabel>Kakula</skos:altLabel>
+	<skos:altLabel>Kakula Island</skos:altLabel>
+	<skos:altLabel>Kakuta</skos:altLabel>
+	<skos:altLabel>Île Kakoula</skos:altLabel>
+	<skos:altLabel>Île Kakula</skos:altLabel>
+	<skos:prefLabel>Kakula Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2135880/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.21667</wgs:lat>
+	<wgs:long>166.6</wgs:long>
+	<skos:altLabel>Métoma</skos:altLabel>
+	<skos:altLabel>Île Métoma</skos:altLabel>
+	<skos:altLabel>Île Ovale</skos:altLabel>
+	<skos:prefLabel>Métoma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2135905/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.31667</wgs:lat>
+	<wgs:long>167.8</wgs:long>
+	<skos:altLabel>Ile Claire</skos:altLabel>
+	<skos:altLabel>Ile Merigui</skos:altLabel>
+	<skos:altLabel>M̄érig</skos:altLabel>
+	<skos:altLabel>Île Merigi</skos:altLabel>
+	<skos:altLabel>Île Mérig</skos:altLabel>
+	<skos:altLabel>Île Sainte Claire</skos:altLabel>
+	<skos:prefLabel>M̄érig</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2135907/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.45</wgs:lat>
+	<wgs:long>168.05</wgs:long>
+	<skos:altLabel>Ile Mera Lava</skos:altLabel>
+	<skos:altLabel>Meralav Island</skos:altLabel>
+	<skos:altLabel>Moraly</skos:altLabel>
+	<skos:altLabel>M̄éré Lava</skos:altLabel>
+	<skos:altLabel>Star Peak</skos:altLabel>
+	<skos:altLabel>Île Meralaba</skos:altLabel>
+	<skos:altLabel>Île Mwerlav</skos:altLabel>
+	<skos:altLabel>Île Méralab</skos:altLabel>
+	<skos:altLabel>Île Pic de l’Etoile</skos:altLabel>
+	<skos:prefLabel>M̄éré Lava</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2135946/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.7</wgs:lat>
+	<wgs:long>168.25</wgs:long>
+	<skos:altLabel>Hideaway Island</skos:altLabel>
+	<skos:altLabel>Meli Island</skos:altLabel>
+	<skos:altLabel>Îlot Mélé</skos:altLabel>
+	<skos:prefLabel>Hideaway Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2135951/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.25</wgs:lat>
+	<wgs:long>166.58333</wgs:long>
+	<skos:prefLabel>Île Mel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2135963/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.38333</wgs:lat>
+	<wgs:long>167.23333</wgs:long>
+	<skos:altLabel>Mavire</skos:altLabel>
+	<skos:altLabel>Mavéa</skos:altLabel>
+	<skos:altLabel>Île Mafia</skos:altLabel>
+	<skos:altLabel>Île Maféa</skos:altLabel>
+	<skos:altLabel>Île Mavia</skos:altLabel>
+	<skos:prefLabel>Mavéa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2135984/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.2546</wgs:lat>
+	<wgs:long>168.42745</wgs:long>
+	<skos:altLabel>Matah</skos:altLabel>
+	<skos:altLabel>Mataso</skos:altLabel>
+	<skos:altLabel>Two Hills Island</skos:altLabel>
+	<skos:altLabel>Île Mataso</skos:altLabel>
+	<skos:altLabel>Île des Deux Monts</skos:altLabel>
+	<skos:prefLabel>Mataso Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2136016/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-16.53333</wgs:lat>
+	<wgs:long>167.81667</wgs:long>
+	<skos:altLabel>Iles Maskeyne</skos:altLabel>
+	<skos:altLabel>Îles Maskelyne</skos:altLabel>
+	<skos:altLabel>Îles Maskelynes</skos:altLabel>
+	<skos:prefLabel>Îles Maskelynes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2136069/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.36389</wgs:lat>
+	<wgs:long>167.18333</wgs:long>
+	<skos:altLabel>Malvanua Island</skos:altLabel>
+	<skos:altLabel>Île Bossy</skos:altLabel>
+	<skos:altLabel>Île Malvanoua</skos:altLabel>
+	<skos:prefLabel>Malvanua Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2136079/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.71667</wgs:lat>
+	<wgs:long>167.25</wgs:long>
+	<skos:altLabel>Ile Malo Killi Killi du Nord</skos:altLabel>
+	<skos:altLabel>Malotina</skos:altLabel>
+	<skos:altLabel>North Malo Killi Killi</skos:altLabel>
+	<skos:altLabel>Île Malotina</skos:altLabel>
+	<skos:prefLabel>Malotina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2136086/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.38333</wgs:lat>
+	<wgs:long>167.18333</wgs:long>
+	<skos:prefLabel>Île Malon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2136087/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.73333</wgs:lat>
+	<wgs:long>167.25</wgs:long>
+	<skos:altLabel>Ile Malo Killi Killi Du Sud</skos:altLabel>
+	<skos:altLabel>Malokilikili</skos:altLabel>
+	<skos:altLabel>South Malo Killi Killi</skos:altLabel>
+	<skos:altLabel>Île Malo Killi Killi</skos:altLabel>
+	<skos:altLabel>Île Malokilikili</skos:altLabel>
+	<skos:prefLabel>Malokilikili</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2136088/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.58333</wgs:lat>
+	<wgs:long>166.96667</wgs:long>
+	<skos:prefLabel>Île Maloka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2136090/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.68333</wgs:lat>
+	<wgs:long>167.23333</wgs:long>
+	<skos:prefLabel>Îlot Malobolébolé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2136092/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.68333</wgs:lat>
+	<wgs:long>167.16667</wgs:long>
+	<skos:altLabel>Malo</skos:altLabel>
+	<skos:altLabel>Saint Bartholomew Island</skos:altLabel>
+	<skos:altLabel>Île Malo</skos:altLabel>
+	<skos:altLabel>Île Saint Barthélemy</skos:altLabel>
+	<skos:prefLabel>Malo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2136093/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.05</wgs:lat>
+	<wgs:long>167.06667</wgs:long>
+	<skos:prefLabel>Île Malnet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2136096/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.06667</wgs:lat>
+	<wgs:long>167.06667</wgs:long>
+	<skos:prefLabel>Île Malmas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2136100/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.98333</wgs:lat>
+	<wgs:long>167.06667</wgs:long>
+	<skos:prefLabel>Île Malili</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2136102/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.08333</wgs:lat>
+	<wgs:long>167.08333</wgs:long>
+	<skos:prefLabel>Île Malenvol</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2136105/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.06667</wgs:lat>
+	<wgs:long>167.06667</wgs:long>
+	<skos:prefLabel>Île Malbwé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2136122/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.25</wgs:lat>
+	<wgs:long>167.5</wgs:long>
+	<skos:altLabel>Ile Malekula</skos:altLabel>
+	<skos:altLabel>Ile Mallikolo</skos:altLabel>
+	<skos:altLabel>Malakula</skos:altLabel>
+	<skos:altLabel>Malecula</skos:altLabel>
+	<skos:altLabel>Mallicollo</skos:altLabel>
+	<skos:altLabel>Île Mallicolo</skos:altLabel>
+	<skos:altLabel>Île Malékoula</skos:altLabel>
+	<skos:prefLabel>Malakula</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2136127/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.13333</wgs:lat>
+	<wgs:long>168.43333</wgs:long>
+	<skos:altLabel>Makir</skos:altLabel>
+	<skos:altLabel>Makura</skos:altLabel>
+	<skos:altLabel>Île Makoura</skos:altLabel>
+	<skos:altLabel>Île Makura</skos:altLabel>
+	<skos:prefLabel>Makura</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2136137/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.16667</wgs:lat>
+	<wgs:long>168.16667</wgs:long>
+	<skos:altLabel>Ile Aurore</skos:altLabel>
+	<skos:altLabel>Maevo</skos:altLabel>
+	<skos:altLabel>Maéwo</skos:altLabel>
+	<skos:altLabel>Île Aurora</skos:altLabel>
+	<skos:altLabel>Île Maïwo</skos:altLabel>
+	<skos:prefLabel>Maéwo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2136146/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.9</wgs:lat>
+	<wgs:long>167.55</wgs:long>
+	<skos:prefLabel>Île Luno</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2136150/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13397</europeana:population>
+	<wgs:lat>-15.53333</wgs:lat>
+	<wgs:long>167.16667</wgs:long>
+	<skos:altLabel>Louganville</skos:altLabel>
+	<skos:altLabel>Luganville</skos:altLabel>
+	<skos:altLabel>Luganville Bay</skos:altLabel>
+	<skos:altLabel>Santo</skos:altLabel>
+	<skos:prefLabel>Luganville</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2136241/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.5</wgs:lat>
+	<wgs:long>168.35</wgs:long>
+	<skos:altLabel>Lopeyi</skos:altLabel>
+	<skos:altLabel>Lopévi</skos:altLabel>
+	<skos:altLabel>Ulveah</skos:altLabel>
+	<skos:altLabel>Île Lopévi</skos:altLabel>
+	<skos:prefLabel>Lopévi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2136304/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.13333</wgs:lat>
+	<wgs:long>166.58333</wgs:long>
+	<skos:altLabel>Île Batsale</skos:altLabel>
+	<skos:altLabel>Île Lonagavanoua</skos:altLabel>
+	<skos:prefLabel>Île Lonagavanoua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2136371/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.35</wgs:lat>
+	<wgs:long>166.63333</wgs:long>
+	<skos:altLabel>Ile Selle</skos:altLabel>
+	<skos:altLabel>Loh</skos:altLabel>
+	<skos:altLabel>Saddle Island</skos:altLabel>
+	<skos:altLabel>Île Lo</skos:altLabel>
+	<skos:prefLabel>Loh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2136401/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.31667</wgs:lat>
+	<wgs:long>166.61667</wgs:long>
+	<skos:altLabel>Linua</skos:altLabel>
+	<skos:altLabel>Île Linoua</skos:altLabel>
+	<skos:prefLabel>Linua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2136419/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.53333</wgs:lat>
+	<wgs:long>167.7</wgs:long>
+	<skos:altLabel>Île Limani</skos:altLabel>
+	<skos:altLabel>Île Limaning</skos:altLabel>
+	<skos:prefLabel>Île Limani</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2136522/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.6</wgs:lat>
+	<wgs:long>168.21667</wgs:long>
+	<skos:altLabel>Ile Leleppa</skos:altLabel>
+	<skos:altLabel>Lelepa Island</skos:altLabel>
+	<skos:altLabel>Lélépa</skos:altLabel>
+	<skos:altLabel>Protection Island</skos:altLabel>
+	<skos:altLabel>Île Lelepa</skos:altLabel>
+	<skos:prefLabel>Lelepa Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2136529/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.TMPL"/>
+	<wgs:lat>-13.53333</wgs:lat>
+	<wgs:long>167.3</wgs:long>
+	<skos:prefLabel>Lékouaranglé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2136581/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.1</wgs:lat>
+	<wgs:long>167.11667</wgs:long>
+	<skos:altLabel>Ladhu Island</skos:altLabel>
+	<skos:altLabel>Lath hu Island</skos:altLabel>
+	<skos:altLabel>Lathü</skos:altLabel>
+	<skos:altLabel>Ledu</skos:altLabel>
+	<skos:altLabel>Île Eléphant</skos:altLabel>
+	<skos:altLabel>Île Lazu</skos:altLabel>
+	<skos:prefLabel>Lathü</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2136583/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.3</wgs:lat>
+	<wgs:long>167.23333</wgs:long>
+	<skos:altLabel>Ladharoa</skos:altLabel>
+	<skos:altLabel>Lataroa</skos:altLabel>
+	<skos:altLabel>Litaroa</skos:altLabel>
+	<skos:altLabel>Litharoa</skos:altLabel>
+	<skos:altLabel>Île du Pilotin</skos:altLabel>
+	<skos:prefLabel>Lataroa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2136584/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.26667</wgs:lat>
+	<wgs:long>167.18333</wgs:long>
+	<skos:altLabel>Ladharo Islet</skos:altLabel>
+	<skos:altLabel>Lataro</skos:altLabel>
+	<skos:altLabel>Litaro</skos:altLabel>
+	<skos:altLabel>Litharo</skos:altLabel>
+	<skos:altLabel>Pilot Island</skos:altLabel>
+	<skos:altLabel>Île du Pilote</skos:altLabel>
+	<skos:prefLabel>Lataro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2136609/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.38333</wgs:lat>
+	<wgs:long>167.38333</wgs:long>
+	<skos:altLabel>Île Larambou</skos:altLabel>
+	<skos:altLabel>Île de la Grotte</skos:altLabel>
+	<skos:prefLabel>Île Larambou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2136628/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.51667</wgs:lat>
+	<wgs:long>167.58333</wgs:long>
+	<skos:altLabel>Ile Lab-bur</skos:altLabel>
+	<skos:altLabel>Île Lanour</skos:altLabel>
+	<skos:altLabel>Île Lemua</skos:altLabel>
+	<skos:prefLabel>Île Lanour</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2136650/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.58333</wgs:lat>
+	<wgs:long>168.13333</wgs:long>
+	<skos:altLabel>Lamen</skos:altLabel>
+	<skos:altLabel>Lamen Island</skos:altLabel>
+	<skos:altLabel>Île La Menu</skos:altLabel>
+	<skos:altLabel>Île Laman</skos:altLabel>
+	<skos:prefLabel>Lamen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2136699/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.83333</wgs:lat>
+	<wgs:long>168.55</wgs:long>
+	<skos:altLabel>Laïka</skos:altLabel>
+	<skos:altLabel>Île Laïka</skos:altLabel>
+	<skos:prefLabel>Laïka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2136736/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.88333</wgs:lat>
+	<wgs:long>167.6</wgs:long>
+	<skos:altLabel>Kakea</skos:altLabel>
+	<skos:altLabel>Kwakéa</skos:altLabel>
+	<skos:altLabel>Qakea</skos:altLabel>
+	<skos:altLabel>Île Pakéa</skos:altLabel>
+	<skos:prefLabel>Kwakéa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2136758/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.53333</wgs:lat>
+	<wgs:long>167.83333</wgs:long>
+	<skos:altLabel>Île Koivou</skos:altLabel>
+	<skos:altLabel>Île Koivu</skos:altLabel>
+	<skos:prefLabel>Île Koivou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2136765/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.53333</wgs:lat>
+	<wgs:long>167.81667</wgs:long>
+	<skos:altLabel>Khunévéo</skos:altLabel>
+	<skos:altLabel>Kuliviu</skos:altLabel>
+	<skos:altLabel>Île Kilivu</skos:altLabel>
+	<skos:altLabel>Île Koulivou</skos:altLabel>
+	<skos:altLabel>Île Kulivu</skos:altLabel>
+	<skos:prefLabel>Khunévéo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2136791/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.8</wgs:lat>
+	<wgs:long>168.33333</wgs:long>
+	<skos:altLabel>Île Kapuma</skos:altLabel>
+	<skos:altLabel>Îlot Kapouma</skos:altLabel>
+	<skos:prefLabel>Îlot Kapouma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2136827/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.75</wgs:lat>
+	<wgs:long>168.3</wgs:long>
+	<skos:altLabel>Iririki Island</skos:altLabel>
+	<skos:altLabel>Îlot Iririki</skos:altLabel>
+	<skos:prefLabel>Iririki Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2136838/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.25</wgs:lat>
+	<wgs:long>169.76667</wgs:long>
+	<skos:altLabel>Inyeug</skos:altLabel>
+	<skos:altLabel>Île Inyeug</skos:altLabel>
+	<skos:prefLabel>Inyeug</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2136890/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.75</wgs:lat>
+	<wgs:long>168.28333</wgs:long>
+	<skos:altLabel>Ifira</skos:altLabel>
+	<skos:altLabel>Ifira Island</skos:altLabel>
+	<skos:altLabel>Île Fila</skos:altLabel>
+	<skos:altLabel>Île Vila</skos:altLabel>
+	<skos:altLabel>Îlot Éfila</skos:altLabel>
+	<skos:prefLabel>Ifira Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2136920/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.13333</wgs:lat>
+	<wgs:long>166.55</wgs:long>
+	<skos:altLabel>Hiu</skos:altLabel>
+	<skos:altLabel>Hiw</skos:altLabel>
+	<skos:altLabel>Ile Hiu</skos:altLabel>
+	<skos:altLabel>Ile du Nord</skos:altLabel>
+	<skos:altLabel>North Island</skos:altLabel>
+	<skos:altLabel>Île Hiou</skos:altLabel>
+	<skos:prefLabel>Hiu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2136963/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.7</wgs:lat>
+	<wgs:long>169.28333</wgs:long>
+	<skos:altLabel>Goat Island</skos:altLabel>
+	<skos:altLabel>La Chèvre</skos:altLabel>
+	<skos:altLabel>Île Rocher</skos:altLabel>
+	<skos:altLabel>Île de la Chèvre</skos:altLabel>
+	<skos:prefLabel>Goat Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2136974/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.28333</wgs:lat>
+	<wgs:long>167.5</wgs:long>
+	<skos:altLabel>Gog</skos:altLabel>
+	<skos:altLabel>Ile Gaoua</skos:altLabel>
+	<skos:altLabel>Ile Santa Maria</skos:altLabel>
+	<skos:altLabel>Santa Maria</skos:altLabel>
+	<skos:altLabel>Île Gaua</skos:altLabel>
+	<skos:altLabel>Île Lakon</skos:altLabel>
+	<skos:prefLabel>Santa Maria</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2136980/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.53333</wgs:lat>
+	<wgs:long>170.21667</wgs:long>
+	<skos:altLabel>Eronan</skos:altLabel>
+	<skos:altLabel>Fotuna</skos:altLabel>
+	<skos:altLabel>Futuna</skos:altLabel>
+	<skos:altLabel>Futunah</skos:altLabel>
+	<skos:altLabel>Ile Erronan</skos:altLabel>
+	<skos:altLabel>Île Foutouna</skos:altLabel>
+	<skos:altLabel>Île Futuna</skos:altLabel>
+	<skos:prefLabel>Futuna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137012/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.55</wgs:lat>
+	<wgs:long>167.68333</wgs:long>
+	<skos:altLabel>Île Fido</skos:altLabel>
+	<skos:altLabel>Île Vito</skos:altLabel>
+	<skos:prefLabel>Île Fido</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137028/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.51667</wgs:lat>
+	<wgs:long>167.71667</wgs:long>
+	<skos:prefLabel>Île Faroun</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137047/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17</wgs:lat>
+	<wgs:long>168.6</wgs:long>
+	<skos:altLabel>Faléa</skos:altLabel>
+	<skos:altLabel>Valéa</skos:altLabel>
+	<skos:altLabel>Île Vaiea</skos:altLabel>
+	<skos:prefLabel>Faléa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137054/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.96667</wgs:lat>
+	<wgs:long>168.56667</wgs:long>
+	<skos:altLabel>Awoh</skos:altLabel>
+	<skos:altLabel>Evoso</skos:altLabel>
+	<skos:altLabel>Iwose</skos:altLabel>
+	<skos:altLabel>Éwosé</skos:altLabel>
+	<skos:prefLabel>Éwosé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137067/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.25</wgs:lat>
+	<wgs:long>166.83333</wgs:long>
+	<skos:altLabel xml:lang="fr">Espiritu Santo</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Espiritu Santo</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Espiritu Santo</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Espiritu Santo</skos:altLabel>
+	<skos:altLabel xml:lang="en">Espiritu Santo</skos:altLabel>
+	<skos:altLabel xml:lang="de">Espiritu Santo</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Espiritu Santo</skos:altLabel>
+	<skos:altLabel>Espiritu Santo</skos:altLabel>
+	<skos:altLabel xml:lang="es">Espíritu Santo</skos:altLabel>
+	<skos:altLabel>Marina</skos:altLabel>
+	<skos:altLabel>Santo</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Еспириту Санто</skos:altLabel>
+	<skos:altLabel xml:lang="ja">エスピリトゥサント島</skos:altLabel>
+	<skos:prefLabel>Espiritu Santo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137072/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.81667</wgs:lat>
+	<wgs:long>168.45</wgs:long>
+	<skos:altLabel>Erueti Lep Island</skos:altLabel>
+	<skos:altLabel>Éruéti</skos:altLabel>
+	<skos:altLabel>Îlot Erouéti</skos:altLabel>
+	<skos:prefLabel>Erueti Lep Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137075/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.8</wgs:lat>
+	<wgs:long>169.08333</wgs:long>
+	<skos:altLabel>Eromanga</skos:altLabel>
+	<skos:altLabel>Erromango</skos:altLabel>
+	<skos:altLabel>Île Eromango</skos:altLabel>
+	<skos:prefLabel>Erromango</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137077/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.65</wgs:lat>
+	<wgs:long>168.13333</wgs:long>
+	<skos:altLabel>Eretoka Island</skos:altLabel>
+	<skos:altLabel>Hat Island</skos:altLabel>
+	<skos:altLabel>Érétoka</skos:altLabel>
+	<skos:altLabel>Île Eradaka</skos:altLabel>
+	<skos:altLabel>Île Erradaka</skos:altLabel>
+	<skos:prefLabel>Eretoka Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137079/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.8</wgs:lat>
+	<wgs:long>168.35</wgs:long>
+	<skos:altLabel>Eratap Island</skos:altLabel>
+	<skos:altLabel>Waratap Island</skos:altLabel>
+	<skos:altLabel>Îlot Ératap</skos:altLabel>
+	<skos:prefLabel>Eratap Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137085/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.76945</wgs:lat>
+	<wgs:long>168.28789</wgs:long>
+	<skos:altLabel>Erakor Islet</skos:altLabel>
+	<skos:altLabel>Îlot Erakor</skos:altLabel>
+	<skos:prefLabel>Erakor Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137088/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.71667</wgs:lat>
+	<wgs:long>168.25</wgs:long>
+	<skos:altLabel>Api</skos:altLabel>
+	<skos:altLabel>Ile Tasiko</skos:altLabel>
+	<skos:altLabel>Épi</skos:altLabel>
+	<skos:prefLabel>Épi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137119/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.48333</wgs:lat>
+	<wgs:long>168.48333</wgs:long>
+	<skos:altLabel>Emao Island</skos:altLabel>
+	<skos:altLabel>Hinchinbrook Island</skos:altLabel>
+	<skos:altLabel>Montagu Island</skos:altLabel>
+	<skos:altLabel>Montague Island</skos:altLabel>
+	<skos:altLabel>Vele</skos:altLabel>
+	<skos:altLabel>Émao</skos:altLabel>
+	<skos:altLabel>Île Emau</skos:altLabel>
+	<skos:altLabel>Île Mao</skos:altLabel>
+	<skos:altLabel>Île Maou</skos:altLabel>
+	<skos:altLabel>Île Mau</skos:altLabel>
+	<skos:prefLabel>Emao Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137121/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.06667</wgs:lat>
+	<wgs:long>168.36667</wgs:long>
+	<skos:altLabel>Emai</skos:altLabel>
+	<skos:altLabel>Ile des Trois Monts</skos:altLabel>
+	<skos:altLabel>Three Hills Island</skos:altLabel>
+	<skos:altLabel>Émaé</skos:altLabel>
+	<skos:altLabel>Île Mai</skos:altLabel>
+	<skos:prefLabel>Émaé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137128/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.61667</wgs:lat>
+	<wgs:long>166.96667</wgs:long>
+	<skos:prefLabel>Île Elia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137141/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.66667</wgs:lat>
+	<wgs:long>168.41667</wgs:long>
+	<skos:altLabel xml:lang="nl">Efate</skos:altLabel>
+	<skos:altLabel xml:lang="en">Efate</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Efate</skos:altLabel>
+	<skos:altLabel>Efate Island</skos:altLabel>
+	<skos:altLabel>Fate</skos:altLabel>
+	<skos:altLabel>Ile Vaté</skos:altLabel>
+	<skos:altLabel>Sandwich Island</skos:altLabel>
+	<skos:altLabel xml:lang="es">Éfaté</skos:altLabel>
+	<skos:altLabel xml:lang="de">Éfaté</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Éfaté</skos:altLabel>
+	<skos:altLabel>Éfaté</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Ефате</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Эфате</skos:altLabel>
+	<skos:prefLabel>Éfaté</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137215/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.6</wgs:lat>
+	<wgs:long>167.01667</wgs:long>
+	<skos:prefLabel>Île Carlo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137222/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.03333</wgs:lat>
+	<wgs:long>168.58333</wgs:long>
+	<skos:altLabel>Bouninga</skos:altLabel>
+	<skos:altLabel>Buninga</skos:altLabel>
+	<skos:altLabel>Île Buninga</skos:altLabel>
+	<skos:prefLabel>Buninga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137421/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-13.75</wgs:lat>
+	<wgs:long>167.5</wgs:long>
+	<skos:altLabel>Banks/Torres</skos:altLabel>
+	<skos:altLabel>Torba</skos:altLabel>
+	<skos:altLabel>Torba Province</skos:altLabel>
+	<skos:prefLabel>Torba Province</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137422/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-13.83333</wgs:lat>
+	<wgs:long>167.58333</wgs:long>
+	<skos:altLabel>Banks Group</skos:altLabel>
+	<skos:altLabel>Banks Islands</skos:altLabel>
+	<skos:altLabel>Iles Banka</skos:altLabel>
+	<skos:altLabel>Îles Banks</skos:altLabel>
+	<skos:prefLabel>Banks Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137440/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.51667</wgs:lat>
+	<wgs:long>167.78333</wgs:long>
+	<skos:prefLabel>Îlot Bagatelle</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137446/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.55</wgs:lat>
+	<wgs:long>167.76667</wgs:long>
+	<skos:altLabel>Awéi</skos:altLabel>
+	<skos:altLabel>Île Ui</skos:altLabel>
+	<skos:altLabel>Îlot Awé</skos:altLabel>
+	<skos:prefLabel>Awéi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137448/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-16.53333</wgs:lat>
+	<wgs:long>167.76667</wgs:long>
+	<skos:altLabel>Avokh</skos:altLabel>
+	<skos:altLabel>Ilots Avok</skos:altLabel>
+	<skos:prefLabel>Avokh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137449/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.53333</wgs:lat>
+	<wgs:long>167.78333</wgs:long>
+	<skos:prefLabel>Îlot Avok II</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137450/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.53333</wgs:lat>
+	<wgs:long>167.76667</wgs:long>
+	<skos:altLabel>Île Lembui</skos:altLabel>
+	<skos:altLabel>Îlot Avok I</skos:altLabel>
+	<skos:prefLabel>Îlot Avok I</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137464/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.95</wgs:lat>
+	<wgs:long>167.33333</wgs:long>
+	<skos:altLabel>Atchin</skos:altLabel>
+	<skos:altLabel>Île Atchin</skos:altLabel>
+	<skos:prefLabel>Atchin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137502/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.63333</wgs:lat>
+	<wgs:long>166.93333</wgs:long>
+	<skos:altLabel>Araki</skos:altLabel>
+	<skos:altLabel>Hat Island</skos:altLabel>
+	<skos:altLabel>Île Araki</skos:altLabel>
+	<skos:prefLabel>Araki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137513/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.58333</wgs:lat>
+	<wgs:long>167.16667</wgs:long>
+	<skos:prefLabel>Aoré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137516/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.38333</wgs:lat>
+	<wgs:long>167.83333</wgs:long>
+	<skos:altLabel>Ambae</skos:altLabel>
+	<skos:altLabel>Aoba</skos:altLabel>
+	<skos:altLabel>Ile des Lepreux</skos:altLabel>
+	<skos:altLabel>Lepers Island</skos:altLabel>
+	<skos:altLabel>Oba</skos:altLabel>
+	<skos:altLabel>Omba</skos:altLabel>
+	<skos:altLabel>Opa</skos:altLabel>
+	<skos:prefLabel>Aoba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137531/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.61667</wgs:lat>
+	<wgs:long>167.51667</wgs:long>
+	<skos:prefLabel>Île Anouit</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137536/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.26667</wgs:lat>
+	<wgs:long>169.58333</wgs:long>
+	<skos:altLabel>Aniwa</skos:altLabel>
+	<skos:altLabel>Ile Aniua</skos:altLabel>
+	<skos:altLabel>Ile Immer</skos:altLabel>
+	<skos:altLabel>Ile Nina</skos:altLabel>
+	<skos:altLabel>Niua</skos:altLabel>
+	<skos:prefLabel>Aniwa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137559/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.2</wgs:lat>
+	<wgs:long>169.81667</wgs:long>
+	<skos:altLabel>Anaiteum</skos:altLabel>
+	<skos:altLabel>Anatom</skos:altLabel>
+	<skos:altLabel>Aneityum</skos:altLabel>
+	<skos:altLabel>Annatam</skos:altLabel>
+	<skos:altLabel>Annattom</skos:altLabel>
+	<skos:altLabel>Anotom</skos:altLabel>
+	<skos:altLabel>Kéamu</skos:altLabel>
+	<skos:altLabel>Île Anetchom</skos:altLabel>
+	<skos:altLabel>Île Aneytioum</skos:altLabel>
+	<skos:altLabel>Île Aneytum</skos:altLabel>
+	<skos:prefLabel>Anatom</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137575/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.25</wgs:lat>
+	<wgs:long>168.11667</wgs:long>
+	<skos:altLabel>Ambrim</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Ambrim</skos:altLabel>
+	<skos:altLabel xml:lang="es">Ambrym</skos:altLabel>
+	<skos:altLabel xml:lang="de">Ambrym</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Ambrym</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Ambrym</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ambrym</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Ambrym</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Ambrym</skos:altLabel>
+	<skos:altLabel>Ambrym</skos:altLabel>
+	<skos:altLabel>Ambryn</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Амбрим</skos:altLabel>
+	<skos:prefLabel>Ambrym</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137601/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.51667</wgs:lat>
+	<wgs:long>167.65</wgs:long>
+	<skos:altLabel>Île Akam</skos:altLabel>
+	<skos:altLabel>Île Hambi</skos:altLabel>
+	<skos:prefLabel>Île Akam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137611/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.43333</wgs:lat>
+	<wgs:long>167.25</wgs:long>
+	<skos:altLabel>Aesi</skos:altLabel>
+	<skos:altLabel>Aésé</skos:altLabel>
+	<skos:altLabel>Haiite Island</skos:altLabel>
+	<skos:altLabel>Île Aessi</skos:altLabel>
+	<skos:altLabel>Île Aisse</skos:altLabel>
+	<skos:altLabel>Île Aïs</skos:altLabel>
+	<skos:altLabel>Île Haïce</skos:altLabel>
+	<skos:prefLabel>Aésé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2137618/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.6</wgs:lat>
+	<wgs:long>167.23333</wgs:long>
+	<skos:altLabel>Abokisa</skos:altLabel>
+	<skos:altLabel>Voïsa</skos:altLabel>
+	<skos:altLabel>Île Abokisa</skos:altLabel>
+	<skos:altLabel>Île Abokissah</skos:altLabel>
+	<skos:altLabel>Île Bogacio</skos:altLabel>
+	<skos:prefLabel>Voïsa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2206460/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.80556</wgs:lat>
+	<wgs:long>168.33056</wgs:long>
+	<skos:prefLabel>Ekapum Lep Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2208265/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>35329</europeana:population>
+	<wgs:lat>-16.25</wgs:lat>
+	<wgs:long>167.75</wgs:long>
+	<skos:altLabel>Malampa</skos:altLabel>
+	<skos:altLabel>Malampa Province</skos:altLabel>
+	<skos:prefLabel>Malampa Province</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2208266/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>29286</europeana:population>
+	<wgs:lat>-15.5</wgs:lat>
+	<wgs:long>168</wgs:long>
+	<skos:altLabel>Penama</skos:altLabel>
+	<skos:altLabel>Penama Province</skos:altLabel>
+	<skos:prefLabel>Penama Province</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2208267/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>63491</europeana:population>
+	<wgs:lat>-17.33333</wgs:lat>
+	<wgs:long>168.5</wgs:long>
+	<skos:altLabel>Shefa</skos:altLabel>
+	<skos:altLabel>Shefa Province</skos:altLabel>
+	<skos:prefLabel>Shefa Province</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2208343/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.36667</wgs:lat>
+	<wgs:long>167.18333</wgs:long>
+	<skos:altLabel>Malvapévu Island</skos:altLabel>
+	<skos:altLabel>Vaucluse Island</skos:altLabel>
+	<skos:prefLabel>Malvapévu Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2208344/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.38056</wgs:lat>
+	<wgs:long>167.18472</wgs:long>
+	<skos:altLabel>Lepérousel Island</skos:altLabel>
+	<skos:altLabel>Malwépé Island</skos:altLabel>
+	<skos:prefLabel>Malwépé Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6639639/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2134431/"/>
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.5908</wgs:lat>
+	<wgs:long>167.24556</wgs:long>
+	<skos:prefLabel>Bokissa Island</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 159 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

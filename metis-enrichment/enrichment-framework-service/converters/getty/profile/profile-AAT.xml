@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rdf:RDF [
+    <!ENTITY rdf 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
+    <!ENTITY rdfs 'http://www.w3.org/2000/01/rdf-schema#'>
+    <!ENTITY ac 'http://annocultor.eu/converter/'>
+    <!ENTITY vra 'http://www.vraweb.org/vracore/vracore3#'>
+    <!ENTITY aat 'http://europeana.eu/AAT#'>
+    <!ENTITY ulan 'http://europeana.eu/ULAN#'>
+    <!ENTITY europeana     "http://europeana.eu/namespaces/europeana#">
+        
+    <!ENTITY parameters SYSTEM '/../profile/parameters-getty.xml'> 
+    
+    <!ENTITY common SYSTEM '/../profile/common-getty.xml'> 
+    
+]>
+<rdf:RDF 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://annocultor.eu/schema/XConverter.xsd" 
+    xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/" 
+    xmlns:inm="http://www.inmagic.com/webpublisher/query" 
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:vra="&vra;" xmlns:ns="http://localhost/namespace" 
+    xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:aat="&aat;"
+	xmlns:ulan="&ulan;"
+	xmlns:europeana="&europeana;"
+	>
+	<ac:Profile ac:institution="Europeana project" ac:publisherId="000" ac:versionAnnoCultor="2.0" rdf:about="AAT" ac:namespace="aat">
+		<!--
+			Shared definition of parameters and vocabularies are loaded from the corresponding files.
+		-->
+		<ac:parameters rdf:parseType="Collection">
+    &parameters;
+		</ac:parameters>
+
+		<ac:repositories rdf:parseType="Collection">
+			<ac:Repository rdf:about="AAT">
+				<ac:datasources rdf:parseType="Collection">
+					<ac:XmlDataSource>
+						<ac:file>AAT.xml</ac:file>
+					</ac:XmlDataSource>
+				</ac:datasources>
+				<ac:destinations rdf:parseType="Collection">
+					<!--
+						Destinations are separate RDF files that will be created. Each property rule has a parameter that specifies where to store the result. Splitting a dataset among several files may be quite useful
+						in practice.
+					-->
+					<ac:RdfGraph rdf:about="Terms">
+					  <ac:comment>AAT terms</ac:comment>
+					</ac:RdfGraph>
+				</ac:destinations>
+				<ac:objectRules rdf:parseType="Collection">
+					<ac:ObjectRule rdf:about="subjectRule">
+						<ac:recordSeparator>/ns:Vocabulary/ns:Subject</ac:recordSeparator>
+						<ac:recordIdentifier>/ns:Vocabulary/ns:Subject[@Subject_ID]</ac:recordIdentifier>
+						<ac:recordInformalIdentifier>/ns:Vocabulary/ns:Subject/ns:Descriptive_Note</ac:recordInformalIdentifier>
+
+						<ac:listeners rdf:parseType="Collection">
+							<ac:OnPreCondition>
+								<ac:java>
+									// sample precondition
+									//System.out.println("Passed");
+									return true;
+              					</ac:java>
+							</ac:OnPreCondition>
+						</ac:listeners>
+
+						<ac:propertyRules>
+							<ac:eu.annocultor.rules.RenameLiteralPropertyRule-enforceLang>
+								<ac:srcPath rdf:datatype="ac:Path">ns:Descriptive_Note/ns:Note_Text</ac:srcPath>
+								<ac:dstProperty rdf:datatype="ac:Property">skos:scopeNote</ac:dstProperty>
+								<ac:dstLangCode rdf:datatype="ac:String">en</ac:dstLangCode>
+								<ac:dstGraph rdf:datatype="ac:Graph">Terms</ac:dstGraph>
+							</ac:eu.annocultor.rules.RenameLiteralPropertyRule-enforceLang>
+
+							<ac:eu.annocultor.rules.ReplaceValuesRule-default>
+								<ac:srcPath rdf:datatype="ac:Path">ns:Record_Type</ac:srcPath>
+								   <ac:rule rdf:datatype="ac:Rule">
+                 						<ac:eu.annocultor.rules.RenameResourcePropertyRule-prefix>
+											<ac:srcPath rdf:datatype="ac:Path">ns:Record_Type</ac:srcPath>
+            								<ac:dstProperty rdf:datatype="ac:Property">europeana:termtype</ac:dstProperty>
+											<ac:dstNamespace rdf:datatype="ac:Namespace">europeana</ac:dstNamespace>
+			      							<ac:dstGraph rdf:datatype="ac:Graph">Terms</ac:dstGraph>
+						                </ac:eu.annocultor.rules.RenameResourcePropertyRule-prefix>
+              					  </ac:rule>
+					              <ac:map rdf:datatype="ac:Map"> 
+                 					<ac:srcValue rdf:datatype="ac:String">Guide Term</ac:srcValue>
+                 					<ac:dstValue rdf:datatype="ac:String">GuideTerm</ac:dstValue>
+              					  </ac:map>
+					              <ac:map rdf:datatype="ac:Map"> 
+                 					<ac:srcValue rdf:datatype="ac:String">Hierarchy Name</ac:srcValue>
+                 					<ac:dstValue rdf:datatype="ac:String">HierarchyName</ac:dstValue>
+              					  </ac:map>
+					              <ac:map rdf:datatype="ac:Map"> 
+                 					<ac:srcValue rdf:datatype="ac:String">Concept</ac:srcValue>
+                 					<ac:dstValue rdf:datatype="ac:String">Concept</ac:dstValue>
+              					  </ac:map>
+							</ac:eu.annocultor.rules.ReplaceValuesRule-default>
+
+							<ac:eu.annocultor.rules.RenameResourcePropertyRule-prefix>
+								<ac:srcPath rdf:datatype="ac:Path">ns:Parent_Relationships/ns:Preferred_Parent/ns:Parent_Subject_ID</ac:srcPath>
+								<ac:dstProperty rdf:datatype="ac:Property">skos:broader</ac:dstProperty>
+								<ac:dstNamespace rdf:datatype="ac:Namespace">aat</ac:dstNamespace>
+								<ac:dstGraph rdf:datatype="ac:Graph">Terms</ac:dstGraph>
+								<ac:listeners rdf:parseType="Collection">
+									<ac:OnInvocation>
+										<ac:java>
+										// dirrrty
+									 return sourceTriple.changeValue(sourceTriple.getValue());
+              							</ac:java>
+									</ac:OnInvocation>
+								</ac:listeners>
+							</ac:eu.annocultor.rules.RenameResourcePropertyRule-prefix>
+
+							<!--
+								Adding a constant statement about each record: rdf:type
+							-->
+							<ac:eu.annocultor.rules.SequenceRule-single>
+								<ac:srcPath rdf:datatype="ac:Path">/ns:Vocabulary/ns:Subject[@Subject_ID]</ac:srcPath>
+								<ac:rule rdf:datatype="ac:Rule">
+									<ac:eu.annocultor.rules.CreateResourcePropertyRule-default>
+										<ac:srcPath rdf:datatype="ac:Path">/ns:Vocabulary/ns:Subject[@Subject_ID]</ac:srcPath>
+										<ac:dstProperty rdf:datatype="ac:Property">rdf:type</ac:dstProperty>
+										<ac:dstResource rdf:datatype="ac:Resource">skos:Term</ac:dstResource>
+										<ac:dstGraph rdf:datatype="ac:Graph">Terms</ac:dstGraph>
+									</ac:eu.annocultor.rules.CreateResourcePropertyRule-default>
+									<ac:eu.annocultor.rules.CreateResourcePropertyRule-default>
+										<ac:srcPath rdf:datatype="ac:Path">/ns:Vocabulary/ns:Subject[@Subject_ID]</ac:srcPath>
+										<ac:dstProperty rdf:datatype="ac:Property">skos:inScheme</ac:dstProperty>
+										<ac:dstResource rdf:datatype="ac:Resource">europeana:Category</ac:dstResource>
+										<ac:dstGraph rdf:datatype="ac:Graph">Terms</ac:dstGraph>
+									</ac:eu.annocultor.rules.CreateResourcePropertyRule-default>
+								</ac:rule>
+							</ac:eu.annocultor.rules.SequenceRule-single>
+						</ac:propertyRules>
+					</ac:ObjectRule>
+
+				&common;	
+                </ac:objectRules>
+
+				<!--
+					Conversion limit made for debugging. A positive value would stop conversion after the corresponding number of records is passed. Note: in a normal completion it creates all output files but end
+					with an exception that is raised to stop conversion. Watch out!
+				-->
+				<ac:maxRecordsToConvert>-1</ac:maxRecordsToConvert>
+			</ac:Repository>
+		</ac:repositories>
+	</ac:Profile>
+</rdf:RDF>

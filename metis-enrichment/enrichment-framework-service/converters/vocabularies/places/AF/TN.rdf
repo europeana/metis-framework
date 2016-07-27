@@ -1,0 +1,3674 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AF_TN
+Description: Selected fields pulled from Geonames about TN done on Mon May 23 21:16:23 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/2463890/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>37.10688</wgs:lat>
+	<wgs:long>10.87428</wgs:long>
+	<skos:altLabel>Djamour es Srhir</skos:altLabel>
+	<skos:altLabel>Djamour es Srir</skos:altLabel>
+	<skos:altLabel>Zembretta Simboletto</skos:altLabel>
+	<skos:altLabel>Île Zembretta</skos:altLabel>
+	<skos:prefLabel>Île Zembretta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2464019/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>37.12738</wgs:lat>
+	<wgs:long>10.80548</wgs:long>
+	<skos:altLabel>Djamour el Kebir</skos:altLabel>
+	<skos:altLabel>Jazīrat Zambrah</skos:altLabel>
+	<skos:altLabel>Zembra</skos:altLabel>
+	<skos:altLabel>Zembra Simbolo</skos:altLabel>
+	<skos:altLabel>Île Zembra</skos:altLabel>
+	<skos:prefLabel>Jazīrat Zambrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2464038/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>36.33333</wgs:lat>
+	<wgs:long>10</wgs:long>
+	<skos:altLabel>Gouvernorat de Zaghouan</skos:altLabel>
+	<skos:altLabel>Gouvernorate de Zaghouan</skos:altLabel>
+	<skos:altLabel>Wilāyat Zaghwān</skos:altLabel>
+	<skos:altLabel>Zaghwān</skos:altLabel>
+	<skos:prefLabel>Gouvernorat de Zaghouan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2464039/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464038/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>36.41667</wgs:lat>
+	<wgs:long>10.16667</wgs:long>
+	<skos:altLabel>Délégation de Zaghouan</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Zaghwān</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Zaghwān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2464041/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16911</europeana:population>
+	<wgs:lat>36.40291</wgs:lat>
+	<wgs:long>10.14292</wgs:long>
+	<skos:altLabel>Zaghouan</skos:altLabel>
+	<skos:altLabel>Zaghouane</skos:altLabel>
+	<skos:altLabel>Zaghwān</skos:altLabel>
+	<skos:altLabel>Zarhouan</skos:altLabel>
+	<skos:prefLabel>Zaghouan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2464168/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>47101</europeana:population>
+	<wgs:lat>36.83408</wgs:lat>
+	<wgs:long>10.04057</wgs:long>
+	<skos:altLabel>Oued Ellil</skos:altLabel>
+	<skos:altLabel>Oued Lill</skos:altLabel>
+	<skos:altLabel>Wādī al Layl</skos:altLabel>
+	<skos:prefLabel>Oued Lill</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2464461/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255146/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>10589025</europeana:population>
+	<wgs:lat>34</wgs:lat>
+	<wgs:long>9</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Jumhūrīyah at Tūnisīyah</skos:altLabel>
+	<skos:altLabel>Al Mamlakah at Tūnusīyah</skos:altLabel>
+	<skos:altLabel xml:lang="ga">An Túinéis</skos:altLabel>
+	<skos:altLabel>Jumhūrīyat Tūnus</skos:altLabel>
+	<skos:altLabel>La République Tunisienne</skos:altLabel>
+	<skos:altLabel>La Tunisie</skos:altLabel>
+	<skos:altLabel>Republic of Tunisia</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Republika Tunis</skos:altLabel>
+	<skos:altLabel>TN</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Tiwnisia</skos:altLabel>
+	<skos:altLabel xml:lang="et">Tuneesia</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Tunesia</skos:altLabel>
+	<skos:altLabel xml:lang="la">Tunesia</skos:altLabel>
+	<skos:altLabel xml:lang="rm">Tunesia</skos:altLabel>
+	<skos:altLabel xml:lang="da">Tunesien</skos:altLabel>
+	<skos:altLabel xml:lang="de">Tunesien</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Tunesië</skos:altLabel>
+	<skos:altLabel>Tunez</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Tunezja</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Tuneż</skos:altLabel>
+	<skos:altLabel xml:lang="so">Tuniisiya</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Tunis</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Tunis</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Tunis</skos:altLabel>
+	<skos:altLabel xml:lang="da">Tunis</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Tunis</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Tunisas</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Tunisi</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Tunisi</skos:altLabel>
+	<skos:altLabel xml:lang="id">Tunisia</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tunisia</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Tunisia</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Tunisia</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Tunisia</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Tunisia</skos:altLabel>
+	<skos:altLabel xml:lang="it">Tunisia</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Tunisia</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Tunisia</skos:altLabel>
+	<skos:altLabel xml:lang="no">Tunisia</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Tunisia</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Tunisia</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Tunisia</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Tunisia</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Tunisia</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Tunisia</skos:altLabel>
+	<skos:altLabel xml:lang="se">Tunisia</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Tunisia - تونس</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tunisian Republic</skos:altLabel>
+	<skos:altLabel>Tunisie</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Tunisie</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Tunisien</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Tunisija</skos:altLabel>
+	<skos:altLabel xml:lang="af">Tunisië</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Tunisko</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Tunisko</skos:altLabel>
+	<skos:altLabel xml:lang="wa">Tunizeye</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Tunizi</skos:altLabel>
+	<skos:altLabel xml:lang="an">Tunizia</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Tunizia</skos:altLabel>
+	<skos:altLabel xml:lang="io">Tunizia</skos:altLabel>
+	<skos:altLabel xml:lang="ln">Tunizia</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Tunizija</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Tunizio</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Tunus</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Tunézia</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Tunísia</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Tunísia</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Tuy-ni-di</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Tuy-ni-di (Tunisia)</skos:altLabel>
+	<skos:altLabel xml:lang="es">Túnez</skos:altLabel>
+	<skos:altLabel xml:lang="is">Túnis</skos:altLabel>
+	<skos:altLabel xml:lang="el">Τυνησία</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Тунис</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Тунис</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Тунис</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Тунис</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Туніс</skos:altLabel>
+	<skos:altLabel xml:lang="be">Туніс</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Թունիս</skos:altLabel>
+	<skos:altLabel xml:lang="he">טוניסיה</skos:altLabel>
+	<skos:altLabel xml:lang="he">תוניסיה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">تونس</skos:altLabel>
+	<skos:altLabel xml:lang="fa">تونس</skos:altLabel>
+	<skos:altLabel xml:lang="ug">تۇنىزىيە</skos:altLabel>
+	<skos:altLabel xml:lang="ur">تیونس</skos:altLabel>
+	<skos:altLabel xml:lang="hi">टुनिशिया</skos:altLabel>
+	<skos:altLabel xml:lang="ks">टुनिशिया</skos:altLabel>
+	<skos:altLabel xml:lang="sa">टुनिशिया</skos:altLabel>
+	<skos:altLabel xml:lang="hi">ट्यूनीसिया</skos:altLabel>
+	<skos:altLabel xml:lang="hi">तुनिशिया</skos:altLabel>
+	<skos:altLabel xml:lang="bn">টিউনিস্</skos:altLabel>
+	<skos:altLabel xml:lang="ta">துனிசியா</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ടുണീഷ്യ</skos:altLabel>
+	<skos:altLabel xml:lang="th">ตูนิเซีย</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศตูนิเซีย</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ຕູນິເຊຍ</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ტუნისი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ቱኒዚያ</skos:altLabel>
+	<skos:altLabel xml:lang="km">ទុយនេស៊ី</skos:altLabel>
+	<skos:altLabel xml:lang="ja">チュニジア</skos:altLabel>
+	<skos:altLabel xml:lang="ja">チュニジア共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">突尼斯</skos:altLabel>
+	<skos:altLabel xml:lang="zh">突尼西亞</skos:altLabel>
+	<skos:altLabel xml:lang="ko">튀니지</skos:altLabel>
+	<skos:prefLabel>Tunisian Republic</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2464464/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>36.76667</wgs:lat>
+	<wgs:long>10.13333</wgs:long>
+	<skos:altLabel>Gouvernorat de Tunis</skos:altLabel>
+	<skos:altLabel>Gouvernorat de Tunis et Banlieue</skos:altLabel>
+	<skos:altLabel>Tunis Banlieue</skos:altLabel>
+	<skos:altLabel>Tunis and Banlieue</skos:altLabel>
+	<skos:altLabel>Tūnis</skos:altLabel>
+	<skos:altLabel>Wilāyat Tūnis</skos:altLabel>
+	<skos:altLabel>Wilāyat Tūnis wa al Aḩwāz</skos:altLabel>
+	<skos:prefLabel>Gouvernorat de Tunis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2464465/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>36.66667</wgs:lat>
+	<wgs:long>10.25</wgs:long>
+	<skos:altLabel>Banlieue Nord</skos:altLabel>
+	<skos:altLabel>Délégation de Tunis</skos:altLabel>
+	<skos:altLabel>Délégation de la Banlieue</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Tūnis</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Tūnis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2464470/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>693210</europeana:population>
+	<wgs:lat>36.81897</wgs:lat>
+	<wgs:long>10.16579</wgs:long>
+	<skos:altLabel>Tunes</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Tunes</skos:altLabel>
+	<skos:altLabel xml:lang="es">Tunez</skos:altLabel>
+	<skos:altLabel xml:lang="id">Tunis</skos:altLabel>
+	<skos:altLabel xml:lang="de">Tunis</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Tunis</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Tunis</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Tunis</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Tunis</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Tunis</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Tunis</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tunis</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Tunis</skos:altLabel>
+	<skos:altLabel xml:lang="da">Tunis</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Tunis</skos:altLabel>
+	<skos:altLabel xml:lang="io">Tunis</skos:altLabel>
+	<skos:altLabel xml:lang="no">Tunis</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Tunis</skos:altLabel>
+	<skos:altLabel>Tunis-Ville</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Tunisas</skos:altLabel>
+	<skos:altLabel>Tunisi</skos:altLabel>
+	<skos:altLabel xml:lang="it">Tunisi</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Tunisz</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Tunizo</skos:altLabel>
+	<skos:altLabel xml:lang="es">Túnez</skos:altLabel>
+	<skos:altLabel xml:lang="is">Túnis</skos:altLabel>
+	<skos:altLabel xml:lang="el">Τύνιδα</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Тунис</skos:altLabel>
+	<skos:altLabel xml:lang="os">Тунис</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Тунис</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Тунис</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Тунис</skos:altLabel>
+	<skos:altLabel xml:lang="he">תוניס</skos:altLabel>
+	<skos:altLabel xml:lang="ar">تونس</skos:altLabel>
+	<skos:altLabel xml:lang="fa">تونس</skos:altLabel>
+	<skos:altLabel xml:lang="mr">ट्युनिस</skos:altLabel>
+	<skos:altLabel xml:lang="am">ቱኒስ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">チュニス</skos:altLabel>
+	<skos:altLabel xml:lang="zh">突尼斯</skos:altLabel>
+	<skos:altLabel xml:lang="zh">突尼斯市</skos:altLabel>
+	<skos:altLabel xml:lang="ko">튀니스</skos:altLabel>
+	<skos:prefLabel>Tunis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2464509/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>35.43333</wgs:lat>
+	<wgs:long>10.48333</wgs:long>
+	<skos:altLabel>Guettaïet et Tlésoui</skos:altLabel>
+	<skos:altLabel>Qaţţāyat at Tlésoui</skos:altLabel>
+	<skos:prefLabel>Qaţţāyat at Tlésoui</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2464645/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>34</wgs:lat>
+	<wgs:long>8.08333</wgs:long>
+	<skos:altLabel>Gouvernorat de Tozeur</skos:altLabel>
+	<skos:altLabel>Tawzar</skos:altLabel>
+	<skos:altLabel>Wilāyat Tawzar</skos:altLabel>
+	<skos:prefLabel>Gouvernorat de Tozeur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2464646/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464645/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>33.83333</wgs:lat>
+	<wgs:long>8.16667</wgs:long>
+	<skos:altLabel>Delegation de Tozeur</skos:altLabel>
+	<skos:altLabel>Délégation de Tozeur</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Tawzar</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Tawzar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2464648/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>34943</europeana:population>
+	<wgs:lat>33.91968</wgs:lat>
+	<wgs:long>8.13352</wgs:long>
+	<skos:altLabel>Tawzar</skos:altLabel>
+	<skos:altLabel>Tozeur</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Тозер</skos:altLabel>
+	<skos:prefLabel>Tozeur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2464698/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>32</wgs:lat>
+	<wgs:long>10</wgs:long>
+	<skos:altLabel>Gouvernorat de Tataouine</skos:altLabel>
+	<skos:altLabel>Tataouine</skos:altLabel>
+	<skos:altLabel>Taţāwīn</skos:altLabel>
+	<skos:altLabel>Wilāyat Taţāwīn</skos:altLabel>
+	<skos:prefLabel>Gouvernorat de Tataouine</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2464700/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464698/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>32.75</wgs:lat>
+	<wgs:long>10.75</wgs:long>
+	<skos:altLabel>Delegation de Tataouine</skos:altLabel>
+	<skos:altLabel>Délégation de Foum Tatahouine</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Taţāwīn</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Taţāwīn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2464701/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>62577</europeana:population>
+	<wgs:lat>32.92967</wgs:lat>
+	<wgs:long>10.45177</wgs:long>
+	<skos:altLabel>Foum Tatahouine</skos:altLabel>
+	<skos:altLabel>Foum Tataouine</skos:altLabel>
+	<skos:altLabel>Fum Taţāwīn</skos:altLabel>
+	<skos:altLabel>Fumm Tattauin</skos:altLabel>
+	<skos:altLabel>Tatahouïne</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Tataouine</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tataouine</skos:altLabel>
+	<skos:altLabel>Tataouine</skos:altLabel>
+	<skos:altLabel>Taţāwīn</skos:altLabel>
+	<skos:prefLabel>Tataouine</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2464702/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>32.75</wgs:lat>
+	<wgs:long>10.66667</wgs:long>
+	<skos:prefLabel>Caïdat de Tatahouine</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2464703/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>36.58333</wgs:lat>
+	<wgs:long>9.41667</wgs:long>
+	<skos:altLabel>Délégation de Testour</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Tastūr</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Tastūr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2464704/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13708</europeana:population>
+	<wgs:lat>36.5513</wgs:lat>
+	<wgs:long>9.44307</wgs:long>
+	<skos:altLabel>Tastūr</skos:altLabel>
+	<skos:altLabel>Testour</skos:altLabel>
+	<skos:altLabel>Tichilla</skos:altLabel>
+	<skos:prefLabel>Tastūr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2464794/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>35.5</wgs:lat>
+	<wgs:long>8.5</wgs:long>
+	<skos:altLabel>Délégation de Thala</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Tālah</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Tālah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2464795/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16068</europeana:population>
+	<wgs:lat>35.57244</wgs:lat>
+	<wgs:long>8.67031</wgs:long>
+	<skos:altLabel>Tala</skos:altLabel>
+	<skos:altLabel>Thala</skos:altLabel>
+	<skos:altLabel>Tālah</skos:altLabel>
+	<skos:prefLabel>Thala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2464804/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20659</europeana:population>
+	<wgs:lat>36.78333</wgs:lat>
+	<wgs:long>10.63333</wgs:long>
+	<skos:altLabel>Takelsa</skos:altLabel>
+	<skos:altLabel>Tāklisah</skos:altLabel>
+	<skos:prefLabel>Tāklisah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2464807/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>36</wgs:lat>
+	<wgs:long>8.5</wgs:long>
+	<skos:altLabel>Délégation de Tadjerouine</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Tājirwīn</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Tājirwīn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2464809/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18909</europeana:population>
+	<wgs:lat>35.89174</wgs:lat>
+	<wgs:long>8.55276</wgs:long>
+	<skos:altLabel>Tadjerouine</skos:altLabel>
+	<skos:altLabel>Tadjrouïne</skos:altLabel>
+	<skos:altLabel>Tajerouine</skos:altLabel>
+	<skos:prefLabel>Tajerouine</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2464853/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>36.5</wgs:lat>
+	<wgs:long>9.16667</wgs:long>
+	<skos:altLabel>Délégation de Teboursouk</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Tabursuq</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Tabursuq</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2464855/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12727</europeana:population>
+	<wgs:lat>36.45692</wgs:lat>
+	<wgs:long>9.24751</wgs:long>
+	<skos:altLabel>Tabursuq</skos:altLabel>
+	<skos:altLabel>Teboursouk</skos:altLabel>
+	<skos:altLabel>Teboursouq</skos:altLabel>
+	<skos:prefLabel>Tabursuq</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2464857/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>36.91667</wgs:lat>
+	<wgs:long>9.75</wgs:long>
+	<skos:altLabel>Délégation de Tebourba</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Ţaburbah</skos:altLabel>
+	<skos:altLabel>Tébourbh</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Ţaburbah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2464869/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>36.91667</wgs:lat>
+	<wgs:long>8.83333</wgs:long>
+	<skos:altLabel>Délégation de Tabarka</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Ţabarqah</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Ţabarqah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2464870/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>36.96444</wgs:lat>
+	<wgs:long>8.76194</wgs:long>
+	<skos:altLabel>Ile Tabarca</skos:altLabel>
+	<skos:altLabel>Jazīrat Ţabarqah</skos:altLabel>
+	<skos:altLabel>Tabarka Island</skos:altLabel>
+	<skos:altLabel>Île de Tabarca</skos:altLabel>
+	<skos:altLabel>Île de Tabarka</skos:altLabel>
+	<skos:prefLabel>Île de Tabarka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2464871/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13712</europeana:population>
+	<wgs:lat>36.95442</wgs:lat>
+	<wgs:long>8.75801</wgs:long>
+	<skos:altLabel>Tabarca</skos:altLabel>
+	<skos:altLabel>Tabarka</skos:altLabel>
+	<skos:altLabel>Tabarqa</skos:altLabel>
+	<skos:altLabel>Thabraca</skos:altLabel>
+	<skos:altLabel>Ţabarqah</skos:altLabel>
+	<skos:prefLabel>Tabarka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2464912/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>35.91667</wgs:lat>
+	<wgs:long>10.41667</wgs:long>
+	<skos:altLabel>Gouvernorat de Sousse</skos:altLabel>
+	<skos:altLabel>Sūsah</skos:altLabel>
+	<skos:altLabel>Wilāyat Sūsah</skos:altLabel>
+	<skos:prefLabel>Gouvernorat de Sousse</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2464914/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2473495/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>35.75</wgs:lat>
+	<wgs:long>10.83333</wgs:long>
+	<skos:altLabel>Délégation de Sousse</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Sūsah</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Sūsah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2464915/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>164123</europeana:population>
+	<wgs:lat>35.82539</wgs:lat>
+	<wgs:long>10.63699</wgs:long>
+	<skos:altLabel>Hadrumetum</skos:altLabel>
+	<skos:altLabel>Sousa</skos:altLabel>
+	<skos:altLabel>Souse</skos:altLabel>
+	<skos:altLabel>Soussa</skos:altLabel>
+	<skos:altLabel xml:lang="de">Sousse</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Sousse</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Sousse</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Sousse</skos:altLabel>
+	<skos:altLabel xml:lang="id">Sousse</skos:altLabel>
+	<skos:altLabel xml:lang="en">Sousse</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Sousse</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Sousse</skos:altLabel>
+	<skos:altLabel xml:lang="no">Sousse</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Sousse</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Sousse</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Sousse</skos:altLabel>
+	<skos:altLabel>Sousse</skos:altLabel>
+	<skos:altLabel>Susa</skos:altLabel>
+	<skos:altLabel xml:lang="it">Susa</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Susa</skos:altLabel>
+	<skos:altLabel>Sūsah</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сусс</skos:altLabel>
+	<skos:altLabel xml:lang="he">קירנה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">سوسة</skos:altLabel>
+	<skos:altLabel xml:lang="ja">スース</skos:altLabel>
+	<skos:altLabel xml:lang="zh">昔兰尼</skos:altLabel>
+	<skos:prefLabel>Sousse</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2464918/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>34.32145</wgs:lat>
+	<wgs:long>10.27633</wgs:long>
+	<skos:altLabel>El Kneïes</skos:altLabel>
+	<skos:altLabel>Sur-Kenis Islets</skos:altLabel>
+	<skos:altLabel>Îlots Sur-Kenis</skos:altLabel>
+	<skos:prefLabel>Îlots Sur-Kenis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2464951/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>36.75</wgs:lat>
+	<wgs:long>10.58333</wgs:long>
+	<skos:altLabel>Délégation de Soliman</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Sulaymān</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Sulaymān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2464975/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>34.31667</wgs:lat>
+	<wgs:long>10.28333</wgs:long>
+	<skos:prefLabel>Îlot Sud</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2464977/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>35.25</wgs:lat>
+	<wgs:long>9.25</wgs:long>
+	<skos:altLabel>Délégation de Sbeïtla</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Subayţilah</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Subayţilah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2464980/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>35.91667</wgs:lat>
+	<wgs:long>10</wgs:long>
+	<skos:altLabel>As Subaykhah</skos:altLabel>
+	<skos:altLabel>Délégation de Sbikha</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat as Subaykhah</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat as Subaykhah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2464998/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>35.33333</wgs:lat>
+	<wgs:long>10.41667</wgs:long>
+	<skos:prefLabel>Délégation de Souassi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2465027/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>36</wgs:lat>
+	<wgs:long>9.33333</wgs:long>
+	<skos:altLabel>Gouvernorat de Siliana</skos:altLabel>
+	<skos:altLabel>Silyānah</skos:altLabel>
+	<skos:altLabel>Wilāyat Silyānah</skos:altLabel>
+	<skos:prefLabel>Gouvernorat de Siliana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2465029/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2465027/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>36</wgs:lat>
+	<wgs:long>9.5</wgs:long>
+	<skos:altLabel>Délégation de Siliana</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Silyānah</skos:altLabel>
+	<skos:prefLabel>Délégation de Siliana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2465030/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>26960</europeana:population>
+	<wgs:lat>36.08497</wgs:lat>
+	<wgs:long>9.37082</wgs:long>
+	<skos:altLabel>Siliana</skos:altLabel>
+	<skos:altLabel>Silyānah</skos:altLabel>
+	<skos:altLabel>Souk el Kremis</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Силиана</skos:altLabel>
+	<skos:prefLabel>Siliana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2465107/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>35.25</wgs:lat>
+	<wgs:long>10</wgs:long>
+	<skos:altLabel>Délégation de Sidi Amor</skos:altLabel>
+	<skos:altLabel>Délégation de Sidi Amor Bou Hadjela</skos:altLabel>
+	<skos:altLabel>Délégation de Sidi Amor Bou-Hajla</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Sīdī ‘Umar Bū Ḩajalah</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Sīdī ‘Umar Bū Ḩajalah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2465836/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2465837/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>35</wgs:lat>
+	<wgs:long>9.25</wgs:long>
+	<skos:altLabel>Délégation de Gamouda</skos:altLabel>
+	<skos:altLabel>Délégation de Sidi Bou Zid</skos:altLabel>
+	<skos:altLabel>Wilāyat Sīdī Bū Zayd</skos:altLabel>
+	<skos:prefLabel>Wilāyat Sīdī Bū Zayd</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2465837/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>34.83333</wgs:lat>
+	<wgs:long>9.5</wgs:long>
+	<skos:altLabel>Gouvernorat de Sidi Bou Zid</skos:altLabel>
+	<skos:altLabel>Sīdī Bū Zayd</skos:altLabel>
+	<skos:altLabel>Wilāyat Sīdī Bū Zayd</skos:altLabel>
+	<skos:prefLabel>Gouvernorat de Sidi Bou Zid</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2465840/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>42098</europeana:population>
+	<wgs:lat>35.03823</wgs:lat>
+	<wgs:long>9.48494</wgs:long>
+	<skos:altLabel>Gammouda</skos:altLabel>
+	<skos:altLabel>Qamūdah</skos:altLabel>
+	<skos:altLabel>Sidi Bou Zid</skos:altLabel>
+	<skos:altLabel>Sidi Bouzid</skos:altLabel>
+	<skos:altLabel>Sīdī Bū Zayd</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сиди-Бу-Зид</skos:altLabel>
+	<skos:prefLabel>Sidi Bouzid</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2466416/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>35.25</wgs:lat>
+	<wgs:long>9.83333</wgs:long>
+	<skos:altLabel>Delegation de Sidi Ali Nasrallah</skos:altLabel>
+	<skos:altLabel>Délégation de Sidi Ali</skos:altLabel>
+	<skos:altLabel>Délégation de Sidi Ali Ben Nasr’Allah</skos:altLabel>
+	<skos:altLabel>Délégation de Sidi Ali Nasr’Allah</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Sīdī ‘Alī Bin Naşr Allāh</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Sīdī ‘Alī Bin Naşr Allāh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2466532/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>35.78454</wgs:lat>
+	<wgs:long>10.83346</wgs:long>
+	<skos:altLabel>Djeziret Sidi El Ghadamsi</skos:altLabel>
+	<skos:altLabel>Egdemsi Islet</skos:altLabel>
+	<skos:altLabel>Ile Rhedamsi</skos:altLabel>
+	<skos:altLabel>Jazīrat Sīdī al Ghudāmisī</skos:altLabel>
+	<skos:altLabel>Île Egdemsi</skos:altLabel>
+	<skos:altLabel>Île Sidi-el-Rhedamsi</skos:altLabel>
+	<skos:prefLabel>Jazīrat Sīdī al Ghudāmisī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2466895/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2473574/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>35.25</wgs:lat>
+	<wgs:long>10.33333</wgs:long>
+	<skos:altLabel>Chorbane</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Shurbān</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Shurbān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2466981/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>34.73333</wgs:lat>
+	<wgs:long>11.23333</wgs:long>
+	<skos:altLabel>Cercina</skos:altLabel>
+	<skos:altLabel>Cercinna</skos:altLabel>
+	<skos:altLabel>Jazīrat ash Sharqī</skos:altLabel>
+	<skos:altLabel>Kerkenah Island</skos:altLabel>
+	<skos:altLabel>Shergui Island</skos:altLabel>
+	<skos:altLabel>Île Chergui</skos:altLabel>
+	<skos:altLabel>Île Sherki</skos:altLabel>
+	<skos:prefLabel>Île Chergui</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2467054/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>36.8175</wgs:lat>
+	<wgs:long>10.21861</wgs:long>
+	<skos:altLabel>Jazīrat Shaklī</skos:altLabel>
+	<skos:altLabel>Île Chekli</skos:altLabel>
+	<skos:altLabel>Île Shikli</skos:altLabel>
+	<skos:prefLabel>Île Chekli</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2467125/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>34.79722</wgs:lat>
+	<wgs:long>11.22333</wgs:long>
+	<skos:altLabel>Jazīrat as Sefnou</skos:altLabel>
+	<skos:altLabel>Île Sefnou</skos:altLabel>
+	<skos:altLabel>Île es Sefnou</skos:altLabel>
+	<skos:prefLabel>Île Sefnou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2467179/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>35.33333</wgs:lat>
+	<wgs:long>10.5</wgs:long>
+	<skos:altLabel>As Sawāsī wa Shurban</skos:altLabel>
+	<skos:altLabel>Chorbane</skos:altLabel>
+	<skos:altLabel>Délégation de Chourbane</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat as Sawāsī wa Shurbān</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat as Sawāsī wa Shurbān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2467180/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2473574/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>35.33333</wgs:lat>
+	<wgs:long>10.41667</wgs:long>
+	<skos:altLabel>As Sawāsī</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat as Sawāsī</skos:altLabel>
+	<skos:altLabel>Souassi</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat as Sawāsī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2467206/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>36.08333</wgs:lat>
+	<wgs:long>9</wgs:long>
+	<skos:altLabel>As Sars</skos:altLabel>
+	<skos:altLabel>Délégation du Sers</skos:altLabel>
+	<skos:altLabel>Le Sers</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat as Sars</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat as Sars</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2467238/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>36.33333</wgs:lat>
+	<wgs:long>8.5</wgs:long>
+	<skos:altLabel>Délégation de Sakiet Sidi Youssef</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Sāqiyat Sīdī Yūsuf</skos:altLabel>
+	<skos:altLabel>Sakiet Sidi Youssof</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Sāqiyat Sīdī Yūsuf</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2467246/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>64222</europeana:population>
+	<wgs:lat>35.78333</wgs:lat>
+	<wgs:long>10.8</wgs:long>
+	<skos:altLabel>Chekanes</skos:altLabel>
+	<skos:altLabel>Skanes</skos:altLabel>
+	<skos:altLabel>Şaqānis</skos:altLabel>
+	<skos:prefLabel>Şaqānis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2467306/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>35.515</wgs:lat>
+	<wgs:long>10.44667</wgs:long>
+	<skos:altLabel>Guettaïet es Slougui</skos:altLabel>
+	<skos:altLabel>Qaţţāyat as Salūqī</skos:altLabel>
+	<skos:prefLabel>Guettaïet es Slougui</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2467366/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>37</wgs:lat>
+	<wgs:long>9.25</wgs:long>
+	<skos:altLabel>Délégation de Sedjenane</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Sajanān</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Sajanān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2467450/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>34.75</wgs:lat>
+	<wgs:long>10.41667</wgs:long>
+	<skos:altLabel>Gouvernorat de Sfax</skos:altLabel>
+	<skos:altLabel>Wilāyat Şafāqis</skos:altLabel>
+	<skos:altLabel>Şafāqis</skos:altLabel>
+	<skos:prefLabel>Gouvernorat de Sfax</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2467453/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2467450/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>34.75</wgs:lat>
+	<wgs:long>10.5</wgs:long>
+	<skos:altLabel>Délégation de Sfax</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Şafāqis</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Şafāqis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2467454/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>277278</europeana:population>
+	<wgs:lat>34.74056</wgs:lat>
+	<wgs:long>10.76028</wgs:long>
+	<skos:altLabel xml:lang="pl">Safakis</skos:altLabel>
+	<skos:altLabel xml:lang="id">Sfax</skos:altLabel>
+	<skos:altLabel xml:lang="en">Sfax</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Sfax</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Sfax</skos:altLabel>
+	<skos:altLabel xml:lang="de">Sfax</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Sfax</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Sfax</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Sfax</skos:altLabel>
+	<skos:altLabel xml:lang="it">Sfax</skos:altLabel>
+	<skos:altLabel xml:lang="no">Sfax</skos:altLabel>
+	<skos:altLabel>Sfax</skos:altLabel>
+	<skos:altLabel>Taparura</skos:altLabel>
+	<skos:altLabel>Şafāqis</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сфвкс</skos:altLabel>
+	<skos:altLabel xml:lang="he">ספקס</skos:altLabel>
+	<skos:altLabel xml:lang="ar">صفاقس</skos:altLabel>
+	<skos:altLabel xml:lang="ja">スファックス</skos:altLabel>
+	<skos:prefLabel>Sfax</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2467521/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>33421</europeana:population>
+	<wgs:lat>36.67931</wgs:lat>
+	<wgs:long>10.29195</wgs:long>
+	<skos:altLabel>Cebala-du-Mornag</skos:altLabel>
+	<skos:altLabel>La Cebala</skos:altLabel>
+	<skos:altLabel>La Cebala du Mornag</skos:altLabel>
+	<skos:altLabel>La Sebala du Mornag</skos:altLabel>
+	<skos:altLabel>Sabālat Murnāq</skos:altLabel>
+	<skos:prefLabel>La Sebala du Mornag</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2467576/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>34.41667</wgs:lat>
+	<wgs:long>8</wgs:long>
+	<skos:altLabel>Ar Rudayyif</skos:altLabel>
+	<skos:altLabel>Délégation de Redeyef</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat ar Rudayyif</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat ar Rudayyif</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2467600/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>34.82333</wgs:lat>
+	<wgs:long>11.31556</wgs:long>
+	<skos:altLabel>Île Roumadia</skos:altLabel>
+	<skos:altLabel>Île Roumedia</skos:altLabel>
+	<skos:altLabel>Île ar Roumadia</skos:altLabel>
+	<skos:prefLabel>Île Roumadia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2467617/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>34.83333</wgs:lat>
+	<wgs:long>9.75</wgs:long>
+	<skos:altLabel>Ar Riqāb</skos:altLabel>
+	<skos:altLabel>Délégation de Regab</skos:altLabel>
+	<skos:altLabel>Délégation de Reguab</skos:altLabel>
+	<skos:altLabel>Délégation de Regueb</skos:altLabel>
+	<skos:altLabel>Délégation d’ El Regueb</skos:altLabel>
+	<skos:altLabel>Délégation d’ Erregueb</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat ar Riqāb</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat ar Riqāb</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2467663/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>34.83333</wgs:lat>
+	<wgs:long>11.28333</wgs:long>
+	<skos:altLabel>Île Ermedia</skos:altLabel>
+	<skos:altLabel>Île ar Remadia</skos:altLabel>
+	<skos:altLabel>Île er Regardia</skos:altLabel>
+	<skos:prefLabel>Île ar Remadia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2467706/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>35.43333</wgs:lat>
+	<wgs:long>10.46667</wgs:long>
+	<skos:altLabel>Guettaïet er Retem</skos:altLabel>
+	<skos:altLabel>Qaţţāyat ar Ratam</skos:altLabel>
+	<skos:prefLabel>Qaţţāyat ar Ratam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2467731/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>37.16667</wgs:lat>
+	<wgs:long>10.16667</wgs:long>
+	<skos:altLabel>Delegation de Ras Djebel</skos:altLabel>
+	<skos:altLabel>Délégation de Ras el Djebel</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Ra’s al Jabal</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Ra’s al Jabal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2467782/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>32.3</wgs:lat>
+	<wgs:long>10.38333</wgs:long>
+	<skos:altLabel>Délégation Remada</skos:altLabel>
+	<skos:altLabel>Délégation de Dehibat</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Ramādah</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Ramādah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2467815/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>44298</europeana:population>
+	<wgs:lat>36.76806</wgs:lat>
+	<wgs:long>10.27528</wgs:long>
+	<skos:altLabel>Maxula</skos:altLabel>
+	<skos:altLabel>Maxula-Radès</skos:altLabel>
+	<skos:altLabel>Radès</skos:altLabel>
+	<skos:altLabel>Rādis</skos:altLabel>
+	<skos:prefLabel>Radès</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2467855/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>35.33333</wgs:lat>
+	<wgs:long>11</wgs:long>
+	<skos:altLabel>Délégation de Ksour-Essaf</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Quşūr as Sāf</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Quşūr as Sāf</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2467856/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>27936</europeana:population>
+	<wgs:lat>35.41808</wgs:lat>
+	<wgs:long>10.99475</wgs:long>
+	<skos:altLabel>Ksour Essaf</skos:altLabel>
+	<skos:altLabel>Ksursef</skos:altLabel>
+	<skos:altLabel>Qsour Essaf</skos:altLabel>
+	<skos:altLabel>Quşūr as Sāf</skos:altLabel>
+	<skos:prefLabel>Ksour Essaf</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2467890/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11313</europeana:population>
+	<wgs:lat>35.68562</wgs:lat>
+	<wgs:long>10.84256</wgs:long>
+	<skos:altLabel>Ksib-el-Mediouni</skos:altLabel>
+	<skos:altLabel>Ksiba-el-Mediouni</skos:altLabel>
+	<skos:altLabel>Ksibet el Mediouni</skos:altLabel>
+	<skos:altLabel>Quşaybat al Madyūnī</skos:altLabel>
+	<skos:altLabel>Sieba</skos:altLabel>
+	<skos:altLabel>Xiebah</skos:altLabel>
+	<skos:prefLabel>Quşaybat al Madyūnī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2467897/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>36.58333</wgs:lat>
+	<wgs:long>10.5</wgs:long>
+	<skos:altLabel>Délégation de Grombalia</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Qurunbāliyah</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Qurunbāliyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2467917/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>36.58333</wgs:lat>
+	<wgs:long>10.75</wgs:long>
+	<skos:altLabel>Délégation de Korba</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Qurbah</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Qurbah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2467920/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>33589</europeana:population>
+	<wgs:lat>36.57861</wgs:lat>
+	<wgs:long>10.85861</wgs:long>
+	<skos:altLabel>Korba</skos:altLabel>
+	<skos:altLabel>Kourba</skos:altLabel>
+	<skos:altLabel>Kurba</skos:altLabel>
+	<skos:altLabel>Qurbah</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Корба</skos:altLabel>
+	<skos:prefLabel>Korba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2467923/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>35.78239</wgs:lat>
+	<wgs:long>11.01941</wgs:long>
+	<skos:altLabel>Juzur Qurayyāt</skos:altLabel>
+	<skos:altLabel>Kuriat Islands</skos:altLabel>
+	<skos:altLabel>Îles Curiat</skos:altLabel>
+	<skos:altLabel>Îles Kouriat</skos:altLabel>
+	<skos:altLabel>Îles Kuriat</skos:altLabel>
+	<skos:altLabel>Îles Kuriate</skos:altLabel>
+	<skos:altLabel>Îles Kuriates</skos:altLabel>
+	<skos:prefLabel>Juzur Qurayyāt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2467924/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>35.79787</wgs:lat>
+	<wgs:long>11.0331</wgs:long>
+	<skos:altLabel>Grande-Kuriat</skos:altLabel>
+	<skos:altLabel>Jazīrat Qurayyāt</skos:altLabel>
+	<skos:altLabel>Kuriat Island</skos:altLabel>
+	<skos:altLabel>Île Kuriat</skos:altLabel>
+	<skos:altLabel>Île Kuriate</skos:altLabel>
+	<skos:prefLabel>Jazīrat Qurayyāt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2467957/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>37</wgs:lat>
+	<wgs:long>11</wgs:long>
+	<skos:altLabel>Délégation de Kélibia</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Qulaybīyah</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Qulaybīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2467959/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>43209</europeana:population>
+	<wgs:lat>36.84757</wgs:lat>
+	<wgs:long>11.09386</wgs:long>
+	<skos:altLabel>Clupea</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kelibia</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Kelibia</skos:altLabel>
+	<skos:altLabel>Kélibia</skos:altLabel>
+	<skos:altLabel>Qulaybīyah</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Келибия</skos:altLabel>
+	<skos:prefLabel>Qulaybīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2468009/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>33.6907</wgs:lat>
+	<wgs:long>10.77533</wgs:long>
+	<skos:altLabel>Al Qaţţāyah al Qiblīyah</skos:altLabel>
+	<skos:altLabel>El Qetaya el Guéblïa</skos:altLabel>
+	<skos:altLabel>Guettaïa Gueblia</skos:altLabel>
+	<skos:prefLabel>El Qetaya el Guéblïa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2468014/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>33.5</wgs:lat>
+	<wgs:long>8.83333</wgs:long>
+	<skos:altLabel>Gouvernorat de Kebili</skos:altLabel>
+	<skos:altLabel>Qibilī</skos:altLabel>
+	<skos:altLabel>Wilāyat Qibilī</skos:altLabel>
+	<skos:prefLabel>Gouvernorat de Kebili</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2468016/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2468014/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>33.83333</wgs:lat>
+	<wgs:long>9</wgs:long>
+	<skos:altLabel>Délégation de Kebili</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Qibilī</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Qibilī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2468018/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19875</europeana:population>
+	<wgs:lat>33.70439</wgs:lat>
+	<wgs:long>8.96903</wgs:long>
+	<skos:altLabel>Kebili</skos:altLabel>
+	<skos:altLabel>Qibilī</skos:altLabel>
+	<skos:prefLabel>Kebili</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2468046/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>34.33333</wgs:lat>
+	<wgs:long>9.25</wgs:long>
+	<skos:altLabel>Al Qaţţār</skos:altLabel>
+	<skos:altLabel>Délégation d’ El Guettar</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat al Qaţţār</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat al Qaţţār</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2468106/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>39792</europeana:population>
+	<wgs:lat>35.64773</wgs:lat>
+	<wgs:long>10.89046</wgs:long>
+	<skos:altLabel>Kassar el Hal</skos:altLabel>
+	<skos:altLabel>Kesser el Hal</skos:altLabel>
+	<skos:altLabel>Ksar Hellal</skos:altLabel>
+	<skos:altLabel>Qaşr Hallāl</skos:altLabel>
+	<skos:prefLabel>Qaşr Hallāl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2468245/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15922</europeana:population>
+	<wgs:lat>36.86108</wgs:lat>
+	<wgs:long>10.33161</wgs:long>
+	<skos:altLabel>Qarţājannah</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Карфаген</skos:altLabel>
+	<skos:prefLabel>Carthage</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2468247/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>34.7</wgs:lat>
+	<wgs:long>11.16667</wgs:long>
+	<skos:altLabel>Delegation de Kerkennah</skos:altLabel>
+	<skos:altLabel>Délégation de Melita</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Qarqanah</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Qarqanah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2468249/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>34.71553</wgs:lat>
+	<wgs:long>11.1904</wgs:long>
+	<skos:altLabel>Isles Kerkenah</skos:altLabel>
+	<skos:altLabel>Juzur Qarqanah</skos:altLabel>
+	<skos:altLabel>Kerkenah Islands</skos:altLabel>
+	<skos:altLabel>Qerqenah Islands</skos:altLabel>
+	<skos:altLabel>Îles Kerkenna</skos:altLabel>
+	<skos:altLabel>Îles Kerkennah</skos:altLabel>
+	<skos:altLabel>Îles de Kerkenah</skos:altLabel>
+	<skos:prefLabel>Îles de Kerkenah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2468284/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>36.25</wgs:lat>
+	<wgs:long>10</wgs:long>
+	<skos:altLabel>Delegation du Fahs</skos:altLabel>
+	<skos:altLabel>Délégation de El-Fahs</skos:altLabel>
+	<skos:altLabel>Délégation du Pont du Fahs</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Qanţarat al Faḩş</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Qanţarat al Faḩş</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2468285/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18083</europeana:population>
+	<wgs:lat>36.37419</wgs:lat>
+	<wgs:long>9.90651</wgs:long>
+	<skos:altLabel>Al Faḩş</skos:altLabel>
+	<skos:altLabel>El Fahs</skos:altLabel>
+	<skos:altLabel>Fahs</skos:altLabel>
+	<skos:altLabel>Pont du Fas</skos:altLabel>
+	<skos:altLabel>Pont-du-Fahs</skos:altLabel>
+	<skos:altLabel>Port-du-Fachs</skos:altLabel>
+	<skos:altLabel>Qanţarat al Faḩş</skos:altLabel>
+	<skos:prefLabel>El Fahs</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2468329/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15313</europeana:population>
+	<wgs:lat>37.0629</wgs:lat>
+	<wgs:long>10.11829</wgs:long>
+	<skos:altLabel>El Gelaah</skos:altLabel>
+	<skos:altLabel>Galaat el Andeless</skos:altLabel>
+	<skos:altLabel>Galaat el Andless</skos:altLabel>
+	<skos:altLabel>Galaat el Anndlès</skos:altLabel>
+	<skos:altLabel>Galas el Andeless</skos:altLabel>
+	<skos:altLabel>Guelaat el Andeless</skos:altLabel>
+	<skos:altLabel>Guelaat-el-Andless</skos:altLabel>
+	<skos:altLabel>Kalaat-El-Andaleus</skos:altLabel>
+	<skos:altLabel>Kalaat-el-Andleus</skos:altLabel>
+	<skos:altLabel>Qal‘at al Andalus</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Калат-аль-Андалус</skos:altLabel>
+	<skos:prefLabel>Qal‘at al Andalus</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2468331/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>35.83333</wgs:lat>
+	<wgs:long>10.41667</wgs:long>
+	<skos:altLabel>Al Qal‘ah al Kubrá</skos:altLabel>
+	<skos:altLabel>Délégation de Kalaa Kebira</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat al Qal‘ah al Kubrá</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat al Qal‘ah al Kubrá</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2468347/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>36.33333</wgs:lat>
+	<wgs:long>9.33333</wgs:long>
+	<skos:altLabel>Délégation de Gafour</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Qa‘fūr</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Qa‘fūr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2468349/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10556</europeana:population>
+	<wgs:lat>36.32045</wgs:lat>
+	<wgs:long>9.32424</wgs:long>
+	<skos:altLabel>Gaffour</skos:altLabel>
+	<skos:altLabel>Gafour</skos:altLabel>
+	<skos:altLabel>Qa‘fūr</skos:altLabel>
+	<skos:prefLabel>Qa‘fūr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2468351/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>34.5</wgs:lat>
+	<wgs:long>9</wgs:long>
+	<skos:altLabel>Gouvernorat de Gafsa</skos:altLabel>
+	<skos:altLabel>Qafşah</skos:altLabel>
+	<skos:altLabel>Wilāyat Qafşah</skos:altLabel>
+	<skos:prefLabel>Gouvernorat de Gafsa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2468352/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2468351/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>34.5</wgs:lat>
+	<wgs:long>8.75</wgs:long>
+	<skos:altLabel>Délégation de Gafsa</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Qafşah</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Qafşah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2468353/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>81232</europeana:population>
+	<wgs:lat>34.425</wgs:lat>
+	<wgs:long>8.78417</wgs:long>
+	<skos:altLabel>Capsa</skos:altLabel>
+	<skos:altLabel xml:lang="de">Gafsa</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Gafsa</skos:altLabel>
+	<skos:altLabel xml:lang="en">Gafsa</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Gafsa</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Gafsa</skos:altLabel>
+	<skos:altLabel>Gafsa</skos:altLabel>
+	<skos:altLabel>Gafso</skos:altLabel>
+	<skos:altLabel>Justiniania</skos:altLabel>
+	<skos:altLabel>Kafsa</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kafsa</skos:altLabel>
+	<skos:altLabel>Qafşah</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гафса</skos:altLabel>
+	<skos:prefLabel>Gafsa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2468365/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>33.83333</wgs:lat>
+	<wgs:long>9.75</wgs:long>
+	<skos:altLabel>Gouvernorat de Gabès</skos:altLabel>
+	<skos:altLabel>Qābis</skos:altLabel>
+	<skos:altLabel>Wilāyat Qābis</skos:altLabel>
+	<skos:prefLabel>Gouvernorat de Gabès</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2468367/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2468365/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>33.83333</wgs:lat>
+	<wgs:long>10.16667</wgs:long>
+	<skos:altLabel>Délégation de Gabès</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Qābis</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Qābis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2468369/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>110075</europeana:population>
+	<wgs:lat>33.88146</wgs:lat>
+	<wgs:long>10.0982</wgs:long>
+	<skos:altLabel>Abes</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Gabes</skos:altLabel>
+	<skos:altLabel xml:lang="es">Gabes</skos:altLabel>
+	<skos:altLabel xml:lang="en">Gabès</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Gabès</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Gabès</skos:altLabel>
+	<skos:altLabel xml:lang="de">Gabès</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Gabès</skos:altLabel>
+	<skos:altLabel>Gabès</skos:altLabel>
+	<skos:altLabel>Kābis</skos:altLabel>
+	<skos:altLabel>Qabes</skos:altLabel>
+	<skos:altLabel>Qābis</skos:altLabel>
+	<skos:altLabel>Tacapae</skos:altLabel>
+	<skos:altLabel>Tacape</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Габес</skos:altLabel>
+	<skos:altLabel xml:lang="ar">قابس</skos:altLabel>
+	<skos:altLabel xml:lang="ar">ولاية قابس</skos:altLabel>
+	<skos:prefLabel>Gabès</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2468376/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>37.55</wgs:lat>
+	<wgs:long>8.95</wgs:long>
+	<skos:altLabel>Polastro</skos:altLabel>
+	<skos:altLabel>Pollastro</skos:altLabel>
+	<skos:prefLabel>Pollastro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2468378/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>37.20217</wgs:lat>
+	<wgs:long>10.23877</wgs:long>
+	<skos:altLabel>El K’ Minnaria</skos:altLabel>
+	<skos:altLabel>Île Pilau</skos:altLabel>
+	<skos:prefLabel>Île Pilau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2468380/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>37.35358</wgs:lat>
+	<wgs:long>10.11981</wgs:long>
+	<skos:prefLabel>Petite Île Cani</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2468527/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>33.76667</wgs:lat>
+	<wgs:long>8.6</wgs:long>
+	<skos:altLabel>Nakhla Rhouiba</skos:altLabel>
+	<skos:altLabel>Nakhlat al Ghuwaybah</skos:altLabel>
+	<skos:altLabel>Nakrla Rhouiba</skos:altLabel>
+	<skos:prefLabel>Nakhlat al Ghuwaybah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2468560/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>33.75</wgs:lat>
+	<wgs:long>7.75</wgs:long>
+	<skos:altLabel>Délégation de Nefta</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Nafţah</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Nafţah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2468561/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21720</europeana:population>
+	<wgs:lat>33.87309</wgs:lat>
+	<wgs:long>7.87765</wgs:long>
+	<skos:altLabel>Aggarset Nepte</skos:altLabel>
+	<skos:altLabel>Nafţah</skos:altLabel>
+	<skos:altLabel>Nefta</skos:altLabel>
+	<skos:altLabel>Netta</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Нефта</skos:altLabel>
+	<skos:prefLabel>Nefta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2468568/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>36</wgs:lat>
+	<wgs:long>10.33333</wgs:long>
+	<skos:altLabel>An Nafīḑah</skos:altLabel>
+	<skos:altLabel>Délégation d’ Enfida</skos:altLabel>
+	<skos:altLabel>Délégation d’ Enfidaville</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat an Nafīḑah</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat an Nafīḑah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2468576/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>36.66667</wgs:lat>
+	<wgs:long>10.66667</wgs:long>
+	<skos:altLabel>Al Waţan al Qiblī</skos:altLabel>
+	<skos:altLabel>Gouvernorat de Cap Bon</skos:altLabel>
+	<skos:altLabel>Gouvernorat de Nabeul</skos:altLabel>
+	<skos:altLabel>Nābul</skos:altLabel>
+	<skos:altLabel>Wilāyat Nābul</skos:altLabel>
+	<skos:altLabel>Wilāyat al Waţan al Qiblī</skos:altLabel>
+	<skos:prefLabel>Gouvernorat de Nabeul</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2468577/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>36.5</wgs:lat>
+	<wgs:long>10.75</wgs:long>
+	<skos:altLabel>Délégation de Nabeul</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Nābul</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Nābul</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2468579/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>56387</europeana:population>
+	<wgs:lat>36.45606</wgs:lat>
+	<wgs:long>10.73763</wgs:long>
+	<skos:altLabel>Nabeul</skos:altLabel>
+	<skos:altLabel>Naboel</skos:altLabel>
+	<skos:altLabel>Nābul</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Набул</skos:altLabel>
+	<skos:prefLabel>Nabeul</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2468641/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>37.18194</wgs:lat>
+	<wgs:long>10.33111</wgs:long>
+	<skos:altLabel>Al Jazīrah al Musaţţaḩah</skos:altLabel>
+	<skos:altLabel>Île Plane</skos:altLabel>
+	<skos:prefLabel>Île Plane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2468701/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>35.58333</wgs:lat>
+	<wgs:long>10.91667</wgs:long>
+	<skos:altLabel>Al Muknīn</skos:altLabel>
+	<skos:altLabel>Délégation de Moknine</skos:altLabel>
+	<skos:altLabel>Délégation de Moknine et Ksar Hellal</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat al Muknīn</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat al Muknīn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2468792/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>30.88333</wgs:lat>
+	<wgs:long>10.28333</wgs:long>
+	<skos:prefLabel>Monument de Morès</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2468829/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>33.67194</wgs:lat>
+	<wgs:long>8.88472</wgs:long>
+	<skos:altLabel>Djezira Mosbah</skos:altLabel>
+	<skos:altLabel>Djeziret Mosbah</skos:altLabel>
+	<skos:altLabel>Jazīrat Mişbāḩ</skos:altLabel>
+	<skos:altLabel>Jeziret Mosbah</skos:altLabel>
+	<skos:prefLabel>Jeziret Mosbah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2468901/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>33.7</wgs:lat>
+	<wgs:long>8.88333</wgs:long>
+	<skos:altLabel>Djeziret el Melah</skos:altLabel>
+	<skos:altLabel>Jazīrat al Milḩ</skos:altLabel>
+	<skos:prefLabel>Jazīrat al Milḩ</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2468920/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>34.75</wgs:lat>
+	<wgs:long>9.5</wgs:long>
+	<skos:altLabel>Al Miknāsī wa As Sanad</skos:altLabel>
+	<skos:altLabel>Delegation de Sened</skos:altLabel>
+	<skos:altLabel>Délégation de Maknassy</skos:altLabel>
+	<skos:altLabel>Délégation de Meknassi et Sened</skos:altLabel>
+	<skos:altLabel>Délégation de Meknassy et Sened</skos:altLabel>
+	<skos:altLabel>Délégation d’ Es Sened</skos:altLabel>
+	<skos:altLabel>Es Send</skos:altLabel>
+	<skos:altLabel>Makhnassi et Sned</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat al Miknāsī wa As Sanad</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat al Miknāsī wa As Sanad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2468925/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>120000</europeana:population>
+	<wgs:lat>33.80813</wgs:lat>
+	<wgs:long>10.99228</wgs:long>
+	<skos:altLabel xml:lang="en">Midoun</skos:altLabel>
+	<skos:altLabel>Midoun</skos:altLabel>
+	<skos:altLabel>Mīdūn</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Мидун</skos:altLabel>
+	<skos:prefLabel>Midoun</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2468963/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>34.33333</wgs:lat>
+	<wgs:long>8.41667</wgs:long>
+	<skos:altLabel>Al Metlaou</skos:altLabel>
+	<skos:altLabel>Délégation de Metlaoui</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat al Metlaoui</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat al Metlaoui</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2469037/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>34.41667</wgs:lat>
+	<wgs:long>9.75</wgs:long>
+	<skos:altLabel>Al Mazzūnah</skos:altLabel>
+	<skos:altLabel>Délégation de Mezzouna</skos:altLabel>
+	<skos:altLabel>El Mazouna</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat al Mazzūnah</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat al Mazzūnah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2469082/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>33.5</wgs:lat>
+	<wgs:long>10</wgs:long>
+	<skos:altLabel>Délégation de Matmata</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Maţmāţah</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Maţmāţah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2469086/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>37</wgs:lat>
+	<wgs:long>9.66667</wgs:long>
+	<skos:altLabel>Délégation de Mateur</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Māţir</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Māţir</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2469088/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>31005</europeana:population>
+	<wgs:lat>37.04045</wgs:lat>
+	<wgs:long>9.66557</wgs:long>
+	<skos:altLabel>Matem</skos:altLabel>
+	<skos:altLabel>Mateur</skos:altLabel>
+	<skos:altLabel>Māţir</skos:altLabel>
+	<skos:prefLabel>Mateur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2469139/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>35.75</wgs:lat>
+	<wgs:long>10.5</wgs:long>
+	<skos:altLabel>Délégation de M’Saken</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Masākin</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Masākin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2469140/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>64563</europeana:population>
+	<wgs:lat>35.72917</wgs:lat>
+	<wgs:long>10.58082</wgs:long>
+	<skos:altLabel xml:lang="fr">M'saken</skos:altLabel>
+	<skos:altLabel xml:lang="en">Masakin</skos:altLabel>
+	<skos:altLabel>Masākin</skos:altLabel>
+	<skos:altLabel>Msaken</skos:altLabel>
+	<skos:altLabel>Msaker</skos:altLabel>
+	<skos:altLabel xml:lang="ar">مساكن</skos:altLabel>
+	<skos:prefLabel>Masākin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2469173/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>33.58333</wgs:lat>
+	<wgs:long>10.33333</wgs:long>
+	<skos:altLabel>Délégation de Mareth</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Mārith</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Mārith</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2469249/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>36.75</wgs:lat>
+	<wgs:long>10.83333</wgs:long>
+	<skos:altLabel>Délégation de Menzel Temime</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Manzil Tamīm</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Manzil Tamīm</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2469256/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21542</europeana:population>
+	<wgs:lat>37.23618</wgs:lat>
+	<wgs:long>9.91448</wgs:long>
+	<skos:altLabel>Djemil</skos:altLabel>
+	<skos:altLabel>Manzil Jamīl</skos:altLabel>
+	<skos:altLabel>Menjel Djemil</skos:altLabel>
+	<skos:altLabel>Mennzel Djemil</skos:altLabel>
+	<skos:altLabel>Menzel Djemil</skos:altLabel>
+	<skos:altLabel>Menzel Jemil</skos:altLabel>
+	<skos:prefLabel>Menzel Jemil</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2469262/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16231</europeana:population>
+	<wgs:lat>36.68312</wgs:lat>
+	<wgs:long>10.58431</wgs:long>
+	<skos:altLabel>Manzil Bū Zalafah</skos:altLabel>
+	<skos:altLabel>Mennzel Bou Zelfa</skos:altLabel>
+	<skos:altLabel>Menzel Bou Zelfa</skos:altLabel>
+	<skos:prefLabel>Manzil Bū Zalafah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2469263/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>37</wgs:lat>
+	<wgs:long>10</wgs:long>
+	<skos:altLabel>Délégation de Menzel Bourguiba</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Manzil Bū Ruqaybah</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Manzil Bū Ruqaybah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2469264/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>46245</europeana:population>
+	<wgs:lat>37.15368</wgs:lat>
+	<wgs:long>9.78594</wgs:long>
+	<skos:altLabel>Bourguiba</skos:altLabel>
+	<skos:altLabel>Ferryville</skos:altLabel>
+	<skos:altLabel>Manzil Bū Ruqaybah</skos:altLabel>
+	<skos:altLabel>Menzel Bourguiba</skos:altLabel>
+	<skos:altLabel>Sīdī Fatḩ Allāh</skos:altLabel>
+	<skos:prefLabel>Menzel Bourguiba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2469265/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>35</wgs:lat>
+	<wgs:long>10.33333</wgs:long>
+	<skos:altLabel>Delegation de Triaga</skos:altLabel>
+	<skos:altLabel>Délégation de Menzel Chaker</skos:altLabel>
+	<skos:altLabel>Délégation de Menzel Hédi Chaker</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Manzil al Hādī Shākir</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Manzil al Hādī Shākir</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2469268/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15769</europeana:population>
+	<wgs:lat>37.23737</wgs:lat>
+	<wgs:long>9.86313</wgs:long>
+	<skos:altLabel>Manzil ‘Abd ar Raḩmān</skos:altLabel>
+	<skos:altLabel>Mennzel Abd er Rahmane</skos:altLabel>
+	<skos:altLabel>Mennzel-Abd-er-Ralmane</skos:altLabel>
+	<skos:altLabel>Menzel Abd er Rahmane</skos:altLabel>
+	<skos:altLabel>Menzel Abd-er-Raman</skos:altLabel>
+	<skos:altLabel>Menzel Abderhaman</skos:altLabel>
+	<skos:altLabel>Menzel Abderrahman</skos:altLabel>
+	<skos:prefLabel>Menzel Abderhaman</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2469273/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<europeana:population>345484</europeana:population>
+	<wgs:lat>36.75</wgs:lat>
+	<wgs:long>10</wgs:long>
+	<skos:altLabel>Delegation de la Mornaghia</skos:altLabel>
+	<skos:altLabel>Délégation de La Manouba</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Manūbah</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Manūbah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2469274/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>24948</europeana:population>
+	<wgs:lat>36.80803</wgs:lat>
+	<wgs:long>10.0972</wgs:long>
+	<skos:altLabel>La Manouba</skos:altLabel>
+	<skos:altLabel>Manouba</skos:altLabel>
+	<skos:altLabel>Manūbah</skos:altLabel>
+	<skos:prefLabel>Manouba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2469340/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>35.75</wgs:lat>
+	<wgs:long>9.25</wgs:long>
+	<skos:altLabel>Délégation de Maktar</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Makthar</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Makthar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2469341/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14500</europeana:population>
+	<wgs:lat>35.85798</wgs:lat>
+	<wgs:long>9.20072</wgs:long>
+	<skos:altLabel>Mactaris</skos:altLabel>
+	<skos:altLabel>Maktar</skos:altLabel>
+	<skos:altLabel>Makthar</skos:altLabel>
+	<skos:prefLabel>Maktar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2469385/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>36.66667</wgs:lat>
+	<wgs:long>9.66667</wgs:long>
+	<skos:altLabel>Délégation de Medjez-el-Bab</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Majāz al Bāb</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Majāz al Bāb</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2469386/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20118</europeana:population>
+	<wgs:lat>36.64964</wgs:lat>
+	<wgs:long>9.61231</wgs:long>
+	<skos:altLabel>Majāz al Bāb</skos:altLabel>
+	<skos:altLabel>Medjez el Bab</skos:altLabel>
+	<skos:prefLabel>Majāz al Bāb</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2469470/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>33.33333</wgs:lat>
+	<wgs:long>11</wgs:long>
+	<skos:altLabel>Gouvernorat de Mednine</skos:altLabel>
+	<skos:altLabel>Gouvernorat de Médenine</skos:altLabel>
+	<skos:altLabel>Madanīn</skos:altLabel>
+	<skos:altLabel>Wilāyat Madanīn</skos:altLabel>
+	<skos:prefLabel>Gouvernorat de Médenine</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2469474/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2469470/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>33.5</wgs:lat>
+	<wgs:long>10.5</wgs:long>
+	<skos:altLabel>Délégation de Médenine</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Madanī</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Madanī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2469631/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>37.52602</wgs:lat>
+	<wgs:long>8.92889</wgs:long>
+	<skos:altLabel>Isola Galite</skos:altLabel>
+	<skos:altLabel>Jalta Island</skos:altLabel>
+	<skos:altLabel>Jazīrat Jāliţah</skos:altLabel>
+	<skos:altLabel>La Galite</skos:altLabel>
+	<skos:altLabel>Île Galite</skos:altLabel>
+	<skos:altLabel>Île de La Galite</skos:altLabel>
+	<skos:prefLabel>La Galite</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2469635/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>37.49442</wgs:lat>
+	<wgs:long>8.88251</wgs:long>
+	<skos:prefLabel>La Fauchelle</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2469765/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>34.36594</wgs:lat>
+	<wgs:long>10.31145</wgs:long>
+	<skos:altLabel>Jazīrat Khunayyis</skos:altLabel>
+	<skos:altLabel>Kneiss Islet</skos:altLabel>
+	<skos:altLabel>Île Kneiss</skos:altLabel>
+	<skos:altLabel>Îlot Kneïss</skos:altLabel>
+	<skos:prefLabel>Jazīrat Khunayyis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2470056/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>37.22832</wgs:lat>
+	<wgs:long>9.79671</wgs:long>
+	<skos:altLabel>Al Jazīrah al Kabīrah</skos:altLabel>
+	<skos:altLabel>Djezira el Kbira</skos:altLabel>
+	<skos:altLabel>Djezira el Kebira</skos:altLabel>
+	<skos:altLabel>El Kébira</skos:altLabel>
+	<skos:altLabel>El K’bira Island</skos:altLabel>
+	<skos:altLabel>Jezira el Kbira</skos:altLabel>
+	<skos:altLabel>Njila Kebira</skos:altLabel>
+	<skos:altLabel>Île el K’bira</skos:altLabel>
+	<skos:prefLabel>Jezira el Kbira</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2470085/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>36.66667</wgs:lat>
+	<wgs:long>8.75</wgs:long>
+	<skos:altLabel>Gouvernorat de Djendouba</skos:altLabel>
+	<skos:altLabel>Gouvernorat de Jendouba</skos:altLabel>
+	<skos:altLabel>Gouvernorat de Souk el Arba</skos:altLabel>
+	<skos:altLabel>Jundūbah</skos:altLabel>
+	<skos:altLabel>Wilāyat Jundūbah</skos:altLabel>
+	<skos:altLabel>Wilāyat Sūq al Arba‘ā’</skos:altLabel>
+	<skos:prefLabel>Gouvernorat de Jendouba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2470086/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>36.5</wgs:lat>
+	<wgs:long>8.75</wgs:long>
+	<skos:altLabel>Délégation de Jendouba</skos:altLabel>
+	<skos:altLabel>Délégation de Souk el Arba</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Jundūbah</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Sūq al Arba‘ā’</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Jundūbah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2470088/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>51408</europeana:population>
+	<wgs:lat>36.50114</wgs:lat>
+	<wgs:long>8.78024</wgs:long>
+	<skos:altLabel>Jendouba</skos:altLabel>
+	<skos:altLabel>Jundūbah</skos:altLabel>
+	<skos:altLabel>Souk el Arba</skos:altLabel>
+	<skos:altLabel>Souq el Arba</skos:altLabel>
+	<skos:altLabel>Sūq al Arba‘ā’</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Джендуба</skos:altLabel>
+	<skos:prefLabel>Jendouba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2470121/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>33.595</wgs:lat>
+	<wgs:long>10.86694</wgs:long>
+	<skos:altLabel>Djellidji</skos:altLabel>
+	<skos:altLabel>Djillidj</skos:altLabel>
+	<skos:altLabel>Ilot Djilli</skos:altLabel>
+	<skos:altLabel>Jillījī</skos:altLabel>
+	<skos:altLabel>Jlij</skos:altLabel>
+	<skos:altLabel>Île Djilidji</skos:altLabel>
+	<skos:altLabel>Île Djilli</skos:altLabel>
+	<skos:prefLabel>Jlij</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2470172/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>33.33333</wgs:lat>
+	<wgs:long>11.08333</wgs:long>
+	<skos:altLabel>Délégation de Zarzis</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Jarjīs</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Jarjīs</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2470173/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>79316</europeana:population>
+	<wgs:lat>33.50398</wgs:lat>
+	<wgs:long>11.11216</wgs:long>
+	<skos:altLabel>Jarjīs</skos:altLabel>
+	<skos:altLabel>Zarzia</skos:altLabel>
+	<skos:altLabel xml:lang="en">Zarzis</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Zarzis</skos:altLabel>
+	<skos:altLabel xml:lang="de">Zarzis</skos:altLabel>
+	<skos:altLabel>Zarzis</skos:altLabel>
+	<skos:prefLabel>Zarzis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2470181/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>33.8</wgs:lat>
+	<wgs:long>10.9</wgs:long>
+	<skos:altLabel xml:lang="tr">Cerbe</skos:altLabel>
+	<skos:altLabel xml:lang="id">Djerba</skos:altLabel>
+	<skos:altLabel>Djerba</skos:altLabel>
+	<skos:altLabel xml:lang="de">Djerba</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Djerba</skos:altLabel>
+	<skos:altLabel xml:lang="it">Djerba</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Djerba</skos:altLabel>
+	<skos:altLabel xml:lang="en">Djerba</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Djerba</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Djerba</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Djerba</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Djerba</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Djerba</skos:altLabel>
+	<skos:altLabel>Djerbeh</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Dżerba</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Džerba</skos:altLabel>
+	<skos:altLabel>Gerba</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Gerba</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Girba</skos:altLabel>
+	<skos:altLabel xml:lang="it">Isola di Gérba</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jarbah</skos:altLabel>
+	<skos:altLabel xml:lang="et">Jarbah</skos:altLabel>
+	<skos:altLabel>Jazīrat Jarbah</skos:altLabel>
+	<skos:altLabel>Jerba</skos:altLabel>
+	<skos:altLabel xml:lang="es">Los Gelves</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Meninx</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Terepiton</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Île de Djerba</skos:altLabel>
+	<skos:altLabel>Île de Jerba</skos:altLabel>
+	<skos:altLabel xml:lang="he">ג'רבה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جزيرة جربة</skos:altLabel>
+	<skos:prefLabel>Île de Jerba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2470190/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>35.58333</wgs:lat>
+	<wgs:long>10.66667</wgs:long>
+	<skos:altLabel>Délégation de Djemmal</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Jammāl</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Jammāl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2470191/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>39990</europeana:population>
+	<wgs:lat>35.62231</wgs:lat>
+	<wgs:long>10.75696</wgs:long>
+	<skos:altLabel>Djemal</skos:altLabel>
+	<skos:altLabel>Djemmal</skos:altLabel>
+	<skos:altLabel>Djemmel</skos:altLabel>
+	<skos:altLabel>Jammāl</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Джамаль</skos:altLabel>
+	<skos:prefLabel>Jammāl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2470258/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>35</wgs:lat>
+	<wgs:long>10.83333</wgs:long>
+	<skos:altLabel>Djebiniana</skos:altLabel>
+	<skos:altLabel>Délégation de Djebeniana</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Jabinyānah</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Jabinyānah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2470383/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>33.75</wgs:lat>
+	<wgs:long>10.83333</wgs:long>
+	<skos:altLabel>Delegation de Djerba</skos:altLabel>
+	<skos:altLabel>Délégation de Houmt-Souk</skos:altLabel>
+	<skos:altLabel>Houmet Souk</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Ḩawmat as Sūq</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Ḩawmat as Sūq</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2470384/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>62583</europeana:population>
+	<wgs:lat>33.87576</wgs:lat>
+	<wgs:long>10.85745</wgs:long>
+	<skos:altLabel>Djerba</skos:altLabel>
+	<skos:altLabel>Houmet Es Souk</skos:altLabel>
+	<skos:altLabel>Houmet Essouk</skos:altLabel>
+	<skos:altLabel>Houmt Souk</skos:altLabel>
+	<skos:altLabel>Houmt Souq</skos:altLabel>
+	<skos:altLabel>Humk-Suk</skos:altLabel>
+	<skos:altLabel>Humt-Suk</skos:altLabel>
+	<skos:altLabel>Ḩawmat as Sūq</skos:altLabel>
+	<skos:prefLabel>Houmt Souk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2470579/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>33834</europeana:population>
+	<wgs:lat>35.8609</wgs:lat>
+	<wgs:long>10.60313</wgs:long>
+	<skos:altLabel>Hadrumète</skos:altLabel>
+	<skos:altLabel>Hammam Sousse</skos:altLabel>
+	<skos:altLabel>Hammam Susa</skos:altLabel>
+	<skos:altLabel>Hamman-Sousse</skos:altLabel>
+	<skos:altLabel>Justiniapolis</skos:altLabel>
+	<skos:altLabel>Ḩammām Sūsah</skos:altLabel>
+	<skos:prefLabel>Hammam Sousse</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2470587/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>36.73333</wgs:lat>
+	<wgs:long>10.33333</wgs:long>
+	<skos:altLabel>Delegation D’Hammam-Lif</skos:altLabel>
+	<skos:altLabel>Délégation de la Banlieue Sud</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Ḩammām al Anf</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Ḩammām al Anf</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2470588/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>47760</europeana:population>
+	<wgs:lat>36.72866</wgs:lat>
+	<wgs:long>10.34163</wgs:long>
+	<skos:altLabel>Hammam-Lif</skos:altLabel>
+	<skos:altLabel>Hamman-Lif</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Хаммам-Лиф</skos:altLabel>
+	<skos:altLabel>Ḩammām al Anf</skos:altLabel>
+	<skos:prefLabel>Hammam-Lif</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2470606/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>34</wgs:lat>
+	<wgs:long>9.5</wgs:long>
+	<skos:altLabel>Al Ḩāmmah</skos:altLabel>
+	<skos:altLabel>Délégation d’ El Hamma</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat al Ḩāmmah</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat al Ḩāmmah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2470656/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>79795</europeana:population>
+	<wgs:lat>36.81806</wgs:lat>
+	<wgs:long>10.305</wgs:long>
+	<skos:altLabel>El Aouina</skos:altLabel>
+	<skos:altLabel>Goletta</skos:altLabel>
+	<skos:altLabel>Goulette</skos:altLabel>
+	<skos:altLabel>Halk el Oued</skos:altLabel>
+	<skos:altLabel>Halq el Oued</skos:altLabel>
+	<skos:altLabel xml:lang="it">La Goletta</skos:altLabel>
+	<skos:altLabel>La Gouletta</skos:altLabel>
+	<skos:altLabel xml:lang="de">La Goulette</skos:altLabel>
+	<skos:altLabel xml:lang="fr">La Goulette</skos:altLabel>
+	<skos:altLabel xml:lang="en">La Goulette</skos:altLabel>
+	<skos:altLabel xml:lang="pt">La Goulette</skos:altLabel>
+	<skos:altLabel>La Goulette</skos:altLabel>
+	<skos:altLabel>Ḩalq al Wādī</skos:altLabel>
+	<skos:prefLabel>La Goulette</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2470731/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>34.76667</wgs:lat>
+	<wgs:long>11.35</wgs:long>
+	<skos:altLabel>Îles al Ḩājj Ḩamīdah</skos:altLabel>
+	<skos:altLabel>Îles el Hadj Hamida</skos:altLabel>
+	<skos:prefLabel>Îles al Ḩājj Ḩamīdah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2470749/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>35.41667</wgs:lat>
+	<wgs:long>9.58333</wgs:long>
+	<skos:altLabel>Délégation de Hadjeb</skos:altLabel>
+	<skos:altLabel>Délégation de Hadjeb el Aïoun</skos:altLabel>
+	<skos:altLabel>Délégation d’ El Hadjeb</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Ḩājib al ‘Uyūn</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Ḩājib al ‘Uyūn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2470769/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>34.34118</wgs:lat>
+	<wgs:long>10.29091</wgs:long>
+	<skos:altLabel>Dzirat el Hajar</skos:altLabel>
+	<skos:altLabel>Jazīrat al Ḩajar</skos:altLabel>
+	<skos:altLabel>Îlot Nord</skos:altLabel>
+	<skos:prefLabel>Jazīrat al Ḩajar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2470777/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>33.5</wgs:lat>
+	<wgs:long>8.76667</wgs:long>
+	<skos:altLabel>Guettaïet el Hadjla</skos:altLabel>
+	<skos:altLabel>Qaţţāyat al Ḩajalah</skos:altLabel>
+	<skos:prefLabel>Qaţţāyat al Ḩajalah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2470799/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>35.66667</wgs:lat>
+	<wgs:long>9.66667</wgs:long>
+	<skos:altLabel>Délégation de Haffouz</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Ḩaffūz</skos:altLabel>
+	<skos:prefLabel>Délégation de Haffouz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2470866/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>34.75528</wgs:lat>
+	<wgs:long>11.32111</wgs:long>
+	<skos:altLabel>Île Gremdi</skos:altLabel>
+	<skos:altLabel>Île Rhermedi</skos:altLabel>
+	<skos:prefLabel>Île Gremdi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2470875/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>37.35448</wgs:lat>
+	<wgs:long>10.12366</wgs:long>
+	<skos:prefLabel>Grande Île Can</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2470926/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>33</wgs:lat>
+	<wgs:long>10.25</wgs:long>
+	<skos:altLabel>Délégation de Ghoumrassen</skos:altLabel>
+	<skos:altLabel>Ghomrassen</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Ghumrāsin</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Ghumrāsin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2470992/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>34.64806</wgs:lat>
+	<wgs:long>11.04528</wgs:long>
+	<skos:altLabel>El Rharbi</skos:altLabel>
+	<skos:altLabel>Gharbi Island</skos:altLabel>
+	<skos:altLabel>Jazīrat al Gharbī</skos:altLabel>
+	<skos:altLabel>Île Gharbi</skos:altLabel>
+	<skos:altLabel>Île Rharbi</skos:altLabel>
+	<skos:prefLabel>Île Gharbi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2471002/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>36.5</wgs:lat>
+	<wgs:long>8.5</wgs:long>
+	<skos:altLabel>Délégation de Ghardimaou</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Ghār ad Dimā’</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Ghār ad Dimā’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2471043/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>37.56667</wgs:lat>
+	<wgs:long>8.96667</wgs:long>
+	<skos:altLabel>Canis</skos:altLabel>
+	<skos:altLabel>Gallo</skos:altLabel>
+	<skos:prefLabel>Gallo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2471044/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>37.55</wgs:lat>
+	<wgs:long>8.95</wgs:long>
+	<skos:prefLabel>Gallina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2471045/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>37.5</wgs:lat>
+	<wgs:long>8.88333</wgs:long>
+	<skos:prefLabel>Galitons de l’Ouest</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2471046/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>37.55214</wgs:lat>
+	<wgs:long>8.94898</wgs:long>
+	<skos:altLabel>Galitons de l’Est</skos:altLabel>
+	<skos:altLabel>Îles des Chiens</skos:altLabel>
+	<skos:prefLabel>Galitons de l’Est</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2471047/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>37.49784</wgs:lat>
+	<wgs:long>8.87516</wgs:long>
+	<skos:altLabel>Galiton</skos:altLabel>
+	<skos:altLabel>Le Galiton</skos:altLabel>
+	<skos:altLabel>Île Galiton</skos:altLabel>
+	<skos:prefLabel>Galiton</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2471060/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>35</wgs:lat>
+	<wgs:long>8.5</wgs:long>
+	<skos:altLabel>Délégation de Feriana</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Furriyānah</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Furriyānah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2471286/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>32</wgs:lat>
+	<wgs:long>9.75</wgs:long>
+	<skos:altLabel>Délégation de Douz</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Dūz</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Dūz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2471287/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>28127</europeana:population>
+	<wgs:lat>33.46632</wgs:lat>
+	<wgs:long>9.0203</wgs:long>
+	<skos:altLabel>Douz</skos:altLabel>
+	<skos:altLabel>Dūz</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Дуз</skos:altLabel>
+	<skos:prefLabel>Douz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2471475/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18551</europeana:population>
+	<wgs:lat>37.16667</wgs:lat>
+	<wgs:long>9.75</wgs:long>
+	<skos:altLabel>Dawwār Tīnjah</skos:altLabel>
+	<skos:altLabel>Douar Tindja</skos:altLabel>
+	<skos:prefLabel>Dawwār Tīnjah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2471637/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>33953</europeana:population>
+	<wgs:lat>36.46798</wgs:lat>
+	<wgs:long>10.75167</wgs:long>
+	<skos:altLabel>Dar Chabane</skos:altLabel>
+	<skos:altLabel>Dar Chabanne</skos:altLabel>
+	<skos:altLabel>Dar-Chaabane</skos:altLabel>
+	<skos:altLabel>Dar-Chaabane-el-Fehri</skos:altLabel>
+	<skos:altLabel>Dār Sha‘bān</skos:altLabel>
+	<skos:prefLabel>Dar Chabanne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2471830/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>35.76805</wgs:lat>
+	<wgs:long>11.00829</wgs:long>
+	<skos:altLabel>Al Shrir</skos:altLabel>
+	<skos:altLabel>Conigliera Island</skos:altLabel>
+	<skos:altLabel>El Shrir</skos:altLabel>
+	<skos:altLabel>Île Conigliera</skos:altLabel>
+	<skos:prefLabel>Île Conigliera</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2471848/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>34.76667</wgs:lat>
+	<wgs:long>11.2</wgs:long>
+	<skos:altLabel>Jazīrat ash Chermandia</skos:altLabel>
+	<skos:altLabel>Île Chermedia</skos:altLabel>
+	<skos:altLabel>Île ech Chermandia</skos:altLabel>
+	<skos:prefLabel>Jazīrat ash Chermandia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2471895/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>37.35</wgs:lat>
+	<wgs:long>10.11667</wgs:long>
+	<skos:altLabel>Cani Rocks</skos:altLabel>
+	<skos:altLabel>Îles Cani</skos:altLabel>
+	<skos:prefLabel>Îles Cani</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2471902/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>35.34658</wgs:lat>
+	<wgs:long>10.31209</wgs:long>
+	<skos:altLabel>Guetaïet Bou Zaïane</skos:altLabel>
+	<skos:altLabel>Qaţţāyat Bū Zayyān</skos:altLabel>
+	<skos:prefLabel>Qaţţāyat Bū Zayyān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2471915/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10024</europeana:population>
+	<wgs:lat>36.53853</wgs:lat>
+	<wgs:long>10.55093</wgs:long>
+	<skos:altLabel>Bou Arkoub</skos:altLabel>
+	<skos:altLabel>Bū ‘Urqūb</skos:altLabel>
+	<skos:prefLabel>Bū ‘Urqūb</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2471953/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>36.66667</wgs:lat>
+	<wgs:long>9</wgs:long>
+	<skos:altLabel>Délégation de Souk el Khemis</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Bū Sālim</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Sūq al Khamīs</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Bū Sālim</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2472054/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>33.71667</wgs:lat>
+	<wgs:long>8.85</wgs:long>
+	<skos:altLabel>Djeziret el Berrhoutsia</skos:altLabel>
+	<skos:altLabel>Jazīrat al Burghūthīyah</skos:altLabel>
+	<skos:prefLabel>Jazīrat al Burghūthīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2472259/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>36.25</wgs:lat>
+	<wgs:long>9.5</wgs:long>
+	<skos:altLabel>Délégation de Bou Arada</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Bū ‘Arādah</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Bū ‘Arādah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2472261/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12158</europeana:population>
+	<wgs:lat>36.35251</wgs:lat>
+	<wgs:long>9.62175</wgs:long>
+	<skos:altLabel>Bou Arada</skos:altLabel>
+	<skos:altLabel>Bū ‘Arādah</skos:altLabel>
+	<skos:prefLabel>Bū ‘Arādah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2472378/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>34.66667</wgs:lat>
+	<wgs:long>10</wgs:long>
+	<skos:altLabel>Délégation de Bir Ali Ben Khalifa</skos:altLabel>
+	<skos:altLabel>Délégation de Bir Ali Ben Khelifa</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Bi’r ‘Alī Bin Khalīfah</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Bi’r ‘Alī Bin Khalīfah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2472430/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>33</wgs:lat>
+	<wgs:long>11.25</wgs:long>
+	<skos:altLabel>Délégation de Ben Gardane</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Bin Qirdān</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Bin Qirdān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2472431/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13364</europeana:population>
+	<wgs:lat>33.13783</wgs:lat>
+	<wgs:long>11.21965</wgs:long>
+	<skos:altLabel>Ben Gardan</skos:altLabel>
+	<skos:altLabel>Ben Gardane</skos:altLabel>
+	<skos:altLabel>Ben-Gardán</skos:altLabel>
+	<skos:altLabel>Bin Qirdān</skos:altLabel>
+	<skos:prefLabel>Bin Qirdān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2472477/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>501924</europeana:population>
+	<wgs:lat>36.63333</wgs:lat>
+	<wgs:long>10.25</wgs:long>
+	<skos:altLabel>Bin ‘Arūs</skos:altLabel>
+	<skos:altLabel>Gouvernorat de Ben Arous</skos:altLabel>
+	<skos:altLabel>Wilāyat Bin ‘Arūs</skos:altLabel>
+	<skos:prefLabel>Gouvernorat de Ben Arous</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2472677/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>35.52639</wgs:lat>
+	<wgs:long>10.4325</wgs:long>
+	<skos:altLabel>Guettaïet el Bradgenia</skos:altLabel>
+	<skos:altLabel>Qaţţāyat al Bardaqānīyah</skos:altLabel>
+	<skos:prefLabel>Guettaïet el Bradgenia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2472699/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>37.08333</wgs:lat>
+	<wgs:long>9.58333</wgs:long>
+	<skos:altLabel>Banzart</skos:altLabel>
+	<skos:altLabel>Gouvernorat de Bizerte</skos:altLabel>
+	<skos:altLabel>Wilāyat Banzart</skos:altLabel>
+	<skos:prefLabel>Gouvernorat de Bizerte</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2472701/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>37.25</wgs:lat>
+	<wgs:long>9.75</wgs:long>
+	<skos:altLabel>Délégation de Bizerte</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Banzart</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Banzart</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2472706/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>115268</europeana:population>
+	<wgs:lat>37.27442</wgs:lat>
+	<wgs:long>9.87391</wgs:long>
+	<skos:altLabel xml:lang="ar">Banzart</skos:altLabel>
+	<skos:altLabel>Biserta</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Biserta</skos:altLabel>
+	<skos:altLabel xml:lang="it">Biserta</skos:altLabel>
+	<skos:altLabel>Bizerta</skos:altLabel>
+	<skos:altLabel xml:lang="de">Bizerta</skos:altLabel>
+	<skos:altLabel xml:lang="es">Bizerta</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Bizerta</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Bizerta</skos:altLabel>
+	<skos:altLabel xml:lang="id">Bizerte</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Bizerte</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Bizerte</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bizerte</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Bizerte</skos:altLabel>
+	<skos:altLabel>Bizerte</skos:altLabel>
+	<skos:altLabel>Hippo Diarrhytus</skos:altLabel>
+	<skos:altLabel>Hippou Aksa</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бизерта</skos:altLabel>
+	<skos:altLabel xml:lang="he">ביזרטה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بنزرت</skos:altLabel>
+	<skos:prefLabel>Bizerte</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2472722/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18011</europeana:population>
+	<wgs:lat>36.46917</wgs:lat>
+	<wgs:long>10.78222</wgs:long>
+	<skos:altLabel>Banī Khiyār</skos:altLabel>
+	<skos:altLabel>Beni Khaar</skos:altLabel>
+	<skos:altLabel>Beni Khiar</skos:altLabel>
+	<skos:altLabel>Beni Kriar</skos:altLabel>
+	<skos:prefLabel>Beni Khiar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2472724/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11300</europeana:population>
+	<wgs:lat>36.65038</wgs:lat>
+	<wgs:long>10.59004</wgs:long>
+	<skos:altLabel>Banī Khallād</skos:altLabel>
+	<skos:altLabel>Beni Khalled</skos:altLabel>
+	<skos:altLabel>Beni Kraled</skos:altLabel>
+	<skos:prefLabel>Banī Khallād</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2472725/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>33.25</wgs:lat>
+	<wgs:long>10.16667</wgs:long>
+	<skos:altLabel>Délégation de Beni Kheddache</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Banī Khaddāsh</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Banī Khaddāsh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2472744/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12367</europeana:population>
+	<wgs:lat>35.7</wgs:lat>
+	<wgs:long>10.8</wgs:long>
+	<skos:altLabel>Banbalah</skos:altLabel>
+	<skos:altLabel>Bembla</skos:altLabel>
+	<skos:prefLabel>Banbalah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2472770/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>36.66667</wgs:lat>
+	<wgs:long>9.25</wgs:long>
+	<skos:altLabel>Bājah</skos:altLabel>
+	<skos:altLabel>Gouvernorat de Bédja</skos:altLabel>
+	<skos:altLabel>Gouvernorat de Béja</skos:altLabel>
+	<skos:altLabel>Wilāyat Bājah</skos:altLabel>
+	<skos:prefLabel>Gouvernorat de Béja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2472772/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>36.75</wgs:lat>
+	<wgs:long>9.25</wgs:long>
+	<skos:altLabel>Delegation de Beja</skos:altLabel>
+	<skos:altLabel>Délégation de Bédja</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Bājah</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Bājah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2472774/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>57233</europeana:population>
+	<wgs:lat>36.72564</wgs:lat>
+	<wgs:long>9.18169</wgs:long>
+	<skos:altLabel>Bedja</skos:altLabel>
+	<skos:altLabel>Béja</skos:altLabel>
+	<skos:altLabel>Bājah</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Беджа</skos:altLabel>
+	<skos:prefLabel>Béja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2472776/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>33.73236</wgs:lat>
+	<wgs:long>10.71597</wgs:long>
+	<skos:altLabel>El Gataâya el Bahria</skos:altLabel>
+	<skos:altLabel>Guettaïet el Baharia</skos:altLabel>
+	<skos:altLabel>Kattaya Islet</skos:altLabel>
+	<skos:altLabel>Qaţţāyat al Baḩrīyah</skos:altLabel>
+	<skos:altLabel>Îlot Cattaya</skos:altLabel>
+	<skos:altLabel>Îlot Guettaia</skos:altLabel>
+	<skos:prefLabel>El Gataâya el Bahria</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2472830/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>33.98333</wgs:lat>
+	<wgs:long>8.88333</wgs:long>
+	<skos:altLabel>Az Zuqāq</skos:altLabel>
+	<skos:altLabel>Ez Zgag</skos:altLabel>
+	<skos:prefLabel>Az Zuqāq</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2472833/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2473572/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>44349</europeana:population>
+	<wgs:lat>35.50056</wgs:lat>
+	<wgs:long>11.06056</wgs:long>
+	<skos:altLabel>Az Zawīlah</skos:altLabel>
+	<skos:altLabel>Zouila</skos:altLabel>
+	<skos:altLabel>Zuila</skos:altLabel>
+	<skos:prefLabel>Zouila</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2472912/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>36.75</wgs:lat>
+	<wgs:long>8.75</wgs:long>
+	<skos:altLabel>Délégation d’ Aïn Draham</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat ‘Ayn ad Darāhim</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat ‘Ayn ad Darāhim</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2472969/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>35.48333</wgs:lat>
+	<wgs:long>10.48333</wgs:long>
+	<skos:altLabel>Guettaïet Oulad Moussa</skos:altLabel>
+	<skos:altLabel>Qaţţāyat Awlād Mūsá</skos:altLabel>
+	<skos:prefLabel>Qaţţāyat Awlād Mūsá</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473169/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13718</europeana:population>
+	<wgs:lat>35.66887</wgs:lat>
+	<wgs:long>10.89246</wgs:long>
+	<skos:altLabel>Aş Şayyādah</skos:altLabel>
+	<skos:altLabel>Saiadah</skos:altLabel>
+	<skos:altLabel>Saïada</skos:altLabel>
+	<skos:altLabel>Seïada</skos:altLabel>
+	<skos:prefLabel>Aş Şayyādah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473177/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10979</europeana:population>
+	<wgs:lat>36.0764</wgs:lat>
+	<wgs:long>9.02118</wgs:long>
+	<skos:altLabel>As Sars</skos:altLabel>
+	<skos:altLabel>Le Sers</skos:altLabel>
+	<skos:altLabel>Les Sers</skos:altLabel>
+	<skos:altLabel>Sers</skos:altLabel>
+	<skos:prefLabel>As Sars</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473190/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13806</europeana:population>
+	<wgs:lat>35.75166</wgs:lat>
+	<wgs:long>10.71109</wgs:long>
+	<skos:altLabel>Ain Sahalin</skos:altLabel>
+	<skos:altLabel>As Sāḩilīn</skos:altLabel>
+	<skos:altLabel>Sahalin</skos:altLabel>
+	<skos:altLabel>Sahaline</skos:altLabel>
+	<skos:altLabel>Sahline</skos:altLabel>
+	<skos:prefLabel>Sahline</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473229/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21559</europeana:population>
+	<wgs:lat>35.23722</wgs:lat>
+	<wgs:long>11.115</wgs:long>
+	<skos:altLabel>Ash Shābbah</skos:altLabel>
+	<skos:altLabel>Chebba</skos:altLabel>
+	<skos:altLabel>La Chebba</skos:altLabel>
+	<skos:altLabel>Sheba</skos:altLabel>
+	<skos:prefLabel>Chebba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473245/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>412360</europeana:population>
+	<wgs:lat>36.98333</wgs:lat>
+	<wgs:long>10.11667</wgs:long>
+	<skos:altLabel>Ariana</skos:altLabel>
+	<skos:altLabel>Gouvernorat de Ariana</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Wilāyat Aryānah</skos:altLabel>
+	<skos:prefLabel>Gouvernorat de Ariana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473257/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>30048</europeana:population>
+	<wgs:lat>34.3827</wgs:lat>
+	<wgs:long>8.15549</wgs:long>
+	<skos:altLabel>Ar Rudayyif</skos:altLabel>
+	<skos:altLabel>Redevef</skos:altLabel>
+	<skos:altLabel>Redevel</skos:altLabel>
+	<skos:altLabel>Redeyef</skos:altLabel>
+	<skos:prefLabel>Ar Rudayyif</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473363/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>35.73333</wgs:lat>
+	<wgs:long>10.83333</wgs:long>
+	<skos:altLabel>El Gregeh</skos:altLabel>
+	<skos:altLabel>Jazīrat al Anf</skos:altLabel>
+	<skos:altLabel>Île el Ennf</skos:altLabel>
+	<skos:prefLabel>Jazīrat al Anf</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473366/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>37.11667</wgs:lat>
+	<wgs:long>10.83333</wgs:long>
+	<skos:prefLabel>Anciennes Îles Ægimures</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473395/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>36.8</wgs:lat>
+	<wgs:long>9</wgs:long>
+	<skos:altLabel>Delegation de Zaouiet Medien</skos:altLabel>
+	<skos:altLabel>Délégation de Amdoun</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat ‘Amdūn</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat ‘Amdūn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473418/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2473451/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>35.91667</wgs:lat>
+	<wgs:long>9.66667</wgs:long>
+	<skos:altLabel>Délégation de Oueslatia</skos:altLabel>
+	<skos:altLabel>Délégation de Ousseltia</skos:altLabel>
+	<skos:altLabel>Délégation d’ El Oueslatia</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat al Waslātīyah</skos:altLabel>
+	<skos:prefLabel>Délégation de Oueslatia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473420/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18287</europeana:population>
+	<wgs:lat>35.70915</wgs:lat>
+	<wgs:long>10.67397</wgs:long>
+	<skos:altLabel>Al Wardānīn</skos:altLabel>
+	<skos:altLabel>Ouadenine</skos:altLabel>
+	<skos:altLabel>Ouardanine</skos:altLabel>
+	<skos:altLabel>Ouardenine</skos:altLabel>
+	<skos:altLabel>Uardenine</skos:altLabel>
+	<skos:prefLabel>Al Wardānīn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473449/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>119794</europeana:population>
+	<wgs:lat>35.6781</wgs:lat>
+	<wgs:long>10.09633</wgs:long>
+	<skos:altLabel>Al Qayrawān</skos:altLabel>
+	<skos:altLabel>Al-Kayrawān</skos:altLabel>
+	<skos:altLabel xml:lang="id">Kairouan</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kairouan</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Kairouan</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Kairouan</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Kairouan</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Kairouan</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kairouan</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Kairouan</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Kairouan</skos:altLabel>
+	<skos:altLabel>Kairouan</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kairuan</skos:altLabel>
+	<skos:altLabel>Kairwan</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Kajruano</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Kayravan</skos:altLabel>
+	<skos:altLabel>Qairouan</skos:altLabel>
+	<skos:altLabel>Qairwan</skos:altLabel>
+	<skos:altLabel xml:lang="it">Qayrawan</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кайруан</skos:altLabel>
+	<skos:altLabel xml:lang="he">קירואן</skos:altLabel>
+	<skos:altLabel xml:lang="ar">قيروان</skos:altLabel>
+	<skos:prefLabel>Kairouan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473450/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2473451/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>35.66667</wgs:lat>
+	<wgs:long>10.08333</wgs:long>
+	<skos:altLabel>Délégation de Kairouan</skos:altLabel>
+	<skos:altLabel>Délégation du Siège</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat al Qayrawān</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat al Qayrawān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473451/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>35.58333</wgs:lat>
+	<wgs:long>9.83333</wgs:long>
+	<skos:altLabel>Al Qayrawān</skos:altLabel>
+	<skos:altLabel>Gouvernorat de Kairouan</skos:altLabel>
+	<skos:altLabel>Wilāyat al Qayrawān</skos:altLabel>
+	<skos:prefLabel>Gouvernorat de Kairouan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473457/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>81987</europeana:population>
+	<wgs:lat>35.16758</wgs:lat>
+	<wgs:long>8.83651</wgs:long>
+	<skos:altLabel>Al Qaşrayn</skos:altLabel>
+	<skos:altLabel>Kasserin</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Kasserine</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kasserine</skos:altLabel>
+	<skos:altLabel>Kasserine</skos:altLabel>
+	<skos:altLabel>Qasserine</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кассерин</skos:altLabel>
+	<skos:prefLabel>Kasserine</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473459/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2473460/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>35</wgs:lat>
+	<wgs:long>9</wgs:long>
+	<skos:altLabel>Délégation de Kasserine</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat al Qaşrayn</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat al Qaşrayn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473460/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>35.25</wgs:lat>
+	<wgs:long>8.78333</wgs:long>
+	<skos:altLabel>Al Qaşrayn</skos:altLabel>
+	<skos:altLabel>Gouvernorat de Kasserine</skos:altLabel>
+	<skos:altLabel>Gouvernorat de Sbeitla</skos:altLabel>
+	<skos:altLabel>Subayţilah</skos:altLabel>
+	<skos:altLabel>Wilāyat al Qaşrayn</skos:altLabel>
+	<skos:prefLabel>Gouvernorat de Kasserine</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473469/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>33.37312</wgs:lat>
+	<wgs:long>10.9054</wgs:long>
+	<skos:altLabel>Al Qarqabīyah</skos:altLabel>
+	<skos:altLabel>El Gargabia</skos:altLabel>
+	<skos:prefLabel>Al Qarqabīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473470/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>33744</europeana:population>
+	<wgs:lat>34.75</wgs:lat>
+	<wgs:long>10.78333</wgs:long>
+	<skos:altLabel>Al Qarmadah</skos:altLabel>
+	<skos:altLabel>Gremda</skos:altLabel>
+	<skos:prefLabel>Al Qarmadah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473493/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>71546</europeana:population>
+	<wgs:lat>35.78333</wgs:lat>
+	<wgs:long>10.83333</wgs:long>
+	<skos:altLabel>Al Munastīr</skos:altLabel>
+	<skos:altLabel>El Menstir</skos:altLabel>
+	<skos:altLabel>Hadrumetum</skos:altLabel>
+	<skos:altLabel xml:lang="id">Monastir</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Monastir</skos:altLabel>
+	<skos:altLabel xml:lang="es">Monastir</skos:altLabel>
+	<skos:altLabel xml:lang="en">Monastir</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Monastir</skos:altLabel>
+	<skos:altLabel xml:lang="de">Monastir</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Monastir</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Monastir</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Monastir</skos:altLabel>
+	<skos:altLabel>Monastir</skos:altLabel>
+	<skos:altLabel>Ruspina</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Монастир</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Монастир</skos:altLabel>
+	<skos:altLabel xml:lang="ar">المنستير</skos:altLabel>
+	<skos:altLabel xml:lang="ar">منستير</skos:altLabel>
+	<skos:prefLabel>Monastir</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473494/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2473495/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>35.66667</wgs:lat>
+	<wgs:long>10.83333</wgs:long>
+	<skos:altLabel>Délégation de Monastir</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat al Munastīr</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat al Munastīr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473495/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>35.61667</wgs:lat>
+	<wgs:long>10.75</wgs:long>
+	<skos:altLabel>Al Munastīr</skos:altLabel>
+	<skos:altLabel>Gouvernorat de Monastir</skos:altLabel>
+	<skos:altLabel>Wilayat Munastir</skos:altLabel>
+	<skos:altLabel>Wilāyat al Munastīr</skos:altLabel>
+	<skos:prefLabel>Gouvernorat de Monastir</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473499/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>66593</europeana:population>
+	<wgs:lat>36.67446</wgs:lat>
+	<wgs:long>10.15633</wgs:long>
+	<skos:altLabel>Al Muḩammadīyah</skos:altLabel>
+	<skos:altLabel>La Mohammedia</skos:altLabel>
+	<skos:altLabel>Mohamedia</skos:altLabel>
+	<skos:altLabel>Mohamedla</skos:altLabel>
+	<skos:altLabel>Mohammedia</skos:altLabel>
+	<skos:prefLabel>La Mohammedia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473517/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>41899</europeana:population>
+	<wgs:lat>34.32081</wgs:lat>
+	<wgs:long>8.40158</wgs:long>
+	<skos:altLabel>Al Metlaoui</skos:altLabel>
+	<skos:altLabel>Matlaoui</skos:altLabel>
+	<skos:altLabel>Metlaoni</skos:altLabel>
+	<skos:altLabel>Metlaoui</skos:altLabel>
+	<skos:prefLabel>Al Metlaoui</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473532/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2468365/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>34</wgs:lat>
+	<wgs:long>10</wgs:long>
+	<skos:altLabel>Al Maţwiyah</skos:altLabel>
+	<skos:altLabel>Délégation de Methouia</skos:altLabel>
+	<skos:altLabel>Délégation de Métouia</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat al Maţwīyah</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat al Maţwīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473540/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>65640</europeana:population>
+	<wgs:lat>36.87818</wgs:lat>
+	<wgs:long>10.32466</wgs:long>
+	<skos:altLabel>Al Marsá</skos:altLabel>
+	<skos:altLabel>El Marsa</skos:altLabel>
+	<skos:altLabel xml:lang="pt">La Marsa</skos:altLabel>
+	<skos:altLabel xml:lang="en">La Marsa</skos:altLabel>
+	<skos:prefLabel>Al Marsá</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473555/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>33.9</wgs:lat>
+	<wgs:long>8.53333</wgs:long>
+	<skos:altLabel>Al Manşaf</skos:altLabel>
+	<skos:altLabel>El Mennsof</skos:altLabel>
+	<skos:altLabel>El Menssof</skos:altLabel>
+	<skos:altLabel>Îlot d’ El Mensof</skos:altLabel>
+	<skos:prefLabel>Al Manşaf</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473571/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2467450/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>34.5</wgs:lat>
+	<wgs:long>10.25</wgs:long>
+	<skos:altLabel>Délégation de Mahares</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat al Maḩras</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat al Maḩras</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473572/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>45977</europeana:population>
+	<wgs:lat>35.50472</wgs:lat>
+	<wgs:long>11.06222</wgs:long>
+	<skos:altLabel>Africa</skos:altLabel>
+	<skos:altLabel>Al Mahdīyah</skos:altLabel>
+	<skos:altLabel>Madhia</skos:altLabel>
+	<skos:altLabel xml:lang="en">Mahdia</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Mahdia</skos:altLabel>
+	<skos:altLabel>Mahdia</skos:altLabel>
+	<skos:altLabel>Mahedia</skos:altLabel>
+	<skos:altLabel>Mehdia</skos:altLabel>
+	<skos:altLabel>Zella</skos:altLabel>
+	<skos:prefLabel>Mahdia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473573/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2473495/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>35.58333</wgs:lat>
+	<wgs:long>11</wgs:long>
+	<skos:altLabel>Délégation de Mahdia</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat al Mahdīyah</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat al Mahdīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473574/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>35.33333</wgs:lat>
+	<wgs:long>10.58333</wgs:long>
+	<skos:altLabel>Al Mahdīyah</skos:altLabel>
+	<skos:altLabel>Gouvernorat de Mahdia</skos:altLabel>
+	<skos:altLabel>Wilayat al Mahdiyah</skos:altLabel>
+	<skos:prefLabel>Gouvernorat de Mahdia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473634/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>47979</europeana:population>
+	<wgs:lat>36.17424</wgs:lat>
+	<wgs:long>8.70486</wgs:long>
+	<skos:altLabel>Al Kāf</skos:altLabel>
+	<skos:altLabel>Chakbanaria</skos:altLabel>
+	<skos:altLabel>Chikka Benar</skos:altLabel>
+	<skos:altLabel>El Kef</skos:altLabel>
+	<skos:altLabel>Kef</skos:altLabel>
+	<skos:altLabel>Le Kef</skos:altLabel>
+	<skos:altLabel>Sicca Veneria</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Эль-Кеф</skos:altLabel>
+	<skos:prefLabel>El Kef</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473636/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>36.25</wgs:lat>
+	<wgs:long>8.75</wgs:long>
+	<skos:altLabel>Délégation du Kef</skos:altLabel>
+	<skos:altLabel>Le Kef</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat al Kāf</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat al Kāf</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473637/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>36.08333</wgs:lat>
+	<wgs:long>8.75</wgs:long>
+	<skos:altLabel xml:lang="sh">El Kef</skos:altLabel>
+	<skos:altLabel>Gouvernorat de Kef</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Gouvernorat du Kef</skos:altLabel>
+	<skos:altLabel>Kef</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Le Kef</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Wilāyat al Kāf</skos:altLabel>
+	<skos:prefLabel>Gouvernorat de Kef</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473646/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>35.63588</wgs:lat>
+	<wgs:long>11.04274</wgs:long>
+	<skos:altLabel>Al Jazīrah</skos:altLabel>
+	<skos:altLabel>El Djezira</skos:altLabel>
+	<skos:altLabel>El Jezira</skos:altLabel>
+	<skos:altLabel>Thapsus Island</skos:altLabel>
+	<skos:altLabel>Île de Thapsus</skos:altLabel>
+	<skos:prefLabel>El Jezira</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473654/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20029</europeana:population>
+	<wgs:lat>35.3</wgs:lat>
+	<wgs:long>10.71667</wgs:long>
+	<skos:altLabel>Al Jamm</skos:altLabel>
+	<skos:altLabel>El Djem</skos:altLabel>
+	<skos:altLabel xml:lang="en">El Jem</skos:altLabel>
+	<skos:altLabel>El Jem</skos:altLabel>
+	<skos:altLabel>El Jemm</skos:altLabel>
+	<skos:altLabel>Sidi el Djem</skos:altLabel>
+	<skos:altLabel>Thysdrus</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Эль Джем</skos:altLabel>
+	<skos:prefLabel>El Jem</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473655/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2473574/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>35.33333</wgs:lat>
+	<wgs:long>10.75</wgs:long>
+	<skos:altLabel>Délégation d’ El Djem</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat al Jamm</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat al Jamm</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473663/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>37</wgs:lat>
+	<wgs:long>9</wgs:long>
+	<skos:altLabel>Al Jabal al Abyaḑ</skos:altLabel>
+	<skos:altLabel>Délégation de Djebel Abiod</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat al Jabal al Abyaḑ</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat al Jabal al Abyaḑ</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473744/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>53733</europeana:population>
+	<wgs:lat>36.4</wgs:lat>
+	<wgs:long>10.61667</wgs:long>
+	<skos:altLabel>Al Ḩammāmāt</skos:altLabel>
+	<skos:altLabel>Hammamet</skos:altLabel>
+	<skos:altLabel xml:lang="no">Hammamet</skos:altLabel>
+	<skos:altLabel xml:lang="de">Hammamet</skos:altLabel>
+	<skos:altLabel xml:lang="en">Hammamet</skos:altLabel>
+	<skos:altLabel xml:lang="it">Hammamet</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Hammamet</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Hammamet</skos:altLabel>
+	<skos:altLabel xml:lang="es">Hammamet</skos:altLabel>
+	<skos:altLabel xml:lang="da">Hammamet</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Hammamet</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Хаммамет</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الحمامات</skos:altLabel>
+	<skos:prefLabel>Al Ḩammāmāt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473745/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>36.41667</wgs:lat>
+	<wgs:long>10.5</wgs:long>
+	<skos:altLabel>Délégation de Hammamet</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat al Ḩammāmāt</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat al Ḩammāmāt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473747/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>36458</europeana:population>
+	<wgs:lat>33.89152</wgs:lat>
+	<wgs:long>9.79629</wgs:long>
+	<skos:altLabel>Al Ḩāmmah</skos:altLabel>
+	<skos:altLabel>El Hamma</skos:altLabel>
+	<skos:altLabel>El Hamma de l’Arad</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Эль-Хамма</skos:altLabel>
+	<skos:prefLabel>El Hamma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473818/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>33.26892</wgs:lat>
+	<wgs:long>11.31268</wgs:long>
+	<skos:altLabel>Al Bībān</skos:altLabel>
+	<skos:altLabel>El Biban</skos:altLabel>
+	<skos:altLabel>Ilots de Biban</skos:altLabel>
+	<skos:prefLabel>Al Bībān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473826/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15937</europeana:population>
+	<wgs:lat>35.61739</wgs:lat>
+	<wgs:long>10.99466</wgs:long>
+	<skos:altLabel>Al Baqāliţah</skos:altLabel>
+	<skos:altLabel>Bekalta</skos:altLabel>
+	<skos:altLabel>Mkalta</skos:altLabel>
+	<skos:prefLabel>Al Baqāliţah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473876/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16083</europeana:population>
+	<wgs:lat>37.1691</wgs:lat>
+	<wgs:long>10.03478</wgs:long>
+	<skos:altLabel>Al ‘Āliyah</skos:altLabel>
+	<skos:altLabel>El Alia</skos:altLabel>
+	<skos:altLabel>Uzalis</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Эль-Алия</skos:altLabel>
+	<skos:prefLabel>Al ‘Āliyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2473913/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20027</europeana:population>
+	<wgs:lat>35.8691</wgs:lat>
+	<wgs:long>10.5653</wgs:long>
+	<skos:altLabel>Akkūdah</skos:altLabel>
+	<skos:altLabel>Akouda</skos:altLabel>
+	<skos:altLabel>Akuda</skos:altLabel>
+	<skos:prefLabel>Akouda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2474123/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>35.83333</wgs:lat>
+	<wgs:long>8.83333</wgs:long>
+	<skos:altLabel>Délégation Ebba-Ksour Le Ksour</skos:altLabel>
+	<skos:altLabel>Délégation d’ Ebba Ksour et El-Ksour</skos:altLabel>
+	<skos:altLabel>Délégation d’ Ebba-Ksour</skos:altLabel>
+	<skos:altLabel>Délégation d’ El Ksour</skos:altLabel>
+	<skos:altLabel>El Ksour et Ebba Ksour</skos:altLabel>
+	<skos:altLabel>Mu‘tamadīyat Abbah Quşūr wa Al Quşūr</skos:altLabel>
+	<skos:prefLabel>Mu‘tamadīyat Abbah Quşūr wa Al Quşūr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2581754/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>60192</europeana:population>
+	<wgs:lat>36.44766</wgs:lat>
+	<wgs:long>10.7557</wgs:long>
+	<skos:prefLabel>Douane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6201192/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2464461/"/>
+	<europeana:country>TN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>36.83333</wgs:lat>
+	<wgs:long>9.83333</wgs:long>
+	<skos:altLabel>Gouvernorat de la Manouba</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Manouba</skos:altLabel>
+	<skos:altLabel>Manouba</skos:altLabel>
+	<skos:prefLabel>Gouvernorat de la Manouba</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 260 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

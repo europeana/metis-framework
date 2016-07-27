@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="ISO-8859-1"?><data>
+
+<!-- 
+ Copyright 2005-2009 the original author or authors.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ 
+ This file is a part of AnnoCultor demos, see
+ 
+     http://annocultor.sourceforge.net 
+ 
+ This file contains a sample of several Louvre records converted into RDF.
+
+ The conversion was done by the MultimediaN e-Culture project
+
+     http://e-culture.multimedian.nl
+ 
+ This file is provided for illustration purposes only.    
+ -->
+
+
+ <oeuvre id="14153" ninv="INV 779" langue="1">
+  <ninvcartel>INV. 779</ninvcartel>
+  <titre><![CDATA[<i>Portrait de Lisa Gherardini</i>, épouse de Francesco del Giocondo, dite <i>Monna Lisa</i>, la <i>Gioconda</i> ou la <i>Joconde</i>]]></titre>
+  <date>Vers 1503 - 1506</date>
+  <lieufabrication>Peint à Florence</lieufabrication>
+  <techniquematiere>Bois (peuplier)</techniquematiere>
+  <listecategories>
+   <categorie id="9">peintures</categorie>
+  </listecategories>
+  <dimension>H. : ,77 m. ; L. : ,53 m.</dimension>
+  <acquisition>Acquis par François Ier en 1518</acquisition>
+  <listeauteurs>
+   <auteur id="124">
+    <nom>Leonardo di ser Piero DA VINCI, dit Léonard de Vinci</nom>
+    <nomdictionnaire>LÉONARD DE VINCI, VINCI Leonardo di ser Piero, dit</nomdictionnaire>
+    <identite>Léonard de Vinci</identite>
+    <dates>Vinci, 1452 - Amboise, 1519</dates>
+   </auteur>
+  </listeauteurs>
+  <departement id="6">
+   <lblong>Département des Peintures</lblong>
+   <lbcourt>Peintures</lbcourt>
+   <numordredept>7</numordredept>
+   <couleur>#CE314A</couleur>
+  </departement>
+  <listeobjets>
+   <image fgprincipal="O">
+    <src>16415_p0003721.001.jpg</src>
+    <descriptif><![CDATA[image principale]]></descriptif>
+    <copyright>© Musée du Louvre/A. Dequier - M. Bard</copyright>
+    <typeobjet>1</typeobjet>
+    <longueurobjet>600</longueurobjet>
+    <largeurobjet>457</largeurobjet>
+    <remarque />
+    <fgrestrictionaffichage>2</fgrestrictionaffichage>
+   </image>
+   <objet>
+    <lib><![CDATA[Leonardo di ser Piero DA VINCI, dit Léonard de Vinci
+<i>Portrait de Lisa Gherardini</i>, épouse de Francesco del Giocondo, dite <i>Monna Lisa</i>, la <i>Gioconda</i> ou la <i>Joconde</i>]]></lib>
+    <descriptif><![CDATA[détail de la bouche]]></descriptif>
+    <copyright>© Musée du Louvre/A. Dequier - M. Bard</copyright>
+    <src>31264_p0003721.005.jpg</src>
+    <typeobjet>1</typeobjet>
+    <picto>image.gif</picto>
+    <longueurobjet>465</longueurobjet>
+    <largeurobjet>700</largeurobjet>
+    <fgrestrictionaffichage>2</fgrestrictionaffichage>
+   </objet>
+   <objet>
+    <lib><![CDATA[Leonardo di ser Piero DA VINCI, dit Léonard de Vinci
+<i>Portrait de Lisa Gherardini</i>, épouse de Francesco del Giocondo, dite <i>Monna Lisa</i>, la <i>Gioconda</i> ou la <i>Joconde</i>]]></lib>
+    <descriptif><![CDATA[détail des mains]]></descriptif>
+    <copyright>© Musée du Louvre/A. Dequier - M. Bard</copyright>
+    <src>31266_p0003721.007.jpg</src>
+    <typeobjet>1</typeobjet>
+    <picto>image.gif</picto>
+    <longueurobjet>576</longueurobjet>
+    <largeurobjet>768</largeurobjet>
+    <fgrestrictionaffichage>2</fgrestrictionaffichage>
+   </objet>
+   <objet>
+    <lib><![CDATA[Leonardo di ser Piero DA VINCI, dit Léonard de Vinci
+<i>Portrait de Lisa Gherardini</i>, épouse de Francesco del Giocondo, dite <i>Monna Lisa</i>, la <i>Gioconda</i> ou la <i>Joconde</i>]]></lib>
+    <descriptif><![CDATA[détail des yeux]]></descriptif>
+    <copyright>© Musée du Louvre/A. Dequier - M. Bard</copyright>
+    <src>31263_p0003721.004.jpg</src>
+    <typeobjet>1</typeobjet>
+    <picto>image.gif</picto>
+    <longueurobjet>399</longueurobjet>
+    <largeurobjet>768</largeurobjet>
+    <fgrestrictionaffichage>2</fgrestrictionaffichage>
+   </objet>
+   <objet>
+    <lib><![CDATA[Leonardo di ser Piero DA VINCI, dit Léonard de Vinci
+<i>Portrait de Lisa Gherardini</i>, épouse de Francesco del Giocondo, dite <i>Monna Lisa</i>, la <i>Gioconda</i> ou la <i>Joconde</i>]]></lib>
+    <descriptif><![CDATA[détail du buste]]></descriptif>
+    <copyright>© Musée du Louvre/A. Dequier - M. Bard</copyright>
+    <src>31267_p0003721.008.jpg</src>
+    <typeobjet>1</typeobjet>
+    <picto>image.gif</picto>
+    <longueurobjet>607</longueurobjet>
+    <largeurobjet>768</largeurobjet>
+    <fgrestrictionaffichage>2</fgrestrictionaffichage>
+   </objet>
+   <objet>
+    <lib><![CDATA[Leonardo di ser Piero DA VINCI, dit Léonard de Vinci
+<i>Portrait de Lisa Gherardini</i>, épouse de Francesco del Giocondo, dite <i>Monna Lisa</i>, la <i>Gioconda</i> ou la <i>Joconde</i>]]></lib>
+    <descriptif><![CDATA[détail du paysage de droite]]></descriptif>
+    <copyright>© Musée du Louvre/A. Dequier - M. Bard</copyright>
+    <src>31265_p0003721.006.jpg</src>
+    <typeobjet>1</typeobjet>
+    <picto>image.gif</picto>
+    <longueurobjet>600</longueurobjet>
+    <largeurobjet>394</largeurobjet>
+    <fgrestrictionaffichage>2</fgrestrictionaffichage>
+   </objet>
+   <objet>
+    <lib><![CDATA[Leonardo di ser Piero DA VINCI, dit Léonard de Vinci
+<i>Portrait de Lisa Gherardini</i>, épouse de Francesco del Giocondo, dite <i>Monna Lisa</i>, la <i>Gioconda</i> ou la <i>Joconde</i>]]></lib>
+    <descriptif><![CDATA[détail du paysage de gauche]]></descriptif>
+    <copyright>© Musée du Louvre/A. Dequier - M. Bard</copyright>
+    <src>31268_p0003721.009.jpg</src>
+    <typeobjet>1</typeobjet>
+    <picto>image.gif</picto>
+    <longueurobjet>600</longueurobjet>
+    <largeurobjet>384</largeurobjet>
+    <fgrestrictionaffichage>2</fgrestrictionaffichage>
+   </objet>
+   <objet>
+    <lib><![CDATA[Leonardo di ser Piero DA VINCI, dit Léonard de Vinci
+<i>Portrait de Lisa Gherardini</i>, épouse de Francesco del Giocondo, dite <i>Monna Lisa</i>, la <i>Gioconda</i> ou la <i>Joconde</i>]]></lib>
+    <descriptif><![CDATA[détail du visage]]></descriptif>
+    <copyright>© Musée du Louvre/A. Dequier - M. Bard</copyright>
+    <src>31262_p0003721.003.jpg</src>
+    <typeobjet>1</typeobjet>
+    <picto>image.gif</picto>
+    <longueurobjet>600</longueurobjet>
+    <largeurobjet>468</largeurobjet>
+    <fgrestrictionaffichage>2</fgrestrictionaffichage>
+   </objet>
+   <objet>
+    <lib><![CDATA[Leonardo di ser Piero DA VINCI, dit Léonard de Vinci
+<i>Portrait de Lisa Gherardini</i>, épouse de Francesco del Giocondo, dite <i>Monna Lisa</i>, la <i>Gioconda</i> ou la <i>Joconde</i>]]></lib>
+    <descriptif><![CDATA[vue sans cadre]]></descriptif>
+    <copyright>© Musée du Louvre/A. Dequier - M. Bard</copyright>
+    <src>31261_p0003721.002.jpg</src>
+    <typeobjet>1</typeobjet>
+    <picto>image.gif</picto>
+    <longueurobjet>600</longueurobjet>
+    <largeurobjet>421</largeurobjet>
+    <fgrestrictionaffichage>2</fgrestrictionaffichage>
+   </objet>
+  </listeobjets>
+  <localisation>
+   <aile id="3">Denon</aile>
+   <niveau id="3">1 e étage</niveau>
+   <plan id="11">denon11.gif</plan>
+   <salle id="450">
+    <num>Salle 6</num>
+    <lib>Salle de la Joconde</lib>
+   </salle>
+  </localisation>
+ </oeuvre>
+</data>

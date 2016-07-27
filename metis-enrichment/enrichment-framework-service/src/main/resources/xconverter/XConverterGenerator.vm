@@ -1,0 +1,481 @@
+#macro( newPropertyRule $implicitParameterPrefix $propertyRule )
+    new $xml.removeAffix($xml.removeNamespacePrefix($propertyRule.getName()), "-") ( $implicitParameterPrefix
+#set ($comma = " ")
+#foreach ($parameter in $propertyRule.getChildren("*") )
+#if($parameter.getName()=="ac:listeners")
+
+#else
+#if($parameter.getName()=="ac:rule")
+#foreach ($ruleParameter in $parameter.getChildren("*") )
+      $comma #newPropertyRule("" $ruleParameter)
+#end
+#else
+      // $parameter.getName()
+#set ($dataType = "ac:String")      
+#if($parameter.getAttribute("rdf:datatype"))
+#set ($dataType = $parameter.getAttribute("rdf:datatype"))      
+#end
+      $comma factory.make$xml.removeNamespacePrefix($dataType)(#if($parameter.getName()=="ac:map")
+       
+       factory.make$xml.removeNamespacePrefix($parameter.getFirstChild("ac:srcValue").getAttribute("rdf:datatype"))("$parameter.getFirstChild("ac:srcValue").getValue()"),
+       factory.make$xml.removeNamespacePrefix($parameter.getFirstChild("ac:dstValue").getAttribute("rdf:datatype"))("$parameter.getFirstChild("ac:dstValue").getValue()"))
+#else
+$xml.enquote($parameter.getValue()))
+#end
+#end
+#set ($comma = ",")
+#end
+#end
+      )
+#if($propertyRule.getFirstChild("ac:listeners"))
+     {
+        @Override
+        protected void init() throws Exception {
+#if($propertyRule.getFirstChild("ac:listeners").getFirstChild("ac:OnInit"))
+          /* Custom override from XML */
+          $propertyRule.getFirstChild("ac:listeners").getFirstChild("ac:OnInit").getFirstChild("ac:java").getValue()
+          /* End of custom override from XML */
+#end
+          initialized = true;
+        }
+
+#if($propertyRule.getFirstChild("ac:listeners").getFirstChild("ac:Declarations"))
+       /* Custom declarations from XML */
+       $propertyRule.getFirstChild("ac:listeners").getFirstChild("ac:Declarations").getFirstChild("ac:java").getValue()
+       /* End of custom declarations from XML */
+#end
+
+#if($propertyRule.getFirstChild("ac:listeners").getFirstChild("ac:OnInvocation"))
+       @Override
+       public Triple onInvocation(Triple sourceTriple, DataObject sourceDataObject) throws Exception {
+          /* Custom override from XML */
+          $propertyRule.getFirstChild("ac:listeners").getFirstChild("ac:OnInvocation").getFirstChild("ac:java").getValue()
+     }
+#end
+
+#if($propertyRule.getFirstChild("ac:listeners").getFirstChild("ac:OnPreCondition"))
+       @Override
+       public boolean onPreCondition(Triple sourceTriple, DataObject sourceDataObject) throws Exception {
+          /* Custom override from XML */
+          $propertyRule.getFirstChild("ac:listeners").getFirstChild("ac:OnPreCondition").getFirstChild("ac:java").getValue()
+     }
+#end
+
+       @Override
+       public void fire(Triple sourceTriple, DataObject sourceDataObject) throws Exception {
+          if (!initialized) {
+             init();
+          }
+          if (onPreCondition(sourceTriple, sourceDataObject)) {
+              Triple srcTriple = onInvocation(sourceTriple, sourceDataObject);
+              super.fire(srcTriple, sourceDataObject);
+          }
+       }
+    }
+#end
+#end
+
+## ***************************************************************************
+/*
+ * This is an automatically generated converter to be executed with AnnoCultor,
+ * an RDF conversion tool, http://AnnoCultor.eu
+ *
+ */
+import eu.annocultor.xconverter.api.GeneratedConverterInt;
+
+import java.util.*;
+import java.util.regex.*;
+import java.util.zip.*;
+
+import java.io.*;
+import java.text.*;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.DriverManager;
+
+import eu.annocultor.tagger.vocabularies.*;
+import eu.annocultor.tagger.terms.*;
+import eu.annocultor.tagger.preprocessors.*;
+import eu.annocultor.tagger.postprocessors.*;
+import eu.annocultor.tagger.rules.*;
+import eu.annocultor.rules.*;
+import eu.annocultor.path.*;
+import eu.annocultor.triple.*;
+import eu.annocultor.tagger.rules.*;
+import eu.annocultor.xconverter.api.*;
+import eu.annocultor.xconverter.impl.*;
+import eu.annocultor.data.sources.*;
+import eu.annocultor.data.destinations.*;
+import eu.annocultor.data.filters.*;
+import eu.annocultor.common.*;
+
+import eu.annocultor.api.*;
+import eu.annocultor.context.*;
+
+import org.apache.commons.lang.*;
+import org.apache.commons.io.*;
+import org.apache.commons.io.input.*;
+import org.apache.commons.codec.digest.*;
+
+#set($profileId = $xml.getAttribute("rdf:about"))
+/**
+ * Converter for project
+ * id: $xml.getAttribute("rdf:about")
+ * institution: $xml.getAttribute("ac:institution")
+ * publisherId: $xml.getAttribute("ac:publisherId")
+ *
+ **/
+public class GeneratedConverter
+implements GeneratedConverterInt {
+
+  Environment environment = new EnvironmentImpl() {
+
+    @Override
+    public void init() {
+      // environment defined in XML
+#foreach ($parameter in $xml.getFirstChild("ac:parameters").getChildren("ac:Parameter"))
+      setParameter(
+        Environment.PARAMETERS.$parameter.getFirstChild("ac:name").getValue(),
+#if ($parameter.getFirstChild("ac:value"))
+        "$parameter.getFirstChild("ac:value").getValue()");
+#else
+        "");
+#end
+#end
+    }
+  };
+
+  XConverterFactory factory = new XConverterFactory(environment) {
+  
+    @Override
+    public void init() throws Exception {
+      // Namespaces defined in XML
+#foreach ($namesp in $namespaces.keySet())
+#set($namespUrl = $namespaces.get($namesp))
+      addNamespace("$namesp", "$namespUrl");
+#end
+
+#foreach ($vocabulary in $xml.getFirstChild("ac:vocabularies").getChildren("*"))
+#set($vocType = $xml.removeNamespacePrefix($vocabulary.getName()))
+      // Vocabulary $vocabulary.getFirstChild("ac:comment").getValue()
+      add$vocType("$vocabulary.getAttribute("rdf:about")",
+        new $vocType("$vocabulary.getAttribute("rdf:about")",
+#if ($vocabulary.getFirstChild("ac:language"))
+      makeLang($vocabulary.getFirstChild("ac:language").getValue()
+#else
+      null
+#end
+     ) {
+
+        @Override
+        public void init() throws Exception {
+          // loading terms
+#foreach ($query in $vocabulary.getChildren("ac:sparqlQuery"))
+#if($query.getAttribute("ac:termProperty"))
+
+#else
+          loadTermsSPARQL(
+            $xml.enquote($xml.escapeJava($query.getValue())),
+            environment.getTmpDir(),
+            environment.getVocabularyDir()
+#foreach ($vocFile in $vocabulary.getChildren("ac:file"))
+            , "$vocFile.getValue()"
+#end
+          );
+#end
+#end
+
+          // loading term properties
+#foreach ($query in $vocabulary.getChildren("ac:sparqlQuery"))
+#if($query.getAttribute("ac:termProperty"))
+          loadTermPropertiesSPARQL("$query.getAttribute("ac:termProperty")",
+            $xml.enquote($query.getValue()),
+            environment.getTmpDir(),
+            environment.getVocabularyDir()
+#foreach ($vocFile in $vocabulary.getChildren("ac:file"))
+            , "$vocFile.getValue()"
+#end
+          );
+#else
+
+#end
+#end
+
+
+#if ($vocabulary.getFirstChild("ac:listeners"))
+    #if($vocabulary.getFirstChild("ac:listeners").getFirstChild("ac:OnInit"))
+         /* Custom init code from XML */
+         $vocabulary.getFirstChild("ac:listeners").getFirstChild("ac:OnInit").getFirstChild("ac:java").getValue()
+         /* End of custom init code from XML */
+#end
+    #end
+      }
+
+      #if ($vocabulary.getFirstChild("ac:listeners"))
+    #if($vocabulary.getFirstChild("ac:listeners").getFirstChild("ac:OnLoadTermCode"))
+      @Override
+      public String onLoadTermCode(String code) throws Exception {
+        /* Custom code from XML */
+        $vocabulary.getFirstChild("ac:listeners").getFirstChild("ac:OnLoadTermCode").getFirstChild("ac:java").getValue()
+        /* End of custom code from XML */
+      }
+#end
+
+#if($vocabulary.getFirstChild("ac:listeners").getFirstChild("ac:OnNormaliseLabel"))
+      @Override
+      public String onNormaliseLabel(String label, NormaliseCaller caller) throws Exception {
+        /* Custom code from XML */
+        $vocabulary.getFirstChild("ac:listeners").getFirstChild("ac:OnNormaliseLabel").getFirstChild("ac:java").getValue()
+        /* End of custom code from XML */
+      }
+#end
+
+    #if($vocabulary.getFirstChild("ac:listeners").getFirstChild("ac:OnDisambiguate"))
+     @Override
+     public TermList disambiguate(TermList termList, DisambiguationContext disambiguationContext) throws Exception {
+       /* Custom code from XML */
+       $vocabulary.getFirstChild("ac:listeners").getFirstChild("ac:OnDisambiguate").getFirstChild("ac:java").getValue()
+       /* End of custom code from XML */
+     }
+#end
+    #end
+
+   }); // vocabulary $vocType
+#end
+  } // init of XMLAPIFactory
+}; // XMLAPIFactory
+
+#foreach ($repository in $xml.getFirstChild("ac:repositories").getChildren("ac:Repository"))
+#set ($repositoryClass = $repository.getAttribute("rdf:about"))
+#set ($repositoryId = $repository.getAttribute("rdf:about"))
+// one converter class per source file
+private class $repositoryClass
+extends CustomConverter
+implements GeneratedCustomConverterInt {
+
+  Logger log = LoggerFactory.getLogger($repositoryClass .class.getName());
+
+  // conversion task: a container for things that belong to this file and conversion result
+  Task task = Factory.makeTask(
+    "$xml.getAttribute("rdf:about")",
+    "$repositoryClass",
+    "$xml.getAttribute("ac:institution")",
+#if ($xml.getAttribute("ac:namespace"))
+    factory.makeNamespace("$xml.getAttribute("ac:namespace")"),
+#else
+    Namespaces.ANNOCULTOR_CONVERTER,
+#end
+    environment);
+
+## **************************** object rule declarations
+#foreach ($objectRule in $repository.getFirstChild("ac:objectRules").getChildren("ac:ObjectRule") )
+#set ($objectRuleName = "defaultObjectRule")
+#set ($objectRuleName = $objectRule.getAttribute("rdf:about"))
+  ObjectRule $objectRuleName ; // should be coming from the rdf:about attribute of an ObjectRule
+#end
+
+    /*
+     * Destinations
+     */
+#foreach ($dataDestination in $repository.getFirstChild("ac:destinations").getChildren("*"))
+#set($dataDestinationId=$dataDestination.getAttribute("rdf:about"))
+    Graph $dataDestinationId; 
+#end
+
+  public $repositoryClass() throws Exception {
+    
+    super();
+
+    /*
+     * Destinations
+     */
+#foreach ($dataDestination in $repository.getFirstChild("ac:destinations").getChildren("*"))
+#set($dataDestinationId=$dataDestination.getAttribute("rdf:about"))
+    $dataDestinationId = 
+#newPropertyRule("task.getDatasetId(), task.getEnvironment(), $xml.enquote($dataDestinationId), $xml.enquote(''), $xml.enquote(''), " $dataDestination)
+    ;
+    task.addGraph($dataDestinationId);
+    factory.addGraph("$dataDestinationId", $dataDestination.getAttribute("rdf:about"));
+#end
+
+## **************************** object rule implementations
+#foreach ($objectRule in $repository.getFirstChild("ac:objectRules").getChildren("ac:ObjectRule") )
+#set ($objectRuleName = $objectRule.getAttribute("rdf:about"))
+#set ($recordSeparator = "")
+#if ($objectRule.getFirstChild("ac:recordSeparator"))
+#set ($recordSeparator = $objectRule.getFirstChild("ac:recordSeparator").getValue())
+#end
+   /*
+    * Object extraction rule
+    */
+   $objectRuleName =
+      ObjectRuleImpl.makeObjectRule(task,
+        factory.makePath("$recordSeparator"),
+        factory.makePath("$objectRule.getFirstChild("ac:recordIdentifier").getValue()"),
+        factory.makePath("$objectRule.getFirstChild("ac:recordInformalIdentifier").getValue()"),
+#if ($objectRule.getFirstChild("ac:parentObjectRule"))
+        $objectRule.getFirstChild("ac:parentObjectRule").getValue(),
+#else
+        null,
+#end
+        true);
+
+#if ($objectRule.getFirstChild("ac:listeners"))
+    $objectRuleName .addPreprocessor(new DataObjectPreprocessor()
+    {
+
+#if($objectRule.getFirstChild("ac:listeners").getFirstChild("ac:Declarations"))
+       /* Custom declarations from XML */
+       $objectRule.getFirstChild("ac:listeners").getFirstChild("ac:Declarations").getFirstChild("ac:java").getValue()
+       /* End of custom declarations from XML */
+#end
+
+#if ($objectRule.getFirstChild("ac:listeners").getChildren("ac:onPreCondition"))
+    public boolean onPreCondition(DataObject sourceDataObject) throws Exception {
+      /* Custom override from XML */
+      $objectRule.getFirstChild("ac:listeners").getFirstChild("ac:OnPreCondition").getFirstChild("ac:java").getValue()
+    }
+
+      @Override
+      public boolean preCondition(DataObject sourceDataObject) throws Exception {
+          return onPreCondition(sourceDataObject);
+      }
+#end
+
+#if ($objectRule.getFirstChild("ac:listeners").getFirstChild("ac:OnProcess"))
+      public void onProcess(DataObject sourceDataObject) throws Exception {
+        /* Custom override from XML */
+        $objectRule.getFirstChild("ac:listeners").getFirstChild("ac:OnProcess").getFirstChild("ac:java").getValue()
+      }
+      
+      @Override
+      public void process(DataObject sourceDataObject) throws Exception {
+         onProcess(sourceDataObject);
+      }
+#end
+
+#if ($objectRule.getFirstChild("ac:listeners").getFirstChild("ac:OnPostCondition"))
+      public boolean onPostCondition(DataObject sourceDataObject) throws Exception {
+          /* Custom override from XML */
+          $objectRule.getFirstChild("ac:listeners").getFirstChild("ac:OnPostCondition").getFirstChild("ac:java").getValue()
+      }
+
+      @Override
+      public boolean postCondition(DataObject sourceDataObject) throws Exception {
+          return onPostCondition(sourceDataObject);
+      }
+#end
+    });
+#end
+
+## **************************** property rules
+    /*
+     * Property conversion rules
+     */
+#foreach ($propertyRule in $objectRule.getFirstChild("ac:propertyRules").getChildren("*") )
+    $objectRuleName .addRule(
+#newPropertyRule("" $propertyRule)
+    );
+#end
+#end
+  }
+
+  PrintWriter console;
+  
+  // execution point
+  @Override
+  public int run(PrintWriter out) throws Exception {
+    this.console = out;
+    selectDataSource();
+    onConversionStarts();
+    out.println("Starting generated converter");
+    out.flush();
+    int result;
+    
+    try {
+      result = super.run(
+        task,
+        null
+#if ($repository.getFirstChild("ac:maxRecordsToConvert"))
+        , $repository.getFirstChild("ac:maxRecordsToConvert").getValue()
+#end
+      );
+    } catch (Exception e) {
+      console.flush();
+      throw new Exception("Exception running generated converter", e);
+    }
+    
+    onConversionEnds();
+    return result;
+  }
+
+  @Override
+  public void selectDataSource() throws Exception {
+#set($datasource=$repository.getFirstChild("ac:datasources"))
+#set($datasourceClass=$datasource.getFirstChild("*"))
+
+    DataSource dataSource = 
+#newPropertyRule("environment," $datasourceClass)
+    ;
+    task.setDataSource(dataSource);
+  }
+
+
+#if($repository.getFirstChild("ac:listeners").getFirstChild("ac:Declarations"))
+  /* Custom declarations from XML */
+  $repository.getFirstChild("ac:listeners").getFirstChild("ac:Declarations").getFirstChild("ac:java").getValue()
+  /* End of custom declarations from XML */
+#end
+
+  @Override
+  public void onConversionStarts() throws Exception {
+
+#if ($repository.getFirstChild("ac:listeners"))
+#if ($repository.getFirstChild("ac:listeners").getFirstChild("ac:OnConversionStarts"))
+    /* Custom override from XML */
+    $repository.getFirstChild("ac:listeners").getFirstChild("ac:OnConversionStarts").getFirstChild("ac:java").getValue()
+#end
+#end
+  }
+
+  @Override
+  public void onConversionEnds() throws Exception {
+#if ($repository.getFirstChild("ac:listeners"))
+#if ($repository.getFirstChild("ac:listeners").getFirstChild("ac:OnConversionEnds"))
+    /* Custom override from XML */
+    $repository.getFirstChild("ac:listeners").getFirstChild("ac:OnConversionEnds").getFirstChild("ac:java").getValue()
+#end
+#end
+   }
+
+} // class $repositoryClass
+#end
+
+  // umbrella converter
+  public int run(PrintWriter out) throws Exception {
+  
+    out.println("Running AnnoCultor build " + environment.getBuildSignature());
+    int result = 0;
+#foreach ($repository in $xml.getFirstChild("ac:repositories").getChildren("ac:Repository"))
+      $repository.getAttribute("rdf:about") c = new $repository.getAttribute("rdf:about")();
+      if (c == null) {
+        throw new Exception("failed to create a $repository.getAttribute("rdf:about")");
+      }
+      result = c.run(out);
+      if (result != 0) {
+        throw new Exception("Converter '$repository.getAttribute("rdf:about")' failed. Execution of other converters from this profile is terminated");
+      }
+#end
+    return result;
+  }
+
+  public static void main(String args[]) throws Exception {
+    GeneratedConverter converter = new GeneratedConverter();
+    converter.run(new PrintWriter(System.out));
+  }
+
+}

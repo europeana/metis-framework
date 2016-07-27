@@ -1,0 +1,3985 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: SA_EC
+Description: Selected fields pulled from Geonames about EC done on Mon May 23 21:15:13 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/3649913/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658195/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-3.68333</wgs:lat>
+	<wgs:long>-79.61667</wgs:long>
+	<skos:prefLabel>Cantón Zaruma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3649914/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12505</europeana:population>
+	<wgs:lat>-3.68333</wgs:lat>
+	<wgs:long>-79.61667</wgs:long>
+	<skos:prefLabel>Zaruma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3649926/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.45</wgs:lat>
+	<wgs:long>-80.05</wgs:long>
+	<skos:prefLabel>Isla Zapotal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3649931/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.71667</wgs:lat>
+	<wgs:long>-80.21667</wgs:long>
+	<skos:altLabel>Isla Zapatero</skos:altLabel>
+	<skos:altLabel>Zapatero</skos:altLabel>
+	<skos:prefLabel>Isla Zapatero</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3649953/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-4.25</wgs:lat>
+	<wgs:long>-78.83333</wgs:long>
+	<skos:altLabel>Provincia Amazónica Zamora-Chinchipe</skos:altLabel>
+	<skos:altLabel>Provincia Amazónica de Zamora-Chinchipe</skos:altLabel>
+	<skos:altLabel>Provincia Santiago Chinchipe</skos:altLabel>
+	<skos:altLabel>Provincia de Zamora Chinchipe</skos:altLabel>
+	<skos:altLabel>Zamora-Chinchipe</skos:altLabel>
+	<skos:prefLabel>Provincia de Zamora Chinchipe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3649958/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3649953/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-4.06667</wgs:lat>
+	<wgs:long>-78.95</wgs:long>
+	<skos:prefLabel>Cantón Zamora</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3649959/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15276</europeana:population>
+	<wgs:lat>-4.06917</wgs:lat>
+	<wgs:long>-78.95667</wgs:long>
+	<skos:prefLabel>Zamora</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3650052/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3649953/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-3.85</wgs:lat>
+	<wgs:long>-78.75</wgs:long>
+	<skos:prefLabel>Cantón Yantzaza</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3650121/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>27947</europeana:population>
+	<wgs:lat>-2.11667</wgs:lat>
+	<wgs:long>-79.68333</wgs:long>
+	<skos:altLabel>Yaguachi</skos:altLabel>
+	<skos:altLabel>Yaguachi Nuevo</skos:altLabel>
+	<skos:prefLabel>Yaguachi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3650124/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3657505/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-2.11677</wgs:lat>
+	<wgs:long>-79.69897</wgs:long>
+	<skos:prefLabel>Cantón Yaguachi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3650141/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3649953/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-3.66667</wgs:lat>
+	<wgs:long>-78.91667</wgs:long>
+	<skos:prefLabel>Cantón Yacuambi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3650147/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.37516</wgs:lat>
+	<wgs:long>-91.8106</wgs:long>
+	<skos:altLabel>Isla Wenman</skos:altLabel>
+	<skos:altLabel>Isla Wenmans</skos:altLabel>
+	<skos:altLabel>Isla Wolf</skos:altLabel>
+	<skos:prefLabel>Isla Wolf</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3650149/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.34801</wgs:lat>
+	<wgs:long>-90.28173</wgs:long>
+	<skos:altLabel>Isla Watson</skos:altLabel>
+	<skos:altLabel>Watson Island</skos:altLabel>
+	<skos:altLabel>Watson Rock</skos:altLabel>
+	<skos:prefLabel>Isla Watson</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3650185/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3654592/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-1.55</wgs:lat>
+	<wgs:long>-79.73333</wgs:long>
+	<skos:prefLabel>Cantón Vinces</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3650186/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>32497</europeana:population>
+	<wgs:lat>-1.55</wgs:lat>
+	<wgs:long>-79.73333</wgs:long>
+	<skos:altLabel>Vinces</skos:altLabel>
+	<skos:prefLabel>Vinces</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3650246/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.66667</wgs:lat>
+	<wgs:long>-79.95</wgs:long>
+	<skos:prefLabel>Isla Verde</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3650264/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3654592/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-1.45</wgs:lat>
+	<wgs:long>-79.46667</wgs:long>
+	<skos:prefLabel>Cantón Ventanas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3650267/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>46708</europeana:population>
+	<wgs:lat>-1.45</wgs:lat>
+	<wgs:long>-79.46667</wgs:long>
+	<skos:prefLabel>Ventanas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3650273/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>48754</europeana:population>
+	<wgs:lat>-1.05</wgs:lat>
+	<wgs:long>-79.61667</wgs:long>
+	<skos:altLabel>El Empalme</skos:altLabel>
+	<skos:altLabel>Empalme</skos:altLabel>
+	<skos:altLabel>Velasco Ibarra</skos:altLabel>
+	<skos:prefLabel>Velasco Ibarra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3650277/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3654451/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-1.26667</wgs:lat>
+	<wgs:long>-80.43333</wgs:long>
+	<skos:altLabel>24 de Mayo</skos:altLabel>
+	<skos:altLabel>Cantón Veinticuatro de Mayo</skos:altLabel>
+	<skos:prefLabel>Cantón Veinticuatro de Mayo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3650312/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11441</europeana:population>
+	<wgs:lat>1.24917</wgs:lat>
+	<wgs:long>-78.98306</wgs:long>
+	<skos:altLabel>Limones</skos:altLabel>
+	<skos:altLabel>Valdez</skos:altLabel>
+	<skos:altLabel>Valdés</skos:altLabel>
+	<skos:prefLabel>Valdez</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3650320/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-3.41667</wgs:lat>
+	<wgs:long>-80.3</wgs:long>
+	<skos:prefLabel>Isla Vacas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3650339/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3830306/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-0.46667</wgs:lat>
+	<wgs:long>-76.96667</wgs:long>
+	<skos:prefLabel>Cantón Urellana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3650340/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3654592/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-1.58333</wgs:lat>
+	<wgs:long>-79.46667</wgs:long>
+	<skos:prefLabel>Cantón Urdaneta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3650347/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3657505/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-1.83333</wgs:lat>
+	<wgs:long>-79.8</wgs:long>
+	<skos:prefLabel>Cantón Urbina Jado</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3650445/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-1.25</wgs:lat>
+	<wgs:long>-78.5</wgs:long>
+	<skos:altLabel>Provincia del Tungurahua</skos:altLabel>
+	<skos:altLabel>Tungurahua</skos:altLabel>
+	<skos:prefLabel>Provincia del Tungurahua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3650471/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3659718/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>0.8</wgs:lat>
+	<wgs:long>-77.73333</wgs:long>
+	<skos:prefLabel>Cantón Tulcán</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3650554/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14680</europeana:population>
+	<wgs:lat>-0.78333</wgs:lat>
+	<wgs:long>-80.25</wgs:long>
+	<skos:altLabel>Tosagua</skos:altLabel>
+	<skos:prefLabel>Tosagua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3650559/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.01667</wgs:lat>
+	<wgs:long>-90.86667</wgs:long>
+	<skos:altLabel>Brattle Island</skos:altLabel>
+	<skos:altLabel>Isla Tortuga</skos:altLabel>
+	<skos:prefLabel>Isla Tortuga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3650692/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.41049</wgs:lat>
+	<wgs:long>-90.62788</wgs:long>
+	<skos:prefLabel>Isla Tiburón</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3650720/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3653890/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-0.98333</wgs:lat>
+	<wgs:long>-77.81667</wgs:long>
+	<skos:altLabel>Cantón Napo</skos:altLabel>
+	<skos:altLabel>Cantón Tena</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tena</skos:altLabel>
+	<skos:prefLabel>Cantón Tena</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3650721/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17172</europeana:population>
+	<wgs:lat>-0.98333</wgs:lat>
+	<wgs:long>-77.81667</wgs:long>
+	<skos:altLabel>Napo</skos:altLabel>
+	<skos:altLabel>San Juan de Tena</skos:altLabel>
+	<skos:altLabel>Tena</skos:altLabel>
+	<skos:prefLabel>Tena</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3650724/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-3.41667</wgs:lat>
+	<wgs:long>-80.23333</wgs:long>
+	<skos:altLabel>Isla Tembleque</skos:altLabel>
+	<skos:altLabel>Tembleque</skos:altLabel>
+	<skos:prefLabel>Isla Tembleque</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3650760/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.4</wgs:lat>
+	<wgs:long>-80.1</wgs:long>
+	<skos:altLabel>Isla La Taza</skos:altLabel>
+	<skos:altLabel>Isla de la Tasa</skos:altLabel>
+	<skos:prefLabel>Isla de la Tasa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3650954/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3830305/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>0.33333</wgs:lat>
+	<wgs:long>-77.41667</wgs:long>
+	<skos:prefLabel>Cantón Sucumbíos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3650955/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3654005/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-2.46667</wgs:lat>
+	<wgs:long>-78.16667</wgs:long>
+	<skos:prefLabel>Cantón Sucúa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3650958/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3654451/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-1.26667</wgs:lat>
+	<wgs:long>-80.43333</wgs:long>
+	<skos:prefLabel>Cantón Sucre</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3650960/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15286</europeana:population>
+	<wgs:lat>-1.26667</wgs:lat>
+	<wgs:long>-80.43333</wgs:long>
+	<skos:prefLabel>Sucre</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3650979/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3654665/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-4.33333</wgs:lat>
+	<wgs:long>-79.78333</wgs:long>
+	<skos:prefLabel>Cantón Sozoranga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3650992/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-3.31667</wgs:lat>
+	<wgs:long>-80.26667</wgs:long>
+	<skos:altLabel>Isla Sombrero</skos:altLabel>
+	<skos:altLabel>Las Delicias</skos:altLabel>
+	<skos:prefLabel>Isla Sombrero</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3651025/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.66879</wgs:lat>
+	<wgs:long>-90.58029</wgs:long>
+	<skos:altLabel>Isla Nameless</skos:altLabel>
+	<skos:altLabel>Isla Namles</skos:altLabel>
+	<skos:altLabel>Isla Sin Nombre</skos:altLabel>
+	<skos:altLabel>Nameless Island</skos:altLabel>
+	<skos:prefLabel>Isla Sin Nombre</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3651043/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.95</wgs:lat>
+	<wgs:long>-79.73333</wgs:long>
+	<skos:prefLabel>Isla Silva</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3651065/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3660431/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-3.01667</wgs:lat>
+	<wgs:long>-78.78333</wgs:long>
+	<skos:prefLabel>Cantón Sigsig</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3651162/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.3901</wgs:lat>
+	<wgs:long>-90.28382</wgs:long>
+	<skos:prefLabel>Isla Seymour</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3651207/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.43333</wgs:lat>
+	<wgs:long>-80.06667</wgs:long>
+	<skos:altLabel>Isla La Seca</skos:altLabel>
+	<skos:altLabel>Isla Seca</skos:altLabel>
+	<skos:altLabel>Isla de La Seca</skos:altLabel>
+	<skos:altLabel>Isla de la Seca</skos:altLabel>
+	<skos:prefLabel>Isla de La Seca</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3651244/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3654665/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-3.65</wgs:lat>
+	<wgs:long>-79.25</wgs:long>
+	<skos:prefLabel>Cantón Saraguro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3651250/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658766/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-0.83333</wgs:lat>
+	<wgs:long>-78.66667</wgs:long>
+	<skos:prefLabel>Cantón Saquisilí</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3651296/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/7062136/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-0.25</wgs:lat>
+	<wgs:long>-79.15</wgs:long>
+	<skos:prefLabel>Cantón Santo Domingo de los Colorados</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3651297/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>200421</europeana:population>
+	<wgs:lat>-0.25</wgs:lat>
+	<wgs:long>-79.15</wgs:long>
+	<skos:altLabel>Santo Domingo</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Santo Domingo</skos:altLabel>
+	<skos:altLabel xml:lang="de">Santo Domingo de los Colorados</skos:altLabel>
+	<skos:altLabel xml:lang="es">Santo Domingo de los Colorados</skos:altLabel>
+	<skos:altLabel xml:lang="it">Santo Domingo de los Colorados</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Santo Domingo de los Colorados</skos:altLabel>
+	<skos:altLabel xml:lang="en">Santo Domingo de los Colorados</skos:altLabel>
+	<skos:altLabel>Santo Domingo de los Colorados</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Санто-Доминго-де-лос-Колорадос</skos:altLabel>
+	<skos:prefLabel>Santo Domingo de los Colorados</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3651317/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3654005/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-2.71667</wgs:lat>
+	<wgs:long>-78.31667</wgs:long>
+	<skos:prefLabel>Cantón Santiago</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3651321/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.23333</wgs:lat>
+	<wgs:long>-79.86667</wgs:long>
+	<skos:prefLabel>Isla Santay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3651352/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.36972</wgs:lat>
+	<wgs:long>-78.90444</wgs:long>
+	<skos:altLabel>Isla Santa Rosa</skos:altLabel>
+	<skos:altLabel>Isla de Santa Rosa</skos:altLabel>
+	<skos:prefLabel>Isla Santa Rosa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3651355/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658195/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-3.43333</wgs:lat>
+	<wgs:long>-79.96667</wgs:long>
+	<skos:prefLabel>Cantón Santa Rosa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3651356/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>41816</europeana:population>
+	<wgs:lat>-3.45</wgs:lat>
+	<wgs:long>-79.96667</wgs:long>
+	<skos:prefLabel>Santa Rosa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3651402/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.29781</wgs:lat>
+	<wgs:long>-90.43023</wgs:long>
+	<skos:altLabel>Charles</skos:altLabel>
+	<skos:altLabel>Isla Carlos</skos:altLabel>
+	<skos:altLabel>Isla Floreana</skos:altLabel>
+	<skos:altLabel>Isla Santa María</skos:altLabel>
+	<skos:prefLabel>Isla Santa María</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3651411/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12523</europeana:population>
+	<wgs:lat>-2.18333</wgs:lat>
+	<wgs:long>-80</wgs:long>
+	<skos:prefLabel>Santa Lucía</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3651417/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3660431/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-3.33333</wgs:lat>
+	<wgs:long>-79.31667</wgs:long>
+	<skos:prefLabel>Cantón Santa Isabel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3651428/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.81667</wgs:lat>
+	<wgs:long>-90.06667</wgs:long>
+	<skos:altLabel>Barrington</skos:altLabel>
+	<skos:altLabel>Isla Santa Fe</skos:altLabel>
+	<skos:prefLabel>Isla Santa Fe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3651436/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/7062138/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-2.23333</wgs:lat>
+	<wgs:long>-80.86667</wgs:long>
+	<skos:prefLabel>Cantón Santa Elena</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3651438/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>42214</europeana:population>
+	<wgs:lat>-2.23333</wgs:lat>
+	<wgs:long>-80.85</wgs:long>
+	<skos:prefLabel>Santa Elena</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3651445/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.61912</wgs:lat>
+	<wgs:long>-90.3382</wgs:long>
+	<skos:altLabel>Indefatigable</skos:altLabel>
+	<skos:altLabel>Isla Chaves</skos:altLabel>
+	<skos:altLabel>Isla Chavez</skos:altLabel>
+	<skos:altLabel>Isla Santa Cruz</skos:altLabel>
+	<skos:altLabel>Isla Santa Cruz Indefatigable</skos:altLabel>
+	<skos:prefLabel>Isla Santa Cruz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3651446/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3657879/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-0.62958</wgs:lat>
+	<wgs:long>-90.33297</wgs:long>
+	<skos:prefLabel>Cantón Santa Cruz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3651455/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-3.16667</wgs:lat>
+	<wgs:long>-80.45</wgs:long>
+	<skos:altLabel>El Muerto</skos:altLabel>
+	<skos:altLabel>Isla Santa Clara</skos:altLabel>
+	<skos:altLabel>Isla del Muerto</skos:altLabel>
+	<skos:prefLabel>Isla Santa Clara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3651481/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.28333</wgs:lat>
+	<wgs:long>-79.93333</wgs:long>
+	<skos:altLabel>Isla Santa Ana</skos:altLabel>
+	<skos:altLabel>Isla Santana</skos:altLabel>
+	<skos:prefLabel>Isla Santa Ana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3651484/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3654451/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-1.21667</wgs:lat>
+	<wgs:long>-80.38333</wgs:long>
+	<skos:prefLabel>Cantón Santa Ana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3651495/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12833</europeana:population>
+	<wgs:lat>-1.21667</wgs:lat>
+	<wgs:long>-80.38333</wgs:long>
+	<skos:prefLabel>Santa Ana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3651510/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.26667</wgs:lat>
+	<wgs:long>-90.7</wgs:long>
+	<skos:altLabel>Isla James</skos:altLabel>
+	<skos:altLabel>Isla Salvador</skos:altLabel>
+	<skos:altLabel>Isla San Salvador</skos:altLabel>
+	<skos:altLabel>Isla Santiago</skos:altLabel>
+	<skos:prefLabel>Isla San Salvador</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3651613/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10838</europeana:population>
+	<wgs:lat>-1.03333</wgs:lat>
+	<wgs:long>-78.56667</wgs:long>
+	<skos:altLabel>Salcedo</skos:altLabel>
+	<skos:altLabel>San Miguel</skos:altLabel>
+	<skos:altLabel>San Miguel de Salcedo</skos:altLabel>
+	<skos:prefLabel>San Miguel de Salcedo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3651621/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3660130/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-1.7</wgs:lat>
+	<wgs:long>-79.03333</wgs:long>
+	<skos:prefLabel>Cantón San Miguel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3651639/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12575</europeana:population>
+	<wgs:lat>-1.7</wgs:lat>
+	<wgs:long>-79.03333</wgs:long>
+	<skos:altLabel>San Miguel</skos:altLabel>
+	<skos:altLabel>San Miguel de Chimbo</skos:altLabel>
+	<skos:prefLabel>San Miguel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3651686/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3657986/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>1.28333</wgs:lat>
+	<wgs:long>-78.83333</wgs:long>
+	<skos:prefLabel>Cantón San Lorenzo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3651694/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20209</europeana:population>
+	<wgs:lat>1.28833</wgs:lat>
+	<wgs:long>-78.83694</wgs:long>
+	<skos:altLabel>Puerto San Lorenzo</skos:altLabel>
+	<skos:altLabel>San Lorenzo</skos:altLabel>
+	<skos:altLabel>San Lorenzo de Esmeraldas</skos:altLabel>
+	<skos:prefLabel>San Lorenzo de Esmeraldas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3651845/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.46667</wgs:lat>
+	<wgs:long>-79.91667</wgs:long>
+	<skos:prefLabel>Isla San Ignacio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3651852/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-3.38333</wgs:lat>
+	<wgs:long>-80.35</wgs:long>
+	<skos:prefLabel>Isla San Gregorio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3651868/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15112</europeana:population>
+	<wgs:lat>0.6</wgs:lat>
+	<wgs:long>-77.81667</wgs:long>
+	<skos:altLabel>Montúfar</skos:altLabel>
+	<skos:altLabel>San Gabriel</skos:altLabel>
+	<skos:prefLabel>San Gabriel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3651946/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.81648</wgs:lat>
+	<wgs:long>-89.42015</wgs:long>
+	<skos:altLabel>Isla Chatham</skos:altLabel>
+	<skos:altLabel>Isla San Cristóbal</skos:altLabel>
+	<skos:prefLabel>Isla San Cristóbal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3651947/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3657879/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-0.83333</wgs:lat>
+	<wgs:long>-89.43333</wgs:long>
+	<skos:prefLabel>Cantón San Cristóbal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3651991/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-3.33333</wgs:lat>
+	<wgs:long>-80.3</wgs:long>
+	<skos:prefLabel>Isla San Antonio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3652064/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3657505/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-1.95</wgs:lat>
+	<wgs:long>-79.73333</wgs:long>
+	<skos:prefLabel>Cantón Samborondón</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3652065/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>24118</europeana:population>
+	<wgs:lat>-1.95</wgs:lat>
+	<wgs:long>-79.73333</wgs:long>
+	<skos:altLabel>Samborondón</skos:altLabel>
+	<skos:altLabel>Samrondón</skos:altLabel>
+	<skos:altLabel>Zamborondón</skos:altLabel>
+	<skos:prefLabel>Samborondón</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3652097/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/7062138/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-2.21667</wgs:lat>
+	<wgs:long>-80.96667</wgs:long>
+	<skos:prefLabel>Cantón Salinas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3652100/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>43862</europeana:population>
+	<wgs:lat>-2.21667</wgs:lat>
+	<wgs:long>-80.96667</wgs:long>
+	<skos:altLabel>Salinas</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Салинас</skos:altLabel>
+	<skos:prefLabel>Salinas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3652108/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658766/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-1.03333</wgs:lat>
+	<wgs:long>-78.6</wgs:long>
+	<skos:prefLabel>Cantón Salcedo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3652121/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.6</wgs:lat>
+	<wgs:long>-80.86667</wgs:long>
+	<skos:prefLabel>Isla Salango</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3652228/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3653224/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-0.33333</wgs:lat>
+	<wgs:long>-78.45</wgs:long>
+	<skos:prefLabel>Cantón Rumiñahui</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3652257/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>42121</europeana:population>
+	<wgs:lat>0.33333</wgs:lat>
+	<wgs:long>-79.46667</wgs:long>
+	<skos:altLabel>Quininde</skos:altLabel>
+	<skos:altLabel>Rosa Zárate</skos:altLabel>
+	<skos:prefLabel>Rosa Zárate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3652312/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3654451/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-0.91667</wgs:lat>
+	<wgs:long>-80.46667</wgs:long>
+	<skos:altLabel>Cantón Rocafuerte</skos:altLabel>
+	<skos:prefLabel>Cantón Rocafuerte</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3652315/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10274</europeana:population>
+	<wgs:lat>-0.91667</wgs:lat>
+	<wgs:long>-80.43333</wgs:long>
+	<skos:prefLabel>Rocafuerte</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3652318/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-3.45</wgs:lat>
+	<wgs:long>-80.23333</wgs:long>
+	<skos:prefLabel>Isla Robato</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3652349/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3659237/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-1.66667</wgs:lat>
+	<wgs:long>-78.63333</wgs:long>
+	<skos:prefLabel>Cantón Riobamba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3652350/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>124478</europeana:population>
+	<wgs:lat>-1.66667</wgs:lat>
+	<wgs:long>-78.63333</wgs:long>
+	<skos:altLabel xml:lang="en">Riobamba</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Riobamba</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Riobamba</skos:altLabel>
+	<skos:altLabel xml:lang="de">Riobamba</skos:altLabel>
+	<skos:altLabel xml:lang="es">Riobamba</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Riobamba</skos:altLabel>
+	<skos:altLabel xml:lang="it">Riobamba</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Riobamba</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Riobamba</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Riobamba</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Riobamba</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Riobamba</skos:altLabel>
+	<skos:altLabel>Riobamba</skos:altLabel>
+	<skos:prefLabel>Riobamba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3652456/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.4051</wgs:lat>
+	<wgs:long>-90.70638</wgs:long>
+	<skos:altLabel>Isla La Rábida</skos:altLabel>
+	<skos:altLabel>Isla Rábida</skos:altLabel>
+	<skos:altLabel>Isla Rábide</skos:altLabel>
+	<skos:altLabel>Jervis</skos:altLabel>
+	<skos:prefLabel>Isla Rábida</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3652461/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3653224/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-0.21667</wgs:lat>
+	<wgs:long>-78.5</wgs:long>
+	<skos:prefLabel>Cantón Quito</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3652462/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>1399814</europeana:population>
+	<wgs:lat>-0.22985</wgs:lat>
+	<wgs:long>-78.52495</wgs:long>
+	<skos:altLabel xml:lang="lt">Kitas</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Kito</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Kito</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Kitu</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Quito</skos:altLabel>
+	<skos:altLabel xml:lang="es">Quito</skos:altLabel>
+	<skos:altLabel xml:lang="de">Quito</skos:altLabel>
+	<skos:altLabel xml:lang="en">Quito</skos:altLabel>
+	<skos:altLabel xml:lang="an">Quito</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Quito</skos:altLabel>
+	<skos:altLabel xml:lang="da">Quito</skos:altLabel>
+	<skos:altLabel xml:lang="et">Quito</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Quito</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Quito</skos:altLabel>
+	<skos:altLabel xml:lang="id">Quito</skos:altLabel>
+	<skos:altLabel xml:lang="it">Quito</skos:altLabel>
+	<skos:altLabel xml:lang="na">Quito</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Quito</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Quito</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Quito</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Quito</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Quito</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Quito</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Quito</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Quito</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Quito</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Quito</skos:altLabel>
+	<skos:altLabel xml:lang="io">Quito</skos:altLabel>
+	<skos:altLabel xml:lang="la">Quito</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Quito</skos:altLabel>
+	<skos:altLabel xml:lang="no">Quito</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Quito</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Quito</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Quito</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Quito</skos:altLabel>
+	<skos:altLabel xml:lang="fr">San Francisco de Quito</skos:altLabel>
+	<skos:altLabel xml:lang="el">Κίτο</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кито</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Кито</skos:altLabel>
+	<skos:altLabel xml:lang="be">Кіта</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Кіто</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Կիտո</skos:altLabel>
+	<skos:altLabel xml:lang="he">קיטו</skos:altLabel>
+	<skos:altLabel xml:lang="ar">كيتو</skos:altLabel>
+	<skos:altLabel xml:lang="th">กีโต</skos:altLabel>
+	<skos:altLabel xml:lang="am">ኪቶ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">キト</skos:altLabel>
+	<skos:altLabel xml:lang="zh">基多</skos:altLabel>
+	<skos:altLabel xml:lang="ko">키토</skos:altLabel>
+	<skos:prefLabel>Quito</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3652499/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3657986/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>0.33333</wgs:lat>
+	<wgs:long>-79.46667</wgs:long>
+	<skos:prefLabel>Cantón Quinindé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3652561/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3653890/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-0.45</wgs:lat>
+	<wgs:long>-77.88333</wgs:long>
+	<skos:prefLabel>Cantón Quijos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3652566/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3654592/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-1.01667</wgs:lat>
+	<wgs:long>-79.48333</wgs:long>
+	<skos:prefLabel>Cantón Quevedo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3652567/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>119436</europeana:population>
+	<wgs:lat>-1.03333</wgs:lat>
+	<wgs:long>-79.45</wgs:long>
+	<skos:prefLabel>Quevedo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3652572/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3650445/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-1.36667</wgs:lat>
+	<wgs:long>-78.6</wgs:long>
+	<skos:prefLabel>Cantón Quero</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3652584/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>24881</europeana:population>
+	<wgs:lat>-1.46667</wgs:lat>
+	<wgs:long>-77.98333</wgs:long>
+	<skos:altLabel>El Puyo</skos:altLabel>
+	<skos:altLabel>Puyo</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Пуйо</skos:altLabel>
+	<skos:prefLabel>Puyo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3652587/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3654665/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-4.01667</wgs:lat>
+	<wgs:long>-80.01667</wgs:long>
+	<skos:prefLabel>Cantón Puyango</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3652592/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3830305/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>0.1</wgs:lat>
+	<wgs:long>-75.85</wgs:long>
+	<skos:prefLabel>Cantón Putumayo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3652659/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.83333</wgs:lat>
+	<wgs:long>-80.13333</wgs:long>
+	<skos:altLabel>Isla Puná</skos:altLabel>
+	<skos:altLabel>La Puná</skos:altLabel>
+	<skos:prefLabel>Isla Puná</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3652683/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658766/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-0.95</wgs:lat>
+	<wgs:long>-78.68333</wgs:long>
+	<skos:prefLabel>Cantón Pujilí</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3652684/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16168</europeana:population>
+	<wgs:lat>-0.95</wgs:lat>
+	<wgs:long>-78.68333</wgs:long>
+	<skos:altLabel>Pajili</skos:altLabel>
+	<skos:altLabel>Pujilí</skos:altLabel>
+	<skos:prefLabel>Pujilí</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3652770/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-3.38333</wgs:lat>
+	<wgs:long>-80.28333</wgs:long>
+	<skos:prefLabel>Isla Puercos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3652785/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3654592/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-1.55</wgs:lat>
+	<wgs:long>-79.53333</wgs:long>
+	<skos:prefLabel>Cantón Puebloviejo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3652871/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.35</wgs:lat>
+	<wgs:long>-79.95</wgs:long>
+	<skos:prefLabel>Isla de la Providencia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3652881/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>95630</europeana:population>
+	<wgs:lat>0.93333</wgs:lat>
+	<wgs:long>-79.68333</wgs:long>
+	<skos:prefLabel>Propicia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3652940/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3654451/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-1.05</wgs:lat>
+	<wgs:long>-80.45</wgs:long>
+	<skos:prefLabel>Cantón Portoviejo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3652941/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>170326</europeana:population>
+	<wgs:lat>-1.05</wgs:lat>
+	<wgs:long>-80.45</wgs:long>
+	<skos:altLabel>Portoviejo</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Портовьехо</skos:altLabel>
+	<skos:prefLabel>Portoviejo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3652942/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658195/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-3.71667</wgs:lat>
+	<wgs:long>-79.61667</wgs:long>
+	<skos:prefLabel>Cantón Portovelo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3652966/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-3.38333</wgs:lat>
+	<wgs:long>-80.16667</wgs:long>
+	<skos:prefLabel>Isla Pongal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3652985/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-3.43333</wgs:lat>
+	<wgs:long>-80.23333</wgs:long>
+	<skos:altLabel>Isla Los Pollos</skos:altLabel>
+	<skos:altLabel>Isla Pollos</skos:altLabel>
+	<skos:altLabel>Pollo</skos:altLabel>
+	<skos:prefLabel>Isla Pollos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3653010/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-0.57706</wgs:lat>
+	<wgs:long>-90.15994</wgs:long>
+	<skos:prefLabel>Islas Plaza</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3653015/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>30564</europeana:population>
+	<wgs:lat>-2.63333</wgs:lat>
+	<wgs:long>-80.38333</wgs:long>
+	<skos:altLabel>General Villamil</skos:altLabel>
+	<skos:altLabel>Playas</skos:altLabel>
+	<skos:altLabel>Villamil</skos:altLabel>
+	<skos:prefLabel>Playas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3653034/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.26667</wgs:lat>
+	<wgs:long>-81.1</wgs:long>
+	<skos:altLabel>Drake’s Isle</skos:altLabel>
+	<skos:altLabel>Isla La Plata</skos:altLabel>
+	<skos:altLabel>Isla Plata</skos:altLabel>
+	<skos:altLabel>Isla de La Plata</skos:altLabel>
+	<skos:altLabel>Isla de la Plata</skos:altLabel>
+	<skos:altLabel>Isle of Plate</skos:altLabel>
+	<skos:prefLabel>Isla de La Plata</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3653087/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.6</wgs:lat>
+	<wgs:long>-90.66667</wgs:long>
+	<skos:altLabel>Duncan</skos:altLabel>
+	<skos:altLabel>Isla Pinzón</skos:altLabel>
+	<skos:prefLabel>Isla Pinzón</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3653096/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.60441</wgs:lat>
+	<wgs:long>-90.75964</wgs:long>
+	<skos:altLabel>Abington</skos:altLabel>
+	<skos:altLabel>Isla Abingdon</skos:altLabel>
+	<skos:altLabel>Isla Abingtoni</skos:altLabel>
+	<skos:altLabel>Isla Pinta</skos:altLabel>
+	<skos:prefLabel>Isla Pinta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3653129/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658195/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-3.66667</wgs:lat>
+	<wgs:long>-79.66667</wgs:long>
+	<skos:prefLabel>Cantón Piñas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3653130/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16981</europeana:population>
+	<wgs:lat>-3.66667</wgs:lat>
+	<wgs:long>-79.65</wgs:long>
+	<skos:altLabel>Piñas</skos:altLabel>
+	<skos:prefLabel>Piñas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3653145/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3655635/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>0.4</wgs:lat>
+	<wgs:long>-77.96667</wgs:long>
+	<skos:prefLabel>Cantón Pimampiro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3653158/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3650445/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-1.16667</wgs:lat>
+	<wgs:long>-78.53333</wgs:long>
+	<skos:prefLabel>Cantón Píllaro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3653224/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-0.08333</wgs:lat>
+	<wgs:long>-78.5</wgs:long>
+	<skos:altLabel>Pichincha</skos:altLabel>
+	<skos:altLabel>Provincia de Pichincha</skos:altLabel>
+	<skos:altLabel>Provincia del Pichincha</skos:altLabel>
+	<skos:prefLabel>Provincia de Pichincha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3653286/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3650445/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-1.31667</wgs:lat>
+	<wgs:long>-78.53333</wgs:long>
+	<skos:prefLabel>Cantón Pelileo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3653287/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16572</europeana:population>
+	<wgs:lat>-1.31667</wgs:lat>
+	<wgs:long>-78.53333</wgs:long>
+	<skos:prefLabel>Pelileo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3653294/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3653224/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>0.05</wgs:lat>
+	<wgs:long>-78.2</wgs:long>
+	<skos:prefLabel>Cantón Pedro Moncayo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3653295/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23372</europeana:population>
+	<wgs:lat>-1.83333</wgs:lat>
+	<wgs:long>-80.23333</wgs:long>
+	<skos:prefLabel>Pedro Carbo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3653319/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-3.4</wgs:lat>
+	<wgs:long>-80.31667</wgs:long>
+	<skos:altLabel>Isla Payana</skos:altLabel>
+	<skos:altLabel>Islote Payana</skos:altLabel>
+	<skos:prefLabel>Isla Payana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3653330/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3660431/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-2.78333</wgs:lat>
+	<wgs:long>-78.73333</wgs:long>
+	<skos:prefLabel>Cantón Paute</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3653370/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3650445/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-1.31667</wgs:lat>
+	<wgs:long>-78.5</wgs:long>
+	<skos:prefLabel>Cantón Patate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3653392/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-1.91667</wgs:lat>
+	<wgs:long>-77</wgs:long>
+	<skos:altLabel>Pastaza</skos:altLabel>
+	<skos:altLabel>Provincia del Pastaza</skos:altLabel>
+	<skos:prefLabel>Provincia del Pastaza</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3653394/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3653392/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-1.75</wgs:lat>
+	<wgs:long>-76.91667</wgs:long>
+	<skos:prefLabel>Cantón Pastaza</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3653402/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658195/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-3.33333</wgs:lat>
+	<wgs:long>-79.81667</wgs:long>
+	<skos:prefLabel>Cantón Pasaje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3653403/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>44860</europeana:population>
+	<wgs:lat>-3.33333</wgs:lat>
+	<wgs:long>-79.81667</wgs:long>
+	<skos:prefLabel>Pasaje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3653474/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658766/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-1.2</wgs:lat>
+	<wgs:long>-79.1</wgs:long>
+	<skos:prefLabel>Cantón Pangua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3653515/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3654665/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-4.06667</wgs:lat>
+	<wgs:long>-79.63333</wgs:long>
+	<skos:prefLabel>Cantón Paltas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3653519/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.51667</wgs:lat>
+	<wgs:long>-80.15</wgs:long>
+	<skos:altLabel>Isla Palo Santo</skos:altLabel>
+	<skos:altLabel>Isla San Pablo</skos:altLabel>
+	<skos:altLabel>Isla de Palo Santo</skos:altLabel>
+	<skos:prefLabel>Isla Palo Santo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3653522/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3654005/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-1.7</wgs:lat>
+	<wgs:long>-77.93333</wgs:long>
+	<skos:prefLabel>Cantón Palora</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3653608/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3654451/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-1.55</wgs:lat>
+	<wgs:long>-80.43333</wgs:long>
+	<skos:prefLabel>Cantón Paján</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3653692/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3655635/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>0.21667</wgs:lat>
+	<wgs:long>-78.26667</wgs:long>
+	<skos:prefLabel>Cantón Otavalo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3653693/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>32330</europeana:population>
+	<wgs:lat>0.23333</wgs:lat>
+	<wgs:long>-78.26667</wgs:long>
+	<skos:altLabel xml:lang="fr">Otavalo</skos:altLabel>
+	<skos:altLabel xml:lang="en">Otavalo</skos:altLabel>
+	<skos:altLabel xml:lang="it">Otavalo</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Otavalo</skos:altLabel>
+	<skos:altLabel xml:lang="es">Otavalo</skos:altLabel>
+	<skos:altLabel xml:lang="de">Otavalo</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Otavalo</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Otavalo</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Otavalo</skos:altLabel>
+	<skos:altLabel>Otavalo</skos:altLabel>
+	<skos:altLabel>Otovalo</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Отавало</skos:altLabel>
+	<skos:prefLabel>Otavalo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3653721/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.19062</wgs:lat>
+	<wgs:long>-90.38997</wgs:long>
+	<skos:altLabel>Isla Onslow</skos:altLabel>
+	<skos:altLabel>Onslow Island</skos:altLabel>
+	<skos:prefLabel>Isla Onslow</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3653786/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.71667</wgs:lat>
+	<wgs:long>-80.13333</wgs:long>
+	<skos:prefLabel>Isla Nueva</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3653872/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3657505/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-2.21667</wgs:lat>
+	<wgs:long>-79.48333</wgs:long>
+	<skos:prefLabel>Cantón Naranjito</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3653873/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>34206</europeana:population>
+	<wgs:lat>-2.21667</wgs:lat>
+	<wgs:long>-79.48333</wgs:long>
+	<skos:prefLabel>Naranjito</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3653880/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3657505/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-2.66667</wgs:lat>
+	<wgs:long>-79.61667</wgs:long>
+	<skos:prefLabel>Cantón Naranjal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3653882/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>32045</europeana:population>
+	<wgs:lat>-2.66667</wgs:lat>
+	<wgs:long>-79.61667</wgs:long>
+	<skos:prefLabel>Naranjal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3653890/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-0.66667</wgs:lat>
+	<wgs:long>-77.83333</wgs:long>
+	<skos:altLabel>Napo</skos:altLabel>
+	<skos:altLabel>Provincia de Napo</skos:altLabel>
+	<skos:prefLabel>Provincia de Napo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3653966/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3657986/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>0.6</wgs:lat>
+	<wgs:long>-80.03333</wgs:long>
+	<skos:prefLabel>Cantón Muisne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3653967/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13393</europeana:population>
+	<wgs:lat>0.6</wgs:lat>
+	<wgs:long>-80.03333</wgs:long>
+	<skos:prefLabel>Muisne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3654005/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-2.5</wgs:lat>
+	<wgs:long>-77.75</wgs:long>
+	<skos:altLabel>Morona-Santiago</skos:altLabel>
+	<skos:altLabel>Provincia Santiago Morona</skos:altLabel>
+	<skos:altLabel>Provincia de Morona Santiago</skos:altLabel>
+	<skos:prefLabel>Provincia de Morona Santiago</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3654006/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3654005/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-2.31667</wgs:lat>
+	<wgs:long>-78.1</wgs:long>
+	<skos:altLabel>Cantón Macas</skos:altLabel>
+	<skos:altLabel>Cantón Morona</skos:altLabel>
+	<skos:prefLabel>Cantón Morona</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3654038/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3659718/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>0.6</wgs:lat>
+	<wgs:long>-77.83333</wgs:long>
+	<skos:prefLabel>Cantón Montúfar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3654054/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3654451/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-1.05</wgs:lat>
+	<wgs:long>-80.68333</wgs:long>
+	<skos:prefLabel>Cantón Montecristi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3654055/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18351</europeana:population>
+	<wgs:lat>-1.05</wgs:lat>
+	<wgs:long>-80.66667</wgs:long>
+	<skos:prefLabel>Montecristi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3654064/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15547</europeana:population>
+	<wgs:lat>-1.8</wgs:lat>
+	<wgs:long>-79.33333</wgs:long>
+	<skos:prefLabel>Montalvo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3654088/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.58333</wgs:lat>
+	<wgs:long>-79.83333</wgs:long>
+	<skos:altLabel>Isla Mandragón</skos:altLabel>
+	<skos:altLabel>Isla Mondragón</skos:altLabel>
+	<skos:prefLabel>Isla Mondragón</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3654130/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-2.61667</wgs:lat>
+	<wgs:long>-80.06667</wgs:long>
+	<skos:prefLabel>Moguiñaña</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3654134/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.1</wgs:lat>
+	<wgs:long>-79.85</wgs:long>
+	<skos:prefLabel>Isla Mocolí</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3654172/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3659718/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>0.55</wgs:lat>
+	<wgs:long>-78.03333</wgs:long>
+	<skos:prefLabel>Cantón Mira</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3654185/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>-3.31667</wgs:lat>
+	<wgs:long>-79.4</wgs:long>
+	<skos:prefLabel>Ruinas de Minas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3654213/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3657505/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-2.16667</wgs:lat>
+	<wgs:long>-79.6</wgs:long>
+	<skos:prefLabel>Cantón Milagro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3654246/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3653392/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-1.46667</wgs:lat>
+	<wgs:long>-78.13333</wgs:long>
+	<skos:prefLabel>Cantón Mera</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3654259/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3653224/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-0.5</wgs:lat>
+	<wgs:long>-78.56667</wgs:long>
+	<skos:prefLabel>Cantón Mejía</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3654273/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.46667</wgs:lat>
+	<wgs:long>-79.83333</wgs:long>
+	<skos:altLabel>Isla Matorillos</skos:altLabel>
+	<skos:altLabel>Isla Matorrillos</skos:altLabel>
+	<skos:prefLabel>Isla Matorrillos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3654320/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.33333</wgs:lat>
+	<wgs:long>-79.83333</wgs:long>
+	<skos:altLabel>Isla Masa</skos:altLabel>
+	<skos:altLabel>Isla de Masa</skos:altLabel>
+	<skos:prefLabel>Isla Masa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3654335/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.59768</wgs:lat>
+	<wgs:long>-91.08853</wgs:long>
+	<skos:prefLabel>Isla Mariela</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3654365/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.31667</wgs:lat>
+	<wgs:long>-90.48333</wgs:long>
+	<skos:altLabel>Bindloe</skos:altLabel>
+	<skos:altLabel>Isla Marchena</skos:altLabel>
+	<skos:prefLabel>Isla Marchena</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3654408/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3654451/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-0.95</wgs:lat>
+	<wgs:long>-80.73333</wgs:long>
+	<skos:prefLabel>Cantón Manta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3654410/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>183166</europeana:population>
+	<wgs:lat>-0.95</wgs:lat>
+	<wgs:long>-80.73333</wgs:long>
+	<skos:altLabel xml:lang="en">Manta</skos:altLabel>
+	<skos:altLabel xml:lang="no">Manta</skos:altLabel>
+	<skos:altLabel xml:lang="de">Manta</skos:altLabel>
+	<skos:altLabel xml:lang="es">Manta</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Manta</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Manta</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Manta</skos:altLabel>
+	<skos:altLabel>Manta</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Manta Ecuador</skos:altLabel>
+	<skos:altLabel>Puerto de Manta</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Манта</skos:altLabel>
+	<skos:prefLabel>Manta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3654420/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-2.66667</wgs:lat>
+	<wgs:long>-80.16667</wgs:long>
+	<skos:altLabel>Isla Manglecitos</skos:altLabel>
+	<skos:altLabel>Islas Manglecito</skos:altLabel>
+	<skos:altLabel>Manglesito</skos:altLabel>
+	<skos:prefLabel>Islas Manglecito</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3654451/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-0.66667</wgs:lat>
+	<wgs:long>-80.08333</wgs:long>
+	<skos:altLabel>Manabí</skos:altLabel>
+	<skos:altLabel>Provincia de Manabí</skos:altLabel>
+	<skos:prefLabel>Provincia de Manabí</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3654485/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.63333</wgs:lat>
+	<wgs:long>-79.8</wgs:long>
+	<skos:prefLabel>Isla Malabrigo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3654486/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.41667</wgs:lat>
+	<wgs:long>-79.93333</wgs:long>
+	<skos:prefLabel>Malabrigo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3654532/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658195/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-3.26667</wgs:lat>
+	<wgs:long>-79.95</wgs:long>
+	<skos:prefLabel>Cantón Machala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3654533/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>198123</europeana:population>
+	<wgs:lat>-3.26667</wgs:lat>
+	<wgs:long>-79.96667</wgs:long>
+	<skos:altLabel xml:lang="id">Machala</skos:altLabel>
+	<skos:altLabel xml:lang="en">Machala</skos:altLabel>
+	<skos:altLabel xml:lang="de">Machala</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Machala</skos:altLabel>
+	<skos:altLabel xml:lang="na">Machala</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Machala</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Machala</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Machala</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Machala</skos:altLabel>
+	<skos:altLabel xml:lang="it">Machala</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Machala</skos:altLabel>
+	<skos:altLabel>Machala</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Мачала</skos:altLabel>
+	<skos:altLabel xml:lang="fa">ماچالا</skos:altLabel>
+	<skos:prefLabel>Machala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3654536/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>25742</europeana:population>
+	<wgs:lat>-0.5</wgs:lat>
+	<wgs:long>-78.56667</wgs:long>
+	<skos:altLabel>Ciudad de Machachi</skos:altLabel>
+	<skos:altLabel>Machache</skos:altLabel>
+	<skos:altLabel>Machachi</skos:altLabel>
+	<skos:prefLabel>Machachi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3654541/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23687</europeana:population>
+	<wgs:lat>-2.31667</wgs:lat>
+	<wgs:long>-78.11667</wgs:long>
+	<skos:prefLabel>Macas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3654544/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3654665/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-4.38333</wgs:lat>
+	<wgs:long>-79.95</wgs:long>
+	<skos:prefLabel>Cantón Macará</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3654545/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13035</europeana:population>
+	<wgs:lat>-4.38333</wgs:lat>
+	<wgs:long>-79.95</wgs:long>
+	<skos:prefLabel>Macará</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3654592/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-1.41667</wgs:lat>
+	<wgs:long>-79.58333</wgs:long>
+	<skos:altLabel>Los Ríos</skos:altLabel>
+	<skos:altLabel>Provincia de Los Ríos</skos:altLabel>
+	<skos:prefLabel>Provincia de Los Ríos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3654611/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-2.71667</wgs:lat>
+	<wgs:long>-80.21667</wgs:long>
+	<skos:altLabel>Farallones</skos:altLabel>
+	<skos:altLabel>Los Farallones</skos:altLabel>
+	<skos:prefLabel>Los Farallones</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3654665/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-4.16667</wgs:lat>
+	<wgs:long>-79.5</wgs:long>
+	<skos:altLabel>Loja</skos:altLabel>
+	<skos:altLabel>Provincia de Loja</skos:altLabel>
+	<skos:prefLabel>Provincia de Loja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3654666/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3654665/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-4</wgs:lat>
+	<wgs:long>-79.2</wgs:long>
+	<skos:prefLabel>Cantón Loja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3654667/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>117796</europeana:population>
+	<wgs:lat>-3.99313</wgs:lat>
+	<wgs:long>-79.20422</wgs:long>
+	<skos:altLabel xml:lang="fr">Loja</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Loja</skos:altLabel>
+	<skos:altLabel xml:lang="en">Loja</skos:altLabel>
+	<skos:altLabel xml:lang="it">Loja</skos:altLabel>
+	<skos:altLabel xml:lang="es">Loja</skos:altLabel>
+	<skos:altLabel xml:lang="de">Loja</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Loja</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Лоха</skos:altLabel>
+	<skos:prefLabel>Loja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3654676/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.84592</wgs:lat>
+	<wgs:long>-89.55954</wgs:long>
+	<skos:altLabel>Isla Foche</skos:altLabel>
+	<skos:altLabel>Isla Lobos</skos:altLabel>
+	<skos:altLabel>Lobos</skos:altLabel>
+	<skos:altLabel>Lobos Island</skos:altLabel>
+	<skos:prefLabel>Isla Lobos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3654737/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3654005/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-2.96667</wgs:lat>
+	<wgs:long>-78.41667</wgs:long>
+	<skos:prefLabel>Cantón Limón Indanza</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3654853/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>36353</europeana:population>
+	<wgs:lat>-2.4</wgs:lat>
+	<wgs:long>-79.33333</wgs:long>
+	<skos:prefLabel>La Troncal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3654860/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.16667</wgs:lat>
+	<wgs:long>-78.98333</wgs:long>
+	<skos:altLabel>Isla de La Tola</skos:altLabel>
+	<skos:altLabel>Isla de Tola</skos:altLabel>
+	<skos:altLabel>La Tola</skos:altLabel>
+	<skos:altLabel>La Tolita Island</skos:altLabel>
+	<skos:prefLabel>Isla de La Tola</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3654869/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658766/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-0.93333</wgs:lat>
+	<wgs:long>-78.61667</wgs:long>
+	<skos:prefLabel>Cantón Latacunga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3654870/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>51717</europeana:population>
+	<wgs:lat>-0.93333</wgs:lat>
+	<wgs:long>-78.61667</wgs:long>
+	<skos:altLabel xml:lang="fr">Latacunga</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Latacunga</skos:altLabel>
+	<skos:altLabel xml:lang="de">Latacunga</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Latacunga</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Latacunga</skos:altLabel>
+	<skos:altLabel xml:lang="es">Latacunga</skos:altLabel>
+	<skos:altLabel xml:lang="en">Latacunga</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Latacunga</skos:altLabel>
+	<skos:altLabel xml:lang="it">Latacunga</skos:altLabel>
+	<skos:altLabel>Latacunga</skos:altLabel>
+	<skos:prefLabel>Latacunga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3654967/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.4</wgs:lat>
+	<wgs:long>-79.96667</wgs:long>
+	<skos:prefLabel>Isla Las Cojas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3655002/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.05</wgs:lat>
+	<wgs:long>-75.45</wgs:long>
+	<skos:altLabel>Isla La Reforma</skos:altLabel>
+	<skos:altLabel>Isla Reforma</skos:altLabel>
+	<skos:altLabel>La Reforma</skos:altLabel>
+	<skos:prefLabel>Isla La Reforma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3655117/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16450</europeana:population>
+	<wgs:lat>-0.93333</wgs:lat>
+	<wgs:long>-79.21667</wgs:long>
+	<skos:prefLabel>La Maná</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3655131/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>75881</europeana:population>
+	<wgs:lat>-2.23333</wgs:lat>
+	<wgs:long>-80.9</wgs:long>
+	<skos:altLabel>La Libertad</skos:altLabel>
+	<skos:prefLabel>La Libertad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3655184/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3830305/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>0.1</wgs:lat>
+	<wgs:long>-76.86667</wgs:long>
+	<skos:prefLabel>Cantón Lago Agrio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3655185/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>24211</europeana:population>
+	<wgs:lat>0.08472</wgs:lat>
+	<wgs:long>-76.88278</wgs:long>
+	<skos:altLabel>Lago Agrio</skos:altLabel>
+	<skos:altLabel>Nueva Loja</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Нуэва-Лоха</skos:altLabel>
+	<skos:prefLabel>Nueva Loja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3655324/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.51667</wgs:lat>
+	<wgs:long>-80.18333</wgs:long>
+	<skos:altLabel>Isla La Campana</skos:altLabel>
+	<skos:altLabel>Isla de La Campana</skos:altLabel>
+	<skos:prefLabel>Isla de La Campana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3655337/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.4</wgs:lat>
+	<wgs:long>-79.95</wgs:long>
+	<skos:altLabel>Bocanita</skos:altLabel>
+	<skos:altLabel>Isla La Bocanita</skos:altLabel>
+	<skos:prefLabel>Isla La Bocanita</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3655383/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3654451/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-0.91667</wgs:lat>
+	<wgs:long>-80.21667</wgs:long>
+	<skos:prefLabel>Cantón Junín</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3655445/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3654451/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-1.35</wgs:lat>
+	<wgs:long>-80.58333</wgs:long>
+	<skos:prefLabel>Cantón Jipijapa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3655446/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>35901</europeana:population>
+	<wgs:lat>-1.33333</wgs:lat>
+	<wgs:long>-80.58333</wgs:long>
+	<skos:prefLabel>Jipijapa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3655510/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-3.33333</wgs:lat>
+	<wgs:long>-80.06667</wgs:long>
+	<skos:prefLabel>Isla Jambelí</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3655571/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.5</wgs:lat>
+	<wgs:long>-91.06667</wgs:long>
+	<skos:altLabel>Isabela Islands</skos:altLabel>
+	<skos:altLabel>Isla Albemarle</skos:altLabel>
+	<skos:altLabel>Isla Isabela</skos:altLabel>
+	<skos:prefLabel>Isla Isabela</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3655572/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3657879/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-0.48788</wgs:lat>
+	<wgs:long>-91.06709</wgs:long>
+	<skos:prefLabel>Cantón Isabela</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3655591/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.58333</wgs:lat>
+	<wgs:long>-79.76667</wgs:long>
+	<skos:altLabel>Isla Los Ingleses</skos:altLabel>
+	<skos:altLabel>Isla de los Ingleses</skos:altLabel>
+	<skos:prefLabel>Isla de los Ingleses</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3655635/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>0.36667</wgs:lat>
+	<wgs:long>-78.41667</wgs:long>
+	<skos:altLabel>Imbabura</skos:altLabel>
+	<skos:altLabel>Provincia de Imbabura</skos:altLabel>
+	<skos:altLabel>Provincia del Imbabura</skos:altLabel>
+	<skos:prefLabel>Provincia de Imbabura</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3655672/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3655635/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>0.18333</wgs:lat>
+	<wgs:long>-78.11667</wgs:long>
+	<skos:prefLabel>Cantón Ibarra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3655673/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>108666</europeana:population>
+	<wgs:lat>0.35</wgs:lat>
+	<wgs:long>-78.11667</wgs:long>
+	<skos:altLabel xml:lang="en">Ibarra</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Ibarra</skos:altLabel>
+	<skos:altLabel xml:lang="de">Ibarra</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Ibarra</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Ibarra</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Ibarra</skos:altLabel>
+	<skos:altLabel xml:lang="it">Ibarra</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Ibarra</skos:altLabel>
+	<skos:altLabel>Ibarra</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ибарра</skos:altLabel>
+	<skos:prefLabel>Ibarra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3655719/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658195/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-3.48333</wgs:lat>
+	<wgs:long>-80.23333</wgs:long>
+	<skos:prefLabel>Cantón Huaquillas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3655720/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>39757</europeana:population>
+	<wgs:lat>-3.48333</wgs:lat>
+	<wgs:long>-80.23333</wgs:long>
+	<skos:prefLabel>Huaquillas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3655822/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-0.8565</wgs:lat>
+	<wgs:long>-90.77167</wgs:long>
+	<skos:altLabel>Grosman</skos:altLabel>
+	<skos:altLabel>Isla Los Hermanos</skos:altLabel>
+	<skos:altLabel>Islas Croosman</skos:altLabel>
+	<skos:altLabel>Islas Crossman</skos:altLabel>
+	<skos:altLabel>Islas los Hermanos</skos:altLabel>
+	<skos:prefLabel>Isla Los Hermanos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3657431/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.51255</wgs:lat>
+	<wgs:long>-90.5219</wgs:long>
+	<skos:prefLabel>Isla Guy Fawkes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3657505/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-2</wgs:lat>
+	<wgs:long>-79.83333</wgs:long>
+	<skos:altLabel>Guayas</skos:altLabel>
+	<skos:altLabel>Provincia del Guayas</skos:altLabel>
+	<skos:prefLabel>Provincia del Guayas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3657508/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3657505/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-2.2</wgs:lat>
+	<wgs:long>-79.88333</wgs:long>
+	<skos:prefLabel>Cantón Guayaquil</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3657509/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>1952029</europeana:population>
+	<wgs:lat>-2.16667</wgs:lat>
+	<wgs:long>-79.9</wgs:long>
+	<skos:altLabel xml:lang="id">Guayaquil</skos:altLabel>
+	<skos:altLabel xml:lang="de">Guayaquil</skos:altLabel>
+	<skos:altLabel xml:lang="es">Guayaquil</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Guayaquil</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Guayaquil</skos:altLabel>
+	<skos:altLabel xml:lang="na">Guayaquil</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Guayaquil</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Guayaquil</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Guayaquil</skos:altLabel>
+	<skos:altLabel xml:lang="en">Guayaquil</skos:altLabel>
+	<skos:altLabel xml:lang="an">Guayaquil</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Guayaquil</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Guayaquil</skos:altLabel>
+	<skos:altLabel xml:lang="it">Guayaquil</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Guayaquil</skos:altLabel>
+	<skos:altLabel xml:lang="no">Guayaquil</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Guayaquil</skos:altLabel>
+	<skos:altLabel xml:lang="io">Guayaquil</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Guayaquil</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Guayaquil</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Guayaquil</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Guayaquil</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Guayaquil</skos:altLabel>
+	<skos:altLabel>Guayaquil</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Gvajakila</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Gvajakilis</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Wayakil</skos:altLabel>
+	<skos:altLabel xml:lang="el">Γουαγιακίλ</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Гвајакил</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гуаякиль</skos:altLabel>
+	<skos:altLabel xml:lang="be">Ґуаякіль</skos:altLabel>
+	<skos:altLabel xml:lang="ar">غواياكيل</skos:altLabel>
+	<skos:altLabel xml:lang="ja">グアヤキル</skos:altLabel>
+	<skos:prefLabel>Guayaquil</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3657570/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3660130/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-1.6</wgs:lat>
+	<wgs:long>-79</wgs:long>
+	<skos:prefLabel>Cantón Guaranda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3657571/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>22199</europeana:population>
+	<wgs:lat>-1.6</wgs:lat>
+	<wgs:long>-79</wgs:long>
+	<skos:altLabel xml:lang="fr">Guaranda</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Guaranda</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Guaranda</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Guaranda</skos:altLabel>
+	<skos:altLabel xml:lang="de">Guaranda</skos:altLabel>
+	<skos:altLabel xml:lang="en">Guaranda</skos:altLabel>
+	<skos:altLabel xml:lang="it">Guaranda</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Guaranda</skos:altLabel>
+	<skos:altLabel>Guaranda</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гуаранда</skos:altLabel>
+	<skos:prefLabel>Guaranda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3657593/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3659237/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-1.6</wgs:lat>
+	<wgs:long>-78.63333</wgs:long>
+	<skos:prefLabel>Cantón Guano</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3657594/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12659</europeana:population>
+	<wgs:lat>-1.58333</wgs:lat>
+	<wgs:long>-78.63333</wgs:long>
+	<skos:prefLabel>Guano</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3657620/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3659237/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-1.93333</wgs:lat>
+	<wgs:long>-78.71667</wgs:long>
+	<skos:prefLabel>Cantón Guamote</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3657660/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3654005/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-3.4</wgs:lat>
+	<wgs:long>-78.58333</wgs:long>
+	<skos:prefLabel>Cantón Gualaquiza</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3657669/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3660431/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-2.9</wgs:lat>
+	<wgs:long>-78.78333</wgs:long>
+	<skos:prefLabel>Cantón Gualaceo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3657670/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17122</europeana:population>
+	<wgs:lat>-2.9</wgs:lat>
+	<wgs:long>-78.78333</wgs:long>
+	<skos:altLabel>Gualaceo</skos:altLabel>
+	<skos:prefLabel>Gualaceo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3657721/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658195/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-3.25</wgs:lat>
+	<wgs:long>-79.85</wgs:long>
+	<skos:prefLabel>Cantón Guabo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3657777/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3654665/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-4.25</wgs:lat>
+	<wgs:long>-79.45</wgs:long>
+	<skos:prefLabel>Cantón Gonzanamá</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3657793/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3660431/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-3.2</wgs:lat>
+	<wgs:long>-79.15</wgs:long>
+	<skos:prefLabel>Cantón Girón</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3657808/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.32572</wgs:lat>
+	<wgs:long>-89.95336</wgs:long>
+	<skos:altLabel>Isla Genovesa</skos:altLabel>
+	<skos:altLabel>Tower Island</skos:altLabel>
+	<skos:prefLabel>Isla Genovesa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3657818/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.53333</wgs:lat>
+	<wgs:long>-80.16667</wgs:long>
+	<skos:prefLabel>Isla Gavilán</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3657821/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-3.4</wgs:lat>
+	<wgs:long>-80.18333</wgs:long>
+	<skos:prefLabel>Isla Gato</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3657833/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.3336</wgs:lat>
+	<wgs:long>-89.63503</wgs:long>
+	<skos:altLabel>Isla El Jardinero</skos:altLabel>
+	<skos:altLabel>Isla Gardner</skos:altLabel>
+	<skos:prefLabel>Isla Gardner</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3657834/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.32239</wgs:lat>
+	<wgs:long>-90.28853</wgs:long>
+	<skos:altLabel>Isla El Jardinero</skos:altLabel>
+	<skos:altLabel>Isla Gardner</skos:altLabel>
+	<skos:prefLabel>Isla Gardner</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3657879/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>0</wgs:lat>
+	<wgs:long>-90.5</wgs:long>
+	<skos:altLabel>Archipiélago de Colón</skos:altLabel>
+	<skos:altLabel>Archipiélago de Galápagos</skos:altLabel>
+	<skos:altLabel>Galápagos</skos:altLabel>
+	<skos:altLabel>Provincia Insular de Galápagos</skos:altLabel>
+	<skos:altLabel>Provincia de Galápagos</skos:altLabel>
+	<skos:altLabel>Territorio de Galápagos</skos:altLabel>
+	<skos:prefLabel>Provincia de Galápagos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3657907/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.88333</wgs:lat>
+	<wgs:long>-79.6</wgs:long>
+	<skos:prefLabel>Isla de Flores</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3657927/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.41667</wgs:lat>
+	<wgs:long>-91.5</wgs:long>
+	<skos:altLabel>Isla Fernandina</skos:altLabel>
+	<skos:altLabel>Narborough Island</skos:altLabel>
+	<skos:prefLabel>Isla Fernandina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3657967/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3654665/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-4.6</wgs:lat>
+	<wgs:long>-79.41667</wgs:long>
+	<skos:prefLabel>Cantón Espindola</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3657972/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.33333</wgs:lat>
+	<wgs:long>-79.93333</wgs:long>
+	<skos:altLabel>Isla Esperanza</skos:altLabel>
+	<skos:altLabel>Isla de La Esperanza</skos:altLabel>
+	<skos:altLabel>Isla de la Esperanza</skos:altLabel>
+	<skos:prefLabel>Isla de La Esperanza</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3657981/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3659718/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>0.61667</wgs:lat>
+	<wgs:long>-77.93333</wgs:long>
+	<skos:prefLabel>Cantón Espejo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3657983/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.38333</wgs:lat>
+	<wgs:long>-89.65</wgs:long>
+	<skos:altLabel>Isla Española</skos:altLabel>
+	<skos:altLabel>Isla Hood</skos:altLabel>
+	<skos:altLabel>Ispañola</skos:altLabel>
+	<skos:prefLabel>Isla Española</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3657986/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>0.83333</wgs:lat>
+	<wgs:long>-79.25</wgs:long>
+	<skos:altLabel>Esmeraldas</skos:altLabel>
+	<skos:altLabel>Provincia de Esmeraldas</skos:altLabel>
+	<skos:prefLabel>Provincia de Esmeraldas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3657987/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3657986/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>0.96667</wgs:lat>
+	<wgs:long>-79.65</wgs:long>
+	<skos:prefLabel>Cantón Esmeraldas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3658002/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.55</wgs:lat>
+	<wgs:long>-80</wgs:long>
+	<skos:altLabel>Isla Escalante</skos:altLabel>
+	<skos:altLabel>Isla Escalantes</skos:altLabel>
+	<skos:prefLabel>Isla Escalante</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3658032/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.22356</wgs:lat>
+	<wgs:long>-90.35493</wgs:long>
+	<skos:prefLabel>Isla Enderby</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3658053/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>32282</europeana:population>
+	<wgs:lat>-1.93333</wgs:lat>
+	<wgs:long>-79.96667</wgs:long>
+	<skos:prefLabel>El Triunfo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3658180/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.9</wgs:lat>
+	<wgs:long>-80.83333</wgs:long>
+	<skos:altLabel>Isla El Pelado</skos:altLabel>
+	<skos:altLabel>Isla Pelado</skos:altLabel>
+	<skos:altLabel>Islote El Pelado</skos:altLabel>
+	<skos:prefLabel>Islote El Pelado</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3658191/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3657986/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>1.25</wgs:lat>
+	<wgs:long>-79</wgs:long>
+	<skos:prefLabel>Cantón Eloy Alfaro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3658192/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>167784</europeana:population>
+	<wgs:lat>-2.2</wgs:lat>
+	<wgs:long>-79.83333</wgs:long>
+	<skos:altLabel>Alfaro</skos:altLabel>
+	<skos:altLabel xml:lang="de">Durán</skos:altLabel>
+	<skos:altLabel xml:lang="en">Durán</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Durán</skos:altLabel>
+	<skos:altLabel>Durán</skos:altLabel>
+	<skos:altLabel>Eloy alfaro</skos:altLabel>
+	<skos:prefLabel>Durán</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3658195/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-3.5</wgs:lat>
+	<wgs:long>-79.83333</wgs:long>
+	<skos:altLabel>El Oro</skos:altLabel>
+	<skos:altLabel>Provincia de El Oro</skos:altLabel>
+	<skos:prefLabel>Provincia de El Oro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3658266/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3657505/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-1.05</wgs:lat>
+	<wgs:long>-79.61667</wgs:long>
+	<skos:prefLabel>Cantón El Empalme</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3658324/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3654451/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-0.26667</wgs:lat>
+	<wgs:long>-79.43333</wgs:long>
+	<skos:prefLabel>Cantón El Carmen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3658393/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.55637</wgs:lat>
+	<wgs:long>-90.53323</wgs:long>
+	<skos:altLabel>Isla Edén</skos:altLabel>
+	<skos:altLabel>Isla El Edén</skos:altLabel>
+	<skos:prefLabel>Isla Edén</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3658394/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255150/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>14790608</europeana:population>
+	<wgs:lat>-2</wgs:lat>
+	<wgs:long>-77.5</wgs:long>
+	<skos:altLabel>EC</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Eacuadór</skos:altLabel>
+	<skos:altLabel xml:lang="es">Ecuador</skos:altLabel>
+	<skos:altLabel xml:lang="da">Ecuador</skos:altLabel>
+	<skos:altLabel xml:lang="et">Ecuador</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Ecuador</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ecuador</skos:altLabel>
+	<skos:altLabel xml:lang="it">Ecuador</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Ecuador</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Ecuador</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Ecuador</skos:altLabel>
+	<skos:altLabel xml:lang="de">Ecuador</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Ecuador</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Ecuador</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Ecuador</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Ecuador</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Ecuador</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Ecuador</skos:altLabel>
+	<skos:altLabel xml:lang="se">Ecuador</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Ecwador</skos:altLabel>
+	<skos:altLabel xml:lang="id">Ekuador</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Ekuador</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Ekuator</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Ekvado</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Ekvador</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Ekvador</skos:altLabel>
+	<skos:altLabel xml:lang="is">Ekvador</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Ekvador</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Ekvadora</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Ekvadoras</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Ekvadoro</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Ekvator</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Ekvádor</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Ekvádor</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Ekvádor</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Ekwador</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Ekwador</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Equador</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Equador</skos:altLabel>
+	<skos:altLabel xml:lang="so">Ikwadoor</skos:altLabel>
+	<skos:altLabel xml:lang="en">Republic of Ecuador</skos:altLabel>
+	<skos:altLabel xml:lang="es">República del Ecuador</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Équateur</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ê-cu-a-đo</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ê-qu-a-đo (Ecuador)</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ισημερινός</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Еквадор</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Еквадор</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Еквадор</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Еквадор</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Эквадор</skos:altLabel>
+	<skos:altLabel xml:lang="be">Эквадор</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Էկվադոր</skos:altLabel>
+	<skos:altLabel xml:lang="he">אקוואדור</skos:altLabel>
+	<skos:altLabel xml:lang="he">אקוודור</skos:altLabel>
+	<skos:altLabel xml:lang="ar">اكوادور</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الاكوادور</skos:altLabel>
+	<skos:altLabel xml:lang="fa">اکوادر</skos:altLabel>
+	<skos:altLabel xml:lang="ur">ایکواڈور</skos:altLabel>
+	<skos:altLabel xml:lang="hi">इक्वाडोर</skos:altLabel>
+	<skos:altLabel xml:lang="bn">ইকুয়াডর</skos:altLabel>
+	<skos:altLabel xml:lang="bn">ইকোয়াডর</skos:altLabel>
+	<skos:altLabel xml:lang="ta">ஈக்வடார்</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ഇക്വഡോര്‍</skos:altLabel>
+	<skos:altLabel xml:lang="th">เอกวาดอร์</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ເອກວາດໍ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཨི་ཁྭ་ཌོར།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ეკვადორი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ኢኳዶር</skos:altLabel>
+	<skos:altLabel xml:lang="km">អេក្វាឌ័រ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">エクアドル</skos:altLabel>
+	<skos:altLabel xml:lang="ja">エクアドル共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">厄瓜多尔</skos:altLabel>
+	<skos:altLabel xml:lang="ko">에쿠아도르</skos:altLabel>
+	<skos:prefLabel>Republic of Ecuador</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3658498/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3657505/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-1.85</wgs:lat>
+	<wgs:long>-79.96667</wgs:long>
+	<skos:prefLabel>Cantón Daule</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3658510/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.65</wgs:lat>
+	<wgs:long>-92</wgs:long>
+	<skos:altLabel>Isla Culpepper</skos:altLabel>
+	<skos:altLabel>Isla Darwin</skos:altLabel>
+	<skos:prefLabel>Isla Darwin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3658513/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-0.40997</wgs:lat>
+	<wgs:long>-90.36382</wgs:long>
+	<skos:prefLabel>Islas Daphne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3658665/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3660431/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-2.9</wgs:lat>
+	<wgs:long>-78.98333</wgs:long>
+	<skos:prefLabel>Cantón Cuenca</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3658666/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>276964</europeana:population>
+	<wgs:lat>-2.88333</wgs:lat>
+	<wgs:long>-78.98333</wgs:long>
+	<skos:altLabel xml:lang="es">Cuenca</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Cuenca</skos:altLabel>
+	<skos:altLabel xml:lang="en">Cuenca</skos:altLabel>
+	<skos:altLabel xml:lang="it">Cuenca</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Cuenca</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Cuenca</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Cuenca</skos:altLabel>
+	<skos:altLabel xml:lang="de">Cuenca</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Cuenca</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Cuenca</skos:altLabel>
+	<skos:altLabel xml:lang="na">Cuenca</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Cuenca</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Cuenca</skos:altLabel>
+	<skos:altLabel>Cuenca</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Куэнка</skos:altLabel>
+	<skos:prefLabel>Cuenca</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3658758/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.36667</wgs:lat>
+	<wgs:long>-90.96667</wgs:long>
+	<skos:prefLabel>Isla Cowley</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3658766/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-0.83333</wgs:lat>
+	<wgs:long>-78.83333</wgs:long>
+	<skos:altLabel>Cotopaxi</skos:altLabel>
+	<skos:altLabel>Provincia de Cotopaxi</skos:altLabel>
+	<skos:altLabel>Provincia de León</skos:altLabel>
+	<skos:altLabel>Provincia del Cotopaxi</skos:altLabel>
+	<skos:prefLabel>Provincia de Cotopaxi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3658780/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3655635/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>0.3</wgs:lat>
+	<wgs:long>-78.26667</wgs:long>
+	<skos:prefLabel>Cantón Cotacachi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3658919/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3659237/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-1.7</wgs:lat>
+	<wgs:long>-78.75</wgs:long>
+	<skos:prefLabel>Cantón Colta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3658931/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>0</wgs:lat>
+	<wgs:long>-90.5</wgs:long>
+	<skos:altLabel xml:lang="es">Archipiélago de Colón</skos:altLabel>
+	<skos:altLabel xml:lang="en">Galapagos Islands</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Iles Galapagos</skos:altLabel>
+	<skos:prefLabel>Galapagos Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3659038/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.51667</wgs:lat>
+	<wgs:long>-79.76667</wgs:long>
+	<skos:prefLabel>Isla Churutillo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3659064/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.55</wgs:lat>
+	<wgs:long>-79.93333</wgs:long>
+	<skos:prefLabel>Isla Chupadores Chico</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3659071/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3659237/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-2.28333</wgs:lat>
+	<wgs:long>-78.91667</wgs:long>
+	<skos:prefLabel>Cantón Chunchi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3659138/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3654451/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-0.7</wgs:lat>
+	<wgs:long>-80.1</wgs:long>
+	<skos:altLabel>Cantón Chone</skos:altLabel>
+	<skos:prefLabel>Cantón Chone</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3659139/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>44751</europeana:population>
+	<wgs:lat>-0.68333</wgs:lat>
+	<wgs:long>-80.1</wgs:long>
+	<skos:altLabel>Chone</skos:altLabel>
+	<skos:prefLabel>Chone</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3659209/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3649953/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-4.86667</wgs:lat>
+	<wgs:long>-79.13333</wgs:long>
+	<skos:prefLabel>Cantón Chinchipe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3659237/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-1.91667</wgs:lat>
+	<wgs:long>-78.75</wgs:long>
+	<skos:altLabel>Chimborazo</skos:altLabel>
+	<skos:altLabel>Provincia del Chimborazo</skos:altLabel>
+	<skos:prefLabel>Provincia del Chimborazo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3659242/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3660130/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-1.7</wgs:lat>
+	<wgs:long>-79.01667</wgs:long>
+	<skos:prefLabel>Cantón Chimbo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3659255/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3660130/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-1.93333</wgs:lat>
+	<wgs:long>-79.06667</wgs:long>
+	<skos:prefLabel>Cantón Chillanes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3659472/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.41667</wgs:lat>
+	<wgs:long>-79.96667</wgs:long>
+	<skos:altLabel>Isla de Los Chalenes</skos:altLabel>
+	<skos:altLabel>Isla de los Chalenes</skos:altLabel>
+	<skos:prefLabel>Isla de los Chalenes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3659543/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3654665/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-4.06667</wgs:lat>
+	<wgs:long>-79.93333</wgs:long>
+	<skos:prefLabel>Cantón Celica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3659576/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3653224/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>0.05</wgs:lat>
+	<wgs:long>-78.13333</wgs:long>
+	<skos:prefLabel>Cantón Cayambe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3659578/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>26582</europeana:population>
+	<wgs:lat>0.05</wgs:lat>
+	<wgs:long>-78.13333</wgs:long>
+	<skos:altLabel>Cayambe</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Каямбе</skos:altLabel>
+	<skos:prefLabel>Cayambe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3659598/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3654665/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-3.98333</wgs:lat>
+	<wgs:long>-79.35</wgs:long>
+	<skos:prefLabel>Cantón Catamayo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3659599/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18565</europeana:population>
+	<wgs:lat>-3.98333</wgs:lat>
+	<wgs:long>-79.35</wgs:long>
+	<skos:altLabel>Catamayo</skos:altLabel>
+	<skos:altLabel>La Toma</skos:altLabel>
+	<skos:prefLabel>Catamayo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3659602/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10872</europeana:population>
+	<wgs:lat>-4.06667</wgs:lat>
+	<wgs:long>-79.63333</wgs:long>
+	<skos:prefLabel>Catacocha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3659711/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16862</europeana:population>
+	<wgs:lat>-4.33333</wgs:lat>
+	<wgs:long>-79.55</wgs:long>
+	<skos:altLabel>Calvas</skos:altLabel>
+	<skos:altLabel>Cariamanga</skos:altLabel>
+	<skos:prefLabel>Cariamanga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3659718/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>0.75</wgs:lat>
+	<wgs:long>-78.08333</wgs:long>
+	<skos:altLabel>Carchi</skos:altLabel>
+	<skos:altLabel>Provincia de Carchi</skos:altLabel>
+	<skos:altLabel>Provincia del Carchi</skos:altLabel>
+	<skos:prefLabel>Provincia del Carchi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3659849/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-2.5</wgs:lat>
+	<wgs:long>-79</wgs:long>
+	<skos:altLabel>Cañar</skos:altLabel>
+	<skos:altLabel>Provincia del Cañar</skos:altLabel>
+	<skos:prefLabel>Provincia del Cañar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3659851/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3659849/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-2.55</wgs:lat>
+	<wgs:long>-78.93333</wgs:long>
+	<skos:prefLabel>Cantón Cañar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3659864/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.22984</wgs:lat>
+	<wgs:long>-90.37794</wgs:long>
+	<skos:altLabel>Isla Campeón</skos:altLabel>
+	<skos:altLabel>Isla Champion</skos:altLabel>
+	<skos:prefLabel>Isla Campeón</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3659882/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3654665/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-4.31667</wgs:lat>
+	<wgs:long>-79.56667</wgs:long>
+	<skos:prefLabel>Cantón Calvas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3659896/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-3.41667</wgs:lat>
+	<wgs:long>-80.28333</wgs:long>
+	<skos:prefLabel>Isla Callejones</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3659916/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.3</wgs:lat>
+	<wgs:long>-90.33333</wgs:long>
+	<skos:prefLabel>Isla Caldwell</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3659926/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17286</europeana:population>
+	<wgs:lat>-0.85</wgs:lat>
+	<wgs:long>-80.16667</wgs:long>
+	<skos:altLabel>Bolívar</skos:altLabel>
+	<skos:altLabel>Calceta</skos:altLabel>
+	<skos:prefLabel>Calceta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3660018/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.53333</wgs:lat>
+	<wgs:long>-79.81667</wgs:long>
+	<skos:prefLabel>Isla Cabeza de Mate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3660130/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-1.58333</wgs:lat>
+	<wgs:long>-79.08333</wgs:long>
+	<skos:altLabel>Bolívar</skos:altLabel>
+	<skos:altLabel>Provincia de Bolívar</skos:altLabel>
+	<skos:prefLabel>Provincia de Bolívar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3660131/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3654451/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-0.85</wgs:lat>
+	<wgs:long>-80.16667</wgs:long>
+	<skos:prefLabel>Cantón Bolívar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3660151/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.98333</wgs:lat>
+	<wgs:long>-79.86667</wgs:long>
+	<skos:altLabel>Isla Boca Tenguel</skos:altLabel>
+	<skos:altLabel>Isla Boca de Tenguel</skos:altLabel>
+	<skos:prefLabel>Isla Boca Tenguel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3660152/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20313</europeana:population>
+	<wgs:lat>-0.71667</wgs:lat>
+	<wgs:long>-77.13333</wgs:long>
+	<skos:altLabel>Boca Suno</skos:altLabel>
+	<skos:altLabel>Suno</skos:altLabel>
+	<skos:prefLabel>Boca Suno</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3660210/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3659849/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-2.7</wgs:lat>
+	<wgs:long>-78.86667</wgs:long>
+	<skos:prefLabel>Cantón Biblián</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3660235/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.46667</wgs:lat>
+	<wgs:long>-79.96667</wgs:long>
+	<skos:prefLabel>Isla Bellavista</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3660281/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.41049</wgs:lat>
+	<wgs:long>-90.62788</wgs:long>
+	<skos:prefLabel>Isla Beagle</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3660301/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.27816</wgs:lat>
+	<wgs:long>-90.54895</wgs:long>
+	<skos:altLabel>Isla Bartholomé</skos:altLabel>
+	<skos:altLabel>Isla Bartolomé</skos:altLabel>
+	<skos:altLabel>Isla San Bartolomé</skos:altLabel>
+	<skos:prefLabel>Isla Bartolomé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3660343/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3650445/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-1.4</wgs:lat>
+	<wgs:long>-78.41667</wgs:long>
+	<skos:prefLabel>Cantón Baños</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3660360/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3657505/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-1.36667</wgs:lat>
+	<wgs:long>-79.88333</wgs:long>
+	<skos:prefLabel>Cantón Balzar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3660361/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>40115</europeana:population>
+	<wgs:lat>-1.36667</wgs:lat>
+	<wgs:long>-79.9</wgs:long>
+	<skos:prefLabel>Balzar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3660365/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.4586</wgs:lat>
+	<wgs:long>-90.27493</wgs:long>
+	<skos:altLabel>Isla Baltra</skos:altLabel>
+	<skos:altLabel>South Seymour Island</skos:altLabel>
+	<skos:prefLabel>Isla Baltra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3660387/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12205</europeana:population>
+	<wgs:lat>-2.91667</wgs:lat>
+	<wgs:long>-79.81667</wgs:long>
+	<skos:altLabel>Balao</skos:altLabel>
+	<skos:altLabel>Baláo</skos:altLabel>
+	<skos:prefLabel>Baláo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3660401/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>37056</europeana:population>
+	<wgs:lat>-0.6</wgs:lat>
+	<wgs:long>-80.41667</wgs:long>
+	<skos:altLabel>Bahia de Caráques</skos:altLabel>
+	<skos:altLabel>Bahía</skos:altLabel>
+	<skos:altLabel>Bahía de Caráquez</skos:altLabel>
+	<skos:altLabel>Caracas</skos:altLabel>
+	<skos:altLabel>Sucre</skos:altLabel>
+	<skos:prefLabel>Bahía de Caráquez</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3660417/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3654592/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-1.81667</wgs:lat>
+	<wgs:long>-79.51667</wgs:long>
+	<skos:prefLabel>Cantón Babahoyo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3660418/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>76279</europeana:population>
+	<wgs:lat>-1.81667</wgs:lat>
+	<wgs:long>-79.51667</wgs:long>
+	<skos:altLabel>Babahoya</skos:altLabel>
+	<skos:altLabel xml:lang="en">Babahoyo</skos:altLabel>
+	<skos:altLabel>Babahoyo</skos:altLabel>
+	<skos:prefLabel>Babahoyo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3660421/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3654592/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-1.78333</wgs:lat>
+	<wgs:long>-79.66667</wgs:long>
+	<skos:altLabel>Baaba</skos:altLabel>
+	<skos:altLabel>Cantón Baba</skos:altLabel>
+	<skos:prefLabel>Cantón Baba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3660431/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-3.08333</wgs:lat>
+	<wgs:long>-79.33333</wgs:long>
+	<skos:altLabel>Azuay</skos:altLabel>
+	<skos:altLabel>Provincia del Azuay</skos:altLabel>
+	<skos:prefLabel>Provincia del Azuay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3660433/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3659849/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-2.73333</wgs:lat>
+	<wgs:long>-78.81667</wgs:long>
+	<skos:prefLabel>Cantón Azogues</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3660434/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>34877</europeana:population>
+	<wgs:lat>-2.73333</wgs:lat>
+	<wgs:long>-78.83333</wgs:long>
+	<skos:altLabel>Azogues</skos:altLabel>
+	<skos:altLabel>Azoguez</skos:altLabel>
+	<skos:prefLabel>Azogues</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3660478/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17456</europeana:population>
+	<wgs:lat>0.33333</wgs:lat>
+	<wgs:long>-78.21667</wgs:long>
+	<skos:prefLabel>Atuntaqui</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3660558/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658195/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-3.55</wgs:lat>
+	<wgs:long>-80.06667</wgs:long>
+	<skos:prefLabel>Cantón Arenillas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3660572/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3653890/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-0.91667</wgs:lat>
+	<wgs:long>-77.8</wgs:long>
+	<skos:prefLabel>Cantón Archidona</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3660592/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3655635/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>0.33333</wgs:lat>
+	<wgs:long>-78.26667</wgs:long>
+	<skos:prefLabel>Cantón Antonio Ante</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3660688/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3650445/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-1.25</wgs:lat>
+	<wgs:long>-78.63333</wgs:long>
+	<skos:prefLabel>Cantón Ambato</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3660689/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>154369</europeana:population>
+	<wgs:lat>-1.24908</wgs:lat>
+	<wgs:long>-78.61675</wgs:long>
+	<skos:altLabel xml:lang="id">Ambato</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ambato</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Ambato</skos:altLabel>
+	<skos:altLabel xml:lang="it">Ambato</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Ambato</skos:altLabel>
+	<skos:altLabel xml:lang="de">Ambato</skos:altLabel>
+	<skos:altLabel xml:lang="es">Ambato</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Ambato</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Ambato</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Ambato</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Ambato</skos:altLabel>
+	<skos:altLabel xml:lang="en">San Juan de Ambato</skos:altLabel>
+	<skos:altLabel xml:lang="nn">San Juan de Ambato</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Амбато</skos:altLabel>
+	<skos:prefLabel>Ambato</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3660773/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12617</europeana:population>
+	<wgs:lat>-1.91667</wgs:lat>
+	<wgs:long>-79.51667</wgs:long>
+	<skos:altLabel>Alfredo Baquerizo Moreno</skos:altLabel>
+	<skos:altLabel>Juján</skos:altLabel>
+	<skos:prefLabel>Alfredo Baquerizo Moreno</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3660793/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.16892</wgs:lat>
+	<wgs:long>-90.84382</wgs:long>
+	<skos:altLabel>Albany Island</skos:altLabel>
+	<skos:altLabel>Isla Albany</skos:altLabel>
+	<skos:prefLabel>Isla Albany</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3660797/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3659237/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-2.2</wgs:lat>
+	<wgs:long>-78.85</wgs:long>
+	<skos:prefLabel>Cantón Alausí</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3660798/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14294</europeana:population>
+	<wgs:lat>-2.2</wgs:lat>
+	<wgs:long>-78.83333</wgs:long>
+	<skos:prefLabel>Alausí</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3660824/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.68333</wgs:lat>
+	<wgs:long>-80.86667</wgs:long>
+	<skos:altLabel>Isla Ahorcados</skos:altLabel>
+	<skos:altLabel>Islas Los Ahorcados</skos:altLabel>
+	<skos:prefLabel>Islas Los Ahorcados</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3660839/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3830306/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-0.91667</wgs:lat>
+	<wgs:long>-75.4</wgs:long>
+	<skos:prefLabel>Cantón Aguarico</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3745354/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.38333</wgs:lat>
+	<wgs:long>-79.99167</wgs:long>
+	<skos:prefLabel>Isla La Orosco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3745356/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.66667</wgs:lat>
+	<wgs:long>-79.90417</wgs:long>
+	<skos:prefLabel>Isla Centinela</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3745554/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.43333</wgs:lat>
+	<wgs:long>-79.89167</wgs:long>
+	<skos:prefLabel>Isla San Ignacio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3745575/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.225</wgs:lat>
+	<wgs:long>-79.83333</wgs:long>
+	<skos:prefLabel>Isla El Gallo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3746018/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.46667</wgs:lat>
+	<wgs:long>-80.04167</wgs:long>
+	<skos:prefLabel>Isla Zapotal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3746024/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.38333</wgs:lat>
+	<wgs:long>-80.03333</wgs:long>
+	<skos:prefLabel>Isla Cojimíes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3746034/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.38333</wgs:lat>
+	<wgs:long>-80.75</wgs:long>
+	<skos:prefLabel>El Islote</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3746035/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.41667</wgs:lat>
+	<wgs:long>-80.76667</wgs:long>
+	<skos:prefLabel>Islote La Viuda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3746114/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.46667</wgs:lat>
+	<wgs:long>-80.78333</wgs:long>
+	<skos:prefLabel>Islote Sucre</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3746301/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.41667</wgs:lat>
+	<wgs:long>-78.86667</wgs:long>
+	<skos:prefLabel>Isla San Pedro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3746750/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.64167</wgs:lat>
+	<wgs:long>-80.18333</wgs:long>
+	<skos:prefLabel>Isla Manglecito Chico</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3746751/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.65</wgs:lat>
+	<wgs:long>-80.175</wgs:long>
+	<skos:prefLabel>Isla Manglecito Grande</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3746752/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.61667</wgs:lat>
+	<wgs:long>-80</wgs:long>
+	<skos:prefLabel>Isla Escalante</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3746755/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.91667</wgs:lat>
+	<wgs:long>-80.08333</wgs:long>
+	<skos:prefLabel>Isla Barbascal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3746756/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.925</wgs:lat>
+	<wgs:long>-80.1</wgs:long>
+	<skos:prefLabel>Isla Puná Vieja Chica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3746772/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-3.41667</wgs:lat>
+	<wgs:long>-80.14167</wgs:long>
+	<skos:prefLabel>Isla La Bartola</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3746776/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-3.36667</wgs:lat>
+	<wgs:long>-80.19167</wgs:long>
+	<skos:prefLabel>Isla Patria</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3754879/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.68528</wgs:lat>
+	<wgs:long>-80.84806</wgs:long>
+	<skos:prefLabel>Isla Ahorcados</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3754880/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.37667</wgs:lat>
+	<wgs:long>-80.75778</wgs:long>
+	<skos:prefLabel>Isla Cayo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3754886/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.37194</wgs:lat>
+	<wgs:long>-80.04639</wgs:long>
+	<skos:prefLabel>Isla Cojimíes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3763337/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.45</wgs:lat>
+	<wgs:long>-80.01667</wgs:long>
+	<skos:prefLabel>Isla de Los Quiñones</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3828143/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.42361</wgs:lat>
+	<wgs:long>-78.83472</wgs:long>
+	<skos:prefLabel>Isla Palma Real</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3830305/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>0.1</wgs:lat>
+	<wgs:long>-76.86667</wgs:long>
+	<skos:altLabel>Provincia de Sucumbíos</skos:altLabel>
+	<skos:altLabel>Sucumbios</skos:altLabel>
+	<skos:prefLabel>Provincia de Sucumbíos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3830306/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-0.75</wgs:lat>
+	<wgs:long>-76.41667</wgs:long>
+	<skos:altLabel>Orellana</skos:altLabel>
+	<skos:altLabel>Provincia de Francisco de Orellana</skos:altLabel>
+	<skos:prefLabel>Provincia de Francisco de Orellana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6940510/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.2975</wgs:lat>
+	<wgs:long>-90.43417</wgs:long>
+	<skos:prefLabel>Floreana Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7062136/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-0.33333</wgs:lat>
+	<wgs:long>-79.25</wgs:long>
+	<skos:altLabel>Provincia de Santo Domingo de los Tsáchilas</skos:altLabel>
+	<skos:altLabel>Santo Domingo de los Tsáchilas</skos:altLabel>
+	<skos:prefLabel>Provincia de Santo Domingo de los Tsáchilas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7062138/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-2.08333</wgs:lat>
+	<wgs:long>-80.58333</wgs:long>
+	<skos:altLabel xml:lang="es">Provincia de Santa Elena</skos:altLabel>
+	<skos:altLabel>Santa Elena</skos:altLabel>
+	<skos:prefLabel>Provincia de Santa Elena</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7626219/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3660431/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>5000</europeana:population>
+	<wgs:lat>-3.13349</wgs:lat>
+	<wgs:long>-79.26893</wgs:long>
+	<skos:prefLabel>Cantón San Fernando</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648116/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3658394/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3660431/"/>
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-3.32356</wgs:lat>
+	<wgs:long>-79.06517</wgs:long>
+	<skos:prefLabel>Cantón Nabón</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 349 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

@@ -1,0 +1,3059 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AS_AZ
+Description: Selected fields pulled from Geonames about AZ done on Mon May 23 21:13:17 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/146862/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13340</europeana:population>
+	<wgs:lat>39.11667</wgs:lat>
+	<wgs:long>48.59528</wgs:long>
+	<skos:altLabel>Geytepe</skos:altLabel>
+	<skos:altLabel>Göytəpə</skos:altLabel>
+	<skos:altLabel>Prishib</skos:altLabel>
+	<skos:altLabel>Prishibinske</skos:altLabel>
+	<skos:altLabel>Prishibinskoe</skos:altLabel>
+	<skos:altLabel>Prishibinskoye</skos:altLabel>
+	<skos:prefLabel>Göytəpə</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146879/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>39.75</wgs:lat>
+	<wgs:long>47.66667</wgs:long>
+	<skos:altLabel>Beyləqan</skos:altLabel>
+	<skos:altLabel>Beyləqan Rayonu</skos:altLabel>
+	<skos:altLabel>Zhdanov Rayonu</skos:altLabel>
+	<skos:altLabel>Zhdanovskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Beyləqan Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146900/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>39.08333</wgs:lat>
+	<wgs:long>46.66667</wgs:long>
+	<skos:altLabel>Zangelanskiy Rayon</skos:altLabel>
+	<skos:altLabel>Zǝngilan</skos:altLabel>
+	<skos:altLabel>Zəngilan Rayonu</skos:altLabel>
+	<skos:prefLabel>Zəngilan Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146962/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>54576</europeana:population>
+	<wgs:lat>38.91667</wgs:lat>
+	<wgs:long>48.25</wgs:long>
+	<skos:altLabel>Vergyaduzskiy Rayon</skos:altLabel>
+	<skos:altLabel>Yardymlinskiy Rayon</skos:altLabel>
+	<skos:altLabel>Yardymly Rayonu</skos:altLabel>
+	<skos:altLabel>Yardımlı</skos:altLabel>
+	<skos:altLabel>Yardımlı Rayonu</skos:altLabel>
+	<skos:prefLabel>Yardımlı Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146970/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>53100</europeana:population>
+	<wgs:lat>39.8299</wgs:lat>
+	<wgs:long>46.7597</wgs:long>
+	<skos:altLabel xml:lang="sv">Chankändi</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Hankendi</skos:altLabel>
+	<skos:altLabel>Khankendy</skos:altLabel>
+	<skos:altLabel xml:lang="id">Stepanakert</skos:altLabel>
+	<skos:altLabel xml:lang="de">Stepanakert</skos:altLabel>
+	<skos:altLabel xml:lang="es">Stepanakert</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Stepanakert</skos:altLabel>
+	<skos:altLabel xml:lang="en">Stepanakert</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Stepanakert</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Stepanakert</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Stepanakert</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Stepanakert</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Stepanakert</skos:altLabel>
+	<skos:altLabel xml:lang="az">Xankəndi</skos:altLabel>
+	<skos:altLabel xml:lang="et">Xankəndi</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Степанакерт</skos:altLabel>
+	<skos:altLabel xml:lang="he">סטפנקרט</skos:altLabel>
+	<skos:altLabel xml:lang="fa">استپاناکرت</skos:altLabel>
+	<skos:prefLabel>Xankǝndi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/147059/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17242</europeana:population>
+	<wgs:lat>39.89056</wgs:lat>
+	<wgs:long>48.38583</wgs:long>
+	<skos:prefLabel>Tel’mankend</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/147098/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>39.75861</wgs:lat>
+	<wgs:long>49.58417</wgs:long>
+	<skos:altLabel>Ostrov Svinoy</skos:altLabel>
+	<skos:altLabel>Sangi-Mugan</skos:altLabel>
+	<skos:altLabel>Siwinoi-Insel</skos:altLabel>
+	<skos:altLabel>Səngi Muğan Adası</skos:altLabel>
+	<skos:prefLabel>Səngi Muğan Adası</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/147105/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18662</europeana:population>
+	<wgs:lat>39.75639</wgs:lat>
+	<wgs:long>46.75111</wgs:long>
+	<skos:altLabel>Shoushi</skos:altLabel>
+	<skos:altLabel xml:lang="en">Shusha</skos:altLabel>
+	<skos:altLabel>Shusha</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Shushe</skos:altLabel>
+	<skos:altLabel>Shushi</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Szusza</skos:altLabel>
+	<skos:altLabel xml:lang="de">Şuşa</skos:altLabel>
+	<skos:altLabel xml:lang="et">Şuşa</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Şuşa</skos:altLabel>
+	<skos:altLabel xml:lang="az">Şuşa</skos:altLabel>
+	<skos:altLabel>Шуша</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Շուշե</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Շուշի</skos:altLabel>
+	<skos:altLabel xml:lang="he">שושה</skos:altLabel>
+	<skos:altLabel xml:lang="fa">شوشی</skos:altLabel>
+	<skos:prefLabel>Şuşa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/147163/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>39.66667</wgs:lat>
+	<wgs:long>46.66667</wgs:long>
+	<skos:altLabel>Shusha Rayonu</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Shushi Shrjan</skos:altLabel>
+	<skos:altLabel>Shushinskiy Rayon</skos:altLabel>
+	<skos:altLabel>Şuşa</skos:altLabel>
+	<skos:altLabel>Şuşa Rayonu</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Շուշի Շրջան</skos:altLabel>
+	<skos:prefLabel>Şuşa Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/147212/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/147435/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>21388</europeana:population>
+	<wgs:lat>39.41667</wgs:lat>
+	<wgs:long>45.58333</wgs:long>
+	<skos:altLabel>Shahbuz Rayonu</skos:altLabel>
+	<skos:altLabel>Shakhbuzskiy Rayon</skos:altLabel>
+	<skos:altLabel>Şahbuz Rayonu</skos:altLabel>
+	<skos:prefLabel>Şahbuz Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/147269/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>117170</europeana:population>
+	<wgs:lat>39.66667</wgs:lat>
+	<wgs:long>49</wgs:long>
+	<skos:altLabel>Salyan</skos:altLabel>
+	<skos:altLabel>Salyan Rayonu</skos:altLabel>
+	<skos:altLabel>Sal’yanskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Salyan Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/147271/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>36555</europeana:population>
+	<wgs:lat>39.595</wgs:lat>
+	<wgs:long>48.97917</wgs:long>
+	<skos:altLabel>Salian</skos:altLabel>
+	<skos:altLabel>Salyan</skos:altLabel>
+	<skos:altLabel>Sal’yany</skos:altLabel>
+	<skos:altLabel>Ssaljany</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сальян</skos:altLabel>
+	<skos:prefLabel>Salyan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/147284/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>143514</europeana:population>
+	<wgs:lat>39.91667</wgs:lat>
+	<wgs:long>48.66667</wgs:long>
+	<skos:altLabel>Sabirabad</skos:altLabel>
+	<skos:altLabel>Sabirabad Rayonu</skos:altLabel>
+	<skos:altLabel>Sabirabadskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Sabirabad Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/147287/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>87031</europeana:population>
+	<wgs:lat>39.83333</wgs:lat>
+	<wgs:long>48.41667</wgs:long>
+	<skos:altLabel>Saatlinskiy Rayon</skos:altLabel>
+	<skos:altLabel>Saatly Rayonu</skos:altLabel>
+	<skos:altLabel>Saatlı</skos:altLabel>
+	<skos:altLabel>Saatlı Rayonu</skos:altLabel>
+	<skos:prefLabel>Saatlı Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/147310/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>39.5</wgs:lat>
+	<wgs:long>48.41667</wgs:long>
+	<skos:altLabel>Belyasuvarskiy Rayon</skos:altLabel>
+	<skos:altLabel>Bilǝsuvar</skos:altLabel>
+	<skos:altLabel>Biləsuvar Rayonu</skos:altLabel>
+	<skos:altLabel>Pushkin Rayonu</skos:altLabel>
+	<skos:altLabel>Pushkinskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Biləsuvar Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/147325/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>39.8</wgs:lat>
+	<wgs:long>49.46667</wgs:long>
+	<skos:altLabel>Podvodnyye Ostrova</skos:altLabel>
+	<skos:altLabel>Podwadnyje-Insel</skos:altLabel>
+	<skos:prefLabel>Podvodnyye Ostrova</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/147365/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/147435/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>42638</europeana:population>
+	<wgs:lat>39.08333</wgs:lat>
+	<wgs:long>45.91667</wgs:long>
+	<skos:altLabel>Ordubad Rayonu</skos:altLabel>
+	<skos:altLabel>Ordubadskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Ordubad Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/147381/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>39.64</wgs:lat>
+	<wgs:long>49.43944</wgs:long>
+	<skos:altLabel>Obliwnoi-Insel</skos:altLabel>
+	<skos:altLabel>Ostrov Chigil</skos:altLabel>
+	<skos:altLabel>Ostrov Oblivnoy</skos:altLabel>
+	<skos:altLabel>Çigil Adası</skos:altLabel>
+	<skos:prefLabel>Çigil Adası</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/147422/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>75356</europeana:population>
+	<wgs:lat>39.33333</wgs:lat>
+	<wgs:long>49</wgs:long>
+	<skos:altLabel>Neftechalinskiy Rayon</skos:altLabel>
+	<skos:altLabel>Neftçala</skos:altLabel>
+	<skos:prefLabel>Neftçala Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/147425/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18661</europeana:population>
+	<wgs:lat>39.35861</wgs:lat>
+	<wgs:long>49.24694</wgs:long>
+	<skos:altLabel>Neftechala</skos:altLabel>
+	<skos:altLabel>Neftçala</skos:altLabel>
+	<skos:altLabel>Nephte Chala</skos:altLabel>
+	<skos:altLabel>Poselok Tresta</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Нефтечала</skos:altLabel>
+	<skos:prefLabel>Neftçala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/147429/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>64754</europeana:population>
+	<wgs:lat>39.20889</wgs:lat>
+	<wgs:long>45.41222</wgs:long>
+	<skos:altLabel>Nachitschewan</skos:altLabel>
+	<skos:altLabel>Nakhchyvan</skos:altLabel>
+	<skos:altLabel>Nakhicevan</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Nakhichevan’</skos:altLabel>
+	<skos:altLabel>Nakhjavan</skos:altLabel>
+	<skos:altLabel xml:lang="az">Naxçıvan</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Нахичевань</skos:altLabel>
+	<skos:prefLabel>Naxçıvan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/147435/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>64754</europeana:population>
+	<wgs:lat>39.20991</wgs:lat>
+	<wgs:long>45.41817</wgs:long>
+	<skos:altLabel xml:lang="de">Autonome Republik Nachitschewan</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Nachiczewan</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Nachitjevan</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Nachitsjevan</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Nachičevan</skos:altLabel>
+	<skos:altLabel xml:lang="et">Nahhitševan</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Nahçıvan</skos:altLabel>
+	<skos:altLabel>Nakhchyvan MSSR</skos:altLabel>
+	<skos:altLabel>Nakhichevan</skos:altLabel>
+	<skos:altLabel xml:lang="id">Nakhichevan</skos:altLabel>
+	<skos:altLabel xml:lang="en">Nakhichevan</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Nakhichevan - Naxçıvan</skos:altLabel>
+	<skos:altLabel>Nakhichevan A.S.S.R.</skos:altLabel>
+	<skos:altLabel>Nakhichevanskaya ASSR</skos:altLabel>
+	<skos:altLabel>Nakhichevanskaya Avtonomnaya Sovetskaya Sotsialisticheskaya Respublika</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Nakhitchevan</skos:altLabel>
+	<skos:altLabel xml:lang="no">Nakhitsjevan</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Nakhtxivan</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Nakichevan</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Naxçivan</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Naxçivan</skos:altLabel>
+	<skos:altLabel>Naxçivan</skos:altLabel>
+	<skos:altLabel xml:lang="tt">Naxçıvan</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Naxçıvan</skos:altLabel>
+	<skos:altLabel xml:lang="az">Naxçıvan Muxtar Respublikası</skos:altLabel>
+	<skos:altLabel xml:lang="it">Repubblica Autonoma di Nakhchivan</skos:altLabel>
+	<skos:altLabel xml:lang="es">República autónoma de Najicheván</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Нахичеванская Автономная Республика</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Нахичевань</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Нахчиван</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Нахічевань</skos:altLabel>
+	<skos:altLabel xml:lang="cv">Начихевань автономлă республики</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Նախիջեվան</skos:altLabel>
+	<skos:altLabel xml:lang="ar">ناخيتشيفان</skos:altLabel>
+	<skos:altLabel xml:lang="fa">نخجوان</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ნახჭევანი</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ナヒチェヴァン自治共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">纳希切万自治共和国</skos:altLabel>
+	<skos:altLabel xml:lang="ko">나히체반</skos:altLabel>
+	<skos:prefLabel>Naxçıvan Muxtar Respublikası</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/147551/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>183532</europeana:population>
+	<wgs:lat>39</wgs:lat>
+	<wgs:long>48.66667</wgs:long>
+	<skos:altLabel>Masallinskiy Rayon</skos:altLabel>
+	<skos:altLabel>Masally Rayonu</skos:altLabel>
+	<skos:altLabel>Masallı</skos:altLabel>
+	<skos:altLabel>Masallı Rayonu</skos:altLabel>
+	<skos:prefLabel>Masallı Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/147557/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>39.75</wgs:lat>
+	<wgs:long>47</wgs:long>
+	<skos:altLabel>Martuninskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Martuni Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/147603/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>39.84056</wgs:lat>
+	<wgs:long>49.53222</wgs:long>
+	<skos:altLabel>Garasu</skos:altLabel>
+	<skos:altLabel>Ostrov Los’</skos:altLabel>
+	<skos:altLabel>Qarasu Adası</skos:altLabel>
+	<skos:prefLabel>Qarasu Adası</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/147610/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>69735</europeana:population>
+	<wgs:lat>38.75</wgs:lat>
+	<wgs:long>48.41667</wgs:long>
+	<skos:altLabel>Lerik</skos:altLabel>
+	<skos:altLabel>Lerik Rayonu</skos:altLabel>
+	<skos:altLabel>Lerikskiy Rayon</skos:altLabel>
+	<skos:altLabel>Zuvandinskiy Rayon</skos:altLabel>
+	<skos:altLabel>Zuvandskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Lerik Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/147613/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>38.91667</wgs:lat>
+	<wgs:long>48.91667</wgs:long>
+	<skos:altLabel>Lenkoranskiy Rayon</skos:altLabel>
+	<skos:altLabel>Länkäran Rayonu</skos:altLabel>
+	<skos:altLabel>Lənkəran</skos:altLabel>
+	<skos:altLabel>Lənkəran Rayonu</skos:altLabel>
+	<skos:prefLabel>Lənkəran Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/147622/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>50244</europeana:population>
+	<wgs:lat>38.72262</wgs:lat>
+	<wgs:long>48.81466</wgs:long>
+	<skos:altLabel>Lencoran</skos:altLabel>
+	<skos:altLabel>Lenkoran'</skos:altLabel>
+	<skos:altLabel>Länkäran</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ленкорань</skos:altLabel>
+	<skos:prefLabel>Lǝnkǝran</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/147626/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>68033</europeana:population>
+	<wgs:lat>39.66667</wgs:lat>
+	<wgs:long>46.41667</wgs:long>
+	<skos:altLabel>Lachinskiy Rayon</skos:altLabel>
+	<skos:altLabel>Lachyn Rayonu</skos:altLabel>
+	<skos:altLabel>Laçın</skos:altLabel>
+	<skos:altLabel xml:lang="az">Laçın Rayonu</skos:altLabel>
+	<skos:prefLabel>Laçın Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/147694/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>35067</europeana:population>
+	<wgs:lat>39.33333</wgs:lat>
+	<wgs:long>46.58333</wgs:long>
+	<skos:altLabel>Kubatlinskiy Rayon</skos:altLabel>
+	<skos:altLabel>Qubadly Rayonu</skos:altLabel>
+	<skos:altLabel>Qubadlı</skos:altLabel>
+	<skos:prefLabel>Qubadlı Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/147946/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>39.6175</wgs:lat>
+	<wgs:long>49.70972</wgs:long>
+	<skos:altLabel>Daşlı Ada</skos:altLabel>
+	<skos:altLabel>Kamen Ignatiya</skos:altLabel>
+	<skos:altLabel>Ostrov Dashly</skos:altLabel>
+	<skos:altLabel>Ostrov Kamen’ Ignatiya</skos:altLabel>
+	<skos:prefLabel>Daşlı Ada</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/147982/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>31381</europeana:population>
+	<wgs:lat>39.86972</wgs:lat>
+	<wgs:long>48.06</wgs:long>
+	<skos:altLabel>Emishti</skos:altLabel>
+	<skos:altLabel>Imishli</skos:altLabel>
+	<skos:altLabel>Imishly</skos:altLabel>
+	<skos:altLabel>İmişli</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Имишли</skos:altLabel>
+	<skos:prefLabel>İmişli</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/147983/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>109061</europeana:population>
+	<wgs:lat>39.83333</wgs:lat>
+	<wgs:long>48.08333</wgs:long>
+	<skos:altLabel>Imishli Rayonu</skos:altLabel>
+	<skos:altLabel>Imishlinskiy Rayon</skos:altLabel>
+	<skos:altLabel>Karadonlinskiy Rayon</skos:altLabel>
+	<skos:altLabel>İmişli</skos:altLabel>
+	<skos:altLabel>İmişli Rayonu</skos:altLabel>
+	<skos:prefLabel>İmişli Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/147997/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/147435/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>39.5</wgs:lat>
+	<wgs:long>45.08333</wgs:long>
+	<skos:altLabel>Ilich Rayonu</skos:altLabel>
+	<skos:altLabel>Il’ichëvskiy Rayon</skos:altLabel>
+	<skos:altLabel>Norashenskiy Rayon</skos:altLabel>
+	<skos:altLabel>Şərur Rayonu</skos:altLabel>
+	<skos:prefLabel>Şərur Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/148041/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>39.945</wgs:lat>
+	<wgs:long>49.47694</wgs:long>
+	<skos:altLabel>Gil Adası</skos:altLabel>
+	<skos:altLabel>Glinjanyi-Insel</skos:altLabel>
+	<skos:altLabel>Glinyanii Island</skos:altLabel>
+	<skos:altLabel>Ostrov Glinyanyy</skos:altLabel>
+	<skos:prefLabel>Gil Adası</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/148104/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>39.58333</wgs:lat>
+	<wgs:long>46.83333</wgs:long>
+	<skos:altLabel>Dizakskiy Rayon</skos:altLabel>
+	<skos:altLabel>Gadrutskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Hadrut Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/148107/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>144442</europeana:population>
+	<wgs:lat>39.58333</wgs:lat>
+	<wgs:long>47.33333</wgs:long>
+	<skos:altLabel>Fizulinskiy Rayon</skos:altLabel>
+	<skos:altLabel>Füzuli</skos:altLabel>
+	<skos:altLabel xml:lang="az">Füzuli Rayonu</skos:altLabel>
+	<skos:altLabel>Karyaginskiy Rayon</skos:altLabel>
+	<skos:altLabel>Qacar</skos:altLabel>
+	<skos:prefLabel>Füzuli Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/148132/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/147435/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>38554</europeana:population>
+	<wgs:lat>39.16667</wgs:lat>
+	<wgs:long>45.66667</wgs:long>
+	<skos:altLabel>Culfa Rayonu</skos:altLabel>
+	<skos:altLabel>Dzhul’finskiy Rayon</skos:altLabel>
+	<skos:altLabel>Julfa Rayonu</skos:altLabel>
+	<skos:prefLabel>Culfa Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/148140/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>39.33333</wgs:lat>
+	<wgs:long>47</wgs:long>
+	<skos:altLabel>Cǝbrayıl</skos:altLabel>
+	<skos:altLabel>Cəbrayıl Rayonu</skos:altLabel>
+	<skos:altLabel>Dzhebrail’skiy Rayon</skos:altLabel>
+	<skos:altLabel>Jäbrayyl Rayonu</skos:altLabel>
+	<skos:prefLabel>Cəbrayıl Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/148155/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>39.25</wgs:lat>
+	<wgs:long>48.5</wgs:long>
+	<skos:altLabel>Astrakhan-Bazarskiy Rayon</skos:altLabel>
+	<skos:altLabel>Cälilabad Rayonu</skos:altLabel>
+	<skos:altLabel>Cəlilabad</skos:altLabel>
+	<skos:altLabel>Cəlilabad Rayonu</skos:altLabel>
+	<skos:altLabel>Dzhalilabadskiy Rayon</skos:altLabel>
+	<skos:altLabel>Jälilabad Rayonu</skos:altLabel>
+	<skos:prefLabel>Cəlilabad Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/148251/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10820</europeana:population>
+	<wgs:lat>38.9558</wgs:lat>
+	<wgs:long>45.6308</wgs:long>
+	<skos:altLabel>Culfa</skos:altLabel>
+	<skos:altLabel>Dzhul’fa</skos:altLabel>
+	<skos:altLabel>Jolfā</skos:altLabel>
+	<skos:altLabel xml:lang="fa">Jolfā-ye Nakhjavān</skos:altLabel>
+	<skos:altLabel>Julfa</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Джульфа</skos:altLabel>
+	<skos:altLabel>جلفای نخجوان</skos:altLabel>
+	<skos:prefLabel>Jolfā-ye Nakhjavān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/148290/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>36259</europeana:population>
+	<wgs:lat>39.20889</wgs:lat>
+	<wgs:long>48.49722</wgs:long>
+	<skos:altLabel>Astrahanka</skos:altLabel>
+	<skos:altLabel>Astrakhan-Bazar</skos:altLabel>
+	<skos:altLabel>Astrakhanka</skos:altLabel>
+	<skos:altLabel>Cəlilabad</skos:altLabel>
+	<skos:altLabel>Dzhalilabad</skos:altLabel>
+	<skos:altLabel>Jälilabad</skos:altLabel>
+	<skos:prefLabel>Cəlilabad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/148306/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>39.03333</wgs:lat>
+	<wgs:long>48.91667</wgs:long>
+	<skos:prefLabel>Ostrova Burana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/148311/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>39.99472</wgs:lat>
+	<wgs:long>49.64611</wgs:long>
+	<skos:altLabel>Khara-Zire</skos:altLabel>
+	<skos:altLabel>Ostrov Bulla</skos:altLabel>
+	<skos:altLabel>Ostrov Bulli</skos:altLabel>
+	<skos:altLabel>Xərə Zirə Adası</skos:altLabel>
+	<skos:prefLabel>Xərə Zirə Adası</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/148324/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>39.13333</wgs:lat>
+	<wgs:long>48.9</wgs:long>
+	<skos:altLabel>Grosse Kulajin-Insel</skos:altLabel>
+	<skos:altLabel>Ostrov Bol’shoy Kulagin</skos:altLabel>
+	<skos:altLabel>Ostrov Bol’shoy Kulain</skos:altLabel>
+	<skos:altLabel>Ostrov Kulagin</skos:altLabel>
+	<skos:prefLabel>Ostrov Bol’shoy Kulagin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/148340/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18182</europeana:population>
+	<wgs:lat>39.45833</wgs:lat>
+	<wgs:long>48.545</wgs:long>
+	<skos:altLabel>Biləsuvar</skos:altLabel>
+	<skos:altLabel>Pushkin</skos:altLabel>
+	<skos:altLabel>Pushkino</skos:altLabel>
+	<skos:prefLabel>Biləsuvar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/148397/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>39.5</wgs:lat>
+	<wgs:long>49.75</wgs:long>
+	<skos:altLabel>Bakinskiy Arkhipelag</skos:altLabel>
+	<skos:altLabel>Baku Archipelago</skos:altLabel>
+	<skos:altLabel>Ostrova Bakinskogo Arkhipelaga</skos:altLabel>
+	<skos:prefLabel>Bakinskiy Arkhipelag</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/148412/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>39.1518</wgs:lat>
+	<wgs:long>45.3725</wgs:long>
+	<skos:altLabel>Babekskiy Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="fa">Babǝk Rayonu</skos:altLabel>
+	<skos:altLabel>Nakhchyvan Rayonu</skos:altLabel>
+	<skos:altLabel>Nakhichevanskiy Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="fa">Nakhjavān</skos:altLabel>
+	<skos:altLabel xml:lang="fa">نخجوان</skos:altLabel>
+	<skos:prefLabel>Nakhjavān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/148442/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>90708</europeana:population>
+	<wgs:lat>38.5</wgs:lat>
+	<wgs:long>48.66667</wgs:long>
+	<skos:altLabel>Astara</skos:altLabel>
+	<skos:altLabel>Astara Rayonu</skos:altLabel>
+	<skos:altLabel>Astarinskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Astara Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/148445/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15190</europeana:population>
+	<wgs:lat>38.45611</wgs:lat>
+	<wgs:long>48.87861</wgs:long>
+	<skos:altLabel>Astara</skos:altLabel>
+	<skos:altLabel>Azerbaydzhanskaya Astara</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Астара</skos:altLabel>
+	<skos:prefLabel>Astara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/148449/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>24787</europeana:population>
+	<wgs:lat>39.83333</wgs:lat>
+	<wgs:long>46.75</wgs:long>
+	<skos:altLabel>Askeranskiy Rayon</skos:altLabel>
+	<skos:altLabel>Stepanakert Rayonu</skos:altLabel>
+	<skos:altLabel>Stepanakertskiy Rayon</skos:altLabel>
+	<skos:altLabel>Xocalı</skos:altLabel>
+	<skos:altLabel xml:lang="az">Xocalı Rayonu</skos:altLabel>
+	<skos:prefLabel>Xocalı Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/148565/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>70220</europeana:population>
+	<wgs:lat>39.93194</wgs:lat>
+	<wgs:long>48.92028</wgs:long>
+	<skos:altLabel>Ali Bairamly</skos:altLabel>
+	<skos:altLabel>Ali-Bairamli</skos:altLabel>
+	<skos:altLabel>Ali-Bayramli</skos:altLabel>
+	<skos:altLabel>Ali-Bayramly</skos:altLabel>
+	<skos:altLabel>Aly-Bayramly</skos:altLabel>
+	<skos:altLabel>Arab Shakhverdi</skos:altLabel>
+	<skos:altLabel>Arab-Shakhberdy</skos:altLabel>
+	<skos:altLabel>Arab-Shakhverdy</skos:altLabel>
+	<skos:altLabel>Zubovka</skos:altLabel>
+	<skos:altLabel xml:lang="az">Şirvan</skos:altLabel>
+	<skos:altLabel>Əli Bayramlı</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Али-Байрамлы</skos:altLabel>
+	<skos:prefLabel>Əli Bayramlı</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/148615/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>40</wgs:lat>
+	<wgs:long>47.41667</wgs:long>
+	<skos:altLabel>Agdzhabedinskiy Rayon</skos:altLabel>
+	<skos:altLabel>Aghjabädi Rayonu</skos:altLabel>
+	<skos:altLabel>Ağcabǝdi</skos:altLabel>
+	<skos:altLabel>Ağcabədi Rayonu</skos:altLabel>
+	<skos:prefLabel>Ağcabədi Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/148617/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>165407</europeana:population>
+	<wgs:lat>40</wgs:lat>
+	<wgs:long>47</wgs:long>
+	<skos:altLabel>Agdamskiy Rayon</skos:altLabel>
+	<skos:altLabel>Aghdam Rayonu</skos:altLabel>
+	<skos:altLabel>Ağdam</skos:altLabel>
+	<skos:altLabel xml:lang="az">Ağdam Rayonu</skos:altLabel>
+	<skos:prefLabel>Ağdam Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/148619/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>39451</europeana:population>
+	<wgs:lat>39.99306</wgs:lat>
+	<wgs:long>46.93056</wgs:long>
+	<skos:altLabel>Aghdam</skos:altLabel>
+	<skos:altLabel xml:lang="az">Ağdam</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Агдам</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Աղդամ</skos:altLabel>
+	<skos:prefLabel>Ağdam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/389186/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>39.80472</wgs:lat>
+	<wgs:long>49.46556</wgs:long>
+	<skos:altLabel>Ostrov Gutan</skos:altLabel>
+	<skos:altLabel>Ostrov Pelikaniy</skos:altLabel>
+	<skos:altLabel>Qutan Adası</skos:altLabel>
+	<skos:prefLabel>Qutan Adası</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/393523/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>39.0125</wgs:lat>
+	<wgs:long>49.33556</wgs:long>
+	<skos:prefLabel>Kür Daşı Adası</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/399818/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>39.99556</wgs:lat>
+	<wgs:long>49.50667</wgs:long>
+	<skos:altLabel>Daxili Daş Adası</skos:altLabel>
+	<skos:altLabel>Ostrov Vnutrenniy Kamen’</skos:altLabel>
+	<skos:prefLabel>Daxili Daş Adası</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/400131/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>39.72306</wgs:lat>
+	<wgs:long>49.63028</wgs:long>
+	<skos:altLabel>Adsız Ada</skos:altLabel>
+	<skos:altLabel>Ostrov Bezymyannyy</skos:altLabel>
+	<skos:prefLabel>Adsız Ada</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/400140/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>39.82917</wgs:lat>
+	<wgs:long>49.43333</wgs:long>
+	<skos:altLabel>Baburi Adası</skos:altLabel>
+	<skos:altLabel>Ostrov Baburiy</skos:altLabel>
+	<skos:prefLabel>Baburi Adası</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/409387/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/147435/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>39.7</wgs:lat>
+	<wgs:long>44.86667</wgs:long>
+	<skos:prefLabel>Sädäräk Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/409417/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>72395</europeana:population>
+	<wgs:lat>39.91667</wgs:lat>
+	<wgs:long>48.93333</wgs:long>
+	<skos:altLabel xml:lang="nb">Əli Bayramli</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Əli Bayramli</skos:altLabel>
+	<skos:altLabel>Əli Bayramli</skos:altLabel>
+	<skos:altLabel>Əli Bayramlı Şəhəri</skos:altLabel>
+	<skos:prefLabel>Əli Bayramlı Şəhəri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/409418/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>38.73333</wgs:lat>
+	<wgs:long>48.83333</wgs:long>
+	<skos:altLabel xml:lang="nb">Lǝnkǝran</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Lǝnkǝran</skos:altLabel>
+	<skos:altLabel>Lənkəran</skos:altLabel>
+	<skos:altLabel>Lənkəran Şəhəri</skos:altLabel>
+	<skos:prefLabel>Lənkəran Şəhəri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/409419/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>39.75</wgs:lat>
+	<wgs:long>46.75</wgs:long>
+	<skos:altLabel xml:lang="nb">Şuşa</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Şuşa</skos:altLabel>
+	<skos:altLabel>Şuşa Şəhəri</skos:altLabel>
+	<skos:altLabel xml:lang="az">Şuşa Şəhəri</skos:altLabel>
+	<skos:prefLabel>Şuşa Şəhəri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/409420/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>39.66667</wgs:lat>
+	<wgs:long>47.66667</wgs:long>
+	<skos:altLabel>Tǝrtǝr</skos:altLabel>
+	<skos:altLabel>Tərtər Rayonu</skos:altLabel>
+	<skos:prefLabel>Tərtər Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/409421/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>39.81667</wgs:lat>
+	<wgs:long>46.8</wgs:long>
+	<skos:altLabel xml:lang="nb">Xankǝndi</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Xankǝndi</skos:altLabel>
+	<skos:altLabel>Xankǝndi</skos:altLabel>
+	<skos:altLabel xml:lang="az">Xankəndi Şəhəri</skos:altLabel>
+	<skos:prefLabel>Xankəndi Şəhəri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/409423/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>39.66667</wgs:lat>
+	<wgs:long>47</wgs:long>
+	<skos:altLabel>Xocavǝnd</skos:altLabel>
+	<skos:altLabel xml:lang="az">Xocavənd Rayonu</skos:altLabel>
+	<skos:prefLabel>Xocavənd Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/409432/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>40</wgs:lat>
+	<wgs:long>46.58333</wgs:long>
+	<skos:altLabel xml:lang="es">Alto Karabaj</skos:altLabel>
+	<skos:altLabel>Arts'akh</skos:altLabel>
+	<skos:altLabel>Dağlıq Qarabağ Muxtar Vilayǝti</skos:altLabel>
+	<skos:altLabel>Lerrnayin Garabagh</skos:altLabel>
+	<skos:altLabel>Lerrnayin Gharabaghi Hanrapetut'yun</skos:altLabel>
+	<skos:altLabel>Lerrnayin Gharabaghi Ink'navar Marz</skos:altLabel>
+	<skos:altLabel xml:lang="rn">Mountainous Karabakh</skos:altLabel>
+	<skos:altLabel xml:lang="es">Nagorno Karabaj</skos:altLabel>
+	<skos:altLabel>Nagorno-Karabakhskaya Avtonomnaya Oblast'</skos:altLabel>
+	<skos:altLabel>Nagorno-Karabakhskaya Respublika</skos:altLabel>
+	<skos:altLabel xml:lang="en">Nagorny Karabakh Autonomous Region</skos:altLabel>
+	<skos:altLabel>Nagornyy Karabakh</skos:altLabel>
+	<skos:altLabel>Qarabağ Vilayǝti</skos:altLabel>
+	<skos:altLabel xml:lang="en">Republic of Mountainous Gharabagh</skos:altLabel>
+	<skos:altLabel>YuxarıQarabağ</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Нагорно-Карабах</skos:altLabel>
+	<skos:prefLabel>Nagorno-Karabakh [provisional]</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/584562/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10099</europeana:population>
+	<wgs:lat>40.36361</wgs:lat>
+	<wgs:long>50.29028</wgs:long>
+	<skos:altLabel>Zirya</skos:altLabel>
+	<skos:altLabel xml:lang="en">Zirǝ</skos:altLabel>
+	<skos:altLabel>Zirə</skos:altLabel>
+	<skos:altLabel>Zyrya</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ЗИРЯ</skos:altLabel>
+	<skos:prefLabel>Zirə</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/584567/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>40.32722</wgs:lat>
+	<wgs:long>50.58694</wgs:long>
+	<skos:altLabel>Chilov</skos:altLabel>
+	<skos:altLabel>Insel Shiloi</skos:altLabel>
+	<skos:altLabel>Jiloi Island</skos:altLabel>
+	<skos:altLabel>Ostrov Zhiloy</skos:altLabel>
+	<skos:altLabel>Zhiloy Island</skos:altLabel>
+	<skos:altLabel>Çilov Adası</skos:altLabel>
+	<skos:prefLabel>Çilov Adası</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/584583/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>40.25</wgs:lat>
+	<wgs:long>47.75</wgs:long>
+	<skos:altLabel>Zardobskiy Rayon</skos:altLabel>
+	<skos:altLabel>Zərdab</skos:altLabel>
+	<skos:altLabel>Zərdab Rayonu</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Зардобский Район</skos:altLabel>
+	<skos:prefLabel>Zərdab Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/584586/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>10612</europeana:population>
+	<wgs:lat>40.21833</wgs:lat>
+	<wgs:long>47.70833</wgs:long>
+	<skos:altLabel>Zardob</skos:altLabel>
+	<skos:altLabel xml:lang="en">Zǝrdab</skos:altLabel>
+	<skos:altLabel>Zərdab</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ЗАРДОБ</skos:altLabel>
+	<skos:prefLabel>Zərdab</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/584596/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>18277</europeana:population>
+	<wgs:lat>41.63361</wgs:lat>
+	<wgs:long>46.64333</wgs:long>
+	<skos:altLabel>Sakataly</skos:altLabel>
+	<skos:altLabel>Zakatali</skos:altLabel>
+	<skos:altLabel>Zakatalsk</skos:altLabel>
+	<skos:altLabel>Zakataly</skos:altLabel>
+	<skos:altLabel xml:lang="en">Zaqatala</skos:altLabel>
+	<skos:altLabel>Zaqatala</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ЗАКАТАЛЫ</skos:altLabel>
+	<skos:prefLabel>Zaqatala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/584604/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>111419</europeana:population>
+	<wgs:lat>41.58333</wgs:lat>
+	<wgs:long>46.66667</wgs:long>
+	<skos:altLabel>Zakatal’skiy Rayon</skos:altLabel>
+	<skos:altLabel>Zaqatala</skos:altLabel>
+	<skos:altLabel>Zaqatala Rayonu</skos:altLabel>
+	<skos:prefLabel>Zaqatala Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/584614/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21396</europeana:population>
+	<wgs:lat>40.48722</wgs:lat>
+	<wgs:long>49.9525</wgs:long>
+	<skos:altLabel>Sabrat</skos:altLabel>
+	<skos:altLabel xml:lang="en">Zabrat</skos:altLabel>
+	<skos:altLabel xml:lang="az">Zabrat</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ЗАБРАТ</skos:altLabel>
+	<skos:prefLabel>Zabrat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/584649/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>53716</europeana:population>
+	<wgs:lat>40.61273</wgs:lat>
+	<wgs:long>47.14233</wgs:long>
+	<skos:altLabel>Avlakh</skos:altLabel>
+	<skos:altLabel>Jewlach</skos:altLabel>
+	<skos:altLabel>Yevlakh</skos:altLabel>
+	<skos:altLabel xml:lang="en">Yevlax</skos:altLabel>
+	<skos:altLabel>Yevlax</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ЕВЛАХ</skos:altLabel>
+	<skos:prefLabel>Yevlax</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/584650/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>40.66667</wgs:lat>
+	<wgs:long>47</wgs:long>
+	<skos:altLabel>Yevlakh Rayonu</skos:altLabel>
+	<skos:altLabel>Yevlakhskiy Rayon</skos:altLabel>
+	<skos:altLabel>Yevlax</skos:altLabel>
+	<skos:altLabel>Yevlax Rayonu</skos:altLabel>
+	<skos:prefLabel>Yevlax Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/584696/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>40.78056</wgs:lat>
+	<wgs:long>49.55361</wgs:long>
+	<skos:altLabel>Ostrov Yashma</skos:altLabel>
+	<skos:altLabel>Yaşma Adası</skos:altLabel>
+	<skos:prefLabel>Yaşma Adası</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/584715/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13625</europeana:population>
+	<wgs:lat>41.62806</wgs:lat>
+	<wgs:long>48.68278</wgs:long>
+	<skos:altLabel>Khudaf</skos:altLabel>
+	<skos:altLabel>Khudat</skos:altLabel>
+	<skos:altLabel xml:lang="en">Xudat</skos:altLabel>
+	<skos:altLabel>Xudat</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ХУДАТ</skos:altLabel>
+	<skos:prefLabel>Xudat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/584716/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>17816</europeana:population>
+	<wgs:lat>40.58694</wgs:lat>
+	<wgs:long>46.31583</wgs:long>
+	<skos:altLabel>Elenendorf</skos:altLabel>
+	<skos:altLabel>Khanlar</skos:altLabel>
+	<skos:altLabel xml:lang="en">Khanlar</skos:altLabel>
+	<skos:altLabel>Kol-Yelendorf</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Xanlar</skos:altLabel>
+	<skos:altLabel xml:lang="de">Xanlar</skos:altLabel>
+	<skos:altLabel xml:lang="az">Xanlar</skos:altLabel>
+	<skos:altLabel xml:lang="en">Xanlar</skos:altLabel>
+	<skos:altLabel>Xanlar</skos:altLabel>
+	<skos:altLabel>Yelenendorf</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гёйгёль</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ханлар</skos:altLabel>
+	<skos:prefLabel>Xanlar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/584717/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>37175</europeana:population>
+	<wgs:lat>41.47083</wgs:lat>
+	<wgs:long>48.80972</wgs:long>
+	<skos:altLabel>Chatschmas</skos:altLabel>
+	<skos:altLabel>Kekhna-Khachmaz</skos:altLabel>
+	<skos:altLabel>Khachmas</skos:altLabel>
+	<skos:altLabel>Khachmaz</skos:altLabel>
+	<skos:altLabel>Këgna Khachmas</skos:altLabel>
+	<skos:altLabel xml:lang="en">Xaçmaz</skos:altLabel>
+	<skos:altLabel>Xaçmaz</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ХАЧМАС</skos:altLabel>
+	<skos:prefLabel>Xaçmaz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/584719/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>40.28889</wgs:lat>
+	<wgs:long>49.98194</wgs:long>
+	<skos:altLabel xml:lang="az">Daş Zirə Adası</skos:altLabel>
+	<skos:altLabel>Kiçik Zirä Adası</skos:altLabel>
+	<skos:altLabel>Ostrov Dash Zirya</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ostrov Vul’f</skos:altLabel>
+	<skos:altLabel>Vulf Adası</skos:altLabel>
+	<skos:prefLabel>Daş Zirə Adası</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/584742/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>38915</europeana:population>
+	<wgs:lat>41.08333</wgs:lat>
+	<wgs:long>47.5</wgs:long>
+	<skos:altLabel>Oğuz</skos:altLabel>
+	<skos:altLabel>Oğuz Rayonu</skos:altLabel>
+	<skos:altLabel>Vartashen Rayonu</skos:altLabel>
+	<skos:altLabel>Vartashenskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Oğuz Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/584768/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>40.33944</wgs:lat>
+	<wgs:long>50.55083</wgs:long>
+	<skos:altLabel>Ostrov Urunos</skos:altLabel>
+	<skos:altLabel>Ostrov Urunus</skos:altLabel>
+	<skos:prefLabel>Ostrov Urunus</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/584783/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>74067</europeana:population>
+	<wgs:lat>40.41667</wgs:lat>
+	<wgs:long>47.75</wgs:long>
+	<skos:altLabel>Ucar</skos:altLabel>
+	<skos:altLabel>Ucar Rayonu</skos:altLabel>
+	<skos:altLabel>Udzharskiy Rayon</skos:altLabel>
+	<skos:altLabel>Ujar Rayonu</skos:altLabel>
+	<skos:prefLabel>Ucar Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/584791/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>15741</europeana:population>
+	<wgs:lat>40.51833</wgs:lat>
+	<wgs:long>47.65417</wgs:long>
+	<skos:altLabel xml:lang="en">Ucar</skos:altLabel>
+	<skos:altLabel>Ucar</skos:altLabel>
+	<skos:altLabel>Udshary</skos:altLabel>
+	<skos:altLabel>Udzhar</skos:altLabel>
+	<skos:altLabel>Udzhara</skos:altLabel>
+	<skos:altLabel>Udzhary</skos:altLabel>
+	<skos:altLabel>Ujar</skos:altLabel>
+	<skos:altLabel xml:lang="ru">УДЖАРЫ</skos:altLabel>
+	<skos:prefLabel>Ucar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/584821/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>12626</europeana:population>
+	<wgs:lat>40.99222</wgs:lat>
+	<wgs:long>45.62889</wgs:long>
+	<skos:altLabel>Tauz</skos:altLabel>
+	<skos:altLabel>Tavus</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tovuz</skos:altLabel>
+	<skos:altLabel>Tovuz</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Тауз</skos:altLabel>
+	<skos:prefLabel>Tovuz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/584861/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>149760</europeana:population>
+	<wgs:lat>41</wgs:lat>
+	<wgs:long>45.75</wgs:long>
+	<skos:altLabel>Tauzskiy Rayon</skos:altLabel>
+	<skos:altLabel>Tovuz</skos:altLabel>
+	<skos:altLabel>Tovuz Rayonu</skos:altLabel>
+	<skos:prefLabel>Tovuz Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/584871/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>18185</europeana:population>
+	<wgs:lat>40.345</wgs:lat>
+	<wgs:long>46.92889</wgs:long>
+	<skos:altLabel>Mir Bashir</skos:altLabel>
+	<skos:altLabel>Mirbäshir</skos:altLabel>
+	<skos:altLabel>Terter</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tǝrtǝr</skos:altLabel>
+	<skos:altLabel xml:lang="az">Tərtər</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ТЕРТЕР</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Միր Բաշիր</skos:altLabel>
+	<skos:prefLabel>Tərtər</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/584923/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>265150</europeana:population>
+	<wgs:lat>40.58972</wgs:lat>
+	<wgs:long>49.66861</wgs:long>
+	<skos:altLabel xml:lang="pl">Sumgait</skos:altLabel>
+	<skos:altLabel>Sumgait</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Sumgjajet</skos:altLabel>
+	<skos:altLabel xml:lang="en">Sumqayit</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Sumqayit</skos:altLabel>
+	<skos:altLabel>Sumqayyt</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Sumqayıt</skos:altLabel>
+	<skos:altLabel xml:lang="de">Sumqayıt</skos:altLabel>
+	<skos:altLabel xml:lang="az">Sumqayıt</skos:altLabel>
+	<skos:altLabel xml:lang="ru">СУМГАИТ</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сумгаит</skos:altLabel>
+	<skos:altLabel xml:lang="he">סומגאיט</skos:altLabel>
+	<skos:prefLabel>Sumqayıt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/585030/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>85795</europeana:population>
+	<wgs:lat>40.58333</wgs:lat>
+	<wgs:long>48.66667</wgs:long>
+	<skos:altLabel>Shamakhy Rayonu</skos:altLabel>
+	<skos:altLabel>Shemakhinskiy Rayon</skos:altLabel>
+	<skos:altLabel>Şamaxı</skos:altLabel>
+	<skos:altLabel>Şamaxı Rayonu</skos:altLabel>
+	<skos:prefLabel>Şamaxı Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/585031/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>41.08333</wgs:lat>
+	<wgs:long>47.16667</wgs:long>
+	<skos:altLabel>Nukhinskiy Rayon</skos:altLabel>
+	<skos:altLabel>Shekinskiy Rayon</skos:altLabel>
+	<skos:altLabel>Shäki Rayonu</skos:altLabel>
+	<skos:altLabel>Şǝki</skos:altLabel>
+	<skos:altLabel>Şəki Rayonu</skos:altLabel>
+	<skos:prefLabel>Şəki Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/585038/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>40.41667</wgs:lat>
+	<wgs:long>46.5</wgs:long>
+	<skos:altLabel>Shaumyan Rayonu</skos:altLabel>
+	<skos:altLabel>Shaumyanovskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Şaumyan Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/585039/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587081/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>40.38333</wgs:lat>
+	<wgs:long>49.91667</wgs:long>
+	<skos:prefLabel>Shaumyanovskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/585059/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>40.83333</wgs:lat>
+	<wgs:long>46.08333</wgs:long>
+	<skos:altLabel>Shamkhor Rayonu</skos:altLabel>
+	<skos:altLabel>Shamkhorskiy Rayon</skos:altLabel>
+	<skos:altLabel>Şǝmkir</skos:altLabel>
+	<skos:altLabel>Şəmkir Rayonu</skos:altLabel>
+	<skos:prefLabel>Şəmkir Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/585103/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>72989</europeana:population>
+	<wgs:lat>40.39667</wgs:lat>
+	<wgs:long>49.97361</wgs:long>
+	<skos:altLabel>Garachukhur</skos:altLabel>
+	<skos:altLabel>Imeni Kaganovicha</skos:altLabel>
+	<skos:altLabel>Kaganovich</skos:altLabel>
+	<skos:altLabel>Kaganovicha</skos:altLabel>
+	<skos:altLabel>Karachekhur</skos:altLabel>
+	<skos:altLabel>Karachukhur</skos:altLabel>
+	<skos:altLabel>Posëlok Imeni Kaganovicha</skos:altLabel>
+	<skos:altLabel xml:lang="en">Qaraçuxur</skos:altLabel>
+	<skos:altLabel xml:lang="az">Qaraçuxur</skos:altLabel>
+	<skos:altLabel>Serebovski</skos:altLabel>
+	<skos:altLabel>Serebrovskiy</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ГАРАЧУХУР</skos:altLabel>
+	<skos:prefLabel>Qaraçuxur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/585145/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10173</europeana:population>
+	<wgs:lat>40.53222</wgs:lat>
+	<wgs:long>49.71639</wgs:long>
+	<skos:altLabel>Sarai</skos:altLabel>
+	<skos:altLabel xml:lang="en">Saray</skos:altLabel>
+	<skos:altLabel xml:lang="az">Saray</skos:altLabel>
+	<skos:altLabel xml:lang="ru">САРАЙ</skos:altLabel>
+	<skos:prefLabel>Saray</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/585152/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>35421</europeana:population>
+	<wgs:lat>40.82972</wgs:lat>
+	<wgs:long>46.01889</wgs:long>
+	<skos:altLabel>Anino</skos:altLabel>
+	<skos:altLabel>Annenfel’d</skos:altLabel>
+	<skos:altLabel>Annino</skos:altLabel>
+	<skos:altLabel>Shamkhor</skos:altLabel>
+	<skos:altLabel xml:lang="en">Şǝmkir</skos:altLabel>
+	<skos:altLabel>Şəmkir</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ШАМКИР</skos:altLabel>
+	<skos:prefLabel>Şəmkir</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/585156/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>29403</europeana:population>
+	<wgs:lat>40.63028</wgs:lat>
+	<wgs:long>48.64139</wgs:long>
+	<skos:altLabel>Schemacha</skos:altLabel>
+	<skos:altLabel>Shamakhy</skos:altLabel>
+	<skos:altLabel>Shemakha</skos:altLabel>
+	<skos:altLabel xml:lang="en">Şamaxı</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ШЕМАХА</skos:altLabel>
+	<skos:prefLabel>Şamaxı</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/585170/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>62191</europeana:population>
+	<wgs:lat>41.19194</wgs:lat>
+	<wgs:long>47.17056</wgs:long>
+	<skos:altLabel>Nucha</skos:altLabel>
+	<skos:altLabel>Nukha</skos:altLabel>
+	<skos:altLabel>Nuxa</skos:altLabel>
+	<skos:altLabel>Sheki</skos:altLabel>
+	<skos:altLabel>Shäki</skos:altLabel>
+	<skos:altLabel xml:lang="en">Şǝki</skos:altLabel>
+	<skos:altLabel>Şəki</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ШЕКИ</skos:altLabel>
+	<skos:prefLabel>Şəki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/585184/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20996</europeana:population>
+	<wgs:lat>40.4425</wgs:lat>
+	<wgs:long>49.94806</wgs:long>
+	<skos:altLabel>Sabunchi</skos:altLabel>
+	<skos:altLabel>Sabunchy</skos:altLabel>
+	<skos:altLabel xml:lang="en">Sabunçu</skos:altLabel>
+	<skos:altLabel xml:lang="az">Sabunçu</skos:altLabel>
+	<skos:altLabel xml:lang="ru">САБУНЧИ</skos:altLabel>
+	<skos:prefLabel>Sabunçu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/585187/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>28075</europeana:population>
+	<wgs:lat>40.01278</wgs:lat>
+	<wgs:long>48.47889</wgs:long>
+	<skos:altLabel>Petropavlovka</skos:altLabel>
+	<skos:altLabel>Petropavlovskoye</skos:altLabel>
+	<skos:altLabel xml:lang="en">Sabirabad</skos:altLabel>
+	<skos:altLabel>Sabirabad</skos:altLabel>
+	<skos:altLabel>Ssabirabad</skos:altLabel>
+	<skos:altLabel xml:lang="ru">САБИРАБАД</skos:altLabel>
+	<skos:prefLabel>Sabirabad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/585220/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16022</europeana:population>
+	<wgs:lat>41.42639</wgs:lat>
+	<wgs:long>48.43556</wgs:long>
+	<skos:altLabel>Kusary</skos:altLabel>
+	<skos:altLabel xml:lang="en">Qusar</skos:altLabel>
+	<skos:altLabel>Qusar</skos:altLabel>
+	<skos:altLabel xml:lang="ru">КУСАРЫ</skos:altLabel>
+	<skos:prefLabel>Qusar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/585221/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>22405</europeana:population>
+	<wgs:lat>41.35972</wgs:lat>
+	<wgs:long>48.5125</wgs:long>
+	<skos:altLabel>Kuba</skos:altLabel>
+	<skos:altLabel>Kuwa</skos:altLabel>
+	<skos:altLabel xml:lang="en">Quba</skos:altLabel>
+	<skos:altLabel>Quba</skos:altLabel>
+	<skos:altLabel xml:lang="ru">КУБА</skos:altLabel>
+	<skos:prefLabel>Quba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/585223/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13398</europeana:population>
+	<wgs:lat>40.08417</wgs:lat>
+	<wgs:long>49.41583</wgs:long>
+	<skos:altLabel>Duvannaya</skos:altLabel>
+	<skos:altLabel>Duvanny</skos:altLabel>
+	<skos:altLabel>Duvannyy</skos:altLabel>
+	<skos:altLabel>Duyannaya</skos:altLabel>
+	<skos:altLabel>Gobustan</skos:altLabel>
+	<skos:altLabel xml:lang="en">Qobustan</skos:altLabel>
+	<skos:altLabel>Qobustan</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ГОБУСТАН</skos:altLabel>
+	<skos:prefLabel>Qobustan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/585225/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23102</europeana:population>
+	<wgs:lat>40.04333</wgs:lat>
+	<wgs:long>48.93556</wgs:long>
+	<skos:altLabel>Adshikabul</skos:altLabel>
+	<skos:altLabel>Adzha-Kabul</skos:altLabel>
+	<skos:altLabel>Adzhikabul</skos:altLabel>
+	<skos:altLabel>Aja Kabul</skos:altLabel>
+	<skos:altLabel>Kasi-Mahomed</skos:altLabel>
+	<skos:altLabel>Kazi Mahomed</skos:altLabel>
+	<skos:altLabel>Kazi-Magomed</skos:altLabel>
+	<skos:altLabel>Kazi-Magomet</skos:altLabel>
+	<skos:altLabel xml:lang="en">Qazımǝmmǝd</skos:altLabel>
+	<skos:altLabel>Qazıməmməd</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кази-Магомед</skos:altLabel>
+	<skos:prefLabel>Qazıməmməd</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/585226/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>18903</europeana:population>
+	<wgs:lat>41.09333</wgs:lat>
+	<wgs:long>45.36611</wgs:long>
+	<skos:altLabel>Agkëynak</skos:altLabel>
+	<skos:altLabel>Kasach</skos:altLabel>
+	<skos:altLabel>Kasachisee</skos:altLabel>
+	<skos:altLabel>Kazakh</skos:altLabel>
+	<skos:altLabel>Qazakh</skos:altLabel>
+	<skos:altLabel xml:lang="en">Qazax</skos:altLabel>
+	<skos:altLabel>Qazax</skos:altLabel>
+	<skos:altLabel xml:lang="ru">КАЗАХ</skos:altLabel>
+	<skos:prefLabel>Qazax</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/585227/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>11992</europeana:population>
+	<wgs:lat>41.4225</wgs:lat>
+	<wgs:long>46.92417</wgs:long>
+	<skos:altLabel>Kakhi</skos:altLabel>
+	<skos:altLabel>Qakh</skos:altLabel>
+	<skos:altLabel xml:lang="en">Qax</skos:altLabel>
+	<skos:altLabel>Qax</skos:altLabel>
+	<skos:altLabel xml:lang="ru">КАХИ</skos:altLabel>
+	<skos:prefLabel>Qax</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/585231/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>11867</europeana:population>
+	<wgs:lat>40.98139</wgs:lat>
+	<wgs:long>47.84583</wgs:long>
+	<skos:altLabel>Kutkashen</skos:altLabel>
+	<skos:altLabel>Kutkashin</skos:altLabel>
+	<skos:altLabel>Qutqashen</skos:altLabel>
+	<skos:altLabel>Qəbələ</skos:altLabel>
+	<skos:prefLabel>Qəbələ</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/585251/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>40.39139</wgs:lat>
+	<wgs:long>50.42028</wgs:long>
+	<skos:altLabel>Ostrov Podplitechnyy</skos:altLabel>
+	<skos:altLabel>Ostrov Podplitochnyy</skos:altLabel>
+	<skos:altLabel>Podplitechnny</skos:altLabel>
+	<skos:altLabel>Tavaaltı Adası</skos:altLabel>
+	<skos:prefLabel>Tavaaltı Adası</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/585252/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>40.29222</wgs:lat>
+	<wgs:long>49.96028</wgs:long>
+	<skos:altLabel>Ostrov Plita</skos:altLabel>
+	<skos:altLabel xml:lang="az">Tava Adası</skos:altLabel>
+	<skos:prefLabel>Tava Adası</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/585320/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587081/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>40.4</wgs:lat>
+	<wgs:long>50.03333</wgs:long>
+	<skos:prefLabel>Ordzhonikidzevskiy Rayon))</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/585328/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587081/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>40.38333</wgs:lat>
+	<wgs:long>49.8</wgs:long>
+	<skos:prefLabel>Oktyabr'skiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/585358/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587081/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>40.38333</wgs:lat>
+	<wgs:long>49.83333</wgs:long>
+	<skos:altLabel>Nasiminskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Nizaminskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/585379/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19019</europeana:population>
+	<wgs:lat>40.62333</wgs:lat>
+	<wgs:long>49.55861</wgs:long>
+	<skos:altLabel xml:lang="az">Hacı Zeynalabdin</skos:altLabel>
+	<skos:altLabel>Nasoslu</skos:altLabel>
+	<skos:altLabel>Nasosnaya</skos:altLabel>
+	<skos:altLabel>Nasosnyy</skos:altLabel>
+	<skos:altLabel>Nassosny</skos:altLabel>
+	<skos:prefLabel>Hacı Zeynalabdin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/585383/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>40.41667</wgs:lat>
+	<wgs:long>49.88333</wgs:long>
+	<skos:altLabel>Kishlinskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Narimanovskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/585385/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>40.29389</wgs:lat>
+	<wgs:long>49.92167</wgs:long>
+	<skos:altLabel xml:lang="az">Böyük Zirə Adası</skos:altLabel>
+	<skos:altLabel>Insel Nargin</skos:altLabel>
+	<skos:altLabel>Nargin Island</skos:altLabel>
+	<skos:altLabel>Narkin Adası</skos:altLabel>
+	<skos:altLabel>Ostrov Bëyuk Zirya</skos:altLabel>
+	<skos:altLabel>Ostrov Nargin</skos:altLabel>
+	<skos:prefLabel>Böyük Zirə Adası</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/585509/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>40.33333</wgs:lat>
+	<wgs:long>47</wgs:long>
+	<skos:altLabel>Mir-Bashirskiy Rayon</skos:altLabel>
+	<skos:altLabel>Mirbäshir Rayonu</skos:altLabel>
+	<skos:altLabel>Terterskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Mirbǝşir Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/585514/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>95453</europeana:population>
+	<wgs:lat>40.76395</wgs:lat>
+	<wgs:long>47.05953</wgs:long>
+	<skos:altLabel>Mengechaur</skos:altLabel>
+	<skos:altLabel xml:lang="es">Mingacevir</skos:altLabel>
+	<skos:altLabel xml:lang="en">Mingachevir</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Mingachevir</skos:altLabel>
+	<skos:altLabel>Mingechaur</skos:altLabel>
+	<skos:altLabel>Mingechaurges</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Mingeczaur</skos:altLabel>
+	<skos:altLabel>Mingelchaur</skos:altLabel>
+	<skos:altLabel>Mingächevir</skos:altLabel>
+	<skos:altLabel xml:lang="de">Mingäçevir</skos:altLabel>
+	<skos:altLabel xml:lang="en">Mingǝçevir</skos:altLabel>
+	<skos:altLabel xml:lang="et">Mingəçevir</skos:altLabel>
+	<skos:altLabel xml:lang="az">Mingəçevir</skos:altLabel>
+	<skos:altLabel>Mingəçevir</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μινγκατσεβίρ</skos:altLabel>
+	<skos:altLabel xml:lang="ru">МИНГЕЧАУР</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Мингечаур</skos:altLabel>
+	<skos:altLabel xml:lang="zh">明盖恰乌尔</skos:altLabel>
+	<skos:prefLabel>Mingəçevir</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/585557/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>40092</europeana:population>
+	<wgs:lat>40.53278</wgs:lat>
+	<wgs:long>50.00389</wgs:long>
+	<skos:altLabel>Mashtaga</skos:altLabel>
+	<skos:altLabel>Mashtaghy</skos:altLabel>
+	<skos:altLabel>Mashtagi</skos:altLabel>
+	<skos:altLabel xml:lang="en">Maştağa</skos:altLabel>
+	<skos:altLabel xml:lang="az">Maştağa</skos:altLabel>
+	<skos:altLabel xml:lang="ru">МАШТАГА</skos:altLabel>
+	<skos:prefLabel>Maştağa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/585568/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15267</europeana:population>
+	<wgs:lat>40.49222</wgs:lat>
+	<wgs:long>50.13889</wgs:long>
+	<skos:altLabel>Mardakjan</skos:altLabel>
+	<skos:altLabel>Mardakyan</skos:altLabel>
+	<skos:altLabel>Mardakyany</skos:altLabel>
+	<skos:altLabel xml:lang="en">Mǝrdǝkan</skos:altLabel>
+	<skos:altLabel>Mərdəkan</skos:altLabel>
+	<skos:altLabel xml:lang="ru">МАРДАКЯН</skos:altLabel>
+	<skos:prefLabel>Mərdəkan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/585569/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>40.25</wgs:lat>
+	<wgs:long>46.75</wgs:long>
+	<skos:altLabel>Dzharoberdskiy Rayon</skos:altLabel>
+	<skos:altLabel>Dzherabertskiy Rayon</skos:altLabel>
+	<skos:altLabel>Mardakertskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Mardakert Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/585598/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>40.40028</wgs:lat>
+	<wgs:long>50.47222</wgs:long>
+	<skos:altLabel>Kiçik Tava Adası</skos:altLabel>
+	<skos:altLabel>Ostrov Malaya Plita</skos:altLabel>
+	<skos:prefLabel>Kiçik Tava Adası</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/585630/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>30694</europeana:population>
+	<wgs:lat>40.32722</wgs:lat>
+	<wgs:long>49.73</wgs:long>
+	<skos:altLabel xml:lang="en">Lökbatan</skos:altLabel>
+	<skos:altLabel xml:lang="az">Lökbatan</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ЛОКБАТАН</skos:altLabel>
+	<skos:prefLabel>Lökbatan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/585638/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587245/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>40.5</wgs:lat>
+	<wgs:long>49.91667</wgs:long>
+	<skos:prefLabel>Leninskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/585651/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>40.35</wgs:lat>
+	<wgs:long>50.38444</wgs:long>
+	<skos:altLabel>Ostrov Gu</skos:altLabel>
+	<skos:altLabel>Ostrov Lebyazhiy Kamen’</skos:altLabel>
+	<skos:altLabel>Ostrov Peschanyy</skos:altLabel>
+	<skos:altLabel>Pesçani Adası</skos:altLabel>
+	<skos:altLabel>Qu Adası</skos:altLabel>
+	<skos:prefLabel>Qu Adası</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/585686/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>40.25</wgs:lat>
+	<wgs:long>48.16667</wgs:long>
+	<skos:altLabel>Kyurdamirskiy Rayon</skos:altLabel>
+	<skos:altLabel>Kürdǝmir</skos:altLabel>
+	<skos:altLabel>Kürdəmir Rayonu</skos:altLabel>
+	<skos:prefLabel>Kürdəmir Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/585728/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>40.68333</wgs:lat>
+	<wgs:long>46.36667</wgs:long>
+	<skos:prefLabel>Kyapazskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/585738/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>40.91667</wgs:lat>
+	<wgs:long>47.83333</wgs:long>
+	<skos:altLabel>Kutkashenskiy Rayon</skos:altLabel>
+	<skos:altLabel>Qutqashen Rayonu</skos:altLabel>
+	<skos:altLabel>Qǝbǝlǝ</skos:altLabel>
+	<skos:altLabel>Qəbələ Rayonu</skos:altLabel>
+	<skos:prefLabel>Qəbələ Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/585749/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>84645</europeana:population>
+	<wgs:lat>41.41667</wgs:lat>
+	<wgs:long>48.25</wgs:long>
+	<skos:altLabel>Gil’skiy Rayon</skos:altLabel>
+	<skos:altLabel>Kusarskiy Rayon</skos:altLabel>
+	<skos:altLabel>Qusar</skos:altLabel>
+	<skos:altLabel>Qusar Rayonu</skos:altLabel>
+	<skos:prefLabel>Qusar Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/585786/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>143047</europeana:population>
+	<wgs:lat>41.16667</wgs:lat>
+	<wgs:long>48.41667</wgs:long>
+	<skos:altLabel>Kubinskiy Rayon</skos:altLabel>
+	<skos:altLabel>Quba</skos:altLabel>
+	<skos:altLabel>Quba Rayonu</skos:altLabel>
+	<skos:prefLabel>Quba Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/585821/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>40.39722</wgs:lat>
+	<wgs:long>50.46167</wgs:long>
+	<skos:altLabel>Kamen’ Koltysh</skos:altLabel>
+	<skos:altLabel>Koltış Adası</skos:altLabel>
+	<skos:altLabel>Ostrov Koltyh</skos:altLabel>
+	<skos:altLabel>Ostrov Koltysh</skos:altLabel>
+	<skos:prefLabel>Koltış Adası</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/585882/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587245/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>40.5</wgs:lat>
+	<wgs:long>49.78333</wgs:long>
+	<skos:prefLabel>Kirovskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/585967/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>54861</europeana:population>
+	<wgs:lat>40.5</wgs:lat>
+	<wgs:long>46.33333</wgs:long>
+	<skos:altLabel xml:lang="az">Göygöl Rayon</skos:altLabel>
+	<skos:altLabel>Khanlar Rayonu</skos:altLabel>
+	<skos:altLabel>Khanlarskiy Rayon</skos:altLabel>
+	<skos:altLabel>Narimanovskiy Rayon</skos:altLabel>
+	<skos:altLabel>Xanlar</skos:altLabel>
+	<skos:altLabel xml:lang="az">Xanlar Rayonu</skos:altLabel>
+	<skos:prefLabel>Xanlar Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/586001/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>152360</europeana:population>
+	<wgs:lat>41.58333</wgs:lat>
+	<wgs:long>48.75</wgs:long>
+	<skos:altLabel>Khachmasskiy Rayon</skos:altLabel>
+	<skos:altLabel>Khachmaz Rayonu</skos:altLabel>
+	<skos:altLabel>Xaçmaz</skos:altLabel>
+	<skos:altLabel>Xaçmaz Rayonu</skos:altLabel>
+	<skos:prefLabel>Xaçmaz Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/586047/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>40.08333</wgs:lat>
+	<wgs:long>46.16667</wgs:long>
+	<skos:altLabel>Kel’badzharskiy Rayon</skos:altLabel>
+	<skos:altLabel>Kälbäjär Rayonu</skos:altLabel>
+	<skos:altLabel>Kǝlbǝcǝr</skos:altLabel>
+	<skos:altLabel>Kəlbəcər Rayonu</skos:altLabel>
+	<skos:prefLabel>Kəlbəcər Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/586087/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>84013</europeana:population>
+	<wgs:lat>41.16667</wgs:lat>
+	<wgs:long>45.16667</wgs:long>
+	<skos:altLabel>Kazakhskiy Rayon</skos:altLabel>
+	<skos:altLabel>Qazakh Rayonu</skos:altLabel>
+	<skos:altLabel>Qazax</skos:altLabel>
+	<skos:altLabel>Qazax Rayonu</skos:altLabel>
+	<skos:prefLabel>Qazax Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/586112/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>90554</europeana:population>
+	<wgs:lat>40.58333</wgs:lat>
+	<wgs:long>46.66667</wgs:long>
+	<skos:altLabel>Goranboy</skos:altLabel>
+	<skos:altLabel xml:lang="az">Goranboy Rayonu</skos:altLabel>
+	<skos:altLabel>Kasum-Ismailovskiy Rayon</skos:altLabel>
+	<skos:altLabel>Qasym Ismayylov Rayonu</skos:altLabel>
+	<skos:prefLabel>Goranboy Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/586209/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587081/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>40.33333</wgs:lat>
+	<wgs:long>49.66667</wgs:long>
+	<skos:altLabel>Azizbekovskiy Rayon</skos:altLabel>
+	<skos:altLabel>Karadagskiy Rayon</skos:altLabel>
+	<skos:altLabel>Molotovskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Qaradağ Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/586290/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>53246</europeana:population>
+	<wgs:lat>41.33333</wgs:lat>
+	<wgs:long>46.75</wgs:long>
+	<skos:altLabel>Kakhskiy Rayon</skos:altLabel>
+	<skos:altLabel>Qakh Rayonu</skos:altLabel>
+	<skos:altLabel>Qax Rayonu</skos:altLabel>
+	<skos:altLabel>Qǝx</skos:altLabel>
+	<skos:prefLabel>Qax Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/586318/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13610</europeana:population>
+	<wgs:lat>40.79</wgs:lat>
+	<wgs:long>48.15194</wgs:long>
+	<skos:altLabel>Ismailly</skos:altLabel>
+	<skos:altLabel>Ismaily</skos:altLabel>
+	<skos:altLabel>Ismanlli</skos:altLabel>
+	<skos:altLabel>Ismayylly</skos:altLabel>
+	<skos:altLabel>Ismoylly</skos:altLabel>
+	<skos:altLabel>Jsmailly</skos:altLabel>
+	<skos:altLabel xml:lang="en">İsmayıllı</skos:altLabel>
+	<skos:altLabel>İsmayıllı</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ИСМАИЛЛЫ</skos:altLabel>
+	<skos:prefLabel>İsmayıllı</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/586320/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>76184</europeana:population>
+	<wgs:lat>40.83333</wgs:lat>
+	<wgs:long>48.16667</wgs:long>
+	<skos:altLabel>Ismaillinskiy Rayon</skos:altLabel>
+	<skos:altLabel>Ismayylly Rayonu</skos:altLabel>
+	<skos:altLabel>İsmayıllı</skos:altLabel>
+	<skos:altLabel>İsmayıllı Rayonu</skos:altLabel>
+	<skos:prefLabel>İsmayıllı Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/586342/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587081/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>40.33333</wgs:lat>
+	<wgs:long>49.8</wgs:long>
+	<skos:altLabel>Stalinskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Imeni Dvadtsati Shesti Bakinskikh Komissarov Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/586406/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>40.68333</wgs:lat>
+	<wgs:long>46.36667</wgs:long>
+	<skos:prefLabel>Gyandzhinskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/586421/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>40.31083</wgs:lat>
+	<wgs:long>50.00611</wgs:long>
+	<skos:altLabel>Insel Pestschanyj</skos:altLabel>
+	<skos:altLabel>Ostrov Gum</skos:altLabel>
+	<skos:altLabel>Ostrov Peschanyy</skos:altLabel>
+	<skos:altLabel>Pesçani Adası</skos:altLabel>
+	<skos:altLabel xml:lang="az">Qum Adası</skos:altLabel>
+	<skos:prefLabel>Qum Adası</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/586423/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>40.37194</wgs:lat>
+	<wgs:long>50.54583</wgs:long>
+	<skos:altLabel>Ostrov Grebeno</skos:altLabel>
+	<skos:altLabel>Ostrov Greben’</skos:altLabel>
+	<skos:altLabel>Ostrov Yal</skos:altLabel>
+	<skos:altLabel>Yal Adası</skos:altLabel>
+	<skos:prefLabel>Yal Adası</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/586427/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>35348</europeana:population>
+	<wgs:lat>40.65306</wgs:lat>
+	<wgs:long>47.74056</wgs:long>
+	<skos:altLabel>Gekchai</skos:altLabel>
+	<skos:altLabel>Geokchai</skos:altLabel>
+	<skos:altLabel>Geokchay</skos:altLabel>
+	<skos:altLabel>Geoktschai</skos:altLabel>
+	<skos:altLabel>Göychay</skos:altLabel>
+	<skos:altLabel xml:lang="en">Göyçay</skos:altLabel>
+	<skos:altLabel>Göyçay</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ГЕОКЧАЙ</skos:altLabel>
+	<skos:prefLabel>Göyçay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/586429/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>36293</europeana:population>
+	<wgs:lat>40.37444</wgs:lat>
+	<wgs:long>50.08528</wgs:long>
+	<skos:altLabel>Gousan</skos:altLabel>
+	<skos:altLabel>Gousany</skos:altLabel>
+	<skos:altLabel>Goussan</skos:altLabel>
+	<skos:altLabel>Govsan</skos:altLabel>
+	<skos:altLabel xml:lang="en">Hövsan</skos:altLabel>
+	<skos:altLabel xml:lang="az">Hövsan</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ГОВСАН</skos:altLabel>
+	<skos:prefLabel>Hövsan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/586482/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>105323</europeana:population>
+	<wgs:lat>40.58333</wgs:lat>
+	<wgs:long>47.83333</wgs:long>
+	<skos:altLabel>Geokchayskiy Rayon</skos:altLabel>
+	<skos:altLabel>Göychay Rayonu</skos:altLabel>
+	<skos:altLabel>Göyçay</skos:altLabel>
+	<skos:altLabel>Göyçay Rayonu</skos:altLabel>
+	<skos:prefLabel>Göyçay Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/586523/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>303268</europeana:population>
+	<wgs:lat>40.68278</wgs:lat>
+	<wgs:long>46.36056</wgs:long>
+	<skos:altLabel>Elisavetpol</skos:altLabel>
+	<skos:altLabel>Elizavetpol’</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Ganca</skos:altLabel>
+	<skos:altLabel>Gandja</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Gandja</skos:altLabel>
+	<skos:altLabel xml:lang="es">Gandja</skos:altLabel>
+	<skos:altLabel xml:lang="da">Gandja</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Gandja</skos:altLabel>
+	<skos:altLabel>Gandza</skos:altLabel>
+	<skos:altLabel>Gandzha</skos:altLabel>
+	<skos:altLabel>Gandzhe</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Gandża</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ganja</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Ganĝa</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Gence</skos:altLabel>
+	<skos:altLabel>Gendzakh</skos:altLabel>
+	<skos:altLabel>Gyandzha</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Gyandzha</skos:altLabel>
+	<skos:altLabel xml:lang="de">Gäncä</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Gäncä</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Gäncä</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Gändzjä</skos:altLabel>
+	<skos:altLabel xml:lang="en">Gǝncǝ</skos:altLabel>
+	<skos:altLabel xml:lang="et">Gəncə</skos:altLabel>
+	<skos:altLabel xml:lang="az">Gəncə</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Gəncə</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Gəncə</skos:altLabel>
+	<skos:altLabel>Gəncə</skos:altLabel>
+	<skos:altLabel>Kirovabad</skos:altLabel>
+	<skos:altLabel>Kirowabad</skos:altLabel>
+	<skos:altLabel>Yelizavetpol’</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ГЯНДЖА</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гянджа</skos:altLabel>
+	<skos:altLabel xml:lang="fa">گنجه</skos:altLabel>
+	<skos:altLabel xml:lang="ka">განჯა</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ギャンジャ</skos:altLabel>
+	<skos:altLabel xml:lang="ko">간자</skos:altLabel>
+	<skos:prefLabel>Gəncə</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/586708/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>40.03583</wgs:lat>
+	<wgs:long>49.58278</wgs:long>
+	<skos:altLabel>Ostrov Duvannyy</skos:altLabel>
+	<skos:altLabel>Zənbil Adası</skos:altLabel>
+	<skos:prefLabel>Zənbil Adası</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/586725/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>41.16667</wgs:lat>
+	<wgs:long>48.91667</wgs:long>
+	<skos:altLabel>Divichinskiy Rayon</skos:altLabel>
+	<skos:altLabel>Dävächi Rayonu</skos:altLabel>
+	<skos:altLabel>Dǝvǝçi</skos:altLabel>
+	<skos:altLabel>Dəvəçi Rayonu</skos:altLabel>
+	<skos:prefLabel>Dəvəçi Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/586771/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>40.41667</wgs:lat>
+	<wgs:long>46</wgs:long>
+	<skos:altLabel>Dashkesanskiy Rayon</skos:altLabel>
+	<skos:altLabel>Dashkäsän Rayonu</skos:altLabel>
+	<skos:altLabel>Dastafyurskiy Rayon</skos:altLabel>
+	<skos:altLabel>Daşkǝsǝn</skos:altLabel>
+	<skos:altLabel>Daşkəsən Rayonu</skos:altLabel>
+	<skos:prefLabel>Daşkəsən Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/586813/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>40.36667</wgs:lat>
+	<wgs:long>50.5</wgs:long>
+	<skos:altLabel>Dardanel Adası</skos:altLabel>
+	<skos:altLabel>Kamen’ Churka</skos:altLabel>
+	<skos:altLabel>Ostrov Churki</skos:altLabel>
+	<skos:altLabel>Çurki Adası</skos:altLabel>
+	<skos:prefLabel>Dardanel Adası</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/586925/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>24795</europeana:population>
+	<wgs:lat>40.51611</wgs:lat>
+	<wgs:long>50.11639</wgs:long>
+	<skos:altLabel>Busovny</skos:altLabel>
+	<skos:altLabel>Busowny</skos:altLabel>
+	<skos:altLabel>Buzouvna</skos:altLabel>
+	<skos:altLabel xml:lang="en">Buzovna</skos:altLabel>
+	<skos:altLabel>Buzovna</skos:altLabel>
+	<skos:altLabel>Buzovny</skos:altLabel>
+	<skos:altLabel xml:lang="ru">БУЗОВНА</skos:altLabel>
+	<skos:prefLabel>Buzovna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/586963/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>40.40444</wgs:lat>
+	<wgs:long>50.41278</wgs:long>
+	<skos:altLabel>Böyük Tava Adası</skos:altLabel>
+	<skos:altLabel>Ostrov Bol’shaya Plita</skos:altLabel>
+	<skos:prefLabel>Böyük Tava Adası</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/586967/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14012</europeana:population>
+	<wgs:lat>40.47583</wgs:lat>
+	<wgs:long>49.82222</wgs:long>
+	<skos:altLabel>Binagadi</skos:altLabel>
+	<skos:altLabel>Binagady</skos:altLabel>
+	<skos:altLabel>Binaghad</skos:altLabel>
+	<skos:altLabel xml:lang="en">Binǝqǝdi</skos:altLabel>
+	<skos:altLabel xml:lang="az">Binəqədi</skos:altLabel>
+	<skos:altLabel>Bonogady</skos:altLabel>
+	<skos:altLabel xml:lang="ru">БИНАГАДИ</skos:altLabel>
+	<skos:prefLabel>Binəqədi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/586968/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>24596</europeana:population>
+	<wgs:lat>40.45389</wgs:lat>
+	<wgs:long>50.07639</wgs:long>
+	<skos:altLabel>Bina Staraya</skos:altLabel>
+	<skos:altLabel>Biny Selo</skos:altLabel>
+	<skos:altLabel xml:lang="en">Binǝ</skos:altLabel>
+	<skos:altLabel xml:lang="az">Binə</skos:altLabel>
+	<skos:altLabel xml:lang="ru">БИНА</skos:altLabel>
+	<skos:prefLabel>Binə</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/587010/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>41.75</wgs:lat>
+	<wgs:long>46.41667</wgs:long>
+	<skos:altLabel>Balakǝn</skos:altLabel>
+	<skos:altLabel>Balakən Rayonu</skos:altLabel>
+	<skos:altLabel>Belokanskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Balakən Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/587056/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>40.33333</wgs:lat>
+	<wgs:long>47.16667</wgs:long>
+	<skos:altLabel>Bardinskiy Rayon</skos:altLabel>
+	<skos:altLabel>Bǝrdǝ</skos:altLabel>
+	<skos:altLabel xml:lang="az">Bərdə Rayonu</skos:altLabel>
+	<skos:prefLabel>Bərdə Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/587057/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>37372</europeana:population>
+	<wgs:lat>40.37444</wgs:lat>
+	<wgs:long>47.12667</wgs:long>
+	<skos:altLabel>Barda</skos:altLabel>
+	<skos:altLabel>Bärdä</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bǝrdǝ</skos:altLabel>
+	<skos:altLabel xml:lang="az">Bərdə</skos:altLabel>
+	<skos:altLabel xml:lang="ru">БАРДА</skos:altLabel>
+	<skos:prefLabel>Bərdə</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/587071/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10863</europeana:population>
+	<wgs:lat>40.46167</wgs:lat>
+	<wgs:long>49.92</wgs:long>
+	<skos:altLabel>Balaban</skos:altLabel>
+	<skos:altLabel>Balachany</skos:altLabel>
+	<skos:altLabel>Baladzary</skos:altLabel>
+	<skos:altLabel>Balakhani</skos:altLabel>
+	<skos:altLabel>Balakhany</skos:altLabel>
+	<skos:altLabel xml:lang="en">Balaxanı</skos:altLabel>
+	<skos:altLabel xml:lang="az">Balaxanı</skos:altLabel>
+	<skos:altLabel xml:lang="ru">БАЛАХАНЫ</skos:altLabel>
+	<skos:prefLabel>Balaxanı</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/587078/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>42194</europeana:population>
+	<wgs:lat>40.43139</wgs:lat>
+	<wgs:long>49.80806</wgs:long>
+	<skos:altLabel>Baku-Baladshary</skos:altLabel>
+	<skos:altLabel>Baladjary</skos:altLabel>
+	<skos:altLabel>Baladzhary</skos:altLabel>
+	<skos:altLabel xml:lang="az">Biləcəri</skos:altLabel>
+	<skos:prefLabel>Biləcəri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/587081/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>40.3</wgs:lat>
+	<wgs:long>49.71667</wgs:long>
+	<skos:altLabel xml:lang="nb">Baki</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Baki</skos:altLabel>
+	<skos:altLabel>Baki</skos:altLabel>
+	<skos:altLabel>Baku Sahari</skos:altLabel>
+	<skos:altLabel>Baky Shähäri</skos:altLabel>
+	<skos:altLabel>Bakı Şähäri</skos:altLabel>
+	<skos:altLabel>Gorod Baku</skos:altLabel>
+	<skos:prefLabel>Bakı Şähäri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/587084/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>1116513</europeana:population>
+	<wgs:lat>40.37767</wgs:lat>
+	<wgs:long>49.89201</wgs:long>
+	<skos:altLabel xml:lang="pt">Bacu</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Bakoe</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Bakoe</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Bakou</skos:altLabel>
+	<skos:altLabel xml:lang="br">Bakou</skos:altLabel>
+	<skos:altLabel xml:lang="id">Baku</skos:altLabel>
+	<skos:altLabel xml:lang="de">Baku</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Baku</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Baku</skos:altLabel>
+	<skos:altLabel xml:lang="it">Baku</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Baku</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Baku</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Baku</skos:altLabel>
+	<skos:altLabel xml:lang="en">Baku</skos:altLabel>
+	<skos:altLabel xml:lang="da">Baku</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Baku</skos:altLabel>
+	<skos:altLabel xml:lang="io">Baku</skos:altLabel>
+	<skos:altLabel xml:lang="no">Baku</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Baku</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Baku</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Baku</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Baku</skos:altLabel>
+	<skos:altLabel xml:lang="la">Baku</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Baku</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Baku</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Baku</skos:altLabel>
+	<skos:altLabel xml:lang="et">Bakuu</skos:altLabel>
+	<skos:altLabel>Baky</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Bakó</skos:altLabel>
+	<skos:altLabel xml:lang="es">Bakú</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Bakú</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Bakú - Bakı</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Bakü</skos:altLabel>
+	<skos:altLabel>Bakı</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Bakı</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Bakı</skos:altLabel>
+	<skos:altLabel xml:lang="az">Bakı</skos:altLabel>
+	<skos:altLabel xml:lang="tt">Bakı</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μπακού</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Баку</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Баку</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Баку</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Баку</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Баку</skos:altLabel>
+	<skos:altLabel xml:lang="be">Баку</skos:altLabel>
+	<skos:altLabel xml:lang="av">Баку</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Боку</skos:altLabel>
+	<skos:altLabel xml:lang="he">באקו</skos:altLabel>
+	<skos:altLabel xml:lang="ar">باكو</skos:altLabel>
+	<skos:altLabel xml:lang="fa">باکو</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ბაქო</skos:altLabel>
+	<skos:altLabel xml:lang="am">ባኩ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">バクー</skos:altLabel>
+	<skos:altLabel xml:lang="zh">巴库</skos:altLabel>
+	<skos:altLabel xml:lang="ko">바쿠</skos:altLabel>
+	<skos:prefLabel>Baku</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/587112/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>40.41667</wgs:lat>
+	<wgs:long>50.16667</wgs:long>
+	<skos:altLabel>Artëmovskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Azizbekovskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/587116/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255147/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>8303512</europeana:population>
+	<wgs:lat>40.5</wgs:lat>
+	<wgs:long>47.5</wgs:long>
+	<skos:altLabel>AZ</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Acerbaixán</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Acerbaixán - Azərbaycan</skos:altLabel>
+	<skos:altLabel xml:lang="la">Adrabigania</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ai-déc-bai-gian</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ai-déc-bai-gian (Azerbaijan)</skos:altLabel>
+	<skos:altLabel xml:lang="ga">An Asarbaiseáin</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Asarsuyu</skos:altLabel>
+	<skos:altLabel xml:lang="de">Aserbaidschan</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Aserbaidschan</skos:altLabel>
+	<skos:altLabel xml:lang="et">AserbaidĪaan</skos:altLabel>
+	<skos:altLabel xml:lang="et">Aserbaidžaan</skos:altLabel>
+	<skos:altLabel xml:lang="af">Aserbaijan</skos:altLabel>
+	<skos:altLabel xml:lang="se">Aserbaižan</skos:altLabel>
+	<skos:altLabel xml:lang="da">Aserbajdsjan</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Aserbajdsjan</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Aserbajdsjan</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Aserbajdsjan</skos:altLabel>
+	<skos:altLabel xml:lang="no">Aserbajdsjan</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Aserbayjan</skos:altLabel>
+	<skos:altLabel xml:lang="is">Aserbaídsjan</skos:altLabel>
+	<skos:altLabel xml:lang="is">Aserbaíjan</skos:altLabel>
+	<skos:altLabel xml:lang="af">Aserbeidjan</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Asirwayan</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Azerbaidjan</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Azerbaidjan</skos:altLabel>
+	<skos:altLabel xml:lang="br">Azerbaidjan</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Azerbaidzan</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Azerbaidzhan</skos:altLabel>
+	<skos:altLabel>Azerbaidzhanian Soviet Socialist Republic</skos:altLabel>
+	<skos:altLabel xml:lang="li">Azerbaidzjan</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Azerbaidžan</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Azerbaidžanas</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Azerbaidžāna</skos:altLabel>
+	<skos:altLabel xml:lang="it">Azerbaigiàn</skos:altLabel>
+	<skos:altLabel xml:lang="id">Azerbaijan</skos:altLabel>
+	<skos:altLabel xml:lang="en">Azerbaijan</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Azerbaijan</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Azerbaijan</skos:altLabel>
+	<skos:altLabel xml:lang="io">Azerbaijan</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Azerbaijan</skos:altLabel>
+	<skos:altLabel xml:lang="na">Azerbaijan</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Azerbaijan</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Azerbaijan</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Azerbaijan</skos:altLabel>
+	<skos:altLabel>Azerbaijan Soviet Socialist Republic</skos:altLabel>
+	<skos:altLabel>Azerbaijani Republic</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Azerbaijão</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Azerbaitjan</skos:altLabel>
+	<skos:altLabel xml:lang="es">Azerbaiyán</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Azerbajdzjan</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Azerbajdzsán</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Azerbajdžan</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Azerbajdžan</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Azerbajdžan</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Azerbajxhan</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Azerbajxhani</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Azerbajĝano</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Azerbaycan</skos:altLabel>
+	<skos:altLabel>Azerbaydzhan Soviet Socialist Republic</skos:altLabel>
+	<skos:altLabel>Azerbaydzhanskaya Sovetskaya Sotsialisticheskaya Respublika</skos:altLabel>
+	<skos:altLabel xml:lang="an">Azerbayán</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Azerbaïdjan</skos:altLabel>
+	<skos:altLabel xml:lang="af">Azerbeidjan</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Azerbeidzjan</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Azerbeidzjan</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Azerbejdżan</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Azerbejdžan</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Azerbejdžan</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Azerbejdžan</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Azerbeycan</skos:altLabel>
+	<skos:altLabel>Azärbaycan</skos:altLabel>
+	<skos:altLabel>Azärbayjan Respublikasy</skos:altLabel>
+	<skos:altLabel xml:lang="az">Azərbaycan</skos:altLabel>
+	<skos:altLabel xml:lang="az">Azərbaycan Respublikası</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Ażerbajġan</skos:altLabel>
+	<skos:altLabel xml:lang="ca">L’Azerbaidjan</skos:altLabel>
+	<skos:altLabel xml:lang="en">Republic of Azerbaijan</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Ázerbájdžán</skos:altLabel>
+	<skos:altLabel xml:lang="tt">Äzärbaycan</skos:altLabel>
+	<skos:altLabel xml:lang="el">Αζερμπαϊτζάν</skos:altLabel>
+	<skos:altLabel xml:lang="av">Азарбижан</skos:altLabel>
+	<skos:altLabel xml:lang="cv">Азербайджан</skos:altLabel>
+	<skos:altLabel xml:lang="os">Азербайджан</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Азербайджан</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Азербайджан</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Азербайджан</skos:altLabel>
+	<skos:altLabel xml:lang="be">Азербайжан</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Азербејџан</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Азербејџан</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Азејберџан</skos:altLabel>
+	<skos:altLabel xml:lang="be">Азэрбайджан</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Озарбойҷон</skos:altLabel>
+	<skos:altLabel xml:lang="kk">Әзірбайжан</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Ադրբեջան</skos:altLabel>
+	<skos:altLabel xml:lang="yi">אַזערבײַדזשאַן</skos:altLabel>
+	<skos:altLabel xml:lang="yi">אזערבאדזשאן</skos:altLabel>
+	<skos:altLabel xml:lang="he">אזרביג'ן</skos:altLabel>
+	<skos:altLabel xml:lang="he">אזרבייג'ן</skos:altLabel>
+	<skos:altLabel xml:lang="he">אזרבייג׳אן</skos:altLabel>
+	<skos:altLabel xml:lang="ur">آذر بائجان</skos:altLabel>
+	<skos:altLabel xml:lang="ur">آذربائیجان</skos:altLabel>
+	<skos:altLabel xml:lang="ps">آذربايجان</skos:altLabel>
+	<skos:altLabel xml:lang="fa">آذربایجان</skos:altLabel>
+	<skos:altLabel xml:lang="ur">آذربا‏ئیجان</skos:altLabel>
+	<skos:altLabel xml:lang="ar">آذربيجان</skos:altLabel>
+	<skos:altLabel xml:lang="ar">أذربيجان</skos:altLabel>
+	<skos:altLabel xml:lang="ug">ئازەربەيجان</skos:altLabel>
+	<skos:altLabel xml:lang="fa">جمهوری آذربایجان</skos:altLabel>
+	<skos:altLabel xml:lang="hi">अजरबैजान</skos:altLabel>
+	<skos:altLabel xml:lang="sa">अजर्बैजान</skos:altLabel>
+	<skos:altLabel xml:lang="hi">अज़रबैजान</skos:altLabel>
+	<skos:altLabel xml:lang="hi">अस़रबैजान</skos:altLabel>
+	<skos:altLabel xml:lang="bn">আজারবাইজান</skos:altLabel>
+	<skos:altLabel xml:lang="ta">அஜர்பைஜான்</skos:altLabel>
+	<skos:altLabel xml:lang="ml">അസര്‍ബൈജാന്‍</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศอาเซอร์ไบจาน</skos:altLabel>
+	<skos:altLabel xml:lang="th">อาเซอร์ไบจาน</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ອາເຊີໄບຈັນ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཨཛར་བཡེ་ཇན།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">აზერბაიჯანი</skos:altLabel>
+	<skos:altLabel xml:lang="am">አዘርባጃን</skos:altLabel>
+	<skos:altLabel xml:lang="km">អាហ៊្សែរបែហ្សង់</skos:altLabel>
+	<skos:altLabel xml:lang="ja">アゼルバイジャン</skos:altLabel>
+	<skos:altLabel xml:lang="ja">アゼルバイジャン共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">阿塞拜疆</skos:altLabel>
+	<skos:altLabel xml:lang="ko">아제르바이잔</skos:altLabel>
+	<skos:prefLabel>Republic of Azerbaijan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/587207/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13435</europeana:population>
+	<wgs:lat>40.47083</wgs:lat>
+	<wgs:long>50.32167</wgs:long>
+	<skos:altLabel xml:lang="en">Artyom</skos:altLabel>
+	<skos:altLabel>Artyom</skos:altLabel>
+	<skos:altLabel>Artëm-Ostrov</skos:altLabel>
+	<skos:altLabel>Imeni Artema</skos:altLabel>
+	<skos:altLabel>Imeni ”Dvadtsati Shesti”</skos:altLabel>
+	<skos:altLabel>Posëlok Imeni Dvadtsati Shesti</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Артем-Остров</skos:altLabel>
+	<skos:prefLabel>Artyom</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/587208/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>40.44944</wgs:lat>
+	<wgs:long>50.33944</wgs:long>
+	<skos:altLabel>Insel Artema</skos:altLabel>
+	<skos:altLabel>Ostrov Artëma</skos:altLabel>
+	<skos:altLabel>Ostrov Pirallakhi</skos:altLabel>
+	<skos:altLabel>Pirallahı Adası</skos:altLabel>
+	<skos:altLabel>Svyatoi Island</skos:altLabel>
+	<skos:prefLabel>Pirallahı Adası</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/587245/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>40.41667</wgs:lat>
+	<wgs:long>49.33333</wgs:long>
+	<skos:altLabel>Absheron Rayonu</skos:altLabel>
+	<skos:altLabel>Abşeron</skos:altLabel>
+	<skos:altLabel>Abşeron Rayonu</skos:altLabel>
+	<skos:altLabel>Apsheronskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Abşeron Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/587261/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>26798</europeana:population>
+	<wgs:lat>40.42639</wgs:lat>
+	<wgs:long>49.98361</wgs:long>
+	<skos:altLabel>Amirabdzhan</skos:altLabel>
+	<skos:altLabel xml:lang="en">Amiradzhan</skos:altLabel>
+	<skos:altLabel>Amiradzhany</skos:altLabel>
+	<skos:altLabel>Amirdzhan</skos:altLabel>
+	<skos:altLabel xml:lang="az">Əmircan</skos:altLabel>
+	<skos:prefLabel>Əmircan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/587342/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>66645</europeana:population>
+	<wgs:lat>40.5</wgs:lat>
+	<wgs:long>48.33333</wgs:long>
+	<skos:altLabel>Aghsu Rayonu</skos:altLabel>
+	<skos:altLabel>Akhsuinskiy Rayon</skos:altLabel>
+	<skos:altLabel>Ağsu</skos:altLabel>
+	<skos:altLabel>Ağsu Rayonu</skos:altLabel>
+	<skos:prefLabel>Ağsu Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/587361/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17209</europeana:population>
+	<wgs:lat>40.56917</wgs:lat>
+	<wgs:long>48.40083</wgs:long>
+	<skos:altLabel>Aghsu</skos:altLabel>
+	<skos:altLabel>Akhsu</skos:altLabel>
+	<skos:altLabel>Aksu</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ağsu</skos:altLabel>
+	<skos:altLabel>Ağsu</skos:altLabel>
+	<skos:altLabel xml:lang="ru">АХСУ</skos:altLabel>
+	<skos:prefLabel>Ağsu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/587362/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>12542</europeana:population>
+	<wgs:lat>41.11889</wgs:lat>
+	<wgs:long>45.45389</wgs:long>
+	<skos:altLabel>Akstafa</skos:altLabel>
+	<skos:altLabel>Akstafal</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ağstafa</skos:altLabel>
+	<skos:altLabel>Ağstafa</skos:altLabel>
+	<skos:altLabel xml:lang="ru">АКСТАФА</skos:altLabel>
+	<skos:prefLabel>Ağstafa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/587376/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>40.58333</wgs:lat>
+	<wgs:long>47.41667</wgs:long>
+	<skos:altLabel>Agdashskiy Rayon</skos:altLabel>
+	<skos:altLabel>Aghdash Rayonu</skos:altLabel>
+	<skos:altLabel>Ağdaş</skos:altLabel>
+	<skos:altLabel>Ağdaş Rayonu</skos:altLabel>
+	<skos:prefLabel>Ağdaş Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/587378/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>23528</europeana:population>
+	<wgs:lat>40.65</wgs:lat>
+	<wgs:long>47.47611</wgs:long>
+	<skos:altLabel>Agdasch</skos:altLabel>
+	<skos:altLabel>Agdash</skos:altLabel>
+	<skos:altLabel>Aghdash</skos:altLabel>
+	<skos:altLabel>Akdash</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ağdaş</skos:altLabel>
+	<skos:altLabel>Ağdaş</skos:altLabel>
+	<skos:altLabel xml:lang="ru">АГДАШ</skos:altLabel>
+	<skos:prefLabel>Ağdaş</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/587379/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10167</europeana:population>
+	<wgs:lat>40.21528</wgs:lat>
+	<wgs:long>46.81278</wgs:long>
+	<skos:altLabel xml:lang="en">Ağdǝrǝ</skos:altLabel>
+	<skos:altLabel xml:lang="az">Ağdərə</skos:altLabel>
+	<skos:altLabel>Mardakert</skos:altLabel>
+	<skos:altLabel>Martakert</skos:altLabel>
+	<skos:altLabel xml:lang="ru">МАРДАКЕРТ</skos:altLabel>
+	<skos:altLabel>Мардакерт</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Մարտակերտ</skos:altLabel>
+	<skos:prefLabel>Ağdərə</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/587384/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>34989</europeana:population>
+	<wgs:lat>40.05278</wgs:lat>
+	<wgs:long>47.46139</wgs:long>
+	<skos:altLabel>Agdzhabedi</skos:altLabel>
+	<skos:altLabel>Agdzhabedy</skos:altLabel>
+	<skos:altLabel>Aghjabädi</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ağcabǝdi</skos:altLabel>
+	<skos:altLabel>Ağcabədi</skos:altLabel>
+	<skos:altLabel xml:lang="ru">АГДЖАБЕДИ</skos:altLabel>
+	<skos:prefLabel>Ağcabədi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/627535/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>40.5</wgs:lat>
+	<wgs:long>45.66667</wgs:long>
+	<skos:altLabel>Gǝdǝbǝy</skos:altLabel>
+	<skos:altLabel>Gədəbəy Rayonu</skos:altLabel>
+	<skos:altLabel>Kedabekskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Gədəbəy Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/800651/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>40.30417</wgs:lat>
+	<wgs:long>50.05139</wgs:long>
+	<skos:altLabel>Ostrov Khanlar</skos:altLabel>
+	<skos:altLabel xml:lang="az">Xanlar Adası</skos:altLabel>
+	<skos:prefLabel>Xanlar Adası</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/802194/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>40.41667</wgs:lat>
+	<wgs:long>50.5</wgs:long>
+	<skos:altLabel>Abşeron Arxipelaqı</skos:altLabel>
+	<skos:altLabel>Apsheronskiy Arkhipelag</skos:altLabel>
+	<skos:prefLabel>Abşeron Arxipelaqı</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/824003/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/584938/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>66686</europeana:population>
+	<wgs:lat>40.42167</wgs:lat>
+	<wgs:long>49.96444</wgs:long>
+	<skos:altLabel>Bakikhanov</skos:altLabel>
+	<skos:altLabel>Bakıxanov</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бакиханова</skos:altLabel>
+	<skos:prefLabel>Bakıxanov</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/825084/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>40.00417</wgs:lat>
+	<wgs:long>49.52528</wgs:long>
+	<skos:prefLabel>Orta Daş Adası</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/827630/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>40.35389</wgs:lat>
+	<wgs:long>49.8425</wgs:long>
+	<skos:altLabel>Karvansara Adası</skos:altLabel>
+	<skos:altLabel xml:lang="az">Karvansaray Adası</skos:altLabel>
+	<skos:altLabel>Ostrov Karavansaray</skos:altLabel>
+	<skos:prefLabel>Karvansaray Adası</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828297/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>76302</europeana:population>
+	<wgs:lat>41.25</wgs:lat>
+	<wgs:long>45.5</wgs:long>
+	<skos:altLabel>Ağstafa</skos:altLabel>
+	<skos:altLabel>Ağstafa Rayonu</skos:altLabel>
+	<skos:prefLabel>Ağstafa Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828298/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>40.65</wgs:lat>
+	<wgs:long>46.35</wgs:long>
+	<skos:altLabel xml:lang="nb">Gǝncǝ</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Gǝncǝ</skos:altLabel>
+	<skos:altLabel>Gǝncǝ</skos:altLabel>
+	<skos:altLabel>Gəncə Şəhəri</skos:altLabel>
+	<skos:prefLabel>Gəncə Şəhəri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828299/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>40.76667</wgs:lat>
+	<wgs:long>47</wgs:long>
+	<skos:altLabel>Mingaçevir Sahari</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Mingǝcevir</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Mingǝcevir</skos:altLabel>
+	<skos:altLabel>Mingǝcevir</skos:altLabel>
+	<skos:altLabel>Mingəcevir Şəhəri</skos:altLabel>
+	<skos:prefLabel>Mingəcevir Şəhəri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828300/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>7403</europeana:population>
+	<wgs:lat>40.48333</wgs:lat>
+	<wgs:long>46.71667</wgs:long>
+	<skos:altLabel xml:lang="nb">Naftalan</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Naftalan</skos:altLabel>
+	<skos:altLabel>Naftalan</skos:altLabel>
+	<skos:altLabel xml:lang="az">Naftalan Şəhəri</skos:altLabel>
+	<skos:prefLabel>Naftalan Şəhəri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828301/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>37224</europeana:population>
+	<wgs:lat>40.5</wgs:lat>
+	<wgs:long>49</wgs:long>
+	<skos:altLabel>Qobustan</skos:altLabel>
+	<skos:altLabel>Qobustan Rayonu</skos:altLabel>
+	<skos:prefLabel>Qobustan Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828302/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>50787</europeana:population>
+	<wgs:lat>40.91667</wgs:lat>
+	<wgs:long>46.41667</wgs:long>
+	<skos:altLabel>Samux</skos:altLabel>
+	<skos:altLabel>Samux Rayonu</skos:altLabel>
+	<skos:prefLabel>Samux Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828303/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>41.18333</wgs:lat>
+	<wgs:long>47.16667</wgs:long>
+	<skos:altLabel xml:lang="nb">Şǝki</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Şǝki</skos:altLabel>
+	<skos:altLabel>Şǝki</skos:altLabel>
+	<skos:altLabel>Şəki Şəhəri</skos:altLabel>
+	<skos:prefLabel>Şəki Şəhəri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828304/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>41</wgs:lat>
+	<wgs:long>49.08333</wgs:long>
+	<skos:altLabel>Siyǝzǝn</skos:altLabel>
+	<skos:altLabel>Siyəzən Rayonu</skos:altLabel>
+	<skos:prefLabel>Siyəzən Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828305/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>292577</europeana:population>
+	<wgs:lat>40.58333</wgs:lat>
+	<wgs:long>49.66667</wgs:long>
+	<skos:altLabel xml:lang="nb">Sumqayit</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Sumqayit</skos:altLabel>
+	<skos:altLabel>Sumqayit</skos:altLabel>
+	<skos:altLabel>Sumqayit Sahari</skos:altLabel>
+	<skos:altLabel>Sumqayıt Şəhəri</skos:altLabel>
+	<skos:prefLabel>Sumqayıt Şəhəri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828306/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>13822</europeana:population>
+	<wgs:lat>40.75</wgs:lat>
+	<wgs:long>49.16667</wgs:long>
+	<skos:altLabel>Xızı</skos:altLabel>
+	<skos:altLabel>Xızı Rayonu</skos:altLabel>
+	<skos:prefLabel>Xızı Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828307/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>40.58333</wgs:lat>
+	<wgs:long>47.16667</wgs:long>
+	<skos:altLabel xml:lang="nb">Yevlax</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Yevlax</skos:altLabel>
+	<skos:altLabel>Yevlax</skos:altLabel>
+	<skos:altLabel xml:lang="az">Yevlax Şəhəri</skos:altLabel>
+	<skos:prefLabel>Yevlax Şəhəri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828315/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>61015</europeana:population>
+	<wgs:lat>40.08333</wgs:lat>
+	<wgs:long>48.91667</wgs:long>
+	<skos:altLabel>Hacıqabul</skos:altLabel>
+	<skos:altLabel>Hacıqabul Rayonu</skos:altLabel>
+	<skos:prefLabel>Hacıqabul Rayonu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/863761/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/863771/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>11398</europeana:population>
+	<wgs:lat>40.33944</wgs:lat>
+	<wgs:long>49.80389</wgs:long>
+	<skos:prefLabel>Badamdar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7669114/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>39.29</wgs:lat>
+	<wgs:long>45.39</wgs:long>
+	<skos:prefLabel>Babek</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7669203/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/587116/"/>
+	<europeana:country>AZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>40.37852</wgs:lat>
+	<wgs:long>49.9451</wgs:long>
+	<skos:prefLabel>Xətai Rayonu</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 198 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

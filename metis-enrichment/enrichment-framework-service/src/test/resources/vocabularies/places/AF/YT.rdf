@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AF_YT
+Description: Selected fields pulled from Geonames about YT done on Mon May 23 21:16:30 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/921815/">
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>54831</europeana:population>
+	<wgs:lat>-12.77944</wgs:lat>
+	<wgs:long>45.22722</wgs:long>
+	<skos:altLabel>Mambutzou</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Mamoudzou</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Mamoudzou</skos:altLabel>
+	<skos:altLabel xml:lang="de">Mamoudzou</skos:altLabel>
+	<skos:altLabel xml:lang="en">Mamoudzou</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Mamoudzou</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Mamoudzou</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Mamoudzou</skos:altLabel>
+	<skos:altLabel xml:lang="es">Mamoudzou</skos:altLabel>
+	<skos:altLabel>Mamoudzou</skos:altLabel>
+	<skos:altLabel>Mamoutzou</skos:altLabel>
+	<skos:altLabel xml:lang="de">Mamoutzou</skos:altLabel>
+	<skos:altLabel xml:lang="en">Mamoutzou</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Mamoutzou</skos:altLabel>
+	<skos:altLabel xml:lang="it">Mamoutzou</skos:altLabel>
+	<skos:altLabel xml:lang="da">Mamoutzou</skos:altLabel>
+	<skos:altLabel xml:lang="el">Mamoutzou</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Mamoutzou</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Mamoutzou</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Mamudzu</skos:altLabel>
+	<skos:altLabel>Mamutzu</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Мамудзу</skos:altLabel>
+	<skos:prefLabel>Mamoudzou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1024030/">
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.80778</wgs:lat>
+	<wgs:long>45.16028</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat Māyuttī</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Mayotte</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جزيرة مايوتي</skos:altLabel>
+	<skos:prefLabel>Mayotte</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1024031/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255146/"/>
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLD"/>
+	<europeana:population>159042</europeana:population>
+	<wgs:lat>-12.83333</wgs:lat>
+	<wgs:long>45.16667</wgs:long>
+	<skos:altLabel>Collectivité Territoriale de Mayotte</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Majota</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Majote</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Majoto</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Majotta</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Majotte</skos:altLabel>
+	<skos:altLabel xml:lang="id">Mayotte</skos:altLabel>
+	<skos:altLabel>Mayotte</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Mayotte</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Mayotte</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Mayotte</skos:altLabel>
+	<skos:altLabel xml:lang="da">Mayotte</skos:altLabel>
+	<skos:altLabel xml:lang="de">Mayotte</skos:altLabel>
+	<skos:altLabel xml:lang="en">Mayotte</skos:altLabel>
+	<skos:altLabel xml:lang="es">Mayotte</skos:altLabel>
+	<skos:altLabel xml:lang="et">Mayotte</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Mayotte</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Mayotte</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Mayotte</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Mayotte</skos:altLabel>
+	<skos:altLabel xml:lang="is">Mayotte</skos:altLabel>
+	<skos:altLabel xml:lang="it">Mayotte</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Mayotte</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Mayotte</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Mayotte</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Mayotte</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Mayotte</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Mayotte</skos:altLabel>
+	<skos:altLabel xml:lang="se">Mayotte</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Mayotte</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Mayotte</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Mayotte</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Mayotte</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Mayotte’as</skos:altLabel>
+	<skos:altLabel>YT</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μαγιότ</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Майотта</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Майотта</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Мајоте</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Мајоте</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Мейот</skos:altLabel>
+	<skos:altLabel xml:lang="he">מאיוט</skos:altLabel>
+	<skos:altLabel xml:lang="ar">مايوت</skos:altLabel>
+	<skos:altLabel xml:lang="fa">مایوت</skos:altLabel>
+	<skos:altLabel xml:lang="hi">मैयट</skos:altLabel>
+	<skos:altLabel xml:lang="bn">মেয়োট</skos:altLabel>
+	<skos:altLabel xml:lang="th">มายอต</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ມາຢອດ</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሜይኦቴ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">マヨット島</skos:altLabel>
+	<skos:altLabel xml:lang="zh">马约特</skos:altLabel>
+	<skos:altLabel xml:lang="ko">마요티</skos:altLabel>
+	<skos:prefLabel>Mayotte</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1090097/">
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.64139</wgs:lat>
+	<wgs:long>45.0275</wgs:long>
+	<skos:altLabel>Chissioua Mtsamboro</skos:altLabel>
+	<skos:altLabel>Île M'Zamboro</skos:altLabel>
+	<skos:prefLabel>Chissioua Mtsamboro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1090099/">
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.66889</wgs:lat>
+	<wgs:long>45.04611</wgs:long>
+	<skos:prefLabel>Malandzamiayajou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1090100/">
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.67389</wgs:lat>
+	<wgs:long>45.05556</wgs:long>
+	<skos:prefLabel>Malandzamiayatsini</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1090101/">
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-12.67194</wgs:lat>
+	<wgs:long>45.05083</wgs:long>
+	<skos:prefLabel>Îles Choazil</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1090113/">
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.6725</wgs:lat>
+	<wgs:long>45.11222</wgs:long>
+	<skos:altLabel>Chissioua Handréma</skos:altLabel>
+	<skos:altLabel>Île Andréma</skos:altLabel>
+	<skos:prefLabel>Chissioua Handréma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1090114/">
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLT"/>
+	<wgs:lat>-12.68583</wgs:lat>
+	<wgs:long>45.11667</wgs:long>
+	<skos:prefLabel>Chissioua Mtiti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1090115/">
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.68667</wgs:lat>
+	<wgs:long>45.12694</wgs:long>
+	<skos:prefLabel>Chissioua Mtsongoma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1090196/">
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.72361</wgs:lat>
+	<wgs:long>45.14361</wgs:long>
+	<skos:prefLabel>Île Verte</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1090220/">
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.71583</wgs:lat>
+	<wgs:long>45.17139</wgs:long>
+	<skos:prefLabel>Île Blanche</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1090225/">
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18118</europeana:population>
+	<wgs:lat>-12.73361</wgs:lat>
+	<wgs:long>45.20417</wgs:long>
+	<skos:altLabel>Kongo</skos:altLabel>
+	<skos:altLabel>Koungou</skos:altLabel>
+	<skos:prefLabel>Koungou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1090230/">
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.75583</wgs:lat>
+	<wgs:long>45.24861</wgs:long>
+	<skos:altLabel>Les Quatre Frères</skos:altLabel>
+	<skos:altLabel>Zissioua Ziné</skos:altLabel>
+	<skos:prefLabel>Zissioua Ziné</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1090249/">
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.80861</wgs:lat>
+	<wgs:long>45.23222</wgs:long>
+	<skos:prefLabel>Chissioua Mbouzi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1090269/">
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.76833</wgs:lat>
+	<wgs:long>45.24889</wgs:long>
+	<skos:altLabel>Monyé Amiri</skos:altLabel>
+	<skos:altLabel>Île Mogne Amiri</skos:altLabel>
+	<skos:prefLabel>Monyé Amiri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1090270/">
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.76806</wgs:lat>
+	<wgs:long>45.25639</wgs:long>
+	<skos:altLabel>Kakazou</skos:altLabel>
+	<skos:altLabel>Île Kakazou</skos:altLabel>
+	<skos:prefLabel>Kakazou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1090271/">
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.77056</wgs:lat>
+	<wgs:long>45.25778</wgs:long>
+	<skos:altLabel>Vatou</skos:altLabel>
+	<skos:altLabel>Île Vatou</skos:altLabel>
+	<skos:prefLabel>Vatou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1090272/">
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14141</europeana:population>
+	<wgs:lat>-12.77944</wgs:lat>
+	<wgs:long>45.25361</wgs:long>
+	<skos:altLabel>Dzaoudzi</skos:altLabel>
+	<skos:prefLabel>Dzaoudzi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1090285/">
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.825</wgs:lat>
+	<wgs:long>45.25056</wgs:long>
+	<skos:prefLabel>Chissioua Pouhou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1090286/">
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.83528</wgs:lat>
+	<wgs:long>45.23222</wgs:long>
+	<skos:prefLabel>Chissioua Kolo Issa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1090287/">
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.83639</wgs:lat>
+	<wgs:long>45.24417</wgs:long>
+	<skos:prefLabel>Chissioua Pengoua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1090288/">
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-12.83028</wgs:lat>
+	<wgs:long>45.24389</wgs:long>
+	<skos:prefLabel>Îles Hajangoua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1090293/">
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.89528</wgs:lat>
+	<wgs:long>45.22972</wgs:long>
+	<skos:prefLabel>Chissioua Bandrélé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1090300/">
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.98278</wgs:lat>
+	<wgs:long>45.21389</wgs:long>
+	<skos:altLabel>Mtsanga Tsoholé</skos:altLabel>
+	<skos:altLabel>Îlot de Sable Blanc</skos:altLabel>
+	<skos:prefLabel>Mtsanga Tsoholé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1090327/">
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.84389</wgs:lat>
+	<wgs:long>45.08694</wgs:long>
+	<skos:prefLabel>Chissioua Sada</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1090418/">
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.91722</wgs:lat>
+	<wgs:long>45.13917</wgs:long>
+	<skos:prefLabel>Chissioua Karoni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1090485/">
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.00028</wgs:lat>
+	<wgs:long>45.13556</wgs:long>
+	<skos:prefLabel>Chissioua Mbouini</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521421/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1024031/"/>
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-12.72215</wgs:lat>
+	<wgs:long>45.05811</wgs:long>
+	<skos:prefLabel>Acoua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521422/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1024031/"/>
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-12.70222</wgs:lat>
+	<wgs:long>45.12197</wgs:long>
+	<skos:prefLabel>Bandraboua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521423/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1024031/"/>
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-12.91113</wgs:lat>
+	<wgs:long>45.19389</wgs:long>
+	<skos:prefLabel>Bandrele</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521424/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1024031/"/>
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-12.9092</wgs:lat>
+	<wgs:long>45.07999</wgs:long>
+	<skos:prefLabel>Bouéni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521425/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1024031/"/>
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-12.83072</wgs:lat>
+	<wgs:long>45.11407</wgs:long>
+	<skos:prefLabel>Chiconi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521426/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1024031/"/>
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-12.93497</wgs:lat>
+	<wgs:long>45.15106</wgs:long>
+	<skos:prefLabel>Chirongui</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521427/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1024031/"/>
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-12.84302</wgs:lat>
+	<wgs:long>45.18548</wgs:long>
+	<skos:prefLabel>Dembeni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521428/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1024031/"/>
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-12.78205</wgs:lat>
+	<wgs:long>45.2556</wgs:long>
+	<skos:prefLabel>Dzaoudzi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521429/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1024031/"/>
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-12.95471</wgs:lat>
+	<wgs:long>45.106</wgs:long>
+	<skos:prefLabel>Kani-Kéli</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521430/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1024031/"/>
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-12.73513</wgs:lat>
+	<wgs:long>45.20591</wgs:long>
+	<skos:prefLabel>Koungou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521431/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1024031/"/>
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-12.77966</wgs:lat>
+	<wgs:long>45.22831</wgs:long>
+	<skos:prefLabel>Mamoudzou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521432/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1024031/"/>
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-12.70013</wgs:lat>
+	<wgs:long>45.06918</wgs:long>
+	<skos:prefLabel>Mtsamboro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521433/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1024031/"/>
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-12.75982</wgs:lat>
+	<wgs:long>45.08454</wgs:long>
+	<skos:prefLabel>M'Tsangamouji</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521434/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1024031/"/>
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-12.84728</wgs:lat>
+	<wgs:long>45.1369</wgs:long>
+	<skos:prefLabel>Ouangani</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521435/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1024031/"/>
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-12.79489</wgs:lat>
+	<wgs:long>45.28195</wgs:long>
+	<skos:prefLabel>Pamandzi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521436/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1024031/"/>
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-12.85046</wgs:lat>
+	<wgs:long>45.10291</wgs:long>
+	<skos:prefLabel>Sada</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521437/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1024031/"/>
+	<europeana:country>YT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-12.78845</wgs:lat>
+	<wgs:long>45.10463</wgs:long>
+	<skos:prefLabel>Tsingoni</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 44 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

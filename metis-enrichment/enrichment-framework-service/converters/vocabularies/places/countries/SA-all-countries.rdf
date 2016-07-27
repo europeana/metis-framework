@@ -1,0 +1,1417 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: SA_AR
+Description: Selected fields pulled from Geonames about AR done on Mon May 23 20:24:00 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/3865483/">
+	<europeana:country>AR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>41343201</europeana:population>
+	<wgs:lat>-34</wgs:lat>
+	<wgs:long>-64</wgs:long>
+	<skos:altLabel>AR</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Ajantin</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Ajentina</skos:altLabel>
+	<skos:altLabel xml:lang="ga">An Airgintín</skos:altLabel>
+	<skos:altLabel xml:lang="br">Arc'hantina</skos:altLabel>
+	<skos:altLabel xml:lang="an">Archentina</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Argentiina</skos:altLabel>
+	<skos:altLabel xml:lang="et">Argentiina</skos:altLabel>
+	<skos:altLabel xml:lang="es">Argentina</skos:altLabel>
+	<skos:altLabel xml:lang="id">Argentina</skos:altLabel>
+	<skos:altLabel xml:lang="et">Argentina</skos:altLabel>
+	<skos:altLabel xml:lang="it">Argentina</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Argentina</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Argentina</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Argentina</skos:altLabel>
+	<skos:altLabel xml:lang="en">Argentina</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Argentina</skos:altLabel>
+	<skos:altLabel xml:lang="da">Argentina</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Argentina</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Argentina</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Argentina</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Argentina</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Argentina</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Argentina</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Argentina</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Argentina</skos:altLabel>
+	<skos:altLabel xml:lang="gn">Argentina</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Argentina</skos:altLabel>
+	<skos:altLabel xml:lang="la">Argentina</skos:altLabel>
+	<skos:altLabel xml:lang="no">Argentina</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Argentina</skos:altLabel>
+	<skos:altLabel xml:lang="rm">Argentina</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Argentina</skos:altLabel>
+	<skos:altLabel xml:lang="na">Argentina</skos:altLabel>
+	<skos:altLabel xml:lang="se">Argentina</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Argentina</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Argentina</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Argentina</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Argentine</skos:altLabel>
+	<skos:altLabel xml:lang="en">Argentine Republic</skos:altLabel>
+	<skos:altLabel xml:lang="de">Argentinien</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Argentinien</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Argentinië</skos:altLabel>
+	<skos:altLabel xml:lang="af">Argentinië</skos:altLabel>
+	<skos:altLabel xml:lang="li">Argentinië</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Argentino</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Argentyna</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Argentína</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Argentína</skos:altLabel>
+	<skos:altLabel xml:lang="is">Argentína</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Argentīna</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Arghantina</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Argjentina</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Argjentinë</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Arhentina</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Arhintina</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Arjantin</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Arjantîn</skos:altLabel>
+	<skos:altLabel xml:lang="io">Arjentinia</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Arxentina</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Arxentina - Argentina</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Arġentina</skos:altLabel>
+	<skos:altLabel>La Argentina</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Largäntän</skos:altLabel>
+	<skos:altLabel xml:lang="es">República Argentina</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Yr Ariannin</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Á Căn Đình (Argentina)</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ác-hen-ti-na</skos:altLabel>
+	<skos:altLabel xml:lang="el">Αργεντινή</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Аргентина</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Аргентина</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Аргентина</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Аргентина</skos:altLabel>
+	<skos:altLabel xml:lang="be">Аргентына</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Аржентина</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Արգենտինա</skos:altLabel>
+	<skos:altLabel xml:lang="he">ארגנטינה</skos:altLabel>
+	<skos:altLabel xml:lang="yi">ארגענטינע</skos:altLabel>
+	<skos:altLabel xml:lang="ur">آرجنٹین</skos:altLabel>
+	<skos:altLabel xml:lang="fa">آرژانتین</skos:altLabel>
+	<skos:altLabel xml:lang="ug">ئارگېنتىنا</skos:altLabel>
+	<skos:altLabel xml:lang="ur">ارجنٹائن</skos:altLabel>
+	<skos:altLabel xml:lang="ur">ارجنٹینا</skos:altLabel>
+	<skos:altLabel xml:lang="ps">ارجنټاين</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الأرجنتين</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الارجنتين</skos:altLabel>
+	<skos:altLabel xml:lang="sa">अर्जन्टीना</skos:altLabel>
+	<skos:altLabel xml:lang="hi">अर्जेंटीना</skos:altLabel>
+	<skos:altLabel xml:lang="hi">अर्जेन्टीना</skos:altLabel>
+	<skos:altLabel xml:lang="bn">আর্জেণ্টাইনা</skos:altLabel>
+	<skos:altLabel xml:lang="bn">আর্জেন্টিনা</skos:altLabel>
+	<skos:altLabel xml:lang="ta">அர்ஜெண்டினா</skos:altLabel>
+	<skos:altLabel xml:lang="ta">அர்ஜென்டினா</skos:altLabel>
+	<skos:altLabel xml:lang="kn">ಅರ್ಜೆಂಟೀನ</skos:altLabel>
+	<skos:altLabel xml:lang="ml">അര്‍ജന്റീന</skos:altLabel>
+	<skos:altLabel xml:lang="ml">അര്‍ജന്‍റീന</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศอาร์เจนตินา</skos:altLabel>
+	<skos:altLabel xml:lang="th">อาร์เจนตินา</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ອາເຈນຕິນາ່</skos:altLabel>
+	<skos:altLabel xml:lang="dz">ཨར་ཇེན་ཊི་ན</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཨར་ཇེན་ཊི་ན།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">არგენტინა</skos:altLabel>
+	<skos:altLabel xml:lang="am">አርጀንቲና</skos:altLabel>
+	<skos:altLabel xml:lang="km">អារហ្សង់ទីន</skos:altLabel>
+	<skos:altLabel xml:lang="km">អាហ្សង់ទីន</skos:altLabel>
+	<skos:altLabel xml:lang="ja">アルゼンチン</skos:altLabel>
+	<skos:altLabel xml:lang="ja">アルゼンチン共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">阿根廷</skos:altLabel>
+	<skos:altLabel xml:lang="ko">아르헨티나</skos:altLabel>
+	<skos:broader rdf:resource="http://sws.geonames.org/3865483/"/>
+	<skos:broader rdf:resource="http://sws.geonames.org/6255150/"/>
+	<skos:prefLabel>Argentine Republic</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3923057/">
+	<europeana:country>BO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>9947418</europeana:population>
+	<wgs:lat>-17</wgs:lat>
+	<wgs:long>-65</wgs:long>
+	<skos:altLabel xml:lang="ga">An Bholaiv</skos:altLabel>
+	<skos:altLabel>BO</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Bolibia</skos:altLabel>
+	<skos:altLabel xml:lang="an">Bolibia</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Bolifia</skos:altLabel>
+	<skos:altLabel xml:lang="et">Boliivia</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Bolivi</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Bolivi</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Bolivi</skos:altLabel>
+	<skos:altLabel xml:lang="es">Bolivia</skos:altLabel>
+	<skos:altLabel xml:lang="id">Bolivia</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bolivia</skos:altLabel>
+	<skos:altLabel xml:lang="da">Bolivia</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Bolivia</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Bolivia</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Bolivia</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Bolivia</skos:altLabel>
+	<skos:altLabel xml:lang="it">Bolivia</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Bolivia</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Bolivia</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Bolivia</skos:altLabel>
+	<skos:altLabel xml:lang="af">Bolivia</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Bolivia</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Bolivia</skos:altLabel>
+	<skos:altLabel xml:lang="li">Bolivia</skos:altLabel>
+	<skos:altLabel xml:lang="na">Bolivia</skos:altLabel>
+	<skos:altLabel xml:lang="se">Bolivia</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Bolivia</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Bolivia</skos:altLabel>
+	<skos:altLabel xml:lang="br">Bolivia</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Bolivia</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Bolivia</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Bolivia</skos:altLabel>
+	<skos:altLabel xml:lang="io">Bolivia</skos:altLabel>
+	<skos:altLabel xml:lang="la">Bolivia</skos:altLabel>
+	<skos:altLabel xml:lang="no">Bolivia</skos:altLabel>
+	<skos:altLabel xml:lang="rm">Bolivia</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Bolivia</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Bolivia</skos:altLabel>
+	<skos:altLabel>Bolivia</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Bolivie</skos:altLabel>
+	<skos:altLabel xml:lang="de">Bolivien</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Bolivija</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Bolivija</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Bolivija</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Bolivija</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Bolivija</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Bolivio</skos:altLabel>
+	<skos:altLabel xml:lang="uz">Boliviya</skos:altLabel>
+	<skos:altLabel xml:lang="af">Bolivië</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Bolivja</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Bolivya</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Bolivän</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Boliwia</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Bolívia</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Bolívia</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Bolívia</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Bolívia</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Bolívia</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Bolívie</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Bolîvya</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Bolīvija</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Bulibiya</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Bulibya</skos:altLabel>
+	<skos:altLabel xml:lang="is">Bólivía</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Bô-li-vi-a</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Bô-li-vi-a (Bolivia)</skos:altLabel>
+	<skos:altLabel xml:lang="es">Estado Plurinacional de Bolivia</skos:altLabel>
+	<skos:altLabel xml:lang="en">Plurinational State of Bolivia</skos:altLabel>
+	<skos:altLabel xml:lang="en">Republic of Bolivia</skos:altLabel>
+	<skos:altLabel xml:lang="es">República de Bolivia</skos:altLabel>
+	<skos:altLabel xml:lang="ca">República de Bolívia</skos:altLabel>
+	<skos:altLabel xml:lang="ay">Wuliwya</skos:altLabel>
+	<skos:altLabel xml:lang="el">Βολιβία</skos:altLabel>
+	<skos:altLabel xml:lang="be">Балівія</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Боливия</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Боливия</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Боливия</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Боливија</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Боливија</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Болівія</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Բոլիվիա</skos:altLabel>
+	<skos:altLabel xml:lang="he">בוליביה</skos:altLabel>
+	<skos:altLabel xml:lang="ug">بولىۋىيە</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بوليفيا</skos:altLabel>
+	<skos:altLabel xml:lang="fa">بولیوی</skos:altLabel>
+	<skos:altLabel xml:lang="fa">بولیویا</skos:altLabel>
+	<skos:altLabel xml:lang="ur">بولیویا</skos:altLabel>
+	<skos:altLabel xml:lang="ks">बोलिविया</skos:altLabel>
+	<skos:altLabel xml:lang="sa">बोलिविया</skos:altLabel>
+	<skos:altLabel xml:lang="hi">बोलीविया</skos:altLabel>
+	<skos:altLabel xml:lang="bn">বলিভিয়া</skos:altLabel>
+	<skos:altLabel xml:lang="bn">বোলিভিয়া</skos:altLabel>
+	<skos:altLabel xml:lang="ta">பொலிவியா</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ബൊളീവിയ</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศโบลิเวีย</skos:altLabel>
+	<skos:altLabel xml:lang="th">โบลิเวีย</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ໂບລິເວຍ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">བོ་ལི་ཝིཡ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ბოლივია</skos:altLabel>
+	<skos:altLabel xml:lang="am">ቦሊቪያ</skos:altLabel>
+	<skos:altLabel xml:lang="km">បូលីវី</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ボリビア</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ボリビア共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">玻利維亞</skos:altLabel>
+	<skos:altLabel xml:lang="zh">玻利维亚</skos:altLabel>
+	<skos:altLabel xml:lang="ko">볼리비아</skos:altLabel>
+	<skos:broader rdf:resource="http://sws.geonames.org/3923057/"/>
+	<skos:broader rdf:resource="http://sws.geonames.org/6255150/"/>
+	<skos:prefLabel>Plurinational State of Bolivia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3469034/">
+	<europeana:country>BR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>201103330</europeana:population>
+	<wgs:lat>-10</wgs:lat>
+	<wgs:long>-55</wgs:long>
+	<skos:altLabel xml:lang="ga">An Bhrasaíl</skos:altLabel>
+	<skos:altLabel>BR</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ba Tây (Bra-xin)</skos:altLabel>
+	<skos:altLabel xml:lang="so">Baraasiil</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Bra-xin</skos:altLabel>
+	<skos:altLabel xml:lang="so">Braasiil</skos:altLabel>
+	<skos:altLabel xml:lang="et">Brasiilia</skos:altLabel>
+	<skos:altLabel xml:lang="es">Brasil</skos:altLabel>
+	<skos:altLabel xml:lang="id">Brasil</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Brasil</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Brasil</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Brasil</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Brasil</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Brasil</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Brasil</skos:altLabel>
+	<skos:altLabel xml:lang="an">Brasil</skos:altLabel>
+	<skos:altLabel xml:lang="gn">Brasil</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Brasil</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Brasil</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Brasil</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Brasil</skos:altLabel>
+	<skos:altLabel xml:lang="no">Brasil</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Brasil</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Brasil</skos:altLabel>
+	<skos:altLabel xml:lang="se">Brasil</skos:altLabel>
+	<skos:altLabel xml:lang="it">Brasile</skos:altLabel>
+	<skos:altLabel xml:lang="co">Brasile</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Brasilia</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Brasilia</skos:altLabel>
+	<skos:altLabel xml:lang="la">Brasilia</skos:altLabel>
+	<skos:altLabel xml:lang="rm">Brasilia</skos:altLabel>
+	<skos:altLabel xml:lang="da">Brasilien</skos:altLabel>
+	<skos:altLabel xml:lang="de">Brasilien</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Brasilien</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Brasilien</skos:altLabel>
+	<skos:altLabel>Brasilien</skos:altLabel>
+	<skos:altLabel xml:lang="af">Brasilië</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Brasilän</skos:altLabel>
+	<skos:altLabel xml:lang="is">Brasilía</skos:altLabel>
+	<skos:altLabel>Brasíle</skos:altLabel>
+	<skos:altLabel xml:lang="li">Braziel</skos:altLabel>
+	<skos:altLabel xml:lang="id">Brazil</skos:altLabel>
+	<skos:altLabel xml:lang="aa">Brazil</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Brazil</skos:altLabel>
+	<skos:altLabel xml:lang="en">Brazil</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Brazil</skos:altLabel>
+	<skos:altLabel xml:lang="om">Brazil</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Brazil</skos:altLabel>
+	<skos:altLabel xml:lang="na">Brazil</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Brazil</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Brazil</skos:altLabel>
+	<skos:altLabel xml:lang="br">Brazil</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Brazil</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Brazili</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Brazili</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Brazilia</skos:altLabel>
+	<skos:altLabel xml:lang="io">Brazilia</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Brazilija</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Brazilija</skos:altLabel>
+	<skos:altLabel xml:lang="az">Braziliya</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Brazilië</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Brazilo</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Brazylia</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Brazylje</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Brazília</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Brazília</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Brazílie</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Brazīlija</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Brażil</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Breasail</skos:altLabel>
+	<skos:altLabel xml:lang="ln">Bresíli</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Brezil</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Brezilya</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Brésil</skos:altLabel>
+	<skos:altLabel>Brésil</skos:altLabel>
+	<skos:altLabel>Estados Unidos do Brasil</skos:altLabel>
+	<skos:altLabel>Estados Unidos do Brazil</skos:altLabel>
+	<skos:altLabel xml:lang="en">Federative Republic of Brazil</skos:altLabel>
+	<skos:altLabel xml:lang="to">Palāsili</skos:altLabel>
+	<skos:altLabel xml:lang="pt">República Federativa do Brasil</skos:altLabel>
+	<skos:altLabel>República dos Estados Unidos do Brasil</skos:altLabel>
+	<skos:altLabel>United States of Brazil</skos:altLabel>
+	<skos:altLabel xml:lang="el">Βραζιλία</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Бразил</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Бразил</skos:altLabel>
+	<skos:altLabel xml:lang="mn">Бразили</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Бразилия</skos:altLabel>
+	<skos:altLabel xml:lang="uz">Бразилия</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Бразилия</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бразилия</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Бразилія</skos:altLabel>
+	<skos:altLabel xml:lang="be">Бразілія</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Бразілія</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Браѕил</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Բրազիլիա</skos:altLabel>
+	<skos:altLabel xml:lang="yi">בראזיליע</skos:altLabel>
+	<skos:altLabel xml:lang="he">ברזיל</skos:altLabel>
+	<skos:altLabel xml:lang="ar">البرازيل</skos:altLabel>
+	<skos:altLabel xml:lang="ug">برازىلىيە</skos:altLabel>
+	<skos:altLabel xml:lang="ps">برازيل</skos:altLabel>
+	<skos:altLabel xml:lang="ur">برازیل</skos:altLabel>
+	<skos:altLabel xml:lang="fa">برزیل</skos:altLabel>
+	<skos:altLabel xml:lang="hi">ब्राज़िल</skos:altLabel>
+	<skos:altLabel xml:lang="hi">ब्राजील</skos:altLabel>
+	<skos:altLabel xml:lang="mr">ब्राजील</skos:altLabel>
+	<skos:altLabel xml:lang="hi">ब्रास़ील</skos:altLabel>
+	<skos:altLabel xml:lang="bn">ব্রাজিল</skos:altLabel>
+	<skos:altLabel xml:lang="ta">பிரேசில்</skos:altLabel>
+	<skos:altLabel xml:lang="ta">பிரேஸில்</skos:altLabel>
+	<skos:altLabel xml:lang="te">బ్రజిల్</skos:altLabel>
+	<skos:altLabel xml:lang="kn">ಬ್ರೆಜಿಲ್</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ബ്രസീല്‍</skos:altLabel>
+	<skos:altLabel xml:lang="th">บราซิล</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศบราซิล</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ບຼາຊິວ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">པུ་རུ་ཟིལ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">བ་རཱ་ཛིལ།</skos:altLabel>
+	<skos:altLabel xml:lang="dz">བཱརཱ་ཛིལ</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ბრაზილია</skos:altLabel>
+	<skos:altLabel xml:lang="am">ብራዚል</skos:altLabel>
+	<skos:altLabel xml:lang="km">ប្រេស៊ីល</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ブラジル</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ブラジル連邦共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">巴西</skos:altLabel>
+	<skos:altLabel xml:lang="ii">ꀠꑭ</skos:altLabel>
+	<skos:altLabel xml:lang="ko">브라질</skos:altLabel>
+	<skos:broader rdf:resource="http://sws.geonames.org/3469034/"/>
+	<skos:broader rdf:resource="http://sws.geonames.org/6255150/"/>
+	<skos:prefLabel>Federative Republic of Brazil</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3895114/">
+	<europeana:country>CL</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>16746491</europeana:population>
+	<wgs:lat>-30</wgs:lat>
+	<wgs:long>-71</wgs:long>
+	<skos:altLabel xml:lang="ga">An tSile</skos:altLabel>
+	<skos:altLabel>CL</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Chi-lê</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Chi-lê (Chile)</skos:altLabel>
+	<skos:altLabel xml:lang="es">Chile</skos:altLabel>
+	<skos:altLabel xml:lang="en">Chile</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Chile</skos:altLabel>
+	<skos:altLabel xml:lang="de">Chile</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Chile</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Chile</skos:altLabel>
+	<skos:altLabel xml:lang="da">Chile</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Chile</skos:altLabel>
+	<skos:altLabel xml:lang="is">Chile</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Chile</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Chile</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Chile</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Chile</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Chile</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Chile</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Chile</skos:altLabel>
+	<skos:altLabel xml:lang="na">Chile</skos:altLabel>
+	<skos:altLabel xml:lang="no">Chile</skos:altLabel>
+	<skos:altLabel xml:lang="an">Chile</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Chile</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Chile</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Chile</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Chile</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Chile</skos:altLabel>
+	<skos:altLabel xml:lang="rm">Chile</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Chile</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Chile</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Chile</skos:altLabel>
+	<skos:altLabel xml:lang="se">Chile</skos:altLabel>
+	<skos:altLabel xml:lang="id">Chili</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Chili</skos:altLabel>
+	<skos:altLabel xml:lang="af">Chili</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Chili</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Chili</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Chili</skos:altLabel>
+	<skos:altLabel xml:lang="io">Chili</skos:altLabel>
+	<skos:altLabel xml:lang="la">Chilia</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Cile</skos:altLabel>
+	<skos:altLabel xml:lang="it">Cile</skos:altLabel>
+	<skos:altLabel xml:lang="ks">Cilē</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Csile</skos:altLabel>
+	<skos:altLabel xml:lang="so">Jili</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Kili</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Kili</skos:altLabel>
+	<skos:altLabel xml:lang="en">Republic of Chile</skos:altLabel>
+	<skos:altLabel>República de Chile</skos:altLabel>
+	<skos:altLabel xml:lang="et">Tiiili</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Tjilän</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Txile</skos:altLabel>
+	<skos:altLabel xml:lang="et">Tšiili</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Xile</skos:altLabel>
+	<skos:altLabel xml:lang="az">Çili</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Ĉilio</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Ċili</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Čile</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Čile</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Čile</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Čile</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Čile</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Čilė</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Čīle</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Şili</skos:altLabel>
+	<skos:altLabel xml:lang="el">Χιλή</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Чиле</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Чиле</skos:altLabel>
+	<skos:altLabel xml:lang="cv">Чили</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Чили</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Чили</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Чили</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Чилі</skos:altLabel>
+	<skos:altLabel xml:lang="be">Чылі</skos:altLabel>
+	<skos:altLabel xml:lang="be">Чілі</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Чілі</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Չիլի</skos:altLabel>
+	<skos:altLabel xml:lang="yi">טשילע</skos:altLabel>
+	<skos:altLabel xml:lang="he">צ'ילה</skos:altLabel>
+	<skos:altLabel xml:lang="he">צ׳ילה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">تشيلي</skos:altLabel>
+	<skos:altLabel xml:lang="ar">شيلي</skos:altLabel>
+	<skos:altLabel xml:lang="fa">شیلی</skos:altLabel>
+	<skos:altLabel xml:lang="ur">چلی</skos:altLabel>
+	<skos:altLabel xml:lang="ug">چىلى</skos:altLabel>
+	<skos:altLabel xml:lang="ps">چېلي</skos:altLabel>
+	<skos:altLabel xml:lang="hi">चिली</skos:altLabel>
+	<skos:altLabel xml:lang="mr">चिली</skos:altLabel>
+	<skos:altLabel xml:lang="hi">चिले</skos:altLabel>
+	<skos:altLabel xml:lang="sa">चिले</skos:altLabel>
+	<skos:altLabel xml:lang="bn">চিলি</skos:altLabel>
+	<skos:altLabel xml:lang="ta">சிலி</skos:altLabel>
+	<skos:altLabel xml:lang="kn">ಚಿಲಿ</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ചിലി</skos:altLabel>
+	<skos:altLabel xml:lang="th">ชิลี</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศชิลี</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ຊິສິ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཅི་ལི་སྤྱི་མཐུན་རྒྱལ་ཁབ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ჩილე</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ჩილი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ቺሊ</skos:altLabel>
+	<skos:altLabel xml:lang="km">ឈីលី</skos:altLabel>
+	<skos:altLabel xml:lang="ja">チリ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">チリ共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">智利</skos:altLabel>
+	<skos:altLabel xml:lang="ko">칠레</skos:altLabel>
+	<skos:broader rdf:resource="http://sws.geonames.org/3895114/"/>
+	<skos:broader rdf:resource="http://sws.geonames.org/6255150/"/>
+	<skos:prefLabel>Republic of Chile</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3686110/">
+	<europeana:country>CO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>44205293</europeana:population>
+	<wgs:lat>4</wgs:lat>
+	<wgs:long>-72</wgs:long>
+	<skos:altLabel xml:lang="ga">An Cholóim</skos:altLabel>
+	<skos:altLabel>CO</skos:altLabel>
+	<skos:altLabel xml:lang="es">Colombia</skos:altLabel>
+	<skos:altLabel xml:lang="en">Colombia</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Colombia</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Colombia</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Colombia</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Colombia</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Colombia</skos:altLabel>
+	<skos:altLabel xml:lang="da">Colombia</skos:altLabel>
+	<skos:altLabel xml:lang="et">Colombia</skos:altLabel>
+	<skos:altLabel xml:lang="it">Colombia</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Colombia</skos:altLabel>
+	<skos:altLabel xml:lang="an">Colombia</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Colombia</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Colombia</skos:altLabel>
+	<skos:altLabel xml:lang="li">Colombia</skos:altLabel>
+	<skos:altLabel xml:lang="na">Colombia</skos:altLabel>
+	<skos:altLabel xml:lang="no">Colombia</skos:altLabel>
+	<skos:altLabel xml:lang="rm">Colombia</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Colombia</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Colombia</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Colombia</skos:altLabel>
+	<skos:altLabel xml:lang="se">Colombia</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Colombie</skos:altLabel>
+	<skos:altLabel>Colombié</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Columbia</skos:altLabel>
+	<skos:altLabel xml:lang="la">Columbia</skos:altLabel>
+	<skos:altLabel xml:lang="et">Columbia</skos:altLabel>
+	<skos:altLabel>Columbien</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Colòmbia</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Colómbia</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Colômbia</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Cô-lôm-bi-a</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Cô-lôm-bi-a (Colombia)</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Kolombi</skos:altLabel>
+	<skos:altLabel xml:lang="id">Kolombia</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Kolombia</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Kolombia</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Kolombio</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Kolombiya</skos:altLabel>
+	<skos:altLabel xml:lang="af">Kolombië</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Kolonbi</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Kolonbia</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Kolumbi</skos:altLabel>
+	<skos:altLabel xml:lang="id">Kolumbia</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Kolumbia</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Kolumbia</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Kolumbia</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kolumbia</skos:altLabel>
+	<skos:altLabel xml:lang="io">Kolumbia</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Kolumbia</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Kolumbie</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kolumbien</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Kolumbija</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Kolumbija</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Kolumbija</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Kolumbija</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Kolumbija</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Kolumbija</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Kolumbja</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Kolumbän</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Kulumbiya</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Kulumbya</skos:altLabel>
+	<skos:altLabel xml:lang="is">Kólumbía</skos:altLabel>
+	<skos:altLabel xml:lang="en">Republic of Colombia</skos:altLabel>
+	<skos:altLabel>República de Colombia</skos:altLabel>
+	<skos:altLabel xml:lang="gv">Yn Cholombey</skos:altLabel>
+	<skos:altLabel xml:lang="el">Κολομβία</skos:altLabel>
+	<skos:altLabel xml:lang="be">Калумбія</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Колумбия</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Колумбия</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Колумбија</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Колумбија</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Колумбія</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Кулумбия</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Կոլումբիա</skos:altLabel>
+	<skos:altLabel xml:lang="yi">קאלאמביע</skos:altLabel>
+	<skos:altLabel xml:lang="he">קולומביה</skos:altLabel>
+	<skos:altLabel xml:lang="ug">كولومبىيە</skos:altLabel>
+	<skos:altLabel xml:lang="ar">كولومبيا</skos:altLabel>
+	<skos:altLabel xml:lang="fa">کلمبیا</skos:altLabel>
+	<skos:altLabel xml:lang="ps">کولمبيا</skos:altLabel>
+	<skos:altLabel xml:lang="ps">کولمبیا</skos:altLabel>
+	<skos:altLabel xml:lang="ur">کولمبیا</skos:altLabel>
+	<skos:altLabel xml:lang="hi">कोलम्बिया</skos:altLabel>
+	<skos:altLabel xml:lang="sa">कोलोम्बिया</skos:altLabel>
+	<skos:altLabel xml:lang="bn">কলম্বিয়া</skos:altLabel>
+	<skos:altLabel xml:lang="bn">কোলোম্বিয়া</skos:altLabel>
+	<skos:altLabel xml:lang="bn">কোলোম্বিয়া</skos:altLabel>
+	<skos:altLabel xml:lang="ta">கொலம்பியா</skos:altLabel>
+	<skos:altLabel xml:lang="ml">കൊളംബിയ</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศโคลอมเบีย</skos:altLabel>
+	<skos:altLabel xml:lang="th">โคลอมเบีย</skos:altLabel>
+	<skos:altLabel xml:lang="th">โคลัมเบีย</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ໂຄລຳເບຍ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཀོ་ལོམ་བི་ཡ། སྤྱི་མཐུན་རྒྱལ་ཁབ།</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཁོ་ལོམ་བི་ཡ</skos:altLabel>
+	<skos:altLabel xml:lang="ka">კოლუმბია</skos:altLabel>
+	<skos:altLabel xml:lang="am">ኮሎምቢያ</skos:altLabel>
+	<skos:altLabel xml:lang="km">កូឡុំប៊ី</skos:altLabel>
+	<skos:altLabel xml:lang="ja">コロンビア</skos:altLabel>
+	<skos:altLabel xml:lang="ja">コロンビア共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">哥伦比亚</skos:altLabel>
+	<skos:altLabel xml:lang="zh">哥伦比亚共和国</skos:altLabel>
+	<skos:altLabel xml:lang="ko">콜롬비아</skos:altLabel>
+	<skos:broader rdf:resource="http://sws.geonames.org/3686110/"/>
+	<skos:broader rdf:resource="http://sws.geonames.org/6255150/"/>
+	<skos:prefLabel>Republic of Colombia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3658394/">
+	<europeana:country>EC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>14790608</europeana:population>
+	<wgs:lat>-2</wgs:lat>
+	<wgs:long>-77.5</wgs:long>
+	<skos:altLabel>EC</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Eacuadór</skos:altLabel>
+	<skos:altLabel xml:lang="es">Ecuador</skos:altLabel>
+	<skos:altLabel xml:lang="da">Ecuador</skos:altLabel>
+	<skos:altLabel xml:lang="et">Ecuador</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Ecuador</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ecuador</skos:altLabel>
+	<skos:altLabel xml:lang="it">Ecuador</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Ecuador</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Ecuador</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Ecuador</skos:altLabel>
+	<skos:altLabel xml:lang="de">Ecuador</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Ecuador</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Ecuador</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Ecuador</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Ecuador</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Ecuador</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Ecuador</skos:altLabel>
+	<skos:altLabel xml:lang="se">Ecuador</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Ecwador</skos:altLabel>
+	<skos:altLabel xml:lang="id">Ekuador</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Ekuador</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Ekuator</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Ekvado</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Ekvador</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Ekvador</skos:altLabel>
+	<skos:altLabel xml:lang="is">Ekvador</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Ekvador</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Ekvadora</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Ekvadoras</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Ekvadoro</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Ekvator</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Ekvádor</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Ekvádor</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Ekvádor</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Ekwador</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Ekwador</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Equador</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Equador</skos:altLabel>
+	<skos:altLabel xml:lang="so">Ikwadoor</skos:altLabel>
+	<skos:altLabel xml:lang="en">Republic of Ecuador</skos:altLabel>
+	<skos:altLabel xml:lang="es">República del Ecuador</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Équateur</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ê-cu-a-đo</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ê-qu-a-đo (Ecuador)</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ισημερινός</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Еквадор</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Еквадор</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Еквадор</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Еквадор</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Эквадор</skos:altLabel>
+	<skos:altLabel xml:lang="be">Эквадор</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Էկվադոր</skos:altLabel>
+	<skos:altLabel xml:lang="he">אקוואדור</skos:altLabel>
+	<skos:altLabel xml:lang="he">אקוודור</skos:altLabel>
+	<skos:altLabel xml:lang="ar">اكوادور</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الاكوادور</skos:altLabel>
+	<skos:altLabel xml:lang="fa">اکوادر</skos:altLabel>
+	<skos:altLabel xml:lang="ur">ایکواڈور</skos:altLabel>
+	<skos:altLabel xml:lang="hi">इक्वाडोर</skos:altLabel>
+	<skos:altLabel xml:lang="bn">ইকুয়াডর</skos:altLabel>
+	<skos:altLabel xml:lang="bn">ইকোয়াডর</skos:altLabel>
+	<skos:altLabel xml:lang="ta">ஈக்வடார்</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ഇക്വഡോര്‍</skos:altLabel>
+	<skos:altLabel xml:lang="th">เอกวาดอร์</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ເອກວາດໍ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཨི་ཁྭ་ཌོར།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ეკვადორი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ኢኳዶር</skos:altLabel>
+	<skos:altLabel xml:lang="km">អេក្វាឌ័រ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">エクアドル</skos:altLabel>
+	<skos:altLabel xml:lang="ja">エクアドル共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">厄瓜多尔</skos:altLabel>
+	<skos:altLabel xml:lang="ko">에쿠아도르</skos:altLabel>
+	<skos:broader rdf:resource="http://sws.geonames.org/3658394/"/>
+	<skos:broader rdf:resource="http://sws.geonames.org/6255150/"/>
+	<skos:prefLabel>Republic of Ecuador</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3378535/">
+	<europeana:country>GY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>748486</europeana:population>
+	<wgs:lat>5</wgs:lat>
+	<wgs:long>-59</wgs:long>
+	<skos:altLabel xml:lang="ga">An Ghuáin</skos:altLabel>
+	<skos:altLabel>British Guiana</skos:altLabel>
+	<skos:altLabel>Co-operative Republic of Guyana</skos:altLabel>
+	<skos:altLabel>GY</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Gajana</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Gajāna</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Giyàn</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Guajana</skos:altLabel>
+	<skos:altLabel>Guayana</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Guayana</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Guiana</skos:altLabel>
+	<skos:altLabel xml:lang="la">Guiana</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Guiana</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Guiana</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Guiana</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Gujana</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Gujana</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Gujana</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Gujano</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Guy-a-na</skos:altLabel>
+	<skos:altLabel xml:lang="id">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="da">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="et">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="de">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="en">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="es">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="it">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="an">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="io">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="na">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="no">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="se">Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Guyane britannique</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Gvajana</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Gvajana</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Gvajana</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Gvayän</skos:altLabel>
+	<skos:altLabel xml:lang="is">Gvæjana</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Gwayana</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Güiana - Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Wayana</skos:altLabel>
+	<skos:altLabel xml:lang="el">Γουιάνα</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Гайана</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гайана</skos:altLabel>
+	<skos:altLabel xml:lang="be">Гаяна</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Гвајана</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Гвајана</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Гвиана</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Ґайана</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Գայանա</skos:altLabel>
+	<skos:altLabel xml:lang="yi">גויאנע</skos:altLabel>
+	<skos:altLabel xml:lang="he">גיאנה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">غوايانا</skos:altLabel>
+	<skos:altLabel xml:lang="ar">غيانا</skos:altLabel>
+	<skos:altLabel xml:lang="ps">ګيانا</skos:altLabel>
+	<skos:altLabel xml:lang="fa">گویان</skos:altLabel>
+	<skos:altLabel xml:lang="ug">گۋىئانا</skos:altLabel>
+	<skos:altLabel xml:lang="hi">गुयाना</skos:altLabel>
+	<skos:altLabel xml:lang="bn">গিয়ানা</skos:altLabel>
+	<skos:altLabel xml:lang="bn">গিয়ানা</skos:altLabel>
+	<skos:altLabel xml:lang="ta">கயானா</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ഗയാന</skos:altLabel>
+	<skos:altLabel xml:lang="th">กายอานา</skos:altLabel>
+	<skos:altLabel xml:lang="th">กายานา</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศกายอานา</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ກູຢານາ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">གྷུ་ཡཱ་ན།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">გაიანა</skos:altLabel>
+	<skos:altLabel xml:lang="am">ጉያና</skos:altLabel>
+	<skos:altLabel xml:lang="km">ហ្គីយ៉ាណា</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ガイアナ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">圭亚那</skos:altLabel>
+	<skos:altLabel xml:lang="ko">가이아나</skos:altLabel>
+	<skos:broader rdf:resource="http://sws.geonames.org/3378535/"/>
+	<skos:broader rdf:resource="http://sws.geonames.org/6255150/"/>
+	<skos:prefLabel>Co-operative Republic of Guyana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3932488/">
+	<europeana:country>PE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>29907003</europeana:population>
+	<wgs:lat>-10</wgs:lat>
+	<wgs:long>-76</wgs:long>
+	<skos:altLabel>El Perú</skos:altLabel>
+	<skos:altLabel>PE</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Peiriú</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Periw</skos:altLabel>
+	<skos:altLabel xml:lang="br">Perou</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Perou</skos:altLabel>
+	<skos:altLabel xml:lang="id">Peru</skos:altLabel>
+	<skos:altLabel xml:lang="en">Peru</skos:altLabel>
+	<skos:altLabel xml:lang="de">Peru</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Peru</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Peru</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Peru</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Peru</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Peru</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Peru</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Peru</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Peru</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Peru</skos:altLabel>
+	<skos:altLabel xml:lang="da">Peru</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Peru</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Peru</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Peru</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Peru</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Peru</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Peru</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Peru</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Peru</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Peru</skos:altLabel>
+	<skos:altLabel xml:lang="af">Peru</skos:altLabel>
+	<skos:altLabel xml:lang="az">Peru</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Peru</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Peru</skos:altLabel>
+	<skos:altLabel xml:lang="co">Peru</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Peru</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Peru</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Peru</skos:altLabel>
+	<skos:altLabel xml:lang="uz">Peru</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Peru</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Peru</skos:altLabel>
+	<skos:altLabel xml:lang="io">Peru</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Peru</skos:altLabel>
+	<skos:altLabel xml:lang="no">Peru</skos:altLabel>
+	<skos:altLabel xml:lang="rm">Peru</skos:altLabel>
+	<skos:altLabel xml:lang="se">Peru</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Peru</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Peru</skos:altLabel>
+	<skos:altLabel xml:lang="wo">Peru</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Peruo</skos:altLabel>
+	<skos:altLabel xml:lang="et">Peruu</skos:altLabel>
+	<skos:altLabel xml:lang="la">Peruvia</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Peruvän</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Perw</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Peró</skos:altLabel>
+	<skos:altLabel xml:lang="it">Perù</skos:altLabel>
+	<skos:altLabel xml:lang="es">Perú</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Perú</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Perú</skos:altLabel>
+	<skos:altLabel xml:lang="is">Perú</skos:altLabel>
+	<skos:altLabel xml:lang="an">Perú</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Perú</skos:altLabel>
+	<skos:altLabel xml:lang="ay">Piruw</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Piruw</skos:altLabel>
+	<skos:altLabel>Pérou</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Pérou</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Pê-ru</skos:altLabel>
+	<skos:altLabel xml:lang="ks">Pēru</skos:altLabel>
+	<skos:altLabel xml:lang="en">Republic of Peru</skos:altLabel>
+	<skos:altLabel>República del Perú</skos:altLabel>
+	<skos:altLabel xml:lang="el">Περού</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Перу</skos:altLabel>
+	<skos:altLabel xml:lang="cv">Перу</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Перу</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Перу</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Перу</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Перу</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Перу</skos:altLabel>
+	<skos:altLabel xml:lang="be">Перу</skos:altLabel>
+	<skos:altLabel xml:lang="be">Пэру</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Պերու</skos:altLabel>
+	<skos:altLabel xml:lang="yi">פערו</skos:altLabel>
+	<skos:altLabel xml:lang="he">פרו</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بيرو</skos:altLabel>
+	<skos:altLabel xml:lang="fa">پرو</skos:altLabel>
+	<skos:altLabel xml:lang="ps">پيرو</skos:altLabel>
+	<skos:altLabel xml:lang="ur">پیرو</skos:altLabel>
+	<skos:altLabel xml:lang="ug">پېرۇ</skos:altLabel>
+	<skos:altLabel xml:lang="sa">पेरु</skos:altLabel>
+	<skos:altLabel xml:lang="hi">पेरु</skos:altLabel>
+	<skos:altLabel xml:lang="hi">पेरू</skos:altLabel>
+	<skos:altLabel xml:lang="bn">পিরু</skos:altLabel>
+	<skos:altLabel xml:lang="bn">পেরু</skos:altLabel>
+	<skos:altLabel xml:lang="ta">பெரு</skos:altLabel>
+	<skos:altLabel xml:lang="ml">പെറു</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศเปรู</skos:altLabel>
+	<skos:altLabel xml:lang="th">เปรู</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ເປລູ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">པེ་རུ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">პერუ</skos:altLabel>
+	<skos:altLabel xml:lang="am">ፔሩ</skos:altLabel>
+	<skos:altLabel xml:lang="km">ប៉េរូ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ペルー</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ペルー共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">秘鲁</skos:altLabel>
+	<skos:altLabel xml:lang="ko">페루</skos:altLabel>
+	<skos:broader rdf:resource="http://sws.geonames.org/3932488/"/>
+	<skos:broader rdf:resource="http://sws.geonames.org/6255150/"/>
+	<skos:prefLabel>Republic of Peru</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3437598/">
+	<europeana:country>PY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>6375830</europeana:population>
+	<wgs:lat>-22.99333</wgs:lat>
+	<wgs:long>-57.99639</wgs:long>
+	<skos:altLabel>El Paraguay</skos:altLabel>
+	<skos:altLabel>PY</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Pa-ra-goay</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Pa-ra-goay (Paraguay)</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Paragua</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Paraguai</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Paraguai</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Paraguai</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Paraguai</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Paraguai</skos:altLabel>
+	<skos:altLabel xml:lang="an">Paraguai</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Paraguai</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Paraguai - Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="la">Paraguaia</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Paraguaj</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Paraguaj</skos:altLabel>
+	<skos:altLabel xml:lang="id">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="en">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="de">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="da">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="et">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="it">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="af">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="io">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="se">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="br">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="no">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="rm">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="es">Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Paraguei</skos:altLabel>
+	<skos:altLabel xml:lang="gn">Paraguái</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Paragvaj</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Paragvaj</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Paragvaj</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Paragvaj</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Paragvaja</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Paragvajo</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Paragvajus</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Paragvän</skos:altLabel>
+	<skos:altLabel xml:lang="is">Paragvæ</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Paragwai</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Paragwaj</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Paragwaj</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Paragway</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Paragûay</skos:altLabel>
+	<skos:altLabel xml:lang="az">Paraqvay</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Parawayi</skos:altLabel>
+	<skos:altLabel xml:lang="en">Republic of Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="es">República del Paraguay</skos:altLabel>
+	<skos:altLabel xml:lang="el">Παραγουάη</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Парагвай</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Парагвай</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Парагвай</skos:altLabel>
+	<skos:altLabel xml:lang="be">Парагвай</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Парагвај</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Парагвај</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Параґвай</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Պարագվայ</skos:altLabel>
+	<skos:altLabel xml:lang="yi">פאראגוויי</skos:altLabel>
+	<skos:altLabel xml:lang="he">פרגואי</skos:altLabel>
+	<skos:altLabel xml:lang="he">פרגוואי</skos:altLabel>
+	<skos:altLabel xml:lang="ar">باراجواي</skos:altLabel>
+	<skos:altLabel xml:lang="ar">باراغواي</skos:altLabel>
+	<skos:altLabel xml:lang="fa">پاراگوئه</skos:altLabel>
+	<skos:altLabel xml:lang="fa">پاراگویه</skos:altLabel>
+	<skos:altLabel xml:lang="ug">پاراگۋاي</skos:altLabel>
+	<skos:altLabel xml:lang="ur">پیراگوئے</skos:altLabel>
+	<skos:altLabel xml:lang="hi">पारागुए</skos:altLabel>
+	<skos:altLabel xml:lang="hi">पॅराग्वे</skos:altLabel>
+	<skos:altLabel xml:lang="bn">পারাগুয়ে</skos:altLabel>
+	<skos:altLabel xml:lang="bn">প্যারাগোয়ে</skos:altLabel>
+	<skos:altLabel xml:lang="ta">பராகுவே</skos:altLabel>
+	<skos:altLabel xml:lang="ta">பாரகுவே</skos:altLabel>
+	<skos:altLabel xml:lang="kn">ಪೆರಗ್ವೆ</skos:altLabel>
+	<skos:altLabel xml:lang="ml">പരാഗ്വേ</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศปารากวัย</skos:altLabel>
+	<skos:altLabel xml:lang="th">ปารากวัย</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ປາລາກວຍ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">པཱ་ར་གེ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">პარაგვაი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ፓራጓይ</skos:altLabel>
+	<skos:altLabel xml:lang="km">ប៉ារ៉ាហ្គាយ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">パラグアイ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">パラグアイ共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">巴拉圭</skos:altLabel>
+	<skos:altLabel xml:lang="ko">파라과이</skos:altLabel>
+	<skos:broader rdf:resource="http://sws.geonames.org/3437598/"/>
+	<skos:broader rdf:resource="http://sws.geonames.org/6255150/"/>
+	<skos:prefLabel>Republic of Paraguay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3382998/">
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>492829</europeana:population>
+	<wgs:lat>4</wgs:lat>
+	<wgs:long>-56</wgs:long>
+	<skos:altLabel>Dutch Guiana</skos:altLabel>
+	<skos:altLabel>Nederlandisch Guyana</skos:altLabel>
+	<skos:altLabel>Nederlandsch Guyana</skos:altLabel>
+	<skos:altLabel>Netherlands Guiana</skos:altLabel>
+	<skos:altLabel>Republic of Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="en">Republic of Suriname</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Republiek Suriname</skos:altLabel>
+	<skos:altLabel>Republiek van Suriname</skos:altLabel>
+	<skos:altLabel>SR</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Suranam</skos:altLabel>
+	<skos:altLabel xml:lang="es">Surinam</skos:altLabel>
+	<skos:altLabel>Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="da">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="io">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="se">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="an">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="no">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Surinam - Suriname</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Surinama</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Surinamas</skos:altLabel>
+	<skos:altLabel xml:lang="id">Suriname</skos:altLabel>
+	<skos:altLabel xml:lang="et">Suriname</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Suriname</skos:altLabel>
+	<skos:altLabel xml:lang="de">Suriname</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Suriname</skos:altLabel>
+	<skos:altLabel xml:lang="it">Suriname</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Suriname</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Suriname</skos:altLabel>
+	<skos:altLabel xml:lang="en">Suriname</skos:altLabel>
+	<skos:altLabel xml:lang="af">Suriname</skos:altLabel>
+	<skos:altLabel xml:lang="li">Suriname</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Suriname</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Suriname</skos:altLabel>
+	<skos:altLabel xml:lang="jv">Suriname</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Suriname</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Suriname</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Suriname</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Suriname</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Surinami</skos:altLabel>
+	<skos:altLabel xml:lang="la">Surinamia</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Surinamo</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Swrinam</skos:altLabel>
+	<skos:altLabel xml:lang="is">Súrínam</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Sürinamän</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Xu-ri-nam</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Xu-ri-nam (Suriname)</skos:altLabel>
+	<skos:altLabel xml:lang="el">Σουρινάμ</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Суринам</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Суринам</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Суринам</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Суринам</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Суринам</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Суринами</skos:altLabel>
+	<skos:altLabel xml:lang="be">Сурынам</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Сурінам</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Սուրինամ</skos:altLabel>
+	<skos:altLabel xml:lang="he">סורינאם</skos:altLabel>
+	<skos:altLabel xml:lang="yi">סורינאם</skos:altLabel>
+	<skos:altLabel xml:lang="he">סורינם</skos:altLabel>
+	<skos:altLabel xml:lang="ar">سورينام</skos:altLabel>
+	<skos:altLabel xml:lang="fa">سورینام</skos:altLabel>
+	<skos:altLabel xml:lang="ur">سورینام</skos:altLabel>
+	<skos:altLabel xml:lang="ps">سورېنام</skos:altLabel>
+	<skos:altLabel xml:lang="hi">सुरिनाम</skos:altLabel>
+	<skos:altLabel xml:lang="sa">सुरिनाम</skos:altLabel>
+	<skos:altLabel xml:lang="hi">सूरीनाम</skos:altLabel>
+	<skos:altLabel xml:lang="bn">সুরিনাম</skos:altLabel>
+	<skos:altLabel xml:lang="ta">சுரினாம்</skos:altLabel>
+	<skos:altLabel xml:lang="ta">சூரினாம்</skos:altLabel>
+	<skos:altLabel xml:lang="ml">സുറിനാം</skos:altLabel>
+	<skos:altLabel xml:lang="th">ซูรินาเม</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศซูรินาเม</skos:altLabel>
+	<skos:altLabel xml:lang="th">สุรินัม</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ຊູລິນາມິ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">སུ་རི་ནཱམ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">სურინამი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሱሪናም</skos:altLabel>
+	<skos:altLabel xml:lang="km">សូរីណាម</skos:altLabel>
+	<skos:altLabel xml:lang="ja">スリナム</skos:altLabel>
+	<skos:altLabel xml:lang="ja">スリナム共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">苏里南</skos:altLabel>
+	<skos:altLabel xml:lang="zh">蘇利南</skos:altLabel>
+	<skos:altLabel xml:lang="ko">수리남</skos:altLabel>
+	<skos:broader rdf:resource="http://sws.geonames.org/3382998/"/>
+	<skos:broader rdf:resource="http://sws.geonames.org/6255150/"/>
+	<skos:prefLabel>Republic of Suriname</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3439705/">
+	<europeana:country>UY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>3477000</europeana:population>
+	<wgs:lat>-33</wgs:lat>
+	<wgs:long>-56</wgs:long>
+	<skos:altLabel>Banda Oriental</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Irigwe</skos:altLabel>
+	<skos:altLabel xml:lang="en">Oriental Republic of Uruguay</skos:altLabel>
+	<skos:altLabel>Republica del Uruguay</skos:altLabel>
+	<skos:altLabel xml:lang="es">República Oriental del Uruguay</skos:altLabel>
+	<skos:altLabel xml:lang="vi">U-ru-goay</skos:altLabel>
+	<skos:altLabel xml:lang="vi">U-ru-goay (Uruguay)</skos:altLabel>
+	<skos:altLabel>UY</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Uragua</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Urugua</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Uruguai</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Uruguai</skos:altLabel>
+	<skos:altLabel xml:lang="an">Uruguai</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Uruguai</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Uruguai</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Uruguai</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Uruguai</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Uruguai - Uruguay</skos:altLabel>
+	<skos:altLabel xml:lang="la">Uruguaia</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Uruguaj</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Uruguaj</skos:altLabel>
+	<skos:altLabel xml:lang="id">Uruguay</skos:altLabel>
+	<skos:altLabel xml:lang="en">Uruguay</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Uruguay</skos:altLabel>
+	<skos:altLabel xml:lang="de">Uruguay</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Uruguay</skos:altLabel>
+	<skos:altLabel xml:lang="da">Uruguay</skos:altLabel>
+	<skos:altLabel xml:lang="et">Uruguay</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Uruguay</skos:altLabel>
+	<skos:altLabel xml:lang="it">Uruguay</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Uruguay</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Uruguay</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Uruguay</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Uruguay</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Uruguay</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Uruguay</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Uruguay</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Uruguay</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Uruguay</skos:altLabel>
+	<skos:altLabel xml:lang="af">Uruguay</skos:altLabel>
+	<skos:altLabel xml:lang="no">Uruguay</skos:altLabel>
+	<skos:altLabel xml:lang="rm">Uruguay</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Uruguay</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Uruguay</skos:altLabel>
+	<skos:altLabel xml:lang="io">Uruguay</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Uruguay</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Uruguay</skos:altLabel>
+	<skos:altLabel xml:lang="se">Uruguay</skos:altLabel>
+	<skos:altLabel xml:lang="es">Uruguay</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Uruguei</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Urugvaj</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Urugvaj</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Urugvaj</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Urugvaj</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Urugvaja</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Urugvajo</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Urugvajus</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Urugwai</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Urugwaj</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Urugwaj</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Urugway</skos:altLabel>
+	<skos:altLabel xml:lang="az">Uruqvay</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Uruwayi</skos:altLabel>
+	<skos:altLabel xml:lang="is">Úrúgvæ</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Ûrûgûay</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ουρουγουάη</skos:altLabel>
+	<skos:altLabel xml:lang="be">Уругвай</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Уругвай</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Уругвай</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Уругвай</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Уругвај</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Уругвај</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Уругуай</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Уруґвай</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Ուրուգվայ</skos:altLabel>
+	<skos:altLabel xml:lang="he">אורגוואי</skos:altLabel>
+	<skos:altLabel xml:lang="he">אורוגוואי</skos:altLabel>
+	<skos:altLabel xml:lang="yi">אורוגװיי</skos:altLabel>
+	<skos:altLabel xml:lang="ar">أورجواي</skos:altLabel>
+	<skos:altLabel xml:lang="ar">أوروغواي</skos:altLabel>
+	<skos:altLabel xml:lang="ug">ئۇرۇگۋاي</skos:altLabel>
+	<skos:altLabel xml:lang="ar">اروغواي</skos:altLabel>
+	<skos:altLabel xml:lang="fa">اروگوئه</skos:altLabel>
+	<skos:altLabel xml:lang="fa">اوروگوئه</skos:altLabel>
+	<skos:altLabel xml:lang="ur">ہوراگوئے</skos:altLabel>
+	<skos:altLabel xml:lang="ps">یوروګوای</skos:altLabel>
+	<skos:altLabel xml:lang="sa">उरुग्वाय</skos:altLabel>
+	<skos:altLabel xml:lang="hi">उरूग्वे</skos:altLabel>
+	<skos:altLabel xml:lang="hi">युरूगुए</skos:altLabel>
+	<skos:altLabel xml:lang="bn">উরুগোয়ে</skos:altLabel>
+	<skos:altLabel xml:lang="bn">উরুগোয়ে</skos:altLabel>
+	<skos:altLabel xml:lang="ta">உருகுவே</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ഉറുഗ്വ</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศอุรุกวัย</skos:altLabel>
+	<skos:altLabel xml:lang="th">อุรุกวัย</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ລູກວຍອຸຣ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཨུ་རུ་གྷེ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ურუგვაი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ኡራጓይ</skos:altLabel>
+	<skos:altLabel xml:lang="km">អ៊ុយរុយហ្គាយ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ウルグアイ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ウルグアイ共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">乌拉圭</skos:altLabel>
+	<skos:altLabel xml:lang="ko">우루과이</skos:altLabel>
+	<skos:broader rdf:resource="http://sws.geonames.org/3439705/"/>
+	<skos:broader rdf:resource="http://sws.geonames.org/6255150/"/>
+	<skos:prefLabel>Oriental Republic of Uruguay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3625428/">
+	<europeana:country>VE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>27223228</europeana:population>
+	<wgs:lat>8</wgs:lat>
+	<wgs:long>-66</wgs:long>
+	<skos:altLabel xml:lang="an">Benezuela</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Biniswila</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bolivarian Republic of Venezuela</skos:altLabel>
+	<skos:altLabel xml:lang="es">Estados Unidos de Venezuela</skos:altLabel>
+	<skos:altLabel xml:lang="so">Fenisuweela</skos:altLabel>
+	<skos:altLabel xml:lang="en">Republic of Venezuela</skos:altLabel>
+	<skos:altLabel xml:lang="es">República Bolivariana de Venezuela</skos:altLabel>
+	<skos:altLabel xml:lang="es">República de Venezuela</skos:altLabel>
+	<skos:altLabel xml:lang="en">United States of Venezuela</skos:altLabel>
+	<skos:altLabel>VE</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Veiniséala</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Venecuela</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Venecuēla</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Venesolän</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Venesuela</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Venesuela</skos:altLabel>
+	<skos:altLabel xml:lang="az">Venesuela</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Veneswela</skos:altLabel>
+	<skos:altLabel xml:lang="is">Venesúela</skos:altLabel>
+	<skos:altLabel xml:lang="la">Venetiola</skos:altLabel>
+	<skos:altLabel xml:lang="et">Venetsueela</skos:altLabel>
+	<skos:altLabel xml:lang="id">Venezuela</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Venezuela</skos:altLabel>
+	<skos:altLabel xml:lang="da">Venezuela</skos:altLabel>
+	<skos:altLabel xml:lang="et">Venezuela</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Venezuela</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Venezuela</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Venezuela</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Venezuela</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Venezuela</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Venezuela</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Venezuela</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Venezuela</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Venezuela</skos:altLabel>
+	<skos:altLabel xml:lang="de">Venezuela</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Venezuela</skos:altLabel>
+	<skos:altLabel xml:lang="it">Venezuela</skos:altLabel>
+	<skos:altLabel xml:lang="en">Venezuela</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Venezuela</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Venezuela</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Venezuela</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Venezuela</skos:altLabel>
+	<skos:altLabel xml:lang="af">Venezuela</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Venezuela</skos:altLabel>
+	<skos:altLabel xml:lang="se">Venezuela</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Venezuela</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Venezuela</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Venezuela</skos:altLabel>
+	<skos:altLabel xml:lang="br">Venezuela</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Venezuela</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Venezuela</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Venezuela</skos:altLabel>
+	<skos:altLabel xml:lang="io">Venezuela</skos:altLabel>
+	<skos:altLabel xml:lang="no">Venezuela</skos:altLabel>
+	<skos:altLabel xml:lang="rm">Venezuela</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Venezuela</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Venezuela</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Venezuela</skos:altLabel>
+	<skos:altLabel xml:lang="es">Venezuela</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Venezuelo</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Venezuelë</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Venezwela</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Veneçuela</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Veneçuèla</skos:altLabel>
+	<skos:altLabel xml:lang="to">Venisuela</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Vénézuéla</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Vê-nê-zu-ê-la</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Vê-nê-zu-ê-la (Venezuela)</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Vênêzûêla</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Wenezuela</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Winisuyla</skos:altLabel>
+	<skos:altLabel xml:lang="el">Βενεζουέλα</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Венесуела</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Венесуэла</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Венесуэла</skos:altLabel>
+	<skos:altLabel xml:lang="be">Венесуэла</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Венецуела</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Венецуела</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Венецуела</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Վենեսուելա</skos:altLabel>
+	<skos:altLabel xml:lang="he">ונצואלה</skos:altLabel>
+	<skos:altLabel xml:lang="yi">װענעזװעלע</skos:altLabel>
+	<skos:altLabel xml:lang="ar">فنزويلا</skos:altLabel>
+	<skos:altLabel xml:lang="fa">ونزوئلا</skos:altLabel>
+	<skos:altLabel xml:lang="ur">وینزولا</skos:altLabel>
+	<skos:altLabel xml:lang="ug">ۋېنېسۇئېلا</skos:altLabel>
+	<skos:altLabel xml:lang="hi">वेनेज़्वेला</skos:altLabel>
+	<skos:altLabel xml:lang="hi">वेनेजुएला</skos:altLabel>
+	<skos:altLabel xml:lang="sa">वेनेज्वेला</skos:altLabel>
+	<skos:altLabel xml:lang="bn">ভেনিজুয়েলা</skos:altLabel>
+	<skos:altLabel xml:lang="bn">ভেনেজুয়েলা</skos:altLabel>
+	<skos:altLabel xml:lang="ta">வெனஜுவேலா</skos:altLabel>
+	<skos:altLabel xml:lang="ta">வெனீசூலா</skos:altLabel>
+	<skos:altLabel xml:lang="kn">ವೆನೆಜುವೆಲಾ</skos:altLabel>
+	<skos:altLabel xml:lang="ml">വെനിസ്വേല</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศเวเนซุเอลา</skos:altLabel>
+	<skos:altLabel xml:lang="th">เวเนซุเอลา</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ເວເນຊູເອລາ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཝེ་ནི་ཛུའེ་ལ།</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཝེ་ནེ་ཟུའེ་ལ</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ვენესუელა</skos:altLabel>
+	<skos:altLabel xml:lang="am">ቬንዙዌላ</skos:altLabel>
+	<skos:altLabel xml:lang="km">វេនេហ្ស៊ុយឡា</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ベネズエラ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ベネズエラ共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">委內瑞拉</skos:altLabel>
+	<skos:altLabel xml:lang="zh">委内瑞拉</skos:altLabel>
+	<skos:altLabel xml:lang="ko">베네수엘라</skos:altLabel>
+	<skos:altLabel xml:lang="ko">베네주엘라</skos:altLabel>
+	<skos:broader rdf:resource="http://sws.geonames.org/3625428/"/>
+	<skos:broader rdf:resource="http://sws.geonames.org/6255150/"/>
+	<skos:prefLabel>Bolivarian Republic of Venezuela</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 11 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

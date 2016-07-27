@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: NA_DM
+Description: Selected fields pulled from Geonames about DM done on Mon May 23 21:14:23 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/3575613/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3575830/"/>
+	<europeana:country>DM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>15.48333</wgs:lat>
+	<wgs:long>-61.25</wgs:long>
+	<skos:altLabel>Salibia Isles</skos:altLabel>
+	<skos:altLabel>Satisbie Isles</skos:altLabel>
+	<skos:prefLabel>Salibia Isles</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3575618/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3575830/"/>
+	<europeana:country>DM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1604</europeana:population>
+	<wgs:lat>15.51667</wgs:lat>
+	<wgs:long>-61.45</wgs:long>
+	<skos:altLabel>Saint Peter</skos:altLabel>
+	<skos:prefLabel>Saint Peter</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3575619/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3575830/"/>
+	<europeana:country>DM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>7515</europeana:population>
+	<wgs:lat>15.35</wgs:lat>
+	<wgs:long>-61.38333</wgs:long>
+	<skos:altLabel>Saint Paul</skos:altLabel>
+	<skos:prefLabel>Saint Paul</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3575620/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3575830/"/>
+	<europeana:country>DM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>8918</europeana:population>
+	<wgs:lat>15.28333</wgs:lat>
+	<wgs:long>-61.3</wgs:long>
+	<skos:altLabel>Saint Patrick</skos:altLabel>
+	<skos:prefLabel>Saint Patrick</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3575621/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3575830/"/>
+	<europeana:country>DM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1904</europeana:population>
+	<wgs:lat>15.21667</wgs:lat>
+	<wgs:long>-61.36667</wgs:long>
+	<skos:altLabel>Saint Mark</skos:altLabel>
+	<skos:prefLabel>Saint Mark</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3575622/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3575830/"/>
+	<europeana:country>DM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1603</europeana:population>
+	<wgs:lat>15.26667</wgs:lat>
+	<wgs:long>-61.38333</wgs:long>
+	<skos:altLabel>Saint Luke</skos:altLabel>
+	<skos:prefLabel>Saint Luke</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3575625/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3575830/"/>
+	<europeana:country>DM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>6213</europeana:population>
+	<wgs:lat>15.43333</wgs:lat>
+	<wgs:long>-61.43333</wgs:long>
+	<skos:altLabel>Saint Joseph</skos:altLabel>
+	<skos:prefLabel>Saint Joseph</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3575626/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3575830/"/>
+	<europeana:country>DM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>5010</europeana:population>
+	<wgs:lat>15.58333</wgs:lat>
+	<wgs:long>-61.45</wgs:long>
+	<skos:altLabel>Saint John</skos:altLabel>
+	<skos:prefLabel>Saint John</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3575628/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3575830/"/>
+	<europeana:country>DM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>20441</europeana:population>
+	<wgs:lat>15.3</wgs:lat>
+	<wgs:long>-61.36667</wgs:long>
+	<skos:altLabel>Saint George</skos:altLabel>
+	<skos:prefLabel>Saint George</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3575630/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3575830/"/>
+	<europeana:country>DM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>7014</europeana:population>
+	<wgs:lat>15.46667</wgs:lat>
+	<wgs:long>-61.28333</wgs:long>
+	<skos:altLabel>Saint David</skos:altLabel>
+	<skos:prefLabel>Saint David</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3575632/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3575830/"/>
+	<europeana:country>DM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>11122</europeana:population>
+	<wgs:lat>15.56667</wgs:lat>
+	<wgs:long>-61.36667</wgs:long>
+	<skos:altLabel>Saint Andrew</skos:altLabel>
+	<skos:prefLabel>Saint Andrew</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3575635/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3575830/"/>
+	<europeana:country>DM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>16571</europeana:population>
+	<wgs:lat>15.30174</wgs:lat>
+	<wgs:long>-61.38808</wgs:long>
+	<skos:altLabel>Charlotte Town</skos:altLabel>
+	<skos:altLabel xml:lang="es">Roseau</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Roseau</skos:altLabel>
+	<skos:altLabel xml:lang="it">Roseau</skos:altLabel>
+	<skos:altLabel xml:lang="no">Roseau</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Roseau</skos:altLabel>
+	<skos:altLabel xml:lang="de">Roseau</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Roseau</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Roseau</skos:altLabel>
+	<skos:altLabel xml:lang="io">Roseau</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Roseau</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Roseau</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Roseau</skos:altLabel>
+	<skos:altLabel xml:lang="en">Roseau</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Roseau</skos:altLabel>
+	<skos:altLabel xml:lang="et">Roseau</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Roseau</skos:altLabel>
+	<skos:altLabel xml:lang="da">Roseau</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Rozo</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ροζό</skos:altLabel>
+	<skos:altLabel xml:lang="he">רוסאו</skos:altLabel>
+	<skos:altLabel xml:lang="fa">روسو</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሮዞ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ロゾー</skos:altLabel>
+	<skos:altLabel xml:lang="zh">羅索</skos:altLabel>
+	<skos:altLabel xml:lang="ko">로조</skos:altLabel>
+	<skos:prefLabel>Roseau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3575665/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3575830/"/>
+	<europeana:country>DM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.5</wgs:lat>
+	<wgs:long>-61.25</wgs:long>
+	<skos:prefLabel>Petit L’Ilet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3575781/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3575830/"/>
+	<europeana:country>DM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.48333</wgs:lat>
+	<wgs:long>-61.25</wgs:long>
+	<skos:prefLabel>Gros L’Ilet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3575830/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3575830/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255149/"/>
+	<europeana:country>DM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>72813</europeana:population>
+	<wgs:lat>15.5</wgs:lat>
+	<wgs:long>-61.33333</wgs:long>
+	<skos:altLabel>Colony of Dominica</skos:altLabel>
+	<skos:altLabel xml:lang="en">Commonwealth of Dominica</skos:altLabel>
+	<skos:altLabel>DM</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Doiminice</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Domenika</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Dominica</skos:altLabel>
+	<skos:altLabel xml:lang="de">Dominica</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Dominica</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Dominica</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Dominica</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Dominica</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Dominica</skos:altLabel>
+	<skos:altLabel xml:lang="da">Dominica</skos:altLabel>
+	<skos:altLabel xml:lang="et">Dominica</skos:altLabel>
+	<skos:altLabel xml:lang="it">Dominica</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Dominica</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Dominica</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Dominica</skos:altLabel>
+	<skos:altLabel xml:lang="an">Dominica</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Dominica</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Dominica</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Dominica</skos:altLabel>
+	<skos:altLabel xml:lang="na">Dominica</skos:altLabel>
+	<skos:altLabel xml:lang="no">Dominica</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Dominica</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Dominica</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Dominica</skos:altLabel>
+	<skos:altLabel xml:lang="se">Dominica</skos:altLabel>
+	<skos:altLabel xml:lang="es">Dominica</skos:altLabel>
+	<skos:altLabel xml:lang="en">Dominica</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Dominica</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Dominik</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Dominik</skos:altLabel>
+	<skos:altLabel xml:lang="id">Dominika</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Dominika</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Dominika</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Dominika</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Dominika</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Dominika</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Dominika</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Dominika</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Dominika</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Dominika</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Dominika</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Dominika</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Dominika</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Dominika</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Dominika</skos:altLabel>
+	<skos:altLabel xml:lang="io">Dominika</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Dominika</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Dominiko</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Dominikë</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Dominique</skos:altLabel>
+	<skos:altLabel xml:lang="is">Dóminíka</skos:altLabel>
+	<skos:altLabel>Presidency of Dominica</skos:altLabel>
+	<skos:altLabel>State of Dominica</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ντομίνικα</skos:altLabel>
+	<skos:altLabel xml:lang="be">Дамініка</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Доминика</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Доминика</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Доминика</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Доминика</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Домінік</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Домініка</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Остров Доминика</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Դոմինիկա</skos:altLabel>
+	<skos:altLabel xml:lang="he">דומיניקה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">دومينيكا</skos:altLabel>
+	<skos:altLabel xml:lang="fa">دومینیکا</skos:altLabel>
+	<skos:altLabel xml:lang="hi">डोमिनिका</skos:altLabel>
+	<skos:altLabel xml:lang="bn">ডোমিনিকা</skos:altLabel>
+	<skos:altLabel xml:lang="bn">ডোমিন্ইকা</skos:altLabel>
+	<skos:altLabel xml:lang="bn">ডোমিন্‌ইকা</skos:altLabel>
+	<skos:altLabel xml:lang="ta">டொமினிகா</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ഡൊമിനിക്ക</skos:altLabel>
+	<skos:altLabel xml:lang="th">โดมินิกา</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ໂດເມນິກາ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཌོ་མིན་ནི་ཀ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">დომინიკა</skos:altLabel>
+	<skos:altLabel xml:lang="am">ዶሚኒካ</skos:altLabel>
+	<skos:altLabel xml:lang="km">ដូមីនីកា</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ドミニカ国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">多米尼克</skos:altLabel>
+	<skos:altLabel xml:lang="zh">多米尼加岘</skos:altLabel>
+	<skos:altLabel xml:lang="ko">도미니카</skos:altLabel>
+	<skos:prefLabel>Dominica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3575831/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3575830/"/>
+	<europeana:country>DM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.5</wgs:lat>
+	<wgs:long>-61.33333</wgs:long>
+	<skos:prefLabel>Dominica</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 15 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

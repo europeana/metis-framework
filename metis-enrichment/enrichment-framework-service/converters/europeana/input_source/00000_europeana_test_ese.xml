@@ -1,0 +1,312 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:europeana="http://www.europeana.eu" xmlns:dcterms="http://purl.org/dc/terms/">
+	<record>
+		<dc:identifier>1</dc:identifier>
+		<europeana:uri>http://www.europeana.eu/resolve/record/00000/356A192B7913B04C54574D18C28D46E6395428AB</europeana:uri>
+		<dc:title xml:lang="ro">dc:title 1 (test for 250 char max) He later recorded “Guitar Concerto” with Kamen. He has also worked with Andy Mackay of Roxy Music, guitarist Chris Spedding and Mike Edwards of Jesus Jones. Hotei also sometimes plays in Europe, and performances inc123456789 exactly 250 characters with spaces before the numbers.</dc:title>
+		<dc:title xml:lang="en">dc:title 2 (test for 250 char max) He later recorded “Guitar Concerto” with Kamen. He has also worked with Andy Mackay of Roxy Music, guitarist Chris Spedding and Mike Edwards of Jesus Jones. Hotei also sometimes plays in Europe, and performances inc123456789 exactly 250 characters with spaces before the numbers.</dc:title>
+		<europeana:year>1869</europeana:year>
+		<europeana:year>3000</europeana:year>
+		<europeana:year>0001</europeana:year>
+		<europeana:year>0000</europeana:year>
+		<dcterms:alternative xml:lang="ro">dcterms:alternative 1</dcterms:alternative>
+		<dcterms:alternative xml:lang="en">dcterms:alternative 2</dcterms:alternative>
+		<dc:creator xml:lang="ro">Rembrandt</dc:creator>
+		<dc:creator xml:lang="en">dc:creator 2</dc:creator>
+		<dc:contributor xml:lang="ro">dc:contributor 1</dc:contributor>
+		<dc:contributor xml:lang="en">dc:contributor 2</dc:contributor>
+		<dc:description xml:lang="ro">dc:description 1 (test for 800 char max) Scorpio Rising was a groundbreaking avant-garde, experimental film by Kenneth Anger, author of the Hollywood Babylon books, starring Bruce Byron as the biker Scorpio. It features themes of leather-clad bikers, the occult, Jesus and Nazis. Its camp appropriation of popular culture included an innovative use of pop music, the erotic cult of James Dean, and Sunday comics. The film was produced in 1964 and initially shown on the underground film circuit. The film features no lines of dialogue, accompanied instead by music from popular 50's and 60's artists including Ricky Nelson, The Angels, Bobby Vinton, Elvis Presley, Ray Charles and Martha Reeves 3 the Vandellas. It is considered to be one of the first post-modern films and an influence to future dir1234567890 exactly 800 characters with spaces before numbers.</dc:description>
+		<dc:description xml:lang="ro">dc:description 2 (test for 800 char max) Scorpio Rising was a groundbreaking avant-garde, experimental film by Kenneth Anger, author of the Hollywood Babylon books, starring Bruce Byron as the biker Scorpio. It features themes of leather-clad bikers, the occult, Jesus and Nazis. Its camp appropriation of popular culture included an innovative use of pop music, the erotic cult of James Dean, and Sunday comics. The film was produced in 1964 and initially shown on the underground film circuit. The film features no lines of dialogue, accompanied instead by music from popular 50's and 60's artists including Ricky Nelson, The Angels, Bobby Vinton, Elvis Presley, Ray Charles and Martha Reeves 3 the Vandellas. It is considered to be one of the first post-modern films and an influence to future dir1234567890 exactly 800 characters with spaces before numbers.</dc:description>
+		<dc:language>en</dc:language>
+		<dc:language>ro</dc:language>
+		<dc:format xml:lang="ro">dc:format 1</dc:format>
+		<dc:format xml:lang="en">dc:format 2</dc:format>
+		<dcterms:extent xml:lang="ro">dcterms:extent 1</dcterms:extent>
+		<dcterms:extent xml:lang="en">dcterms:extent 2</dcterms:extent>
+		<dcterms:medium xml:lang="ro">dcterms:medium 1</dcterms:medium>
+		<dcterms:medium xml:lang="en">dcterms:medium 2</dcterms:medium>
+		<dc:source xml:lang="ro">dc:source 1</dc:source>
+		<dc:source xml:lang="en">dc:source 2</dc:source>
+		<dc:rights xml:lang="ro">dc:rights 1</dc:rights>
+		<dc:rights xml:lang="en">dc:rights 2</dc:rights>
+		<europeana:provider xml:lang="en">europeana:provider</europeana:provider>
+		<europeana:country xml:lang="en">Romania</europeana:country>
+		<dc:identifier xml:lang="ro">dc:identifier 1</dc:identifier>
+		<dc:identifier xml:lang="en">dc:identifier 2</dc:identifier>
+		<dc:publisher xml:lang="ro">dc:publisher 1</dc:publisher>
+		<dc:publisher xml:lang="en">dc:publisher 2</dc:publisher>
+		<dc:date xml:lang="ro">dc:date 1</dc:date>
+		<dc:date xml:lang="en">dc:date 2</dc:date>
+		<dcterms:created xml:lang="ro">dc:created 1</dcterms:created>
+		<dcterms:created xml:lang="en">dc:created 2</dcterms:created>
+		<dcterms:issued xml:lang="ro">dcterms:issued 1</dcterms:issued>
+		<dcterms:issued xml:lang="en">dcterms:issued 2</dcterms:issued>
+		<dcterms:provenance xml:lang="ro">dcterms:provenance 1</dcterms:provenance>
+		<dcterms:provenance xml:lang="en">dcterms:provenance 2</dcterms:provenance>
+		<dc:subject xml:lang="ro">dc:subject 1</dc:subject>
+		<dc:subject xml:lang="en">dc:subject 2</dc:subject>
+		<dc:coverage xml:lang="ro">dc:coverage 1</dc:coverage>
+		<dc:coverage xml:lang="en">dc:coverage 2</dc:coverage>
+		<dcterms:spatial xml:lang="ro">dcterms:spatial 1</dcterms:spatial>
+		<dcterms:spatial xml:lang="en">dcterms:spatial 2</dcterms:spatial>
+		<dcterms:temporal xml:lang="ro">dcterms:tempora 1</dcterms:temporal>
+		<dcterms:temporal xml:lang="en">dcterms:tempora 2</dcterms:temporal>
+		<dc:type xml:lang="ro">dc:type 1</dc:type>
+		<dc:type xml:lang="en">dc:type 2</dc:type>
+		<dc:relation xml:lang="ro">dc:relation 1</dc:relation>
+		<dc:relation xml:lang="en">dc:relation 2</dc:relation>
+		<dcterms:isPartOf xml:lang="ro">dcterms:isPartOf 1</dcterms:isPartOf>
+		<dcterms:isPartOf xml:lang="en">dcterms:isPartOf 2</dcterms:isPartOf>
+		<dcterms:hasPart xml:lang="ro">dcterms:hasPart 1</dcterms:hasPart>
+		<dcterms:hasPart xml:lang="en">dcterms:hasPart 2</dcterms:hasPart>
+		<dcterms:isFormatOf xml:lang="ro">dcterms:isFormatOf 1</dcterms:isFormatOf>
+		<dcterms:isFormatOf xml:lang="en">dcterms:isFormatOf 2</dcterms:isFormatOf>
+		<dcterms:hasFormat xml:lang="ro">dcterms:hasFormat 1</dcterms:hasFormat>
+		<dcterms:hasFormat xml:lang="en">dcterms:hasFormat 2</dcterms:hasFormat>
+		<dcterms:isVersionOf xml:lang="ro">dcterms:isVersionOf 1</dcterms:isVersionOf>
+		<dcterms:isVersionOf xml:lang="en">dcterms:isVersionOf 2</dcterms:isVersionOf>
+		<dcterms:hasVersion xml:lang="ro">dcterms:hasVersion 1</dcterms:hasVersion>
+		<dcterms:hasVersion xml:lang="en">dcterms:hasVersion 2</dcterms:hasVersion>
+		<dcterms:isReferencedBy xml:lang="ro">dcterms:isReferencedBy 1</dcterms:isReferencedBy>
+		<dcterms:isReferencedBy xml:lang="en">dcterms:isReferencedBy 2</dcterms:isReferencedBy>
+		<dcterms:references xml:lang="ro">dcterms:references 1</dcterms:references>
+		<dcterms:references xml:lang="en">dcterms:references 2</dcterms:references>
+		<dcterms:isReplacedBy xml:lang="ro">dcterms:isReplacedBy 1</dcterms:isReplacedBy>
+		<dcterms:isReplacedBy xml:lang="en">dcterms:isReplacedBy 2</dcterms:isReplacedBy>
+		<dcterms:replaces xml:lang="ro">dcterms:replaces 1</dcterms:replaces>
+		<dcterms:replaces xml:lang="en">dcterms:replaces 2</dcterms:replaces>
+		<dcterms:isRequiredBy xml:lang="ro">dcterms:isRequiredBy 1</dcterms:isRequiredBy>
+		<dcterms:isRequiredBy xml:lang="en">dcterms:isRequiredBy 2</dcterms:isRequiredBy>
+		<dcterms:requires xml:lang="ro">dcterms:requires 1</dcterms:requires>
+		<dcterms:requires xml:lang="en">dcterms:requires 2</dcterms:requires>
+		<dcterms:conformsTo xml:lang="ro">dcterms:conformsTo 1</dcterms:conformsTo>
+		<dcterms:conformsTo xml:lang="en">dcterms:conformsTo 2</dcterms:conformsTo>
+		<dcterms:tableOfContents xml:lang="ro">dcterms:tableOfContents 1</dcterms:tableOfContents>
+		<dcterms:tableOfContents xml:lang="en">dcterms:tableOfContents 2</dcterms:tableOfContents>
+		<europeana:unstored xml:lang="ro">europeana:unstored 1</europeana:unstored>
+		<europeana:unstored xml:lang="en">europeana:unstored 2</europeana:unstored>
+		<europeana:isShownBy>http://upload.wikimedia.org/wikipedia/en/1/18/Hoteismall.jpg</europeana:isShownBy>
+		<europeana:isShownAt>http://en.wikipedia.org/wiki/Tomoyasu_Hotei</europeana:isShownAt>
+		<europeana:object>http://upload.wikimedia.org/wikipedia/en/1/18/Hoteismall.jpg</europeana:object>
+		<europeana:hasObject>true</europeana:hasObject>
+		<europeana:language>ro</europeana:language>
+		<europeana:language>en</europeana:language>
+		<europeana:type>IMAGE</europeana:type>
+	</record>
+	<record>
+		<dc:identifier>2</dc:identifier>
+		<europeana:uri>http://www.europeana.eu/resolve/record/00000/DA4B9237BACCCDF19C0760CAB7AEC4A8359010B0</europeana:uri>
+		<dcterms:alternative xml:lang="ro">dcterms:alternative 1</dcterms:alternative>
+		<dcterms:alternative xml:lang="en">dcterms:alternative 2</dcterms:alternative>
+		<dc:description xml:lang="ro">dc:description 1 (test for 800 char max) Scorpio Rising was a groundbreaking avant-garde, experimental film by Kenneth Anger, author of the Hollywood Babylon books, starring Bruce Byron as the biker Scorpio. It features themes of leather-clad bikers, the occult, Jesus and Nazis. Its camp appropriation of popular culture included an innovative use of pop music, the erotic cult of James Dean, and Sunday comics. The film was produced in 1964 and initially shown on the underground film circuit. The film features no lines of dialogue, accompanied instead by music from popular 50's and 60's artists including Ricky Nelson, The Angels, Bobby Vinton, Elvis Presley, Ray Charles and Martha Reeves 3 the Vandellas. It is considered to be one of the first post-modern films and an influence to future dir1234567890 exactly 800 characters with spaces before numbers.</dc:description>
+		<dc:description xml:lang="ro">dc:description 2 (test for 800 char max) Scorpio Rising was a groundbreaking avant-garde, experimental film by Kenneth Anger, author of the Hollywood Babylon books, starring Bruce Byron as the biker Scorpio. It features themes of leather-clad bikers, the occult, Jesus and Nazis. Its camp appropriation of popular culture included an innovative use of pop music, the erotic cult of James Dean, and Sunday comics. The film was produced in 1964 and initially shown on the underground film circuit. The film features no lines of dialogue, accompanied instead by music from popular 50's and 60's artists including Ricky Nelson, The Angels, Bobby Vinton, Elvis Presley, Ray Charles and Martha Reeves 3 the Vandellas. It is considered to be one of the first post-modern films and an influence to future dir1234567890 exactly 800 characters with spaces before numbers.</dc:description>
+		<europeana:provider xml:lang="en">europeana:provider</europeana:provider>
+		<europeana:country xml:lang="en">Romania</europeana:country>
+		<europeana:isShownAt>http://en.wikipedia.org/wiki/Tomoyasu_Hotei2</europeana:isShownAt>
+		<europeana:hasObject>false</europeana:hasObject>
+		<europeana:language>ro</europeana:language>
+		<europeana:type>IMAGE</europeana:type>
+	</record>
+	<record>
+		<dc:identifier>3</dc:identifier>
+		<europeana:uri>http://www.europeana.eu/resolve/record/00000/77DE68DAECD823BABBB58EDB1C8E14D7106E83BB</europeana:uri>
+		<dc:description xml:lang="ro">dc:description 1 (test for 800 char max) Scorpio Rising was a groundbreaking avant-garde, experimental film by Kenneth Anger, author of the Hollywood Babylon books, starring Bruce Byron as the biker Scorpio. It features themes of leather-clad bikers, the occult, Jesus and Nazis. Its camp appropriation of popular culture included an innovative use of pop music, the erotic cult of James Dean, and Sunday comics. The film was produced in 1964 and initially shown on the underground film circuit. The film features no lines of dialogue, accompanied instead by music from popular 50's and 60's artists including Ricky Nelson, The Angels, Bobby Vinton, Elvis Presley, Ray Charles and Martha Reeves 3 the Vandellas. It is considered to be one of the first post-modern films and an influence to future dir1234567890 exactly 800 characters with spaces before numbers.</dc:description>
+		<dc:description xml:lang="ro">dc:description 2 (test for 800 char max) Scorpio Rising was a groundbreaking avant-garde, experimental film by Kenneth Anger, author of the Hollywood Babylon books, starring Bruce Byron as the biker Scorpio. It features themes of leather-clad bikers, the occult, Jesus and Nazis. Its camp appropriation of popular culture included an innovative use of pop music, the erotic cult of James Dean, and Sunday comics. The film was produced in 1964 and initially shown on the underground film circuit. The film features no lines of dialogue, accompanied instead by music from popular 50's and 60's artists including Ricky Nelson, The Angels, Bobby Vinton, Elvis Presley, Ray Charles and Martha Reeves 3 the Vandellas. It is considered to be one of the first post-modern films and an influence to future dir1234567890 exactly 800 characters with spaces before numbers.</dc:description>
+		<europeana:provider xml:lang="en">europeana:provider</europeana:provider>
+		<europeana:country xml:lang="en">Romania</europeana:country>
+		<europeana:isShownAt>http://en.wikipedia.org/wiki/Tomoyasu_Hotei3</europeana:isShownAt>
+		<europeana:hasObject>false</europeana:hasObject>
+		<europeana:language>ro</europeana:language>
+		<europeana:type>IMAGE</europeana:type>
+	</record>
+	<record>
+		<dc:identifier>4</dc:identifier>
+		<europeana:uri>http://www.europeana.eu/resolve/record/00000/1B6453892473A467D07372D45EB05ABC2031647A</europeana:uri>
+		<dc:contributor xml:lang="ro">dc:contributor 1</dc:contributor>
+		<dc:contributor xml:lang="en">dc:contributor 2</dc:contributor>
+		<dc:description xml:lang="ro">dc:description 1 (test for 800 char max) Scorpio Rising was a groundbreaking avant-garde, experimental film by Kenneth Anger, author of the Hollywood Babylon books, starring Bruce Byron as the biker Scorpio. It features themes of leather-clad bikers, the occult, Jesus and Nazis. Its camp appropriation of popular culture included an innovative use of pop music, the erotic cult of James Dean, and Sunday comics. The film was produced in 1964 and initially shown on the underground film circuit. The film features no lines of dialogue, accompanied instead by music from popular 50's and 60's artists including Ricky Nelson, The Angels, Bobby Vinton, Elvis Presley, Ray Charles and Martha Reeves 3 the Vandellas. It is considered to be one of the first post-modern films and an influence to future dir1234567890 exactly 800 characters with spaces before numbers.</dc:description>
+		<dc:description xml:lang="ro">dc:description 2 (test for 800 char max) Scorpio Rising was a groundbreaking avant-garde, experimental film by Kenneth Anger, author of the Hollywood Babylon books, starring Bruce Byron as the biker Scorpio. It features themes of leather-clad bikers, the occult, Jesus and Nazis. Its camp appropriation of popular culture included an innovative use of pop music, the erotic cult of James Dean, and Sunday comics. The film was produced in 1964 and initially shown on the underground film circuit. The film features no lines of dialogue, accompanied instead by music from popular 50's and 60's artists including Ricky Nelson, The Angels, Bobby Vinton, Elvis Presley, Ray Charles and Martha Reeves 3 the Vandellas. It is considered to be one of the first post-modern films and an influence to future dir1234567890 exactly 800 characters with spaces before numbers.</dc:description>
+		<europeana:provider xml:lang="en">europeana:provider</europeana:provider>
+		<europeana:country xml:lang="en">Romania</europeana:country>
+		<europeana:isShownAt>http://en.wikipedia.org/wiki/Tomoyasu_Hotei4</europeana:isShownAt>
+		<europeana:hasObject>false</europeana:hasObject>
+		<europeana:language>ro</europeana:language>
+		<europeana:type>IMAGE</europeana:type>
+	</record>
+	<record>
+		<dc:identifier>5</dc:identifier>
+		<europeana:uri>http://www.europeana.eu/resolve/record/00000/AC3478D69A3C81FA62E60F5C3696165A4E5E6AC4</europeana:uri>
+		<dc:title xml:lang="ro">dc:title 1 (test for 40 char max) He lat123456789</dc:title>
+		<dc:creator xml:lang="ro">dc:title 1 (test for 120 char max) He later recorded “Guitar Concerto” with Kamen. He has also worked with Andy Mackay o123456789</dc:creator>
+		<dc:creator xml:lang="en">dc:title 2 (test for 120 char max) He later recorded “Guitar Concerto” with Kamen. He has also worked with Andy Mackay o123456789</dc:creator>
+		<europeana:provider xml:lang="en">europeana:provider</europeana:provider>
+		<europeana:country xml:lang="en">Romania</europeana:country>
+		<europeana:isShownAt>http://en.wikipedia.org/wiki/Tomoyasu_Hotei5</europeana:isShownAt>
+		<europeana:hasObject>false</europeana:hasObject>
+		<europeana:language>ro</europeana:language>
+		<europeana:type>IMAGE</europeana:type>
+	</record>
+	<record>
+		<dc:identifier>6</dc:identifier>
+		<europeana:uri>http://www.europeana.eu/resolve/record/00000/C1DFD96EEA8CC2B62785275BCA38AC261256E278</europeana:uri>
+		<dc:title xml:lang="ro">dc:title 1 (test for 80 char max) He later recorded “Guitar Concerto” with Kamen123456789</dc:title>
+		<dc:creator xml:lang="ro">dc:creator 1</dc:creator>
+		<dc:creator xml:lang="en">dc:creator 2</dc:creator>
+		<europeana:year>1869</europeana:year>
+		<europeana:provider xml:lang="en">europeana:provider</europeana:provider>
+		<europeana:country xml:lang="en">Romania</europeana:country>
+		<europeana:isShownBy>http://upload.wikimedia.org/wikipedia/commons/f/f5/TakesiKitano.jpg</europeana:isShownBy>
+		<europeana:object>http://upload.wikimedia.org/wikipedia/commons/f/f5/TakesiKitano.jpg</europeana:object>
+		<europeana:hasObject>true</europeana:hasObject>
+		<europeana:language>ro</europeana:language>
+		<europeana:type>IMAGE</europeana:type>
+	</record>
+	<record>
+		<dc:identifier>7</dc:identifier>
+		<europeana:uri>http://www.europeana.eu/resolve/record/00000/902BA3CDA1883801594B6E1B452790CC53948FDA</europeana:uri>
+		<dc:title xml:lang="ro">7th test record</dc:title>
+		<dc:creator xml:lang="en">europeana</dc:creator>
+		<europeana:year>2009</europeana:year>
+		<europeana:provider xml:lang="en">Europeana Office</europeana:provider>
+		<europeana:country xml:lang="en">The Netherlands</europeana:country>
+		<europeana:isShownBy>http://en.wikipedia.org/wiki/File:Europeana_logo.png</europeana:isShownBy>
+		<europeana:isShownAt>http://www.europeana.eu</europeana:isShownAt>
+		<europeana:object>http://en.wikipedia.org/wiki/File:Europeana_logo.png</europeana:object>
+		<europeana:hasObject>true</europeana:hasObject>
+		<europeana:language>en</europeana:language>
+		<europeana:type>IMAGE</europeana:type>
+	</record>
+	<record>
+		<dc:identifier>8</dc:identifier>
+		<europeana:uri>http://www.europeana.eu/resolve/record/00000/FE5DBBCEA5CE7E2988B8C69BCFDFDE8904AABC1F</europeana:uri>
+		<dc:title xml:lang="ro">8th test record</dc:title>
+		<dc:creator xml:lang="en">europeana</dc:creator>
+		<europeana:year>2009</europeana:year>
+		<europeana:provider xml:lang="en">Europeana Office</europeana:provider>
+		<europeana:country xml:lang="en">The Netherlands</europeana:country>
+		<europeana:isShownBy>http://en.wikipedia.org/wiki/File:Europeana_logo.png</europeana:isShownBy>
+		<europeana:isShownAt>http://www.europeana.eu</europeana:isShownAt>
+		<europeana:object>http://en.wikipedia.org/wiki/File:Europeana_logo.png</europeana:object>
+		<europeana:hasObject>true</europeana:hasObject>
+		<europeana:language>en</europeana:language>
+		<europeana:type>IMAGE</europeana:type>
+	</record>
+	<record>
+		<dc:identifier>9</dc:identifier>
+		<europeana:uri>http://www.europeana.eu/resolve/record/00000/0ADE7C2CF97F75D009975F4D720D1FA6C19F4897</europeana:uri>
+		<dc:title xml:lang="ro">9th test record</dc:title>
+		<dc:creator xml:lang="en">europeana</dc:creator>
+		<europeana:year>2009</europeana:year>
+		<europeana:provider xml:lang="en">Europeana Office</europeana:provider>
+		<europeana:country xml:lang="en">The Netherlands</europeana:country>
+		<europeana:isShownBy>http://en.wikipedia.org/wiki/File:Europeana_logo.png</europeana:isShownBy>
+		<europeana:isShownAt>http://www.europeana.eu</europeana:isShownAt>
+		<europeana:object>http://en.wikipedia.org/wiki/File:Europeana_logo.png</europeana:object>
+		<europeana:hasObject>true</europeana:hasObject>
+		<europeana:language>en</europeana:language>
+		<europeana:type>IMAGE</europeana:type>
+	</record>
+	<record>
+		<dc:identifier>10</dc:identifier>
+		<europeana:uri>http://www.europeana.eu/resolve/record/00000/B1D5781111D84F7B3FE45A0852E59758CD7A87E5</europeana:uri>
+		<dc:title xml:lang="ro">10th test record</dc:title>
+		<dc:creator xml:lang="en">europeana</dc:creator>
+		<europeana:year>2009</europeana:year>
+		<europeana:provider xml:lang="en">Europeana Office</europeana:provider>
+		<europeana:country xml:lang="en">The Netherlands</europeana:country>
+		<europeana:isShownBy>http://en.wikipedia.org/wiki/File:Europeana_logo.png</europeana:isShownBy>
+		<europeana:isShownAt>http://www.europeana.eu</europeana:isShownAt>
+		<europeana:object>http://en.wikipedia.org/wiki/File:Europeana_logo.png</europeana:object>
+		<europeana:hasObject>true</europeana:hasObject>
+		<europeana:language>en</europeana:language>
+		<europeana:type>IMAGE</europeana:type>
+	</record>
+	<record>
+		<dc:identifier>11</dc:identifier>
+		<europeana:uri>http://www.europeana.eu/resolve/record/00000/17BA0791499DB908433B80F37C5FBC89B870084B</europeana:uri>
+		<dc:title xml:lang="ro">11th test record</dc:title>
+		<dc:creator xml:lang="en">europeana</dc:creator>
+		<europeana:year>2009</europeana:year>
+		<europeana:provider xml:lang="en">Europeana Office</europeana:provider>
+		<europeana:country xml:lang="en">The Netherlands</europeana:country>
+		<europeana:isShownBy>http://en.wikipedia.org/wiki/File:Europeana_logo.png</europeana:isShownBy>
+		<europeana:isShownAt>http://www.europeana.eu</europeana:isShownAt>
+		<europeana:object>http://en.wikipedia.org/wiki/File:Europeana_logo.png</europeana:object>
+		<europeana:hasObject>true</europeana:hasObject>
+		<europeana:language>en</europeana:language>
+		<europeana:type>IMAGE</europeana:type>
+	</record>
+	<record>
+		<dc:identifier>12</dc:identifier>
+		<europeana:uri>http://www.europeana.eu/resolve/record/00000/7B52009B64FD0A2A49E6D8A939753077792B0554</europeana:uri>
+		<dc:title xml:lang="ro">12th test record</dc:title>
+		<dc:creator xml:lang="en">europeana</dc:creator>
+		<europeana:year>2009</europeana:year>
+		<europeana:provider xml:lang="en">Europeana Office</europeana:provider>
+		<europeana:country xml:lang="en">The Netherlands</europeana:country>
+		<europeana:isShownBy>http://en.wikipedia.org/wiki/File:Europeana_logo.png</europeana:isShownBy>
+		<europeana:isShownAt>http://www.europeana.eu</europeana:isShownAt>
+		<europeana:object>http://en.wikipedia.org/wiki/File:Europeana_logo.png</europeana:object>
+		<europeana:hasObject>true</europeana:hasObject>
+		<europeana:language>en</europeana:language>
+		<europeana:type>IMAGE</europeana:type>
+	</record>
+	<record>
+		<dc:identifier>13</dc:identifier>
+		<europeana:uri>http://www.europeana.eu/resolve/record/00000/BD307A3EC329E10A2CFF8FB87480823DA114F8F4</europeana:uri>
+		<dc:title xml:lang="ro">13th test record</dc:title>
+		<dc:creator xml:lang="en">europeana</dc:creator>
+		<europeana:year>2009</europeana:year>
+		<europeana:provider xml:lang="en">Europeana Office</europeana:provider>
+		<europeana:country xml:lang="en">The Netherlands</europeana:country>
+		<europeana:isShownBy>http://en.wikipedia.org/wiki/File:Europeana_logo.png</europeana:isShownBy>
+		<europeana:isShownAt>http://www.europeana.eu</europeana:isShownAt>
+		<europeana:object>http://en.wikipedia.org/wiki/File:Europeana_logo.png</europeana:object>
+		<europeana:hasObject>true</europeana:hasObject>
+		<europeana:language>en</europeana:language>
+		<europeana:type>IMAGE</europeana:type>
+	</record>
+	<record>
+		<dc:identifier>14</dc:identifier>
+		<europeana:uri>http://www.europeana.eu/resolve/record/00000/FA35E192121EABF3DABF9F5EA6ABDBCBC107AC3B</europeana:uri>
+		<dc:title xml:lang="ro">14th test record</dc:title>
+		<dc:creator xml:lang="en">europeana</dc:creator>
+		<europeana:year>2009</europeana:year>
+		<europeana:provider xml:lang="en">Europeana Office</europeana:provider>
+		<europeana:country xml:lang="en">The Netherlands</europeana:country>
+		<europeana:isShownBy>http://en.wikipedia.org/wiki/File:Europeana_logo.png</europeana:isShownBy>
+		<europeana:isShownAt>http://www.europeana.eu</europeana:isShownAt>
+		<europeana:object>http://en.wikipedia.org/wiki/File:Europeana_logo.png</europeana:object>
+		<europeana:hasObject>true</europeana:hasObject>
+		<europeana:language>en</europeana:language>
+		<europeana:type>IMAGE</europeana:type>
+	</record>
+	<record>
+		<dc:identifier>15</dc:identifier>
+		<europeana:uri>http://www.europeana.eu/resolve/record/00000/F1ABD670358E036C31296E66B3B66C382AC00812</europeana:uri>
+		<dc:title xml:lang="ro">15th test record</dc:title>
+		<dc:creator xml:lang="en">europeana</dc:creator>
+		<europeana:provider xml:lang="en">Europeana Office</europeana:provider>
+		<europeana:country xml:lang="en">The Netherlands</europeana:country>
+		<europeana:isShownBy>http://en.wikipedia.org/wiki/File:Europeana_logo.png</europeana:isShownBy>
+		<europeana:isShownAt>http://www.europeana.eu</europeana:isShownAt>
+		<europeana:object>http://en.wikipedia.org/wiki/File:Europeana_logo.png</europeana:object>
+		<europeana:hasObject>true</europeana:hasObject>
+		<europeana:language>en</europeana:language>
+		<europeana:type>IMAGE</europeana:type>
+	</record>
+	<record>
+		<dc:identifier>16</dc:identifier>
+		<europeana:uri>http://www.europeana.eu/resolve/record/00000/1574BDDB75C78A6FD2251D61E2993B5146201319</europeana:uri>
+		<dc:title xml:lang="ro">16th test record</dc:title>
+		<dc:creator xml:lang="en">europeana</dc:creator>
+		<europeana:provider xml:lang="en">Europeana Office</europeana:provider>
+		<europeana:country xml:lang="en">The Netherlands</europeana:country>
+		<europeana:isShownBy>http://en.wikipedia.org/wiki/File:Europeana_logo.png</europeana:isShownBy>
+		<europeana:isShownAt>http://www.europeana.eu</europeana:isShownAt>
+		<europeana:object>http://en.wikipedia.org/wiki/File:Europeana_logo.png</europeana:object>
+		<europeana:hasObject>true</europeana:hasObject>
+		<europeana:language>en</europeana:language>
+		<europeana:type>IMAGE</europeana:type>
+	</record>
+</metadata>

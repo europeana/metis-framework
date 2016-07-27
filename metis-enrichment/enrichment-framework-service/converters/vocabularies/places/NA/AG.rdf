@@ -1,0 +1,711 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: NA_AG
+Description: Selected fields pulled from Geonames about AG done on Mon May 23 21:14:14 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/3575931/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.03333</wgs:lat>
+	<wgs:long>-61.66667</wgs:long>
+	<skos:altLabel>York Island</skos:altLabel>
+	<skos:altLabel>York Islet</skos:altLabel>
+	<skos:prefLabel>York Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3575943/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.05</wgs:lat>
+	<wgs:long>-61.66667</wgs:long>
+	<skos:prefLabel>Wicked Will</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3575953/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.11667</wgs:lat>
+	<wgs:long>-61.76667</wgs:long>
+	<skos:altLabel>Vernon Island</skos:altLabel>
+	<skos:altLabel>Vernon’s Island</skos:altLabel>
+	<skos:prefLabel>Vernon’s Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3575992/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.03333</wgs:lat>
+	<wgs:long>-61.68333</wgs:long>
+	<skos:prefLabel>Smith Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3575994/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.15</wgs:lat>
+	<wgs:long>-61.88333</wgs:long>
+	<skos:prefLabel>The Sisters</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576011/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.13333</wgs:lat>
+	<wgs:long>-61.91667</wgs:long>
+	<skos:altLabel>Sandy Island</skos:altLabel>
+	<skos:altLabel>Sandy Islet</skos:altLabel>
+	<skos:prefLabel>Sandy Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576015/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>3599</europeana:population>
+	<wgs:lat>17.05</wgs:lat>
+	<wgs:long>-61.71667</wgs:long>
+	<skos:altLabel>Parish of Saint Philip</skos:altLabel>
+	<skos:altLabel>Saint Philip</skos:altLabel>
+	<skos:prefLabel>Parish of Saint Philip</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576016/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>4321</europeana:population>
+	<wgs:lat>17.1</wgs:lat>
+	<wgs:long>-61.76667</wgs:long>
+	<skos:altLabel>Parish of Saint Peter</skos:altLabel>
+	<skos:altLabel>Saint Peter</skos:altLabel>
+	<skos:prefLabel>Parish of Saint Peter</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576017/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>7325</europeana:population>
+	<wgs:lat>17.03333</wgs:lat>
+	<wgs:long>-61.76667</wgs:long>
+	<skos:altLabel>Parish of Saint Paul</skos:altLabel>
+	<skos:altLabel>Saint Paul</skos:altLabel>
+	<skos:prefLabel>Parish of Saint Paul</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576018/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>6360</europeana:population>
+	<wgs:lat>17.05</wgs:lat>
+	<wgs:long>-61.85</wgs:long>
+	<skos:altLabel>Parish of Saint Mary</skos:altLabel>
+	<skos:altLabel>Saint Mary</skos:altLabel>
+	<skos:prefLabel>Parish of Saint Mary</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576022/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>24226</europeana:population>
+	<wgs:lat>17.11667</wgs:lat>
+	<wgs:long>-61.85</wgs:long>
+	<skos:altLabel>Saint John</skos:altLabel>
+	<skos:altLabel xml:lang="de">Saint John's</skos:altLabel>
+	<skos:altLabel xml:lang="es">Saint John's</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Saint John's</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Saint John's</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Saint John's</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Saint John's</skos:altLabel>
+	<skos:altLabel xml:lang="it">Saint John's</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Saint John's</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Saint John's</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Saint John's</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Saint John's</skos:altLabel>
+	<skos:altLabel>Saint John’s</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Sent Džonsas</skos:altLabel>
+	<skos:altLabel xml:lang="io">St Johns</skos:altLabel>
+	<skos:altLabel xml:lang="id">St. John's</skos:altLabel>
+	<skos:altLabel xml:lang="fi">St. John's</skos:altLabel>
+	<skos:altLabel xml:lang="en">St. John's</skos:altLabel>
+	<skos:altLabel xml:lang="da">St.John.s</skos:altLabel>
+	<skos:altLabel xml:lang="el">Σεντ Τζονς</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сент-Джонс</skos:altLabel>
+	<skos:altLabel xml:lang="he">סנט ג'ונס</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሴንት ጆንስ፥ አንቲጋ እና ባርቡዳ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">セントジョンズ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">圣约翰</skos:altLabel>
+	<skos:altLabel xml:lang="zh">圣约翰市</skos:altLabel>
+	<skos:altLabel xml:lang="ko">세인트존스</skos:altLabel>
+	<skos:prefLabel>Saint John’s</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576023/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>42721</europeana:population>
+	<wgs:lat>17.1</wgs:lat>
+	<wgs:long>-61.85</wgs:long>
+	<skos:altLabel>Parish of Saint John</skos:altLabel>
+	<skos:altLabel>Saint John</skos:altLabel>
+	<skos:altLabel xml:lang="es">Saint John´S</skos:altLabel>
+	<skos:altLabel xml:lang="es">St. John's</skos:altLabel>
+	<skos:altLabel>St. John´s</skos:altLabel>
+	<skos:prefLabel>Parish of Saint John</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576024/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>5393</europeana:population>
+	<wgs:lat>17.11667</wgs:lat>
+	<wgs:long>-61.8</wgs:long>
+	<skos:altLabel>Parish of Saint George</skos:altLabel>
+	<skos:altLabel>Saint George</skos:altLabel>
+	<skos:prefLabel>Parish of Saint George</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576037/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>16.92956</wgs:lat>
+	<wgs:long>-62.34741</wgs:long>
+	<skos:altLabel xml:lang="es">Redonda</skos:altLabel>
+	<skos:altLabel xml:lang="en">Redonda</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Redonda</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Redonda</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Redonda</skos:altLabel>
+	<skos:altLabel xml:lang="de">Redonda</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Redonda</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Redonda</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Redonda</skos:altLabel>
+	<skos:altLabel xml:lang="it">Redonda</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Redonda</skos:altLabel>
+	<skos:altLabel>Redonda</skos:altLabel>
+	<skos:altLabel>Redonda Island</skos:altLabel>
+	<skos:altLabel>Redonda Islet</skos:altLabel>
+	<skos:altLabel xml:lang="ja">レドンダ島</skos:altLabel>
+	<skos:altLabel xml:lang="zh">雷東達島</skos:altLabel>
+	<skos:prefLabel>Redonda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576040/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.13333</wgs:lat>
+	<wgs:long>-61.71667</wgs:long>
+	<skos:prefLabel>Red Head Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576042/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.13333</wgs:lat>
+	<wgs:long>-61.85</wgs:long>
+	<skos:altLabel>Rat Island</skos:altLabel>
+	<skos:altLabel>Rat Islet</skos:altLabel>
+	<skos:prefLabel>Rat Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576044/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.13333</wgs:lat>
+	<wgs:long>-61.73333</wgs:long>
+	<skos:prefLabel>Rabbit Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576046/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.16667</wgs:lat>
+	<wgs:long>-61.8</wgs:long>
+	<skos:altLabel>Prickley Pear Island</skos:altLabel>
+	<skos:altLabel>Prickly Pear Island</skos:altLabel>
+	<skos:prefLabel>Prickly Pear Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576062/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.1</wgs:lat>
+	<wgs:long>-61.91667</wgs:long>
+	<skos:altLabel>Pelican Island</skos:altLabel>
+	<skos:altLabel>Pelican Islet</skos:altLabel>
+	<skos:prefLabel>Pelican Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576063/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.1</wgs:lat>
+	<wgs:long>-61.7</wgs:long>
+	<skos:prefLabel>Pelican Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576064/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.01667</wgs:lat>
+	<wgs:long>-61.88333</wgs:long>
+	<skos:altLabel>Johnson Island</skos:altLabel>
+	<skos:altLabel>Johnson Islet</skos:altLabel>
+	<skos:altLabel>Pelican Island</skos:altLabel>
+	<skos:prefLabel>Pelican Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576107/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.16667</wgs:lat>
+	<wgs:long>-61.76667</wgs:long>
+	<skos:altLabel>Moor Island</skos:altLabel>
+	<skos:altLabel>Moor Islet</skos:altLabel>
+	<skos:prefLabel>Moor Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576128/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.15</wgs:lat>
+	<wgs:long>-61.76667</wgs:long>
+	<skos:altLabel>Maid Island</skos:altLabel>
+	<skos:altLabel>Maiden Island</skos:altLabel>
+	<skos:altLabel>Maiden Islet</skos:altLabel>
+	<skos:prefLabel>Maiden Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576129/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.1</wgs:lat>
+	<wgs:long>-61.88333</wgs:long>
+	<skos:altLabel>Maiden Island</skos:altLabel>
+	<skos:altLabel>Maiden Islet</skos:altLabel>
+	<skos:prefLabel>Maiden Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576135/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.13333</wgs:lat>
+	<wgs:long>-61.75</wgs:long>
+	<skos:altLabel>Long Island</skos:altLabel>
+	<skos:altLabel>Long Islet</skos:altLabel>
+	<skos:prefLabel>Long Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576137/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.13333</wgs:lat>
+	<wgs:long>-61.73333</wgs:long>
+	<skos:prefLabel>Lobster Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576148/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.1</wgs:lat>
+	<wgs:long>-61.73333</wgs:long>
+	<skos:prefLabel>Laviscounts Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576151/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLT"/>
+	<wgs:lat>17.7</wgs:lat>
+	<wgs:long>-61.81667</wgs:long>
+	<skos:prefLabel>Kid Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576185/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.06667</wgs:lat>
+	<wgs:long>-61.68333</wgs:long>
+	<skos:altLabel>Henry Island</skos:altLabel>
+	<skos:altLabel>Nanny Island</skos:altLabel>
+	<skos:prefLabel>Henry Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576186/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.15</wgs:lat>
+	<wgs:long>-61.71667</wgs:long>
+	<skos:altLabel>Hale Gate</skos:altLabel>
+	<skos:altLabel>Hale Gate Island</skos:altLabel>
+	<skos:altLabel>Hells Gate Island</skos:altLabel>
+	<skos:prefLabel>Hells Gate Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576189/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.11667</wgs:lat>
+	<wgs:long>-61.73333</wgs:long>
+	<skos:prefLabel>Hawes Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576200/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.1</wgs:lat>
+	<wgs:long>-61.73333</wgs:long>
+	<skos:altLabel>Guana Island</skos:altLabel>
+	<skos:altLabel>Guana Islet</skos:altLabel>
+	<skos:altLabel>Guiana Island</skos:altLabel>
+	<skos:prefLabel>Guiana Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576208/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.05</wgs:lat>
+	<wgs:long>-61.66667</wgs:long>
+	<skos:altLabel>Green Island</skos:altLabel>
+	<skos:altLabel>Green Islet</skos:altLabel>
+	<skos:prefLabel>Green Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576212/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.15</wgs:lat>
+	<wgs:long>-61.71667</wgs:long>
+	<skos:altLabel>Great Bird Island</skos:altLabel>
+	<skos:altLabel>Great Bird Islet</skos:altLabel>
+	<skos:prefLabel>Great Bird Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576223/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLT"/>
+	<wgs:lat>17.71667</wgs:lat>
+	<wgs:long>-61.85</wgs:long>
+	<skos:prefLabel>Goat Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576247/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>17.08333</wgs:lat>
+	<wgs:long>-61.91667</wgs:long>
+	<skos:prefLabel>Five Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576261/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.13333</wgs:lat>
+	<wgs:long>-61.71667</wgs:long>
+	<skos:prefLabel>Exchange Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576289/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.11667</wgs:lat>
+	<wgs:long>-61.71667</wgs:long>
+	<skos:prefLabel>Crump Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576310/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.1</wgs:lat>
+	<wgs:long>-61.7</wgs:long>
+	<skos:prefLabel>Codrington Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576325/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.11667</wgs:lat>
+	<wgs:long>-61.78333</wgs:long>
+	<skos:prefLabel>Cinnamon Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576366/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.01667</wgs:lat>
+	<wgs:long>-61.78333</wgs:long>
+	<skos:altLabel>Blake Island</skos:altLabel>
+	<skos:altLabel>Blake’s Islet</skos:altLabel>
+	<skos:prefLabel>Blake Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576370/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17</wgs:lat>
+	<wgs:long>-61.78333</wgs:long>
+	<skos:prefLabel>Bishop Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576373/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.08333</wgs:lat>
+	<wgs:long>-61.66667</wgs:long>
+	<skos:altLabel>Bird Island</skos:altLabel>
+	<skos:altLabel>Bird Islet</skos:altLabel>
+	<skos:prefLabel>Bird Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576389/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.63333</wgs:lat>
+	<wgs:long>-61.8</wgs:long>
+	<skos:altLabel xml:lang="de">Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="no">Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="en">Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Barbuda</skos:altLabel>
+	<skos:altLabel>Barbuda</skos:altLabel>
+	<skos:altLabel>Barbuda Island</skos:altLabel>
+	<skos:altLabel>Dulcina</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Барбуда</skos:altLabel>
+	<skos:altLabel xml:lang="he">ברבודה</skos:altLabel>
+	<skos:altLabel xml:lang="ja">バーブーダ島</skos:altLabel>
+	<skos:altLabel xml:lang="zh">巴布達島</skos:altLabel>
+	<skos:prefLabel>Barbuda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576390/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>17.63333</wgs:lat>
+	<wgs:long>-61.8</wgs:long>
+	<skos:altLabel>Barbuda</skos:altLabel>
+	<skos:prefLabel>Barbuda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576395/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<europeana:population>69000</europeana:population>
+	<wgs:lat>17.05</wgs:lat>
+	<wgs:long>-61.8</wgs:long>
+	<skos:altLabel xml:lang="gl">Antiga</skos:altLabel>
+	<skos:altLabel>Antigua</skos:altLabel>
+	<skos:altLabel xml:lang="de">Antigua</skos:altLabel>
+	<skos:altLabel xml:lang="es">Antigua</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Antigua</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Antigua</skos:altLabel>
+	<skos:altLabel xml:lang="no">Antigua</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Antigua</skos:altLabel>
+	<skos:altLabel xml:lang="en">Antigua</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Antigua</skos:altLabel>
+	<skos:altLabel xml:lang="it">Antigua</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Antigua</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Antigua</skos:altLabel>
+	<skos:altLabel>Antigua Island</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Antigva</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Antígua</skos:altLabel>
+	<skos:altLabel>Island of Antigua</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Антигва</skos:altLabel>
+	<skos:altLabel xml:lang="he">אנטיגואה</skos:altLabel>
+	<skos:altLabel xml:lang="ja">アンティグア島</skos:altLabel>
+	<skos:altLabel xml:lang="zh">安地卡島</skos:altLabel>
+	<skos:prefLabel>Antigua Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576396/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576396/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255149/"/>
+	<europeana:country>AG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>86754</europeana:population>
+	<wgs:lat>17.05</wgs:lat>
+	<wgs:long>-61.8</wgs:long>
+	<skos:altLabel>AG</skos:altLabel>
+	<skos:altLabel xml:lang="vi">An-ti-gu-a và Ba-bu-đa</skos:altLabel>
+	<skos:altLabel xml:lang="vi">An-ti-gu-a và Ba-bu-đa (Antigua và Barbuda)</skos:altLabel>
+	<skos:altLabel xml:lang="io">Antiga e Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Antiga e Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Antiga e Barbuda - Antigua and Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Antiga ha Barbuda</skos:altLabel>
+	<skos:altLabel>Antigua Presidency</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Antigua a Barbados</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Antigua a Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Antigua a Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Antigua agus Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Antigua and Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="en">Antigua and Barbuda</skos:altLabel>
+	<skos:altLabel>Antigua and Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Antigua at Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="id">Antigua dan Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Antigua dan Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Antigua dhe Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="it">Antigua e Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Antigua e Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Antigua e Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Antigua e Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="af">Antigua en Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Antigua en Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Antigua en Barbûda</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Antigua et Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Antigua eta Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Antigua i Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Antigua i Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Antigua i Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Antigua in Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="et">Antigua ja Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Antigua ja Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="se">Antigua ja Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="na">Antigua me Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Antigua na Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Antigua och Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="da">Antigua og Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Antigua og Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Antigua og Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Antigua og Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="no">Antigua og Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="de">Antigua und Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Antigua ve Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="es">Antigua y Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="an">Antigua y Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Antigua és Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Antigua şi Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Antigua-et-Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Antigva i Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Antigva i Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Antigva i Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Antigva in Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Antigva ir Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Antigva un Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Antigvo-Barbudo</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Antigwa a Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Antigûa û Berbûda</skos:altLabel>
+	<skos:altLabel xml:lang="la">Antiqua et Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Antígua e Barbuda</skos:altLabel>
+	<skos:altLabel xml:lang="is">Antígva og Barbúda</skos:altLabel>
+	<skos:altLabel>Colony of Antigua</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Lantigeän e Barbudeän</skos:altLabel>
+	<skos:altLabel>Presidency of Antigua</skos:altLabel>
+	<skos:altLabel>State of Antigua</skos:altLabel>
+	<skos:altLabel xml:lang="el">Αντίγκουα και Μπαρμπούντα</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Антигва и Барбуда</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Антигве и Барбуда</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Антигуа и Барбуда</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Антигуа и Барбуда</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Антигуа и Барбуда</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Антигуа і Барбуда</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Антиґуа і Барбуда</skos:altLabel>
+	<skos:altLabel xml:lang="be">Антыгуа і Барбуда</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Антігуа і Барбуда</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Անտիգուա-Բարբուդա</skos:altLabel>
+	<skos:altLabel xml:lang="he">אנטיגואה וברבודה</skos:altLabel>
+	<skos:altLabel xml:lang="he">אנטיגווה וברבודה</skos:altLabel>
+	<skos:altLabel xml:lang="fa">آنتیگوا و باربودا</skos:altLabel>
+	<skos:altLabel xml:lang="ar">أنتيجوا وبربودا</skos:altLabel>
+	<skos:altLabel xml:lang="ar">أنتيغا وباربودا</skos:altLabel>
+	<skos:altLabel xml:lang="ar">أنتيغا وبربودا</skos:altLabel>
+	<skos:altLabel xml:lang="ar">انتيغوا وبربودا</skos:altLabel>
+	<skos:altLabel xml:lang="ur">انٹیگوا اور باربودا</skos:altLabel>
+	<skos:altLabel xml:lang="ps">انټيګ او بربودا</skos:altLabel>
+	<skos:altLabel xml:lang="sa">अंटीग्वा</skos:altLabel>
+	<skos:altLabel xml:lang="hi">एंटिगुआ और बारबुडा</skos:altLabel>
+	<skos:altLabel xml:lang="hi">एन्टिगुवा और बारबूडा</skos:altLabel>
+	<skos:altLabel xml:lang="bn">আন্টিগুয়া ও বার্বুডা</skos:altLabel>
+	<skos:altLabel xml:lang="bn">এন্টিগুয়া এবং বার্বুডা</skos:altLabel>
+	<skos:altLabel xml:lang="bn">এন্টিগুয়া ও বারবুডা</skos:altLabel>
+	<skos:altLabel xml:lang="ta">ஆன்டிகுவா பார்புடா</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ആന്‍റിഗ്വ ആന്‍റ് ബര്‍ബുഡ</skos:altLabel>
+	<skos:altLabel xml:lang="th">แอนติกาและบาร์บูดา</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཨེན་ཊི་གུ་དང་། བྷར་བུ་ཌ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ანტიგუა და ბარბუდა</skos:altLabel>
+	<skos:altLabel xml:lang="am">አንቲጓ እና ባሩዳ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">アンティグアバブーダ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">アンティグア・バーブーダ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">安提瓜和巴布达</skos:altLabel>
+	<skos:altLabel xml:lang="ko">안티가 바부다</skos:altLabel>
+	<skos:altLabel xml:lang="ko">앤티가 바부다</skos:altLabel>
+	<skos:prefLabel>Antigua and Barbuda</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 46 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

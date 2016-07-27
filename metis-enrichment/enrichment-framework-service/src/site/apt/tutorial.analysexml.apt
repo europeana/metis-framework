@@ -1,0 +1,56 @@
+            ------
+            Tutorial: Analyse XML
+            ------
+ 
+ To run any command you need to create a directory with file <<<pom.xml>>>
+ copied from one of the demos. This <<<pom.xml>>> contains a dependency
+ to AnnoCultor that allows downloading all necessary <<<jar>>> files.
+
+Pretty Print XML
+
+ In practice, we often get huge XML files as input, that cannot be opened in XML editors.
+ These files are generated from databases and may even have no formatting or no single 
+ line break.
+ 
+ AnnoCultor allows you to generate a pretty-print version of these XML dumps 
+ that is suitable for viewing.
+ 
+ A sample command line to pretty print an XML document may be like this (single line):
+ 
++---------------------------------------------------------------------------------------+
+ mvn exec:exec -Dexec.args="
+   -cp %%classpath 
+   -Xmx1024m 
+   eu.annocultor.xconverter.impl.PrettyPrinter 
+   -fn sample*.xml"
++---------------------------------------------------------------------------------------+
+ 
+ This command  parses all XML files prefixed with <<<sample>>> and produces  
+ XML files with affix <<<.pretty>>>
+ 
+XML Analyser
+
+  Generates a report on an XML file. This report lists all XML tags, the number of different values they take,
+  and most frequently used values. Tags with unique values are specially labeled, and they form the first
+  candidate for a record identifying tag (id).
+ 
+  To same runtime memory, all long values are merged in to a single value called <<<Long value>>>.
+ 
+  Running the analyser can be done with the following line (single line):
+ 	
++---------------------------------------------------------------------------------------+
+ mvn exec:exec -Dexec.args="
+   -cp %%classpath 
+   -Xmx1024m 
+   eu.annocultor.xconverter.impl.Analyser 
+   -fn ../rdf/collections/xml/sample*.xml
+   -maxValueSize 100 
+   -maxValues 10"
++---------------------------------------------------------------------------------------+
+  
+  And it should generate the RDF file <<<../rdf/collections/doc/xml.analyse.rdf>>>
+  with the report and its human-friendly version in <<<../rdf/collections/doc/xml.analyse.html>>>.
+
+  Parameters <<<maxValueSize>>> and <<<maxValues>>> are optional.
+  
+  

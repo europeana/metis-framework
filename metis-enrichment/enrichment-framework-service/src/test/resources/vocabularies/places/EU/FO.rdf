@@ -1,0 +1,1371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: EU_FO
+Description: Selected fields pulled from Geonames about FO done on Mon May 23 21:12:34 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/2610295/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>62.33604</wgs:lat>
+	<wgs:long>-6.4528</wgs:long>
+	<skos:altLabel>Norderoer videro</skos:altLabel>
+	<skos:altLabel>Viderö</skos:altLabel>
+	<skos:altLabel>Vidoy</skos:altLabel>
+	<skos:altLabel xml:lang="es">Viðoy</skos:altLabel>
+	<skos:altLabel xml:lang="en">Viðoy</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Viðoy</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Viðoy</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Viðoy</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Viðoy</skos:altLabel>
+	<skos:altLabel xml:lang="de">Viðoy</skos:altLabel>
+	<skos:altLabel xml:lang="da">Viðoy</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Viðoy</skos:altLabel>
+	<skos:altLabel xml:lang="no">Viðoy</skos:altLabel>
+	<skos:altLabel xml:lang="it">Viðoy</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Viðoy</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Viðoy</skos:altLabel>
+	<skos:altLabel>Viðoy</skos:altLabel>
+	<skos:altLabel xml:lang="he">ויד'וי</skos:altLabel>
+	<skos:prefLabel>Viðoy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2610303/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>62.33333</wgs:lat>
+	<wgs:long>-7.5</wgs:long>
+	<skos:altLabel>Viderejde</skos:altLabel>
+	<skos:altLabel>Viðareiði</skos:altLabel>
+	<skos:prefLabel>Viðareiði</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2610344/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>62.16667</wgs:lat>
+	<wgs:long>-6.85</wgs:long>
+	<skos:altLabel>Vestmanhavn</skos:altLabel>
+	<skos:altLabel>Vestmanna</skos:altLabel>
+	<skos:prefLabel>Vestmanna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2610808/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>61.46667</wgs:lat>
+	<wgs:long>-7.2</wgs:long>
+	<skos:altLabel>Vágur</skos:altLabel>
+	<skos:altLabel>Våg</skos:altLabel>
+	<skos:prefLabel>Vágur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2610816/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2622320/"/>
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>2972</europeana:population>
+	<wgs:lat>62.08333</wgs:lat>
+	<wgs:long>-7.25</wgs:long>
+	<skos:altLabel xml:lang="fo">Vága sýsla</skos:altLabel>
+	<skos:altLabel xml:lang="en">Vágar</skos:altLabel>
+	<skos:altLabel xml:lang="en">Vágar region</skos:altLabel>
+	<skos:altLabel xml:lang="da">Vågø Syssel</skos:altLabel>
+	<skos:prefLabel>Vága Sýsla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2610817/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>62.09458</wgs:lat>
+	<wgs:long>-7.26002</wgs:long>
+	<skos:altLabel>Vaagö</skos:altLabel>
+	<skos:altLabel xml:lang="es">Vágar</skos:altLabel>
+	<skos:altLabel xml:lang="en">Vágar</skos:altLabel>
+	<skos:altLabel xml:lang="da">Vágar</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Vágar</skos:altLabel>
+	<skos:altLabel xml:lang="de">Vágar</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Vágar</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Vágar</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Vágar</skos:altLabel>
+	<skos:altLabel xml:lang="is">Vágar</skos:altLabel>
+	<skos:altLabel xml:lang="no">Vágar</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Vágar</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Vágar</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Vágar</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Vágar</skos:altLabel>
+	<skos:altLabel>Vágar</skos:altLabel>
+	<skos:altLabel>Vågö</skos:altLabel>
+	<skos:altLabel xml:lang="he">ואגאר</skos:altLabel>
+	<skos:prefLabel>Vágar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2611196/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>61.91731</wgs:lat>
+	<wgs:long>-6.95745</wgs:long>
+	<skos:altLabel>Troldhoved</skos:altLabel>
+	<skos:altLabel>Trøllhøvdi</skos:altLabel>
+	<skos:prefLabel>Trøllhøvdi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2611395/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>62.03333</wgs:lat>
+	<wgs:long>-7.05</wgs:long>
+	<skos:altLabel>Thorshavn Udenbys</skos:altLabel>
+	<skos:altLabel>Tórshavnar Uttanbíggjar</skos:altLabel>
+	<skos:prefLabel>Tórshavnar Uttanbíggjar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2611396/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>13200</europeana:population>
+	<wgs:lat>62.00973</wgs:lat>
+	<wgs:long>-6.77164</wgs:long>
+	<skos:altLabel>Havn</skos:altLabel>
+	<skos:altLabel>Thorshavn</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Thorshavn</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Torshamn</skos:altLabel>
+	<skos:altLabel xml:lang="id">Torshavn</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Torshavnas</skos:altLabel>
+	<skos:altLabel xml:lang="de">Tórshavn</skos:altLabel>
+	<skos:altLabel xml:lang="da">Tórshavn</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Tórshavn</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Tórshavn</skos:altLabel>
+	<skos:altLabel xml:lang="no">Tórshavn</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tórshavn</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Tórshavn</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Tórshavn</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Tórshavn</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Tórshavn</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Tórshavn</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Tórshavn</skos:altLabel>
+	<skos:altLabel xml:lang="es">Tórshavn</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Tórshavn</skos:altLabel>
+	<skos:altLabel xml:lang="et">Tórshavn</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Tórshavn</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Tórshavn</skos:altLabel>
+	<skos:altLabel xml:lang="af">Tórshavn</skos:altLabel>
+	<skos:altLabel xml:lang="it">Tórshavn</skos:altLabel>
+	<skos:altLabel xml:lang="el">Tórshavn</skos:altLabel>
+	<skos:altLabel>Tórshavn</skos:altLabel>
+	<skos:altLabel xml:lang="is">Þórshöfn</skos:altLabel>
+	<skos:altLabel xml:lang="be">Тарсхавн</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Торсхавн</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Торсхавн</skos:altLabel>
+	<skos:altLabel xml:lang="he">טורסהאבן</skos:altLabel>
+	<skos:altLabel xml:lang="ja">トースハウン</skos:altLabel>
+	<skos:altLabel xml:lang="ko">토르스하운</skos:altLabel>
+	<skos:prefLabel>Tórshavn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2611397/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<europeana:population>19266</europeana:population>
+	<wgs:lat>62.05</wgs:lat>
+	<wgs:long>-7.11667</wgs:long>
+	<skos:altLabel>Kalbak</skos:altLabel>
+	<skos:altLabel>Thorshavn</skos:altLabel>
+	<skos:altLabel>Tórshavn</skos:altLabel>
+	<skos:prefLabel>Tórshavn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2611645/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>61.53106</wgs:lat>
+	<wgs:long>-6.77556</wgs:long>
+	<skos:altLabel>Tjaldavíkshólmur</skos:altLabel>
+	<skos:altLabel>Tjaldevig-Holm</skos:altLabel>
+	<skos:prefLabel>Tjaldavíkshólmur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2611708/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>62.07797</wgs:lat>
+	<wgs:long>-7.43758</wgs:long>
+	<skos:altLabel>Tindholm</skos:altLabel>
+	<skos:altLabel>Tindhólmur</skos:altLabel>
+	<skos:altLabel>Tyndholm</skos:altLabel>
+	<skos:prefLabel>Tindhólmur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2611991/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>62.26758</wgs:lat>
+	<wgs:long>-6.35208</wgs:long>
+	<skos:altLabel>Svinö</skos:altLabel>
+	<skos:altLabel xml:lang="de">Svínoy</skos:altLabel>
+	<skos:altLabel xml:lang="da">Svínoy</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Svínoy</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Svínoy</skos:altLabel>
+	<skos:altLabel xml:lang="no">Svínoy</skos:altLabel>
+	<skos:altLabel xml:lang="es">Svínoy</skos:altLabel>
+	<skos:altLabel xml:lang="en">Svínoy</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Svínoy</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Svínoy</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Svínoy</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Svínoy</skos:altLabel>
+	<skos:altLabel>Svínoy</skos:altLabel>
+	<skos:altLabel xml:lang="he">סוינוי</skos:altLabel>
+	<skos:prefLabel>Svínoy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2611992/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>62.26667</wgs:lat>
+	<wgs:long>-7.65</wgs:long>
+	<skos:altLabel>Svinø</skos:altLabel>
+	<skos:altLabel>Svínoy</skos:altLabel>
+	<skos:prefLabel>Svínoy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2612088/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>61.43333</wgs:lat>
+	<wgs:long>-7.26667</wgs:long>
+	<skos:altLabel>Sumba</skos:altLabel>
+	<skos:altLabel>Sumbø</skos:altLabel>
+	<skos:altLabel>Sunnbøur</skos:altLabel>
+	<skos:prefLabel>Sunnbøur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2612124/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>62.2</wgs:lat>
+	<wgs:long>-7.01667</wgs:long>
+	<skos:altLabel>Sund</skos:altLabel>
+	<skos:altLabel>Sunde</skos:altLabel>
+	<skos:prefLabel>Sund</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2612126/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>61.39836</wgs:lat>
+	<wgs:long>-6.72636</wgs:long>
+	<skos:altLabel>Sumbiarhólmur</skos:altLabel>
+	<skos:altLabel>Sumbö Holm</skos:altLabel>
+	<skos:altLabel>Sunnbiarhólmur</skos:altLabel>
+	<skos:prefLabel>Sumbiarhólmur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2612137/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2622320/"/>
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>61.48333</wgs:lat>
+	<wgs:long>-6.81667</wgs:long>
+	<skos:altLabel xml:lang="da">Suderø syssel</skos:altLabel>
+	<skos:altLabel xml:lang="en">Suðuroy</skos:altLabel>
+	<skos:altLabel xml:lang="en">Suðuroy region</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Suðuroyar sýsla</skos:altLabel>
+	<skos:prefLabel>Suðuroyar sýsla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2612141/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>61.52667</wgs:lat>
+	<wgs:long>-6.83624</wgs:long>
+	<skos:altLabel>Suderø</skos:altLabel>
+	<skos:altLabel>Suduroy</skos:altLabel>
+	<skos:altLabel xml:lang="es">Suðuroy</skos:altLabel>
+	<skos:altLabel xml:lang="da">Suðuroy</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Suðuroy</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Suðuroy</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Suðuroy</skos:altLabel>
+	<skos:altLabel xml:lang="de">Suðuroy</skos:altLabel>
+	<skos:altLabel xml:lang="en">Suðuroy</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Suðuroy</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Suðuroy</skos:altLabel>
+	<skos:altLabel xml:lang="no">Suðuroy</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Suðuroy</skos:altLabel>
+	<skos:altLabel>Suðuroy</skos:altLabel>
+	<skos:altLabel>Syderö</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Јужно острво</skos:altLabel>
+	<skos:altLabel xml:lang="he">סוד'ורוי</skos:altLabel>
+	<skos:prefLabel>Suðuroy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2612225/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2622320/"/>
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>3356</europeana:population>
+	<wgs:lat>62.13333</wgs:lat>
+	<wgs:long>-7</wgs:long>
+	<skos:altLabel xml:lang="en">Streymoy</skos:altLabel>
+	<skos:altLabel xml:lang="en">Streymoy region</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Streymoyar sýsla</skos:altLabel>
+	<skos:altLabel xml:lang="da">Strømø Syssel</skos:altLabel>
+	<skos:prefLabel>Streymoyar Sýsla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2612226/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>62.13333</wgs:lat>
+	<wgs:long>-7</wgs:long>
+	<skos:altLabel xml:lang="is">Straumey</skos:altLabel>
+	<skos:altLabel xml:lang="es">Streymoy</skos:altLabel>
+	<skos:altLabel xml:lang="en">Streymoy</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Streymoy</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Streymoy</skos:altLabel>
+	<skos:altLabel xml:lang="no">Streymoy</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Streymoy</skos:altLabel>
+	<skos:altLabel xml:lang="de">Streymoy</skos:altLabel>
+	<skos:altLabel xml:lang="da">Streymoy</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Streymoy</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Streymoy</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Streymoy</skos:altLabel>
+	<skos:altLabel xml:lang="it">Streymoy</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Streymoy</skos:altLabel>
+	<skos:altLabel>Streymoy</skos:altLabel>
+	<skos:altLabel>Stroms Island</skos:altLabel>
+	<skos:altLabel>Strömö</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Стрејмој</skos:altLabel>
+	<skos:altLabel xml:lang="he">סטריימוי</skos:altLabel>
+	<skos:prefLabel>Streymoy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2612479/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>61.69224</wgs:lat>
+	<wgs:long>-6.75563</wgs:long>
+	<skos:altLabel>Dimon Sogn</skos:altLabel>
+	<skos:altLabel>Store Dimon</skos:altLabel>
+	<skos:altLabel xml:lang="es">Stóra Dímun</skos:altLabel>
+	<skos:altLabel xml:lang="en">Stóra Dímun</skos:altLabel>
+	<skos:altLabel xml:lang="da">Stóra Dímun</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Stóra Dímun</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Stóra Dímun</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Stóra Dímun</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Stóra Dímun</skos:altLabel>
+	<skos:altLabel xml:lang="de">Stóra Dímun</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Stóra Dímun</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Stóra Dímun</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Stóra Dímun</skos:altLabel>
+	<skos:altLabel xml:lang="no">Stóra Dímun</skos:altLabel>
+	<skos:altLabel>Stóra Dímun</skos:altLabel>
+	<skos:altLabel xml:lang="he">סטורה דימון</skos:altLabel>
+	<skos:prefLabel>Stóra Dímun</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2612758/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>62.30936</wgs:lat>
+	<wgs:long>-7.1714</wgs:long>
+	<skos:altLabel>Stakken</skos:altLabel>
+	<skos:altLabel>Stakkur</skos:altLabel>
+	<skos:prefLabel>Stakkur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2612891/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>62.06667</wgs:lat>
+	<wgs:long>-6.71667</wgs:long>
+	<skos:altLabel>Sørvágur</skos:altLabel>
+	<skos:altLabel>Sørvåg</skos:altLabel>
+	<skos:prefLabel>Sørvágur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2613478/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>61.76818</wgs:lat>
+	<wgs:long>-6.82568</wgs:long>
+	<skos:altLabel>Skuö</skos:altLabel>
+	<skos:altLabel xml:lang="de">Skúvoy</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Skúvoy</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Skúvoy</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Skúvoy</skos:altLabel>
+	<skos:altLabel xml:lang="no">Skúvoy</skos:altLabel>
+	<skos:altLabel xml:lang="es">Skúvoy</skos:altLabel>
+	<skos:altLabel xml:lang="en">Skúvoy</skos:altLabel>
+	<skos:altLabel xml:lang="da">Skúvoy</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Skúvoy</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Skúvoy</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Skúvoy</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Skúvoy</skos:altLabel>
+	<skos:altLabel>Skúvoy</skos:altLabel>
+	<skos:altLabel xml:lang="he">סקובוי</skos:altLabel>
+	<skos:prefLabel>Skúvoy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2613479/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>61.76667</wgs:lat>
+	<wgs:long>-7.16667</wgs:long>
+	<skos:altLabel>Skuø</skos:altLabel>
+	<skos:altLabel>Skúvoy</skos:altLabel>
+	<skos:prefLabel>Skúvoy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2613661/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>61.9</wgs:lat>
+	<wgs:long>-7.03333</wgs:long>
+	<skos:altLabel>Skopen</skos:altLabel>
+	<skos:altLabel>Skopun</skos:altLabel>
+	<skos:prefLabel>Skopun</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2613916/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>62.18333</wgs:lat>
+	<wgs:long>-7.15</wgs:long>
+	<skos:altLabel>Skáli</skos:altLabel>
+	<skos:altLabel>Skåle</skos:altLabel>
+	<skos:prefLabel>Skáli</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2613922/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>61.85</wgs:lat>
+	<wgs:long>-7.3</wgs:long>
+	<skos:altLabel>Skálavík</skos:altLabel>
+	<skos:altLabel>Skålevig</skos:altLabel>
+	<skos:prefLabel>Skálavík</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2613973/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>62.15</wgs:lat>
+	<wgs:long>-7.11667</wgs:long>
+	<skos:altLabel>Sjov</skos:altLabel>
+	<skos:altLabel>Sjógv</skos:altLabel>
+	<skos:prefLabel>Sjógv</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2614213/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>61.85</wgs:lat>
+	<wgs:long>-7.15</wgs:long>
+	<skos:altLabel>Sand</skos:altLabel>
+	<skos:altLabel>Sandur</skos:altLabel>
+	<skos:prefLabel>Sandur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2614219/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2622320/"/>
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1353</europeana:population>
+	<wgs:lat>61.83333</wgs:lat>
+	<wgs:long>-6.75</wgs:long>
+	<skos:altLabel xml:lang="en">Sandoy</skos:altLabel>
+	<skos:altLabel xml:lang="en">Sandoy region</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Sandoyar sýsla</skos:altLabel>
+	<skos:altLabel xml:lang="da">Sandø Syssel</skos:altLabel>
+	<skos:prefLabel>Sandoyar Sýsla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2614221/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>61.85444</wgs:lat>
+	<wgs:long>-6.77632</wgs:long>
+	<skos:altLabel xml:lang="de">Sandoy</skos:altLabel>
+	<skos:altLabel xml:lang="da">Sandoy</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Sandoy</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Sandoy</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Sandoy</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Sandoy</skos:altLabel>
+	<skos:altLabel xml:lang="es">Sandoy</skos:altLabel>
+	<skos:altLabel xml:lang="en">Sandoy</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Sandoy</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Sandoy</skos:altLabel>
+	<skos:altLabel xml:lang="no">Sandoy</skos:altLabel>
+	<skos:altLabel>Sandoy</skos:altLabel>
+	<skos:altLabel>Sandö</skos:altLabel>
+	<skos:altLabel xml:lang="he">סאנדוי</skos:altLabel>
+	<skos:prefLabel>Sandoy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2614266/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>62.1</wgs:lat>
+	<wgs:long>-6.88333</wgs:long>
+	<skos:altLabel>Sandavágur</skos:altLabel>
+	<skos:altLabel>Sandevåg</skos:altLabel>
+	<skos:prefLabel>Sandavágur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2614324/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>62.23333</wgs:lat>
+	<wgs:long>-6.85</wgs:long>
+	<skos:altLabel>Saksen</skos:altLabel>
+	<skos:altLabel>Saksun</skos:altLabel>
+	<skos:prefLabel>Saksun</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2614403/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>62.15</wgs:lat>
+	<wgs:long>-7.33333</wgs:long>
+	<skos:prefLabel>Runavík</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2615133/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>61.48333</wgs:lat>
+	<wgs:long>-7.23333</wgs:long>
+	<skos:altLabel>Porkere</skos:altLabel>
+	<skos:altLabel>Porkeri</skos:altLabel>
+	<skos:prefLabel>Porkeri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2615263/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>62.25</wgs:lat>
+	<wgs:long>-7.11667</wgs:long>
+	<skos:altLabel>Andefjord</skos:altLabel>
+	<skos:altLabel>Oyndarfjørður</skos:altLabel>
+	<skos:prefLabel>Oyndarfjørður</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2616145/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2622320/"/>
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>62.28333</wgs:lat>
+	<wgs:long>-6.58333</wgs:long>
+	<skos:altLabel xml:lang="da">Norderøernes Syssel</skos:altLabel>
+	<skos:altLabel xml:lang="en">Norðoyar</skos:altLabel>
+	<skos:altLabel xml:lang="en">Norðoyar region</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Norðoyar sýsla</skos:altLabel>
+	<skos:prefLabel>Norðoyar sýsla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2616146/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>62.29102</wgs:lat>
+	<wgs:long>-6.55609</wgs:long>
+	<skos:altLabel>Norderøer</skos:altLabel>
+	<skos:altLabel>Norderøerne</skos:altLabel>
+	<skos:altLabel>Norðoyar</skos:altLabel>
+	<skos:prefLabel>Norðoyar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2616438/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>61.98064</wgs:lat>
+	<wgs:long>-6.64782</wgs:long>
+	<skos:altLabel>Nolsö</skos:altLabel>
+	<skos:altLabel xml:lang="de">Nólsoy</skos:altLabel>
+	<skos:altLabel xml:lang="en">Nólsoy</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Nólsoy</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Nólsoy</skos:altLabel>
+	<skos:altLabel xml:lang="es">Nólsoy</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Nólsoy</skos:altLabel>
+	<skos:altLabel xml:lang="da">Nólsoy</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Nólsoy</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Nólsoy</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Nólsoy</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Nólsoy</skos:altLabel>
+	<skos:altLabel xml:lang="no">Nólsoy</skos:altLabel>
+	<skos:altLabel>Nólsoy</skos:altLabel>
+	<skos:altLabel xml:lang="he">נולסוי</skos:altLabel>
+	<skos:prefLabel>Nólsoy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2616439/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>61.98333</wgs:lat>
+	<wgs:long>-7.35</wgs:long>
+	<skos:altLabel>Nolsø</skos:altLabel>
+	<skos:altLabel>Nólsoy</skos:altLabel>
+	<skos:prefLabel>Nólsoy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2616501/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>62.08333</wgs:lat>
+	<wgs:long>-7.8</wgs:long>
+	<skos:altLabel>Nes</skos:altLabel>
+	<skos:altLabel>Næs</skos:altLabel>
+	<skos:prefLabel>Nes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2616586/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>62.35848</wgs:lat>
+	<wgs:long>-6.66035</wgs:long>
+	<skos:prefLabel>Navarin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2616646/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>62.09851</wgs:lat>
+	<wgs:long>-7.67296</wgs:long>
+	<skos:altLabel>Myggenæs Holm</skos:altLabel>
+	<skos:altLabel>Mykineshólmur</skos:altLabel>
+	<skos:altLabel>Mykinsholmur</skos:altLabel>
+	<skos:prefLabel>Mykineshólmur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2616649/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>62.10343</wgs:lat>
+	<wgs:long>-7.60423</wgs:long>
+	<skos:altLabel>Myggenæs</skos:altLabel>
+	<skos:altLabel xml:lang="de">Mykines</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Mykines</skos:altLabel>
+	<skos:altLabel xml:lang="da">Mykines</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Mykines</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Mykines</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Mykines</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Mykines</skos:altLabel>
+	<skos:altLabel xml:lang="es">Mykines</skos:altLabel>
+	<skos:altLabel xml:lang="en">Mykines</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Mykines</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Mykines</skos:altLabel>
+	<skos:altLabel xml:lang="no">Mykines</skos:altLabel>
+	<skos:altLabel>Mykines</skos:altLabel>
+	<skos:altLabel xml:lang="he">מייקינס</skos:altLabel>
+	<skos:prefLabel>Mykines</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2616650/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>62.1</wgs:lat>
+	<wgs:long>-6.4</wgs:long>
+	<skos:altLabel>Muggenæs</skos:altLabel>
+	<skos:altLabel>Mykines</skos:altLabel>
+	<skos:prefLabel>Mykines</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2616901/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>62.33333</wgs:lat>
+	<wgs:long>-7.21667</wgs:long>
+	<skos:altLabel>Mikladalur</skos:altLabel>
+	<skos:altLabel>Mygledal</skos:altLabel>
+	<skos:prefLabel>Mikladalur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2616915/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>62.1</wgs:lat>
+	<wgs:long>-6.8</wgs:long>
+	<skos:altLabel>Midvåg</skos:altLabel>
+	<skos:altLabel>Miðvágur</skos:altLabel>
+	<skos:prefLabel>Miðvágur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2617403/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>61.44075</wgs:lat>
+	<wgs:long>-6.79184</wgs:long>
+	<skos:altLabel>Lopra Holm</skos:altLabel>
+	<skos:altLabel>Lopranshólmur</skos:altLabel>
+	<skos:prefLabel>Lopranshólmur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2617527/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>61.63148</wgs:lat>
+	<wgs:long>-6.70745</wgs:long>
+	<skos:altLabel>Lille Dimon</skos:altLabel>
+	<skos:altLabel xml:lang="es">Lítla Dímun</skos:altLabel>
+	<skos:altLabel xml:lang="en">Lítla Dímun</skos:altLabel>
+	<skos:altLabel xml:lang="da">Lítla Dímun</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Lítla Dímun</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Lítla Dímun</skos:altLabel>
+	<skos:altLabel xml:lang="no">Lítla Dímun</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Lítla Dímun</skos:altLabel>
+	<skos:altLabel xml:lang="de">Lítla Dímun</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Lítla Dímun</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Lítla Dímun</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Lítla Dímun</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Lítla Dímun</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Lítla Dímun</skos:altLabel>
+	<skos:altLabel>Lítla Dímun</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Литла Димун</skos:altLabel>
+	<skos:altLabel xml:lang="he">ליטלה דימון</skos:altLabel>
+	<skos:prefLabel>Lítla Dímun</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2617845/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>62.2</wgs:lat>
+	<wgs:long>-7.3</wgs:long>
+	<skos:altLabel>Leirvík</skos:altLabel>
+	<skos:altLabel>Lervig</skos:altLabel>
+	<skos:prefLabel>Leirvík</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2618086/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>62.13333</wgs:lat>
+	<wgs:long>-6.95</wgs:long>
+	<skos:altLabel>Kvivig</skos:altLabel>
+	<skos:altLabel>Kvívík</skos:altLabel>
+	<skos:prefLabel>Kvívík</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2618120/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>62.30357</wgs:lat>
+	<wgs:long>-6.64504</wgs:long>
+	<skos:altLabel xml:lang="de">Kunoy</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kunoy</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Kunoy</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Kunoy</skos:altLabel>
+	<skos:altLabel xml:lang="no">Kunoy</skos:altLabel>
+	<skos:altLabel xml:lang="es">Kunoy</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Kunoy</skos:altLabel>
+	<skos:altLabel xml:lang="da">Kunoy</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Kunoy</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Kunoy</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Kunoy</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Kunoy</skos:altLabel>
+	<skos:altLabel>Kunoy</skos:altLabel>
+	<skos:altLabel>Kunö</skos:altLabel>
+	<skos:altLabel xml:lang="he">קונוי</skos:altLabel>
+	<skos:prefLabel>Kunoy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2618121/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>62.3</wgs:lat>
+	<wgs:long>-7.35</wgs:long>
+	<skos:altLabel>Kunoy</skos:altLabel>
+	<skos:altLabel>Kunø</skos:altLabel>
+	<skos:prefLabel>Kunoy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2618479/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>62.00969</wgs:lat>
+	<wgs:long>-6.76736</wgs:long>
+	<skos:altLabel>Kongaminnið</skos:altLabel>
+	<skos:altLabel>Kongemindet</skos:altLabel>
+	<skos:prefLabel>Kongaminnið</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2618488/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>61.99105</wgs:lat>
+	<wgs:long>-6.98145</wgs:long>
+	<skos:altLabel>Kolter</skos:altLabel>
+	<skos:altLabel xml:lang="de">Koltur</skos:altLabel>
+	<skos:altLabel xml:lang="en">Koltur</skos:altLabel>
+	<skos:altLabel xml:lang="da">Koltur</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Koltur</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Koltur</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Koltur</skos:altLabel>
+	<skos:altLabel xml:lang="es">Koltur</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Koltur</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Koltur</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Koltur</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Koltur</skos:altLabel>
+	<skos:altLabel xml:lang="no">Koltur</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Koltur</skos:altLabel>
+	<skos:altLabel>Koltur</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Колтур</skos:altLabel>
+	<skos:altLabel xml:lang="he">קולטור</skos:altLabel>
+	<skos:prefLabel>Koltur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2618513/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>62.13333</wgs:lat>
+	<wgs:long>-7.05</wgs:long>
+	<skos:altLabel>Kollafjørður</skos:altLabel>
+	<skos:altLabel>Kollefjord</skos:altLabel>
+	<skos:prefLabel>Kollafjørður</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2618796/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<europeana:population>5268</europeana:population>
+	<wgs:lat>62.26667</wgs:lat>
+	<wgs:long>-7.46667</wgs:long>
+	<skos:altLabel>Klaksvig</skos:altLabel>
+	<skos:altLabel>Klaksvik</skos:altLabel>
+	<skos:prefLabel>Klaksvik</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2618847/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>61.98333</wgs:lat>
+	<wgs:long>-7.16667</wgs:long>
+	<skos:altLabel>Kirkebø</skos:altLabel>
+	<skos:altLabel>Kirkjubøur</skos:altLabel>
+	<skos:prefLabel>Kirkjubøur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2619161/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>62.30351</wgs:lat>
+	<wgs:long>-6.79817</wgs:long>
+	<skos:altLabel>Kallsoy</skos:altLabel>
+	<skos:altLabel xml:lang="es">Kalsoy</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Kalsoy</skos:altLabel>
+	<skos:altLabel xml:lang="da">Kalsoy</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Kalsoy</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Kalsoy</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Kalsoy</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Kalsoy</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kalsoy</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kalsoy</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Kalsoy</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Kalsoy</skos:altLabel>
+	<skos:altLabel xml:lang="no">Kalsoy</skos:altLabel>
+	<skos:altLabel>Kalsoy</skos:altLabel>
+	<skos:altLabel>Kalsø</skos:altLabel>
+	<skos:altLabel xml:lang="he">קאלסוי</skos:altLabel>
+	<skos:prefLabel>Kalsoy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2619564/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>61.91243</wgs:lat>
+	<wgs:long>-6.93815</wgs:long>
+	<skos:prefLabel>Hvannhólmur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2619565/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>61.59175</wgs:lat>
+	<wgs:long>-6.83813</wgs:long>
+	<skos:altLabel>Hvannhólmur</skos:altLabel>
+	<skos:altLabel>Kvannholm</skos:altLabel>
+	<skos:prefLabel>Hvannhólmur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2619569/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>62.28333</wgs:lat>
+	<wgs:long>-7.46667</wgs:long>
+	<skos:altLabel>Hvannasund</skos:altLabel>
+	<skos:altLabel>Kvannesund</skos:altLabel>
+	<skos:prefLabel>Hvannasund</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2619581/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>62.18333</wgs:lat>
+	<wgs:long>-6.96667</wgs:long>
+	<skos:altLabel>Hvalvík</skos:altLabel>
+	<skos:altLabel>Kvalvig</skos:altLabel>
+	<skos:prefLabel>Hvalvík</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2619592/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>61.58333</wgs:lat>
+	<wgs:long>-7.03333</wgs:long>
+	<skos:altLabel>Hvalba</skos:altLabel>
+	<skos:altLabel>Hvalbøur</skos:altLabel>
+	<skos:altLabel>Kvalbø</skos:altLabel>
+	<skos:prefLabel>Hvalbøur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2619613/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>61.78333</wgs:lat>
+	<wgs:long>-7.3</wgs:long>
+	<skos:altLabel>Husevig</skos:altLabel>
+	<skos:altLabel>Húsavík</skos:altLabel>
+	<skos:prefLabel>Húsavík</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2619616/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>62.26667</wgs:lat>
+	<wgs:long>-7.3</wgs:long>
+	<skos:altLabel>Husum</skos:altLabel>
+	<skos:altLabel>Húsar</skos:altLabel>
+	<skos:prefLabel>Húsar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2619738/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>61.51667</wgs:lat>
+	<wgs:long>-7.23333</wgs:long>
+	<skos:altLabel>Hov</skos:altLabel>
+	<skos:altLabel>Hove</skos:altLabel>
+	<skos:prefLabel>Hov</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2619745/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>62.15</wgs:lat>
+	<wgs:long>-7.01667</wgs:long>
+	<skos:altLabel>Hósvik</skos:altLabel>
+	<skos:altLabel>Thorsvig</skos:altLabel>
+	<skos:prefLabel>Hósvik</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2620339/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>61.9544</wgs:lat>
+	<wgs:long>-6.895</wgs:long>
+	<skos:altLabel xml:lang="de">Hestur</skos:altLabel>
+	<skos:altLabel xml:lang="en">Hestur</skos:altLabel>
+	<skos:altLabel xml:lang="es">Hestur</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Hestur</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Hestur</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Hestur</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Hestur</skos:altLabel>
+	<skos:altLabel xml:lang="no">Hestur</skos:altLabel>
+	<skos:altLabel xml:lang="da">Hestur</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Hestur</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Hestur</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Hestur</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Hestur</skos:altLabel>
+	<skos:altLabel>Hestur</skos:altLabel>
+	<skos:altLabel>Hestö</skos:altLabel>
+	<skos:altLabel xml:lang="he">הסטור</skos:altLabel>
+	<skos:prefLabel>Hestur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2620341/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>61.96667</wgs:lat>
+	<wgs:long>-7.05</wgs:long>
+	<skos:altLabel>Hestur</skos:altLabel>
+	<skos:altLabel>Hestø</skos:altLabel>
+	<skos:prefLabel>Hestur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2620914/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>62.25</wgs:lat>
+	<wgs:long>-6.86667</wgs:long>
+	<skos:altLabel>Haldarsvík</skos:altLabel>
+	<skos:altLabel>Haldersvig</skos:altLabel>
+	<skos:prefLabel>Haldarsvík</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2621154/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>62.2</wgs:lat>
+	<wgs:long>-7</wgs:long>
+	<skos:altLabel>Grömholm</skos:altLabel>
+	<skos:altLabel>Grønhólmur</skos:altLabel>
+	<skos:prefLabel>Grønhólmur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2621301/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>62.18333</wgs:lat>
+	<wgs:long>-7.21667</wgs:long>
+	<skos:altLabel>Gøta</skos:altLabel>
+	<skos:altLabel>Gøte</skos:altLabel>
+	<skos:prefLabel>Gøta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2621416/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>62.31667</wgs:lat>
+	<wgs:long>-7.03333</wgs:long>
+	<skos:altLabel>Gjov</skos:altLabel>
+	<skos:altLabel>Gjógv</skos:altLabel>
+	<skos:prefLabel>Gjógv</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2621579/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>62.07983</wgs:lat>
+	<wgs:long>-7.4612</wgs:long>
+	<skos:altLabel>Gaasholm</skos:altLabel>
+	<skos:altLabel>Gasholm</skos:altLabel>
+	<skos:altLabel>Gáshólmur</skos:altLabel>
+	<skos:prefLabel>Gáshólmur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2621766/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>62.25</wgs:lat>
+	<wgs:long>-7.01667</wgs:long>
+	<skos:altLabel>Funding</skos:altLabel>
+	<skos:altLabel>Funningur</skos:altLabel>
+	<skos:prefLabel>Funningur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2621794/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>62.33398</wgs:lat>
+	<wgs:long>-6.35211</wgs:long>
+	<skos:altLabel xml:lang="de">Fugloy</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Fugloy</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Fugloy</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Fugloy</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Fugloy</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Fugloy</skos:altLabel>
+	<skos:altLabel xml:lang="es">Fugloy</skos:altLabel>
+	<skos:altLabel xml:lang="en">Fugloy</skos:altLabel>
+	<skos:altLabel xml:lang="da">Fugloy</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Fugloy</skos:altLabel>
+	<skos:altLabel xml:lang="no">Fugloy</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Fugloy</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Fugloy</skos:altLabel>
+	<skos:altLabel>Fugloy</skos:altLabel>
+	<skos:altLabel>Fuglö</skos:altLabel>
+	<skos:altLabel xml:lang="he">פוגלוי</skos:altLabel>
+	<skos:prefLabel>Fugloy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2621795/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>62.33333</wgs:lat>
+	<wgs:long>-7.7</wgs:long>
+	<skos:altLabel>Fugloy</skos:altLabel>
+	<skos:altLabel>Fuglø</skos:altLabel>
+	<skos:prefLabel>Fugloy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2621810/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>62.23333</wgs:lat>
+	<wgs:long>-7.15</wgs:long>
+	<skos:altLabel>Fuglafjørður</skos:altLabel>
+	<skos:altLabel>Fuglefjord</skos:altLabel>
+	<skos:prefLabel>Fuglafjørður</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2621847/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>61.55</wgs:lat>
+	<wgs:long>-7.15</wgs:long>
+	<skos:altLabel>Frodba</skos:altLabel>
+	<skos:altLabel>Frodebø</skos:altLabel>
+	<skos:altLabel>Froðbøur</skos:altLabel>
+	<skos:prefLabel>Froðbøur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2622009/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>62</wgs:lat>
+	<wgs:long>-7</wgs:long>
+	<skos:altLabel>Die Fär Oer</skos:altLabel>
+	<skos:altLabel>Faereyjar</skos:altLabel>
+	<skos:altLabel>Faeroe Islands</skos:altLabel>
+	<skos:altLabel>Faeroes</skos:altLabel>
+	<skos:altLabel>Faeröerne</skos:altLabel>
+	<skos:altLabel xml:lang="en">Faroe Islands</skos:altLabel>
+	<skos:altLabel>Faröe Islands</skos:altLabel>
+	<skos:altLabel>Färöerne</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Føroyar</skos:altLabel>
+	<skos:altLabel>The Faer Islands</skos:altLabel>
+	<skos:prefLabel>Faroe Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2622320/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255148/"/>
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLD"/>
+	<europeana:population>48228</europeana:population>
+	<wgs:lat>62</wgs:lat>
+	<wgs:long>-7</wgs:long>
+	<skos:altLabel>FO</skos:altLabel>
+	<skos:altLabel xml:lang="br">Faero</skos:altLabel>
+	<skos:altLabel>Faeroe Islands</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Faerské ostrovy</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Faerské ostrovy</skos:altLabel>
+	<skos:altLabel xml:lang="li">Faeröer</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Faeröer</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Farerų salos</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Faroe Adaları</skos:altLabel>
+	<skos:altLabel xml:lang="en">Faroe Islands</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Faroe Islands</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Faroe uharteak</skos:altLabel>
+	<skos:altLabel xml:lang="it">Faroe, isole</skos:altLabel>
+	<skos:altLabel xml:lang="af">Faroëreilande</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Farska ostrva</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Farski Otoci</skos:altLabel>
+	<skos:altLabel xml:lang="se">Fearsullot</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Feroe Uharteak</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Ferojski otoci</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Ferooj</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Ferski otoki</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Fersko otočje</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Feröer</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Fáraó-szigetek</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Färsaaret</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Färöarna</skos:altLabel>
+	<skos:altLabel xml:lang="de">Färöer</skos:altLabel>
+	<skos:altLabel xml:lang="de">Färöer-Inseln</skos:altLabel>
+	<skos:altLabel xml:lang="et">Fääri saared</skos:altLabel>
+	<skos:altLabel>Fæaerøoerne</skos:altLabel>
+	<skos:altLabel xml:lang="is">Færeyjar</skos:altLabel>
+	<skos:altLabel xml:lang="da">Færøerne</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Færøyane</skos:altLabel>
+	<skos:altLabel xml:lang="no">Færøyene</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Færøyene</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Føroyar</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Føroyar</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Føroyar</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Fēru salas</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Giravên Faroe</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Gżejjer Faroe</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Iles Féroé</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Ilhas Faroé</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Ilhas Feroé</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Illas Faroe</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Illas Feroe - Føroyar</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Illas Feroé</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Illas Feròe</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Illes Fèroe</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Insulas Feroe</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Insulele Faroe</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Insulele Feroe</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Ishujt Faroe</skos:altLabel>
+	<skos:altLabel xml:lang="es">Islas Feroe</skos:altLabel>
+	<skos:altLabel xml:lang="it">Isole Fær Øer</skos:altLabel>
+	<skos:altLabel xml:lang="id">Kepulauan Faroe</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Oileáin Fharó</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Quần Đảo Faroe</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Wyspy Owcze</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Ynysoedd Ffaröe</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Ynysow Faroe</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Îles Féroé</skos:altLabel>
+	<skos:altLabel xml:lang="el">Νήσοι Φερόες</skos:altLabel>
+	<skos:altLabel xml:lang="el">Νησιά Φαρόε</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Острови Фаро</skos:altLabel>
+	<skos:altLabel xml:lang="kk">Фарер аралдары</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Фарерские острова</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Фарерські острови</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Фарска Острва</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Фарска острва</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Фарски Острови</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Фарьорски О-ви</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Фарьорски острови</skos:altLabel>
+	<skos:altLabel xml:lang="be">Фарэрскія выспы</skos:altLabel>
+	<skos:altLabel xml:lang="he">איי פארו</skos:altLabel>
+	<skos:altLabel xml:lang="he">פרואר, איי</skos:altLabel>
+	<skos:altLabel xml:lang="ur">جزائرفارو</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جزر فارو</skos:altLabel>
+	<skos:altLabel xml:lang="fa">جزیره های فاروه</skos:altLabel>
+	<skos:altLabel xml:lang="hi">फ़ैरो आइलैंड्स</skos:altLabel>
+	<skos:altLabel xml:lang="bn">ফ্যারো দ্বীপপুঞ্জ</skos:altLabel>
+	<skos:altLabel xml:lang="th">หมู่เกาะฟาร์โร</skos:altLabel>
+	<skos:altLabel xml:lang="th">หมู่เกาะแฟโร</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ფარერის კუნძულები</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ფაროს კუნძულები</skos:altLabel>
+	<skos:altLabel xml:lang="am">የፋሮይ ደሴቶች</skos:altLabel>
+	<skos:altLabel xml:lang="am">ፋሮ ደሴቶች</skos:altLabel>
+	<skos:altLabel xml:lang="ja">フェロー諸島</skos:altLabel>
+	<skos:altLabel xml:lang="zh">法罗群岛</skos:altLabel>
+	<skos:altLabel xml:lang="ko">파로에 군도</skos:altLabel>
+	<skos:altLabel xml:lang="ko">페로 제도</skos:altLabel>
+	<skos:prefLabel>Faroe Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2622349/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>61.53333</wgs:lat>
+	<wgs:long>-7.13333</wgs:long>
+	<skos:altLabel>Famien</skos:altLabel>
+	<skos:altLabel>Fámjin</skos:altLabel>
+	<skos:prefLabel>Fámjin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2622387/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2622320/"/>
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>62.21667</wgs:lat>
+	<wgs:long>-6.86667</wgs:long>
+	<skos:altLabel xml:lang="en">Eysturoy</skos:altLabel>
+	<skos:altLabel xml:lang="en">Eysturoy region</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Eysturoyar sýsla</skos:altLabel>
+	<skos:altLabel xml:lang="da">Østerø Syssel</skos:altLabel>
+	<skos:prefLabel>Eysturoyar sýsla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2622388/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>62.2158</wgs:lat>
+	<wgs:long>-6.87751</wgs:long>
+	<skos:altLabel xml:lang="es">Eysturoy</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Eysturoy</skos:altLabel>
+	<skos:altLabel xml:lang="en">Eysturoy</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Eysturoy</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Eysturoy</skos:altLabel>
+	<skos:altLabel xml:lang="no">Eysturoy</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Eysturoy</skos:altLabel>
+	<skos:altLabel xml:lang="de">Eysturoy</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Eysturoy</skos:altLabel>
+	<skos:altLabel xml:lang="da">Eysturoy</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Eysturoy</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Eysturoy</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Eysturoy</skos:altLabel>
+	<skos:altLabel>Eysturoy</skos:altLabel>
+	<skos:altLabel>Østerø</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Естрои</skos:altLabel>
+	<skos:altLabel xml:lang="he">אסטורוי</skos:altLabel>
+	<skos:prefLabel>Eysturoy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2622626/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>62.25</wgs:lat>
+	<wgs:long>-7.08333</wgs:long>
+	<skos:altLabel>Eldevig</skos:altLabel>
+	<skos:altLabel>Elduvík</skos:altLabel>
+	<skos:prefLabel>Elduvík</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2622677/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>62.28333</wgs:lat>
+	<wgs:long>-6.96667</wgs:long>
+	<skos:altLabel>Eiði</skos:altLabel>
+	<skos:altLabel>Ejde</skos:altLabel>
+	<skos:prefLabel>Eiði</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2623259/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>62.33333</wgs:lat>
+	<wgs:long>-6.98333</wgs:long>
+	<skos:prefLabel>Búgvin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2623700/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>62.266</wgs:lat>
+	<wgs:long>-6.53038</wgs:long>
+	<skos:altLabel>Bordoy</skos:altLabel>
+	<skos:altLabel>Bordö</skos:altLabel>
+	<skos:altLabel xml:lang="de">Borðoy</skos:altLabel>
+	<skos:altLabel xml:lang="en">Borðoy</skos:altLabel>
+	<skos:altLabel xml:lang="da">Borðoy</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Borðoy</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Borðoy</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Borðoy</skos:altLabel>
+	<skos:altLabel xml:lang="es">Borðoy</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Borðoy</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Borðoy</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Borðoy</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Borðoy</skos:altLabel>
+	<skos:altLabel xml:lang="no">Borðoy</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Borðoy</skos:altLabel>
+	<skos:altLabel>Borðoy</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Бордој</skos:altLabel>
+	<skos:altLabel xml:lang="he">בורד'וי</skos:altLabel>
+	<skos:prefLabel>Borðoy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2623714/">
+	<europeana:country>FO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>62.1</wgs:lat>
+	<wgs:long>-6.61667</wgs:long>
+	<skos:altLabel>Bø</skos:altLabel>
+	<skos:altLabel>Bøur</skos:altLabel>
+	<skos:prefLabel>Bøur</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 91 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

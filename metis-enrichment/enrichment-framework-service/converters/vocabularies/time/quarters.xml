@@ -1,0 +1,24 @@
+<!-- Century quarters templates  -->
+<list>
+<eu.annocultor.converters.time.LabelTemplate>
+    <lang>en</lang>
+    <pattern_1>%d quarter of the %dth century</pattern_1>
+    <pattern_2>%d quarter of the %dth century</pattern_2>
+    <pattern_3>%d quarter of the %dth century</pattern_3>
+    <pattern_N>%d quarter of the %dth century</pattern_N>
+</eu.annocultor.converters.time.LabelTemplate>
+<eu.annocultor.converters.time.LabelTemplate>
+    <lang>fr</lang>
+    <pattern_1>%der quart %de siècle</pattern_1>
+    <pattern_2>%de quart %de siècle</pattern_2>
+    <pattern_3>%de quart %de siècle</pattern_3>
+    <pattern_N>%de quart %de siècle</pattern_N>
+</eu.annocultor.converters.time.LabelTemplate>
+<eu.annocultor.converters.time.LabelTemplate>
+    <lang>ru</lang>
+    <pattern_1>%d-я четверть %d-го века</pattern_1>
+    <pattern_2>%d-я четверть %d-го века</pattern_2>
+    <pattern_3>%d-я четверть %d-го века</pattern_3>
+    <pattern_N>%d-я четверть %d-го века</pattern_N>
+</eu.annocultor.converters.time.LabelTemplate>
+</list>

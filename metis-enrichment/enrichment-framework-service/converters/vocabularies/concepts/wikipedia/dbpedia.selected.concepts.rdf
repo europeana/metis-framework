@@ -1,0 +1,662 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dbpedia="http://dbpedia.org/ontology/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: dbpedia.selected.concepts
+Description: Selection from DBPedia: various concepts 
+Extracted from http://dbpedia.org/snorql/ 
+Original data is distributed under the GNU General Public License
+
+ -->
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Art_Nouveau">
+	<skos:prefLabel xml:lang="en">Art Nouveau</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Art Nouveau</skos:prefLabel>
+	<skos:prefLabel xml:lang="fr">Art nouveau</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Art nouveau</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Jugend</skos:prefLabel>
+	<skos:prefLabel xml:lang="de">Jugendstil</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Jugendstil</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Modernismo (arte)</skos:prefLabel>
+	<skos:prefLabel xml:lang="pl">Secesja (sztuka)</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Модерн</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">アール・ヌーヴォー</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">新艺术运动</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Art">
+	<skos:prefLabel xml:lang="en">Art</skos:prefLabel>
+	<skos:prefLabel xml:lang="fr">Art</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Arte</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Arte</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Arte</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Konst</skos:prefLabel>
+	<skos:prefLabel xml:lang="de">Kunst</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Kunst</skos:prefLabel>
+	<skos:prefLabel xml:lang="pl">Sztuka</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Искусство</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">艺术</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">芸術</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Art_Deco">
+	<skos:prefLabel xml:lang="en">Art Deco</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Art deco</skos:prefLabel>
+	<skos:prefLabel xml:lang="de">Art déco</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Art déco</skos:prefLabel>
+	<skos:prefLabel xml:lang="fr">Art déco</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Art déco</skos:prefLabel>
+	<skos:prefLabel xml:lang="pl">Art déco</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Art déco</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Art déco</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Ар-деко</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">アール・デコ</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">装饰风艺术</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Folk_art">
+	<skos:prefLabel xml:lang="es">Arte folclórico</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Folk art</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Folkkonst</skos:prefLabel>
+	<skos:prefLabel xml:lang="pl">Sztuka ludowa</skos:prefLabel>
+	<skos:prefLabel xml:lang="de">Volkskunst</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Volkskunst</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">民間藝術</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Drawing">
+	<skos:prefLabel xml:lang="pt">Desenho</skos:prefLabel>
+	<skos:prefLabel xml:lang="fr">Dessin</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Dibujo</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Disegno</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Drawing</skos:prefLabel>
+	<skos:prefLabel xml:lang="pl">Rysunek</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Teckning (konst)</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Tekening</skos:prefLabel>
+	<skos:prefLabel xml:lang="de">Zeichnung (Kunst)</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Рисунок</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">デッサン</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">素描</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Portrait">
+	<skos:prefLabel xml:lang="en">Portrait</skos:prefLabel>
+	<skos:prefLabel xml:lang="fr">Portrait</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Portret</skos:prefLabel>
+	<skos:prefLabel xml:lang="pl">Portret</skos:prefLabel>
+	<skos:prefLabel xml:lang="de">Porträt</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Porträtt</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Retrato</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Retrato</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Ritratto</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Портрет</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">肖像</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">肖像</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Costume">
+	<skos:prefLabel xml:lang="en">Costume</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Костюм</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Romanesque_art">
+	<skos:prefLabel xml:lang="fr">Art roman</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Arte Románico</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Arte romanica</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Arte românica</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Romaanse kunst</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Romanesque art</skos:prefLabel>
+	<skos:prefLabel xml:lang="de">Romanik</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Romansk stil</skos:prefLabel>
+	<skos:prefLabel xml:lang="pl">Sztuka romańska</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Романское искусство</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">ロマネスク</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">罗马式美术</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Tapestry">
+	<skos:prefLabel xml:lang="it">Arazzo</skos:prefLabel>
+	<skos:prefLabel xml:lang="de">Bildwirkerei</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Gobeläng</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Tapestry</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Tapeçaria</skos:prefLabel>
+	<skos:prefLabel xml:lang="pl">Tapiseria</skos:prefLabel>
+	<skos:prefLabel xml:lang="fr">Tapisserie</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Tapiz</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Wandtapijt</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Гобелен</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">タペストリー</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">壁毯</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Architecture">
+	<skos:prefLabel xml:lang="en">Architecture</skos:prefLabel>
+	<skos:prefLabel xml:lang="fr">Architecture</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Architectuur</skos:prefLabel>
+	<skos:prefLabel xml:lang="de">Architektur</skos:prefLabel>
+	<skos:prefLabel xml:lang="pl">Architektura</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Architettura</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Arkitektur</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Arquitectura</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Arquitetura</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Архитектура</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">建筑</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">建築</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Impressionism">
+	<skos:prefLabel xml:lang="es">Impresionismo</skos:prefLabel>
+	<skos:prefLabel xml:lang="pl">Impresjonizm</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Impressionism</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Impressionism (måleri)</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Impressionisme</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Impressionismo</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Impressionismo</skos:prefLabel>
+	<skos:prefLabel xml:lang="de">Impressionismus</skos:prefLabel>
+	<skos:prefLabel xml:lang="fr">Impressionnisme</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Импрессионизм</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">印象派</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">印象派</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Contemporary_art">
+	<skos:prefLabel xml:lang="fr">Art contemporain</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Arte contemporanea</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Arte contemporáneo</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Arte contemporânea</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Contemporary art</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Hedendaagse kunst</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Samtidskonst</skos:prefLabel>
+	<skos:prefLabel xml:lang="pl">Sztuka współczesna</skos:prefLabel>
+	<skos:prefLabel xml:lang="de">Zeitgenössische Kunst</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Современное искусство</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">當代藝術</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">近代美術と現代美術</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Symbolism">
+	<skos:prefLabel xml:lang="it">Simbolismo (disambigua)</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Symbolism</skos:prefLabel>
+	<skos:prefLabel xml:lang="fr">Symbolisme</skos:prefLabel>
+	<skos:prefLabel xml:lang="de">Symbolismus</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Rococo">
+	<skos:prefLabel xml:lang="en">Rococo</skos:prefLabel>
+	<skos:prefLabel xml:lang="fr">Rococo</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Rococo</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Rococò</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Rococó</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Rococó</skos:prefLabel>
+	<skos:prefLabel xml:lang="de">Rokoko</skos:prefLabel>
+	<skos:prefLabel xml:lang="pl">Rokoko</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Rokoko</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Рококо</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">ロココ</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">洛可可</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Street_art">
+	<skos:prefLabel xml:lang="fr">Art urbain</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Arte di strada</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Arte urbana</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Arte urbano</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Gatukonst</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Street art</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Street art</skos:prefLabel>
+	<skos:prefLabel xml:lang="pl">Street art</skos:prefLabel>
+	<skos:prefLabel xml:lang="de">Streetart</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Стрит-арт</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">ストリートアート</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Minimalism">
+	<skos:prefLabel xml:lang="nl">Minimal art</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Minimalism</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Minimalism</skos:prefLabel>
+	<skos:prefLabel xml:lang="fr">Minimalisme (art)</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Minimalismo</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Minimalismo</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Minimalismo</skos:prefLabel>
+	<skos:prefLabel xml:lang="de">Minimalismus (Kunst)</skos:prefLabel>
+	<skos:prefLabel xml:lang="pl">Minimalizm (sztuki plastyczne)</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Минимал арт</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">ミニマル</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">極簡主義</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Landscape">
+	<skos:prefLabel xml:lang="pl">Krajobraz</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Landscape</skos:prefLabel>
+	<skos:prefLabel xml:lang="de">Landschaft</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Landschap</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Landskap (terräng)</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Paesaggio</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Paisagem</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Paisaje</skos:prefLabel>
+	<skos:prefLabel xml:lang="fr">Paysage</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Ландшафт</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">ランドスケープ</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">景观</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Poster">
+	<skos:prefLabel xml:lang="fr">Affiche</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Affisch</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Cartaz</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Cartel</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Manifesto (stampato)</skos:prefLabel>
+	<skos:prefLabel xml:lang="de">Plakat</skos:prefLabel>
+	<skos:prefLabel xml:lang="pl">Plakat</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Poster</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Poster (kunst)</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Плакат</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">ポスター</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">海報</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Baroque">
+	<skos:prefLabel xml:lang="it">Barocco</skos:prefLabel>
+	<skos:prefLabel xml:lang="de">Barock</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Barocken</skos:prefLabel>
+	<skos:prefLabel xml:lang="pl">Barok</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Barok (stijlperiode)</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Baroque</skos:prefLabel>
+	<skos:prefLabel xml:lang="fr">Baroque</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Barroco</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Barroco</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Барокко</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">バロック</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">巴洛克艺术</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Cubism">
+	<skos:prefLabel xml:lang="en">Cubism</skos:prefLabel>
+	<skos:prefLabel xml:lang="fr">Cubisme</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Cubismo</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Cubismo</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Cubismo</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Kubism</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Kubisme</skos:prefLabel>
+	<skos:prefLabel xml:lang="de">Kubismus</skos:prefLabel>
+	<skos:prefLabel xml:lang="pl">Kubizm</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Кубизм</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">キュビスム</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">立体主义</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Theatre">
+	<skos:prefLabel xml:lang="sv">Teater</skos:prefLabel>
+	<skos:prefLabel xml:lang="pl">Teatr</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Teatro</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Teatro</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Teatro</skos:prefLabel>
+	<skos:prefLabel xml:lang="de">Theater</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Theater (kunstvorm)</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Theatre</skos:prefLabel>
+	<skos:prefLabel xml:lang="fr">Théâtre</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Театр</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">劇場 (藝術)</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">演劇</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Romanticism">
+	<skos:prefLabel xml:lang="en">Romanticism</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Romanticismo</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Romanticismo</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Romantiek (stroming)</skos:prefLabel>
+	<skos:prefLabel xml:lang="de">Romantik</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Romantiken</skos:prefLabel>
+	<skos:prefLabel xml:lang="fr">Romantisme</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Romantismo</skos:prefLabel>
+	<skos:prefLabel xml:lang="pl">Romantyzm</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Романтизм</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">ロマン主義</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">浪漫主义</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Digital_art">
+	<skos:prefLabel xml:lang="fr">Art numérique</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Arte digital</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Arte digital</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Arte digitale</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Digital art</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Digital konst</skos:prefLabel>
+	<skos:prefLabel xml:lang="de">Digitale Kunst</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Digitale kunst</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Компьютерное искусство</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">デジタルアート</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">数字艺术</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Dada">
+	<skos:prefLabel xml:lang="en">Dada</skos:prefLabel>
+	<skos:prefLabel xml:lang="fr">Dada</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Dadaism</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Dadaismo</skos:prefLabel>
+	<skos:prefLabel xml:lang="de">Dadaismus</skos:prefLabel>
+	<skos:prefLabel xml:lang="pl">Dadaizm</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Dadaísmo</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Dadaísmo</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Dadaïsme</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Дадаизм</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">ダダイスム</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">达达主义</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Woodcut">
+	<skos:prefLabel xml:lang="pl">Drzeworyt</skos:prefLabel>
+	<skos:prefLabel xml:lang="de">Holzschnitt</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Houtsnede</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Träsnitt</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Woodcut</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Xilografia</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Xilografía</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Xilogravura</skos:prefLabel>
+	<skos:prefLabel xml:lang="fr">Xylographie</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Ксилография</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">木刻版畫</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">木版画</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Futurism">
+	<skos:prefLabel xml:lang="en">Futurism</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Futurism</skos:prefLabel>
+	<skos:prefLabel xml:lang="fr">Futurisme</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Futurisme</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Futurismo</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Futurismo</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Futurismo</skos:prefLabel>
+	<skos:prefLabel xml:lang="de">Futurismus</skos:prefLabel>
+	<skos:prefLabel xml:lang="pl">Futuryzm</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Футуризм</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">未来主义</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">未来派</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Kitsch">
+	<skos:prefLabel xml:lang="pl">Kicz</skos:prefLabel>
+	<skos:prefLabel xml:lang="de">Kitsch</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Kitsch</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Kitsch</skos:prefLabel>
+	<skos:prefLabel xml:lang="fr">Kitsch</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Kitsch</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Kitsch</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Kitsch</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Kitsch</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Китч</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">キッチュ</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">媚俗</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Renaissance">
+	<skos:prefLabel xml:lang="es">Renacimiento</skos:prefLabel>
+	<skos:prefLabel xml:lang="de">Renaissance</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Renaissance</skos:prefLabel>
+	<skos:prefLabel xml:lang="fr">Renaissance</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Renaissance</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Renascimento</skos:prefLabel>
+	<skos:prefLabel xml:lang="pl">Renesans</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Renässansen</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Rinascimento</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Возрождение</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">ルネサンス</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">文艺复兴</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Pastoral">
+	<skos:prefLabel xml:lang="sv">Herdediktning</skos:prefLabel>
+	<skos:prefLabel xml:lang="de">Pastoral</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Pastoral</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Pastoral (música)</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Pastorale (arte)</skos:prefLabel>
+	<skos:prefLabel xml:lang="fr">Poésie pastorale</skos:prefLabel>
+	<skos:prefLabel xml:lang="pl">Sielanka</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Пастораль</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">パストラル</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">牧歌</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Fashion">
+	<skos:prefLabel xml:lang="en">Fashion</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Moda</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Moda</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Moda</skos:prefLabel>
+	<skos:prefLabel xml:lang="pl">Moda (styl)</skos:prefLabel>
+	<skos:prefLabel xml:lang="de">Mode</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Mode</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Mode</skos:prefLabel>
+	<skos:prefLabel xml:lang="fr">Mode (habillement)</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Мода</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">ファッション</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">時裝</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Modernism">
+	<skos:prefLabel xml:lang="de">Moderne</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Modernidad</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Modernidade</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Modernism</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Modernitet</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Modernità</skos:prefLabel>
+	<skos:prefLabel xml:lang="fr">Modernité</skos:prefLabel>
+	<skos:prefLabel xml:lang="pl">Nowoczesność</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Эпоха модерна</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">モダニズム</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">現代性</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Pre-Raphaelite_Brotherhood">
+	<skos:prefLabel xml:lang="es">Hermandad Prerrafaelita</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Irmandade Pré-Rafaelita</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Pre-Raphaelite Brotherhood</skos:prefLabel>
+	<skos:prefLabel xml:lang="pl">Prerafaelici</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Prerafaeliterna</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Prerafaëlieten</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Preraffaelliti</skos:prefLabel>
+	<skos:prefLabel xml:lang="de">Präraffaeliten</skos:prefLabel>
+	<skos:prefLabel xml:lang="fr">Préraphaélisme</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Прерафаэлиты</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">ラファエル前派</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">前拉斐爾派</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Fine-art_photography">
+	<skos:prefLabel xml:lang="en">Fine-art photography</skos:prefLabel>
+	<skos:prefLabel xml:lang="pl">Fotografia artystyczna</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Fotografia d'arte</skos:prefLabel>
+	<skos:prefLabel xml:lang="de">Künstlerische Fotografie</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Фотоискусство</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">芸術写真</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Expressionism">
+	<skos:prefLabel xml:lang="pl">Ekspresjonizm (sztuka)</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Espressionismo</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Expresionismo</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Expressionism</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Expressionism</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Expressionisme</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Expressionismo</skos:prefLabel>
+	<skos:prefLabel xml:lang="de">Expressionismus</skos:prefLabel>
+	<skos:prefLabel xml:lang="fr">Expressionnisme</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Экспрессионизм</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">表现主义</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">表現主義</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Painting">
+	<skos:prefLabel xml:lang="pl">Malarstwo</skos:prefLabel>
+	<skos:prefLabel xml:lang="de">Malerei</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Målarkonst</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Painting</skos:prefLabel>
+	<skos:prefLabel xml:lang="fr">Peinture</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Pintura</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Pintura</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Pittura</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Schilderkunst</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Живопись</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">絵画</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">绘画</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Porcelain">
+	<skos:prefLabel xml:lang="en">Porcelain</skos:prefLabel>
+	<skos:prefLabel xml:lang="fr">Porcelaine</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Porcelana</skos:prefLabel>
+	<skos:prefLabel xml:lang="pl">Porcelana</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Porcelana</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Porcellana</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Porselein</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Porslin</skos:prefLabel>
+	<skos:prefLabel xml:lang="de">Porzellan</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Фарфор</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">瓷器</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">磁器</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Furniture">
+	<skos:prefLabel xml:lang="it">Arredamento</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Furniture</skos:prefLabel>
+	<skos:prefLabel xml:lang="pl">Meble</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Meubilair</skos:prefLabel>
+	<skos:prefLabel xml:lang="fr">Meuble</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Mobiliario</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Mobiliário</skos:prefLabel>
+	<skos:prefLabel xml:lang="de">Möbel</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Möbel</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Мебель</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">家具</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">家具</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Neoclassicism">
+	<skos:prefLabel xml:lang="de">Klassizismus</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Neoclasicismo</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Neoclassicism</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Neoclassicisme</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Neoclassicismo</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Neoclassicismo</skos:prefLabel>
+	<skos:prefLabel xml:lang="pl">Neoklasycyzm</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Nyklassicism</skos:prefLabel>
+	<skos:prefLabel xml:lang="fr">Néoclassicisme</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Неоклассицизм</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">新古典主義</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">新古典主義</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Realism_(arts)">
+	<skos:prefLabel xml:lang="en">Realism (arts)</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Realismo (arte)</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Realismo artístico</skos:prefLabel>
+	<skos:prefLabel xml:lang="fr">Réalisme (arts)</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">写実主義</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">现实主义</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Surrealism">
+	<skos:prefLabel xml:lang="en">Surrealism</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Surrealism</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Surrealisme</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Surrealismo</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Surrealismo</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Surrealismo</skos:prefLabel>
+	<skos:prefLabel xml:lang="de">Surrealismus</skos:prefLabel>
+	<skos:prefLabel xml:lang="pl">Surrealizm</skos:prefLabel>
+	<skos:prefLabel xml:lang="fr">Surréalisme</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Сюрреализм</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">シュルレアリスム</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">超现实主义</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Still_life">
+	<skos:prefLabel xml:lang="es">Bodegón</skos:prefLabel>
+	<skos:prefLabel xml:lang="pl">Martwa natura</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Natura morta</skos:prefLabel>
+	<skos:prefLabel xml:lang="fr">Nature morte</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Natureza-morta</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Still life</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Stilleben</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Stilleven</skos:prefLabel>
+	<skos:prefLabel xml:lang="de">Stillleben</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Натюрморт</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">静物画</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">静物画</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Sculpture">
+	<skos:prefLabel xml:lang="nl">Beeldhouwkunst</skos:prefLabel>
+	<skos:prefLabel xml:lang="de">Bildhauerei</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Escultura</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Escultura</skos:prefLabel>
+	<skos:prefLabel xml:lang="pl">Rzeźba</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Sculpture</skos:prefLabel>
+	<skos:prefLabel xml:lang="fr">Sculpture</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Scultura</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Skulptur</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Скульптура</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">彫刻</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">雕塑</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Jewellery">
+	<skos:prefLabel xml:lang="pl">Biżuteria</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Gioielleria</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Jewellery</skos:prefLabel>
+	<skos:prefLabel xml:lang="fr">Joaillerie</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Joalharia</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Joyería</skos:prefLabel>
+	<skos:prefLabel xml:lang="de">Schmuck</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Sieraad</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Smycken</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Ювелирное изделие</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">アンティーク・ジュエリー</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">珠寶</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Photograph">
+	<skos:prefLabel xml:lang="de">Bild (Fotografie)</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Foto</skos:prefLabel>
+	<skos:prefLabel xml:lang="en">Photograph</skos:prefLabel>
+	<skos:prefLabel xml:lang="pl">Zdjęcie fotograficzne</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">相片</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://dbpedia.org/resource/Music">
+	<skos:prefLabel xml:lang="en">Music</skos:prefLabel>
+	<skos:prefLabel xml:lang="it">Musica</skos:prefLabel>
+	<skos:prefLabel xml:lang="de">Musik</skos:prefLabel>
+	<skos:prefLabel xml:lang="sv">Musik</skos:prefLabel>
+	<skos:prefLabel xml:lang="fr">Musique</skos:prefLabel>
+	<skos:prefLabel xml:lang="nl">Muziek</skos:prefLabel>
+	<skos:prefLabel xml:lang="pl">Muzyka</skos:prefLabel>
+	<skos:prefLabel xml:lang="es">Música</skos:prefLabel>
+	<skos:prefLabel xml:lang="pt">Música</skos:prefLabel>
+	<skos:prefLabel xml:lang="ru">Музыка</skos:prefLabel>
+	<skos:prefLabel xml:lang="zh">音乐</skos:prefLabel>
+	<skos:prefLabel xml:lang="ja">音楽</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 44 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

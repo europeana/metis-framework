@@ -1,0 +1,1308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AS_OM
+Description: Selected fields pulled from Geonames about OM done on Mon May 23 21:13:35 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/286064/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>20.35099</wgs:lat>
+	<wgs:long>58.61374</wgs:long>
+	<skos:altLabel>Jazīrat Amkads</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Umm al Kids</skos:altLabel>
+	<skos:prefLabel>Jazīrat Umm al Kids</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/286073/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>26.17917</wgs:lat>
+	<wgs:long>56.54694</wgs:long>
+	<skos:altLabel>Faiyārīn</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Umm al Fayyārīn</skos:altLabel>
+	<skos:altLabel>Umm al Faiyārīn</skos:altLabel>
+	<skos:altLabel>Umm al Faiyārīn Island</skos:altLabel>
+	<skos:altLabel>Umm al Fayarin</skos:altLabel>
+	<skos:prefLabel>Jazīrat Umm al Fayyārīn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/286224/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>23.79028</wgs:lat>
+	<wgs:long>57.78361</wgs:long>
+	<skos:altLabel>As Sawādī</skos:altLabel>
+	<skos:altLabel>As Suwādi</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazā’ir Suwādī</skos:altLabel>
+	<skos:altLabel>Jezirat Suwadi</skos:altLabel>
+	<skos:altLabel>Saudi Islands</skos:altLabel>
+	<skos:altLabel>Sawādī</skos:altLabel>
+	<skos:altLabel>Suadi Islands</skos:altLabel>
+	<skos:prefLabel>Jazā’ir Suwādī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/286245/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>71152</europeana:population>
+	<wgs:lat>22.56667</wgs:lat>
+	<wgs:long>59.52889</wgs:long>
+	<skos:altLabel>As Sūr</skos:altLabel>
+	<skos:altLabel xml:lang="es">Sur</skos:altLabel>
+	<skos:altLabel xml:lang="de">Sur</skos:altLabel>
+	<skos:altLabel xml:lang="en">Sur</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Şūr</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сур</skos:altLabel>
+	<skos:prefLabel>Şūr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/286282/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>108274</europeana:population>
+	<wgs:lat>24.36889</wgs:lat>
+	<wgs:long>56.74389</wgs:long>
+	<skos:altLabel>Al Sohar</skos:altLabel>
+	<skos:altLabel>As Sohār</skos:altLabel>
+	<skos:altLabel>Aş Şuḩār</skos:altLabel>
+	<skos:altLabel>Sohār</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Şuḩār</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сухар</skos:altLabel>
+	<skos:prefLabel>Şuḩār</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/286293/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLS"/>
+	<europeana:population>47718</europeana:population>
+	<wgs:lat>23.31667</wgs:lat>
+	<wgs:long>58.01667</wgs:long>
+	<skos:altLabel>Samā’il</skos:altLabel>
+	<skos:altLabel>Sifālat Samāil</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Sufālat Samā’il</skos:altLabel>
+	<skos:prefLabel>Sufālat Samā’il</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/286340/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>20.38791</wgs:lat>
+	<wgs:long>58.63068</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat Şīfah</skos:altLabel>
+	<skos:altLabel>Sanfar</skos:altLabel>
+	<skos:prefLabel>Jazīrat Şīfah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/286402/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>48009</europeana:population>
+	<wgs:lat>24.74333</wgs:lat>
+	<wgs:long>56.46583</wgs:long>
+	<skos:altLabel>Al Shinas</skos:altLabel>
+	<skos:altLabel>Ash Shinās</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Shināş</skos:altLabel>
+	<skos:prefLabel>Shināş</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/286491/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>20.46037</wgs:lat>
+	<wgs:long>58.74905</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat Shaghaf</skos:altLabel>
+	<skos:altLabel>Jazīrat Shaghā</skos:altLabel>
+	<skos:altLabel>Jazīrat Shughf</skos:altLabel>
+	<skos:prefLabel>Jazīrat Shaghaf</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/286551/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.94861</wgs:lat>
+	<wgs:long>54.74222</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat Satīmah Muqsī</skos:altLabel>
+	<skos:altLabel>Jazīrat Setima Muqsī</skos:altLabel>
+	<skos:prefLabel>Jazīrat Satīmah Muqsī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/286621/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>163140</europeana:population>
+	<wgs:lat>17.01505</wgs:lat>
+	<wgs:long>54.09237</wgs:long>
+	<skos:altLabel>As Salala</skos:altLabel>
+	<skos:altLabel>Aş Şalālah</skos:altLabel>
+	<skos:altLabel>Salala</skos:altLabel>
+	<skos:altLabel xml:lang="de">Salala</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Salala</skos:altLabel>
+	<skos:altLabel xml:lang="en">Salalah</skos:altLabel>
+	<skos:altLabel xml:lang="it">Salalah</skos:altLabel>
+	<skos:altLabel xml:lang="da">Salalah</skos:altLabel>
+	<skos:altLabel>Āl Kathīr</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Şalālah</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Салала</skos:altLabel>
+	<skos:altLabel xml:lang="ar">صلالة</skos:altLabel>
+	<skos:altLabel xml:lang="fa">صلاله</skos:altLabel>
+	<skos:prefLabel>Şalālah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/286647/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>89327</europeana:population>
+	<wgs:lat>24.17222</wgs:lat>
+	<wgs:long>56.88861</wgs:long>
+	<skos:altLabel>As Şaham</skos:altLabel>
+	<skos:altLabel xml:lang="en">Saham</skos:altLabel>
+	<skos:altLabel>Saham Town</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Şaḩam</skos:altLabel>
+	<skos:altLabel>Şaḩm</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Салам</skos:altLabel>
+	<skos:prefLabel>Şaḩam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/286745/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>26.28167</wgs:lat>
+	<wgs:long>56.45139</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat Ḩamrā’</skos:altLabel>
+	<skos:altLabel>Red Island</skos:altLabel>
+	<skos:altLabel>Red Islet</skos:altLabel>
+	<skos:prefLabel>Jazīrat Ḩamrā’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/286777/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>20.56531</wgs:lat>
+	<wgs:long>58.1562</wgs:long>
+	<skos:altLabel xml:lang="ar">Raqq</skos:altLabel>
+	<skos:altLabel>Rig</skos:altLabel>
+	<skos:prefLabel>Raqq</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/286902/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.61667</wgs:lat>
+	<wgs:long>56.13333</wgs:long>
+	<skos:altLabel>Gharzant Island</skos:altLabel>
+	<skos:altLabel>Gharzaut</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qarzawīt</skos:altLabel>
+	<skos:altLabel>Rodondo</skos:altLabel>
+	<skos:prefLabel>Qarzawīt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/286961/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>20.29346</wgs:lat>
+	<wgs:long>58.62722</wgs:long>
+	<skos:altLabel>Goad al Kalbān</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qa’ād Kalbān</skos:altLabel>
+	<skos:prefLabel>Qa’ād Kalbān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/286963/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255147/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>2967717</europeana:population>
+	<wgs:lat>21</wgs:lat>
+	<wgs:long>57</wgs:long>
+	<skos:altLabel xml:lang="so">Cumaan</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Lomän</skos:altLabel>
+	<skos:altLabel>Masqat and Oman</skos:altLabel>
+	<skos:altLabel>OM</skos:altLabel>
+	<skos:altLabel xml:lang="et">Omaan</skos:altLabel>
+	<skos:altLabel xml:lang="li">Omaan</skos:altLabel>
+	<skos:altLabel xml:lang="id">Oman</skos:altLabel>
+	<skos:altLabel xml:lang="en">Oman</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Oman</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Oman</skos:altLabel>
+	<skos:altLabel xml:lang="de">Oman</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Oman</skos:altLabel>
+	<skos:altLabel xml:lang="it">Oman</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Oman</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Oman</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Oman</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Oman</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Oman</skos:altLabel>
+	<skos:altLabel xml:lang="da">Oman</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Oman</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Oman</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Oman</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Oman</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Oman</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Oman</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Oman</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Oman</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Oman</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Oman</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Oman</skos:altLabel>
+	<skos:altLabel xml:lang="io">Oman</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Oman</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Oman</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Oman</skos:altLabel>
+	<skos:altLabel xml:lang="no">Oman</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Oman</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Oman</skos:altLabel>
+	<skos:altLabel xml:lang="af">Oman</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Oman</skos:altLabel>
+	<skos:altLabel xml:lang="se">Oman</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Omanas</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Omani</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Omani</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Omano</skos:altLabel>
+	<skos:altLabel xml:lang="uz">Omon</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Omàn</skos:altLabel>
+	<skos:altLabel xml:lang="es">Omán</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Omán</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Omán</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Omán</skos:altLabel>
+	<skos:altLabel xml:lang="an">Omán</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Omán</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Omán - عُمان</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Omã</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Omāna</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Salţanat ‘Umān</skos:altLabel>
+	<skos:altLabel xml:lang="en">Sultanate of Oman</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Uman</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Umman</skos:altLabel>
+	<skos:altLabel xml:lang="is">Óman</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ô-man</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ομάν</skos:altLabel>
+	<skos:altLabel xml:lang="be">Аман</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Оман</skos:altLabel>
+	<skos:altLabel xml:lang="os">Оман</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Оман</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Оман</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Оман</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Оман</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Օման</skos:altLabel>
+	<skos:altLabel xml:lang="he">אומן</skos:altLabel>
+	<skos:altLabel xml:lang="he">עומאן</skos:altLabel>
+	<skos:altLabel xml:lang="he">עומן</skos:altLabel>
+	<skos:altLabel xml:lang="ug">ئومان</skos:altLabel>
+	<skos:altLabel xml:lang="ar">عمان</skos:altLabel>
+	<skos:altLabel xml:lang="fa">عمان</skos:altLabel>
+	<skos:altLabel xml:lang="ur">عمان</skos:altLabel>
+	<skos:altLabel xml:lang="ar">عُمان</skos:altLabel>
+	<skos:altLabel xml:lang="hi">ओमान</skos:altLabel>
+	<skos:altLabel xml:lang="ks">ओमान</skos:altLabel>
+	<skos:altLabel xml:lang="sa">ओमान</skos:altLabel>
+	<skos:altLabel xml:lang="bn">ওমান</skos:altLabel>
+	<skos:altLabel xml:lang="ta">ஓமன்</skos:altLabel>
+	<skos:altLabel xml:lang="ta">ஓமான்</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ഒമാന്‍</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศโอมาน</skos:altLabel>
+	<skos:altLabel xml:lang="th">โอมาน</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ໂອມານ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཨོ་མན།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ომანი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ኦማን</skos:altLabel>
+	<skos:altLabel xml:lang="km">អូម៉ង់</skos:altLabel>
+	<skos:altLabel xml:lang="ja">オマーン</skos:altLabel>
+	<skos:altLabel xml:lang="ja">オマーン国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">阿曼</skos:altLabel>
+	<skos:altLabel xml:lang="ko">오만</skos:altLabel>
+	<skos:prefLabel>Sultanate of Oman</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/286987/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>72076</europeana:population>
+	<wgs:lat>22.93333</wgs:lat>
+	<wgs:long>57.53333</wgs:long>
+	<skos:altLabel>Nazwah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Nizwá</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Низва</skos:altLabel>
+	<skos:prefLabel>Nizwá</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/287075/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>26.39</wgs:lat>
+	<wgs:long>56.37889</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Makhrūq</skos:altLabel>
+	<skos:altLabel>Makhbuk</skos:altLabel>
+	<skos:altLabel>Mushkan</skos:altLabel>
+	<skos:prefLabel>Al Makhrūq</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/287092/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>26.36694</wgs:lat>
+	<wgs:long>56.52528</wgs:long>
+	<skos:altLabel>Jazīrat Masandam</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Musandam</skos:altLabel>
+	<skos:prefLabel>Jazīrat Musandam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/287285/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>23.62306</wgs:lat>
+	<wgs:long>58.59917</wgs:long>
+	<skos:altLabel>Al Jazīrah</skos:altLabel>
+	<skos:altLabel>Al Jazīrat</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Masqaţ</skos:altLabel>
+	<skos:altLabel>Jazīrat Muscat</skos:altLabel>
+	<skos:altLabel>Masqat Island</skos:altLabel>
+	<skos:altLabel>Muscat Island</skos:altLabel>
+	<skos:prefLabel>Jazīrat Masqaţ</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/287286/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>797000</europeana:population>
+	<wgs:lat>23.61333</wgs:lat>
+	<wgs:long>58.59333</wgs:long>
+	<skos:altLabel>Mascat</skos:altLabel>
+	<skos:altLabel xml:lang="es">Mascate</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Mascate</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Mascate</skos:altLabel>
+	<skos:altLabel xml:lang="it">Mascate</skos:altLabel>
+	<skos:altLabel>Maskat</skos:altLabel>
+	<skos:altLabel xml:lang="de">Maskat</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Maskat</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Maskat</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Maskat</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Maskat</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Maskatas</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Masqat</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Masqat</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Masqaţ</skos:altLabel>
+	<skos:altLabel xml:lang="et">Masqaţ</skos:altLabel>
+	<skos:altLabel>Masquat</skos:altLabel>
+	<skos:altLabel xml:lang="da">Muscat</skos:altLabel>
+	<skos:altLabel xml:lang="io">Muscat</skos:altLabel>
+	<skos:altLabel xml:lang="it">Muscat</skos:altLabel>
+	<skos:altLabel xml:lang="en">Muscat</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Muskat</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Muskat</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Mäskat</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μουσκάτ</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Маскат</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Маскат</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Մասկատ</skos:altLabel>
+	<skos:altLabel xml:lang="he">מוסקט</skos:altLabel>
+	<skos:altLabel xml:lang="ar">محافظة مسقط</skos:altLabel>
+	<skos:altLabel xml:lang="fa">مسقط</skos:altLabel>
+	<skos:altLabel xml:lang="ar">مسقط</skos:altLabel>
+	<skos:altLabel xml:lang="am">መስከት</skos:altLabel>
+	<skos:altLabel xml:lang="ja">マスカット</skos:altLabel>
+	<skos:altLabel xml:lang="zh">马斯喀特</skos:altLabel>
+	<skos:altLabel xml:lang="ko">무스카트</skos:altLabel>
+	<skos:prefLabel>Muscat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/287295/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>20.42016</wgs:lat>
+	<wgs:long>58.78937</wgs:long>
+	<skos:altLabel>Al Masira</skos:altLabel>
+	<skos:altLabel>Al Maşīrah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Maşīrah</skos:altLabel>
+	<skos:altLabel>Jazīrat al Masīrah</skos:altLabel>
+	<skos:altLabel>Masīra</skos:altLabel>
+	<skos:altLabel>Maşīrah</skos:altLabel>
+	<skos:altLabel>Mesirah</skos:altLabel>
+	<skos:prefLabel>Jazīrat Maşīrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/287332/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>23.78778</wgs:lat>
+	<wgs:long>57.78167</wgs:long>
+	<skos:altLabel>Makbara</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Maqbarah</skos:altLabel>
+	<skos:prefLabel>Maqbarah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/287409/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>20.56945</wgs:lat>
+	<wgs:long>58.17421</wgs:long>
+	<skos:altLabel>Jazīrat Mahaut</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Maḩawt</skos:altLabel>
+	<skos:altLabel>Mahot</skos:altLabel>
+	<skos:altLabel>Mahut</skos:altLabel>
+	<skos:altLabel>Mahāt</skos:altLabel>
+	<skos:altLabel>Maḩawt</skos:altLabel>
+	<skos:prefLabel>Jazīrat Maḩawt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/287452/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>20.70431</wgs:lat>
+	<wgs:long>58.70045</wgs:long>
+	<skos:altLabel>Jazīrat Maawal</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Ma‘āwil</skos:altLabel>
+	<skos:prefLabel>Jazīrat Ma‘āwil</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/287478/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>25.94222</wgs:lat>
+	<wgs:long>56.46694</wgs:long>
+	<skos:altLabel>Al Ima Island</skos:altLabel>
+	<skos:altLabel>Jazīrat Līma</skos:altLabel>
+	<skos:altLabel>Jazīrat Līmah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Līmā</skos:altLabel>
+	<skos:prefLabel>Jazīrat Līmā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/287540/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>17.5</wgs:lat>
+	<wgs:long>56</wgs:long>
+	<skos:altLabel>Bin Ghalfān</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazā’ir Khurīyā Murīyā</skos:altLabel>
+	<skos:altLabel>Jazā’ir Khūryā Mūryā</skos:altLabel>
+	<skos:altLabel>Khorya Morya Islands</skos:altLabel>
+	<skos:altLabel>Khūryān Mūryān</skos:altLabel>
+	<skos:altLabel>Kuria Muria Islands</skos:altLabel>
+	<skos:prefLabel>Jazā’ir Khurīyā Murīyā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/287571/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>26.36806</wgs:lat>
+	<wgs:long>56.45083</wgs:long>
+	<skos:altLabel>Gūn</skos:altLabel>
+	<skos:altLabel>Jazirat Kān</skos:altLabel>
+	<skos:altLabel>Jazirat al Khail</skos:altLabel>
+	<skos:altLabel>Jazīrat Kūn</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat al Khayl</skos:altLabel>
+	<skos:altLabel>Kūn</skos:altLabel>
+	<skos:altLabel>Kūn Island</skos:altLabel>
+	<skos:prefLabel>Jazīrat al Khayl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/287614/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17904</europeana:population>
+	<wgs:lat>26.19167</wgs:lat>
+	<wgs:long>56.24361</wgs:long>
+	<skos:altLabel>Al Khasal</skos:altLabel>
+	<skos:altLabel>Al Khaşab</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Khaşab</skos:altLabel>
+	<skos:prefLabel>Khaşab</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/287626/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>23.83722</wgs:lat>
+	<wgs:long>58.17139</wgs:long>
+	<skos:altLabel>Jazirat Kharaba</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Kharābah</skos:altLabel>
+	<skos:altLabel>Kharābah</skos:altLabel>
+	<skos:prefLabel>Jazīrat Kharābah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/287706/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>26.395</wgs:lat>
+	<wgs:long>56.53083</wgs:long>
+	<skos:altLabel xml:lang="ar">Kachalu</skos:altLabel>
+	<skos:prefLabel>Kachalu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/287713/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>20.58333</wgs:lat>
+	<wgs:long>58.93333</wgs:long>
+	<skos:altLabel>Jazīrat Janzi</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Juzayrah</skos:altLabel>
+	<skos:prefLabel>Juzayrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/287724/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>23.83278</wgs:lat>
+	<wgs:long>57.98</wgs:long>
+	<skos:altLabel>Jaz Jun Island</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Jūn</skos:altLabel>
+	<skos:prefLabel>Jazīrat Jūn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/287814/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>36203</europeana:population>
+	<wgs:lat>22.93333</wgs:lat>
+	<wgs:long>57.76667</wgs:long>
+	<skos:altLabel>Azkī</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Izkī</skos:altLabel>
+	<skos:altLabel>Ziki</skos:altLabel>
+	<skos:prefLabel>Izkī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/287830/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>101640</europeana:population>
+	<wgs:lat>23.22573</wgs:lat>
+	<wgs:long>56.51572</wgs:long>
+	<skos:altLabel xml:lang="en">Ibri</skos:altLabel>
+	<skos:altLabel xml:lang="no">Ibri</skos:altLabel>
+	<skos:altLabel xml:lang="ar">‘Ibrī</skos:altLabel>
+	<skos:prefLabel>‘Ibrī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/287832/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>25265</europeana:population>
+	<wgs:lat>22.69028</wgs:lat>
+	<wgs:long>58.54694</wgs:long>
+	<skos:altLabel>Bira</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ibrā</skos:altLabel>
+	<skos:altLabel>Sufālat Ibrā’</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ибра</skos:altLabel>
+	<skos:prefLabel>Ibrā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/288078/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>20.36385</wgs:lat>
+	<wgs:long>58.60431</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat al Ḩār</skos:altLabel>
+	<skos:prefLabel>Jazīrat al Ḩār</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/288123/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.79633</wgs:lat>
+	<wgs:long>57.79675</wgs:long>
+	<skos:altLabel>Hamar-an-Nafūr</skos:altLabel>
+	<skos:altLabel>Jazirat Hamar Nafur</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Ḩamar an Nafūr</skos:altLabel>
+	<skos:altLabel>Jazīrat Ḩimār an Nafūr</skos:altLabel>
+	<skos:altLabel>Jazīrāt Hamar an Nafúr</skos:altLabel>
+	<skos:altLabel>Nafūr Island</skos:altLabel>
+	<skos:altLabel>Ḩamar Nafūr</skos:altLabel>
+	<skos:altLabel>Ḩammar Nafūr</skos:altLabel>
+	<skos:prefLabel>Jazīrat Ḩamar an Nafūr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/288295/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>26.35639</wgs:lat>
+	<wgs:long>56.34972</wgs:long>
+	<skos:altLabel>Al Ghanam Island</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Umm al Ghanam</skos:altLabel>
+	<skos:altLabel>Jazīrat al Ghanam</skos:altLabel>
+	<skos:prefLabel>Jazīrat Umm al Ghanam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/288413/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>26.49778</wgs:lat>
+	<wgs:long>56.52861</wgs:long>
+	<skos:altLabel xml:lang="ar">Fanakū</skos:altLabel>
+	<skos:altLabel>Gap</skos:altLabel>
+	<skos:altLabel>Gap Island</skos:altLabel>
+	<skos:altLabel>Jazīrat Gap</skos:altLabel>
+	<skos:altLabel>Jazīreh-ye Gap</skos:altLabel>
+	<skos:prefLabel>Fanakū</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/288446/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>23.67972</wgs:lat>
+	<wgs:long>58.50222</wgs:long>
+	<skos:altLabel>Al Faḩl</skos:altLabel>
+	<skos:altLabel>Fahal Island</skos:altLabel>
+	<skos:altLabel>Fahl</skos:altLabel>
+	<skos:altLabel>Jazīrat Faḩl</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat al Faḩl</skos:altLabel>
+	<skos:prefLabel>Jazīrat al Faḩl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/288506/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>26.47917</wgs:lat>
+	<wgs:long>56.53778</wgs:long>
+	<skos:altLabel xml:lang="ar">Dīdāmar</skos:altLabel>
+	<skos:altLabel>Jazīrat Quwayn aş Şaghīr</skos:altLabel>
+	<skos:altLabel>Jazīrat Salāmī</skos:altLabel>
+	<skos:altLabel>Jazīreh-ye Qovān-e Kūchek</skos:altLabel>
+	<skos:altLabel>Little Quoin</skos:altLabel>
+	<skos:altLabel>Little Quoin Island</skos:altLabel>
+	<skos:altLabel>Quwayn as Saghir</skos:altLabel>
+	<skos:altLabel>Shanaku</skos:altLabel>
+	<skos:prefLabel>Dīdāmar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/288540/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>23.845</wgs:lat>
+	<wgs:long>58.08639</wgs:long>
+	<skos:altLabel>Al-Daymāniyyāt</skos:altLabel>
+	<skos:altLabel>Daimaniyat Islands</skos:altLabel>
+	<skos:altLabel>Daimāniyāt</skos:altLabel>
+	<skos:altLabel>Daymānīyāt Island</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazā’ir Daymānīyāt</skos:altLabel>
+	<skos:altLabel>Saba‘ Jazāir</skos:altLabel>
+	<skos:prefLabel>Jazā’ir Daymānīyāt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/288629/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>26.40222</wgs:lat>
+	<wgs:long>56.495</wgs:long>
+	<skos:altLabel xml:lang="ar">Bū Rāshid</skos:altLabel>
+	<skos:altLabel>Jazīrat Tawakkul</skos:altLabel>
+	<skos:altLabel>Tawakkul Island</skos:altLabel>
+	<skos:prefLabel>Bū Rāshid</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/288689/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>20.6175</wgs:lat>
+	<wgs:long>58.80861</wgs:long>
+	<skos:altLabel>Bāy Bin Quwaysim</skos:altLabel>
+	<skos:altLabel>Jazīrat Bin Juwaisim</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Bin Quwaysim</skos:altLabel>
+	<skos:prefLabel>Jazīrat Bin Quwaysim</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/288721/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21188</europeana:population>
+	<wgs:lat>23.40639</wgs:lat>
+	<wgs:long>58.12639</wgs:long>
+	<skos:altLabel xml:lang="ar">Bidbid</skos:altLabel>
+	<skos:prefLabel>Bidbid</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/288764/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>159487</europeana:population>
+	<wgs:lat>23.55827</wgs:lat>
+	<wgs:long>58.41063</wgs:long>
+	<skos:altLabel>Baushar</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Bawshar</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بوشر</skos:altLabel>
+	<skos:prefLabel>Bawshar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/288789/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>81647</europeana:population>
+	<wgs:lat>23.70917</wgs:lat>
+	<wgs:long>57.88694</wgs:long>
+	<skos:altLabel>Barkah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Barkā’</skos:altLabel>
+	<skos:prefLabel>Barkā’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/288899/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>54338</europeana:population>
+	<wgs:lat>22.96667</wgs:lat>
+	<wgs:long>57.3</wgs:long>
+	<skos:altLabel>Bahlah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Bahlā’</skos:altLabel>
+	<skos:prefLabel>Bahlā’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/288902/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLS"/>
+	<europeana:population>18479</europeana:population>
+	<wgs:lat>22.45</wgs:lat>
+	<wgs:long>58.8</wgs:long>
+	<skos:altLabel>Badiya</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Badīyah</skos:altLabel>
+	<skos:prefLabel>Badīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/288955/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>107143</europeana:population>
+	<wgs:lat>23.84944</wgs:lat>
+	<wgs:long>57.43861</wgs:long>
+	<skos:altLabel>As Suwaiq</skos:altLabel>
+	<skos:altLabel xml:lang="ar">As Suwayq</skos:altLabel>
+	<skos:altLabel>Suwaik</skos:altLabel>
+	<skos:altLabel>Suwayq</skos:altLabel>
+	<skos:prefLabel>As Suwayq</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/288967/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>237816</europeana:population>
+	<wgs:lat>23.68028</wgs:lat>
+	<wgs:long>58.1825</wgs:long>
+	<skos:altLabel>Al-Sīb</skos:altLabel>
+	<skos:altLabel xml:lang="ar">As Sīb</skos:altLabel>
+	<skos:altLabel>Sib</skos:altLabel>
+	<skos:prefLabel>As Sīb</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/288968/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.49391</wgs:lat>
+	<wgs:long>55.85613</wgs:long>
+	<skos:altLabel>Al-Sauda</skos:altLabel>
+	<skos:altLabel>Al-Sawdā’</skos:altLabel>
+	<skos:altLabel xml:lang="ar">As Sawdā’</skos:altLabel>
+	<skos:altLabel>As Sūda</skos:altLabel>
+	<skos:altLabel>Sawdā’</skos:altLabel>
+	<skos:altLabel>Soda Island</skos:altLabel>
+	<skos:altLabel>Suda Island</skos:altLabel>
+	<skos:prefLabel>As Sawdā’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/288973/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>26.49194</wgs:lat>
+	<wgs:long>56.52528</wgs:long>
+	<skos:altLabel>As Salāma wa Banāt-hā</skos:altLabel>
+	<skos:altLabel xml:lang="ar">As Salāmah wa Banātuhā</skos:altLabel>
+	<skos:altLabel>Banāt Salāma</skos:altLabel>
+	<skos:altLabel>Banāt Salāmah</skos:altLabel>
+	<skos:altLabel>Quoins</skos:altLabel>
+	<skos:altLabel>Salamah wa Binatahah</skos:altLabel>
+	<skos:altLabel>Salamah-wa-Binat-Ha</skos:altLabel>
+	<skos:prefLabel>As Salāmah wa Banātuhā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/288974/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>26.505</wgs:lat>
+	<wgs:long>56.51139</wgs:long>
+	<skos:altLabel>As Salāma Island</skos:altLabel>
+	<skos:altLabel xml:lang="ar">As Salāmah</skos:altLabel>
+	<skos:altLabel>Banāt Salāmī</skos:altLabel>
+	<skos:altLabel>Great Quoin</skos:altLabel>
+	<skos:altLabel>Jazīrat as Salāmah</skos:altLabel>
+	<skos:altLabel>Jazīreh-ye Qovān-e Bozorg</skos:altLabel>
+	<skos:altLabel>Jazīreh-ye Salāmeh</skos:altLabel>
+	<skos:altLabel>Mumār</skos:altLabel>
+	<skos:altLabel>Quoin Island</skos:altLabel>
+	<skos:altLabel>Salāmīyeh</skos:altLabel>
+	<skos:prefLabel>As Salāmah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/289011/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>79383</europeana:population>
+	<wgs:lat>23.39083</wgs:lat>
+	<wgs:long>57.42444</wgs:long>
+	<skos:altLabel>Ar Rustāq</skos:altLabel>
+	<skos:altLabel>Qal‘at Kasrá</skos:altLabel>
+	<skos:altLabel>Rostak</skos:altLabel>
+	<skos:altLabel xml:lang="en">Rustaq</skos:altLabel>
+	<skos:altLabel xml:lang="de">Rustaq</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Rustāq</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Рустака</skos:altLabel>
+	<skos:prefLabel>Rustāq</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/289124/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.50134</wgs:lat>
+	<wgs:long>56.34025</wgs:long>
+	<skos:altLabel>Al Qibiliya</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Al Qiblīyah</skos:altLabel>
+	<skos:altLabel>Jabalīyah</skos:altLabel>
+	<skos:altLabel>Jazīrat Qiblīyah</skos:altLabel>
+	<skos:altLabel>Jezirat Kabliya</skos:altLabel>
+	<skos:altLabel>Jibhyah Island</skos:altLabel>
+	<skos:altLabel>Jiblīyah</skos:altLabel>
+	<skos:altLabel>Jubaylīyah</skos:altLabel>
+	<skos:altLabel>Qiblīya Island</skos:altLabel>
+	<skos:prefLabel>Al Qiblīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/289142/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14008</europeana:population>
+	<wgs:lat>22.56667</wgs:lat>
+	<wgs:long>58.7</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Qābil</skos:altLabel>
+	<skos:altLabel>Gabil</skos:altLabel>
+	<skos:altLabel>Qabil</skos:altLabel>
+	<skos:altLabel>Qābil al Hirth</skos:altLabel>
+	<skos:prefLabel>Al Qābil</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/289174/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>26372</europeana:population>
+	<wgs:lat>24.53611</wgs:lat>
+	<wgs:long>56.56556</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Liwā’</skos:altLabel>
+	<skos:altLabel>Liwā’</skos:altLabel>
+	<skos:altLabel>Ḩillat al Ḩisn</skos:altLabel>
+	<skos:prefLabel>Al Liwā’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/289199/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>50223</europeana:population>
+	<wgs:lat>23.98111</wgs:lat>
+	<wgs:long>57.10444</wgs:long>
+	<skos:altLabel>Al Khābūra</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Al Khābūrah</skos:altLabel>
+	<skos:altLabel>Al-Khabourah</skos:altLabel>
+	<skos:altLabel>Khabura</skos:altLabel>
+	<skos:altLabel>Khābūrah</skos:altLabel>
+	<skos:prefLabel>Al Khābūrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/289268/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.4767</wgs:lat>
+	<wgs:long>55.60201</wgs:long>
+	<skos:altLabel>Al Hasikiya</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Al Ḩāsikīyah</skos:altLabel>
+	<skos:altLabel>Al-Ḩāsikiyya</skos:altLabel>
+	<skos:altLabel>Hasikiya Island</skos:altLabel>
+	<skos:altLabel>Haski</skos:altLabel>
+	<skos:altLabel>Hāskīyah</skos:altLabel>
+	<skos:altLabel>Hāsīkīya</skos:altLabel>
+	<skos:prefLabel>Al Ḩāsikīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/289280/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.50634</wgs:lat>
+	<wgs:long>56.0238</wgs:long>
+	<skos:altLabel>Al Hallaniya</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Al Ḩallānīyah</skos:altLabel>
+	<skos:altLabel>Hallānīya Island</skos:altLabel>
+	<skos:altLabel>Hallānīyah</skos:altLabel>
+	<skos:altLabel>Jazīrat al Ḩallānīyah</skos:altLabel>
+	<skos:prefLabel>Al Ḩallānīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/289317/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>73670</europeana:population>
+	<wgs:lat>24.25</wgs:lat>
+	<wgs:long>55.75</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Buraymī</skos:altLabel>
+	<skos:altLabel>Baraimi</skos:altLabel>
+	<skos:altLabel>Bireimi</skos:altLabel>
+	<skos:altLabel>Buraimi</skos:altLabel>
+	<skos:altLabel xml:lang="de">Buraimi</skos:altLabel>
+	<skos:altLabel xml:lang="en">Buraimi</skos:altLabel>
+	<skos:altLabel>Burami</skos:altLabel>
+	<skos:prefLabel>Al Buraymī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/289428/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>23.78806</wgs:lat>
+	<wgs:long>57.79694</wgs:long>
+	<skos:altLabel xml:lang="ar">Jabal ‘Add</skos:altLabel>
+	<skos:prefLabel>Jabal ‘Add</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/289433/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17283</europeana:population>
+	<wgs:lat>22.38333</wgs:lat>
+	<wgs:long>57.53333</wgs:long>
+	<skos:altLabel xml:lang="ar">Ādam</skos:altLabel>
+	<skos:prefLabel>Ādam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/289449/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>26.37806</wgs:lat>
+	<wgs:long>56.41639</wgs:long>
+	<skos:altLabel>Jazīrat Abu Chīr</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Abū Şīr</skos:altLabel>
+	<skos:altLabel>Jazīrat Fujar</skos:altLabel>
+	<skos:prefLabel>Jazīrat Abū Şīr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/289473/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>20.49857</wgs:lat>
+	<wgs:long>58.16508</wgs:long>
+	<skos:altLabel>Ab</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Abb</skos:altLabel>
+	<skos:altLabel>Ibb</skos:altLabel>
+	<skos:altLabel>Jazīrat ‘Abb</skos:altLabel>
+	<skos:prefLabel>Abb</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/390435/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>26.19556</wgs:lat>
+	<wgs:long>56.34306</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat al Maqlab</skos:altLabel>
+	<skos:altLabel>Jazīrat Şaghīr</skos:altLabel>
+	<skos:prefLabel>Jazīrat al Maqlab</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/390437/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>26.2025</wgs:lat>
+	<wgs:long>56.34778</wgs:long>
+	<skos:altLabel>Jazīrat Kabīr</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Shamm</skos:altLabel>
+	<skos:prefLabel>Jazīrat Shamm</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/390463/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>26.21944</wgs:lat>
+	<wgs:long>56.39222</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat Şībī</skos:altLabel>
+	<skos:prefLabel>Jazīrat Şībī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/390487/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>26.1975</wgs:lat>
+	<wgs:long>56.37611</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat Maqāqah</skos:altLabel>
+	<skos:prefLabel>Jazīrat Maqāqah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/390499/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>26.1625</wgs:lat>
+	<wgs:long>56.35611</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat Ḩabalayn</skos:altLabel>
+	<skos:prefLabel>Jazīrat Ḩabalayn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/390540/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>26.3725</wgs:lat>
+	<wgs:long>56.4175</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat Mukhaylif</skos:altLabel>
+	<skos:altLabel>Katu</skos:altLabel>
+	<skos:prefLabel>Jazīrat Mukhaylif</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/390545/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>26.29611</wgs:lat>
+	<wgs:long>56.4525</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat Sawdā’</skos:altLabel>
+	<skos:prefLabel>Jazīrat Sawdā’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/409649/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>20.58062</wgs:lat>
+	<wgs:long>58.93584</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat Thukhayr</skos:altLabel>
+	<skos:prefLabel>Jazīrat Thukhayr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/409805/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>20.43611</wgs:lat>
+	<wgs:long>58.71611</wgs:long>
+	<skos:altLabel xml:lang="ar">Aḑyūḩ</skos:altLabel>
+	<skos:prefLabel>Aḑyūḩ</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/411735/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>22.4</wgs:lat>
+	<wgs:long>57.53333</wgs:long>
+	<skos:altLabel>Ad Dākhilīyah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Al Minţaqah ad Dākhilīyah</skos:altLabel>
+	<skos:prefLabel>Al Minţaqah ad Dākhilīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/411736/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>668618</europeana:population>
+	<wgs:lat>23.75</wgs:lat>
+	<wgs:long>57</wgs:long>
+	<skos:altLabel>Al Bāţinah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Minţaqat al Bāţinah</skos:altLabel>
+	<skos:prefLabel>Minţaqat al Bāţinah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/411737/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>24196</europeana:population>
+	<wgs:lat>19.95</wgs:lat>
+	<wgs:long>56.28333</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Minţaqah al Wusţá</skos:altLabel>
+	<skos:altLabel>Al Wusţá</skos:altLabel>
+	<skos:prefLabel>Al Minţaqah al Wusţá</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/411738/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>323915</europeana:population>
+	<wgs:lat>22</wgs:lat>
+	<wgs:long>58.55</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Minţaqah ash Sharqīyah</skos:altLabel>
+	<skos:altLabel>Ash Sharqīyah</skos:altLabel>
+	<skos:prefLabel>Al Minţaqah ash Sharqīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/411739/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>22.93368</wgs:lat>
+	<wgs:long>56.58523</wgs:long>
+	<skos:altLabel>Az̧ Z̧āhirah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Az̧ Z̧āhirah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Minţaqat az̧ Z̧āhirah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الظاهرة</skos:altLabel>
+	<skos:altLabel xml:lang="ar">منطقة الظاهرة</skos:altLabel>
+	<skos:prefLabel>Minţaqat az̧ Z̧āhirah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/411740/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>23.5</wgs:lat>
+	<wgs:long>58.51667</wgs:long>
+	<skos:altLabel>Masqaţ</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Minţaqat Masqaţ</skos:altLabel>
+	<skos:prefLabel>Minţaqat Masqaţ</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/411741/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>28218</europeana:population>
+	<wgs:lat>25.95</wgs:lat>
+	<wgs:long>56.26667</wgs:long>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at Musandam</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at Musandam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/411742/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>18.38333</wgs:lat>
+	<wgs:long>54.06667</wgs:long>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at Z̧ufār</skos:altLabel>
+	<skos:altLabel>Z̧ufār</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at Z̧ufār</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/411849/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16599</europeana:population>
+	<wgs:lat>23.58556</wgs:lat>
+	<wgs:long>56.54083</wgs:long>
+	<skos:altLabel xml:lang="ar">Yanqul</skos:altLabel>
+	<skos:prefLabel>Yanqul</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/412084/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10711</europeana:population>
+	<wgs:lat>23.29972</wgs:lat>
+	<wgs:long>57.52944</wgs:long>
+	<skos:altLabel xml:lang="ar">Bayt al ‘Awābī</skos:altLabel>
+	<skos:prefLabel>Bayt al ‘Awābī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7110710/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/286963/"/>
+	<europeana:country>OM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>24.10014</wgs:lat>
+	<wgs:long>56.10027</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Buraymī</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at al Buraymī</skos:altLabel>
+	<skos:altLabel xml:lang="ar">البريمي</skos:altLabel>
+	<skos:altLabel xml:lang="ar">محافظة البريمي</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at al Buraymī</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 87 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

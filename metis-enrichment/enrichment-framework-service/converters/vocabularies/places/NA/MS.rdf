@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: NA_MS
+Description: Selected fields pulled from Geonames about MS done on Mon May 23 21:14:28 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/3578039/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3578097/"/>
+	<europeana:country>MS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>16.78333</wgs:lat>
+	<wgs:long>-62.2</wgs:long>
+	<skos:altLabel>Parish of Saint Peter</skos:altLabel>
+	<skos:altLabel>Saint Peter</skos:altLabel>
+	<skos:prefLabel>Parish of Saint Peter</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3578044/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3578097/"/>
+	<europeana:country>MS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>16.76667</wgs:lat>
+	<wgs:long>-62.2</wgs:long>
+	<skos:altLabel>Parish of Saint Georges</skos:altLabel>
+	<skos:altLabel>Saint George</skos:altLabel>
+	<skos:altLabel>Saint Georges</skos:altLabel>
+	<skos:prefLabel>Parish of Saint Georges</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3578045/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3578097/"/>
+	<europeana:country>MS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>16.7</wgs:lat>
+	<wgs:long>-62.2</wgs:long>
+	<skos:altLabel>Parish of Saint Anthony</skos:altLabel>
+	<skos:altLabel>Saint Anthony</skos:altLabel>
+	<skos:prefLabel>Parish of Saint Anthony</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3578097/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255149/"/>
+	<europeana:country>MS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLD"/>
+	<europeana:population>9341</europeana:population>
+	<wgs:lat>16.75</wgs:lat>
+	<wgs:long>-62.2</wgs:long>
+	<skos:altLabel xml:lang="ca">Illa de Montserrat</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Illa de Montserrat</skos:altLabel>
+	<skos:altLabel>MS</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Moncerato</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Montsarat</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Montseratas</skos:altLabel>
+	<skos:altLabel xml:lang="id">Montserrat</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Montserrat</skos:altLabel>
+	<skos:altLabel xml:lang="en">Montserrat</skos:altLabel>
+	<skos:altLabel xml:lang="da">Montserrat</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Montserrat</skos:altLabel>
+	<skos:altLabel xml:lang="is">Montserrat</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Montserrat</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Montserrat</skos:altLabel>
+	<skos:altLabel xml:lang="no">Montserrat</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Montserrat</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Montserrat</skos:altLabel>
+	<skos:altLabel xml:lang="de">Montserrat</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Montserrat</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Montserrat</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Montserrat</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Montserrat</skos:altLabel>
+	<skos:altLabel xml:lang="io">Montserrat</skos:altLabel>
+	<skos:altLabel xml:lang="it">Montserrat</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Montserrat</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Montserrat</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Montserrat</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Montserrat</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Montserrat</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Montserrat</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Montserrat</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Montserrat</skos:altLabel>
+	<skos:altLabel xml:lang="et">Montserrat</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Montserrat</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Montserrat</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Montserrat</skos:altLabel>
+	<skos:altLabel xml:lang="se">Montserrat</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Montserrat</skos:altLabel>
+	<skos:altLabel xml:lang="es">Montserrat</skos:altLabel>
+	<skos:altLabel>Montserrat</skos:altLabel>
+	<skos:altLabel>Montserrat Colony of</skos:altLabel>
+	<skos:altLabel>Montserrat Presidency</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Montserrata</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Montserratas</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Motserrat</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μονσεράτ</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μοντσερράτ</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Монсерат</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Монсерат</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Монсерат</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Монсеррат</skos:altLabel>
+	<skos:altLabel xml:lang="be">Монсэрат</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Монтсеррат</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Монтсеррат</skos:altLabel>
+	<skos:altLabel xml:lang="he">מונטסראט</skos:altLabel>
+	<skos:altLabel xml:lang="he">מונסראט</skos:altLabel>
+	<skos:altLabel xml:lang="ar">مونتسرات</skos:altLabel>
+	<skos:altLabel xml:lang="fa">مونت‌سرات</skos:altLabel>
+	<skos:altLabel xml:lang="hi">मॉन्ट्सेराट</skos:altLabel>
+	<skos:altLabel xml:lang="bn">মন্তেসেরাত</skos:altLabel>
+	<skos:altLabel xml:lang="th">มอนต์เซอร์รัต</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ມອນເຊີລາດ</skos:altLabel>
+	<skos:altLabel xml:lang="dz">མོན་ས་རཊི</skos:altLabel>
+	<skos:altLabel xml:lang="ka">მონსერატი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሞንትሴራት</skos:altLabel>
+	<skos:altLabel xml:lang="ja">モントセラト</skos:altLabel>
+	<skos:altLabel xml:lang="ja">モントセラト島</skos:altLabel>
+	<skos:altLabel xml:lang="zh">蒙塞拉特岛</skos:altLabel>
+	<skos:altLabel xml:lang="zh">蒙特塞拉特</skos:altLabel>
+	<skos:altLabel xml:lang="ko">몬트세라트</skos:altLabel>
+	<skos:altLabel xml:lang="ko">몬트세랫</skos:altLabel>
+	<skos:prefLabel>Montserrat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3578098/">
+	<europeana:country>MS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.73333</wgs:lat>
+	<wgs:long>-62.18333</wgs:long>
+	<skos:prefLabel>Montserrat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3578114/">
+	<europeana:country>MS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.81667</wgs:lat>
+	<wgs:long>-62.18333</wgs:long>
+	<skos:prefLabel>Little Redonda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3578239/">
+	<europeana:country>MS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>16.73333</wgs:lat>
+	<wgs:long>-62.15</wgs:long>
+	<skos:prefLabel>Bethel Yard</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 6 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

@@ -1,0 +1,1366 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: SA_GF
+Description: Selected fields pulled from Geonames about GF done on Mon May 23 21:15:14 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/3379999/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.38333</wgs:lat>
+	<wgs:long>-54.05</wgs:long>
+	<skos:prefLabel>Zaou Tabiki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3380025/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>3.61667</wgs:lat>
+	<wgs:long>-52</wgs:long>
+	<skos:altLabel>Îlets Yacarescin</skos:altLabel>
+	<skos:altLabel>Îlets Yakaréssing</skos:altLabel>
+	<skos:prefLabel>Îlets Yacarescin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3380049/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.35</wgs:lat>
+	<wgs:long>-52.16667</wgs:long>
+	<skos:prefLabel>Îlet Waïwarou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3380052/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.2</wgs:lat>
+	<wgs:long>-52.28333</wgs:long>
+	<skos:prefLabel>Îlet Vovony</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3380083/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.4</wgs:lat>
+	<wgs:long>-52.83333</wgs:long>
+	<skos:prefLabel>Île Verte</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3380092/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.33333</wgs:lat>
+	<wgs:long>-52.06667</wgs:long>
+	<skos:prefLabel>Îlet Vendôme</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3380172/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>3.38333</wgs:lat>
+	<wgs:long>-52.15</wgs:long>
+	<skos:altLabel>Ilet Toïlopiqué</skos:altLabel>
+	<skos:altLabel>Îlets Taïlopiqué</skos:altLabel>
+	<skos:altLabel>Îlets Toïlopiké</skos:altLabel>
+	<skos:altLabel>Îlets Toïlopiqué</skos:altLabel>
+	<skos:prefLabel>Îlets Toïlopiké</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3380314/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.35</wgs:lat>
+	<wgs:long>-51.98333</wgs:long>
+	<skos:altLabel>Ile Paté</skos:altLabel>
+	<skos:altLabel>Ile aux 7 Chapelets</skos:altLabel>
+	<skos:altLabel>Ilot Sable</skos:altLabel>
+	<skos:altLabel>Île aux Sept Chapelets</skos:altLabel>
+	<skos:prefLabel>Île aux Sept Chapelets</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3380359/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>5.28333</wgs:lat>
+	<wgs:long>-52.58333</wgs:long>
+	<skos:altLabel>Iles au Diable</skos:altLabel>
+	<skos:altLabel>Isle de Salute</skos:altLabel>
+	<skos:altLabel>Safety Islands</skos:altLabel>
+	<skos:altLabel>Salut Islands</skos:altLabel>
+	<skos:altLabel>Îles du Salut</skos:altLabel>
+	<skos:prefLabel>Îles du Salut</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3380360/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.16667</wgs:lat>
+	<wgs:long>-54.33333</wgs:long>
+	<skos:altLabel>Île Sacoura</skos:altLabel>
+	<skos:altLabel>Île Sakoura</skos:altLabel>
+	<skos:prefLabel>Île Sakoura</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3380365/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>4.65</wgs:lat>
+	<wgs:long>-52.35</wgs:long>
+	<skos:prefLabel>Îlets Saint-Régis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3380386/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6690606/"/>
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<europeana:population>61439</europeana:population>
+	<wgs:lat>4</wgs:lat>
+	<wgs:long>-53.75</wgs:long>
+	<skos:prefLabel>Arrondissement de Saint-Laurent-du-Maroni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3380387/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>24287</europeana:population>
+	<wgs:lat>5.5</wgs:lat>
+	<wgs:long>-54.03333</wgs:long>
+	<skos:altLabel>Laurent</skos:altLabel>
+	<skos:altLabel>Maroni</skos:altLabel>
+	<skos:altLabel>Saint Laurent</skos:altLabel>
+	<skos:altLabel>Sainte Laurent</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сен-Лоран-дю-Марони</skos:altLabel>
+	<skos:prefLabel>Saint-Laurent-du-Maroni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3380391/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.28333</wgs:lat>
+	<wgs:long>-52.58333</wgs:long>
+	<skos:prefLabel>Île Saint-Joseph</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3380448/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.28333</wgs:lat>
+	<wgs:long>-52.58333</wgs:long>
+	<skos:altLabel>Ile Royal</skos:altLabel>
+	<skos:altLabel>Île Royale</skos:altLabel>
+	<skos:prefLabel>Île Royale</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3380452/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.83333</wgs:lat>
+	<wgs:long>-54.46667</wgs:long>
+	<skos:prefLabel>Rouga Tabiki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3380489/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.28333</wgs:lat>
+	<wgs:long>-52.21667</wgs:long>
+	<skos:prefLabel>Îlet Roche Ananas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3380518/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>4.91667</wgs:lat>
+	<wgs:long>-52.2</wgs:long>
+	<skos:prefLabel>Îles Rémire</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3380528/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>4.03333</wgs:lat>
+	<wgs:long>-51.7</wgs:long>
+	<skos:prefLabel>Îlets Ramier</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3380533/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.46667</wgs:lat>
+	<wgs:long>-54.06667</wgs:long>
+	<skos:altLabel>Eiland Oronobo</skos:altLabel>
+	<skos:altLabel>Ile Pareithy</skos:altLabel>
+	<skos:altLabel>Papegaai Tabbetje</skos:altLabel>
+	<skos:altLabel>Île Quarantaine</skos:altLabel>
+	<skos:prefLabel>Île Quarantaine</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3380540/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.86667</wgs:lat>
+	<wgs:long>-54.46667</wgs:long>
+	<skos:prefLabel>Pouga Tabiki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3380545/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.41667</wgs:lat>
+	<wgs:long>-54.08333</wgs:long>
+	<skos:altLabel>De Portal</skos:altLabel>
+	<skos:altLabel>Portal Eiland</skos:altLabel>
+	<skos:altLabel>Portal Island</skos:altLabel>
+	<skos:altLabel>Portal Tabbetje</skos:altLabel>
+	<skos:altLabel>Île Portal</skos:altLabel>
+	<skos:prefLabel>Île Portal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3380587/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.63333</wgs:lat>
+	<wgs:long>-54.43333</wgs:long>
+	<skos:prefLabel>Pina Tabiki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3380591/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.23333</wgs:lat>
+	<wgs:long>-54.06667</wgs:long>
+	<skos:altLabel>Pikin Tabiki</skos:altLabel>
+	<skos:altLabel>Pikinn Tabiki</skos:altLabel>
+	<skos:altLabel>Pitupata</skos:altLabel>
+	<skos:prefLabel>Pikinn Tabiki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3380674/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.15</wgs:lat>
+	<wgs:long>-51.65</wgs:long>
+	<skos:altLabel>Ile Perroquet</skos:altLabel>
+	<skos:altLabel>Îlet Perroquet</skos:altLabel>
+	<skos:prefLabel>Îlet Perroquet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3380675/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.36667</wgs:lat>
+	<wgs:long>-51.96667</wgs:long>
+	<skos:prefLabel>Île Perroquet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3380687/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>4.16667</wgs:lat>
+	<wgs:long>-51.78333</wgs:long>
+	<skos:prefLabel>Pays Indien</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3380770/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>2.83333</wgs:lat>
+	<wgs:long>-52.45</wgs:long>
+	<skos:prefLabel>Pahan Tapélé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3380783/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.05</wgs:lat>
+	<wgs:long>-52.35</wgs:long>
+	<skos:altLabel>Ilet Marécage</skos:altLabel>
+	<skos:altLabel>Ilet Singhou</skos:altLabel>
+	<skos:altLabel>Oussingou Pa'an</skos:altLabel>
+	<skos:prefLabel>Ilet Marécage</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3380791/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.35</wgs:lat>
+	<wgs:long>-52.16667</wgs:long>
+	<skos:altLabel>Saut Ouayeouarou</skos:altLabel>
+	<skos:altLabel>Îlet Ouayeouarou</skos:altLabel>
+	<skos:prefLabel>Îlet Ouayeouarou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3380799/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>3.23333</wgs:lat>
+	<wgs:long>-52.3</wgs:long>
+	<skos:prefLabel>Îlets Ouacarayou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3380821/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.58333</wgs:lat>
+	<wgs:long>-52.01667</wgs:long>
+	<skos:altLabel>Îlet Nouciri</skos:altLabel>
+	<skos:altLabel>Îlet Noussiri</skos:altLabel>
+	<skos:prefLabel>Îlet Noussiri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3380831/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>3.78333</wgs:lat>
+	<wgs:long>-51.93333</wgs:long>
+	<skos:altLabel>Îlets Niasse</skos:altLabel>
+	<skos:prefLabel>Îlets Niasse</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3380832/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.76667</wgs:lat>
+	<wgs:long>-51.91667</wgs:long>
+	<skos:prefLabel>Îlet Niasse</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3380862/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.58333</wgs:lat>
+	<wgs:long>-54.41667</wgs:long>
+	<skos:altLabel>Ile Moussoue</skos:altLabel>
+	<skos:altLabel>Moussoué Santi Tabiki</skos:altLabel>
+	<skos:prefLabel>Moussoué Santi Tabiki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3380875/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>2.6</wgs:lat>
+	<wgs:long>-52.53333</wgs:long>
+	<skos:prefLabel>Îlet Motoura</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3380892/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19029</europeana:population>
+	<wgs:lat>4.91667</wgs:lat>
+	<wgs:long>-52.26667</wgs:long>
+	<skos:altLabel>Montjoli</skos:altLabel>
+	<skos:prefLabel>Rémire-Montjoly</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3380908/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.56667</wgs:lat>
+	<wgs:long>-54.43333</wgs:long>
+	<skos:altLabel>Mompé Soula Tabiki</skos:altLabel>
+	<skos:altLabel>Monpé Soula Tabiki</skos:altLabel>
+	<skos:prefLabel>Mompé Soula Tabiki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3380917/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.08333</wgs:lat>
+	<wgs:long>-54.41667</wgs:long>
+	<skos:altLabel>Feti-eil</skos:altLabel>
+	<skos:altLabel>Ile Feti Tabiki</skos:altLabel>
+	<skos:altLabel>Ile La Moitié</skos:altLabel>
+	<skos:altLabel>Paroe Eiland</skos:altLabel>
+	<skos:altLabel>Paroe Tabbetje</skos:altLabel>
+	<skos:altLabel>Yedina Tabiki</skos:altLabel>
+	<skos:altLabel>Île la Moitié</skos:altLabel>
+	<skos:prefLabel>Île la Moitié</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3380949/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>3.3</wgs:lat>
+	<wgs:long>-52.2</wgs:long>
+	<skos:prefLabel>Îlets Mémora</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3380965/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>26350</europeana:population>
+	<wgs:lat>4.85</wgs:lat>
+	<wgs:long>-52.33333</wgs:long>
+	<skos:altLabel>Matoary</skos:altLabel>
+	<skos:altLabel>Matoury</skos:altLabel>
+	<skos:prefLabel>Matoury</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3380973/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4</wgs:lat>
+	<wgs:long>-51.75</wgs:long>
+	<skos:altLabel>Ile Sainte Marie</skos:altLabel>
+	<skos:altLabel>Îlet Mathieu</skos:altLabel>
+	<skos:prefLabel>Îlet Mathieu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3380977/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.18333</wgs:lat>
+	<wgs:long>-52.21667</wgs:long>
+	<skos:altLabel>Îlet Matamata</skos:altLabel>
+	<skos:prefLabel>Îlet Matamata</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3380978/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3</wgs:lat>
+	<wgs:long>-52.35</wgs:long>
+	<skos:altLabel>Ilet Masikiri</skos:altLabel>
+	<skos:altLabel>Ilet Massiriki</skos:altLabel>
+	<skos:altLabel>Îlet Massikiri</skos:altLabel>
+	<skos:prefLabel>Îlet Massikiri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3381014/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.83333</wgs:lat>
+	<wgs:long>-51.85</wgs:long>
+	<skos:prefLabel>Îlet Marécage</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3381025/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.5</wgs:lat>
+	<wgs:long>-51.95</wgs:long>
+	<skos:altLabel>Ile Mataroni</skos:altLabel>
+	<skos:altLabel>Île Mantouni</skos:altLabel>
+	<skos:altLabel>Îlet Mantouni</skos:altLabel>
+	<skos:prefLabel>Îlet Mantouni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3381161/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.05</wgs:lat>
+	<wgs:long>-53.8</wgs:long>
+	<skos:prefLabel>Îlet Lézard</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3381162/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.15</wgs:lat>
+	<wgs:long>-52.38333</wgs:long>
+	<skos:prefLabel>Îlet Lézard</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3381166/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>5.36667</wgs:lat>
+	<wgs:long>-54.13333</wgs:long>
+	<skos:altLabel>Grand Tabiki</skos:altLabel>
+	<skos:altLabel>Les 7 Iles</skos:altLabel>
+	<skos:altLabel>Les Sept Îles</skos:altLabel>
+	<skos:prefLabel>Les Sept Îles</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3381173/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>4.76667</wgs:lat>
+	<wgs:long>-52.46667</wgs:long>
+	<skos:prefLabel>Les Quatre Îlets</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3381174/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>4.88333</wgs:lat>
+	<wgs:long>-52.16667</wgs:long>
+	<skos:altLabel>Les Mamelles</skos:altLabel>
+	<skos:altLabel>les Deux Filles</skos:altLabel>
+	<skos:prefLabel>Les Mamelles</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3381184/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.48333</wgs:lat>
+	<wgs:long>-54.05</wgs:long>
+	<skos:altLabel>Île Saint Louis</skos:altLabel>
+	<skos:altLabel>Île aux Lépreux</skos:altLabel>
+	<skos:prefLabel>Île aux Lépreux</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3381186/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.8</wgs:lat>
+	<wgs:long>-51.98333</wgs:long>
+	<skos:altLabel>Le Petit Connétable</skos:altLabel>
+	<skos:altLabel>Little Connetable</skos:altLabel>
+	<skos:altLabel>Petit Connétable</skos:altLabel>
+	<skos:prefLabel>Le Petit Connétable</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3381187/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.93333</wgs:lat>
+	<wgs:long>-52.2</wgs:long>
+	<skos:altLabel>Le Père</skos:altLabel>
+	<skos:altLabel>Père Island</skos:altLabel>
+	<skos:altLabel>Île Le Père</skos:altLabel>
+	<skos:prefLabel>Le Père</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3381199/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.96667</wgs:lat>
+	<wgs:long>-52.25</wgs:long>
+	<skos:altLabel>Le Malingre</skos:altLabel>
+	<skos:altLabel>Malingre Island</skos:altLabel>
+	<skos:prefLabel>Le Malingre</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3381204/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.83333</wgs:lat>
+	<wgs:long>-51.93333</wgs:long>
+	<skos:altLabel>Grand Connétable</skos:altLabel>
+	<skos:altLabel>Great Connetable</skos:altLabel>
+	<skos:altLabel>Le Grand Connétable</skos:altLabel>
+	<skos:prefLabel>Le Grand Connétable</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3381226/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>5.63333</wgs:lat>
+	<wgs:long>-53.98333</wgs:long>
+	<skos:altLabel>Isles Laussat</skos:altLabel>
+	<skos:altLabel>Îles Laussat</skos:altLabel>
+	<skos:prefLabel>Îles Laussat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3381238/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>2.86667</wgs:lat>
+	<wgs:long>-53.98333</wgs:long>
+	<skos:altLabel>Ilet Langa Soula</skos:altLabel>
+	<skos:altLabel>Langa Soula Tabiki</skos:altLabel>
+	<skos:prefLabel>Langa Soula Tabiki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3381250/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.9</wgs:lat>
+	<wgs:long>-52.18333</wgs:long>
+	<skos:altLabel>La Mère</skos:altLabel>
+	<skos:altLabel>Mère Island</skos:altLabel>
+	<skos:altLabel>Île la Mère</skos:altLabel>
+	<skos:prefLabel>La Mère</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3381273/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.33333</wgs:lat>
+	<wgs:long>-52.96667</wgs:long>
+	<skos:prefLabel>Îlet Lacour</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3381303/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>24029</europeana:population>
+	<wgs:lat>5.15</wgs:lat>
+	<wgs:long>-52.65</wgs:long>
+	<skos:altLabel xml:lang="fr">Bourg de Kourou</skos:altLabel>
+	<skos:altLabel>Kouro</skos:altLabel>
+	<skos:altLabel>Kourou</skos:altLabel>
+	<skos:altLabel xml:lang="en">White City</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кур</skos:altLabel>
+	<skos:prefLabel>Kourou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3381307/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.78333</wgs:lat>
+	<wgs:long>-51.9</wgs:long>
+	<skos:prefLabel>Îlet Koumouri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3381325/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.73333</wgs:lat>
+	<wgs:long>-51.91667</wgs:long>
+	<skos:altLabel>Île Kouaman</skos:altLabel>
+	<skos:altLabel>Îlet Couaman</skos:altLabel>
+	<skos:prefLabel>Île Kouaman</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3381349/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>3.25</wgs:lat>
+	<wgs:long>-52.23333</wgs:long>
+	<skos:prefLabel>Îlets Keïmou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3381359/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.13333</wgs:lat>
+	<wgs:long>-54.35</wgs:long>
+	<skos:altLabel>Île Kasiaba</skos:altLabel>
+	<skos:altLabel>Île Kassaba</skos:altLabel>
+	<skos:prefLabel>Île Kasiaba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3381393/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.3</wgs:lat>
+	<wgs:long>-52.2</wgs:long>
+	<skos:prefLabel>Îlet Jean-Pierre</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3381483/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.85</wgs:lat>
+	<wgs:long>-51.85</wgs:long>
+	<skos:prefLabel>Île Guinguincoin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3381522/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.76667</wgs:lat>
+	<wgs:long>-51.9</wgs:long>
+	<skos:prefLabel>Îlet Gros Indien</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3381639/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.96667</wgs:lat>
+	<wgs:long>-51.76667</wgs:long>
+	<skos:prefLabel>Îlet Galion</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3381653/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.86667</wgs:lat>
+	<wgs:long>-54.23333</wgs:long>
+	<skos:prefLabel>Gaan Tabiki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3381654/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.75</wgs:lat>
+	<wgs:long>-54.46667</wgs:long>
+	<skos:altLabel>Gaan Kiiki Tabiki</skos:altLabel>
+	<skos:altLabel>Skien Tabbetje</skos:altLabel>
+	<skos:prefLabel>Gaan Kiiki Tabiki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3381670/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255150/"/>
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLD"/>
+	<europeana:population>195506</europeana:population>
+	<wgs:lat>4</wgs:lat>
+	<wgs:long>-53</wgs:long>
+	<skos:altLabel xml:lang="ga">An Ghuáin Fhrancach</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Franca Gviano</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Francia Guiana</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Francijas Gviāna</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Francoska Gvajana</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Francouzská Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Francuska Gvajana</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Francúzska Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="se">Frankriikka Guayana</skos:altLabel>
+	<skos:altLabel xml:lang="af">Frans-Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Frans-Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="da">Fransk Guiana</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Fransk Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Fransk Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Franska Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="is">Franska Gvæjana</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Fransız Guyanası</skos:altLabel>
+	<skos:altLabel xml:lang="de">Französisch Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="en">French Guiana</skos:altLabel>
+	<skos:altLabel xml:lang="ms">French Guiana</skos:altLabel>
+	<skos:altLabel>GF</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Giana Ffrengig</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Guaiana Francesa</skos:altLabel>
+	<skos:altLabel xml:lang="es">Guayana Francesa</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Guiana Francesa</skos:altLabel>
+	<skos:altLabel xml:lang="it">Guiana Francese</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Guiana Franceză</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Gujana Francuska</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Gujana Franċiża</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Guyana Frantsesa</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Guyana francese</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Guyane</skos:altLabel>
+	<skos:altLabel>Guyane Française</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Guyane française</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Güiana Francesa</skos:altLabel>
+	<skos:altLabel>La Guyane</skos:altLabel>
+	<skos:altLabel>La Guyane Française</skos:altLabel>
+	<skos:altLabel xml:lang="id">Prancis Guyana</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Prancūzijos Gviana</skos:altLabel>
+	<skos:altLabel xml:lang="et">Prantsuse Guiana</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Quiana thuộc Pháp</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Ranskan Guajana</skos:altLabel>
+	<skos:altLabel xml:lang="el">Γαλλική Γουιάνα</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Французская Гвинея</skos:altLabel>
+	<skos:altLabel xml:lang="be">Французская Гвіяна</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Французька Ґвіана</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Француска Гуана</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Француска Гуана</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Френска Гвиана</skos:altLabel>
+	<skos:altLabel xml:lang="he">גינאה הצרפתית</skos:altLabel>
+	<skos:altLabel xml:lang="ar">غويانا</skos:altLabel>
+	<skos:altLabel xml:lang="ur">فرانسیسی گی آنا</skos:altLabel>
+	<skos:altLabel xml:lang="fa">گوانا ی فرانسه</skos:altLabel>
+	<skos:altLabel xml:lang="hi">फ़्रेंच गयाना</skos:altLabel>
+	<skos:altLabel xml:lang="bn">ফরাসী গায়না</skos:altLabel>
+	<skos:altLabel xml:lang="th">เฟรนช์เกียนา</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ເຟັນສກິວນາ</skos:altLabel>
+	<skos:altLabel xml:lang="am">የፈረንሳይ ጉዊአና</skos:altLabel>
+	<skos:altLabel xml:lang="ja">フランス領ギニア</skos:altLabel>
+	<skos:altLabel xml:lang="zh">法属圭亚那</skos:altLabel>
+	<skos:altLabel xml:lang="ko">불령 가이아나</skos:altLabel>
+	<skos:prefLabel>Guyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3381805/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>4.95</wgs:lat>
+	<wgs:long>-52.3</wgs:long>
+	<skos:prefLabel>Îlets Dupont</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3381836/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.28333</wgs:lat>
+	<wgs:long>-52.58333</wgs:long>
+	<skos:altLabel xml:lang="en">Devil's Island</skos:altLabel>
+	<skos:altLabel xml:lang="en">Devils Island</skos:altLabel>
+	<skos:altLabel>Diable Island</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Diabloinsulo</skos:altLabel>
+	<skos:altLabel xml:lang="no">Djevleøya</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Djävulsön</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Duivelseiland</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Ilha do Diabo</skos:altLabel>
+	<skos:altLabel xml:lang="es">Isla del Diablo</skos:altLabel>
+	<skos:altLabel xml:lang="et">Kuradisaar</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Pirunsaari</skos:altLabel>
+	<skos:altLabel>Teufels Insel</skos:altLabel>
+	<skos:altLabel xml:lang="de">Teufelsinsel</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Velnio sala</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Vražji otok</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Île du Diable</skos:altLabel>
+	<skos:altLabel xml:lang="he">אי השדים</skos:altLabel>
+	<skos:altLabel xml:lang="ja">デビルズ島</skos:altLabel>
+	<skos:prefLabel>Devils Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3381865/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>3.18333</wgs:lat>
+	<wgs:long>-52.3</wgs:long>
+	<skos:altLabel>Îlets Dent Grage</skos:altLabel>
+	<skos:prefLabel>Îlets Dent Grage</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3381966/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.9</wgs:lat>
+	<wgs:long>-52.46667</wgs:long>
+	<skos:prefLabel>Îlet Cupidon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3381970/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.35</wgs:lat>
+	<wgs:long>-54.15</wgs:long>
+	<skos:prefLabel>Îlet Crique Serpent</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3381977/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.4</wgs:lat>
+	<wgs:long>-51.95</wgs:long>
+	<skos:prefLabel>Île Couy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3382002/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.9</wgs:lat>
+	<wgs:long>-54.46667</wgs:long>
+	<skos:prefLabel>Couch'Tabiki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3382016/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.28333</wgs:lat>
+	<wgs:long>-52.16667</wgs:long>
+	<skos:altLabel>Ilet Corossony</skos:altLabel>
+	<skos:altLabel>Ilet Corroaï</skos:altLabel>
+	<skos:altLabel>Île Corossony</skos:altLabel>
+	<skos:altLabel>Îlot Corossoni</skos:altLabel>
+	<skos:prefLabel>Île Corossony</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3382145/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>3.78333</wgs:lat>
+	<wgs:long>-51.96667</wgs:long>
+	<skos:prefLabel>Îlets Cerisier</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3382157/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.83333</wgs:lat>
+	<wgs:long>-52.33333</wgs:long>
+	<skos:prefLabel>Île de Cayenne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3382159/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6690606/"/>
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<europeana:population>151592</europeana:population>
+	<wgs:lat>4</wgs:lat>
+	<wgs:long>-52.5</wgs:long>
+	<skos:prefLabel>Arrondissement de Cayenne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3382160/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>61550</europeana:population>
+	<wgs:lat>4.93333</wgs:lat>
+	<wgs:long>-52.33333</wgs:long>
+	<skos:altLabel xml:lang="pt">Caiena</skos:altLabel>
+	<skos:altLabel xml:lang="it">Caienna</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Cayenne</skos:altLabel>
+	<skos:altLabel xml:lang="en">Cayenne</skos:altLabel>
+	<skos:altLabel xml:lang="et">Cayenne</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Cayenne</skos:altLabel>
+	<skos:altLabel xml:lang="io">Cayenne</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Cayenne</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Cayenne</skos:altLabel>
+	<skos:altLabel xml:lang="de">Cayenne</skos:altLabel>
+	<skos:altLabel xml:lang="es">Cayenne</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Cayenne</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Cayenne</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Cayenne</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Cayenne</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Cayenne</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Cayenne</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Cayenne</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Cayenne</skos:altLabel>
+	<skos:altLabel xml:lang="da">Cayenne</skos:altLabel>
+	<skos:altLabel xml:lang="el">Cayenne</skos:altLabel>
+	<skos:altLabel>Cayenne</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Kajenas</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кайенна</skos:altLabel>
+	<skos:altLabel xml:lang="he">קאיין</skos:altLabel>
+	<skos:altLabel xml:lang="ja">カイエンヌ</skos:altLabel>
+	<skos:prefLabel>Cayenne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3382164/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.31667</wgs:lat>
+	<wgs:long>-52.1</wgs:long>
+	<skos:altLabel>Ile Pierre</skos:altLabel>
+	<skos:altLabel>Île Catalin</skos:altLabel>
+	<skos:altLabel>Îlet Catalin</skos:altLabel>
+	<skos:prefLabel>Île Catalin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3382214/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.91667</wgs:lat>
+	<wgs:long>-54.45</wgs:long>
+	<skos:prefLabel>Canabouli Tabiki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3382220/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>3.2</wgs:lat>
+	<wgs:long>-52.3</wgs:long>
+	<skos:altLabel>Ilets Camopi Ata</skos:altLabel>
+	<skos:altLabel>Îlets Camopi Ato</skos:altLabel>
+	<skos:prefLabel>Ilets Camopi Ata</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3382223/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.18333</wgs:lat>
+	<wgs:long>-52.46667</wgs:long>
+	<skos:prefLabel>Îlet Camopi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3382274/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.73333</wgs:lat>
+	<wgs:long>-54.45</wgs:long>
+	<skos:prefLabel>Buigui Tabiki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3382307/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.7</wgs:lat>
+	<wgs:long>-54.43333</wgs:long>
+	<skos:altLabel>Boofo Tabiki</skos:altLabel>
+	<skos:altLabel>Gaan Tabiki</skos:altLabel>
+	<skos:altLabel>Moussoué Santi Tabiki</skos:altLabel>
+	<skos:altLabel>Tapir Eiland</skos:altLabel>
+	<skos:altLabel>Île Moussoué Santi</skos:altLabel>
+	<skos:altLabel>Île Tapir</skos:altLabel>
+	<skos:prefLabel>Boofo Tabiki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3382327/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>3.43333</wgs:lat>
+	<wgs:long>-52.11667</wgs:long>
+	<skos:prefLabel>Îlets Bois Déraciné</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3382363/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>5.4</wgs:lat>
+	<wgs:long>-53.15</wgs:long>
+	<skos:prefLabel>Bilove</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3382368/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.11667</wgs:lat>
+	<wgs:long>-51.65</wgs:long>
+	<skos:altLabel>Ile Biche</skos:altLabel>
+	<skos:altLabel>Îlet Biche</skos:altLabel>
+	<skos:prefLabel>Îlet Biche</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3382407/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.61667</wgs:lat>
+	<wgs:long>-54.41667</wgs:long>
+	<skos:prefLabel>Îlet Beïman</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3382426/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.28333</wgs:lat>
+	<wgs:long>-54.23333</wgs:long>
+	<skos:altLabel>Guidala Eiland</skos:altLabel>
+	<skos:altLabel>Île Bastien</skos:altLabel>
+	<skos:prefLabel>Île Bastien</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3382439/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.83333</wgs:lat>
+	<wgs:long>-51.86667</wgs:long>
+	<skos:prefLabel>Îlet Barbade</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3382476/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.01667</wgs:lat>
+	<wgs:long>-53.03333</wgs:long>
+	<skos:altLabel>Ilet Bagatelle</skos:altLabel>
+	<skos:altLabel>Île Bagatelle</skos:altLabel>
+	<skos:prefLabel>Île Bagatelle</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3382484/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.9</wgs:lat>
+	<wgs:long>-54.46667</wgs:long>
+	<skos:altLabel>Bada Tabiki</skos:altLabel>
+	<skos:altLabel>Boda Tabiki</skos:altLabel>
+	<skos:prefLabel>Bada Tabiki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3382584/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>3.66667</wgs:lat>
+	<wgs:long>-51.98333</wgs:long>
+	<skos:prefLabel>Îlets Alice</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3382585/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.66667</wgs:lat>
+	<wgs:long>-51.98333</wgs:long>
+	<skos:prefLabel>Îlet Alice</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3382604/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.45</wgs:lat>
+	<wgs:long>-51.93333</wgs:long>
+	<skos:altLabel>Île Aïpoteau</skos:altLabel>
+	<skos:altLabel>Île Aïpoto</skos:altLabel>
+	<skos:prefLabel>Île Aïpoto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3382620/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.61667</wgs:lat>
+	<wgs:long>-53.98333</wgs:long>
+	<skos:altLabel>Agousou Tabiki</skos:altLabel>
+	<skos:altLabel>Agoussou Tabiki</skos:altLabel>
+	<skos:prefLabel>Agoussou Tabiki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3382639/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.1</wgs:lat>
+	<wgs:long>-52.41667</wgs:long>
+	<skos:prefLabel>Îlet Abodo Boto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3382642/">
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.1</wgs:lat>
+	<wgs:long>-54.45</wgs:long>
+	<skos:prefLabel>Abagon Tabiki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690605/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3381670/"/>
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>213031</europeana:population>
+	<wgs:lat>3.99929</wgs:lat>
+	<wgs:long>-52.99856</wgs:long>
+	<skos:altLabel xml:lang="de">Französisch-Guayana</skos:altLabel>
+	<skos:altLabel xml:lang="es">Guayana Francesa</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Guiana Francesa</skos:altLabel>
+	<skos:altLabel xml:lang="it">Guiana Francese</skos:altLabel>
+	<skos:altLabel xml:lang="en">Guyane</skos:altLabel>
+	<skos:altLabel>Région Guyane</skos:altLabel>
+	<skos:prefLabel>Guyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690606/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6690605/"/>
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>213031</europeana:population>
+	<wgs:lat>3.99886</wgs:lat>
+	<wgs:long>-52.99994</wgs:long>
+	<skos:altLabel>Département de la Guyane</skos:altLabel>
+	<skos:prefLabel>Guyane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690686/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3380386/"/>
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>6357</europeana:population>
+	<wgs:lat>5.1567</wgs:lat>
+	<wgs:long>-54.3431</wgs:long>
+	<skos:prefLabel>Apatou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690687/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3380386/"/>
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>1251</europeana:population>
+	<wgs:lat>5.7361</wgs:lat>
+	<wgs:long>-53.9081</wgs:long>
+	<skos:prefLabel>Awala-Yalimapo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690688/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382159/"/>
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>1469</europeana:population>
+	<wgs:lat>3.1703</wgs:lat>
+	<wgs:long>-52.3436</wgs:long>
+	<skos:prefLabel>Camopi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690689/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382159/"/>
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>58008</europeana:population>
+	<wgs:lat>4.9386</wgs:lat>
+	<wgs:long>-52.335</wgs:long>
+	<skos:prefLabel>Cayenne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690690/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3380386/"/>
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>3427</europeana:population>
+	<wgs:lat>4.2728</wgs:lat>
+	<wgs:long>-54.38</wgs:long>
+	<skos:prefLabel>Grand-Santi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690691/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382159/"/>
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>1975</europeana:population>
+	<wgs:lat>5.48</wgs:lat>
+	<wgs:long>-53.2056</wgs:long>
+	<skos:prefLabel>Iracoubo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690692/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382159/"/>
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>25688</europeana:population>
+	<wgs:lat>5.1583</wgs:lat>
+	<wgs:long>-52.6428</wgs:long>
+	<skos:prefLabel>Kourou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690693/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382159/"/>
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>8191</europeana:population>
+	<wgs:lat>5.0136</wgs:lat>
+	<wgs:long>-52.4739</wgs:long>
+	<skos:prefLabel>Macouria</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690694/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3380386/"/>
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>8256</europeana:population>
+	<wgs:lat>5.6672</wgs:lat>
+	<wgs:long>-53.7769</wgs:long>
+	<skos:prefLabel>Mana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690695/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3380386/"/>
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>5545</europeana:population>
+	<wgs:lat>3.6428</wgs:lat>
+	<wgs:long>-54.0269</wgs:long>
+	<skos:prefLabel>Maripasoula</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690696/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382159/"/>
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>24893</europeana:population>
+	<wgs:lat>4.8506</wgs:lat>
+	<wgs:long>-52.3311</wgs:long>
+	<skos:prefLabel>Matoury</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690697/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382159/"/>
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>1958</europeana:population>
+	<wgs:lat>4.8928</wgs:lat>
+	<wgs:long>-52.4928</wgs:long>
+	<skos:prefLabel>Montsinéry-Tonnegrande</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690698/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382159/"/>
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>85</europeana:population>
+	<wgs:lat>4.2092</wgs:lat>
+	<wgs:long>-51.6717</wgs:long>
+	<skos:prefLabel>Ouanary</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690699/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3380386/"/>
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>2296</europeana:population>
+	<wgs:lat>3.8086</wgs:lat>
+	<wgs:long>-54.1722</wgs:long>
+	<skos:prefLabel>Papaïchton</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690700/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382159/"/>
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>826</europeana:population>
+	<wgs:lat>4.3136</wgs:lat>
+	<wgs:long>-52.1292</wgs:long>
+	<skos:prefLabel>Régina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690701/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382159/"/>
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>18511</europeana:population>
+	<wgs:lat>4.905</wgs:lat>
+	<wgs:long>-52.2767</wgs:long>
+	<skos:prefLabel>Rémire-Montjoly</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690702/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382159/"/>
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>2823</europeana:population>
+	<wgs:lat>4.7283</wgs:lat>
+	<wgs:long>-52.3242</wgs:long>
+	<skos:prefLabel>Roura</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690703/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382159/"/>
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>450</europeana:population>
+	<wgs:lat>4.8256</wgs:lat>
+	<wgs:long>-53.2881</wgs:long>
+	<skos:prefLabel>Saint-Élie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690704/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382159/"/>
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>3605</europeana:population>
+	<wgs:lat>3.8894</wgs:lat>
+	<wgs:long>-51.8011</wgs:long>
+	<skos:prefLabel>Saint-Georges-de-l'Oyapock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690705/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3380386/"/>
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>34149</europeana:population>
+	<wgs:lat>5.5039</wgs:lat>
+	<wgs:long>-54.0289</wgs:long>
+	<skos:prefLabel>Saint-Laurent-du-Maroni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690706/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3380386/"/>
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>158</europeana:population>
+	<wgs:lat>3.6272</wgs:lat>
+	<wgs:long>-53.2083</wgs:long>
+	<skos:prefLabel>Saül</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690707/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382159/"/>
+	<europeana:country>GF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>3110</europeana:population>
+	<wgs:lat>5.3775</wgs:lat>
+	<wgs:long>-52.9586</wgs:long>
+	<skos:prefLabel>Sinnamary</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 127 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

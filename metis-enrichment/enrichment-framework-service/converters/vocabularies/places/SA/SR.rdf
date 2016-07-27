@@ -1,0 +1,1493 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: SA_SR
+Description: Selected fields pulled from Geonames about SR done on Mon May 23 21:15:22 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/3382665/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.38333</wgs:lat>
+	<wgs:long>-54.05</wgs:long>
+	<skos:altLabel>Zaoe Tabriki</skos:altLabel>
+	<skos:altLabel>Zaou Tabriki</skos:altLabel>
+	<skos:prefLabel>Zaoe Tabriki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3382672/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.35</wgs:lat>
+	<wgs:long>-55.01667</wgs:long>
+	<skos:altLabel>Woksteling Jacobs Eiland</skos:altLabel>
+	<skos:altLabel>Worsteling Jacobs Eiland</skos:altLabel>
+	<skos:prefLabel>Worsteling Jacobs Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3382695/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.55</wgs:lat>
+	<wgs:long>-56.13333</wgs:long>
+	<skos:prefLabel>Willem Tabbetje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3382696/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.3</wgs:lat>
+	<wgs:long>-57.28333</wgs:long>
+	<skos:prefLabel>Willems Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3382721/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.93333</wgs:lat>
+	<wgs:long>-54.45</wgs:long>
+	<skos:altLabel>Ouékoéko Tabiki</skos:altLabel>
+	<skos:altLabel>Wekoweko Tabbetje</skos:altLabel>
+	<skos:prefLabel>Wekoweko Tabbetje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3382758/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.28333</wgs:lat>
+	<wgs:long>-54.48333</wgs:long>
+	<skos:prefLabel>Wantinga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3382761/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>86814</europeana:population>
+	<wgs:lat>5.75</wgs:lat>
+	<wgs:long>-55.25</wgs:long>
+	<skos:altLabel>Distrikt Wanica</skos:altLabel>
+	<skos:altLabel>Wanica</skos:altLabel>
+	<skos:prefLabel>Distrikt Wanica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3382787/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.83333</wgs:lat>
+	<wgs:long>-54.2</wgs:long>
+	<skos:altLabel>Waaku Tabiki</skos:altLabel>
+	<skos:altLabel>Wacou Tabriki</skos:altLabel>
+	<skos:prefLabel>Wacou Tabriki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3382795/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.8</wgs:lat>
+	<wgs:long>-57.15</wgs:long>
+	<skos:altLabel>Parrot Island</skos:altLabel>
+	<skos:altLabel>Vosse-eiland</skos:altLabel>
+	<skos:altLabel>Vossen Eiland</skos:altLabel>
+	<skos:prefLabel>Vossen Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3382852/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.3</wgs:lat>
+	<wgs:long>-54.48333</wgs:long>
+	<skos:prefLabel>Tromkaba Tabbetje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3382943/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.15</wgs:lat>
+	<wgs:long>-57.3</wgs:long>
+	<skos:prefLabel>Teiroeroe Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3382950/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.46667</wgs:lat>
+	<wgs:long>-55.76667</wgs:long>
+	<skos:prefLabel>Taspondie Pratie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3382986/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.26667</wgs:lat>
+	<wgs:long>-55.03333</wgs:long>
+	<skos:prefLabel>Tafra Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3382990/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.3</wgs:lat>
+	<wgs:long>-54.5</wgs:long>
+	<skos:prefLabel>Tabrikie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3382992/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.78333</wgs:lat>
+	<wgs:long>-54.46667</wgs:long>
+	<skos:prefLabel>Tabbetje Hede</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3382998/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255150/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>492829</europeana:population>
+	<wgs:lat>4</wgs:lat>
+	<wgs:long>-56</wgs:long>
+	<skos:altLabel>Dutch Guiana</skos:altLabel>
+	<skos:altLabel>Nederlandisch Guyana</skos:altLabel>
+	<skos:altLabel>Nederlandsch Guyana</skos:altLabel>
+	<skos:altLabel>Netherlands Guiana</skos:altLabel>
+	<skos:altLabel>Republic of Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="en">Republic of Suriname</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Republiek Suriname</skos:altLabel>
+	<skos:altLabel>Republiek van Suriname</skos:altLabel>
+	<skos:altLabel>SR</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Suranam</skos:altLabel>
+	<skos:altLabel xml:lang="es">Surinam</skos:altLabel>
+	<skos:altLabel>Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="da">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="io">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="se">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="an">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="no">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Surinam</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Surinam - Suriname</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Surinama</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Surinamas</skos:altLabel>
+	<skos:altLabel xml:lang="id">Suriname</skos:altLabel>
+	<skos:altLabel xml:lang="et">Suriname</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Suriname</skos:altLabel>
+	<skos:altLabel xml:lang="de">Suriname</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Suriname</skos:altLabel>
+	<skos:altLabel xml:lang="it">Suriname</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Suriname</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Suriname</skos:altLabel>
+	<skos:altLabel xml:lang="en">Suriname</skos:altLabel>
+	<skos:altLabel xml:lang="af">Suriname</skos:altLabel>
+	<skos:altLabel xml:lang="li">Suriname</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Suriname</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Suriname</skos:altLabel>
+	<skos:altLabel xml:lang="jv">Suriname</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Suriname</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Suriname</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Suriname</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Suriname</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Surinami</skos:altLabel>
+	<skos:altLabel xml:lang="la">Surinamia</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Surinamo</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Swrinam</skos:altLabel>
+	<skos:altLabel xml:lang="is">Súrínam</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Sürinamän</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Xu-ri-nam</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Xu-ri-nam (Suriname)</skos:altLabel>
+	<skos:altLabel xml:lang="el">Σουρινάμ</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Суринам</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Суринам</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Суринам</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Суринам</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Суринам</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Суринами</skos:altLabel>
+	<skos:altLabel xml:lang="be">Сурынам</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Сурінам</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Սուրինամ</skos:altLabel>
+	<skos:altLabel xml:lang="he">סורינאם</skos:altLabel>
+	<skos:altLabel xml:lang="yi">סורינאם</skos:altLabel>
+	<skos:altLabel xml:lang="he">סורינם</skos:altLabel>
+	<skos:altLabel xml:lang="ar">سورينام</skos:altLabel>
+	<skos:altLabel xml:lang="fa">سورینام</skos:altLabel>
+	<skos:altLabel xml:lang="ur">سورینام</skos:altLabel>
+	<skos:altLabel xml:lang="ps">سورېنام</skos:altLabel>
+	<skos:altLabel xml:lang="hi">सुरिनाम</skos:altLabel>
+	<skos:altLabel xml:lang="sa">सुरिनाम</skos:altLabel>
+	<skos:altLabel xml:lang="hi">सूरीनाम</skos:altLabel>
+	<skos:altLabel xml:lang="bn">সুরিনাম</skos:altLabel>
+	<skos:altLabel xml:lang="ta">சுரினாம்</skos:altLabel>
+	<skos:altLabel xml:lang="ta">சூரினாம்</skos:altLabel>
+	<skos:altLabel xml:lang="ml">സുറിനാം</skos:altLabel>
+	<skos:altLabel xml:lang="th">ซูรินาเม</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศซูรินาเม</skos:altLabel>
+	<skos:altLabel xml:lang="th">สุรินัม</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ຊູລິນາມິ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">སུ་རི་ནཱམ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">სურინამი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሱሪናም</skos:altLabel>
+	<skos:altLabel xml:lang="km">សូរីណាម</skos:altLabel>
+	<skos:altLabel xml:lang="ja">スリナム</skos:altLabel>
+	<skos:altLabel xml:lang="ja">スリナム共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">苏里南</skos:altLabel>
+	<skos:altLabel xml:lang="zh">蘇利南</skos:altLabel>
+	<skos:altLabel xml:lang="ko">수리남</skos:altLabel>
+	<skos:prefLabel>Republic of Suriname</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383004/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.73333</wgs:lat>
+	<wgs:long>-56.28333</wgs:long>
+	<skos:prefLabel>Ston Tabriki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383024/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.35</wgs:lat>
+	<wgs:long>-54.4</wgs:long>
+	<skos:altLabel>Afoekoe</skos:altLabel>
+	<skos:altLabel>Ile Grand Santi</skos:altLabel>
+	<skos:altLabel>Stoelmanns Eiland</skos:altLabel>
+	<skos:altLabel>Stoelmans Eiland</skos:altLabel>
+	<skos:altLabel>Île Stoelmans</skos:altLabel>
+	<skos:prefLabel>Stoelmans Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383041/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.2</wgs:lat>
+	<wgs:long>-54.6</wgs:long>
+	<skos:prefLabel>Sneki Tabbetje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383048/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.71667</wgs:lat>
+	<wgs:long>-57.15</wgs:long>
+	<skos:prefLabel>Slangen Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383049/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.61667</wgs:lat>
+	<wgs:long>-55.68333</wgs:long>
+	<skos:prefLabel>Sjatoemaripa Pratie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383062/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>34524</europeana:population>
+	<wgs:lat>4</wgs:lat>
+	<wgs:long>-56</wgs:long>
+	<skos:altLabel>Distrikt Sipaliwini</skos:altLabel>
+	<skos:altLabel>Sipaliwini</skos:altLabel>
+	<skos:prefLabel>Distrikt Sipaliwini</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383073/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5</wgs:lat>
+	<wgs:long>-57.43333</wgs:long>
+	<skos:altLabel>Sika Eiland</skos:altLabel>
+	<skos:altLabel>Sika-eil</skos:altLabel>
+	<skos:prefLabel>Sika Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383110/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>16171</europeana:population>
+	<wgs:lat>5.66667</wgs:lat>
+	<wgs:long>-55.58333</wgs:long>
+	<skos:altLabel>Beneden-Saramacca</skos:altLabel>
+	<skos:altLabel>Boven-Saramacca</skos:altLabel>
+	<skos:altLabel>District Saramacca</skos:altLabel>
+	<skos:altLabel>Distrikt Saramacca</skos:altLabel>
+	<skos:altLabel>Saramacca</skos:altLabel>
+	<skos:altLabel>Saramacco</skos:altLabel>
+	<skos:prefLabel>Distrikt Saramacca</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383121/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.16667</wgs:lat>
+	<wgs:long>-54.63333</wgs:long>
+	<skos:prefLabel>Santi Tabbetje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383124/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.15</wgs:lat>
+	<wgs:long>-54.35</wgs:long>
+	<skos:altLabel>Ile Kassaba</skos:altLabel>
+	<skos:altLabel>Santi Kasaba Eiland</skos:altLabel>
+	<skos:prefLabel>Santi Kasaba Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383126/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.2</wgs:lat>
+	<wgs:long>-55.08333</wgs:long>
+	<skos:altLabel>Eiland Sannetje</skos:altLabel>
+	<skos:altLabel>Sannetje Tabbetje</skos:altLabel>
+	<skos:prefLabel>Sannetje Tabbetje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383139/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.25</wgs:lat>
+	<wgs:long>-54.3</wgs:long>
+	<skos:altLabel>Sambo Tabbetje</skos:altLabel>
+	<skos:altLabel>Samboo Tabbetje</skos:altLabel>
+	<skos:prefLabel>Sambo Tabbetje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383142/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.88333</wgs:lat>
+	<wgs:long>-57.88333</wgs:long>
+	<skos:altLabel>Sakora Eiland</skos:altLabel>
+	<skos:altLabel>Sakora Temirirots Eiland</skos:altLabel>
+	<skos:prefLabel>Sakora Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383162/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.81667</wgs:lat>
+	<wgs:long>-57.11667</wgs:long>
+	<skos:altLabel>Calabash Island</skos:altLabel>
+	<skos:altLabel>Robinson Eiland</skos:altLabel>
+	<skos:prefLabel>Robinson Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383208/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.45</wgs:lat>
+	<wgs:long>-57.26667</wgs:long>
+	<skos:altLabel>Pauwies Eiland</skos:altLabel>
+	<skos:altLabel>Powies Eiland</skos:altLabel>
+	<skos:altLabel>Powis Island</skos:altLabel>
+	<skos:prefLabel>Powies Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383254/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.56667</wgs:lat>
+	<wgs:long>-55.71667</wgs:long>
+	<skos:altLabel>Pidagronpratie</skos:altLabel>
+	<skos:altLabel>Pindagron Prati</skos:altLabel>
+	<skos:prefLabel>Pindagron Prati</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383312/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.75</wgs:lat>
+	<wgs:long>-57.86667</wgs:long>
+	<skos:altLabel>Aligators Eiland</skos:altLabel>
+	<skos:altLabel>Alligators-eiland</skos:altLabel>
+	<skos:altLabel>Pauwies Eiland</skos:altLabel>
+	<skos:altLabel>Powies Eiland</skos:altLabel>
+	<skos:prefLabel>Pauwies Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383329/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>242946</europeana:population>
+	<wgs:lat>5.86667</wgs:lat>
+	<wgs:long>-55.16667</wgs:long>
+	<skos:altLabel>City of Paramaribo</skos:altLabel>
+	<skos:altLabel>District Paramaribo</skos:altLabel>
+	<skos:altLabel>Distrikt Paramaribo</skos:altLabel>
+	<skos:altLabel>Paramaribo</skos:altLabel>
+	<skos:prefLabel>Distrikt Paramaribo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383330/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>223757</europeana:population>
+	<wgs:lat>5.86638</wgs:lat>
+	<wgs:long>-55.16682</wgs:long>
+	<skos:altLabel xml:lang="lt">Paramaribas</skos:altLabel>
+	<skos:altLabel xml:lang="id">Paramaribo</skos:altLabel>
+	<skos:altLabel xml:lang="de">Paramaribo</skos:altLabel>
+	<skos:altLabel xml:lang="es">Paramaribo</skos:altLabel>
+	<skos:altLabel xml:lang="en">Paramaribo</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Paramaribo</skos:altLabel>
+	<skos:altLabel xml:lang="la">Paramaribo</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Paramaribo</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Paramaribo</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Paramaribo</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Paramaribo</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Paramaribo</skos:altLabel>
+	<skos:altLabel xml:lang="it">Paramaribo</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Paramaribo</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Paramaribo</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Paramaribo</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Paramaribo</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Paramaribo</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Paramaribo</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Paramaribo</skos:altLabel>
+	<skos:altLabel xml:lang="da">Paramaribo</skos:altLabel>
+	<skos:altLabel xml:lang="el">Παραμαρίμπο</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Парамарибо</skos:altLabel>
+	<skos:altLabel xml:lang="os">Парамарибо</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Парамарибо</skos:altLabel>
+	<skos:altLabel xml:lang="he">פרמריבו</skos:altLabel>
+	<skos:altLabel xml:lang="ar">باراماريبو</skos:altLabel>
+	<skos:altLabel xml:lang="fa">پاراماریبو</skos:altLabel>
+	<skos:altLabel xml:lang="am">ፓራማሪቦ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">パラマリボ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">帕拉马里博</skos:altLabel>
+	<skos:altLabel xml:lang="ko">파라마리보</skos:altLabel>
+	<skos:prefLabel>Paramaribo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383337/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>18994</europeana:population>
+	<wgs:lat>5.41667</wgs:lat>
+	<wgs:long>-55.33333</wgs:long>
+	<skos:altLabel>District Para</skos:altLabel>
+	<skos:altLabel>Distrikt Para</skos:altLabel>
+	<skos:altLabel>Para</skos:altLabel>
+	<skos:prefLabel>Distrikt Para</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383340/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.85</wgs:lat>
+	<wgs:long>-57.1</wgs:long>
+	<skos:altLabel>First Island</skos:altLabel>
+	<skos:altLabel>Papagaaien Eiland</skos:altLabel>
+	<skos:altLabel>Papagaaien Island</skos:altLabel>
+	<skos:altLabel>Papegaaien Eiland</skos:altLabel>
+	<skos:altLabel>Papegaaien Island</skos:altLabel>
+	<skos:altLabel>Parrot Island</skos:altLabel>
+	<skos:altLabel>Robertson Island</skos:altLabel>
+	<skos:prefLabel>Papegaaien Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383350/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.5</wgs:lat>
+	<wgs:long>-56.08333</wgs:long>
+	<skos:prefLabel>Palang Tabbetje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383355/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.76667</wgs:lat>
+	<wgs:long>-54.46667</wgs:long>
+	<skos:altLabel>Kodo Tabbetje</skos:altLabel>
+	<skos:altLabel>Pakira Tabbetje</skos:altLabel>
+	<skos:altLabel>Pakira Tabiki</skos:altLabel>
+	<skos:altLabel>Paquira Tabiki</skos:altLabel>
+	<skos:prefLabel>Pakira Tabbetje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383361/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5</wgs:lat>
+	<wgs:long>-57.63333</wgs:long>
+	<skos:altLabel>Apikipoeroe Eiland</skos:altLabel>
+	<skos:altLabel>Apikipoeroe Eilanden</skos:altLabel>
+	<skos:altLabel>Baccacai Eilanden</skos:altLabel>
+	<skos:altLabel>Baicacai-eiland</skos:altLabel>
+	<skos:altLabel>Baikaka Eiland</skos:altLabel>
+	<skos:altLabel>Cawfalls Eiland</skos:altLabel>
+	<skos:altLabel>Paka Apekepoeroe Eiland</skos:altLabel>
+	<skos:altLabel>Paka Eiland</skos:altLabel>
+	<skos:prefLabel>Paka Apekepoeroe Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383367/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.5</wgs:lat>
+	<wgs:long>-55.75</wgs:long>
+	<skos:prefLabel>Ouroewossoe Pratie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383395/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.81667</wgs:lat>
+	<wgs:long>-54.2</wgs:long>
+	<skos:prefLabel>Oeman Tabriki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383402/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.23333</wgs:lat>
+	<wgs:long>-54.36667</wgs:long>
+	<skos:altLabel>Edé Tabiki</skos:altLabel>
+	<skos:altLabel>Ilet Longa</skos:altLabel>
+	<skos:altLabel>Odoun</skos:altLabel>
+	<skos:prefLabel>Edé Tabiki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383422/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.28333</wgs:lat>
+	<wgs:long>-54.48333</wgs:long>
+	<skos:prefLabel>Nikie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383425/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5</wgs:lat>
+	<wgs:long>-54.98333</wgs:long>
+	<skos:prefLabel>Nieuw Star Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383427/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13143</europeana:population>
+	<wgs:lat>5.95</wgs:lat>
+	<wgs:long>-56.98333</wgs:long>
+	<skos:altLabel>New Nickerie</skos:altLabel>
+	<skos:altLabel>Nickerie</skos:altLabel>
+	<skos:altLabel>Nieuw Nickerie</skos:altLabel>
+	<skos:prefLabel>Nieuw Nickerie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383438/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>36708</europeana:population>
+	<wgs:lat>5.66667</wgs:lat>
+	<wgs:long>-56.83333</wgs:long>
+	<skos:altLabel>District Nickerie</skos:altLabel>
+	<skos:altLabel>Distrikt Nickerie</skos:altLabel>
+	<skos:altLabel>Nickerie</skos:altLabel>
+	<skos:altLabel>Nikerie</skos:altLabel>
+	<skos:prefLabel>Distrikt Nickerie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383481/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.18333</wgs:lat>
+	<wgs:long>-54.56667</wgs:long>
+	<skos:prefLabel>Mompoesoe Tabbetje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383489/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.66667</wgs:lat>
+	<wgs:long>-55.63333</wgs:long>
+	<skos:prefLabel>Moesoengoe Prati</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383554/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5</wgs:lat>
+	<wgs:long>-57.56667</wgs:long>
+	<skos:altLabel>Marwati Eiland</skos:altLabel>
+	<skos:altLabel>Marwatie Eiland</skos:altLabel>
+	<skos:prefLabel>Marwatie Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383560/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>16634</europeana:population>
+	<wgs:lat>5.5</wgs:lat>
+	<wgs:long>-54.33333</wgs:long>
+	<skos:altLabel>Cottica</skos:altLabel>
+	<skos:altLabel>District Marowijne</skos:altLabel>
+	<skos:altLabel>Distrikt Marowijne</skos:altLabel>
+	<skos:altLabel>Marowijn District</skos:altLabel>
+	<skos:altLabel>Marowijne</skos:altLabel>
+	<skos:altLabel>Marowyne District</skos:altLabel>
+	<skos:prefLabel>Distrikt Marowijne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383587/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.35</wgs:lat>
+	<wgs:long>-57.33333</wgs:long>
+	<skos:prefLabel>Mapenna Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383640/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.38333</wgs:lat>
+	<wgs:long>-57.26667</wgs:long>
+	<skos:altLabel>Makilikakroe Eiland</skos:altLabel>
+	<skos:altLabel>Makilikakru Eiland</skos:altLabel>
+	<skos:altLabel>Makilikoro Island</skos:altLabel>
+	<skos:prefLabel>Makilikakroe Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383651/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.96667</wgs:lat>
+	<wgs:long>-57.75</wgs:long>
+	<skos:altLabel>Maipoeri Eiland</skos:altLabel>
+	<skos:altLabel>Tubawali Eiland</skos:altLabel>
+	<skos:altLabel>Tubawalli Eiland</skos:altLabel>
+	<skos:prefLabel>Maipoeri Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383656/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.53333</wgs:lat>
+	<wgs:long>-55.71667</wgs:long>
+	<skos:prefLabel>Mafoengoe Prati</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383658/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.6</wgs:lat>
+	<wgs:long>-57.16667</wgs:long>
+	<skos:altLabel>MacClemen Eiland</skos:altLabel>
+	<skos:altLabel>MacLennan’s Island</skos:altLabel>
+	<skos:prefLabel>MacClemen Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383692/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.11667</wgs:lat>
+	<wgs:long>-54.66667</wgs:long>
+	<skos:prefLabel>Loabie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383708/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.7</wgs:lat>
+	<wgs:long>-56.21667</wgs:long>
+	<skos:prefLabel>Lemtji Tabbetje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383710/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.36667</wgs:lat>
+	<wgs:long>-54.16667</wgs:long>
+	<skos:altLabel>Blakarebo-eiland</skos:altLabel>
+	<skos:altLabel>Ilet Blakérébo</skos:altLabel>
+	<skos:altLabel>Lemmetjeboom Tabbetje</skos:altLabel>
+	<skos:altLabel>Pacearebo</skos:altLabel>
+	<skos:altLabel>Île Blakarebo</skos:altLabel>
+	<skos:altLabel>Île Blekarébo</skos:altLabel>
+	<skos:prefLabel>Lemmetjeboom Tabbetje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383714/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18223</europeana:population>
+	<wgs:lat>5.7</wgs:lat>
+	<wgs:long>-55.23333</wgs:long>
+	<skos:altLabel>Lelydorp</skos:altLabel>
+	<skos:prefLabel>Lelydorp</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383718/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.65</wgs:lat>
+	<wgs:long>-56.26667</wgs:long>
+	<skos:prefLabel>Legoeama Tabbetje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383722/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.45</wgs:lat>
+	<wgs:long>-54.01667</wgs:long>
+	<skos:altLabel>Grand Ilet du Lawa</skos:altLabel>
+	<skos:altLabel>Lawa Mofou Tabiki</skos:altLabel>
+	<skos:altLabel>Lawamafoe Tabriki</skos:altLabel>
+	<skos:altLabel>Lawamofoe Tabriki</skos:altLabel>
+	<skos:prefLabel>Lawa Mofou Tabiki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383733/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.83333</wgs:lat>
+	<wgs:long>-54.2</wgs:long>
+	<skos:prefLabel>Lapé Tabriki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383736/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.73333</wgs:lat>
+	<wgs:long>-57.16667</wgs:long>
+	<skos:altLabel>Lange Eiland</skos:altLabel>
+	<skos:altLabel>Long Island</skos:altLabel>
+	<skos:prefLabel>Lange Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383740/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.01667</wgs:lat>
+	<wgs:long>-54.45</wgs:long>
+	<skos:altLabel>Ile Langa Tabiki</skos:altLabel>
+	<skos:altLabel>Langa Tabbetje</skos:altLabel>
+	<skos:altLabel>Langa Tabbetje Eiland</skos:altLabel>
+	<skos:altLabel>Lange-Eiland</skos:altLabel>
+	<skos:prefLabel>Langa Tabbetje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383765/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.76667</wgs:lat>
+	<wgs:long>-57.16667</wgs:long>
+	<skos:altLabel>Kweriman Eiland</skos:altLabel>
+	<skos:altLabel>Queriman Island</skos:altLabel>
+	<skos:prefLabel>Kweriman Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383807/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.58333</wgs:lat>
+	<wgs:long>-57.16667</wgs:long>
+	<skos:prefLabel>Krabbe Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383818/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.5</wgs:lat>
+	<wgs:long>-55.35</wgs:long>
+	<skos:altLabel>Eiland Kordonsanti</skos:altLabel>
+	<skos:altLabel>Kordansanti Eiland</skos:altLabel>
+	<skos:altLabel>Kordonsanti Eiland</skos:altLabel>
+	<skos:prefLabel>Kordansanti Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383831/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.55</wgs:lat>
+	<wgs:long>-56.11667</wgs:long>
+	<skos:prefLabel>Koffie Tabbetje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383857/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.13333</wgs:lat>
+	<wgs:long>-57.3</wgs:long>
+	<skos:prefLabel>Koekri Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383859/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.33333</wgs:lat>
+	<wgs:long>-56.05</wgs:long>
+	<skos:prefLabel>Koe en Kalf Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383886/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.53333</wgs:lat>
+	<wgs:long>-57.2</wgs:long>
+	<skos:altLabel>Klein Baviaan Eiland</skos:altLabel>
+	<skos:altLabel>Klein Baviaan Eilanden</skos:altLabel>
+	<skos:altLabel>Little Baboon Island</skos:altLabel>
+	<skos:prefLabel>Klein Baviaan Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383892/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.11667</wgs:lat>
+	<wgs:long>-54.7</wgs:long>
+	<skos:prefLabel>Kisai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383893/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.31667</wgs:lat>
+	<wgs:long>-57.3</wgs:long>
+	<skos:prefLabel>Kirikagé Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383918/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.7</wgs:lat>
+	<wgs:long>-57.85</wgs:long>
+	<skos:prefLabel>Karmoekel Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383928/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.76667</wgs:lat>
+	<wgs:long>-54.46667</wgs:long>
+	<skos:altLabel>Kapoea Tabbetje</skos:altLabel>
+	<skos:altLabel>Kipoua Tabiki</skos:altLabel>
+	<skos:prefLabel>Kapoea Tabbetje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383929/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.61667</wgs:lat>
+	<wgs:long>-56.25</wgs:long>
+	<skos:altLabel>Kapoea Tabbetje</skos:altLabel>
+	<skos:altLabel>Kipoua Tabiki</skos:altLabel>
+	<skos:prefLabel>Kapoea Tabbetje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383949/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.61667</wgs:lat>
+	<wgs:long>-55.68333</wgs:long>
+	<skos:prefLabel>Kamaloea Pratie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3383983/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.2</wgs:lat>
+	<wgs:long>-55.43333</wgs:long>
+	<skos:prefLabel>Juda Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3384038/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.33333</wgs:lat>
+	<wgs:long>-54.18333</wgs:long>
+	<skos:prefLabel>Iribaribatoe Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3384040/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.56667</wgs:lat>
+	<wgs:long>-54</wgs:long>
+	<skos:altLabel>Ilet Samasakouayou</skos:altLabel>
+	<skos:altLabel>Iocépi Tabiki</skos:altLabel>
+	<skos:altLabel>Iokepi Tabriki</skos:altLabel>
+	<skos:prefLabel>Iokepi Tabriki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3384095/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.26667</wgs:lat>
+	<wgs:long>-55.45</wgs:long>
+	<skos:prefLabel>Gwafoe Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3384124/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.53333</wgs:lat>
+	<wgs:long>-57.16667</wgs:long>
+	<skos:altLabel>Baviaan Eiland</skos:altLabel>
+	<skos:altLabel>Big Baboon Island</skos:altLabel>
+	<skos:altLabel>Groot Baviaan Eiland</skos:altLabel>
+	<skos:prefLabel>Groot Baviaan Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3384134/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.11667</wgs:lat>
+	<wgs:long>-54.73333</wgs:long>
+	<skos:prefLabel>Gran Tabbetje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3384159/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.16667</wgs:lat>
+	<wgs:long>-54.6</wgs:long>
+	<skos:prefLabel>Grangron Tabbetje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3384192/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.35</wgs:lat>
+	<wgs:long>-54.05</wgs:long>
+	<skos:prefLabel>Godolo Tabriki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3384217/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.53333</wgs:lat>
+	<wgs:long>-55.71667</wgs:long>
+	<skos:prefLabel>Gado Prati</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3384218/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.68333</wgs:lat>
+	<wgs:long>-55.56667</wgs:long>
+	<skos:altLabel>Gado Kipra</skos:altLabel>
+	<skos:altLabel>Gadokriki Prati</skos:altLabel>
+	<skos:prefLabel>Gadokriki Prati</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3384237/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.58333</wgs:lat>
+	<wgs:long>-56.18333</wgs:long>
+	<skos:prefLabel>Foengoe Tabbetje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3384239/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.73333</wgs:lat>
+	<wgs:long>-56.2</wgs:long>
+	<skos:altLabel>Foengoe Eiland</skos:altLabel>
+	<skos:altLabel>Foengoe Tabbetje</skos:altLabel>
+	<skos:prefLabel>Foengoe Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3384246/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.06667</wgs:lat>
+	<wgs:long>-55.88333</wgs:long>
+	<skos:prefLabel>Fijikkoe Prati</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3384261/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.51667</wgs:lat>
+	<wgs:long>-54</wgs:long>
+	<skos:altLabel>Emponou Tabiki</skos:altLabel>
+	<skos:altLabel>Eponoe Tabriki</skos:altLabel>
+	<skos:prefLabel>Eponoe Tabriki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3384280/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.55</wgs:lat>
+	<wgs:long>-54.01667</wgs:long>
+	<skos:prefLabel>Duiven Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3384350/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>5.66667</wgs:lat>
+	<wgs:long>-57.15</wgs:long>
+	<skos:altLabel>De Drie Zusters Eilanden</skos:altLabel>
+	<skos:altLabel>De Zusters</skos:altLabel>
+	<skos:altLabel>De drie Zusters</skos:altLabel>
+	<skos:altLabel>Drie Zusters</skos:altLabel>
+	<skos:altLabel>The Sisters</skos:altLabel>
+	<skos:altLabel>Three Sisters Islands</skos:altLabel>
+	<skos:prefLabel>De Drie Zusters Eilanden</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3384351/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.66667</wgs:lat>
+	<wgs:long>-57.15</wgs:long>
+	<skos:altLabel>De Drie Zusters Eiland</skos:altLabel>
+	<skos:altLabel>De Zusters Eiland</skos:altLabel>
+	<skos:prefLabel>De Drie Zusters Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3384369/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.28333</wgs:lat>
+	<wgs:long>-54.26667</wgs:long>
+	<skos:altLabel>Daboesagara Eiland</skos:altLabel>
+	<skos:altLabel>Daboesagara Tabbetje</skos:altLabel>
+	<skos:altLabel>Ile Sparouine</skos:altLabel>
+	<skos:prefLabel>Daboesagara Tabbetje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3384397/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>2883</europeana:population>
+	<wgs:lat>5.58333</wgs:lat>
+	<wgs:long>-56.25</wgs:long>
+	<skos:altLabel>Coronie</skos:altLabel>
+	<skos:altLabel>District Coronie</skos:altLabel>
+	<skos:altLabel>Distrikt Coronie</skos:altLabel>
+	<skos:prefLabel>Distrikt Coronie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3384418/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>24767</europeana:population>
+	<wgs:lat>5.75</wgs:lat>
+	<wgs:long>-54.91667</wgs:long>
+	<skos:altLabel>Beneden-Commewijne</skos:altLabel>
+	<skos:altLabel>Boven-Commewijne</skos:altLabel>
+	<skos:altLabel>Commewijn District</skos:altLabel>
+	<skos:altLabel>Commewijne</skos:altLabel>
+	<skos:altLabel>Commewyne</skos:altLabel>
+	<skos:altLabel>District Commewijne</skos:altLabel>
+	<skos:altLabel>Distrikt Commewijne</skos:altLabel>
+	<skos:prefLabel>Distrikt Commewijne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3384457/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.45</wgs:lat>
+	<wgs:long>-54.43333</wgs:long>
+	<skos:altLabel>Capaci Tabiki</skos:altLabel>
+	<skos:altLabel>Capasie Eiland</skos:altLabel>
+	<skos:altLabel>Kapasie Eiland</skos:altLabel>
+	<skos:altLabel>Kapassi Tabiki</skos:altLabel>
+	<skos:prefLabel>Capasie Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3384481/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>14549</europeana:population>
+	<wgs:lat>4.75</wgs:lat>
+	<wgs:long>-55.16667</wgs:long>
+	<skos:altLabel>Brokopondo</skos:altLabel>
+	<skos:altLabel>District Brokopondo</skos:altLabel>
+	<skos:altLabel>Distrikt Brokopondo</skos:altLabel>
+	<skos:prefLabel>Distrikt Brokopondo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3384535/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.75</wgs:lat>
+	<wgs:long>-57.16667</wgs:long>
+	<skos:prefLabel>Bonaparte Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3384579/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>5.48333</wgs:lat>
+	<wgs:long>-57.25</wgs:long>
+	<skos:altLabel>Bishop</skos:altLabel>
+	<skos:altLabel>Bishop Island</skos:altLabel>
+	<skos:altLabel>Bishop Islands</skos:altLabel>
+	<skos:altLabel>Bisschop Eilanden</skos:altLabel>
+	<skos:altLabel>Bisschop Eilands</skos:altLabel>
+	<skos:altLabel>Bisschop Islands</skos:altLabel>
+	<skos:altLabel>Bisschopen Klerk</skos:altLabel>
+	<skos:altLabel>Eiland Mammoen</skos:altLabel>
+	<skos:altLabel>Eiland Mamoen</skos:altLabel>
+	<skos:prefLabel>Bisschop Eilanden</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3384595/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.31667</wgs:lat>
+	<wgs:long>-54.2</wgs:long>
+	<skos:altLabel>Bigibariba Tabbetje</skos:altLabel>
+	<skos:altLabel>Ilet Pinpin</skos:altLabel>
+	<skos:prefLabel>Bigibariba Tabbetje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3384626/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>5.55</wgs:lat>
+	<wgs:long>-57.15</wgs:long>
+	<skos:altLabel>Baviaan Eilanden</skos:altLabel>
+	<skos:altLabel>Baviaan Eilands</skos:altLabel>
+	<skos:altLabel>De Baviaan Eilanden</skos:altLabel>
+	<skos:prefLabel>Baviaan Eilanden</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3384659/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.66667</wgs:lat>
+	<wgs:long>-55.6</wgs:long>
+	<skos:prefLabel>Bakama Prati</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3384666/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.1</wgs:lat>
+	<wgs:long>-54.68333</wgs:long>
+	<skos:prefLabel>Baboen Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3384675/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.98333</wgs:lat>
+	<wgs:long>-55.55</wgs:long>
+	<skos:altLabel>Awalla Tabriki</skos:altLabel>
+	<skos:altLabel>Awara-eiland</skos:altLabel>
+	<skos:altLabel>Awarra Eiland</skos:altLabel>
+	<skos:prefLabel>Awalla Tabriki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3384693/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.28333</wgs:lat>
+	<wgs:long>-57.28333</wgs:long>
+	<skos:altLabel>Assinkamo Eiland</skos:altLabel>
+	<skos:altLabel>Assirikamo Eiland</skos:altLabel>
+	<skos:altLabel>Assirikanna Eiland</skos:altLabel>
+	<skos:prefLabel>Assirikamo Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3384695/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.91667</wgs:lat>
+	<wgs:long>-57.76667</wgs:long>
+	<skos:altLabel>Assipoija Eiland</skos:altLabel>
+	<skos:altLabel>Assipoya Eiland</skos:altLabel>
+	<skos:altLabel>Assipoya Eilanden</skos:altLabel>
+	<skos:prefLabel>Assipoya Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3384697/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.58333</wgs:lat>
+	<wgs:long>-53.98333</wgs:long>
+	<skos:altLabel>Assadam Tabiki</skos:altLabel>
+	<skos:altLabel>Assadam Tabriki</skos:altLabel>
+	<skos:altLabel>Ilet Assadam</skos:altLabel>
+	<skos:prefLabel>Assadam Tabriki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3384704/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.05</wgs:lat>
+	<wgs:long>-54.43333</wgs:long>
+	<skos:altLabel>Asabobi Tabbetje</skos:altLabel>
+	<skos:altLabel>Asalobi Tabbetje</skos:altLabel>
+	<skos:altLabel>Ile Tamara</skos:altLabel>
+	<skos:altLabel>Tamara Eiland</skos:altLabel>
+	<skos:altLabel>Tamara Tabiki</skos:altLabel>
+	<skos:prefLabel>Asalobi Tabbetje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3384708/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.56667</wgs:lat>
+	<wgs:long>-54.01667</wgs:long>
+	<skos:altLabel>Arouaba Zuid</skos:altLabel>
+	<skos:altLabel>Aruba Zuid</skos:altLabel>
+	<skos:altLabel>Ile Aroub Sud</skos:altLabel>
+	<skos:prefLabel>Arouaba Zuid</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3384709/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.58333</wgs:lat>
+	<wgs:long>-54.03333</wgs:long>
+	<skos:altLabel>Arouaba Tabbetje</skos:altLabel>
+	<skos:altLabel>Groot Arouaba</skos:altLabel>
+	<skos:prefLabel>Arouaba Tabbetje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3384710/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.58333</wgs:lat>
+	<wgs:long>-54.01667</wgs:long>
+	<skos:altLabel>Arouaba Oost</skos:altLabel>
+	<skos:altLabel>Aruba Oost</skos:altLabel>
+	<skos:altLabel>Ile Arouba Est</skos:altLabel>
+	<skos:prefLabel>Arouaba Oost</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3384711/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.61667</wgs:lat>
+	<wgs:long>-54.01667</wgs:long>
+	<skos:altLabel>Arouaba Noord</skos:altLabel>
+	<skos:altLabel>Aruba Noord</skos:altLabel>
+	<skos:altLabel>Noord Aruba</skos:altLabel>
+	<skos:prefLabel>Arouaba Noord</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3384712/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>5.58333</wgs:lat>
+	<wgs:long>-54</wgs:long>
+	<skos:altLabel>Arouaba Eilanden</skos:altLabel>
+	<skos:altLabel>Arouaba Island</skos:altLabel>
+	<skos:altLabel>Arouabo Eilanden</skos:altLabel>
+	<skos:altLabel>Arouba Islands</skos:altLabel>
+	<skos:altLabel>Ile Arouba</skos:altLabel>
+	<skos:altLabel>Iles Arouba</skos:altLabel>
+	<skos:altLabel>Isles Arouba</skos:altLabel>
+	<skos:prefLabel>Arouaba Eilanden</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3384714/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.58333</wgs:lat>
+	<wgs:long>-54.03333</wgs:long>
+	<skos:altLabel>Aroeaba Tabbetje</skos:altLabel>
+	<skos:altLabel>Arouba-Eiland</skos:altLabel>
+	<skos:prefLabel>Aroeaba Tabbetje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3384724/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.01667</wgs:lat>
+	<wgs:long>-57.53333</wgs:long>
+	<skos:prefLabel>Araparisie Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3384783/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.51667</wgs:lat>
+	<wgs:long>-55.73333</wgs:long>
+	<skos:altLabel>Alobbienni Prati</skos:altLabel>
+	<skos:altLabel>Alobbionni Prati</skos:altLabel>
+	<skos:prefLabel>Alobbienni Prati</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3384801/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3382998/"/>
+	<europeana:country>SR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.43333</wgs:lat>
+	<wgs:long>-55.76667</wgs:long>
+	<skos:prefLabel>Akredibotto Prati</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 119 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

@@ -1,0 +1,7 @@
+#PREFIX ulan: <http://e-culture.multimedian.nl/ns/getty/ulan#> 	  SELECT ?code ?death   WHERE {     ?code ulan:birthDate ?death   } 
+# 
+# 
+#/home/gmamakis/workspace3/annocultor/converters/vocabularies/people/dbpedia.selected.artists.rdf 
+# Total: 0 
+#
+#Tue Nov 19 11:40:27 CET 2013

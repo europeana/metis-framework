@@ -1,0 +1,16 @@
+            ------
+            Destination: SOLR File
+            ------
+ 
+ Solr accepts documents in a special XML format.
+ The SolrDocumentsFile can be used to write converted documents to such as file. 
+
++------------------------------------------------------------------+
+<ac:destinations rdf:parseType="Collection">
+  <ac:SolrDocumentsFile rdf:about="CatalogRecords">
+    <ac:comment>XML file with catalog records, ready for Solr import</ac:comment>
+  </ac:SolrDocumentsFile>
+</ac:destinations>
++------------------------------------------------------------------+
+
+ 

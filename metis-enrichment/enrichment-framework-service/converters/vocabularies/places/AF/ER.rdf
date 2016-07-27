@@ -1,0 +1,2802 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AF_ER
+Description: Selected fields pulled from Geonames about ER done on Mon May 23 21:16:12 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/70476/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.64103</wgs:lat>
+	<wgs:long>42.60233</wgs:long>
+	<skos:altLabel xml:lang="ar">South West Rocks</skos:altLabel>
+	<skos:prefLabel>South West Rocks</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/325539/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.31667</wgs:lat>
+	<wgs:long>39.81667</wgs:long>
+	<skos:altLabel>Isola Uusta</skos:altLabel>
+	<skos:altLabel>Isola Vusta</skos:altLabel>
+	<skos:altLabel>Uusta</skos:altLabel>
+	<skos:altLabel>Wusta Island</skos:altLabel>
+	<skos:prefLabel>Uusta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/325540/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.05</wgs:lat>
+	<wgs:long>39.88333</wgs:long>
+	<skos:altLabel>Isole Um es Seil</skos:altLabel>
+	<skos:altLabel>Um es Seil</skos:altLabel>
+	<skos:altLabel>Īsola Um-el-Seil</skos:altLabel>
+	<skos:prefLabel>Um es Seil</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/325541/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.05</wgs:lat>
+	<wgs:long>39.96667</wgs:long>
+	<skos:altLabel>Isola Seil Norah</skos:altLabel>
+	<skos:altLabel>Seil Norah</skos:altLabel>
+	<skos:prefLabel>Seil Norah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/325705/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.63333</wgs:lat>
+	<wgs:long>40.78333</wgs:long>
+	<skos:altLabel>Du-Barr</skos:altLabel>
+	<skos:altLabel>Isola Zauber</skos:altLabel>
+	<skos:altLabel>Zauber</skos:altLabel>
+	<skos:prefLabel>Zauber</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/325939/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>15.61667</wgs:lat>
+	<wgs:long>39.46667</wgs:long>
+	<skos:prefLabel>YeFerensay Wetader Metasebīya Hawilt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/326125/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.75222</wgs:lat>
+	<wgs:long>42.14611</wgs:long>
+	<skos:altLabel>Quoin Island</skos:altLabel>
+	<skos:altLabel>Widenī Desēt</skos:altLabel>
+	<skos:prefLabel>Widenī Desēt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/326888/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.08333</wgs:lat>
+	<wgs:long>40.5</wgs:long>
+	<skos:altLabel>Isola Um es Sarig</skos:altLabel>
+	<skos:altLabel>Um-les-Sahrig</skos:altLabel>
+	<skos:altLabel>Umm es Sahrig</skos:altLabel>
+	<skos:prefLabel>Um-les-Sahrig</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/326889/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.55</wgs:lat>
+	<wgs:long>40.55</wgs:long>
+	<skos:altLabel>Isola Um-en-Neim</skos:altLabel>
+	<skos:altLabel>Umm en Nayim</skos:altLabel>
+	<skos:prefLabel>Umm en Nayim</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/326903/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.01667</wgs:lat>
+	<wgs:long>39.66667</wgs:long>
+	<skos:altLabel>Isola Um Ali</skos:altLabel>
+	<skos:altLabel>Isola Umm-Ali</skos:altLabel>
+	<skos:altLabel>Um Ali</skos:altLabel>
+	<skos:altLabel>Īto Um Ali</skos:altLabel>
+	<skos:prefLabel>Um Ali</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/326904/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.96944</wgs:lat>
+	<wgs:long>42.76944</wgs:long>
+	<skos:altLabel>Um Ālbahār Desēt</skos:altLabel>
+	<skos:altLabel>Umm-āl-Bahar Desēt</skos:altLabel>
+	<skos:prefLabel>Um Ālbahār Desēt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/327140/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.59917</wgs:lat>
+	<wgs:long>39.46444</wgs:long>
+	<skos:altLabel>Taulud</skos:altLabel>
+	<skos:altLabel>Taulud Island</skos:altLabel>
+	<skos:altLabel>Tawlad</skos:altLabel>
+	<skos:altLabel>T’walet Desēt</skos:altLabel>
+	<skos:prefLabel>T’walet Desēt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/327410/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.58333</wgs:lat>
+	<wgs:long>40.63333</wgs:long>
+	<skos:altLabel>Isola Tor</skos:altLabel>
+	<skos:altLabel>Tor</skos:altLabel>
+	<skos:prefLabel>Tor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/327799/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.66806</wgs:lat>
+	<wgs:long>42.21111</wgs:long>
+	<skos:altLabel>Isola Rachmaf</skos:altLabel>
+	<skos:altLabel>Isola Rachmat</skos:altLabel>
+	<skos:altLabel>Tekay Desēt</skos:altLabel>
+	<skos:prefLabel>Tekay Desēt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/327931/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>16.3</wgs:lat>
+	<wgs:long>39.75</wgs:long>
+	<skos:altLabel>Isole Tanam</skos:altLabel>
+	<skos:altLabel>Tanam</skos:altLabel>
+	<skos:prefLabel>Tanam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/328139/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.52484</wgs:lat>
+	<wgs:long>42.60923</wgs:long>
+	<skos:altLabel>Isolotto Haycock Sud-Ovest</skos:altLabel>
+	<skos:altLabel xml:lang="ar">South-West Haycock</skos:altLabel>
+	<skos:prefLabel>South-West Haycock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/328469/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.53333</wgs:lat>
+	<wgs:long>40</wgs:long>
+	<skos:altLabel>Isola Sciumma</skos:altLabel>
+	<skos:altLabel>Shumma</skos:altLabel>
+	<skos:prefLabel>Shumma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/328640/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.58333</wgs:lat>
+	<wgs:long>39.46667</wgs:long>
+	<skos:altLabel>Green Island</skos:altLabel>
+	<skos:altLabel>Isola Sceik Said</skos:altLabel>
+	<skos:altLabel>Sceic Said Island</skos:altLabel>
+	<skos:altLabel>Sheikh Said Island</skos:altLabel>
+	<skos:altLabel>Shēh Se’īd Desēt</skos:altLabel>
+	<skos:altLabel>Shēk Seyd</skos:altLabel>
+	<skos:altLabel>Shēk Se’īd Desēt</skos:altLabel>
+	<skos:prefLabel>Shēk Seyd</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/328827/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>14.83333</wgs:lat>
+	<wgs:long>38.5</wgs:long>
+	<skos:altLabel>Serae</skos:altLabel>
+	<skos:altLabel>Serayē Āwraja</skos:altLabel>
+	<skos:prefLabel>Serayē Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/328938/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.66028</wgs:lat>
+	<wgs:long>42.14556</wgs:long>
+	<skos:altLabel>Isola Williamson</skos:altLabel>
+	<skos:altLabel>Selefī Desēt</skos:altLabel>
+	<skos:prefLabel>Selefī Desēt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/328954/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.85</wgs:lat>
+	<wgs:long>42.03333</wgs:long>
+	<skos:altLabel>Isola Seil Abelat</skos:altLabel>
+	<skos:altLabel>Seil Abail</skos:altLabel>
+	<skos:altLabel>Seil Abelat Island</skos:altLabel>
+	<skos:altLabel>Sēl Ābayil Desēt</skos:altLabel>
+	<skos:prefLabel>Sēl Ābayil Desēt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/329000/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.81667</wgs:lat>
+	<wgs:long>40.26667</wgs:long>
+	<skos:altLabel>Dulcos</skos:altLabel>
+	<skos:altLabel>Isola Sain</skos:altLabel>
+	<skos:altLabel>Isola Seiem</skos:altLabel>
+	<skos:altLabel>Sayin</skos:altLabel>
+	<skos:altLabel>Sejen</skos:altLabel>
+	<skos:altLabel>Siem</skos:altLabel>
+	<skos:prefLabel>Siem</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/329004/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.48333</wgs:lat>
+	<wgs:long>40.18333</wgs:long>
+	<skos:altLabel>Isola Seil Harmil</skos:altLabel>
+	<skos:altLabel>Seil Armil</skos:altLabel>
+	<skos:altLabel>Seil Harmil</skos:altLabel>
+	<skos:prefLabel>Seil Harmil</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/329005/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16</wgs:lat>
+	<wgs:long>39.91667</wgs:long>
+	<skos:altLabel>Balaa</skos:altLabel>
+	<skos:altLabel>Isola Seil Betta</skos:altLabel>
+	<skos:altLabel>Seil Bella</skos:altLabel>
+	<skos:altLabel>Seil Betta</skos:altLabel>
+	<skos:prefLabel>Seil Betta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/329006/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.18333</wgs:lat>
+	<wgs:long>39.41667</wgs:long>
+	<skos:prefLabel>Seil Badira</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/329007/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.01667</wgs:lat>
+	<wgs:long>39.6</wgs:long>
+	<skos:prefLabel>Seil Badira</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/329008/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.31667</wgs:lat>
+	<wgs:long>40.01667</wgs:long>
+	<skos:altLabel>Isola Seil Anber</skos:altLabel>
+	<skos:altLabel>Isola Àmber</skos:altLabel>
+	<skos:altLabel>Seil Anber</skos:altLabel>
+	<skos:prefLabel>Seil Anber</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/329009/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.46667</wgs:lat>
+	<wgs:long>40.5</wgs:long>
+	<skos:altLabel>Anber</skos:altLabel>
+	<skos:altLabel>Isola Seil Anber</skos:altLabel>
+	<skos:altLabel>Seil Amber</skos:altLabel>
+	<skos:altLabel>Seil Anber</skos:altLabel>
+	<skos:prefLabel>Seil Anber</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/329010/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.16667</wgs:lat>
+	<wgs:long>39.93333</wgs:long>
+	<skos:altLabel>Isola Seil Adasi</skos:altLabel>
+	<skos:altLabel>Seil Adasi</skos:altLabel>
+	<skos:prefLabel>Seil Adasi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/329054/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.75</wgs:lat>
+	<wgs:long>40.75</wgs:long>
+	<skos:altLabel>Farcha</skos:altLabel>
+	<skos:altLabel>Isola Segaia</skos:altLabel>
+	<skos:altLabel>Isola Segala</skos:altLabel>
+	<skos:altLabel>Segala</skos:altLabel>
+	<skos:altLabel>Seghala</skos:altLabel>
+	<skos:prefLabel>Segala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/329222/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.03333</wgs:lat>
+	<wgs:long>39.43333</wgs:long>
+	<skos:altLabel>Isola Sceic el Abu</skos:altLabel>
+	<skos:altLabel>Sceic el Abu</skos:altLabel>
+	<skos:altLabel>Sceik-al-Abù</skos:altLabel>
+	<skos:altLabel>Sheikhul Abu</skos:altLabel>
+	<skos:prefLabel>Sceic el Abu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/329242/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.33028</wgs:lat>
+	<wgs:long>42.56528</wgs:long>
+	<skos:altLabel>Isola Saial</skos:altLabel>
+	<skos:altLabel>Isolloto Sayal</skos:altLabel>
+	<skos:altLabel>Sayal Island</skos:altLabel>
+	<skos:prefLabel>Sayal Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/329291/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.86972</wgs:lat>
+	<wgs:long>42.80278</wgs:long>
+	<skos:altLabel>Isola Sargadur</skos:altLabel>
+	<skos:altLabel>Sargadur</skos:altLabel>
+	<skos:prefLabel>Sargadur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/329297/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>15.83333</wgs:lat>
+	<wgs:long>39.9</wgs:long>
+	<skos:altLabel>Isole Sarad</skos:altLabel>
+	<skos:altLabel>Sarad</skos:altLabel>
+	<skos:prefLabel>Sarad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/329333/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.07833</wgs:lat>
+	<wgs:long>42.71556</wgs:long>
+	<skos:altLabel>Isola Sanah Bor</skos:altLabel>
+	<skos:altLabel>Sanah-bor Island</skos:altLabel>
+	<skos:altLabel>Sanahbor Desēt</skos:altLabel>
+	<skos:altLabel>Sanahor Desēt</skos:altLabel>
+	<skos:altLabel>Senaabor Island</skos:altLabel>
+	<skos:prefLabel>Sanahbor Desēt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/329372/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.56667</wgs:lat>
+	<wgs:long>40.8</wgs:long>
+	<skos:altLabel>Isola Salima</skos:altLabel>
+	<skos:altLabel>Salima</skos:altLabel>
+	<skos:prefLabel>Salima</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/329423/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>17</wgs:lat>
+	<wgs:long>38.58333</wgs:long>
+	<skos:altLabel>Nacfa</skos:altLabel>
+	<skos:altLabel>Sahil Āwraja</skos:altLabel>
+	<skos:prefLabel>Sahil Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/329450/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.88333</wgs:lat>
+	<wgs:long>41.93333</wgs:long>
+	<skos:altLabel>Isola Abail Piccola</skos:altLabel>
+	<skos:altLabel>Isola Saddle</skos:altLabel>
+	<skos:altLabel>Isola Sadla</skos:altLabel>
+	<skos:altLabel>Sadla</skos:altLabel>
+	<skos:prefLabel>Sadla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/329557/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.53333</wgs:lat>
+	<wgs:long>40.05</wgs:long>
+	<skos:altLabel>Romia</skos:altLabel>
+	<skos:altLabel>Romiya</skos:altLabel>
+	<skos:altLabel>Īsola Romia</skos:altLabel>
+	<skos:prefLabel>Romia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/329692/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.16472</wgs:lat>
+	<wgs:long>42.58889</wgs:long>
+	<skos:altLabel>Ras Darma Desēt</skos:altLabel>
+	<skos:altLabel>Ras Terma Desēt</skos:altLabel>
+	<skos:prefLabel>Ras Darma Desēt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/329756/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.71667</wgs:lat>
+	<wgs:long>40.66667</wgs:long>
+	<skos:altLabel>Isola Raca</skos:altLabel>
+	<skos:altLabel>Raca</skos:altLabel>
+	<skos:altLabel>Raka</skos:altLabel>
+	<skos:prefLabel>Raca</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/329772/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>13.75</wgs:lat>
+	<wgs:long>42.15</wgs:long>
+	<skos:altLabel>Isole Quoin</skos:altLabel>
+	<skos:altLabel>Quoin</skos:altLabel>
+	<skos:prefLabel>Quoin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/329821/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.5</wgs:lat>
+	<wgs:long>39.81667</wgs:long>
+	<skos:altLabel>Heoda Island</skos:altLabel>
+	<skos:altLabel>Hotha Island</skos:altLabel>
+	<skos:altLabel>Isola Heoda</skos:altLabel>
+	<skos:altLabel>Ota</skos:altLabel>
+	<skos:prefLabel>Ota</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/330052/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.54371</wgs:lat>
+	<wgs:long>42.6309</wgs:long>
+	<skos:altLabel>Isolotto Haycock Nord-Est</skos:altLabel>
+	<skos:altLabel xml:lang="ar">North-East Haycock</skos:altLabel>
+	<skos:prefLabel>North-East Haycock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/330055/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.16667</wgs:lat>
+	<wgs:long>39.96667</wgs:long>
+	<skos:altLabel>Isola Adasi</skos:altLabel>
+	<skos:altLabel>Isola Norah Adasi</skos:altLabel>
+	<skos:altLabel>Nora Adasi Island</skos:altLabel>
+	<skos:altLabel>Norah Adasi</skos:altLabel>
+	<skos:prefLabel>Norah Adasi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/330057/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.03333</wgs:lat>
+	<wgs:long>40.05</wgs:long>
+	<skos:altLabel>Isola Norah</skos:altLabel>
+	<skos:altLabel>Nora</skos:altLabel>
+	<skos:altLabel>Norah</skos:altLabel>
+	<skos:prefLabel>Nora</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/330070/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.7</wgs:lat>
+	<wgs:long>39.93333</wgs:long>
+	<skos:altLabel>Isola Nocra</skos:altLabel>
+	<skos:altLabel>Nakhra Hor Island</skos:altLabel>
+	<skos:altLabel>Nakhra Khor</skos:altLabel>
+	<skos:altLabel>Nokra Desēt</skos:altLabel>
+	<skos:prefLabel>Nokra Desēt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/330222/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.13333</wgs:lat>
+	<wgs:long>40.15</wgs:long>
+	<skos:altLabel>Isola Cubari</skos:altLabel>
+	<skos:altLabel>Isola Naheleg</skos:altLabel>
+	<skos:altLabel>Kubari</skos:altLabel>
+	<skos:altLabel>Naheleg</skos:altLabel>
+	<skos:altLabel>Náhelej</skos:altLabel>
+	<skos:prefLabel>Naheleg</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/330290/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.48667</wgs:lat>
+	<wgs:long>40.35694</wgs:long>
+	<skos:altLabel>Isola Museri</skos:altLabel>
+	<skos:altLabel>Museri</skos:altLabel>
+	<skos:prefLabel>Museri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/330377/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>13.38333</wgs:lat>
+	<wgs:long>42.58333</wgs:long>
+	<skos:altLabel>Isole Mohabbacah</skos:altLabel>
+	<skos:altLabel>Mohabbakah</skos:altLabel>
+	<skos:altLabel>Muhabbaka Islands</skos:altLabel>
+	<skos:prefLabel>Muhabbaka Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/330492/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.51667</wgs:lat>
+	<wgs:long>40.85</wgs:long>
+	<skos:altLabel>Isola Mogeidi</skos:altLabel>
+	<skos:altLabel>Isola Mojeidi</skos:altLabel>
+	<skos:altLabel>Moejidi</skos:altLabel>
+	<skos:altLabel>Mojeidi</skos:altLabel>
+	<skos:altLabel>Mujedi</skos:altLabel>
+	<skos:prefLabel>Mojeidi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/330544/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>15.5</wgs:lat>
+	<wgs:long>39.16667</wgs:long>
+	<skos:altLabel>Key Bahir</skos:altLabel>
+	<skos:altLabel>Massaua</skos:altLabel>
+	<skos:altLabel>Massawa</skos:altLabel>
+	<skos:altLabel>Massawah</skos:altLabel>
+	<skos:altLabel xml:lang="ti">Mits’iwa Āwraja</skos:altLabel>
+	<skos:prefLabel>Mits’iwa Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/330545/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.61667</wgs:lat>
+	<wgs:long>39.48333</wgs:long>
+	<skos:altLabel>Isola di Massaua</skos:altLabel>
+	<skos:altLabel>Massaua Island</skos:altLabel>
+	<skos:altLabel>Massawa</skos:altLabel>
+	<skos:altLabel>Mits’iwa</skos:altLabel>
+	<skos:prefLabel>Mits’iwa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/330546/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>23100</europeana:population>
+	<wgs:lat>15.60972</wgs:lat>
+	<wgs:long>39.45</wgs:long>
+	<skos:altLabel xml:lang="lt">Masava</skos:altLabel>
+	<skos:altLabel>Masawa</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Massaoua</skos:altLabel>
+	<skos:altLabel>Massau</skos:altLabel>
+	<skos:altLabel>Massaua</skos:altLabel>
+	<skos:altLabel xml:lang="it">Massaua</skos:altLabel>
+	<skos:altLabel xml:lang="id">Massawa</skos:altLabel>
+	<skos:altLabel xml:lang="es">Massawa</skos:altLabel>
+	<skos:altLabel xml:lang="en">Massawa</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Massawa</skos:altLabel>
+	<skos:altLabel xml:lang="de">Massawa</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Massawa</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Massawa</skos:altLabel>
+	<skos:altLabel>Massawa</skos:altLabel>
+	<skos:altLabel>Massawah</skos:altLabel>
+	<skos:altLabel>Massowa</skos:altLabel>
+	<skos:altLabel>Massowah</skos:altLabel>
+	<skos:altLabel>Mesewa</skos:altLabel>
+	<skos:altLabel>Mitsewa</skos:altLabel>
+	<skos:altLabel xml:lang="ti">Mits’iwa</skos:altLabel>
+	<skos:altLabel xml:lang="he">מסוע</skos:altLabel>
+	<skos:altLabel xml:lang="ti">ምጽዋ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">マッサワ</skos:altLabel>
+	<skos:prefLabel>Massawa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/330700/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.86667</wgs:lat>
+	<wgs:long>40.76667</wgs:long>
+	<skos:altLabel>Isola Midiri</skos:altLabel>
+	<skos:altLabel>Midir</skos:altLabel>
+	<skos:prefLabel>Midir</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/330706/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.53544</wgs:lat>
+	<wgs:long>42.61874</wgs:long>
+	<skos:altLabel>Isolotto Haycock Centrale</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Middle Haycock</skos:altLabel>
+	<skos:prefLabel>Middle Haycock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/331499/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.9</wgs:lat>
+	<wgs:long>40.2</wgs:long>
+	<skos:altLabel>Isola Martabam</skos:altLabel>
+	<skos:altLabel>Isola Martaban</skos:altLabel>
+	<skos:altLabel>Martabam</skos:altLabel>
+	<skos:prefLabel>Martabam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/331574/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.74056</wgs:lat>
+	<wgs:long>40.83194</wgs:long>
+	<skos:altLabel>Mandola Island</skos:altLabel>
+	<skos:altLabel>Mantola Desēt</skos:altLabel>
+	<skos:prefLabel>Mantola Desēt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/331666/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.11667</wgs:lat>
+	<wgs:long>39.58333</wgs:long>
+	<skos:altLabel>Malac Island</skos:altLabel>
+	<skos:altLabel>Īsola Malac</skos:altLabel>
+	<skos:prefLabel>Malac Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/331748/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.05</wgs:lat>
+	<wgs:long>40.16667</wgs:long>
+	<skos:altLabel>Isola Mahun</skos:altLabel>
+	<skos:altLabel>Mahun</skos:altLabel>
+	<skos:prefLabel>Mahun</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/331800/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.58333</wgs:lat>
+	<wgs:long>39.76667</wgs:long>
+	<skos:altLabel>Isola Madote</skos:altLabel>
+	<skos:altLabel>Madote</skos:altLabel>
+	<skos:altLabel>Madote Island</skos:altLabel>
+	<skos:altLabel>Medole Island</skos:altLabel>
+	<skos:prefLabel>Madote</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/331849/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.66667</wgs:lat>
+	<wgs:long>40.63333</wgs:long>
+	<skos:altLabel>Isola Maarib</skos:altLabel>
+	<skos:altLabel>Isola Maharib</skos:altLabel>
+	<skos:altLabel>Maarib</skos:altLabel>
+	<skos:altLabel>Maharib</skos:altLabel>
+	<skos:prefLabel>Maarib</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/332300/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.96583</wgs:lat>
+	<wgs:long>42.84639</wgs:long>
+	<skos:altLabel>Isola Aruchia</skos:altLabel>
+	<skos:altLabel>Lahāleb Desēt</skos:altLabel>
+	<skos:prefLabel>Lahāleb Desēt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/332768/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.10639</wgs:lat>
+	<wgs:long>41.67</wgs:long>
+	<skos:altLabel>Gezirat Cordumiàt</skos:altLabel>
+	<skos:altLabel>Isola Cordumiat</skos:altLabel>
+	<skos:altLabel>Isola Curdumiat</skos:altLabel>
+	<skos:altLabel>Kordumu’īt Desēt</skos:altLabel>
+	<skos:altLabel>Krum</skos:altLabel>
+	<skos:altLabel>Īsola Kordumu’īt</skos:altLabel>
+	<skos:prefLabel>Krum</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/332769/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>14.08333</wgs:lat>
+	<wgs:long>41.66667</wgs:long>
+	<skos:altLabel>Isolotti Cordumiat</skos:altLabel>
+	<skos:altLabel>Isolotti Curdumiat</skos:altLabel>
+	<skos:altLabel>Kordumu’īt</skos:altLabel>
+	<skos:prefLabel>Kordumu’īt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/333115/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.66833</wgs:lat>
+	<wgs:long>42.17972</wgs:long>
+	<skos:prefLabel>Kezana Desēt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/333285/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>16</wgs:lat>
+	<wgs:long>38.5</wgs:long>
+	<skos:altLabel>Keren Āwraja</skos:altLabel>
+	<skos:altLabel>Miirabawi</skos:altLabel>
+	<skos:altLabel>Western Province</skos:altLabel>
+	<skos:prefLabel>Keren Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/333287/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>74800</europeana:population>
+	<wgs:lat>15.77778</wgs:lat>
+	<wgs:long>38.45806</wgs:long>
+	<skos:altLabel>Cheren</skos:altLabel>
+	<skos:altLabel xml:lang="ti">Keren</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кэрэн</skos:altLabel>
+	<skos:altLabel xml:lang="ti">ከረን</skos:altLabel>
+	<skos:prefLabel>Keren</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/333593/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.68222</wgs:lat>
+	<wgs:long>42.11028</wgs:long>
+	<skos:altLabel>Isola di Levante</skos:altLabel>
+	<skos:altLabel>Karanas Desēt</skos:altLabel>
+	<skos:prefLabel>Karanas Desēt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/334056/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.33333</wgs:lat>
+	<wgs:long>39.88333</wgs:long>
+	<skos:altLabel>Isola Isra-tu</skos:altLabel>
+	<skos:altLabel>Isra-tu</skos:altLabel>
+	<skos:prefLabel>Isra-tu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/334119/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.71639</wgs:lat>
+	<wgs:long>39.90278</wgs:long>
+	<skos:altLabel>Ente-rahiyá Island</skos:altLabel>
+	<skos:altLabel>Isola Enteraia</skos:altLabel>
+	<skos:altLabel>Īntraya Desēt</skos:altLabel>
+	<skos:prefLabel>Īntraya Desēt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/334586/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.97361</wgs:lat>
+	<wgs:long>42.88306</wgs:long>
+	<skos:altLabel>Huiheb</skos:altLabel>
+	<skos:altLabel>Huihed</skos:altLabel>
+	<skos:altLabel>Isola Huiheb</skos:altLabel>
+	<skos:prefLabel>Huiheb</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/334598/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.33333</wgs:lat>
+	<wgs:long>40.08333</wgs:long>
+	<skos:altLabel>Hucale</skos:altLabel>
+	<skos:altLabel>Īsola Hucale</skos:altLabel>
+	<skos:prefLabel>Hucale</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/334602/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.15583</wgs:lat>
+	<wgs:long>40.24833</wgs:long>
+	<skos:altLabel>Hawakil</skos:altLabel>
+	<skos:altLabel>Howakil</skos:altLabel>
+	<skos:altLabel>Isola Auachil</skos:altLabel>
+	<skos:altLabel>Isola di Hauachil</skos:altLabel>
+	<skos:altLabel>Isola di Hauakil</skos:altLabel>
+	<skos:altLabel>Isola di Havakil</skos:altLabel>
+	<skos:altLabel>Ouachil</skos:altLabel>
+	<skos:prefLabel>Hawakil</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/334734/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.45056</wgs:lat>
+	<wgs:long>42.57556</wgs:long>
+	<skos:altLabel>High Island</skos:altLabel>
+	<skos:altLabel>Isola Alta</skos:altLabel>
+	<skos:altLabel>Isolotto High</skos:altLabel>
+	<skos:prefLabel>High Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/334833/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>13.53333</wgs:lat>
+	<wgs:long>42.61667</wgs:long>
+	<skos:altLabel>Scogli Haycocks</skos:altLabel>
+	<skos:altLabel>The Haycocks</skos:altLabel>
+	<skos:prefLabel>The Haycocks</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/334868/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.6</wgs:lat>
+	<wgs:long>40.7</wgs:long>
+	<skos:altLabel>Hatitau</skos:altLabel>
+	<skos:altLabel>Isola Hatitau</skos:altLabel>
+	<skos:prefLabel>Hatitau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/334977/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.51667</wgs:lat>
+	<wgs:long>40.15</wgs:long>
+	<skos:altLabel>Harmil</skos:altLabel>
+	<skos:altLabel>Isola Armil</skos:altLabel>
+	<skos:altLabel>Isola Harmil</skos:altLabel>
+	<skos:prefLabel>Harmil</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/335039/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.2</wgs:lat>
+	<wgs:long>40.08333</wgs:long>
+	<skos:prefLabel>Harena</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/335066/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.35583</wgs:lat>
+	<wgs:long>42.64972</wgs:long>
+	<skos:altLabel>Harbi Island</skos:altLabel>
+	<skos:altLabel>Isola Harbi</skos:altLabel>
+	<skos:altLabel>Isolotto Harbi</skos:altLabel>
+	<skos:prefLabel>Harbi Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/335071/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.1</wgs:lat>
+	<wgs:long>39.45</wgs:long>
+	<skos:altLabel>Arat</skos:altLabel>
+	<skos:altLabel>Haraf Island</skos:altLabel>
+	<skos:altLabel>Harat</skos:altLabel>
+	<skos:altLabel>Isola Harat</skos:altLabel>
+	<skos:prefLabel>Harat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/335102/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.76056</wgs:lat>
+	<wgs:long>40.80556</wgs:long>
+	<skos:altLabel>Hānt Desēt</skos:altLabel>
+	<skos:altLabel>Keda-Hanoo</skos:altLabel>
+	<skos:prefLabel>Keda-Hanoo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/335119/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.61667</wgs:lat>
+	<wgs:long>39.15</wgs:long>
+	<skos:altLabel>Handellai</skos:altLabel>
+	<skos:altLabel>Isola Handellai</skos:altLabel>
+	<skos:altLabel>Kandellài</skos:altLabel>
+	<skos:prefLabel>Handellai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/335124/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.79083</wgs:lat>
+	<wgs:long>40.80667</wgs:long>
+	<skos:altLabel>Antu Ghebir Island</skos:altLabel>
+	<skos:altLabel>Hando</skos:altLabel>
+	<skos:altLabel>Hānda Desēt</skos:altLabel>
+	<skos:prefLabel>Hando</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/335174/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>15.41667</wgs:lat>
+	<wgs:long>38.66667</wgs:long>
+	<skos:altLabel>Amasen</skos:altLabel>
+	<skos:altLabel>Amasien</skos:altLabel>
+	<skos:altLabel>Asmara and Hamasien</skos:altLabel>
+	<skos:altLabel>Hamasien</skos:altLabel>
+	<skos:altLabel xml:lang="ti">Hamasēn Āwraja</skos:altLabel>
+	<skos:altLabel xml:lang="ti">ሓማሴን</skos:altLabel>
+	<skos:prefLabel>Hamasēn Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/335234/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.93917</wgs:lat>
+	<wgs:long>42.91972</wgs:long>
+	<skos:altLabel>Darmabah</skos:altLabel>
+	<skos:altLabel>Halba Desēt</skos:altLabel>
+	<skos:altLabel>Haleb Island</skos:altLabel>
+	<skos:altLabel>Halib</skos:altLabel>
+	<skos:altLabel>Isola Haleb</skos:altLabel>
+	<skos:prefLabel>Halba Desēt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/336574/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.15</wgs:lat>
+	<wgs:long>39.75</wgs:long>
+	<skos:altLabel>Giarmat-Adda Island</skos:altLabel>
+	<skos:altLabel>Giarmat-adda</skos:altLabel>
+	<skos:altLabel>Isola Giarmat-adda</skos:altLabel>
+	<skos:altLabel>Jarmat adda</skos:altLabel>
+	<skos:prefLabel>Giarmat-adda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/336723/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.26667</wgs:lat>
+	<wgs:long>40.21667</wgs:long>
+	<skos:altLabel>Ghabbi-hu</skos:altLabel>
+	<skos:altLabel>Isola Gabbi-Hù</skos:altLabel>
+	<skos:altLabel>Isola Ghabbi-hu</skos:altLabel>
+	<skos:prefLabel>Ghabbi-hu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/336785/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.21667</wgs:lat>
+	<wgs:long>39.76667</wgs:long>
+	<skos:altLabel>Gerom</skos:altLabel>
+	<skos:altLabel>Isola Gerom</skos:altLabel>
+	<skos:altLabel>Isola Ieròm</skos:altLabel>
+	<skos:altLabel>Jerom Island</skos:altLabel>
+	<skos:prefLabel>Gerom</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/337178/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.83472</wgs:lat>
+	<wgs:long>42.94056</wgs:long>
+	<skos:altLabel>Gebel Alil</skos:altLabel>
+	<skos:altLabel>Jebel Alil</skos:altLabel>
+	<skos:prefLabel>Gebel Alil</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/337233/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>15</wgs:lat>
+	<wgs:long>37.2</wgs:long>
+	<skos:altLabel>Gash and Setit</skos:altLabel>
+	<skos:altLabel>Gashe and Setit</skos:altLabel>
+	<skos:altLabel>Gashe na Setit Āwraja</skos:altLabel>
+	<skos:altLabel xml:lang="ti">Āwraja Gash-Setīt</skos:altLabel>
+	<skos:altLabel xml:lang="ti">ጋሽ ሰቲት</skos:altLabel>
+	<skos:prefLabel>Āwraja Gash-Setīt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/337520/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.1</wgs:lat>
+	<wgs:long>39.98333</wgs:long>
+	<skos:altLabel>Gad Norah</skos:altLabel>
+	<skos:altLabel>Īsola Gad Norah</skos:altLabel>
+	<skos:prefLabel>Gad Norah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/337679/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.41028</wgs:lat>
+	<wgs:long>42.54944</wgs:long>
+	<skos:altLabel>Flat Island</skos:altLabel>
+	<skos:altLabel>Isola Piana</skos:altLabel>
+	<skos:altLabel>Isolotto Flat</skos:altLabel>
+	<skos:prefLabel>Flat Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/337890/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.02528</wgs:lat>
+	<wgs:long>42.84889</wgs:long>
+	<skos:altLabel>Fatma</skos:altLabel>
+	<skos:altLabel>Fatuma</skos:altLabel>
+	<skos:altLabel>Fatuma Desēt</skos:altLabel>
+	<skos:altLabel>Isola Fatmah</skos:altLabel>
+	<skos:prefLabel>Fatuma Desēt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/338009/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.7</wgs:lat>
+	<wgs:long>40.2</wgs:long>
+	<skos:altLabel>Arue</skos:altLabel>
+	<skos:altLabel>Eraw</skos:altLabel>
+	<skos:altLabel>Erua</skos:altLabel>
+	<skos:altLabel>Erwa</skos:altLabel>
+	<skos:altLabel>Erwa Island</skos:altLabel>
+	<skos:altLabel>Isola Erua</skos:altLabel>
+	<skos:prefLabel>Erwa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/338010/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255146/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>5792984</europeana:population>
+	<wgs:lat>15</wgs:lat>
+	<wgs:long>39</wgs:long>
+	<skos:altLabel xml:lang="ga">An Eiritré</skos:altLabel>
+	<skos:altLabel>ER</skos:altLabel>
+	<skos:altLabel xml:lang="aa">Eretria</skos:altLabel>
+	<skos:altLabel>Erithrea</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Eritre</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Eritre</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Eritre</skos:altLabel>
+	<skos:altLabel xml:lang="id">Eritrea</skos:altLabel>
+	<skos:altLabel xml:lang="es">Eritrea</skos:altLabel>
+	<skos:altLabel xml:lang="en">Eritrea</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Eritrea</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Eritrea</skos:altLabel>
+	<skos:altLabel xml:lang="de">Eritrea</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Eritrea</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Eritrea</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Eritrea</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Eritrea</skos:altLabel>
+	<skos:altLabel xml:lang="da">Eritrea</skos:altLabel>
+	<skos:altLabel xml:lang="et">Eritrea</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Eritrea</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Eritrea</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Eritrea</skos:altLabel>
+	<skos:altLabel xml:lang="it">Eritrea</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Eritrea</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Eritrea</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Eritrea</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Eritrea</skos:altLabel>
+	<skos:altLabel xml:lang="an">Eritrea</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Eritrea</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Eritrea</skos:altLabel>
+	<skos:altLabel xml:lang="li">Eritrea</skos:altLabel>
+	<skos:altLabel xml:lang="na">Eritrea</skos:altLabel>
+	<skos:altLabel xml:lang="no">Eritrea</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Eritrea</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Eritrea</skos:altLabel>
+	<skos:altLabel xml:lang="af">Eritrea</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Eritrea</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Eritrea</skos:altLabel>
+	<skos:altLabel xml:lang="io">Eritrea</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Eritrea</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Eritrea</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Eritrea</skos:altLabel>
+	<skos:altLabel xml:lang="se">Eritrea</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Eritrea - ኤርትራ</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Eritreea</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Eritreia</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Eritreja</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Eritreja</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Eritreja</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Eritreja</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Eritreja</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Eritreja</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Eritreo</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Eritrèa</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Eritréia</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Eritrėja</skos:altLabel>
+	<skos:altLabel>Erythraea</skos:altLabel>
+	<skos:altLabel xml:lang="la">Erythraea</skos:altLabel>
+	<skos:altLabel>Erythraia</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Erytrea</skos:altLabel>
+	<skos:altLabel xml:lang="is">Erítrea</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Erîtrêya</skos:altLabel>
+	<skos:altLabel xml:lang="ti">Hagere Iertra</skos:altLabel>
+	<skos:altLabel xml:lang="ti">Hagere Ērtra</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Lerüträn</skos:altLabel>
+	<skos:altLabel xml:lang="en">State of Eritrea</skos:altLabel>
+	<skos:altLabel>Érythrée</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Érythrée</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ê-ri-tơ-rê-a</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ê-ri-tơ-rê-a (Eritrea)</skos:altLabel>
+	<skos:altLabel>Ēritra</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ερυθραία</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Еритреа</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Еритрея</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Еритрея</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Еритреја</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Еритреја</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Ерітрея</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Эритрея</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Эритрея</skos:altLabel>
+	<skos:altLabel xml:lang="be">Эрытрэя</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Էրիտրեա</skos:altLabel>
+	<skos:altLabel xml:lang="he">אריטראה</skos:altLabel>
+	<skos:altLabel xml:lang="he">אריתרה</skos:altLabel>
+	<skos:altLabel xml:lang="he">אריתריאה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">إريتريا</skos:altLabel>
+	<skos:altLabel xml:lang="ug">ئېرىترىيە</skos:altLabel>
+	<skos:altLabel xml:lang="ar">ارتيريا</skos:altLabel>
+	<skos:altLabel xml:lang="ar">اريتريا</skos:altLabel>
+	<skos:altLabel xml:lang="fa">اریتره</skos:altLabel>
+	<skos:altLabel xml:lang="fa">اریتریا</skos:altLabel>
+	<skos:altLabel xml:lang="ur">اریٹیریا</skos:altLabel>
+	<skos:altLabel xml:lang="ps">اېرېتېريا</skos:altLabel>
+	<skos:altLabel xml:lang="hi">इरिट्रिया</skos:altLabel>
+	<skos:altLabel xml:lang="sa">एरिट्रिया</skos:altLabel>
+	<skos:altLabel xml:lang="hi">एरीत्रिया</skos:altLabel>
+	<skos:altLabel xml:lang="bn">ইরিত্রিয়া</skos:altLabel>
+	<skos:altLabel xml:lang="bn">এরিট্রিয়া</skos:altLabel>
+	<skos:altLabel xml:lang="ml">എരിട്രിയ</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศเอริเทรีย</skos:altLabel>
+	<skos:altLabel xml:lang="th">เอริเทรีย</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ອິນຊີ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཨེ་རི་ཏྲེ་ཨ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ერიტრეა</skos:altLabel>
+	<skos:altLabel xml:lang="am">ኤርትራ</skos:altLabel>
+	<skos:altLabel xml:lang="ti">ኤርትራ</skos:altLabel>
+	<skos:altLabel xml:lang="km">អេរីទ្រា</skos:altLabel>
+	<skos:altLabel xml:lang="ja">エリトリア</skos:altLabel>
+	<skos:altLabel xml:lang="zh">厄立特里亚</skos:altLabel>
+	<skos:altLabel xml:lang="ko">에리트레아</skos:altLabel>
+	<skos:altLabel xml:lang="ko">에리트리아</skos:altLabel>
+	<skos:prefLabel>State of Eritrea</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/338056/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.21667</wgs:lat>
+	<wgs:long>40.01667</wgs:long>
+	<skos:altLabel>Entvedul</skos:altLabel>
+	<skos:altLabel>Isola Entuvedùl</skos:altLabel>
+	<skos:altLabel>Isola Entvedul</skos:altLabel>
+	<skos:prefLabel>Entvedul</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/338057/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.05</wgs:lat>
+	<wgs:long>39.76667</wgs:long>
+	<skos:altLabel>Entufasc</skos:altLabel>
+	<skos:altLabel>Entufush</skos:altLabel>
+	<skos:altLabel>Isola Entufasc</skos:altLabel>
+	<skos:altLabel>Īsola Entufase</skos:altLabel>
+	<skos:prefLabel>Entufasc</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/338060/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.01667</wgs:lat>
+	<wgs:long>39.86667</wgs:long>
+	<skos:altLabel>Entoghodof</skos:altLabel>
+	<skos:altLabel>Entogodof</skos:altLabel>
+	<skos:altLabel>Entugudùf</skos:altLabel>
+	<skos:altLabel>Isola Entogodof</skos:altLabel>
+	<skos:prefLabel>Entogodof</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/338061/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.5</wgs:lat>
+	<wgs:long>39.3</wgs:long>
+	<skos:altLabel>Entesila</skos:altLabel>
+	<skos:altLabel>Entesile</skos:altLabel>
+	<skos:altLabel>Isola Entesile</skos:altLabel>
+	<skos:prefLabel>Entesile</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/338064/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.13333</wgs:lat>
+	<wgs:long>39.85</wgs:long>
+	<skos:altLabel>Enta-idell</skos:altLabel>
+	<skos:altLabel>Isola Enta-idell</skos:altLabel>
+	<skos:prefLabel>Enta-idell</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/338065/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.33333</wgs:lat>
+	<wgs:long>40.23333</wgs:long>
+	<skos:altLabel>Entaentor</skos:altLabel>
+	<skos:altLabel>Entaentor Island</skos:altLabel>
+	<skos:altLabel>Isola Entaentor</skos:altLabel>
+	<skos:prefLabel>Entaentor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/338066/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.48333</wgs:lat>
+	<wgs:long>40.08333</wgs:long>
+	<skos:altLabel>Enta-asna</skos:altLabel>
+	<skos:altLabel>Isola Enta-asna</skos:altLabel>
+	<skos:prefLabel>Enta-asna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/338345/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11259</europeana:population>
+	<wgs:lat>13.92972</wgs:lat>
+	<wgs:long>41.6925</wgs:long>
+	<skos:altLabel>Edd</skos:altLabel>
+	<skos:altLabel>Eid</skos:altLabel>
+	<skos:altLabel>Ēd</skos:altLabel>
+	<skos:altLabel xml:lang="ti">ዕዲ</skos:altLabel>
+	<skos:altLabel xml:lang="ti">‘Idī</skos:altLabel>
+	<skos:prefLabel>‘Idī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/338392/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.85</wgs:lat>
+	<wgs:long>39.83333</wgs:long>
+	<skos:altLabel>Dhu-ryry</skos:altLabel>
+	<skos:altLabel>Du Rig Rig Island</skos:altLabel>
+	<skos:altLabel>Du Rig-Rig</skos:altLabel>
+	<skos:prefLabel>Du Rig-Rig</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/338395/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.76667</wgs:lat>
+	<wgs:long>39.78333</wgs:long>
+	<skos:altLabel>Dar Ghulla</skos:altLabel>
+	<skos:altLabel>Dur Ghella</skos:altLabel>
+	<skos:altLabel>Isola Dur Ghella</skos:altLabel>
+	<skos:prefLabel>Dur Ghella</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/338396/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.78333</wgs:lat>
+	<wgs:long>39.75</wgs:long>
+	<skos:altLabel>Dhu Rakaham</skos:altLabel>
+	<skos:altLabel>Dur Gaam</skos:altLabel>
+	<skos:altLabel>Isola Dur Gaam</skos:altLabel>
+	<skos:prefLabel>Dur Gaam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/338407/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.96667</wgs:lat>
+	<wgs:long>39.95</wgs:long>
+	<skos:altLabel>Dur Afrus</skos:altLabel>
+	<skos:altLabel>Isola Dur Afrus</skos:altLabel>
+	<skos:prefLabel>Dur Afrus</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/338449/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16</wgs:lat>
+	<wgs:long>40.28333</wgs:long>
+	<skos:altLabel>Dhu-l-fidol</skos:altLabel>
+	<skos:altLabel>Dulfidol</skos:altLabel>
+	<skos:altLabel>Isola Dulfidol</skos:altLabel>
+	<skos:prefLabel>Dulfidol</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/338466/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.83333</wgs:lat>
+	<wgs:long>40.56667</wgs:long>
+	<skos:altLabel>Dhu-l-bia</skos:altLabel>
+	<skos:altLabel>Dulbia</skos:altLabel>
+	<skos:altLabel>Isola Dhulbia</skos:altLabel>
+	<skos:altLabel>Isola Dulbia</skos:altLabel>
+	<skos:prefLabel>Dulbia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/338467/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.94722</wgs:lat>
+	<wgs:long>39.53611</wgs:long>
+	<skos:altLabel>Bulbaut Island</skos:altLabel>
+	<skos:altLabel>Dohul Bahut</skos:altLabel>
+	<skos:altLabel>Dul Baut</skos:altLabel>
+	<skos:altLabel>Isola Dul Baut</skos:altLabel>
+	<skos:prefLabel>Dul Baut</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/338469/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.91667</wgs:lat>
+	<wgs:long>40.23333</wgs:long>
+	<skos:altLabel>Dulanchibat</skos:altLabel>
+	<skos:altLabel>Isola Dhulanchibat</skos:altLabel>
+	<skos:altLabel>Isola Dulanchibat</skos:altLabel>
+	<skos:prefLabel>Dulanchibat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/338472/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.95</wgs:lat>
+	<wgs:long>40.15</wgs:long>
+	<skos:altLabel>Dulalam</skos:altLabel>
+	<skos:altLabel>Isola Dhulalam</skos:altLabel>
+	<skos:altLabel>Isola Dulalam</skos:altLabel>
+	<skos:prefLabel>Dulalam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/338475/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.91667</wgs:lat>
+	<wgs:long>40.05</wgs:long>
+	<skos:altLabel>Dhuladiia</skos:altLabel>
+	<skos:altLabel>Dhú-ladhiya</skos:altLabel>
+	<skos:altLabel>Duladia</skos:altLabel>
+	<skos:altLabel>Isola Duladia</skos:altLabel>
+	<skos:altLabel>Isola Duladija</skos:altLabel>
+	<skos:altLabel>Isola Duladya</skos:altLabel>
+	<skos:prefLabel>Duladia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/338792/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.5</wgs:lat>
+	<wgs:long>39.75</wgs:long>
+	<skos:altLabel>Disei Island</skos:altLabel>
+	<skos:altLabel>Dissei</skos:altLabel>
+	<skos:altLabel>Isola Dissei</skos:altLabel>
+	<skos:prefLabel>Dissei</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/338973/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.5</wgs:lat>
+	<wgs:long>39.9</wgs:long>
+	<skos:altLabel>Delemme Island</skos:altLabel>
+	<skos:altLabel>Dilemmi</skos:altLabel>
+	<skos:altLabel>Isola Delemme</skos:altLabel>
+	<skos:altLabel>Isola Dilemmi</skos:altLabel>
+	<skos:prefLabel>Dilemmi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/339057/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.61667</wgs:lat>
+	<wgs:long>39.33333</wgs:long>
+	<skos:altLabel>Difnein</skos:altLabel>
+	<skos:altLabel>Isola Difnein</skos:altLabel>
+	<skos:prefLabel>Difnein</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/339173/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.18333</wgs:lat>
+	<wgs:long>40.06667</wgs:long>
+	<skos:altLabel>Dha-lalam</skos:altLabel>
+	<skos:altLabel>Dhu-Lalam</skos:altLabel>
+	<skos:altLabel>Isola Dha-lalam</skos:altLabel>
+	<skos:altLabel>Isola Dhulalam</skos:altLabel>
+	<skos:altLabel>Isola Du Laham</skos:altLabel>
+	<skos:prefLabel>Dha-lalam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/339249/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.9</wgs:lat>
+	<wgs:long>40.1</wgs:long>
+	<skos:altLabel>Dergoman Seghir</skos:altLabel>
+	<skos:altLabel>Isola Dergoman Seghir</skos:altLabel>
+	<skos:altLabel>Isolloto Dergamman Seghir</skos:altLabel>
+	<skos:prefLabel>Dergoman Seghir</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/339250/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.85</wgs:lat>
+	<wgs:long>40.13333</wgs:long>
+	<skos:altLabel>Dergoman Chebir</skos:altLabel>
+	<skos:altLabel>Dergomán Kebir</skos:altLabel>
+	<skos:altLabel>Isola Dergoman Chebir</skos:altLabel>
+	<skos:prefLabel>Dergoman Chebir</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/339277/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.75139</wgs:lat>
+	<wgs:long>40.89167</wgs:long>
+	<skos:altLabel>Derēbsasa Desēt</skos:altLabel>
+	<skos:altLabel>Garabsie</skos:altLabel>
+	<skos:altLabel>Isola Grabsus</skos:altLabel>
+	<skos:prefLabel>Garabsie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/339286/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.98556</wgs:lat>
+	<wgs:long>42.93278</wgs:long>
+	<skos:altLabel>Dercos</skos:altLabel>
+	<skos:altLabel>Isola Dercos</skos:altLabel>
+	<skos:prefLabel>Dercos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/339495/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>15.13333</wgs:lat>
+	<wgs:long>40.33333</wgs:long>
+	<skos:altLabel>Delgheman</skos:altLabel>
+	<skos:altLabel>Delgumma Islands</skos:altLabel>
+	<skos:altLabel>Delgumme</skos:altLabel>
+	<skos:altLabel>Dergamman Islands</skos:altLabel>
+	<skos:altLabel>Isole Delgumme</skos:altLabel>
+	<skos:prefLabel>Delgheman</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/339537/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10959</europeana:population>
+	<wgs:lat>15.07</wgs:lat>
+	<wgs:long>39.0475</wgs:long>
+	<skos:altLabel>Decamere</skos:altLabel>
+	<skos:altLabel>Dekamere</skos:altLabel>
+	<skos:altLabel>Dekemehare</skos:altLabel>
+	<skos:altLabel>Dekemehre</skos:altLabel>
+	<skos:altLabel xml:lang="ti">Dek’emhare</skos:altLabel>
+	<skos:altLabel xml:lang="ti">ደቀምሓረ</skos:altLabel>
+	<skos:prefLabel>Dek’emhare</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/339558/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.9</wgs:lat>
+	<wgs:long>39.63333</wgs:long>
+	<skos:altLabel>Dehel</skos:altLabel>
+	<skos:altLabel>Dohul</skos:altLabel>
+	<skos:altLabel>Dohul Island</skos:altLabel>
+	<skos:altLabel>Isola Dehel</skos:altLabel>
+	<skos:prefLabel>Dohul</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/339564/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.65972</wgs:lat>
+	<wgs:long>40.11417</wgs:long>
+	<skos:altLabel>Dahalach Grande</skos:altLabel>
+	<skos:altLabel>Dahlach Island</skos:altLabel>
+	<skos:altLabel>Dahlak Island</skos:altLabel>
+	<skos:altLabel>Dahlak Kebr</skos:altLabel>
+	<skos:altLabel>Dahlak’ Kebīr</skos:altLabel>
+	<skos:altLabel>Dehalak’ Desēt</skos:altLabel>
+	<skos:altLabel>Dehlac Island</skos:altLabel>
+	<skos:altLabel>Isola Daalac Chebir</skos:altLabel>
+	<skos:altLabel>Isola Dahlac Chebir</skos:altLabel>
+	<skos:prefLabel>Dahlak Kebr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/339900/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.91667</wgs:lat>
+	<wgs:long>39.93333</wgs:long>
+	<skos:altLabel>Dar Ottun</skos:altLabel>
+	<skos:altLabel>Isola Dar Ottun</skos:altLabel>
+	<skos:altLabel>Isola Dur Ottun</skos:altLabel>
+	<skos:prefLabel>Dar Ottun</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/339918/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.95694</wgs:lat>
+	<wgs:long>42.81889</wgs:long>
+	<skos:altLabel>Darmachia</skos:altLabel>
+	<skos:altLabel>Darmakia Island</skos:altLabel>
+	<skos:altLabel>Darmākia</skos:altLabel>
+	<skos:altLabel>Isola Darmachia</skos:altLabel>
+	<skos:prefLabel>Darmachia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/340131/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.26667</wgs:lat>
+	<wgs:long>40.16667</wgs:long>
+	<skos:altLabel>Dalhur</skos:altLabel>
+	<skos:altLabel>Isola Dalhur</skos:altLabel>
+	<skos:prefLabel>Dalhur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/340212/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.1</wgs:lat>
+	<wgs:long>39.6</wgs:long>
+	<skos:altLabel>Dahret Island</skos:altLabel>
+	<skos:altLabel>Īsola Dahret</skos:altLabel>
+	<skos:prefLabel>Dahret Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/340213/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.23333</wgs:lat>
+	<wgs:long>40.16667</wgs:long>
+	<skos:altLabel>Cubari</skos:altLabel>
+	<skos:altLabel>Dahret Cabari</skos:altLabel>
+	<skos:altLabel>Dahret Cubari</skos:altLabel>
+	<skos:altLabel>Dahret Kubári</skos:altLabel>
+	<skos:altLabel>Daret Cubari</skos:altLabel>
+	<skos:altLabel>Isola Dahret Cabari</skos:altLabel>
+	<skos:altLabel>Isola Dàret Cabari</skos:altLabel>
+	<skos:prefLabel>Dahret Cabari</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/340214/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.16667</wgs:lat>
+	<wgs:long>40.03333</wgs:long>
+	<skos:altLabel>Dahret</skos:altLabel>
+	<skos:altLabel>Isola Daaret</skos:altLabel>
+	<skos:altLabel>Isola Dahret</skos:altLabel>
+	<skos:altLabel>Isola Daret</skos:altLabel>
+	<skos:prefLabel>Dahret</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/340218/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>15.83333</wgs:lat>
+	<wgs:long>40.2</wgs:long>
+	<skos:altLabel>Archipelago Dahlach</skos:altLabel>
+	<skos:altLabel>Arcipelago Daalac</skos:altLabel>
+	<skos:altLabel>Arcipelago Dahlac</skos:altLabel>
+	<skos:altLabel>Arcipelago delle Isole Dahlac</skos:altLabel>
+	<skos:altLabel>Dahla Archipelago</skos:altLabel>
+	<skos:altLabel>Dahlac Archipelago</skos:altLabel>
+	<skos:altLabel>Dahlak Archipelago</skos:altLabel>
+	<skos:altLabel>Dahlak Islands</skos:altLabel>
+	<skos:altLabel>Isole Dahalach</skos:altLabel>
+	<skos:altLabel xml:lang="ti">ዳህላክ</skos:altLabel>
+	<skos:prefLabel>Dahlak Archipelago</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/340377/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.90417</wgs:lat>
+	<wgs:long>39.57778</wgs:long>
+	<skos:altLabel>Daaret</skos:altLabel>
+	<skos:altLabel>Dahret</skos:altLabel>
+	<skos:altLabel>Isola Daaret</skos:altLabel>
+	<skos:altLabel>Isola Dàret</skos:altLabel>
+	<skos:prefLabel>Daaret</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/340552/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.91667</wgs:lat>
+	<wgs:long>41.86667</wgs:long>
+	<skos:altLabel>Cod Ali Est</skos:altLabel>
+	<skos:altLabel>Isolotto Cod Ali Est</skos:altLabel>
+	<skos:altLabel>Isolotto Kod-Alì dell’ Est</skos:altLabel>
+	<skos:altLabel>Kod Ali East Island</skos:altLabel>
+	<skos:prefLabel>Cod Ali Est</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/340553/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.93333</wgs:lat>
+	<wgs:long>41.81667</wgs:long>
+	<skos:altLabel>Cod Ali</skos:altLabel>
+	<skos:altLabel>Gezirat Kod Ali Island</skos:altLabel>
+	<skos:altLabel>Gezirat Kod-Alì</skos:altLabel>
+	<skos:altLabel>Isolotto Cod Ali</skos:altLabel>
+	<skos:prefLabel>Cod Ali</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/341244/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.35</wgs:lat>
+	<wgs:long>39.55</wgs:long>
+	<skos:altLabel>Cad-Hu Island</skos:altLabel>
+	<skos:altLabel>Cad-hu</skos:altLabel>
+	<skos:altLabel>Gad-hu</skos:altLabel>
+	<skos:altLabel>Isola Cad-hu</skos:altLabel>
+	<skos:altLabel>Kad-hu</skos:altLabel>
+	<skos:prefLabel>Cad-hu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/341245/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.03333</wgs:lat>
+	<wgs:long>39.85</wgs:long>
+	<skos:altLabel>Cad Entogodof</skos:altLabel>
+	<skos:altLabel>Cad Entogodof Island</skos:altLabel>
+	<skos:altLabel>Kad Entoghodof</skos:altLabel>
+	<skos:altLabel>Īsola Cad Entogodof</skos:altLabel>
+	<skos:prefLabel>Cad Entogodof</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/341465/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.4</wgs:lat>
+	<wgs:long>40.66667</wgs:long>
+	<skos:altLabel>Bu-l-hissar</skos:altLabel>
+	<skos:altLabel>Bullissar</skos:altLabel>
+	<skos:altLabel>Isola Bulhissar</skos:altLabel>
+	<skos:altLabel>Isola Bullissar</skos:altLabel>
+	<skos:prefLabel>Bullissar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/342103/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.8</wgs:lat>
+	<wgs:long>40.7</wgs:long>
+	<skos:altLabel>Bilha</skos:altLabel>
+	<skos:altLabel>Isola Bilha</skos:altLabel>
+	<skos:prefLabel>Bilha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/342638/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.60889</wgs:lat>
+	<wgs:long>39.47694</wgs:long>
+	<skos:prefLabel>Bats’i‘i Desēt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/342711/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>15891</europeana:population>
+	<wgs:lat>15.11389</wgs:lat>
+	<wgs:long>37.59278</wgs:long>
+	<skos:altLabel xml:lang="ti">Barentu</skos:altLabel>
+	<skos:altLabel>Mai Tsada</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Барэнту</skos:altLabel>
+	<skos:altLabel xml:lang="ti">ባረንቱ</skos:altLabel>
+	<skos:prefLabel>Barentu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/342744/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.95278</wgs:lat>
+	<wgs:long>39.60278</wgs:long>
+	<skos:altLabel>Bar Adi</skos:altLabel>
+	<skos:altLabel>Bar Adi Desēt</skos:altLabel>
+	<skos:altLabel>Barádu</skos:altLabel>
+	<skos:altLabel>Isola Bar Adi</skos:altLabel>
+	<skos:prefLabel>Bar Adi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/342950/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.01472</wgs:lat>
+	<wgs:long>40.31444</wgs:long>
+	<skos:altLabel>Baca</skos:altLabel>
+	<skos:altLabel>Baca Island</skos:altLabel>
+	<skos:altLabel>Beka’e</skos:altLabel>
+	<skos:altLabel>Island Baca</skos:altLabel>
+	<skos:altLabel>Isola Baca</skos:altLabel>
+	<skos:altLabel>Isola Baka</skos:altLabel>
+	<skos:altLabel>Isola Monte Baca</skos:altLabel>
+	<skos:altLabel>Jebel Baka Island</skos:altLabel>
+	<skos:altLabel>Mount Baka Island</skos:altLabel>
+	<skos:prefLabel>Beka’e</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/343171/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.5</wgs:lat>
+	<wgs:long>40.8</wgs:long>
+	<skos:altLabel>Aucan</skos:altLabel>
+	<skos:altLabel>Aukan Island</skos:altLabel>
+	<skos:altLabel>Isola Aucan</skos:altLabel>
+	<skos:prefLabel>Aucan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/343176/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.9</wgs:lat>
+	<wgs:long>40.6</wgs:long>
+	<skos:altLabel>Auatib</skos:altLabel>
+	<skos:altLabel>Hawatib</skos:altLabel>
+	<skos:altLabel>Isola Hauátib</skos:altLabel>
+	<skos:altLabel>Isole Auatib</skos:altLabel>
+	<skos:prefLabel>Auatib</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/343181/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.48333</wgs:lat>
+	<wgs:long>37.66667</wgs:long>
+	<skos:altLabel>Auali Sceura Island</skos:altLabel>
+	<skos:altLabel>Īsola Avali Sceura</skos:altLabel>
+	<skos:prefLabel>Auali Sceura Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/343182/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.53333</wgs:lat>
+	<wgs:long>39.76667</wgs:long>
+	<skos:altLabel>Auali Hutub Island</skos:altLabel>
+	<skos:altLabel>Awali Hutub</skos:altLabel>
+	<skos:altLabel>Īsola Auali Hutub</skos:altLabel>
+	<skos:prefLabel>Auali Hutub Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/343271/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.54083</wgs:lat>
+	<wgs:long>39.99639</wgs:long>
+	<skos:altLabel>Asarka</skos:altLabel>
+	<skos:altLabel>Assarka</skos:altLabel>
+	<skos:altLabel>Ile Assarca</skos:altLabel>
+	<skos:altLabel>Isole Ascarè</skos:altLabel>
+	<skos:altLabel>Isole Assarca</skos:altLabel>
+	<skos:altLabel>Isolotti Assarka</skos:altLabel>
+	<skos:altLabel>Shumma</skos:altLabel>
+	<skos:prefLabel>Asarka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/343300/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>563930</europeana:population>
+	<wgs:lat>15.33333</wgs:lat>
+	<wgs:long>38.93333</wgs:long>
+	<skos:altLabel xml:lang="id">Asmara</skos:altLabel>
+	<skos:altLabel xml:lang="de">Asmara</skos:altLabel>
+	<skos:altLabel xml:lang="es">Asmara</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Asmara</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Asmara</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Asmara</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Asmara</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Asmara</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Asmara</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Asmara</skos:altLabel>
+	<skos:altLabel xml:lang="it">Asmara</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Asmara</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Asmara</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Asmara</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Asmara</skos:altLabel>
+	<skos:altLabel xml:lang="io">Asmara</skos:altLabel>
+	<skos:altLabel xml:lang="no">Asmara</skos:altLabel>
+	<skos:altLabel xml:lang="la">Asmara</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Asmara</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Asmara</skos:altLabel>
+	<skos:altLabel xml:lang="et">Asmara</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Asmara</skos:altLabel>
+	<skos:altLabel xml:lang="da">Asmara</skos:altLabel>
+	<skos:altLabel xml:lang="en">Asmara</skos:altLabel>
+	<skos:altLabel xml:lang="ti">Asmera</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Aszmara</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ασμάρα</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Асмара</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Асмара</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Асмэра</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Ասմարա</skos:altLabel>
+	<skos:altLabel xml:lang="he">אסמרה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">أسمرة</skos:altLabel>
+	<skos:altLabel xml:lang="am">አስመራ</skos:altLabel>
+	<skos:altLabel xml:lang="ti">ኣሥመራ</skos:altLabel>
+	<skos:altLabel xml:lang="ti">ኣስመራ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">アスマラ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">阿斯瑪拉</skos:altLabel>
+	<skos:altLabel xml:lang="zh">阿斯馬拉</skos:altLabel>
+	<skos:altLabel xml:lang="ko">아스마라</skos:altLabel>
+	<skos:prefLabel>Asmara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/343315/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.75444</wgs:lat>
+	<wgs:long>42.16222</wgs:long>
+	<skos:altLabel>Quoin Island</skos:altLabel>
+	<skos:altLabel>Āskoma Desēt</skos:altLabel>
+	<skos:prefLabel>Āskoma Desēt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/343356/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.15</wgs:lat>
+	<wgs:long>39.96667</wgs:long>
+	<skos:altLabel>Asgar</skos:altLabel>
+	<skos:altLabel>Gezirat Asgar</skos:altLabel>
+	<skos:altLabel>Jezirat Asghar</skos:altLabel>
+	<skos:prefLabel>Asgar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/343385/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>14</wgs:lat>
+	<wgs:long>41.41667</wgs:long>
+	<skos:altLabel>Assab</skos:altLabel>
+	<skos:altLabel>Āseb Āwraja</skos:altLabel>
+	<skos:prefLabel>Āseb Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/343386/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>21300</europeana:population>
+	<wgs:lat>13.00917</wgs:lat>
+	<wgs:long>42.73944</wgs:long>
+	<skos:altLabel>Aseb</skos:altLabel>
+	<skos:altLabel xml:lang="no">Assab</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Assab</skos:altLabel>
+	<skos:altLabel xml:lang="en">Assab</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Assab</skos:altLabel>
+	<skos:altLabel xml:lang="es">Assab</skos:altLabel>
+	<skos:altLabel xml:lang="de">Assab</skos:altLabel>
+	<skos:altLabel xml:lang="it">Assab</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Assab</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Assab</skos:altLabel>
+	<skos:altLabel>Assab</skos:altLabel>
+	<skos:altLabel xml:lang="it">Baia di Assab</skos:altLabel>
+	<skos:altLabel xml:lang="ar">عصب</skos:altLabel>
+	<skos:altLabel xml:lang="ti">ዓስብ</skos:altLabel>
+	<skos:altLabel xml:lang="ti">‘Aseb</skos:altLabel>
+	<skos:altLabel xml:lang="zh">阿萨布</skos:altLabel>
+	<skos:prefLabel>Assab</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/343405/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.43333</wgs:lat>
+	<wgs:long>40.08333</wgs:long>
+	<skos:altLabel>Asbab</skos:altLabel>
+	<skos:altLabel>Isola Asbab</skos:altLabel>
+	<skos:prefLabel>Asbab</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/343907/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.70306</wgs:lat>
+	<wgs:long>39.90833</wgs:long>
+	<skos:altLabel>Isola Entedebir</skos:altLabel>
+	<skos:altLabel>Āndēber Desēt</skos:altLabel>
+	<skos:altLabel>Āndēbēt Desēt</skos:altLabel>
+	<skos:prefLabel>Āndēber Desēt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/344425/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>16</wgs:lat>
+	<wgs:long>37.5</wgs:long>
+	<skos:altLabel>Agordat</skos:altLabel>
+	<skos:altLabel>Akurdet</skos:altLabel>
+	<skos:altLabel xml:lang="ti">Ak’ordat Āwraja</skos:altLabel>
+	<skos:prefLabel>Ak’ordat Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/344451/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>14.83333</wgs:lat>
+	<wgs:long>39.5</wgs:long>
+	<skos:altLabel>Acche Guzai</skos:altLabel>
+	<skos:altLabel>Acchele Guzai</skos:altLabel>
+	<skos:altLabel>Akele Guzai</skos:altLabel>
+	<skos:altLabel>Akkehe Guzai</skos:altLabel>
+	<skos:altLabel>Akkele Guzai</skos:altLabel>
+	<skos:altLabel>Ākale Guzay Āwraja</skos:altLabel>
+	<skos:altLabel>Ākele Guzay</skos:altLabel>
+	<skos:prefLabel>Ākale Guzay Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/344586/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.23333</wgs:lat>
+	<wgs:long>40.25</wgs:long>
+	<skos:altLabel>Adjuz</skos:altLabel>
+	<skos:altLabel>Agiuz</skos:altLabel>
+	<skos:altLabel>Isola Agiuz</skos:altLabel>
+	<skos:altLabel>Umel-Ajuz</skos:altLabel>
+	<skos:prefLabel>Umel-Ajuz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/344901/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>17781</europeana:population>
+	<wgs:lat>14.88722</wgs:lat>
+	<wgs:long>38.81528</wgs:long>
+	<skos:altLabel>Addi Ugri</skos:altLabel>
+	<skos:altLabel xml:lang="ti">Mendefera</skos:altLabel>
+	<skos:altLabel>Ādī Ugrī</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Мэндэфэра</skos:altLabel>
+	<skos:altLabel xml:lang="ti">መንደፈራ</skos:altLabel>
+	<skos:altLabel>‘Adī Wegrī</skos:altLabel>
+	<skos:prefLabel>Mendefera</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/345046/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13061</europeana:population>
+	<wgs:lat>14.84444</wgs:lat>
+	<wgs:long>39.37722</wgs:long>
+	<skos:altLabel>Addi Caieh</skos:altLabel>
+	<skos:altLabel>Addi Kaye</skos:altLabel>
+	<skos:altLabel>Addicaiè</skos:altLabel>
+	<skos:altLabel>Adi Caieh</skos:altLabel>
+	<skos:altLabel>Adi Keih</skos:altLabel>
+	<skos:altLabel>Adi Keyeh</skos:altLabel>
+	<skos:altLabel>Adi Keyh</skos:altLabel>
+	<skos:altLabel>Ādī K’eyih</skos:altLabel>
+	<skos:prefLabel>Adi Keyh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/345462/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16</wgs:lat>
+	<wgs:long>39.85</wgs:long>
+	<skos:altLabel>Adbara Seghir</skos:altLabel>
+	<skos:altLabel>Adbara Segīr</skos:altLabel>
+	<skos:prefLabel>Adbara Seghir</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/345463/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16</wgs:lat>
+	<wgs:long>39.83333</wgs:long>
+	<skos:altLabel>Adbara Chebir</skos:altLabel>
+	<skos:altLabel>Adbara Island</skos:altLabel>
+	<skos:altLabel>Adbara Kebīr</skos:altLabel>
+	<skos:altLabel>Īsola Adbara Chebir</skos:altLabel>
+	<skos:prefLabel>Adbara Chebir</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/345464/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>16</wgs:lat>
+	<wgs:long>39.85</wgs:long>
+	<skos:altLabel>Adbara</skos:altLabel>
+	<skos:altLabel>Isola Adbara</skos:altLabel>
+	<skos:prefLabel>Adbara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/345525/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.82694</wgs:lat>
+	<wgs:long>40.76333</wgs:long>
+	<skos:prefLabel>Ādahula Desēt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/345630/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLT"/>
+	<wgs:lat>13.65806</wgs:lat>
+	<wgs:long>42.18472</wgs:long>
+	<skos:prefLabel>Ābu Suruf Desēt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/345634/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.06667</wgs:lat>
+	<wgs:long>39.61667</wgs:long>
+	<skos:altLabel>Abu Scerajir Island</skos:altLabel>
+	<skos:altLabel>Īsola Abu Scerajir</skos:altLabel>
+	<skos:prefLabel>Abu Scerajir Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/345638/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.46667</wgs:lat>
+	<wgs:long>39.5</wgs:long>
+	<skos:altLabel>Abu Rabah</skos:altLabel>
+	<skos:altLabel>Isola Abu Rabah</skos:altLabel>
+	<skos:altLabel>Isola Abú Rabá</skos:altLabel>
+	<skos:prefLabel>Abu Rabah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/345656/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.62194</wgs:lat>
+	<wgs:long>42.19722</wgs:long>
+	<skos:prefLabel>Ābulēyin Desēt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/345789/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.88333</wgs:lat>
+	<wgs:long>41.98333</wgs:long>
+	<skos:altLabel>Abail Grande</skos:altLabel>
+	<skos:altLabel>Aba’ielat</skos:altLabel>
+	<skos:altLabel>Abeilat</skos:altLabel>
+	<skos:altLabel>Isola Abail Grande</skos:altLabel>
+	<skos:altLabel>Isola Abeilat</skos:altLabel>
+	<skos:prefLabel>Aba’ielat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/345831/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.03333</wgs:lat>
+	<wgs:long>40.41667</wgs:long>
+	<skos:altLabel>Abbacuba</skos:altLabel>
+	<skos:altLabel>Abbaguba</skos:altLabel>
+	<skos:altLabel>Abbogabay Island</skos:altLabel>
+	<skos:altLabel>Isola Abbaguba</skos:altLabel>
+	<skos:altLabel>Isolot Abbogabay</skos:altLabel>
+	<skos:prefLabel>Abbaguba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/345939/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.72306</wgs:lat>
+	<wgs:long>40.81583</wgs:long>
+	<skos:prefLabel>Ābaberē Desēt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/407231/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.91667</wgs:lat>
+	<wgs:long>39.9</wgs:long>
+	<skos:prefLabel>Duliacus</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/407232/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.9</wgs:lat>
+	<wgs:long>39.86667</wgs:long>
+	<skos:prefLabel>Dalcus</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/407233/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.93333</wgs:lat>
+	<wgs:long>39.86667</wgs:long>
+	<skos:prefLabel>Eucus</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/407234/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.98333</wgs:lat>
+	<wgs:long>39.95</wgs:long>
+	<skos:prefLabel>Dar Salūm</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/407235/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.8</wgs:lat>
+	<wgs:long>39.88333</wgs:long>
+	<skos:prefLabel>Kundabilu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/407237/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.63333</wgs:lat>
+	<wgs:long>39.9</wgs:long>
+	<skos:prefLabel>Enteara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/409167/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.83333</wgs:lat>
+	<wgs:long>40.18333</wgs:long>
+	<skos:prefLabel>Seil Sikan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/409176/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.4</wgs:lat>
+	<wgs:long>40.05</wgs:long>
+	<skos:prefLabel>Umm Namus</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/409179/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.23333</wgs:lat>
+	<wgs:long>40.13333</wgs:long>
+	<skos:prefLabel>Dase</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/409182/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.23333</wgs:lat>
+	<wgs:long>40.08333</wgs:long>
+	<skos:prefLabel>Dar Dase</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/409184/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.2</wgs:lat>
+	<wgs:long>40.1</wgs:long>
+	<skos:prefLabel>El Uelo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/409185/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.16667</wgs:lat>
+	<wgs:long>40.16667</wgs:long>
+	<skos:prefLabel>Seil Hes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/409186/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.16667</wgs:lat>
+	<wgs:long>40.21667</wgs:long>
+	<skos:prefLabel>Tahara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/409187/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.15</wgs:lat>
+	<wgs:long>40.13333</wgs:long>
+	<skos:prefLabel>Dahaila Kebir</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/409188/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.13333</wgs:lat>
+	<wgs:long>40.16667</wgs:long>
+	<skos:prefLabel>Dahaila Seghir</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/409189/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.11667</wgs:lat>
+	<wgs:long>40.18333</wgs:long>
+	<skos:prefLabel>Molali</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/409190/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.1</wgs:lat>
+	<wgs:long>40.16667</wgs:long>
+	<skos:prefLabel>Zara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/409191/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.08333</wgs:lat>
+	<wgs:long>40.21667</wgs:long>
+	<skos:prefLabel>Dufare</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/409192/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.05</wgs:lat>
+	<wgs:long>40.23333</wgs:long>
+	<skos:prefLabel>Umm es Seil</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/409193/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.05</wgs:lat>
+	<wgs:long>40.25</wgs:long>
+	<skos:prefLabel>Galdina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/409196/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.88333</wgs:lat>
+	<wgs:long>40.36667</wgs:long>
+	<skos:prefLabel>Derom</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/409197/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.85</wgs:lat>
+	<wgs:long>40.5</wgs:long>
+	<skos:prefLabel>Dhu-l-kuff</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/409198/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.75</wgs:lat>
+	<wgs:long>40.5</wgs:long>
+	<skos:prefLabel>Dhu-laka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/409199/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.78333</wgs:lat>
+	<wgs:long>40.45</wgs:long>
+	<skos:prefLabel>Gharib</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/409200/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.81667</wgs:lat>
+	<wgs:long>40.36667</wgs:long>
+	<skos:prefLabel>Dha-n-nafarik</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/409201/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.75</wgs:lat>
+	<wgs:long>40.31667</wgs:long>
+	<skos:prefLabel>Seil ’Arabi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/409203/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.7</wgs:lat>
+	<wgs:long>40.38333</wgs:long>
+	<skos:prefLabel>Yermalkau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/409204/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.7</wgs:lat>
+	<wgs:long>40.46667</wgs:long>
+	<skos:prefLabel>Senach</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/413927/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>15.83333</wgs:lat>
+	<wgs:long>37.5</wgs:long>
+	<skos:prefLabel>Barka Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/413928/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>14</wgs:lat>
+	<wgs:long>41.41667</wgs:long>
+	<skos:prefLabel>Denkel Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/413929/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>15.58333</wgs:lat>
+	<wgs:long>39.33333</wgs:long>
+	<skos:prefLabel>Semhar Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/413930/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>16.83333</wgs:lat>
+	<wgs:long>38.5</wgs:long>
+	<skos:prefLabel>Senhit Āwraja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/443281/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.86611</wgs:lat>
+	<wgs:long>42.88333</wgs:long>
+	<skos:prefLabel>Hadaili</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/443284/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.97361</wgs:lat>
+	<wgs:long>42.79722</wgs:long>
+	<skos:prefLabel>Gurna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/443285/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13</wgs:lat>
+	<wgs:long>42.81333</wgs:long>
+	<skos:prefLabel>Heri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/443286/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.00194</wgs:lat>
+	<wgs:long>42.79778</wgs:long>
+	<skos:prefLabel>Umm-al-Sciora</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/448497/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>611627</europeana:population>
+	<wgs:lat>16.5</wgs:lat>
+	<wgs:long>37.5</wgs:long>
+	<skos:altLabel>Ansabā</skos:altLabel>
+	<skos:altLabel xml:lang="ti">Zoba Ānseba</skos:altLabel>
+	<skos:altLabel>Ānseba</skos:altLabel>
+	<skos:altLabel xml:lang="ti">ዞባ ዓንስባ</skos:altLabel>
+	<skos:prefLabel>Zoba Ānseba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/448498/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>14.83333</wgs:lat>
+	<wgs:long>38.83333</wgs:long>
+	<skos:altLabel>Dabub</skos:altLabel>
+	<skos:altLabel>Debub</skos:altLabel>
+	<skos:altLabel>Southern</skos:altLabel>
+	<skos:altLabel>Zoba Debub</skos:altLabel>
+	<skos:prefLabel>Zoba Debub</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/448499/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>289382</europeana:population>
+	<wgs:lat>13.75</wgs:lat>
+	<wgs:long>41.5</wgs:long>
+	<skos:altLabel>Dabubāwi Qayəḥ Bāḥri</skos:altLabel>
+	<skos:altLabel>Debub-Keih-Bahri</skos:altLabel>
+	<skos:altLabel>Debubawī Kʼeyih Bahrī</skos:altLabel>
+	<skos:altLabel>Southern Red Sea</skos:altLabel>
+	<skos:altLabel>Zoba Debubawī K’eyih Bahrī</skos:altLabel>
+	<skos:prefLabel>Zoba Debubawī K’eyih Bahrī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/448500/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>786964</europeana:population>
+	<wgs:lat>15.25</wgs:lat>
+	<wgs:long>37.5</wgs:long>
+	<skos:altLabel>Gash Barka</skos:altLabel>
+	<skos:altLabel>Gash-Barka</skos:altLabel>
+	<skos:altLabel>Gāš Bārkā</skos:altLabel>
+	<skos:altLabel xml:lang="ti">Zoba Gash-Barka</skos:altLabel>
+	<skos:altLabel xml:lang="ti">ዞባ ጋሽ ባርካ</skos:altLabel>
+	<skos:prefLabel>Zoba Gash-Barka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/448501/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>766534</europeana:population>
+	<wgs:lat>15.33333</wgs:lat>
+	<wgs:long>38.91667</wgs:long>
+	<skos:altLabel>Central</skos:altLabel>
+	<skos:altLabel>Maekel</skos:altLabel>
+	<skos:altLabel>Maʼākel</skos:altLabel>
+	<skos:altLabel>Mā’akal</skos:altLabel>
+	<skos:altLabel>Zoba Ma’ākel</skos:altLabel>
+	<skos:prefLabel>Zoba Ma’ākel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/448502/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>599304</europeana:population>
+	<wgs:lat>16</wgs:lat>
+	<wgs:long>39</wgs:long>
+	<skos:altLabel>Northern Red Sea</skos:altLabel>
+	<skos:altLabel>Samenāwi Qayəḥ Bāḥri</skos:altLabel>
+	<skos:altLabel>Semien-Keih-Bahri</skos:altLabel>
+	<skos:altLabel>Semēnawī Kʼeyih Bahrī</skos:altLabel>
+	<skos:altLabel>Zoba Semēnawī K’eyih Bahrī</skos:altLabel>
+	<skos:prefLabel>Zoba Semēnawī K’eyih Bahrī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6701772/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.97419</wgs:lat>
+	<wgs:long>40.21815</wgs:long>
+	<skos:altLabel>Hedan</skos:altLabel>
+	<skos:altLabel>Khedan</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Хедан</skos:altLabel>
+	<skos:prefLabel>Hedan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7502757/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.92142</wgs:lat>
+	<wgs:long>40.29914</wgs:long>
+	<skos:altLabel>Akbaro Sagir</skos:altLabel>
+	<skos:prefLabel>Akbaro Sagir</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7502762/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.93298</wgs:lat>
+	<wgs:long>40.28711</wgs:long>
+	<skos:altLabel>Akbaro Kebir</skos:altLabel>
+	<skos:prefLabel>Akbaro Kebir</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7502765/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.95488</wgs:lat>
+	<wgs:long>40.21432</wgs:long>
+	<skos:altLabel>Atkoma</skos:altLabel>
+	<skos:prefLabel>Atkoma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7502770/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/338010/"/>
+	<europeana:country>ER</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.97913</wgs:lat>
+	<wgs:long>40.18027</wgs:long>
+	<skos:altLabel>Askoma</skos:altLabel>
+	<skos:prefLabel>Askoma</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 218 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

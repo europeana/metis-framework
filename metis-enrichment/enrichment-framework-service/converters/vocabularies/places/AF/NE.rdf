@@ -1,0 +1,1202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AF_NE
+Description: Selected fields pulled from Geonames about NE done on Mon May 23 21:16:18 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/2437732/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>48103</europeana:population>
+	<wgs:lat>13.79562</wgs:lat>
+	<wgs:long>5.2553</wgs:long>
+	<skos:altLabel>Birni N Konni</skos:altLabel>
+	<skos:altLabel>Birni n’Kenni</skos:altLabel>
+	<skos:altLabel>Birni-Koni</skos:altLabel>
+	<skos:altLabel>Birnin Koni</skos:altLabel>
+	<skos:altLabel>Birnin Konni</skos:altLabel>
+	<skos:altLabel>Konni</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бирнин-Конни</skos:altLabel>
+	<skos:prefLabel>Birni N Konni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2437797/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>15</wgs:lat>
+	<wgs:long>10.5</wgs:long>
+	<skos:altLabel>Zinder</skos:altLabel>
+	<skos:prefLabel>Zinder</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2437798/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>191424</europeana:population>
+	<wgs:lat>13.80487</wgs:lat>
+	<wgs:long>8.98837</wgs:long>
+	<skos:altLabel>Sinder</skos:altLabel>
+	<skos:altLabel>Zinder</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Зиндер</skos:altLabel>
+	<skos:prefLabel>Zinder</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2437977/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.6599</wgs:lat>
+	<wgs:long>1.8148</wgs:long>
+	<skos:prefLabel>Yentilé Babou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2438342/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.4942</wgs:lat>
+	<wgs:long>2.5607</wgs:long>
+	<skos:altLabel>Tougué</skos:altLabel>
+	<skos:altLabel>Tougé</skos:altLabel>
+	<skos:prefLabel>Tougué</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2438497/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.6371</wgs:lat>
+	<wgs:long>0.91941</wgs:long>
+	<skos:prefLabel>Tolmina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2438677/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2595294/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>2017214</europeana:population>
+	<wgs:lat>14.5</wgs:lat>
+	<wgs:long>1.33333</wgs:long>
+	<skos:altLabel>Arrondissement de Tillabéry</skos:altLabel>
+	<skos:prefLabel>Département de Tillabéri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2438678/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>19262</europeana:population>
+	<wgs:lat>14.21167</wgs:lat>
+	<wgs:long>1.45306</wgs:long>
+	<skos:altLabel xml:lang="de">Tillabéri</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tillabéri</skos:altLabel>
+	<skos:altLabel>Tillabéri</skos:altLabel>
+	<skos:altLabel>Tillabéry</skos:altLabel>
+	<skos:prefLabel>Tillabéri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2438774/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20019</europeana:population>
+	<wgs:lat>13.56271</wgs:lat>
+	<wgs:long>7.04848</wgs:long>
+	<skos:prefLabel>Tibiri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2438821/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2441289/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.6</wgs:lat>
+	<wgs:long>7.9</wgs:long>
+	<skos:prefLabel>Département de Tessaoua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2438823/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>35775</europeana:population>
+	<wgs:lat>13.75737</wgs:lat>
+	<wgs:long>7.9874</wgs:long>
+	<skos:altLabel>Tessaoua</skos:altLabel>
+	<skos:prefLabel>Tessaoua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2438854/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2595294/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>14.25</wgs:lat>
+	<wgs:long>0.8</wgs:long>
+	<skos:prefLabel>Département de Téra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2438855/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21095</europeana:population>
+	<wgs:lat>14.00776</wgs:lat>
+	<wgs:long>0.75306</wgs:long>
+	<skos:altLabel>Téra</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Тера</skos:altLabel>
+	<skos:prefLabel>Téra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2438973/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2439374/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>16.5</wgs:lat>
+	<wgs:long>5.5</wgs:long>
+	<skos:prefLabel>Département de Tchin-Tabaraden</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2439154/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2437797/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>14.75</wgs:lat>
+	<wgs:long>8.33333</wgs:long>
+	<skos:prefLabel>Département de Tânout</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2439155/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15204</europeana:population>
+	<wgs:lat>14.97089</wgs:lat>
+	<wgs:long>8.88786</wgs:long>
+	<skos:altLabel>Tanout</skos:altLabel>
+	<skos:prefLabel>Tanout</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2439374/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>16</wgs:lat>
+	<wgs:long>5.5</wgs:long>
+	<skos:altLabel>Tahoua</skos:altLabel>
+	<skos:prefLabel>Tahoua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2439375/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2439374/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>14.8</wgs:lat>
+	<wgs:long>4.8</wgs:long>
+	<skos:prefLabel>Département de Tahoua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2439376/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>80425</europeana:population>
+	<wgs:lat>14.8888</wgs:lat>
+	<wgs:long>5.2692</wgs:long>
+	<skos:altLabel xml:lang="id">Tahoua</skos:altLabel>
+	<skos:altLabel xml:lang="es">Tahoua</skos:altLabel>
+	<skos:altLabel xml:lang="de">Tahoua</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Tahoua</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tahoua</skos:altLabel>
+	<skos:altLabel>Tahoua</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Тахуа</skos:altLabel>
+	<skos:prefLabel>Tahoua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2439777/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.66482</wgs:lat>
+	<wgs:long>0.92798</wgs:long>
+	<skos:prefLabel>Séno</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2439811/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2595294/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.1</wgs:lat>
+	<wgs:long>1.5</wgs:long>
+	<skos:prefLabel>Département de Say</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2439812/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10387</europeana:population>
+	<wgs:lat>13.1007</wgs:lat>
+	<wgs:long>2.3689</wgs:long>
+	<skos:altLabel>Say</skos:altLabel>
+	<skos:prefLabel>Say</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2439909/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.64502</wgs:lat>
+	<wgs:long>0.94945</wgs:long>
+	<skos:prefLabel>Samsi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2439914/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.6365</wgs:lat>
+	<wgs:long>2.5268</wgs:long>
+	<skos:prefLabel>Samo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2440370/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2595294/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>14.63333</wgs:lat>
+	<wgs:long>2.25</wgs:long>
+	<skos:prefLabel>Département de Ouallam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2440476/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255146/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>15878271</europeana:population>
+	<wgs:lat>16</wgs:lat>
+	<wgs:long>8</wgs:long>
+	<skos:altLabel xml:lang="ga">An Nígir</skos:altLabel>
+	<skos:altLabel>NE</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ni-giê</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ni-giê (Niger)</skos:altLabel>
+	<skos:altLabel xml:lang="id">Niger</skos:altLabel>
+	<skos:altLabel xml:lang="en">Niger</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Niger</skos:altLabel>
+	<skos:altLabel xml:lang="da">Niger</skos:altLabel>
+	<skos:altLabel xml:lang="et">Niger</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Niger</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Niger</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Niger</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Niger</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Niger</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Niger</skos:altLabel>
+	<skos:altLabel xml:lang="de">Niger</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Niger</skos:altLabel>
+	<skos:altLabel xml:lang="it">Niger</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Niger</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Niger</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Niger</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Niger</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Niger</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Niger</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Niger</skos:altLabel>
+	<skos:altLabel xml:lang="af">Niger</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Niger</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Niger</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Niger</skos:altLabel>
+	<skos:altLabel xml:lang="la">Niger</skos:altLabel>
+	<skos:altLabel xml:lang="no">Niger</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Niger</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Niger</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Niger</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Niger</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Niger</skos:altLabel>
+	<skos:altLabel xml:lang="se">Niger</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Nigeri</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Nigeris</skos:altLabel>
+	<skos:altLabel xml:lang="af">Nigerië</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Nigèr</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Nigēra</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Nijer</skos:altLabel>
+	<skos:altLabel xml:lang="io">Nijer</skos:altLabel>
+	<skos:altLabel xml:lang="ln">Nijé</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Niĝero</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Niġer</skos:altLabel>
+	<skos:altLabel xml:lang="an">Nícher</skos:altLabel>
+	<skos:altLabel xml:lang="es">Níger</skos:altLabel>
+	<skos:altLabel xml:lang="is">Níger</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Níger</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Níger</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Níxer</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Nîjer</skos:altLabel>
+	<skos:altLabel xml:lang="ks">Nījē</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Pow Nijer</skos:altLabel>
+	<skos:altLabel xml:lang="en">Republic of Niger</skos:altLabel>
+	<skos:altLabel xml:lang="fr">République du Niger</skos:altLabel>
+	<skos:altLabel xml:lang="el">Νίγηρ</skos:altLabel>
+	<skos:altLabel xml:lang="el">Νίγηρας</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Нигер</skos:altLabel>
+	<skos:altLabel xml:lang="os">Нигер</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Нигер</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Нигер</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Нигер</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Нигерия</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Ниҷер</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Нігер</skos:altLabel>
+	<skos:altLabel xml:lang="be">Нігер</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Ніґер</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Նիգեր</skos:altLabel>
+	<skos:altLabel xml:lang="he">ניגריה</skos:altLabel>
+	<skos:altLabel xml:lang="he">ניז'ר</skos:altLabel>
+	<skos:altLabel xml:lang="he">ניז׳ר</skos:altLabel>
+	<skos:altLabel xml:lang="ar">النيجر</skos:altLabel>
+	<skos:altLabel xml:lang="ur">نائیجر</skos:altLabel>
+	<skos:altLabel xml:lang="ug">نىگېر</skos:altLabel>
+	<skos:altLabel xml:lang="ar">نيجر</skos:altLabel>
+	<skos:altLabel xml:lang="fa">نیجر</skos:altLabel>
+	<skos:altLabel xml:lang="hi">नाइजर</skos:altLabel>
+	<skos:altLabel xml:lang="ks">नीजे</skos:altLabel>
+	<skos:altLabel xml:lang="sa">नीजे</skos:altLabel>
+	<skos:altLabel xml:lang="bn">নাইজার</skos:altLabel>
+	<skos:altLabel xml:lang="ta">நைஜர்</skos:altLabel>
+	<skos:altLabel xml:lang="ml">നൈഗര്‍</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศไนเจอร์</skos:altLabel>
+	<skos:altLabel xml:lang="th">ไนเจอร์</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ໄນເຈີ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ནའི་ཇར།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ნიგერი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ኒጀር</skos:altLabel>
+	<skos:altLabel xml:lang="am">ኒጄር</skos:altLabel>
+	<skos:altLabel xml:lang="km">នីហ្សេរ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ニジェール</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ニジェール共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">尼日尔</skos:altLabel>
+	<skos:altLabel xml:lang="ko">니제르</skos:altLabel>
+	<skos:prefLabel>Republic of Niger</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2440482/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2595294/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.53333</wgs:lat>
+	<wgs:long>2.2</wgs:long>
+	<skos:prefLabel>Département de Niamey</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2440485/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>774235</europeana:population>
+	<wgs:lat>13.5125</wgs:lat>
+	<wgs:long>2.11178</wgs:long>
+	<skos:altLabel xml:lang="id">Niamey</skos:altLabel>
+	<skos:altLabel xml:lang="de">Niamey</skos:altLabel>
+	<skos:altLabel xml:lang="es">Niamey</skos:altLabel>
+	<skos:altLabel xml:lang="da">Niamey</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Niamey</skos:altLabel>
+	<skos:altLabel xml:lang="io">Niamey</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Niamey</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Niamey</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Niamey</skos:altLabel>
+	<skos:altLabel xml:lang="en">Niamey</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Niamey</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Niamey</skos:altLabel>
+	<skos:altLabel xml:lang="it">Niamey</skos:altLabel>
+	<skos:altLabel xml:lang="no">Niamey</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Niamey</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Niamey</skos:altLabel>
+	<skos:altLabel xml:lang="et">Niamey</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Niamey</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Niamey</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Niamėjus</skos:altLabel>
+	<skos:altLabel xml:lang="el">Νιαμέι</skos:altLabel>
+	<skos:altLabel xml:lang="os">Ниамей</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ниамей</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Նիամեյ</skos:altLabel>
+	<skos:altLabel xml:lang="he">ניאמי</skos:altLabel>
+	<skos:altLabel xml:lang="ar">نيامي</skos:altLabel>
+	<skos:altLabel xml:lang="am">ኒያሜ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ニアメ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">尼亞美</skos:altLabel>
+	<skos:altLabel xml:lang="ko">니아메</skos:altLabel>
+	<skos:prefLabel>Niamey</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2440494/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2445702/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>16</wgs:lat>
+	<wgs:long>13.5</wgs:long>
+	<skos:prefLabel>Département de Nguigmi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2440495/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17897</europeana:population>
+	<wgs:lat>14.24953</wgs:lat>
+	<wgs:long>13.10921</wgs:long>
+	<skos:altLabel>Ngigmi</skos:altLabel>
+	<skos:altLabel>Nguigmi</skos:altLabel>
+	<skos:prefLabel>Nguigmi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2440920/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2437797/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.7</wgs:lat>
+	<wgs:long>9.2</wgs:long>
+	<skos:altLabel>Zinder</skos:altLabel>
+	<skos:prefLabel>Département de Mirria</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2440921/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20724</europeana:population>
+	<wgs:lat>13.70727</wgs:lat>
+	<wgs:long>9.15013</wgs:long>
+	<skos:altLabel>Miria</skos:altLabel>
+	<skos:altLabel>Mirria</skos:altLabel>
+	<skos:altLabel>Mirya</skos:altLabel>
+	<skos:altLabel>Myrria</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Мирриа</skos:altLabel>
+	<skos:prefLabel>Mirya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2441193/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2441289/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>14.1</wgs:lat>
+	<wgs:long>7.6</wgs:long>
+	<skos:prefLabel>Département de Mayahi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2441194/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>22183</europeana:population>
+	<wgs:lat>13.95532</wgs:lat>
+	<wgs:long>7.67122</wgs:long>
+	<skos:altLabel>Mayahi</skos:altLabel>
+	<skos:altLabel>Mayaki</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Майахи</skos:altLabel>
+	<skos:prefLabel>Mayahi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2441216/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2437797/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.4</wgs:lat>
+	<wgs:long>8.6</wgs:long>
+	<skos:prefLabel>Département de Matameye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2441217/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16844</europeana:population>
+	<wgs:lat>13.42309</wgs:lat>
+	<wgs:long>8.47485</wgs:long>
+	<skos:altLabel>Matamey</skos:altLabel>
+	<skos:altLabel>Matamèye</skos:altLabel>
+	<skos:prefLabel>Matamey</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2441289/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>14.25</wgs:lat>
+	<wgs:long>7.25</wgs:long>
+	<skos:altLabel>Maradi</skos:altLabel>
+	<skos:prefLabel>Maradi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2441290/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2441289/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.5</wgs:lat>
+	<wgs:long>7</wgs:long>
+	<skos:prefLabel>Département de Maradi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2441291/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>163487</europeana:population>
+	<wgs:lat>13.5</wgs:lat>
+	<wgs:long>7.10174</wgs:long>
+	<skos:altLabel xml:lang="id">Maradi</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Maradi</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Maradi</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Maradi</skos:altLabel>
+	<skos:altLabel xml:lang="de">Maradi</skos:altLabel>
+	<skos:altLabel xml:lang="en">Maradi</skos:altLabel>
+	<skos:altLabel>Maradi</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Маради</skos:altLabel>
+	<skos:prefLabel>Maradi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2441446/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2445702/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.75</wgs:lat>
+	<wgs:long>11.5</wgs:long>
+	<skos:prefLabel>Département de Maïné-Soroa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2441447/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10699</europeana:population>
+	<wgs:lat>13.21139</wgs:lat>
+	<wgs:long>12.0241</wgs:long>
+	<skos:altLabel>Maïné-Soroa</skos:altLabel>
+	<skos:prefLabel>Maïné-Soroa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2441474/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2437797/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.25</wgs:lat>
+	<wgs:long>9.25</wgs:long>
+	<skos:prefLabel>Département de Magaria</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2441482/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19419</europeana:population>
+	<wgs:lat>12.99826</wgs:lat>
+	<wgs:long>8.90991</wgs:long>
+	<skos:prefLabel>Magaria</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2441528/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2439374/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.99988</wgs:lat>
+	<wgs:long>6.10012</wgs:long>
+	<skos:prefLabel>Département de Madaoua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2441530/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>24804</europeana:population>
+	<wgs:lat>14.073</wgs:lat>
+	<wgs:long>5.96</wgs:long>
+	<skos:altLabel>Madaoua</skos:altLabel>
+	<skos:altLabel>Madawa</skos:altLabel>
+	<skos:prefLabel>Madaoua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2441629/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2445486/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.63333</wgs:lat>
+	<wgs:long>3.5</wgs:long>
+	<skos:prefLabel>Département de Loga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2442128/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.91679</wgs:lat>
+	<wgs:long>0.78775</wgs:long>
+	<skos:prefLabel>Korgui</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2442248/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10376</europeana:population>
+	<wgs:lat>13.3043</wgs:lat>
+	<wgs:long>2.339</wgs:long>
+	<skos:altLabel>Kollo</skos:altLabel>
+	<skos:altLabel>Kolo</skos:altLabel>
+	<skos:prefLabel>Kollo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2442433/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.63048</wgs:lat>
+	<wgs:long>0.96516</wgs:long>
+	<skos:prefLabel>Kifa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2442477/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2439374/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>14.8</wgs:lat>
+	<wgs:long>6</wgs:long>
+	<skos:prefLabel>Département de Keïta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2443303/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2439374/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>14.25</wgs:lat>
+	<wgs:long>5</wgs:long>
+	<skos:prefLabel>Département d' Illéla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2443304/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16678</europeana:population>
+	<wgs:lat>14.4605</wgs:lat>
+	<wgs:long>5.2437</wgs:long>
+	<skos:altLabel>Ilella</skos:altLabel>
+	<skos:altLabel>Illéla</skos:altLabel>
+	<skos:altLabel>Illéta</skos:altLabel>
+	<skos:prefLabel>Illéla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2443370/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.70466</wgs:lat>
+	<wgs:long>0.89631</wgs:long>
+	<skos:prefLabel>Ibini</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2444218/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2437797/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>15</wgs:lat>
+	<wgs:long>10.75</wgs:long>
+	<skos:prefLabel>Département de Gouré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2444219/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14639</europeana:population>
+	<wgs:lat>13.9835</wgs:lat>
+	<wgs:long>10.27035</wgs:long>
+	<skos:altLabel>Gouré</skos:altLabel>
+	<skos:prefLabel>Gouré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2444402/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.63169</wgs:lat>
+	<wgs:long>0.93709</wgs:long>
+	<skos:prefLabel>Gomni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2444487/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2445486/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>12.4</wgs:lat>
+	<wgs:long>3.6</wgs:long>
+	<skos:prefLabel>Département de Gaya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2444489/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>33051</europeana:population>
+	<wgs:lat>11.88435</wgs:lat>
+	<wgs:long>3.44919</wgs:long>
+	<skos:prefLabel>Gaya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2444994/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2595294/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>14.5</wgs:lat>
+	<wgs:long>3.5</wgs:long>
+	<skos:prefLabel>Département de Filingué</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2444995/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11677</europeana:population>
+	<wgs:lat>14.3521</wgs:lat>
+	<wgs:long>3.3168</wgs:long>
+	<skos:altLabel>Filingué</skos:altLabel>
+	<skos:prefLabel>Filingué</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2445088/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.65468</wgs:lat>
+	<wgs:long>0.89554</wgs:long>
+	<skos:prefLabel>Faré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2445466/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.66551</wgs:lat>
+	<wgs:long>0.90887</wgs:long>
+	<skos:prefLabel>Doulam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2445486/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>13.5</wgs:lat>
+	<wgs:long>3.5</wgs:long>
+	<skos:altLabel>Dosso</skos:altLabel>
+	<skos:prefLabel>Dosso</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2445487/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2445486/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>12.83333</wgs:lat>
+	<wgs:long>3.33333</wgs:long>
+	<skos:prefLabel>Département de Dosso</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2445488/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>49750</europeana:population>
+	<wgs:lat>13.049</wgs:lat>
+	<wgs:long>3.1937</wgs:long>
+	<skos:altLabel>Dosso</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Доссо</skos:altLabel>
+	<skos:prefLabel>Dosso</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2445552/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2445486/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.5</wgs:lat>
+	<wgs:long>4</wgs:long>
+	<skos:prefLabel>Département de Dogondoutchi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2445553/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>31767</europeana:population>
+	<wgs:lat>13.63933</wgs:lat>
+	<wgs:long>4.02875</wgs:long>
+	<skos:altLabel>Dogondoutchi</skos:altLabel>
+	<skos:altLabel>Dogonduchi</skos:altLabel>
+	<skos:prefLabel>Dogondoutchi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2445702/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>16</wgs:lat>
+	<wgs:long>13.5</wgs:long>
+	<skos:altLabel>Diffa</skos:altLabel>
+	<skos:prefLabel>Diffa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2445703/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2445702/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.66667</wgs:lat>
+	<wgs:long>12.5</wgs:long>
+	<skos:prefLabel>Département de Diffa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2445704/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>27948</europeana:population>
+	<wgs:lat>13.31536</wgs:lat>
+	<wgs:long>12.61134</wgs:long>
+	<skos:altLabel>Difa</skos:altLabel>
+	<skos:altLabel xml:lang="en">Diffa</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Diffa</skos:altLabel>
+	<skos:altLabel xml:lang="et">Diffa</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Diffa</skos:altLabel>
+	<skos:altLabel>Diffa</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Диффа</skos:altLabel>
+	<skos:prefLabel>Diffa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2446266/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2441289/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>14.75</wgs:lat>
+	<wgs:long>7</wgs:long>
+	<skos:prefLabel>Département de Dakoro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2446267/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19798</europeana:population>
+	<wgs:lat>14.51056</wgs:lat>
+	<wgs:long>6.765</wgs:long>
+	<skos:prefLabel>Dakoro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2446465/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2439374/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>14.43333</wgs:lat>
+	<wgs:long>6</wgs:long>
+	<skos:prefLabel>Département de Bouza</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2446676/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.69967</wgs:lat>
+	<wgs:long>0.91365</wgs:long>
+	<skos:prefLabel>Bolboli</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2446715/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2445486/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13</wgs:lat>
+	<wgs:long>2.86667</wgs:long>
+	<skos:altLabel>Birni n'Gaouré</skos:altLabel>
+	<skos:prefLabel>Département du Boboye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2446752/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2439374/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.9</wgs:lat>
+	<wgs:long>5.25</wgs:long>
+	<skos:prefLabel>Département de Birni Nkonni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2446795/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2448083/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>20.5</wgs:lat>
+	<wgs:long>13.25</wgs:long>
+	<skos:prefLabel>Département de Bilma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2447218/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.7094</wgs:lat>
+	<wgs:long>0.90536</wgs:long>
+	<skos:prefLabel>Baliam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2447415/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.72121</wgs:lat>
+	<wgs:long>0.90924</wgs:long>
+	<skos:prefLabel>Ayorou Goungo Koré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2447416/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>26290</europeana:population>
+	<wgs:lat>14.73075</wgs:lat>
+	<wgs:long>0.91738</wgs:long>
+	<skos:altLabel>Agorou</skos:altLabel>
+	<skos:altLabel>Ayorou</skos:altLabel>
+	<skos:prefLabel>Ayorou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2447938/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>88561</europeana:population>
+	<wgs:lat>17.0187</wgs:lat>
+	<wgs:long>8.0168</wgs:long>
+	<skos:altLabel>Alaghsas</skos:altLabel>
+	<skos:altLabel>Alarsas</skos:altLabel>
+	<skos:prefLabel>Alaghsas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2448024/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13152</europeana:population>
+	<wgs:lat>13.50601</wgs:lat>
+	<wgs:long>7.77863</wgs:long>
+	<skos:altLabel>Aguié</skos:altLabel>
+	<skos:altLabel>Agyé</skos:altLabel>
+	<skos:prefLabel>Aguié</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2448083/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>19.75</wgs:lat>
+	<wgs:long>10.25</wgs:long>
+	<skos:altLabel>Agadez</skos:altLabel>
+	<skos:prefLabel>Agadez</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2448084/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2448083/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.5</wgs:lat>
+	<wgs:long>7.5</wgs:long>
+	<skos:prefLabel>Département d' Agadez</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2448197/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.61656</wgs:lat>
+	<wgs:long>0.95734</wgs:long>
+	<skos:prefLabel>Aboudia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2448245/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13555</europeana:population>
+	<wgs:lat>15.4509</wgs:lat>
+	<wgs:long>6.2793</wgs:long>
+	<skos:altLabel>Abalak</skos:altLabel>
+	<skos:altLabel>Ebaka</skos:altLabel>
+	<skos:altLabel>Ibeka</skos:altLabel>
+	<skos:prefLabel>Abalak</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2595293/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>14.33333</wgs:lat>
+	<wgs:long>2.08333</wgs:long>
+	<skos:altLabel>Tillabéri</skos:altLabel>
+	<skos:prefLabel>Tillabéri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2595294/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>13.52139</wgs:lat>
+	<wgs:long>2.10528</wgs:long>
+	<skos:altLabel>Niamey</skos:altLabel>
+	<skos:prefLabel>Niamey</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6848624/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.4013</wgs:lat>
+	<wgs:long>1.1517</wgs:long>
+	<skos:prefLabel>Farka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6855110/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.5258</wgs:lat>
+	<wgs:long>2.6564</wgs:long>
+	<skos:prefLabel>Bélo Goungou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6855111/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.6061</wgs:lat>
+	<wgs:long>2.5222</wgs:long>
+	<skos:prefLabel>Bira Goungou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6855119/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>12.96267</wgs:lat>
+	<wgs:long>2.37018</wgs:long>
+	<skos:prefLabel>Dolé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6855128/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.7883</wgs:lat>
+	<wgs:long>2.4598</wgs:long>
+	<skos:prefLabel>Guigui Goungou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6855131/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.6519</wgs:lat>
+	<wgs:long>2.4981</wgs:long>
+	<skos:prefLabel>Kambatya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6855136/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.4307</wgs:lat>
+	<wgs:long>2.7657</wgs:long>
+	<skos:prefLabel>Koabaro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6855140/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.9541</wgs:lat>
+	<wgs:long>2.3762</wgs:long>
+	<skos:prefLabel>Kossékoubi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6855156/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.8197</wgs:lat>
+	<wgs:long>2.4412</wgs:long>
+	<skos:prefLabel>Sabizé Goungou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6855158/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2440476/"/>
+	<europeana:country>NE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.8861</wgs:lat>
+	<wgs:long>2.3785</wgs:long>
+	<skos:prefLabel>Sibili Goungou</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 97 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

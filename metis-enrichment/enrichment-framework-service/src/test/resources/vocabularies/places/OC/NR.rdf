@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: OC_NR
+Description: Selected fields pulled from Geonames about NR done on Mon May 23 21:17:15 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110418/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2110425/"/>
+	<europeana:country>NR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>632</europeana:population>
+	<wgs:lat>-0.54724</wgs:lat>
+	<wgs:long>166.91599</wgs:long>
+	<skos:altLabel>Jaren</skos:altLabel>
+	<skos:altLabel xml:lang="id">Yaren</skos:altLabel>
+	<skos:altLabel xml:lang="en">Yaren</skos:altLabel>
+	<skos:altLabel xml:lang="de">Yaren</skos:altLabel>
+	<skos:altLabel xml:lang="et">Yaren</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Yaren</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Yaren</skos:altLabel>
+	<skos:altLabel xml:lang="es">Yaren</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Yaren</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Yaren</skos:altLabel>
+	<skos:altLabel xml:lang="it">Yaren</skos:altLabel>
+	<skos:altLabel xml:lang="io">Yaren</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Yaren</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Yaren</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Yaren</skos:altLabel>
+	<skos:altLabel xml:lang="na">Yaren</skos:altLabel>
+	<skos:altLabel xml:lang="no">Yaren</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Yaren</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Yaren</skos:altLabel>
+	<skos:altLabel xml:lang="et">Yareni ringkond</skos:altLabel>
+	<skos:altLabel xml:lang="la">Yarenum</skos:altLabel>
+	<skos:altLabel>Yarren</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ярен</skos:altLabel>
+	<skos:altLabel xml:lang="he">יארן</skos:altLabel>
+	<skos:altLabel xml:lang="am">ያሬን</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ヤレン地区</skos:altLabel>
+	<skos:altLabel xml:lang="zh">亞倫</skos:altLabel>
+	<skos:altLabel xml:lang="ko">야렌</skos:altLabel>
+	<skos:prefLabel>Yaren</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110420/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2110425/"/>
+	<europeana:country>NR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>386</europeana:population>
+	<wgs:lat>-0.51463</wgs:lat>
+	<wgs:long>166.92294</wgs:long>
+	<skos:altLabel xml:lang="id">Uaboe</skos:altLabel>
+	<skos:altLabel xml:lang="de">Uaboe</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Uaboe</skos:altLabel>
+	<skos:altLabel xml:lang="na">Uaboe</skos:altLabel>
+	<skos:altLabel xml:lang="no">Uaboe</skos:altLabel>
+	<skos:altLabel xml:lang="es">Uaboe</skos:altLabel>
+	<skos:altLabel xml:lang="en">Uaboe</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Uaboe</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Uaboe</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Uaboe</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Uaboe</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Uaboe</skos:altLabel>
+	<skos:altLabel>Uaboe District</skos:altLabel>
+	<skos:prefLabel>Uaboe District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110423/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2110425/"/>
+	<europeana:country>NR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>479</europeana:population>
+	<wgs:lat>-0.51971</wgs:lat>
+	<wgs:long>166.91672</wgs:long>
+	<skos:altLabel xml:lang="id">Nibok</skos:altLabel>
+	<skos:altLabel xml:lang="de">Nibok</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Nibok</skos:altLabel>
+	<skos:altLabel xml:lang="na">Nibok</skos:altLabel>
+	<skos:altLabel xml:lang="no">Nibok</skos:altLabel>
+	<skos:altLabel xml:lang="es">Nibok</skos:altLabel>
+	<skos:altLabel xml:lang="en">Nibok</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Nibok</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Nibok</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Nibok</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Nibok</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Nibok</skos:altLabel>
+	<skos:altLabel>Nibok District</skos:altLabel>
+	<skos:prefLabel>Nibok District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110425/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2110425/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255151/"/>
+	<europeana:country>NR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>10065</europeana:population>
+	<wgs:lat>-0.517</wgs:lat>
+	<wgs:long>166.933</wgs:long>
+	<skos:altLabel>NR</skos:altLabel>
+	<skos:altLabel xml:lang="na">Naoero</skos:altLabel>
+	<skos:altLabel xml:lang="af">Naoeroe</skos:altLabel>
+	<skos:altLabel xml:lang="li">Naoeroe</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Naorou</skos:altLabel>
+	<skos:altLabel xml:lang="to">Naulu</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Naureän</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Nauro</skos:altLabel>
+	<skos:altLabel xml:lang="es">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="id">Nauru</skos:altLabel>
+	<skos:altLabel>Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="de">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="it">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="en">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="da">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="et">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="af">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="an">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="ks">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="mi">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="no">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="rm">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="se">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="io">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Nauru - Naoero</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Nauru Adası</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Nauru Respublika</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Naurua</skos:altLabel>
+	<skos:altLabel xml:lang="la">Naurum</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Naurû</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Nawrw</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Nárú</skos:altLabel>
+	<skos:altLabel xml:lang="is">Nárú</skos:altLabel>
+	<skos:altLabel xml:lang="en">Republic of Nauru</skos:altLabel>
+	<skos:altLabel>Trust Territory of Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="bs">nauru</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ναουρού</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ναούρου</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Науру</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Науру</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Науру</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Науру</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Науру</skos:altLabel>
+	<skos:altLabel xml:lang="be">Науру</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Նաուրու</skos:altLabel>
+	<skos:altLabel xml:lang="he">נאורו</skos:altLabel>
+	<skos:altLabel xml:lang="fa">نائورو</skos:altLabel>
+	<skos:altLabel xml:lang="ar">ناورو</skos:altLabel>
+	<skos:altLabel xml:lang="ps">ناورو</skos:altLabel>
+	<skos:altLabel xml:lang="ar">نورو</skos:altLabel>
+	<skos:altLabel xml:lang="hi">नॉरू</skos:altLabel>
+	<skos:altLabel xml:lang="mr">नौरू</skos:altLabel>
+	<skos:altLabel xml:lang="bn">নাউরু</skos:altLabel>
+	<skos:altLabel xml:lang="ta">நௌரு</skos:altLabel>
+	<skos:altLabel xml:lang="th">นาอูรู</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศนาอูรู</skos:altLabel>
+	<skos:altLabel xml:lang="th">สาธารณรัฐนาอูรู</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ནཽ་རུ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ნაურუ</skos:altLabel>
+	<skos:altLabel xml:lang="am">ናኡሩ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ナウル</skos:altLabel>
+	<skos:altLabel xml:lang="zh">瑙鲁</skos:altLabel>
+	<skos:altLabel xml:lang="zh">諾魯</skos:altLabel>
+	<skos:altLabel xml:lang="ko">나우루</skos:altLabel>
+	<skos:prefLabel>Nauru</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110426/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2110425/"/>
+	<europeana:country>NR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.517</wgs:lat>
+	<wgs:long>166.934</wgs:long>
+	<skos:altLabel>Naura</skos:altLabel>
+	<skos:altLabel>Nauru</skos:altLabel>
+	<skos:altLabel>Nauru Atoll</skos:altLabel>
+	<skos:altLabel>Nau’uru</skos:altLabel>
+	<skos:altLabel>Navoda</skos:altLabel>
+	<skos:altLabel>Navodo</skos:altLabel>
+	<skos:altLabel>Nawodo</skos:altLabel>
+	<skos:altLabel>Onawero</skos:altLabel>
+	<skos:altLabel>Pleasant Island</skos:altLabel>
+	<skos:prefLabel>Nauru</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110431/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2110425/"/>
+	<europeana:country>NR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1323</europeana:population>
+	<wgs:lat>-0.55242</wgs:lat>
+	<wgs:long>166.93788</wgs:long>
+	<skos:altLabel>Menden</skos:altLabel>
+	<skos:altLabel>Menen</skos:altLabel>
+	<skos:altLabel xml:lang="id">Meneng</skos:altLabel>
+	<skos:altLabel xml:lang="es">Meneng</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Meneng</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Meneng</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Meneng</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Meneng</skos:altLabel>
+	<skos:altLabel xml:lang="de">Meneng</skos:altLabel>
+	<skos:altLabel xml:lang="en">Meneng</skos:altLabel>
+	<skos:altLabel xml:lang="na">Meneng</skos:altLabel>
+	<skos:altLabel xml:lang="no">Meneng</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Meneng</skos:altLabel>
+	<skos:altLabel>Meneng District</skos:altLabel>
+	<skos:altLabel xml:lang="ja">メネン地区</skos:altLabel>
+	<skos:prefLabel>Meneng District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110432/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2110425/"/>
+	<europeana:country>NR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>169</europeana:population>
+	<wgs:lat>-0.52141</wgs:lat>
+	<wgs:long>166.95798</wgs:long>
+	<skos:altLabel>Ijub</skos:altLabel>
+	<skos:altLabel xml:lang="id">Ijuw</skos:altLabel>
+	<skos:altLabel xml:lang="de">Ijuw</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Ijuw</skos:altLabel>
+	<skos:altLabel xml:lang="na">Ijuw</skos:altLabel>
+	<skos:altLabel xml:lang="no">Ijuw</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Ijuw</skos:altLabel>
+	<skos:altLabel xml:lang="es">Ijuw</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ijuw</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Ijuw</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Ijuw</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Ijuw</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Ijuw</skos:altLabel>
+	<skos:altLabel>Ijuw District</skos:altLabel>
+	<skos:altLabel>Iyu</skos:altLabel>
+	<skos:prefLabel>Ijuw District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110435/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2110425/"/>
+	<europeana:country>NR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>397</europeana:population>
+	<wgs:lat>-0.5033</wgs:lat>
+	<wgs:long>166.93453</wgs:long>
+	<skos:altLabel xml:lang="la">Eva</skos:altLabel>
+	<skos:altLabel xml:lang="id">Ewa</skos:altLabel>
+	<skos:altLabel xml:lang="es">Ewa</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ewa</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Ewa</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Ewa</skos:altLabel>
+	<skos:altLabel xml:lang="de">Ewa</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Ewa</skos:altLabel>
+	<skos:altLabel xml:lang="na">Ewa</skos:altLabel>
+	<skos:altLabel xml:lang="no">Ewa</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Ewa</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Ewa</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Ewa</skos:altLabel>
+	<skos:altLabel>Ewa District</skos:altLabel>
+	<skos:prefLabel>Ewa District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110437/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2110425/"/>
+	<europeana:country>NR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>292</europeana:population>
+	<wgs:lat>-0.52264</wgs:lat>
+	<wgs:long>166.91358</wgs:long>
+	<skos:altLabel xml:lang="id">Denigomodu</skos:altLabel>
+	<skos:altLabel xml:lang="es">Denigomodu</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Denigomodu</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Denigomodu</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Denigomodu</skos:altLabel>
+	<skos:altLabel xml:lang="de">Denigomodu</skos:altLabel>
+	<skos:altLabel xml:lang="en">Denigomodu</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Denigomodu</skos:altLabel>
+	<skos:altLabel xml:lang="na">Denigomodu</skos:altLabel>
+	<skos:altLabel xml:lang="no">Denigomodu</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Denigomodu</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Denigomodu</skos:altLabel>
+	<skos:altLabel>Denigomodu District</skos:altLabel>
+	<skos:altLabel>Dinegomodu</skos:altLabel>
+	<skos:prefLabel>Denigomodu District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110440/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2110425/"/>
+	<europeana:country>NR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>673</europeana:population>
+	<wgs:lat>-0.53532</wgs:lat>
+	<wgs:long>166.92086</wgs:long>
+	<skos:altLabel xml:lang="id">Buada</skos:altLabel>
+	<skos:altLabel xml:lang="de">Buada</skos:altLabel>
+	<skos:altLabel xml:lang="en">Buada</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Buada</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Buada</skos:altLabel>
+	<skos:altLabel xml:lang="es">Buada</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Buada</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Buada</skos:altLabel>
+	<skos:altLabel xml:lang="na">Buada</skos:altLabel>
+	<skos:altLabel xml:lang="no">Buada</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Buada</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Buada</skos:altLabel>
+	<skos:altLabel>Buada District</skos:altLabel>
+	<skos:prefLabel>Buada District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110441/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2110425/"/>
+	<europeana:country>NR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>731</europeana:population>
+	<wgs:lat>-0.54158</wgs:lat>
+	<wgs:long>166.91421</wgs:long>
+	<skos:altLabel xml:lang="de">Boe</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Boe</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Boe</skos:altLabel>
+	<skos:altLabel xml:lang="id">Boe</skos:altLabel>
+	<skos:altLabel xml:lang="es">Boe</skos:altLabel>
+	<skos:altLabel xml:lang="en">Boe</skos:altLabel>
+	<skos:altLabel xml:lang="na">Boe</skos:altLabel>
+	<skos:altLabel xml:lang="no">Boe</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Boe</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Boe</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Boe</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Boe</skos:altLabel>
+	<skos:altLabel>Boe District</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ボエ地区</skos:altLabel>
+	<skos:prefLabel>Boe District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110442/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2110425/"/>
+	<europeana:country>NR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>443</europeana:population>
+	<wgs:lat>-0.50754</wgs:lat>
+	<wgs:long>166.92969</wgs:long>
+	<skos:altLabel xml:lang="id">Baiti</skos:altLabel>
+	<skos:altLabel xml:lang="de">Baiti</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Baiti</skos:altLabel>
+	<skos:altLabel xml:lang="na">Baiti</skos:altLabel>
+	<skos:altLabel xml:lang="es">Baiti</skos:altLabel>
+	<skos:altLabel xml:lang="en">Baiti</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Baiti</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Baiti</skos:altLabel>
+	<skos:altLabel xml:lang="no">Baiti</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Baiti</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Baiti</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Baiti</skos:altLabel>
+	<skos:altLabel>Baiti District</skos:altLabel>
+	<skos:altLabel>Beidi</skos:altLabel>
+	<skos:altLabel>Beiji</skos:altLabel>
+	<skos:prefLabel>Baiti District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110445/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2110425/"/>
+	<europeana:country>NR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>232</europeana:population>
+	<wgs:lat>-0.53459</wgs:lat>
+	<wgs:long>166.95032</wgs:long>
+	<skos:altLabel xml:lang="id">Anibare</skos:altLabel>
+	<skos:altLabel xml:lang="de">Anibare</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Anibare</skos:altLabel>
+	<skos:altLabel xml:lang="na">Anibare</skos:altLabel>
+	<skos:altLabel xml:lang="no">Anibare</skos:altLabel>
+	<skos:altLabel xml:lang="es">Anibare</skos:altLabel>
+	<skos:altLabel xml:lang="en">Anibare</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Anibare</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Anibare</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Anibare</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Anibare</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Anibare</skos:altLabel>
+	<skos:altLabel>Anibare District</skos:altLabel>
+	<skos:prefLabel>Anibare District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110448/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2110425/"/>
+	<europeana:country>NR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>498</europeana:population>
+	<wgs:lat>-0.5035</wgs:lat>
+	<wgs:long>166.94348</wgs:long>
+	<skos:altLabel xml:lang="id">Anetan</skos:altLabel>
+	<skos:altLabel xml:lang="de">Anetan</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Anetan</skos:altLabel>
+	<skos:altLabel xml:lang="na">Anetan</skos:altLabel>
+	<skos:altLabel xml:lang="no">Anetan</skos:altLabel>
+	<skos:altLabel xml:lang="es">Anetan</skos:altLabel>
+	<skos:altLabel xml:lang="en">Anetan</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Anetan</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Anetan</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Anetan</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Anetan</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Anetan</skos:altLabel>
+	<skos:altLabel>Anetan District</skos:altLabel>
+	<skos:prefLabel>Anetan District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110449/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2110425/"/>
+	<europeana:country>NR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>378</europeana:population>
+	<wgs:lat>-0.50742</wgs:lat>
+	<wgs:long>166.9524</wgs:long>
+	<skos:altLabel xml:lang="id">Anabar</skos:altLabel>
+	<skos:altLabel xml:lang="de">Anabar</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Anabar</skos:altLabel>
+	<skos:altLabel xml:lang="na">Anabar</skos:altLabel>
+	<skos:altLabel xml:lang="no">Anabar</skos:altLabel>
+	<skos:altLabel xml:lang="es">Anabar</skos:altLabel>
+	<skos:altLabel xml:lang="en">Anabar</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Anabar</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Anabar</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Anabar</skos:altLabel>
+	<skos:altLabel>Anabar District</skos:altLabel>
+	<skos:altLabel>Anebar</skos:altLabel>
+	<skos:altLabel>Aneber</skos:altLabel>
+	<skos:prefLabel>Anabar District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110451/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2110425/"/>
+	<europeana:country>NR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1051</europeana:population>
+	<wgs:lat>-0.53422</wgs:lat>
+	<wgs:long>166.90994</wgs:long>
+	<skos:altLabel>Aewu</skos:altLabel>
+	<skos:altLabel xml:lang="la">Aivum</skos:altLabel>
+	<skos:altLabel xml:lang="id">Aiwo</skos:altLabel>
+	<skos:altLabel xml:lang="es">Aiwo</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Aiwo</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Aiwo</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Aiwo</skos:altLabel>
+	<skos:altLabel xml:lang="de">Aiwo</skos:altLabel>
+	<skos:altLabel xml:lang="en">Aiwo</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Aiwo</skos:altLabel>
+	<skos:altLabel xml:lang="na">Aiwo</skos:altLabel>
+	<skos:altLabel xml:lang="no">Aiwo</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Aiwo</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Aiwo</skos:altLabel>
+	<skos:altLabel>Aiwo District</skos:altLabel>
+	<skos:altLabel xml:lang="ja">アイウォ地区</skos:altLabel>
+	<skos:prefLabel>Aiwo District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7626301/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2110425/"/>
+	<europeana:country>NR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>-0.517</wgs:lat>
+	<wgs:long>166.935</wgs:long>
+	<skos:prefLabel>German Protectorate of Nauru -1914</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7626302/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2110425/"/>
+	<europeana:country>NR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>-0.517</wgs:lat>
+	<wgs:long>166.936</wgs:long>
+	<skos:prefLabel>GB AU NZ League of Nations Mandate -1942</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7626303/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2110425/"/>
+	<europeana:country>NR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>-0.517</wgs:lat>
+	<wgs:long>166.937</wgs:long>
+	<skos:prefLabel>Japan Naval Airbase WW2</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7626304/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2110425/"/>
+	<europeana:country>NR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>-0.517</wgs:lat>
+	<wgs:long>166.938</wgs:long>
+	<skos:prefLabel>GB AU NZ Mandate -1968</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7626422/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2110425/"/>
+	<europeana:country>NR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>-0.53029</wgs:lat>
+	<wgs:long>166.91685</wgs:long>
+	<skos:prefLabel>Command Ridge Japan AA-Gun Bunker System WW2</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7626484/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2110425/"/>
+	<europeana:country>NR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>-0.54695</wgs:lat>
+	<wgs:long>166.94547</wgs:long>
+	<skos:prefLabel>JP Coastal Guns around island WW2</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7626493/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2110425/"/>
+	<europeana:country>NR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>-0.53101</wgs:lat>
+	<wgs:long>166.91132</wgs:long>
+	<skos:prefLabel>Japan Naval Airstation HQ</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 22 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

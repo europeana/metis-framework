@@ -1,0 +1,2119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AF_CM
+Description: Selected fields pulled from Geonames about CM done on Mon May 23 21:16:09 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/2220853/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13287</europeana:population>
+	<wgs:lat>3.51667</wgs:lat>
+	<wgs:long>15.05</wgs:long>
+	<skos:altLabel>Yokadouma</skos:altLabel>
+	<skos:altLabel>Youkadouma</skos:altLabel>
+	<skos:prefLabel>Yokadouma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2220957/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>1299369</europeana:population>
+	<wgs:lat>3.86667</wgs:lat>
+	<wgs:long>11.51667</wgs:long>
+	<skos:altLabel xml:lang="pl">Jaunde</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Jaundė</skos:altLabel>
+	<skos:altLabel>Jaúnde</skos:altLabel>
+	<skos:altLabel xml:lang="io">Yaounde</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Yaounde</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Yaounde</skos:altLabel>
+	<skos:altLabel xml:lang="de">Yaoundé</skos:altLabel>
+	<skos:altLabel xml:lang="es">Yaoundé</skos:altLabel>
+	<skos:altLabel xml:lang="da">Yaoundé</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Yaoundé</skos:altLabel>
+	<skos:altLabel xml:lang="it">Yaoundé</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Yaoundé</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Yaoundé</skos:altLabel>
+	<skos:altLabel xml:lang="en">Yaoundé</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Yaoundé</skos:altLabel>
+	<skos:altLabel xml:lang="no">Yaoundé</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Yaoundé</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Yaoundé</skos:altLabel>
+	<skos:altLabel xml:lang="et">Yaoundé</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Yaoundé</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Yaoundé</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Yaoundé</skos:altLabel>
+	<skos:altLabel xml:lang="id">Yaoundé</skos:altLabel>
+	<skos:altLabel>Yaoundé</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Yaunde</skos:altLabel>
+	<skos:altLabel xml:lang="es">Yaundé</skos:altLabel>
+	<skos:altLabel xml:lang="el">Γιαουντέ</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Јаунде</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Яунде</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Яунде</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Յաունդե</skos:altLabel>
+	<skos:altLabel xml:lang="he">יאונדה</skos:altLabel>
+	<skos:altLabel xml:lang="am">ያዉንዴ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ヤウンデ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">雅温得</skos:altLabel>
+	<skos:altLabel xml:lang="ko">야운데</skos:altLabel>
+	<skos:prefLabel>Yaoundé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2221030/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>80235</europeana:population>
+	<wgs:lat>10.34107</wgs:lat>
+	<wgs:long>15.23288</wgs:long>
+	<skos:altLabel>Jágua</skos:altLabel>
+	<skos:altLabel>Yagoua</skos:altLabel>
+	<skos:altLabel>Yagua</skos:altLabel>
+	<skos:prefLabel>Yagoua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2221053/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>68836</europeana:population>
+	<wgs:lat>6.38333</wgs:lat>
+	<wgs:long>10.06667</wgs:long>
+	<skos:altLabel xml:lang="pl">Wum</skos:altLabel>
+	<skos:altLabel xml:lang="en">Wum</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Wum</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Wum</skos:altLabel>
+	<skos:altLabel>Wum</skos:altLabel>
+	<skos:prefLabel>Wum</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2221059/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4</wgs:lat>
+	<wgs:long>9.66667</wgs:long>
+	<skos:prefLabel>Département du Wouri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2221394/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16036</europeana:population>
+	<wgs:lat>4.96667</wgs:lat>
+	<wgs:long>10.7</wgs:long>
+	<skos:altLabel>Lagosdorf</skos:altLabel>
+	<skos:altLabel>Tonga</skos:altLabel>
+	<skos:altLabel>Tonga’s</skos:altLabel>
+	<skos:prefLabel>Tonga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2221501/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.06667</wgs:lat>
+	<wgs:long>9.38333</wgs:long>
+	<skos:altLabel>Insel Keka</skos:altLabel>
+	<skos:altLabel>Tiko Island</skos:altLabel>
+	<skos:prefLabel>Tiko Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2221504/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>55914</europeana:population>
+	<wgs:lat>4.0745</wgs:lat>
+	<wgs:long>9.3699</wgs:long>
+	<skos:altLabel>Tiko</skos:altLabel>
+	<skos:prefLabel>Tiko</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2221530/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>35589</europeana:population>
+	<wgs:lat>6.46667</wgs:lat>
+	<wgs:long>12.63333</wgs:long>
+	<skos:prefLabel>Tibati</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2221607/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23187</europeana:population>
+	<wgs:lat>8.4022</wgs:lat>
+	<wgs:long>14.1698</wgs:long>
+	<skos:altLabel>Choliré</skos:altLabel>
+	<skos:altLabel>Chollire</skos:altLabel>
+	<skos:altLabel>Djoléré</skos:altLabel>
+	<skos:altLabel>Jolere</skos:altLabel>
+	<skos:altLabel>Tcholiré</skos:altLabel>
+	<skos:altLabel>Tcholliré</skos:altLabel>
+	<skos:altLabel>Tcholéré</skos:altLabel>
+	<skos:altLabel>Tscholere</skos:altLabel>
+	<skos:prefLabel>Tcholliré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2221761/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.7491</wgs:lat>
+	<wgs:long>8.5393</wgs:long>
+	<skos:altLabel>Masonjo Island</skos:altLabel>
+	<skos:altLabel>Tait Island</skos:altLabel>
+	<skos:prefLabel>Masonjo Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2221788/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>5.41667</wgs:lat>
+	<wgs:long>9.33333</wgs:long>
+	<skos:altLabel xml:lang="fr">Province du Sud-Ouest</skos:altLabel>
+	<skos:altLabel xml:lang="en">South-West Province</skos:altLabel>
+	<skos:altLabel>Sud-Ouest</skos:altLabel>
+	<skos:prefLabel>South-West Province</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2221789/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>2.5</wgs:lat>
+	<wgs:long>11.75</wgs:long>
+	<skos:altLabel xml:lang="fr">Province du Sud</skos:altLabel>
+	<skos:altLabel xml:lang="en">South Province</skos:altLabel>
+	<skos:altLabel>Sud</skos:altLabel>
+	<skos:prefLabel>South Province</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2221980/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.5382</wgs:lat>
+	<wgs:long>8.8548</wgs:long>
+	<skos:altLabel>Ile Soden</skos:altLabel>
+	<skos:altLabel>Soden Island</skos:altLabel>
+	<skos:altLabel>Soden-Insel</skos:altLabel>
+	<skos:prefLabel>Soden Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2222171/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4</wgs:lat>
+	<wgs:long>9.33333</wgs:long>
+	<skos:altLabel>Schiess Island</skos:altLabel>
+	<skos:altLabel>Schiess-Insel</skos:altLabel>
+	<skos:prefLabel>Schiess Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2222230/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>54251</europeana:population>
+	<wgs:lat>2.93333</wgs:lat>
+	<wgs:long>11.98333</wgs:long>
+	<skos:altLabel>Sangmelina</skos:altLabel>
+	<skos:altLabel>Sangmélima</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сангмелима</skos:altLabel>
+	<skos:prefLabel>Sangmélima</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2222269/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4</wgs:lat>
+	<wgs:long>10.33333</wgs:long>
+	<skos:prefLabel>Département de la Sanaga-Maritime</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2222439/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11454</europeana:population>
+	<wgs:lat>8.6724</wgs:lat>
+	<wgs:long>14.1786</wgs:long>
+	<skos:altLabel>Rei Buba</skos:altLabel>
+	<skos:altLabel>Rey Bouba</skos:altLabel>
+	<skos:altLabel>Reï-Bouba</skos:altLabel>
+	<skos:prefLabel>Rey Bouba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2222517/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.61361</wgs:lat>
+	<wgs:long>9.89972</wgs:long>
+	<skos:prefLabel>Île Pongo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2222522/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.25</wgs:lat>
+	<wgs:long>11.11667</wgs:long>
+	<skos:prefLabel>Pon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2222568/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11454</europeana:population>
+	<wgs:lat>9.38333</wgs:lat>
+	<wgs:long>13.53333</wgs:long>
+	<skos:altLabel>Piloa</skos:altLabel>
+	<skos:altLabel>Pitoa</skos:altLabel>
+	<skos:altLabel>Pitowa</skos:altLabel>
+	<skos:prefLabel>Pitoa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2222574/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>4</wgs:lat>
+	<wgs:long>9.18333</wgs:long>
+	<skos:altLabel>Pirate Islands</skos:altLabel>
+	<skos:altLabel>Piraten-Inseln</skos:altLabel>
+	<skos:prefLabel>Pirate Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2222575/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.21667</wgs:lat>
+	<wgs:long>11.08333</wgs:long>
+	<skos:prefLabel>Piparla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2222623/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>28406</europeana:population>
+	<wgs:lat>4.63911</wgs:lat>
+	<wgs:long>9.67987</wgs:long>
+	<skos:prefLabel>Penja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2222934/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>5.5</wgs:lat>
+	<wgs:long>10.5</wgs:long>
+	<skos:altLabel>Ouest</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Province de l'Ouest</skos:altLabel>
+	<skos:altLabel xml:lang="en">West Province</skos:altLabel>
+	<skos:prefLabel>West Province</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2223056/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.61667</wgs:lat>
+	<wgs:long>11.41667</wgs:long>
+	<skos:prefLabel>Otérou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2223293/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>30012</europeana:population>
+	<wgs:lat>4.16667</wgs:lat>
+	<wgs:long>11.53333</wgs:long>
+	<skos:altLabel>Obala</skos:altLabel>
+	<skos:prefLabel>Obala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2223327/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>3.4</wgs:lat>
+	<wgs:long>11.5</wgs:long>
+	<skos:altLabel>Département du Nyong-et-So</skos:altLabel>
+	<skos:altLabel>Département du Nyong-et-Soo</skos:altLabel>
+	<skos:prefLabel>Département du Nyong-et-Soo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2223328/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>4</wgs:lat>
+	<wgs:long>12</wgs:long>
+	<skos:altLabel>Nyong Sanaga</skos:altLabel>
+	<skos:altLabel>Nyong et Sanaga</skos:altLabel>
+	<skos:prefLabel>Nyong et Sanaga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2223329/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4</wgs:lat>
+	<wgs:long>12.4</wgs:long>
+	<skos:prefLabel>Département du Nyong-et-Mfoumou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2223330/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>3.83333</wgs:lat>
+	<wgs:long>10.83333</wgs:long>
+	<skos:altLabel>Département du Nyong-et-Kéllé</skos:altLabel>
+	<skos:altLabel>Nyong et Kélé</skos:altLabel>
+	<skos:prefLabel>Département du Nyong-et-Kéllé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2223415/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>6.5</wgs:lat>
+	<wgs:long>11</wgs:long>
+	<skos:prefLabel>Nwa Subdivision</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2223478/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>2.75</wgs:lat>
+	<wgs:long>11.33333</wgs:long>
+	<skos:prefLabel>Département du Ntem</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2223602/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>6.33333</wgs:lat>
+	<wgs:long>10.5</wgs:long>
+	<skos:altLabel>Nord-Ouest</skos:altLabel>
+	<skos:altLabel xml:lang="en">North-West Province</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Province du Nord-Ouest</skos:altLabel>
+	<skos:prefLabel>North-West Province</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2223603/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>8.5</wgs:lat>
+	<wgs:long>14</wgs:long>
+	<skos:altLabel>Nord</skos:altLabel>
+	<skos:altLabel xml:lang="en">North Province</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Province du Nord</skos:altLabel>
+	<skos:prefLabel>North Province</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2223734/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>50334</europeana:population>
+	<wgs:lat>4.51667</wgs:lat>
+	<wgs:long>12.03333</wgs:long>
+	<skos:prefLabel>Nkoteng</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2223763/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>117063</europeana:population>
+	<wgs:lat>4.9547</wgs:lat>
+	<wgs:long>9.9404</wgs:long>
+	<skos:altLabel xml:lang="de">Nkongsamba</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Nkongsamba</skos:altLabel>
+	<skos:altLabel xml:lang="en">Nkongsamba</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Nkongsamba</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Nkongsamba</skos:altLabel>
+	<skos:altLabel>Nkongsamba</skos:altLabel>
+	<skos:altLabel>Nkongsomba</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Нконгсамба</skos:altLabel>
+	<skos:prefLabel>Nkongsamba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2223883/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.4</wgs:lat>
+	<wgs:long>11.55</wgs:long>
+	<skos:prefLabel>Nkoloboko</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2224165/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.5</wgs:lat>
+	<wgs:long>10.16667</wgs:long>
+	<skos:prefLabel>Département du Nkam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2224318/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.94333</wgs:lat>
+	<wgs:long>9.26556</wgs:long>
+	<skos:altLabel>Nicol Island</skos:altLabel>
+	<skos:altLabel>Nicoll Island</skos:altLabel>
+	<skos:altLabel>Nicolls-Insel</skos:altLabel>
+	<skos:altLabel>Île Nicol</skos:altLabel>
+	<skos:prefLabel>Nicol Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2224412/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>5.25</wgs:lat>
+	<wgs:long>9.5</wgs:long>
+	<skos:prefLabel>Nguti Subdivision</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2224827/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>231357</europeana:population>
+	<wgs:lat>7.31667</wgs:lat>
+	<wgs:long>13.58333</wgs:long>
+	<skos:altLabel>Ngaoundéré</skos:altLabel>
+	<skos:altLabel>Ngaundere</skos:altLabel>
+	<skos:prefLabel>Ngaoundéré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2225280/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.83333</wgs:lat>
+	<wgs:long>8.83333</wgs:long>
+	<skos:prefLabel>Ndian Division</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2225334/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.15</wgs:lat>
+	<wgs:long>10.51667</wgs:long>
+	<skos:prefLabel>Département du Ndé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2225457/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>29909</europeana:population>
+	<wgs:lat>4.68333</wgs:lat>
+	<wgs:long>12.36667</wgs:long>
+	<skos:altLabel>Nanga Eboko</skos:altLabel>
+	<skos:prefLabel>Nanga Eboko</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2225726/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>31384</europeana:population>
+	<wgs:lat>4.2898</wgs:lat>
+	<wgs:long>9.4103</wgs:long>
+	<skos:altLabel>Mouyouka</skos:altLabel>
+	<skos:altLabel>Muyuka</skos:altLabel>
+	<skos:prefLabel>Muyuka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2225727/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>4.3</wgs:lat>
+	<wgs:long>9.36667</wgs:long>
+	<skos:prefLabel>Muyuka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2225728/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>47478</europeana:population>
+	<wgs:lat>4.0913</wgs:lat>
+	<wgs:long>9.3144</wgs:long>
+	<skos:prefLabel>Mutengene</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2225744/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.5</wgs:lat>
+	<wgs:long>9.83333</wgs:long>
+	<skos:altLabel>Département du Mungo</skos:altLabel>
+	<skos:altLabel>Moungo</skos:altLabel>
+	<skos:prefLabel>Département du Mungo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2225745/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11912</europeana:population>
+	<wgs:lat>4.9479</wgs:lat>
+	<wgs:long>8.8724</wgs:long>
+	<skos:altLabel>Mundemba</skos:altLabel>
+	<skos:altLabel>Mundenba</skos:altLabel>
+	<skos:altLabel>Ndian</skos:altLabel>
+	<skos:prefLabel>Mundemba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2225991/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>55216</europeana:population>
+	<wgs:lat>11.04611</wgs:lat>
+	<wgs:long>14.14011</wgs:long>
+	<skos:altLabel>Mora</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Море</skos:altLabel>
+	<skos:prefLabel>Mora</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2226089/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.9675</wgs:lat>
+	<wgs:long>9.195</wgs:long>
+	<skos:altLabel>Ile Mondoleh</skos:altLabel>
+	<skos:altLabel>Mondoleh Island</skos:altLabel>
+	<skos:prefLabel>Mondoleh Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2226140/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6</wgs:lat>
+	<wgs:long>10.25</wgs:long>
+	<skos:altLabel>Memo Division</skos:altLabel>
+	<skos:altLabel>Momo Division</skos:altLabel>
+	<skos:prefLabel>Momo Division</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2226275/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>275239</europeana:population>
+	<wgs:lat>10.73978</wgs:lat>
+	<wgs:long>13.80188</wgs:long>
+	<skos:altLabel>Mokolo</skos:altLabel>
+	<skos:prefLabel>Mokolo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2226514/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>4.75</wgs:lat>
+	<wgs:long>12.9</wgs:long>
+	<skos:prefLabel>Arrondissement de Minta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2226595/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.8</wgs:lat>
+	<wgs:long>9.58333</wgs:long>
+	<skos:altLabel>Minjame</skos:altLabel>
+	<skos:altLabel>Minyame</skos:altLabel>
+	<skos:prefLabel>Minjame</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2226641/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10538</europeana:population>
+	<wgs:lat>10.39757</wgs:lat>
+	<wgs:long>14.43626</wgs:long>
+	<skos:altLabel>Mendif</skos:altLabel>
+	<skos:altLabel>Mindif</skos:altLabel>
+	<skos:prefLabel>Mindif</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2226712/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.48333</wgs:lat>
+	<wgs:long>10.4</wgs:long>
+	<skos:prefLabel>Département de Mifi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2226830/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6</wgs:lat>
+	<wgs:long>10.41667</wgs:long>
+	<skos:altLabel>Bamenda Division</skos:altLabel>
+	<skos:altLabel>Mezam Division</skos:altLabel>
+	<skos:prefLabel>Mezam Division</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2226947/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.5</wgs:lat>
+	<wgs:long>10.16667</wgs:long>
+	<skos:altLabel>Menchum Division</skos:altLabel>
+	<skos:altLabel>Mentchoum</skos:altLabel>
+	<skos:altLabel>Metchum Division</skos:altLabel>
+	<skos:altLabel>Wum Division</skos:altLabel>
+	<skos:prefLabel>Metchum Division</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2227064/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.45</wgs:lat>
+	<wgs:long>10.06667</wgs:long>
+	<skos:prefLabel>Département de la Ménoua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2227197/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.83333</wgs:lat>
+	<wgs:long>9.33333</wgs:long>
+	<skos:altLabel>Kumba Division</skos:altLabel>
+	<skos:altLabel>Meme Division</skos:altLabel>
+	<skos:prefLabel>Meme Division</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2227230/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>37086</europeana:population>
+	<wgs:lat>5.1218</wgs:lat>
+	<wgs:long>9.96143</wgs:long>
+	<skos:prefLabel>Melong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2227402/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>80100</europeana:population>
+	<wgs:lat>6.51667</wgs:lat>
+	<wgs:long>14.3</wgs:long>
+	<skos:altLabel>Meiganda</skos:altLabel>
+	<skos:altLabel>Meïganga</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Мейганге</skos:altLabel>
+	<skos:prefLabel>Meïganga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2227419/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>3.83333</wgs:lat>
+	<wgs:long>11.66667</wgs:long>
+	<skos:prefLabel>Département de la Méfou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2227613/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>111320</europeana:population>
+	<wgs:lat>5.62578</wgs:lat>
+	<wgs:long>10.25517</wgs:long>
+	<skos:altLabel xml:lang="pl">Mbouda</skos:altLabel>
+	<skos:altLabel xml:lang="en">Mbouda</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Mbouda</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Mbouda</skos:altLabel>
+	<skos:prefLabel>Mbouda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2227917/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.18333</wgs:lat>
+	<wgs:long>11.06667</wgs:long>
+	<skos:prefLabel>Mbégé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2228005/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>42590</europeana:population>
+	<wgs:lat>4.5016</wgs:lat>
+	<wgs:long>9.5671</wgs:long>
+	<skos:altLabel>Mbanga</skos:altLabel>
+	<skos:altLabel>M’Bangé</skos:altLabel>
+	<skos:prefLabel>Mbanga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2228028/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>26947</europeana:population>
+	<wgs:lat>4.45</wgs:lat>
+	<wgs:long>11.9</wgs:long>
+	<skos:altLabel>Mbandjock</skos:altLabel>
+	<skos:altLabel>Mbandjok</skos:altLabel>
+	<skos:prefLabel>Mbandjok</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2228070/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.25</wgs:lat>
+	<wgs:long>12</wgs:long>
+	<skos:altLabel>Département du Mbam</skos:altLabel>
+	<skos:altLabel>M’Boum</skos:altLabel>
+	<skos:prefLabel>Département du Mbam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2228079/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>80206</europeana:population>
+	<wgs:lat>3.51667</wgs:lat>
+	<wgs:long>11.5</wgs:long>
+	<skos:altLabel>Mbalmajo</skos:altLabel>
+	<skos:altLabel>Mbalmayo</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Мбальмайо</skos:altLabel>
+	<skos:prefLabel>Mbalmayo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2228217/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.5</wgs:lat>
+	<wgs:long>15</wgs:long>
+	<skos:prefLabel>Département du Mayo Danaï</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2228373/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>319941</europeana:population>
+	<wgs:lat>10.59095</wgs:lat>
+	<wgs:long>14.31592</wgs:long>
+	<skos:altLabel>Maroua</skos:altLabel>
+	<skos:altLabel>Marua</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Маруа</skos:altLabel>
+	<skos:prefLabel>Maroua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2228394/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.75</wgs:lat>
+	<wgs:long>13.83333</wgs:long>
+	<skos:prefLabel>Département du Margui-Wandala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2228442/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.83333</wgs:lat>
+	<wgs:long>9.5</wgs:long>
+	<skos:altLabel>Cross River Division</skos:altLabel>
+	<skos:altLabel>Mamfe Division</skos:altLabel>
+	<skos:altLabel>Manyu Division</skos:altLabel>
+	<skos:prefLabel>Manyu Division</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2228499/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>37661</europeana:population>
+	<wgs:lat>4.8428</wgs:lat>
+	<wgs:long>9.8217</wgs:long>
+	<skos:prefLabel>Manjo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2228675/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19472</europeana:population>
+	<wgs:lat>5.754</wgs:lat>
+	<wgs:long>9.3123</wgs:long>
+	<skos:altLabel>Mamfe</skos:altLabel>
+	<skos:prefLabel>Mamfe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2228757/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.56667</wgs:lat>
+	<wgs:long>9.7</wgs:long>
+	<skos:altLabel>Delta-Insel</skos:altLabel>
+	<skos:altLabel>Île Malimba</skos:altLabel>
+	<skos:prefLabel>Île Malimba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2229125/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4</wgs:lat>
+	<wgs:long>9.18333</wgs:long>
+	<skos:prefLabel>Lucke Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2229152/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>177429</europeana:population>
+	<wgs:lat>4.7182</wgs:lat>
+	<wgs:long>9.7351</wgs:long>
+	<skos:altLabel>Loum</skos:altLabel>
+	<skos:altLabel>Lum</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Лум</skos:altLabel>
+	<skos:prefLabel>Loum</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2229250/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5</wgs:lat>
+	<wgs:long>14</wgs:long>
+	<skos:altLabel>Département du Lom-et-Kadeï</skos:altLabel>
+	<skos:altLabel>Kadei</skos:altLabel>
+	<skos:prefLabel>Département du Lom-et-Kadeï</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2229251/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.16667</wgs:lat>
+	<wgs:long>13.83333</wgs:long>
+	<skos:prefLabel>Département du Lom-et-Djérem</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2229267/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>22252</europeana:population>
+	<wgs:lat>3.23333</wgs:lat>
+	<wgs:long>10.73333</wgs:long>
+	<skos:altLabel>Lelodorf</skos:altLabel>
+	<skos:altLabel>Lolodorf</skos:altLabel>
+	<skos:altLabel>Lolodrof</skos:altLabel>
+	<skos:prefLabel>Lolodorf</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2229291/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>12.08333</wgs:lat>
+	<wgs:long>14.83333</wgs:long>
+	<skos:prefLabel>Département du Logone-et-Chari</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2229336/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>2192267</europeana:population>
+	<wgs:lat>4</wgs:lat>
+	<wgs:long>10</wgs:long>
+	<skos:altLabel>Littoral</skos:altLabel>
+	<skos:altLabel xml:lang="en">Littoral Province</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Province du Littoral</skos:altLabel>
+	<skos:prefLabel>Littoral Province</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2229411/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>72106</europeana:population>
+	<wgs:lat>4.0242</wgs:lat>
+	<wgs:long>9.2149</wgs:long>
+	<skos:altLabel xml:lang="pt">Limbe</skos:altLabel>
+	<skos:altLabel xml:lang="en">Limbe</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Limbe</skos:altLabel>
+	<skos:altLabel>Limbe</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Limbé</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Limbé</skos:altLabel>
+	<skos:altLabel>Victoria</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Лимбе</skos:altLabel>
+	<skos:prefLabel>Limbe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2229546/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.2</wgs:lat>
+	<wgs:long>11.4</wgs:long>
+	<skos:altLabel>Département de la Lékié</skos:altLabel>
+	<skos:altLabel>Likie</skos:altLabel>
+	<skos:prefLabel>Département de la Lékié</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2229681/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>24596</europeana:population>
+	<wgs:lat>9.05</wgs:lat>
+	<wgs:long>13.73333</wgs:long>
+	<skos:prefLabel>Lagdo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2229731/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.80389</wgs:lat>
+	<wgs:long>9.58806</wgs:long>
+	<skos:altLabel>Kule Kule</skos:altLabel>
+	<skos:altLabel>Île Kwélé-Kwélé</skos:altLabel>
+	<skos:prefLabel>Île Kwélé-Kwélé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2229748/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>53970</europeana:population>
+	<wgs:lat>6.2</wgs:lat>
+	<wgs:long>10.66667</wgs:long>
+	<skos:altLabel>Kumbo</skos:altLabel>
+	<skos:prefLabel>Kumbo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2229752/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>144413</europeana:population>
+	<wgs:lat>4.6363</wgs:lat>
+	<wgs:long>9.4469</wgs:long>
+	<skos:altLabel>Kumba</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кумбой</skos:altLabel>
+	<skos:prefLabel>Kumba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2229760/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>2.75</wgs:lat>
+	<wgs:long>10.25</wgs:long>
+	<skos:altLabel>Département de Kribi</skos:altLabel>
+	<skos:altLabel>Ocean</skos:altLabel>
+	<skos:prefLabel>Département de Kribi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2229761/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>55224</europeana:population>
+	<wgs:lat>2.95</wgs:lat>
+	<wgs:long>9.91667</wgs:long>
+	<skos:altLabel>Kribi</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Криби</skos:altLabel>
+	<skos:prefLabel>Kribi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2229798/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>435547</europeana:population>
+	<wgs:lat>12.07689</wgs:lat>
+	<wgs:long>15.03063</wgs:long>
+	<skos:altLabel>Fort Fureau</skos:altLabel>
+	<skos:altLabel>Fort-Foureau</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Kousseri</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Kousséri</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Kousséri</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kousséri</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kousséri</skos:altLabel>
+	<skos:altLabel>Kousséri</skos:altLabel>
+	<skos:altLabel>Kusseri</skos:altLabel>
+	<skos:prefLabel>Kousséri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2230411/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.45</wgs:lat>
+	<wgs:long>11.3</wgs:long>
+	<skos:prefLabel>Katéla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2230599/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>25199</europeana:population>
+	<wgs:lat>10.10917</wgs:lat>
+	<wgs:long>14.45083</wgs:long>
+	<skos:prefLabel>Kaélé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2230606/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.58333</wgs:lat>
+	<wgs:long>14.5</wgs:long>
+	<skos:prefLabel>Département de la Kadeï</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2230619/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.38333</wgs:lat>
+	<wgs:long>11.26667</wgs:long>
+	<skos:prefLabel>Kabanha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2230689/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.6735</wgs:lat>
+	<wgs:long>8.5353</wgs:long>
+	<skos:altLabel>Inikoi Island</skos:altLabel>
+	<skos:altLabel>Inikoï-Insel</skos:altLabel>
+	<skos:prefLabel>Inikoi Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2230742/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.53333</wgs:lat>
+	<wgs:long>11.35</wgs:long>
+	<skos:prefLabel>Hyoma Nawétia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2230815/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>3.5</wgs:lat>
+	<wgs:long>13.75</wgs:long>
+	<skos:prefLabel>Departement du Haut-Nyong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2230816/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.15</wgs:lat>
+	<wgs:long>10.18333</wgs:long>
+	<skos:prefLabel>Département du Haut-Nkam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2230817/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.6</wgs:lat>
+	<wgs:long>12.4</wgs:long>
+	<skos:prefLabel>Département de la Haute-Sanaga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2230876/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>84647</europeana:population>
+	<wgs:lat>9.93417</wgs:lat>
+	<wgs:long>13.94861</wgs:long>
+	<skos:altLabel>Gider</skos:altLabel>
+	<skos:altLabel>Guidder</skos:altLabel>
+	<skos:altLabel>Guider</skos:altLabel>
+	<skos:prefLabel>Guider</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2231319/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>46615</europeana:population>
+	<wgs:lat>5.88333</wgs:lat>
+	<wgs:long>14.55</wgs:long>
+	<skos:prefLabel>Garoua Boulaï</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2231320/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>436899</europeana:population>
+	<wgs:lat>9.3</wgs:lat>
+	<wgs:long>13.4</wgs:long>
+	<skos:altLabel xml:lang="id">Garoua</skos:altLabel>
+	<skos:altLabel xml:lang="de">Garoua</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Garoua</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Garoua</skos:altLabel>
+	<skos:altLabel xml:lang="en">Garoua</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Garoua</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Garoua</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Garoua</skos:altLabel>
+	<skos:altLabel>Garoua</skos:altLabel>
+	<skos:altLabel>Garua</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гаруа</skos:altLabel>
+	<skos:prefLabel>Garoua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2231482/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>43509</europeana:population>
+	<wgs:lat>6.25</wgs:lat>
+	<wgs:long>10.26667</wgs:long>
+	<skos:prefLabel>Fundong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2231504/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>84065</europeana:population>
+	<wgs:lat>5.50787</wgs:lat>
+	<wgs:long>10.6356</wgs:long>
+	<skos:altLabel>Foumbat</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Foumbot</skos:altLabel>
+	<skos:prefLabel>Foumbot</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2231506/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>92673</europeana:population>
+	<wgs:lat>5.7291</wgs:lat>
+	<wgs:long>10.90011</wgs:long>
+	<skos:altLabel>Foumbam</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Foumban</skos:altLabel>
+	<skos:altLabel xml:lang="en">Foumban</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Foumban</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Foumban</skos:altLabel>
+	<skos:altLabel>Fumban</skos:altLabel>
+	<skos:prefLabel>Foumban</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2231564/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>42689</europeana:population>
+	<wgs:lat>5.4685</wgs:lat>
+	<wgs:long>9.8818</wgs:long>
+	<skos:prefLabel>Fontem</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2231649/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.5933</wgs:lat>
+	<wgs:long>8.8157</wgs:long>
+	<skos:altLabel>Fiari Island</skos:altLabel>
+	<skos:altLabel>Fiari-Insel</skos:altLabel>
+	<skos:altLabel>Fiart Island</skos:altLabel>
+	<skos:altLabel>Ile Fiari</skos:altLabel>
+	<skos:prefLabel>Fiari Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2231710/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.16667</wgs:lat>
+	<wgs:long>9.16667</wgs:long>
+	<skos:altLabel>Fako Division</skos:altLabel>
+	<skos:altLabel>Fano Division</skos:altLabel>
+	<skos:altLabel>Victoria Division</skos:altLabel>
+	<skos:prefLabel>Fako Division</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2231755/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>3002797</europeana:population>
+	<wgs:lat>11</wgs:lat>
+	<wgs:long>14.5</wgs:long>
+	<skos:altLabel>Extreme-Nord</skos:altLabel>
+	<skos:altLabel xml:lang="en">Far North Province</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Province de l'Extrême-Nord</skos:altLabel>
+	<skos:prefLabel>Far North Province</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2231756/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.7108</wgs:lat>
+	<wgs:long>8.5642</wgs:long>
+	<skos:altLabel>Ewuru Island</skos:altLabel>
+	<skos:altLabel>Yambeke Island</skos:altLabel>
+	<skos:prefLabel>Ewuru Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2231835/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>836906</europeana:population>
+	<wgs:lat>4</wgs:lat>
+	<wgs:long>14</wgs:long>
+	<skos:altLabel xml:lang="en">East Province</skos:altLabel>
+	<skos:altLabel>Est</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Province de l'Est</skos:altLabel>
+	<skos:prefLabel>East Province</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2231881/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>22221</europeana:population>
+	<wgs:lat>3.65</wgs:lat>
+	<wgs:long>10.76667</wgs:long>
+	<skos:altLabel>Eséka</skos:altLabel>
+	<skos:prefLabel>Eséka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2232239/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>203149</europeana:population>
+	<wgs:lat>3.8</wgs:lat>
+	<wgs:long>10.13333</wgs:long>
+	<skos:altLabel xml:lang="en">Edéa</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Edéa</skos:altLabel>
+	<skos:altLabel xml:lang="de">Edéa</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Edéa</skos:altLabel>
+	<skos:altLabel>Edéa</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Édéa</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Эдеа</skos:altLabel>
+	<skos:prefLabel>Edéa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2232283/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>87875</europeana:population>
+	<wgs:lat>2.9</wgs:lat>
+	<wgs:long>11.15</wgs:long>
+	<skos:altLabel>Ebolova</skos:altLabel>
+	<skos:altLabel>Ébolowa</skos:altLabel>
+	<skos:prefLabel>Ébolowa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2232444/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>96112</europeana:population>
+	<wgs:lat>5.44559</wgs:lat>
+	<wgs:long>10.055</wgs:long>
+	<skos:altLabel>Chang</skos:altLabel>
+	<skos:altLabel>Dchang</skos:altLabel>
+	<skos:altLabel>Djang</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Dschang</skos:altLabel>
+	<skos:altLabel xml:lang="en">Dschang</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Dschang</skos:altLabel>
+	<skos:altLabel>Tchang</skos:altLabel>
+	<skos:prefLabel>Dschang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2232593/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>1338082</europeana:population>
+	<wgs:lat>4.0469</wgs:lat>
+	<wgs:long>9.7084</wgs:long>
+	<skos:altLabel xml:lang="id">Douala</skos:altLabel>
+	<skos:altLabel xml:lang="de">Douala</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Douala</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Douala</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Douala</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Douala</skos:altLabel>
+	<skos:altLabel xml:lang="en">Douala</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Douala</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Douala</skos:altLabel>
+	<skos:altLabel xml:lang="it">Douala</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Douala</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Douala</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Douala</skos:altLabel>
+	<skos:altLabel>Douala</skos:altLabel>
+	<skos:altLabel>Doula</skos:altLabel>
+	<skos:altLabel>Duala</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Duala</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Duala</skos:altLabel>
+	<skos:altLabel xml:lang="es">Duala</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Дуала</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Дуала</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ドゥアラ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">杜阿拉</skos:altLabel>
+	<skos:prefLabel>Douala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2232640/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.66667</wgs:lat>
+	<wgs:long>10.83333</wgs:long>
+	<skos:altLabel>Donga and Mantung Division</skos:altLabel>
+	<skos:altLabel>Kambé</skos:altLabel>
+	<skos:altLabel>Nkambe Division</skos:altLabel>
+	<skos:prefLabel>Donga and Mantung Division</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2232872/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.1294</wgs:lat>
+	<wgs:long>9.7258</wgs:long>
+	<skos:prefLabel>Ile Djébalé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2232969/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>2.75</wgs:lat>
+	<wgs:long>12.91667</wgs:long>
+	<skos:prefLabel>Département du Dja-et-Lobo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2232997/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19243</europeana:population>
+	<wgs:lat>3.76667</wgs:lat>
+	<wgs:long>9.98333</wgs:long>
+	<skos:altLabel>Dizangué</skos:altLabel>
+	<skos:altLabel>Dizanqué</skos:altLabel>
+	<skos:prefLabel>Dizangué</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2233094/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.7</wgs:lat>
+	<wgs:long>10.01667</wgs:long>
+	<skos:prefLabel>Île Dibongo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2233122/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.5</wgs:lat>
+	<wgs:long>14.5</wgs:long>
+	<skos:prefLabel>Département du Diamaré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2233376/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>2672533</europeana:population>
+	<wgs:lat>4.75</wgs:lat>
+	<wgs:long>12</wgs:long>
+	<skos:altLabel>Centre</skos:altLabel>
+	<skos:altLabel xml:lang="en">Centre Province</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Province du Centre</skos:altLabel>
+	<skos:prefLabel>Centre Province</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2233378/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.7347</wgs:lat>
+	<wgs:long>8.5808</wgs:long>
+	<skos:prefLabel>Campton Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2233387/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255146/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>19294149</europeana:population>
+	<wgs:lat>6</wgs:lat>
+	<wgs:long>12</wgs:long>
+	<skos:altLabel>CM</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ca-mơ-run</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ca-mơ-run (Cameroon)</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Camarões</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Camarún</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Cameron</skos:altLabel>
+	<skos:altLabel xml:lang="la">Cameronia</skos:altLabel>
+	<skos:altLabel xml:lang="en">Cameroon</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Cameroon</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Cameroon</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Cameroon</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Cameroon</skos:altLabel>
+	<skos:altLabel xml:lang="da">Cameroon</skos:altLabel>
+	<skos:altLabel xml:lang="da">Cameroun</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Cameroun</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Camerun</skos:altLabel>
+	<skos:altLabel xml:lang="it">Camerun</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Camerun</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Camerun</skos:altLabel>
+	<skos:altLabel xml:lang="na">Camerun</skos:altLabel>
+	<skos:altLabel xml:lang="es">Camerún</skos:altLabel>
+	<skos:altLabel xml:lang="an">Camerún</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Camerún</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Camerún - Cameroun</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Camerŵn</skos:altLabel>
+	<skos:altLabel>Federal Republic of Cameroon</skos:altLabel>
+	<skos:altLabel>Federation of the Camerouns</skos:altLabel>
+	<skos:altLabel xml:lang="af">Kameroen</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Kameroen</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Kameroun</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kamerun</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Kamerun</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Kamerun</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Kamerun</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Kamerun</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Kamerun</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Kamerun</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Kamerun</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Kamerun</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Kamerun</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Kamerun</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Kamerun</skos:altLabel>
+	<skos:altLabel xml:lang="et">Kamerun</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Kamerun</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Kamerun</skos:altLabel>
+	<skos:altLabel xml:lang="id">Kamerun</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Kamerun</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kamerun</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Kamerun</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Kamerun</skos:altLabel>
+	<skos:altLabel xml:lang="az">Kamerun</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Kamerun</skos:altLabel>
+	<skos:altLabel xml:lang="io">Kamerun</skos:altLabel>
+	<skos:altLabel xml:lang="no">Kamerun</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Kamerun</skos:altLabel>
+	<skos:altLabel xml:lang="ln">Kamerun</skos:altLabel>
+	<skos:altLabel xml:lang="se">Kamerun</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Kameruni</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Kameruno</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Kamerunän</skos:altLabel>
+	<skos:altLabel xml:lang="so">Kameruun</skos:altLabel>
+	<skos:altLabel xml:lang="is">Kamerún</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Kamerûn</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Kamerūna</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Kamerūnas</skos:altLabel>
+	<skos:altLabel xml:lang="en">Republic of Cameroon</skos:altLabel>
+	<skos:altLabel xml:lang="pt">República dos Camarões</skos:altLabel>
+	<skos:altLabel>République Fédérale du Cameroun</skos:altLabel>
+	<skos:altLabel>République Unie du Cameroun</skos:altLabel>
+	<skos:altLabel xml:lang="fr">République du Cameroun</skos:altLabel>
+	<skos:altLabel>United Republic of Cameroon</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Y Camerŵn</skos:altLabel>
+	<skos:altLabel xml:lang="el">Καμερούν</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Камерун</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Камерун</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Камерун</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Камерун</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Камерун</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Камерун</skos:altLabel>
+	<skos:altLabel xml:lang="be">Камерун</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Կամերուն</skos:altLabel>
+	<skos:altLabel xml:lang="he">קאמרון</skos:altLabel>
+	<skos:altLabel xml:lang="he">קמרון</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الكاميرون</skos:altLabel>
+	<skos:altLabel xml:lang="ar">كاميرون</skos:altLabel>
+	<skos:altLabel xml:lang="ug">كامېرون</skos:altLabel>
+	<skos:altLabel xml:lang="fa">کامرون</skos:altLabel>
+	<skos:altLabel xml:lang="ur">کیمرون</skos:altLabel>
+	<skos:altLabel xml:lang="ps">کېمرون</skos:altLabel>
+	<skos:altLabel xml:lang="hi">कामेरान</skos:altLabel>
+	<skos:altLabel xml:lang="mr">कामेरून</skos:altLabel>
+	<skos:altLabel xml:lang="sa">केमेरून</skos:altLabel>
+	<skos:altLabel xml:lang="hi">कैमरून</skos:altLabel>
+	<skos:altLabel xml:lang="bn">ক্যামেরুন</skos:altLabel>
+	<skos:altLabel xml:lang="ta">கேமரூன்</skos:altLabel>
+	<skos:altLabel xml:lang="kn">ಕ್ಯಾಮರೂನ್</skos:altLabel>
+	<skos:altLabel xml:lang="ml">കാമറൂണ്‍</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศแคเมอรูน</skos:altLabel>
+	<skos:altLabel xml:lang="th">แคเมอรูน</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ຄາເມລູນ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཀ་མེ་རུན།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">კამერუნი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ካሜሩን</skos:altLabel>
+	<skos:altLabel xml:lang="km">កាមេរូន</skos:altLabel>
+	<skos:altLabel xml:lang="ja">カメルーン</skos:altLabel>
+	<skos:altLabel xml:lang="ja">カメルーン共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">喀麦隆</skos:altLabel>
+	<skos:altLabel xml:lang="ko">카메룬</skos:altLabel>
+	<skos:prefLabel>Republic of Cameroon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2233408/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.25</wgs:lat>
+	<wgs:long>10.75</wgs:long>
+	<skos:altLabel>Bui Division</skos:altLabel>
+	<skos:altLabel>Nso</skos:altLabel>
+	<skos:prefLabel>Bui Division</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2233410/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>47300</europeana:population>
+	<wgs:lat>4.1527</wgs:lat>
+	<wgs:long>9.241</wgs:long>
+	<skos:altLabel xml:lang="en">Buea</skos:altLabel>
+	<skos:altLabel xml:lang="de">Buea</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Buea</skos:altLabel>
+	<skos:altLabel xml:lang="et">Buea</skos:altLabel>
+	<skos:altLabel>Buea</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Buéa</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Buéa</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Buéa</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Buéa</skos:altLabel>
+	<skos:prefLabel>Buea</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2233500/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>3</wgs:lat>
+	<wgs:long>15</wgs:long>
+	<skos:prefLabel>Département de la Boumba-Ngoko</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2233544/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.62778</wgs:lat>
+	<wgs:long>9.78361</wgs:long>
+	<skos:altLabel>Buhange Island</skos:altLabel>
+	<skos:altLabel>Île Bouhange</skos:altLabel>
+	<skos:altLabel>Île Bouhangué</skos:altLabel>
+	<skos:altLabel>Île Buhango</skos:altLabel>
+	<skos:prefLabel>Île Bouhangué</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2233805/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16952</europeana:population>
+	<wgs:lat>10.7336</wgs:lat>
+	<wgs:long>14.60928</wgs:long>
+	<skos:prefLabel>Bogo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2233845/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4</wgs:lat>
+	<wgs:long>9.18333</wgs:long>
+	<skos:prefLabel>Bobia Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2234339/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11866</europeana:population>
+	<wgs:lat>5.6</wgs:lat>
+	<wgs:long>14.08333</wgs:long>
+	<skos:altLabel>Betare</skos:altLabel>
+	<skos:altLabel>Betaye-Oya</skos:altLabel>
+	<skos:altLabel>Bétaré Oya</skos:altLabel>
+	<skos:prefLabel>Bétaré Oya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2234359/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>218111</europeana:population>
+	<wgs:lat>4.58333</wgs:lat>
+	<wgs:long>13.68333</wgs:long>
+	<skos:altLabel xml:lang="fr">Bertoua</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bertoua</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Bertoua</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Bertoua</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Bertoua</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Bertoua</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Bertoua</skos:altLabel>
+	<skos:altLabel>Bertoua</skos:altLabel>
+	<skos:altLabel>Bertua</skos:altLabel>
+	<skos:altLabel>Gamane</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бертуа</skos:altLabel>
+	<skos:prefLabel>Bertoua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2234396/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>9</wgs:lat>
+	<wgs:long>14</wgs:long>
+	<skos:altLabel>Benone</skos:altLabel>
+	<skos:altLabel>Benué</skos:altLabel>
+	<skos:altLabel>Département de la Bénoué</skos:altLabel>
+	<skos:prefLabel>Département de la Bénoué</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2234536/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>22553</europeana:population>
+	<wgs:lat>4.93333</wgs:lat>
+	<wgs:long>13.3</wgs:long>
+	<skos:altLabel>Bélabo</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Белабо</skos:altLabel>
+	<skos:prefLabel>Bélabo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2234635/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13058</europeana:population>
+	<wgs:lat>5.05695</wgs:lat>
+	<wgs:long>10.46978</wgs:long>
+	<skos:altLabel xml:lang="fr">Bazou</skos:altLabel>
+	<skos:prefLabel>Bazou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2234663/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>43821</europeana:population>
+	<wgs:lat>4.43333</wgs:lat>
+	<wgs:long>14.36667</wgs:long>
+	<skos:altLabel>Batouri</skos:altLabel>
+	<skos:altLabel>Baturi</skos:altLabel>
+	<skos:prefLabel>Batouri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2234686/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.65</wgs:lat>
+	<wgs:long>11.38333</wgs:long>
+	<skos:prefLabel>Baténa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2234794/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>40798</europeana:population>
+	<wgs:lat>6.75</wgs:lat>
+	<wgs:long>11.81667</wgs:long>
+	<skos:altLabel>Banjo</skos:altLabel>
+	<skos:altLabel>Banyo</skos:altLabel>
+	<skos:prefLabel>Banyo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2234865/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>65385</europeana:population>
+	<wgs:lat>5.14091</wgs:lat>
+	<wgs:long>10.51975</wgs:long>
+	<skos:altLabel xml:lang="fr">Bangangté</skos:altLabel>
+	<skos:altLabel>Banganté</skos:altLabel>
+	<skos:prefLabel>Bangangté</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2234941/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>24741</europeana:population>
+	<wgs:lat>4.4591</wgs:lat>
+	<wgs:long>8.9027</wgs:long>
+	<skos:altLabel>Bamuso</skos:altLabel>
+	<skos:altLabel>Bamusso</skos:altLabel>
+	<skos:prefLabel>Bamusso</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2234948/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.5</wgs:lat>
+	<wgs:long>11</wgs:long>
+	<skos:prefLabel>Département de Bamoun</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2234957/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>5.25</wgs:lat>
+	<wgs:long>10.5</wgs:long>
+	<skos:prefLabel>Bamiléké</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2234974/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>393835</europeana:population>
+	<wgs:lat>5.95266</wgs:lat>
+	<wgs:long>10.15824</wgs:long>
+	<skos:altLabel xml:lang="pl">Bamenda</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Bamenda</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bamenda</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Bamenda</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Bamenda</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Баменды</skos:altLabel>
+	<skos:prefLabel>Bamenda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2234988/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.63333</wgs:lat>
+	<wgs:long>10.25</wgs:long>
+	<skos:prefLabel>Département de Bamboutos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2235029/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>72606</europeana:population>
+	<wgs:lat>5.88724</wgs:lat>
+	<wgs:long>10.01248</wgs:long>
+	<skos:altLabel xml:lang="pl">Bali</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bali</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Bali</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бали</skos:altLabel>
+	<skos:prefLabel>Bali</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2235189/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>290768</europeana:population>
+	<wgs:lat>5.47366</wgs:lat>
+	<wgs:long>10.41786</wgs:long>
+	<skos:altLabel>Bafousam</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Bafoussam</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bafoussam</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Bafoussam</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Bafoussam</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Bafoussam</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Bafoussam</skos:altLabel>
+	<skos:altLabel>Bafusam</skos:altLabel>
+	<skos:altLabel>Befoussam</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бафуссама</skos:altLabel>
+	<skos:prefLabel>Bafoussam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2235194/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>69270</europeana:population>
+	<wgs:lat>4.75</wgs:lat>
+	<wgs:long>11.23333</wgs:long>
+	<skos:altLabel>Bafia</skos:altLabel>
+	<skos:altLabel>Bafiā Ngitakuba</skos:altLabel>
+	<skos:prefLabel>Bafia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2235196/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>80688</europeana:population>
+	<wgs:lat>5.15625</wgs:lat>
+	<wgs:long>10.17882</wgs:long>
+	<skos:altLabel xml:lang="pl">Bafang</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Bafang</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bafang</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Bafang</skos:altLabel>
+	<skos:prefLabel>Bafang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2235656/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.96861</wgs:lat>
+	<wgs:long>9.17278</wgs:long>
+	<skos:altLabel>Ambas Island</skos:altLabel>
+	<skos:altLabel>Ile Ambas Ndami</skos:altLabel>
+	<skos:altLabel>Ndami</skos:altLabel>
+	<skos:prefLabel>Ambas Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2235745/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.635</wgs:lat>
+	<wgs:long>8.5417</wgs:long>
+	<skos:altLabel>Akwabana Island</skos:altLabel>
+	<skos:altLabel>Île Akpa Bana</skos:altLabel>
+	<skos:prefLabel>Akwabana Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2235776/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17181</europeana:population>
+	<wgs:lat>3.76667</wgs:lat>
+	<wgs:long>12.25</wgs:long>
+	<skos:altLabel>Akomolinga</skos:altLabel>
+	<skos:altLabel>Akonolinga</skos:altLabel>
+	<skos:prefLabel>Akonolinga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2236015/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>6.5</wgs:lat>
+	<wgs:long>13.5</wgs:long>
+	<skos:altLabel>Adamaoua</skos:altLabel>
+	<skos:altLabel xml:lang="en">Adamaoua Province</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Province de l'Adamaoua</skos:altLabel>
+	<skos:prefLabel>Adamaoua Province</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2236016/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7</wgs:lat>
+	<wgs:long>13.5</wgs:long>
+	<skos:altLabel>Adamoua</skos:altLabel>
+	<skos:altLabel>Département de l’ Adamaoua</skos:altLabel>
+	<skos:prefLabel>Département de l’ Adamaoua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2236053/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14661</europeana:population>
+	<wgs:lat>3.98333</wgs:lat>
+	<wgs:long>13.18333</wgs:long>
+	<skos:altLabel>Abong Mbang</skos:altLabel>
+	<skos:prefLabel>Abong Mbang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2236146/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.41667</wgs:lat>
+	<wgs:long>11.53333</wgs:long>
+	<skos:prefLabel>Abandikiti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2594800/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17800</europeana:population>
+	<wgs:lat>4.2475</wgs:lat>
+	<wgs:long>9.00472</wgs:long>
+	<skos:prefLabel>Idenao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2594961/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLM"/>
+	<wgs:lat>4.2222</wgs:lat>
+	<wgs:long>9.7205</wgs:long>
+	<skos:prefLabel>Ile Abo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2594967/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.2408</wgs:lat>
+	<wgs:long>9.7959</wgs:long>
+	<skos:prefLabel>Ile Wouri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2595256/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.79556</wgs:lat>
+	<wgs:long>9.65167</wgs:long>
+	<skos:prefLabel>Ile Manoka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2595260/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.83639</wgs:lat>
+	<wgs:long>9.70889</wgs:long>
+	<skos:prefLabel>Ile Ndonga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2595269/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.99667</wgs:lat>
+	<wgs:long>9.19389</wgs:long>
+	<skos:prefLabel>Bota</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2595282/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.61028</wgs:lat>
+	<wgs:long>9.84972</wgs:long>
+	<skos:prefLabel>Ile Yatou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2595283/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.62111</wgs:lat>
+	<wgs:long>9.83083</wgs:long>
+	<skos:prefLabel>Ile Anna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6856036/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2233387/"/>
+	<europeana:country>CM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.98691</wgs:lat>
+	<wgs:long>9.50577</wgs:long>
+	<skos:prefLabel>Ile Miandjou</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 168 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AS_BN
+Description: Selected fields pulled from Geonames about BN done on Mon May 23 21:13:18 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/1820068/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1820814/"/>
+	<europeana:country>BN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>41426</europeana:population>
+	<wgs:lat>4.58333</wgs:lat>
+	<wgs:long>114.66667</wgs:long>
+	<skos:altLabel>Tutong</skos:altLabel>
+	<skos:prefLabel>Tutong District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1820071/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1820814/"/>
+	<europeana:country>BN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19151</europeana:population>
+	<wgs:lat>4.8</wgs:lat>
+	<wgs:long>114.65</wgs:long>
+	<skos:prefLabel>Tutong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1820106/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1820814/"/>
+	<europeana:country>BN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>10908</europeana:population>
+	<wgs:lat>4.58333</wgs:lat>
+	<wgs:long>115.16667</wgs:long>
+	<skos:altLabel>Temburong</skos:altLabel>
+	<skos:prefLabel>Temburong District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1820130/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1820814/"/>
+	<europeana:country>BN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.76667</wgs:lat>
+	<wgs:long>114.66667</wgs:long>
+	<skos:prefLabel>Pulau Tanjong Maya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1820177/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1820814/"/>
+	<europeana:country>BN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.88333</wgs:lat>
+	<wgs:long>115.05</wgs:long>
+	<skos:altLabel>Pulau Salamat</skos:altLabel>
+	<skos:altLabel>Pulau Selamok</skos:altLabel>
+	<skos:altLabel>Pulau Silama</skos:altLabel>
+	<skos:prefLabel>Pulau Silama</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1820180/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1820814/"/>
+	<europeana:country>BN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.86667</wgs:lat>
+	<wgs:long>114.95</wgs:long>
+	<skos:altLabel>Pulau Sebungor</skos:altLabel>
+	<skos:altLabel>Pulau Sibungor</skos:altLabel>
+	<skos:prefLabel>Pulau Sibungor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1820183/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1820814/"/>
+	<europeana:country>BN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.8</wgs:lat>
+	<wgs:long>115.03333</wgs:long>
+	<skos:altLabel>Pulau Siarau</skos:altLabel>
+	<skos:altLabel>Siarau Island</skos:altLabel>
+	<skos:prefLabel>Pulau Siarau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1820187/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1820814/"/>
+	<europeana:country>BN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>30097</europeana:population>
+	<wgs:lat>4.61667</wgs:lat>
+	<wgs:long>114.31667</wgs:long>
+	<skos:altLabel>Seria</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Серия</skos:altLabel>
+	<skos:prefLabel>Seria</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1820200/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1820814/"/>
+	<europeana:country>BN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.76667</wgs:lat>
+	<wgs:long>114.6</wgs:long>
+	<skos:prefLabel>Pulau Selawat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1820207/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1820814/"/>
+	<europeana:country>BN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.68333</wgs:lat>
+	<wgs:long>115.18333</wgs:long>
+	<skos:prefLabel>Pulau Sekurop</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1820228/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1820814/"/>
+	<europeana:country>BN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.98333</wgs:lat>
+	<wgs:long>115.03333</wgs:long>
+	<skos:prefLabel>Pulau Salar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1820250/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1820814/"/>
+	<europeana:country>BN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.85</wgs:lat>
+	<wgs:long>114.9</wgs:long>
+	<skos:prefLabel>Pulau Ranggu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1820261/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1820814/"/>
+	<europeana:country>BN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.98333</wgs:lat>
+	<wgs:long>114.83333</wgs:long>
+	<skos:altLabel>Keti Island</skos:altLabel>
+	<skos:altLabel>Pulau Punyet</skos:altLabel>
+	<skos:altLabel>Pulau Punyit</skos:altLabel>
+	<skos:prefLabel>Pulau Punyit</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1820282/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1820814/"/>
+	<europeana:country>BN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.91667</wgs:lat>
+	<wgs:long>115.03333</wgs:long>
+	<skos:prefLabel>Pulau Pepatan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1820361/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1820814/"/>
+	<europeana:country>BN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5</wgs:lat>
+	<wgs:long>115.1</wgs:long>
+	<skos:altLabel>Great Island</skos:altLabel>
+	<skos:altLabel>Pulau Maara</skos:altLabel>
+	<skos:altLabel>Pulau Muara</skos:altLabel>
+	<skos:altLabel>Pulau Muara Besar</skos:altLabel>
+	<skos:prefLabel>Pulau Muara Besar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1820421/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1820814/"/>
+	<europeana:country>BN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.86667</wgs:lat>
+	<wgs:long>114.95</wgs:long>
+	<skos:prefLabel>Pulau Lumut Lunting</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1820433/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1820814/"/>
+	<europeana:country>BN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.85</wgs:lat>
+	<wgs:long>114.88333</wgs:long>
+	<skos:prefLabel>Pulau Luba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1820445/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1820814/"/>
+	<europeana:country>BN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.88333</wgs:lat>
+	<wgs:long>115.05</wgs:long>
+	<skos:altLabel>Pulau Lilipan</skos:altLabel>
+	<skos:altLabel>Pulau Lipan</skos:altLabel>
+	<skos:altLabel>Pulo Lelipan</skos:altLabel>
+	<skos:prefLabel>Pulau Lilipan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1820491/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1820814/"/>
+	<europeana:country>BN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>31178</europeana:population>
+	<wgs:lat>4.58333</wgs:lat>
+	<wgs:long>114.18333</wgs:long>
+	<skos:altLabel>Belait</skos:altLabel>
+	<skos:altLabel>Kuala Belait</skos:altLabel>
+	<skos:altLabel>Kwala Belait</skos:altLabel>
+	<skos:prefLabel>Kuala Belait</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1820498/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1820814/"/>
+	<europeana:country>BN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.88333</wgs:lat>
+	<wgs:long>115.1</wgs:long>
+	<skos:altLabel>Pulau Kitang</skos:altLabel>
+	<skos:altLabel>Pulo Kitana</skos:altLabel>
+	<skos:prefLabel>Pulau Kitang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1820504/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1820814/"/>
+	<europeana:country>BN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.76667</wgs:lat>
+	<wgs:long>115.03333</wgs:long>
+	<skos:prefLabel>Pulau Kibi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1820737/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1820814/"/>
+	<europeana:country>BN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.95</wgs:lat>
+	<wgs:long>115.03333</wgs:long>
+	<skos:altLabel>Pulau Kaingaran</skos:altLabel>
+	<skos:altLabel>Pulau Kingaran</skos:altLabel>
+	<skos:altLabel>Pulo Ingarin</skos:altLabel>
+	<skos:altLabel>Pulu Kigaran</skos:altLabel>
+	<skos:prefLabel>Pulau Kaingaran</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1820792/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1820814/"/>
+	<europeana:country>BN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.93333</wgs:lat>
+	<wgs:long>115.01667</wgs:long>
+	<skos:altLabel>Pulau Chermin</skos:altLabel>
+	<skos:altLabel>Pulau Churmin</skos:altLabel>
+	<skos:prefLabel>Pulau Chermin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1820814/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1820814/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255147/"/>
+	<europeana:country>BN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>395027</europeana:population>
+	<wgs:lat>4.5</wgs:lat>
+	<wgs:long>114.66667</wgs:long>
+	<skos:altLabel>BN</skos:altLabel>
+	<skos:altLabel xml:lang="li">Broenai</skos:altLabel>
+	<skos:altLabel xml:lang="af">Broenei</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Brouney</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Bru-nây</skos:altLabel>
+	<skos:altLabel xml:lang="id">Brunei</skos:altLabel>
+	<skos:altLabel xml:lang="et">Brunei</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Brunei</skos:altLabel>
+	<skos:altLabel xml:lang="it">Brunei</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Brunei</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Brunei</skos:altLabel>
+	<skos:altLabel xml:lang="en">Brunei</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Brunei</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Brunei</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Brunei</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Brunei</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Brunei</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Brunei</skos:altLabel>
+	<skos:altLabel xml:lang="de">Brunei</skos:altLabel>
+	<skos:altLabel xml:lang="an">Brunei</skos:altLabel>
+	<skos:altLabel xml:lang="da">Brunei</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Brunei</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Brunei</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Brunei</skos:altLabel>
+	<skos:altLabel xml:lang="io">Brunei</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Brunei</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Brunei</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Brunei</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Brunei</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Brunei</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Brunei</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Brunei</skos:altLabel>
+	<skos:altLabel xml:lang="na">Brunei</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Brunei</skos:altLabel>
+	<skos:altLabel xml:lang="no">Brunei</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Brunei</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Brunei</skos:altLabel>
+	<skos:altLabel xml:lang="se">Brunei</skos:altLabel>
+	<skos:altLabel>Brunei Darussalam</skos:altLabel>
+	<skos:altLabel xml:lang="da">Brunei Darussalam</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Brunei Darussalam</skos:altLabel>
+	<skos:altLabel xml:lang="de">Brunei Darussalam</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Brunei Darussalam</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Brunei Darussalam</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Brunei Darussalam</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Brunei Darussalam</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Brunei Darussalam</skos:altLabel>
+	<skos:altLabel xml:lang="la">Bruneium</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Brunej</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Brunej</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Brunej</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Brunej</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Brunej</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Brunej</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Brunej</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Brunej</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Brunej Darussalam</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Bruneja</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Brunejo</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Bruney</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Brunän</skos:altLabel>
+	<skos:altLabel xml:lang="es">Brunéi</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Brunéi Darussalam</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Brunėjus</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Brúiné</skos:altLabel>
+	<skos:altLabel xml:lang="is">Brúnei</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Brûnei</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Brûney</skos:altLabel>
+	<skos:altLabel>Negara Brunei Darussalam</skos:altLabel>
+	<skos:altLabel>Negeri Brunei</skos:altLabel>
+	<skos:altLabel>State of Brunei</skos:altLabel>
+	<skos:altLabel>Sultanate of Brunei</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μπρουνέι</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μπρουνέι Νταρουσαλάμ</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Брунеи</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Бруней</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бруней</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Бруней</skos:altLabel>
+	<skos:altLabel xml:lang="os">Бруней</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Бруней</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Бруней Дарусалам</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бруней Даруссалам</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Бруней-Даруссалам</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Брунеј</skos:altLabel>
+	<skos:altLabel xml:lang="be">Брунэй</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Բրունեյ</skos:altLabel>
+	<skos:altLabel xml:lang="he">ברוניי</skos:altLabel>
+	<skos:altLabel xml:lang="he">ברוניי דארוסאלאם</skos:altLabel>
+	<skos:altLabel xml:lang="fa">برونئی</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بروناي</skos:altLabel>
+	<skos:altLabel xml:lang="ps">برونای</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بروني</skos:altLabel>
+	<skos:altLabel xml:lang="ug">برۇنېي</skos:altLabel>
+	<skos:altLabel xml:lang="hi">ब्रुनेई</skos:altLabel>
+	<skos:altLabel xml:lang="hi">ब्रूनइ</skos:altLabel>
+	<skos:altLabel xml:lang="sa">ब्रूनै</skos:altLabel>
+	<skos:altLabel xml:lang="bn">ব্রুনাই</skos:altLabel>
+	<skos:altLabel xml:lang="bn">ব্রুনেই দারুস্সালাম</skos:altLabel>
+	<skos:altLabel xml:lang="ta">புரூனேய்</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ബ്രൂണയ്</skos:altLabel>
+	<skos:altLabel xml:lang="th">บรูไน</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศบรูไนดารุสซาลาม</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ບູຮໄນ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">བུ་རུ་ནེ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ბრუნეი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ብሩኒ</skos:altLabel>
+	<skos:altLabel xml:lang="km">ប៊្រុយណេ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ブルネイ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">文莱</skos:altLabel>
+	<skos:altLabel xml:lang="ko">브루나이</skos:altLabel>
+	<skos:prefLabel>Negara Brunei Darussalam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1820818/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1820814/"/>
+	<europeana:country>BN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>4.83333</wgs:lat>
+	<wgs:long>114.91667</wgs:long>
+	<skos:altLabel>Brunei District</skos:altLabel>
+	<skos:altLabel>Brunei and Muara</skos:altLabel>
+	<skos:prefLabel>Brunei and Muara District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1820850/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1820814/"/>
+	<europeana:country>BN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.88333</wgs:lat>
+	<wgs:long>115.03333</wgs:long>
+	<skos:altLabel>Barbunot Island</skos:altLabel>
+	<skos:altLabel>Pulau Berbunot</skos:altLabel>
+	<skos:altLabel>Pulau Berbunut</skos:altLabel>
+	<skos:altLabel>Pulo Burbunot</skos:altLabel>
+	<skos:prefLabel>Pulau Berbunot</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1820854/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1820814/"/>
+	<europeana:country>BN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.86667</wgs:lat>
+	<wgs:long>114.98333</wgs:long>
+	<skos:prefLabel>Pulau Berambang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1820869/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1820814/"/>
+	<europeana:country>BN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>77515</europeana:population>
+	<wgs:lat>4.41667</wgs:lat>
+	<wgs:long>114.58333</wgs:long>
+	<skos:altLabel>Belait</skos:altLabel>
+	<skos:prefLabel>Belait District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1820875/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1820814/"/>
+	<europeana:country>BN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.78333</wgs:lat>
+	<wgs:long>114.61667</wgs:long>
+	<skos:prefLabel>Pulau Bekuku</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1820878/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1820814/"/>
+	<europeana:country>BN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.98333</wgs:lat>
+	<wgs:long>115.05</wgs:long>
+	<skos:altLabel>Badukang Island</skos:altLabel>
+	<skos:altLabel>Pulau Bedukang</skos:altLabel>
+	<skos:prefLabel>Pulau Bedukang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1820898/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1820814/"/>
+	<europeana:country>BN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.9</wgs:lat>
+	<wgs:long>115.03333</wgs:long>
+	<skos:altLabel>Baru Baru Islands</skos:altLabel>
+	<skos:altLabel>Pulau Baru Baru</skos:altLabel>
+	<skos:prefLabel>Pulau Baru Baru</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1820906/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1820814/"/>
+	<europeana:country>BN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>64409</europeana:population>
+	<wgs:lat>4.94029</wgs:lat>
+	<wgs:long>114.94806</wgs:long>
+	<skos:altLabel xml:lang="lt">Bandar Seri Begavanas</skos:altLabel>
+	<skos:altLabel xml:lang="id">Bandar Seri Begawan</skos:altLabel>
+	<skos:altLabel xml:lang="de">Bandar Seri Begawan</skos:altLabel>
+	<skos:altLabel xml:lang="es">Bandar Seri Begawan</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Bandar Seri Begawan</skos:altLabel>
+	<skos:altLabel xml:lang="it">Bandar Seri Begawan</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Bandar Seri Begawan</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Bandar Seri Begawan</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Bandar Seri Begawan</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Bandar Seri Begawan</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bandar Seri Begawan</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Bandar Seri Begawan</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Bandar Seri Begawan</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Bandar Seri Begawan</skos:altLabel>
+	<skos:altLabel xml:lang="io">Bandar Seri Begawan</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Bandar Seri Begawan</skos:altLabel>
+	<skos:altLabel xml:lang="no">Bandar Seri Begawan</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Bandar Seri Begawan</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Bandar Seri Begawan</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Bandar Seri Begawan</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Bandar Seri Begawan</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Bandar Seri Begawan</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Bandar Seri Begawan</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Bandar Seri Begawan</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Bandar Seri Begawan</skos:altLabel>
+	<skos:altLabel xml:lang="is">Bandar Seri Begawan</skos:altLabel>
+	<skos:altLabel xml:lang="da">Bandar Seri Begawan</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Bandar-Seri-Begavano</skos:altLabel>
+	<skos:altLabel>Brunei</skos:altLabel>
+	<skos:altLabel>Brunei Town</skos:altLabel>
+	<skos:altLabel>Bruni</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μπαντάρ Σερί Μπεγκαβάν</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Бандар-Сери-Бегаван</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бандар-Сери-Бегаван</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Бандар-Сері-Бегаван</skos:altLabel>
+	<skos:altLabel xml:lang="he">בנדר סרי בגוואן</skos:altLabel>
+	<skos:altLabel xml:lang="fa">بندر سری بگاوان</skos:altLabel>
+	<skos:altLabel xml:lang="ur">بندر سری بگوان</skos:altLabel>
+	<skos:altLabel xml:lang="th">บันดาร์เสรีเบกาวัน</skos:altLabel>
+	<skos:altLabel xml:lang="am">ባንዳር ሰሪ ቤጋዋን</skos:altLabel>
+	<skos:altLabel xml:lang="ja">バンダルスリブガワン</skos:altLabel>
+	<skos:altLabel xml:lang="zh">斯里巴加湾市</skos:altLabel>
+	<skos:altLabel xml:lang="zh">斯里巴加灣市</skos:altLabel>
+	<skos:altLabel xml:lang="ko">반다르스리브가완</skos:altLabel>
+	<skos:prefLabel>Bandar Seri Begawan</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 31 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

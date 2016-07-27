@@ -1,0 +1,83 @@
+<html>
+<head>
+<title>AnnoCultor Report</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+<!-- css -->
+<!--
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.5.2/build/datatable/assets/skins/sam/datatable.css">
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.5.2/build/logger/assets/skins/sam/logger.css">
+-->
+<link rel="stylesheet" type="text/css" href="yui/datatable/assets/skins/sam/datatable.css">
+<link rel="stylesheet" type="text/css" href="yui/logger/assets/skins/sam/logger.css">
+<!-- Yahoo js -->
+<!--
+<script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/datasource/datasource-beta-debug.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/element/element-beta-debug.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/datatable/datatable-beta-debug.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/logger/logger-debug.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.5.1/build/yuiloader/yuiloader-beta-min.js"></script>
+-->
+<script type="text/javascript" src="yui/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="yui/datasource/datasource-debug.js"></script>
+<script type="text/javascript" src="yui/element/element-debug.js"></script>
+<script type="text/javascript" src="yui/datatable/datatable-debug.js"></script>
+<script type="text/javascript" src="yui/logger/logger-debug.js"></script>
+<script type="text/javascript" src="yui/yuiloader/yuiloader-min.js"></script>
+
+<!-- AnnoCultor js -->
+<script type="text/javascript" src="ReportData.js"></script> 
+<script type="text/javascript" src="ReportCode.js"></script> 
+<!-- AnnoCultor css -->
+<!--<link rel="stylesheet" type="text/css" href="http://annocultor.sourceforge.net/style.css"/>-->
+<link rel="stylesheet" type="text/css" href="style.css"/>
+<link rel="stylesheet" type="text/css" href="Report.css"/>
+</head>
+
+<body class=" yui-skin-sam"></body>
+<div>
+  <div style="float: left">
+<!--    <img src="http://annocultor.sourceforge.net/annocultor-small.gif"/> -->
+    <img src="annocultor-small.gif"/>
+  </div>
+  <p id="title">AnnoCultor</p>
+  <p id="subtitle">conversion report</p>
+  <p id ="menu">
+      <a class="menu" href="#tabEnv">Environment </a><a class="menu" href="#tabGra"> Graphs </a><a class="menu" href="#tabRul"> Rules </a><a class="menu" href="#tabUnu"> Missed </a><a class="menu" href="#tabCon"> Console </a><a class="menu" href="#tabCount"> Counters</a>
+  </p>    
+</div>
+
+<div id="divReport" class="report-justify">  <!--     
+class="yui-navset">
+    <ul class="yui-nav">
+        <li><a href="#tabEnv"><em>environment</em></a></li>
+        <li><a href="#tabGra"><em>graphs</em></a></li>
+        <li><a href="#tabRul"><em>rules</em></a></li>
+        <li class="selected"><a href="#tabUnu"><em>unused XML tags</em></a></li>
+        <li><a href="#tabCon"><em>console</em></a></li>
+    </ul>            
+   --> 
+    <div class="yui-content">
+        <div id="tabEnv">
+	        <div id="envTable"></div>
+				</div>
+        <div id="tabGra">
+          <div id="graphTable"></div>
+        </div>
+        <div id="tabRul">
+          <div id="rulesTable"></div>      
+        </div>
+        <div id="tabUnu">
+          <div id="unusedTable"></div>
+        </div>
+        <div id="tabCon">
+          <div id="conTable"></div>
+        </div>
+        <div id="tabCount">
+          <div id="countTable"></div>
+        </div>
+    </div>
+</div>
+
+</html>

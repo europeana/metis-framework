@@ -1,0 +1,1645 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AS_CY
+Description: Selected fields pulled from Geonames about CY done on Mon May 23 21:13:25 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/4746/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.CSTL"/>
+	<wgs:lat>34.90833</wgs:lat>
+	<wgs:long>33.6375</wgs:long>
+	<skos:altLabel>Larnaca Castle</skos:altLabel>
+	<skos:altLabel>Turkish Fort</skos:altLabel>
+	<skos:prefLabel>Larnaca Castle</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4749/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.88333</wgs:lat>
+	<wgs:long>33.60833</wgs:long>
+	<skos:prefLabel>Vyzakia City-Site</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4808/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.75</wgs:lat>
+	<wgs:long>33.35833</wgs:long>
+	<skos:prefLabel>Pervolia City-Site</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4845/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.80417</wgs:lat>
+	<wgs:long>33.4375</wgs:long>
+	<skos:prefLabel>Alaminos Tower</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4867/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.8</wgs:lat>
+	<wgs:long>33.34167</wgs:long>
+	<skos:altLabel>Choirokoitia</skos:altLabel>
+	<skos:altLabel>Hirokitiya</skos:altLabel>
+	<skos:altLabel>Khirokitia Settlement</skos:altLabel>
+	<skos:altLabel>Khirokitiá-Vouni</skos:altLabel>
+	<skos:prefLabel>Khirokitia Settlement</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5693/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.CSTL"/>
+	<wgs:lat>34.67083</wgs:lat>
+	<wgs:long>33.04167</wgs:long>
+	<skos:altLabel>Cyprus Medieval Museum</skos:altLabel>
+	<skos:altLabel>Limassol Castle</skos:altLabel>
+	<skos:prefLabel>Limassol Castle</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5721/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.CSTL"/>
+	<wgs:lat>34.66516</wgs:lat>
+	<wgs:long>32.93406</wgs:long>
+	<skos:prefLabel>Kolossi Castle</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/12067/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.79583</wgs:lat>
+	<wgs:long>33.04167</wgs:long>
+	<skos:prefLabel>Amyrou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/12069/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.75833</wgs:lat>
+	<wgs:long>33.02917</wgs:long>
+	<skos:prefLabel>Zeus Lavranios Sanctuary</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/12591/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.9375</wgs:lat>
+	<wgs:long>32.8625</wgs:long>
+	<skos:prefLabel>Palea Khora Fortified Settlement</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/12626/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35</wgs:lat>
+	<wgs:long>32.89583</wgs:long>
+	<skos:prefLabel>Ayios Nikolaos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/15913/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.00417</wgs:lat>
+	<wgs:long>33.7</wgs:long>
+	<skos:prefLabel>PylaTomb</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/15917/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.01667</wgs:lat>
+	<wgs:long>33.69167</wgs:long>
+	<skos:prefLabel>Pyla Watch Tower</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/15959/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.08333</wgs:lat>
+	<wgs:long>33.60833</wgs:long>
+	<skos:prefLabel>Tremithous City-Site</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/15966/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.06667</wgs:lat>
+	<wgs:long>33.55</wgs:long>
+	<skos:altLabel>Golgi City-Site</skos:altLabel>
+	<skos:altLabel>Golgoi</skos:altLabel>
+	<skos:prefLabel>Golgi City-Site</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/15997/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.07083</wgs:lat>
+	<wgs:long>33.54167</wgs:long>
+	<skos:prefLabel>Koukkounis Settlement</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/16041/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.15833</wgs:lat>
+	<wgs:long>33.69583</wgs:long>
+	<skos:prefLabel>Sinda City-Site</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/16109/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.19167</wgs:lat>
+	<wgs:long>33.60417</wgs:long>
+	<skos:altLabel>Kamares Bridge</skos:altLabel>
+	<skos:altLabel>Kamares Settlement</skos:altLabel>
+	<skos:prefLabel>Kamares Settlement</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/16148/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.025</wgs:lat>
+	<wgs:long>33.24167</wgs:long>
+	<skos:prefLabel>Tamassos City-Site</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/16418/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.225</wgs:lat>
+	<wgs:long>33.00833</wgs:long>
+	<skos:altLabel>Toumba tou Skourou Settlement</skos:altLabel>
+	<skos:altLabel>Toumpa tou Skourou</skos:altLabel>
+	<skos:altLabel>Tumba tu Skuru</skos:altLabel>
+	<skos:prefLabel>Toumba tou Skourou Settlement</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/16564/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.12917</wgs:lat>
+	<wgs:long>32.79167</wgs:long>
+	<skos:prefLabel>Aletri Mining Settlements</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/18237/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.18333</wgs:lat>
+	<wgs:long>32.7375</wgs:long>
+	<skos:altLabel>Petra tu Limniti</skos:altLabel>
+	<skos:altLabel>Petro tou Limniti</skos:altLabel>
+	<skos:altLabel>Petro tou Limniti Settlement</skos:altLabel>
+	<skos:prefLabel>Petro tou Limniti Settlement</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/18787/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.7875</wgs:lat>
+	<wgs:long>32.44167</wgs:long>
+	<skos:prefLabel>Ellinospilii</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/18800/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.CSTL"/>
+	<wgs:lat>34.75417</wgs:lat>
+	<wgs:long>32.40833</wgs:long>
+	<skos:prefLabel>Kato Paphos Castle</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/18803/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.CSTL"/>
+	<wgs:lat>34.75833</wgs:lat>
+	<wgs:long>32.4125</wgs:long>
+	<skos:prefLabel>Saranda Kolones Castle</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/18804/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.75833</wgs:lat>
+	<wgs:long>32.4125</wgs:long>
+	<skos:prefLabel>Ayia Solomoni Catacomb</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/18808/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.77917</wgs:lat>
+	<wgs:long>32.40833</wgs:long>
+	<skos:prefLabel>Tombs of the Kings</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/18882/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.85417</wgs:lat>
+	<wgs:long>32.3625</wgs:long>
+	<skos:prefLabel>Paleokastron</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/18909/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.9625</wgs:lat>
+	<wgs:long>34.08333</wgs:long>
+	<skos:prefLabel>Tigani Settlement</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/18910/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.97083</wgs:lat>
+	<wgs:long>34.0875</wgs:long>
+	<skos:prefLabel>Aphrodite’s Temple</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/18917/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.0125</wgs:lat>
+	<wgs:long>34.0625</wgs:long>
+	<skos:prefLabel>Lefkolia City-Site</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/18918/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20230</europeana:population>
+	<wgs:lat>35.0125</wgs:lat>
+	<wgs:long>34.05833</wgs:long>
+	<skos:altLabel xml:lang="en">Protaras</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Протарас</skos:altLabel>
+	<skos:prefLabel>Protaras</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/19040/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.16667</wgs:lat>
+	<wgs:long>33.8875</wgs:long>
+	<skos:prefLabel>Engomi Tumulus</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/19041/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.16667</wgs:lat>
+	<wgs:long>33.875</wgs:long>
+	<skos:altLabel>Egkomi</skos:altLabel>
+	<skos:altLabel>Engomi</skos:altLabel>
+	<skos:altLabel>Engomi City-Site</skos:altLabel>
+	<skos:prefLabel>Engomi City-Site</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/19042/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.175</wgs:lat>
+	<wgs:long>33.89167</wgs:long>
+	<skos:altLabel>Salamis</skos:altLabel>
+	<skos:altLabel>Salamis Necropolis</skos:altLabel>
+	<skos:prefLabel>Salamis Necropolis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/19048/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.1875</wgs:lat>
+	<wgs:long>33.875</wgs:long>
+	<skos:prefLabel>Kythrea Salamis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/19187/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.0375</wgs:lat>
+	<wgs:long>32.43333</wgs:long>
+	<skos:altLabel>Marion</skos:altLabel>
+	<skos:altLabel>Marion/Arsinoe City-Site</skos:altLabel>
+	<skos:prefLabel>Marion/Arsinoe City-Site</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/19213/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.05833</wgs:lat>
+	<wgs:long>32.3375</wgs:long>
+	<skos:prefLabel>Dhyo Potami Settlement</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/19249/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>35.0225</wgs:lat>
+	<wgs:long>32.27583</wgs:long>
+	<skos:prefLabel>Kionos Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/19283/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.69167</wgs:lat>
+	<wgs:long>34.58333</wgs:long>
+	<skos:altLabel>Kastros</skos:altLabel>
+	<skos:altLabel>Kastros Settlements</skos:altLabel>
+	<skos:prefLabel>Kastros Settlements</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/19291/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>35.67917</wgs:lat>
+	<wgs:long>34.52917</wgs:long>
+	<skos:altLabel>Kordhylia Islands</skos:altLabel>
+	<skos:altLabel>Kordilek Adaları</skos:altLabel>
+	<skos:altLabel>Kordilya Adası</skos:altLabel>
+	<skos:altLabel>Kordylia Islands</skos:altLabel>
+	<skos:altLabel>Kordylia Nisha</skos:altLabel>
+	<skos:altLabel>Nísoi Kordýlia</skos:altLabel>
+	<skos:prefLabel>Kordhylia Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/19307/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.65417</wgs:lat>
+	<wgs:long>34.45833</wgs:long>
+	<skos:prefLabel>Ourania City-Site</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/19313/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>35.65833</wgs:lat>
+	<wgs:long>34.44583</wgs:long>
+	<skos:prefLabel>Glaro Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/19316/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>35.65</wgs:lat>
+	<wgs:long>34.41667</wgs:long>
+	<skos:prefLabel>Lefkoniso</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/19323/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>35.59167</wgs:lat>
+	<wgs:long>34.425</wgs:long>
+	<skos:prefLabel>Aspro Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/19343/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.63333</wgs:lat>
+	<wgs:long>34.37083</wgs:long>
+	<skos:prefLabel>Karpasia City-Site</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/19379/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>35.57917</wgs:lat>
+	<wgs:long>34.27917</wgs:long>
+	<skos:prefLabel>Nisha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/19465/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>35.56667</wgs:lat>
+	<wgs:long>34.18333</wgs:long>
+	<skos:prefLabel>Skaloudhia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/19466/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>35.55833</wgs:lat>
+	<wgs:long>34.17083</wgs:long>
+	<skos:prefLabel>Dhemoniaris</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/19467/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>35.55417</wgs:lat>
+	<wgs:long>34.17083</wgs:long>
+	<skos:prefLabel>Koutoulis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/19469/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>35.54167</wgs:lat>
+	<wgs:long>34.16667</wgs:long>
+	<skos:prefLabel>Skamni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/19542/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>35.49167</wgs:lat>
+	<wgs:long>34.075</wgs:long>
+	<skos:prefLabel>Kernathion Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/19544/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>35.475</wgs:lat>
+	<wgs:long>34.05</wgs:long>
+	<skos:prefLabel>Sernos Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/19582/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.32917</wgs:lat>
+	<wgs:long>34.02917</wgs:long>
+	<skos:altLabel>Knidhos City-Site</skos:altLabel>
+	<skos:altLabel>Knidos</skos:altLabel>
+	<skos:prefLabel>Knidhos City-Site</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/19613/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>35.47083</wgs:lat>
+	<wgs:long>34.03333</wgs:long>
+	<skos:prefLabel>Scales Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/19627/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.40833</wgs:lat>
+	<wgs:long>33.875</wgs:long>
+	<skos:prefLabel>Lithosourka Tomb</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/19700/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.325</wgs:lat>
+	<wgs:long>33.97917</wgs:long>
+	<skos:prefLabel>Kastros and Strongylos Castle</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/19849/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.40417</wgs:lat>
+	<wgs:long>33.78333</wgs:long>
+	<skos:prefLabel>Pergamon City-Site</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/19853/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.40417</wgs:lat>
+	<wgs:long>33.74167</wgs:long>
+	<skos:altLabel>Afrodision</skos:altLabel>
+	<skos:altLabel>Aphrodhision City-Site</skos:altLabel>
+	<skos:prefLabel>Aphrodhision City-Site</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/19896/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.36667</wgs:lat>
+	<wgs:long>33.65417</wgs:long>
+	<skos:prefLabel>Makaria City</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/20027/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.25417</wgs:lat>
+	<wgs:long>33.49583</wgs:long>
+	<skos:altLabel>Chytroi</skos:altLabel>
+	<skos:altLabel>Hytri</skos:altLabel>
+	<skos:altLabel>Khytri City-Site</skos:altLabel>
+	<skos:prefLabel>Khytri City-Site</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/20048/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.3375</wgs:lat>
+	<wgs:long>33.49583</wgs:long>
+	<skos:prefLabel>Troulli Settlement</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/20065/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.33333</wgs:lat>
+	<wgs:long>33.425</wgs:long>
+	<skos:altLabel>Vrisi</skos:altLabel>
+	<skos:altLabel>Vrysi</skos:altLabel>
+	<skos:altLabel>Vrysin Settlement</skos:altLabel>
+	<skos:prefLabel>Vrysin Settlement</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/20131/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.325</wgs:lat>
+	<wgs:long>33.3375</wgs:long>
+	<skos:prefLabel>House D. Lipertis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/20133/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.34167</wgs:lat>
+	<wgs:long>33.32917</wgs:long>
+	<skos:altLabel>Ayia Mavra</skos:altLabel>
+	<skos:altLabel>Khrysokava</skos:altLabel>
+	<skos:prefLabel>Ayia Mavra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/20135/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.CSTL"/>
+	<wgs:lat>35.3425</wgs:lat>
+	<wgs:long>33.32278</wgs:long>
+	<skos:altLabel>Girne Kalesi</skos:altLabel>
+	<skos:altLabel>Kyrenia Castle</skos:altLabel>
+	<skos:altLabel>Kyrenia City Fortifications</skos:altLabel>
+	<skos:altLabel>Shipwreck Museum</skos:altLabel>
+	<skos:prefLabel>Kyrenia Castle</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/20200/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>35.35</wgs:lat>
+	<wgs:long>33.2375</wgs:long>
+	<skos:prefLabel>Kalamoulia Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/20228/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.35833</wgs:lat>
+	<wgs:long>33.20417</wgs:long>
+	<skos:altLabel>Lambousa</skos:altLabel>
+	<skos:altLabel>Lambousa Monastery</skos:altLabel>
+	<skos:altLabel>Lambusa</skos:altLabel>
+	<skos:altLabel>Lampousa</skos:altLabel>
+	<skos:altLabel>Lapithos/Lambousa City-Site</skos:altLabel>
+	<skos:prefLabel>Lapithos/Lambousa City-Site</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/20299/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.2875</wgs:lat>
+	<wgs:long>33.08333</wgs:long>
+	<skos:prefLabel>Pigadhes Settlement</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/20351/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.30833</wgs:lat>
+	<wgs:long>32.9375</wgs:long>
+	<skos:altLabel>Palaiokastron</skos:altLabel>
+	<skos:altLabel>Paleokastro City-Site</skos:altLabel>
+	<skos:altLabel>Palyokastro</skos:altLabel>
+	<skos:prefLabel>Paleokastro City-Site</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/20382/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>35.40833</wgs:lat>
+	<wgs:long>32.92083</wgs:long>
+	<skos:prefLabel>Kormakiti Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/20625/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.1375</wgs:lat>
+	<wgs:long>33.425</wgs:long>
+	<skos:prefLabel>Kaphizin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/20626/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.CSTL"/>
+	<wgs:lat>35.13333</wgs:lat>
+	<wgs:long>33.4125</wgs:long>
+	<skos:altLabel>La Cava Castle</skos:altLabel>
+	<skos:altLabel>Lakava Kalesi</skos:altLabel>
+	<skos:altLabel>Lakáva Froúrion</skos:altLabel>
+	<skos:prefLabel>La Cava Castle</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/20706/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.1625</wgs:lat>
+	<wgs:long>33.3625</wgs:long>
+	<skos:prefLabel>Ledra City-Site</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/145960/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>34.9</wgs:lat>
+	<wgs:long>32.31667</wgs:long>
+	<skos:altLabel>Geronisos Island</skos:altLabel>
+	<skos:altLabel>Nisís Gerónisos</skos:altLabel>
+	<skos:altLabel>Yeroniso Adası</skos:altLabel>
+	<skos:altLabel>Yeronisos</skos:altLabel>
+	<skos:altLabel>Yeronisos Island</skos:altLabel>
+	<skos:prefLabel>Yeronisos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/145985/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.15833</wgs:lat>
+	<wgs:long>32.775</wgs:long>
+	<skos:altLabel>Vouni Palace</skos:altLabel>
+	<skos:altLabel>Vouni Sarayı</skos:altLabel>
+	<skos:altLabel>Vuni</skos:altLabel>
+	<skos:prefLabel>Vouni Palace</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146071/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.13333</wgs:lat>
+	<wgs:long>32.8</wgs:long>
+	<skos:altLabel>Soli</skos:altLabel>
+	<skos:altLabel>Soli City-Site</skos:altLabel>
+	<skos:altLabel>Soloi</skos:altLabel>
+	<skos:prefLabel>Soli City-Site</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146099/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.17917</wgs:lat>
+	<wgs:long>33.9</wgs:long>
+	<skos:altLabel>Constantia</skos:altLabel>
+	<skos:altLabel>Konstantia City-Site</skos:altLabel>
+	<skos:altLabel>Salamis</skos:altLabel>
+	<skos:altLabel>Salamis City-Site</skos:altLabel>
+	<skos:altLabel>Salamis Harabeleri</skos:altLabel>
+	<skos:altLabel>Salamis/Konstantia City-Site</skos:altLabel>
+	<skos:prefLabel>Salamis/Konstantia City-Site</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146102/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.CSTL"/>
+	<wgs:lat>35.3125</wgs:lat>
+	<wgs:long>33.28333</wgs:long>
+	<skos:altLabel>Agios Ilarion Castle</skos:altLabel>
+	<skos:altLabel>Ayilarion</skos:altLabel>
+	<skos:altLabel>Ayios Hilarion Castle</skos:altLabel>
+	<skos:altLabel>Saint Hilarion Castle</skos:altLabel>
+	<skos:prefLabel>Saint Hilarion Castle</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146209/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11836</europeana:population>
+	<wgs:lat>35.0375</wgs:lat>
+	<wgs:long>33.98333</wgs:long>
+	<skos:altLabel>Paralim</skos:altLabel>
+	<skos:altLabel>Paralimni</skos:altLabel>
+	<skos:prefLabel>Paralimni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146213/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>34.83333</wgs:lat>
+	<wgs:long>32.58333</wgs:long>
+	<skos:altLabel>Baf İlçesi</skos:altLabel>
+	<skos:altLabel>Distrikt Papho</skos:altLabel>
+	<skos:altLabel>Eparchía Páfou</skos:altLabel>
+	<skos:altLabel>Paphos</skos:altLabel>
+	<skos:altLabel>Paphos District</skos:altLabel>
+	<skos:prefLabel>Paphos District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146214/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>35961</europeana:population>
+	<wgs:lat>34.76667</wgs:lat>
+	<wgs:long>32.41667</wgs:long>
+	<skos:altLabel>Baf</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Baf</skos:altLabel>
+	<skos:altLabel>Gazibaf</skos:altLabel>
+	<skos:altLabel>Nea Paphos</skos:altLabel>
+	<skos:altLabel>Néa Páfos</skos:altLabel>
+	<skos:altLabel xml:lang="it">Pafo</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Pafos</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Pafos</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Pafos</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Pafos</skos:altLabel>
+	<skos:altLabel xml:lang="es">Pafos</skos:altLabel>
+	<skos:altLabel xml:lang="no">Pafos</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Paphos</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Paphos</skos:altLabel>
+	<skos:altLabel xml:lang="de">Paphos</skos:altLabel>
+	<skos:altLabel xml:lang="en">Paphos</skos:altLabel>
+	<skos:altLabel>Páfos</skos:altLabel>
+	<skos:altLabel xml:lang="el">Πάφος</skos:altLabel>
+	<skos:altLabel xml:lang="el">Παφος</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Пафос</skos:altLabel>
+	<skos:prefLabel>Paphos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146242/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.70833</wgs:lat>
+	<wgs:long>32.575</wgs:long>
+	<skos:altLabel>Eski Baf</skos:altLabel>
+	<skos:altLabel>Palaia Pafos</skos:altLabel>
+	<skos:altLabel>Palea Paphos</skos:altLabel>
+	<skos:altLabel>Palepafo</skos:altLabel>
+	<skos:prefLabel>Palea Paphos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146246/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>35.125</wgs:lat>
+	<wgs:long>33.95417</wgs:long>
+	<skos:altLabel>Büyük Ada</skos:altLabel>
+	<skos:altLabel>Okso Adası</skos:altLabel>
+	<skos:altLabel>Oxo Island</skos:altLabel>
+	<skos:prefLabel>Oxo Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146261/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>34.92083</wgs:lat>
+	<wgs:long>32.32083</wgs:long>
+	<skos:altLabel>Manijin</skos:altLabel>
+	<skos:altLabel>Nisi</skos:altLabel>
+	<skos:prefLabel>Manijin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146262/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>34.84583</wgs:lat>
+	<wgs:long>32.375</wgs:long>
+	<skos:altLabel>Nisarka</skos:altLabel>
+	<skos:altLabel>Potima</skos:altLabel>
+	<skos:prefLabel>Nisarka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146267/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>35.06667</wgs:lat>
+	<wgs:long>33.2</wgs:long>
+	<skos:altLabel>Eparchía Lefkosías</skos:altLabel>
+	<skos:altLabel>Lefkoşa İlçesi</skos:altLabel>
+	<skos:altLabel>Nicosia</skos:altLabel>
+	<skos:altLabel>Nicosia District</skos:altLabel>
+	<skos:prefLabel>Nicosia District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146268/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>200452</europeana:population>
+	<wgs:lat>35.16667</wgs:lat>
+	<wgs:long>33.36667</wgs:long>
+	<skos:altLabel xml:lang="ga">An Leafcóis</skos:altLabel>
+	<skos:altLabel>Lefkosia</skos:altLabel>
+	<skos:altLabel>Lefkoşa</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Lefkoşa</skos:altLabel>
+	<skos:altLabel xml:lang="es">Nicosia</skos:altLabel>
+	<skos:altLabel xml:lang="it">Nicosia</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Nicosia</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Nicosia</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Nicosia</skos:altLabel>
+	<skos:altLabel xml:lang="en">Nicosia</skos:altLabel>
+	<skos:altLabel xml:lang="da">Nicosia</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Nicosia</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Nicosia</skos:altLabel>
+	<skos:altLabel>Nicosia</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Nicosia - Λευκωσία</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Nicosie</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Nicòsia</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Nicósia</skos:altLabel>
+	<skos:altLabel xml:lang="id">Nikosia</skos:altLabel>
+	<skos:altLabel xml:lang="de">Nikosia</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Nikosia</skos:altLabel>
+	<skos:altLabel xml:lang="et">Nikosia</skos:altLabel>
+	<skos:altLabel xml:lang="io">Nikosia</skos:altLabel>
+	<skos:altLabel xml:lang="no">Nikosia</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Nikosija</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Nikozija</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Nikozija</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Nikozija</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Nikozio</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Nikozja</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Nikósie</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Nikózia</skos:altLabel>
+	<skos:altLabel xml:lang="el">Λευκωσία</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Никозия</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Никозија</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Никосия</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Никосия</skos:altLabel>
+	<skos:altLabel xml:lang="be">Нікасія</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Նիկոսիա</skos:altLabel>
+	<skos:altLabel xml:lang="he">ניקוסיה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">نيقوسيا</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሌፍኮዚያ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ニコシア</skos:altLabel>
+	<skos:altLabel xml:lang="zh">尼科西亚</skos:altLabel>
+	<skos:altLabel xml:lang="ko">니코시아</skos:altLabel>
+	<skos:prefLabel>Nicosia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146286/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14833</europeana:population>
+	<wgs:lat>35.19806</wgs:lat>
+	<wgs:long>32.99139</wgs:long>
+	<skos:altLabel>Güzelköy</skos:altLabel>
+	<skos:altLabel>Güzelyurt</skos:altLabel>
+	<skos:altLabel>Morfou</skos:altLabel>
+	<skos:altLabel>Morphou</skos:altLabel>
+	<skos:altLabel>Omorfo</skos:altLabel>
+	<skos:prefLabel>Morphou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146302/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>35.12917</wgs:lat>
+	<wgs:long>33.95</wgs:long>
+	<skos:altLabel>Maymun Adası</skos:altLabel>
+	<skos:altLabel>Mesa Nisa</skos:altLabel>
+	<skos:altLabel>Messa Nisi</skos:altLabel>
+	<skos:prefLabel>Messa Nisi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146321/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>35.11083</wgs:lat>
+	<wgs:long>32.28111</wgs:long>
+	<skos:altLabel>Mazaki Adası</skos:altLabel>
+	<skos:altLabel>Mazaki Island</skos:altLabel>
+	<skos:altLabel>Nisís Mazáki</skos:altLabel>
+	<skos:prefLabel>Mazaki Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146383/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>34.78333</wgs:lat>
+	<wgs:long>32.91667</wgs:long>
+	<skos:altLabel>Eparchía Lemesoú</skos:altLabel>
+	<skos:altLabel>Limasol District</skos:altLabel>
+	<skos:altLabel>Limasol İlçesi</skos:altLabel>
+	<skos:altLabel>Limassol</skos:altLabel>
+	<skos:altLabel>Limassol District</skos:altLabel>
+	<skos:prefLabel>Limassol District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146384/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>154000</europeana:population>
+	<wgs:lat>34.675</wgs:lat>
+	<wgs:long>33.03333</wgs:long>
+	<skos:altLabel>Lemesos</skos:altLabel>
+	<skos:altLabel>Lemessus</skos:altLabel>
+	<skos:altLabel>Leymosun</skos:altLabel>
+	<skos:altLabel>Limasol</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Limasol</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Limasol</skos:altLabel>
+	<skos:altLabel xml:lang="de">Limassol</skos:altLabel>
+	<skos:altLabel xml:lang="es">Limassol</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Limassol</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Limassol</skos:altLabel>
+	<skos:altLabel xml:lang="en">Limassol</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Limassol</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Limassol</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Limassol</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Limassol</skos:altLabel>
+	<skos:altLabel xml:lang="it">Limassol</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Limassol</skos:altLabel>
+	<skos:altLabel xml:lang="el">Λεμεσός</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Лимасол</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Лимасол</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Лімасол</skos:altLabel>
+	<skos:altLabel xml:lang="he">לימסול</skos:altLabel>
+	<skos:altLabel xml:lang="ja">リマソール</skos:altLabel>
+	<skos:prefLabel>Limassol</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146398/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>34.95</wgs:lat>
+	<wgs:long>33.91667</wgs:long>
+	<skos:altLabel>Eparchía Lárnakas</skos:altLabel>
+	<skos:altLabel>Larnaca</skos:altLabel>
+	<skos:altLabel>Larnaca District</skos:altLabel>
+	<skos:altLabel>Larnaka İlçesi</skos:altLabel>
+	<skos:prefLabel>Larnaca District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146400/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>72000</europeana:population>
+	<wgs:lat>34.91667</wgs:lat>
+	<wgs:long>33.62917</wgs:long>
+	<skos:altLabel>Chittim</skos:altLabel>
+	<skos:altLabel>Citium</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Citium</skos:altLabel>
+	<skos:altLabel>Kition</skos:altLabel>
+	<skos:altLabel>Kitium</skos:altLabel>
+	<skos:altLabel>Kittim</skos:altLabel>
+	<skos:altLabel>Kozan</skos:altLabel>
+	<skos:altLabel>Lapithou</skos:altLabel>
+	<skos:altLabel xml:lang="en">Larnaca</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Larnaca</skos:altLabel>
+	<skos:altLabel xml:lang="es">Larnaca</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Larnaca</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Larnaca</skos:altLabel>
+	<skos:altLabel>Larnaka</skos:altLabel>
+	<skos:altLabel xml:lang="de">Larnaka</skos:altLabel>
+	<skos:altLabel xml:lang="no">Larnaka</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Larnaka</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Larnaka</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Larnaka</skos:altLabel>
+	<skos:altLabel xml:lang="it">Larnaka</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Larnaka</skos:altLabel>
+	<skos:altLabel>Salina</skos:altLabel>
+	<skos:altLabel>Salines</skos:altLabel>
+	<skos:altLabel xml:lang="el">Λάρνακα</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ларнака</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Ларнака</skos:altLabel>
+	<skos:altLabel xml:lang="he">לרנקה</skos:altLabel>
+	<skos:altLabel xml:lang="fa">لارناکا</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ラルナカ</skos:altLabel>
+	<skos:prefLabel>Larnaca</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146411/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>35.25</wgs:lat>
+	<wgs:long>33.26667</wgs:long>
+	<skos:altLabel>Eparchía Kerýneias</skos:altLabel>
+	<skos:altLabel>Girne İlçesi</skos:altLabel>
+	<skos:altLabel>Kyrenia</skos:altLabel>
+	<skos:altLabel>Kyrenia District</skos:altLabel>
+	<skos:prefLabel>Kyrenia District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146412/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>26701</europeana:population>
+	<wgs:lat>35.34167</wgs:lat>
+	<wgs:long>33.31667</wgs:long>
+	<skos:altLabel>Girne</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Girne</skos:altLabel>
+	<skos:altLabel>Keryneia</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kyrenia</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Kyrenia</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Kyrenia</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kyrenia</skos:altLabel>
+	<skos:altLabel xml:lang="es">Kyrenia</skos:altLabel>
+	<skos:altLabel xml:lang="it">Kyrenia</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Kyrenia</skos:altLabel>
+	<skos:altLabel>Kérynia</skos:altLabel>
+	<skos:altLabel xml:lang="el">Κερύνεια</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кирения</skos:altLabel>
+	<skos:prefLabel>Kyrenia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146444/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>35.02917</wgs:lat>
+	<wgs:long>32.27917</wgs:long>
+	<skos:altLabel>Koppo Adası</skos:altLabel>
+	<skos:altLabel>Koppo Island</skos:altLabel>
+	<skos:altLabel>Koppo Islet</skos:altLabel>
+	<skos:altLabel>Koppos Island</skos:altLabel>
+	<skos:altLabel>Nisi tis Sklinijas</skos:altLabel>
+	<skos:altLabel>Nísos Kóppos</skos:altLabel>
+	<skos:prefLabel>Koppo Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146462/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>35.7</wgs:lat>
+	<wgs:long>34.6</wgs:long>
+	<skos:altLabel>Kilit Adalari</skos:altLabel>
+	<skos:altLabel>Kleidhes Islands</skos:altLabel>
+	<skos:altLabel>Klides Adaları</skos:altLabel>
+	<skos:altLabel>Klides Islands</skos:altLabel>
+	<skos:altLabel>Klidhes Islands</skos:altLabel>
+	<skos:altLabel>Nísoi Kleídes</skos:altLabel>
+	<skos:altLabel>Zafer Adaları</skos:altLabel>
+	<skos:prefLabel>Klidhes Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146467/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.93333</wgs:lat>
+	<wgs:long>33.625</wgs:long>
+	<skos:altLabel>Ancient Kition</skos:altLabel>
+	<skos:altLabel>Chittim</skos:altLabel>
+	<skos:altLabel>Citium</skos:altLabel>
+	<skos:altLabel>Kition</skos:altLabel>
+	<skos:altLabel>Kition City-Site</skos:altLabel>
+	<skos:altLabel>Kitium</skos:altLabel>
+	<skos:altLabel>Kittim</skos:altLabel>
+	<skos:prefLabel>Kition City-Site</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146486/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>35.35</wgs:lat>
+	<wgs:long>33.54583</wgs:long>
+	<skos:altLabel>Khoti Island</skos:altLabel>
+	<skos:altLabel>Khóti Nisí</skos:altLabel>
+	<skos:prefLabel>Khoti Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146494/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.58333</wgs:lat>
+	<wgs:long>34.41667</wgs:long>
+	<skos:altLabel>Chelones</skos:altLabel>
+	<skos:altLabel>Khelones</skos:altLabel>
+	<skos:altLabel>Khelones City-Site</skos:altLabel>
+	<skos:altLabel>Şelones</skos:altLabel>
+	<skos:altLabel>Şelonez</skos:altLabel>
+	<skos:prefLabel>Khelones City-Site</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146499/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>35.08361</wgs:lat>
+	<wgs:long>32.30833</wgs:long>
+	<skos:altLabel>Khamalis Island</skos:altLabel>
+	<skos:altLabel>Khamili Island</skos:altLabel>
+	<skos:altLabel>Khamilis Island</skos:altLabel>
+	<skos:prefLabel>Khamilis Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146554/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.CSTL"/>
+	<wgs:lat>35.40417</wgs:lat>
+	<wgs:long>33.92083</wgs:long>
+	<skos:altLabel>Kandara Castle</skos:altLabel>
+	<skos:altLabel>Kantara</skos:altLabel>
+	<skos:altLabel>Kantara Castle</skos:altLabel>
+	<skos:altLabel>Kantara Kalesi</skos:altLabel>
+	<skos:prefLabel>Kandara Castle</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146556/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>35.0375</wgs:lat>
+	<wgs:long>32.27083</wgs:long>
+	<skos:altLabel>Kannoudhia Island</skos:altLabel>
+	<skos:altLabel>Kannoudhion Island</skos:altLabel>
+	<skos:prefLabel>Kannoudhion Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146585/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>35.5</wgs:lat>
+	<wgs:long>34.33333</wgs:long>
+	<skos:altLabel>Cila Adasi</skos:altLabel>
+	<skos:altLabel>Cilâlı Ada</skos:altLabel>
+	<skos:altLabel>Jila Island</skos:altLabel>
+	<skos:altLabel>Kila Island</skos:altLabel>
+	<skos:altLabel>Nisís Kíla</skos:altLabel>
+	<skos:prefLabel>Jila Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146589/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.025</wgs:lat>
+	<wgs:long>33.425</wgs:long>
+	<skos:altLabel>Idalion</skos:altLabel>
+	<skos:altLabel>Idalium</skos:altLabel>
+	<skos:altLabel>Idhalion</skos:altLabel>
+	<skos:altLabel>Idhalion City-Site</skos:altLabel>
+	<skos:prefLabel>Idhalion City-Site</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146598/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>35.35</wgs:lat>
+	<wgs:long>33.29167</wgs:long>
+	<skos:altLabel>Glycotissa Adası</skos:altLabel>
+	<skos:altLabel>Glykiotissa Island</skos:altLabel>
+	<skos:altLabel>Glykyotissa</skos:altLabel>
+	<skos:altLabel>Glykyotissa Island</skos:altLabel>
+	<skos:altLabel>Glykyotissa Nisa</skos:altLabel>
+	<skos:altLabel>Nisís Glykiótissa</skos:altLabel>
+	<skos:altLabel>Snake Island</skos:altLabel>
+	<skos:altLabel>Snake Islet</skos:altLabel>
+	<skos:prefLabel>Glykyotissa Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146607/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.45</wgs:lat>
+	<wgs:long>33.95833</wgs:long>
+	<skos:altLabel>Galonya</skos:altLabel>
+	<skos:altLabel>Galounia</skos:altLabel>
+	<skos:altLabel>Galounia City-Site</skos:altLabel>
+	<skos:altLabel>Galunia</skos:altLabel>
+	<skos:altLabel>Galunya</skos:altLabel>
+	<skos:prefLabel>Galounia City-Site</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146615/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>35.33333</wgs:lat>
+	<wgs:long>33.86667</wgs:long>
+	<skos:altLabel>Eparchía Ammochóstou</skos:altLabel>
+	<skos:altLabel>Famagusta</skos:altLabel>
+	<skos:altLabel>Famagusta District</skos:altLabel>
+	<skos:altLabel>Gazi Magosa İlçesi</skos:altLabel>
+	<skos:altLabel>Gazimağusa</skos:altLabel>
+	<skos:altLabel>Magosa İlçesi</skos:altLabel>
+	<skos:prefLabel>Famagusta District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146617/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>42526</europeana:population>
+	<wgs:lat>35.125</wgs:lat>
+	<wgs:long>33.95</wgs:long>
+	<skos:altLabel>Ammochostos</skos:altLabel>
+	<skos:altLabel>Ammochostus</skos:altLabel>
+	<skos:altLabel>Ammokhostos</skos:altLabel>
+	<skos:altLabel xml:lang="it">Famagosta</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Famagouste</skos:altLabel>
+	<skos:altLabel xml:lang="en">Famagusta</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Famagusta</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Famagusta</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Famagusta</skos:altLabel>
+	<skos:altLabel xml:lang="de">Famagusta</skos:altLabel>
+	<skos:altLabel xml:lang="es">Famagusta</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Famagusta</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Famagusta</skos:altLabel>
+	<skos:altLabel>Gazi Magosa</skos:altLabel>
+	<skos:altLabel>Gazimağusa</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Gazimağusa</skos:altLabel>
+	<skos:altLabel>Magosa</skos:altLabel>
+	<skos:altLabel xml:lang="el">Αμμόχωστος</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Фамагуста</skos:altLabel>
+	<skos:prefLabel>Famagusta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146669/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255148/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>1102677</europeana:population>
+	<wgs:lat>35</wgs:lat>
+	<wgs:long>33</wgs:long>
+	<skos:altLabel xml:lang="ga">An Chipir</skos:altLabel>
+	<skos:altLabel>CY</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Chip</skos:altLabel>
+	<skos:altLabel xml:lang="es">Chipre</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Chipre</skos:altLabel>
+	<skos:altLabel xml:lang="an">Chipre</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Chipre</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Chipre</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Chipre - Κύπρος</skos:altLabel>
+	<skos:altLabel xml:lang="io">Chipro</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Chypre</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Cipar</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Cipar</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Ciper</skos:altLabel>
+	<skos:altLabel xml:lang="it">Cipro</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Cipru</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Ciprus</skos:altLabel>
+	<skos:altLabel xml:lang="af">Ciprus</skos:altLabel>
+	<skos:altLabel xml:lang="da">Cypern</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Cypern</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Cypr</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Cypro</skos:altLabel>
+	<skos:altLabel xml:lang="id">Cyprus</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Cyprus</skos:altLabel>
+	<skos:altLabel xml:lang="en">Cyprus</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Cyprus</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Cyprus</skos:altLabel>
+	<skos:altLabel xml:lang="la">Cyprus</skos:altLabel>
+	<skos:altLabel xml:lang="na">Cyprus</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Cyprus</skos:altLabel>
+	<skos:altLabel xml:lang="az">Cənubi Kipr</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Güney Kıbrıs Rum Kesimi</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Kibris</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Kipar</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Kipra</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Kipras</skos:altLabel>
+	<skos:altLabel xml:lang="br">Kiprenez</skos:altLabel>
+	<skos:altLabel xml:lang="el">Kipriakí Dhimokratía</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Kipro</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Kuprus</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Kypr</skos:altLabel>
+	<skos:altLabel xml:lang="el">Kypriakí Dimokratía</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Kyproes</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Kyproksen tasavalta</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Kypros</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Kypros</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Kypros</skos:altLabel>
+	<skos:altLabel xml:lang="no">Kypros</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Kypros</skos:altLabel>
+	<skos:altLabel xml:lang="se">Kypros</skos:altLabel>
+	<skos:altLabel xml:lang="et">Küpros</skos:altLabel>
+	<skos:altLabel xml:lang="et">Küprus</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Kýpros</skos:altLabel>
+	<skos:altLabel xml:lang="is">Kýpur</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Kıbrıs</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Kıbrıs Cumhuriyeti</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Qipro</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Qubris</skos:altLabel>
+	<skos:altLabel>Republic of Cyprus</skos:altLabel>
+	<skos:altLabel xml:lang="br">Republik Kiprenez</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Republikken Kypros</skos:altLabel>
+	<skos:altLabel xml:lang="id">Siprus</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Syprus</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Síp</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Síp (Cyprus)</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Xipre</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Zipre</skos:altLabel>
+	<skos:altLabel xml:lang="de">Zypern</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Zypern</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Ċipru</skos:altLabel>
+	<skos:altLabel xml:lang="el">Κύπρος</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Кипар</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Кипар</skos:altLabel>
+	<skos:altLabel xml:lang="os">Кипр</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Кипр</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кипр</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Кипър</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Кіпр</skos:altLabel>
+	<skos:altLabel xml:lang="be">Кіпр</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Կիպրոս</skos:altLabel>
+	<skos:altLabel xml:lang="he">קפריסין</skos:altLabel>
+	<skos:altLabel xml:lang="fa">سایپروس</skos:altLabel>
+	<skos:altLabel xml:lang="fa">قبرس</skos:altLabel>
+	<skos:altLabel xml:lang="ar">قبرص</skos:altLabel>
+	<skos:altLabel xml:lang="ur">قبرص</skos:altLabel>
+	<skos:altLabel xml:lang="hi">साइप्रस</skos:altLabel>
+	<skos:altLabel xml:lang="bn">সাইপ্রাস</skos:altLabel>
+	<skos:altLabel xml:lang="ta">சைப்ரஸ்</skos:altLabel>
+	<skos:altLabel xml:lang="ml">സൈപ്രസ്സ്</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศไซปรัส</skos:altLabel>
+	<skos:altLabel xml:lang="th">ไซปรัส</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ໄຊປັຼດ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">སཱཡེ་པ་རས྄།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">კვიპროსი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሳይፕረስ</skos:altLabel>
+	<skos:altLabel xml:lang="km">ស៉ីពរ៍</skos:altLabel>
+	<skos:altLabel xml:lang="ja">キプロス</skos:altLabel>
+	<skos:altLabel xml:lang="ja">キプロス共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">塞浦路斯</skos:altLabel>
+	<skos:altLabel xml:lang="zh">賽普勒斯</skos:altLabel>
+	<skos:altLabel xml:lang="ko">사이프러스</skos:altLabel>
+	<skos:altLabel xml:lang="ko">키프로스</skos:altLabel>
+	<skos:prefLabel>Kıbrıs Cumhuriyeti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146670/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>35</wgs:lat>
+	<wgs:long>33</wgs:long>
+	<skos:altLabel>Alashiya</skos:altLabel>
+	<skos:altLabel>Asy</skos:altLabel>
+	<skos:altLabel>Chypre</skos:altLabel>
+	<skos:altLabel>Cipro</skos:altLabel>
+	<skos:altLabel>Cypern</skos:altLabel>
+	<skos:altLabel>Cyprus</skos:altLabel>
+	<skos:altLabel>Cyprus Island</skos:altLabel>
+	<skos:altLabel>Kypros</skos:altLabel>
+	<skos:prefLabel>Cyprus</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146676/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.CSTL"/>
+	<wgs:lat>35.2875</wgs:lat>
+	<wgs:long>33.41667</wgs:long>
+	<skos:altLabel>Buffavento</skos:altLabel>
+	<skos:altLabel>Buffavento Castle</skos:altLabel>
+	<skos:altLabel>Voufaventoh</skos:altLabel>
+	<skos:altLabel>Vufavento</skos:altLabel>
+	<skos:prefLabel>Buffavento Castle</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146682/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>35.07417</wgs:lat>
+	<wgs:long>32.335</wgs:long>
+	<skos:altLabel xml:lang="en">Agios Georgios Island</skos:altLabel>
+	<skos:altLabel>Ayios Yeoryios Island</skos:altLabel>
+	<skos:altLabel>Ayyorgi Adası</skos:altLabel>
+	<skos:altLabel>Kacascaliou Island</skos:altLabel>
+	<skos:altLabel>Kakoiskalyu</skos:altLabel>
+	<skos:altLabel>Kakoscaliou Island</skos:altLabel>
+	<skos:altLabel>Kakoscoliou Island</skos:altLabel>
+	<skos:altLabel>Kakoskaliou Island</skos:altLabel>
+	<skos:altLabel>Kakoskaliou Islet</skos:altLabel>
+	<skos:altLabel>Nisí Kakoskaliou</skos:altLabel>
+	<skos:altLabel>Nisís Ágios Geórgios</skos:altLabel>
+	<skos:prefLabel>Ayios Yeoryios Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146796/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13349</europeana:population>
+	<wgs:lat>34.95</wgs:lat>
+	<wgs:long>33.59167</wgs:long>
+	<skos:altLabel>Aradhippou</skos:altLabel>
+	<skos:altLabel>Aradip</skos:altLabel>
+	<skos:altLabel>Aradippou</skos:altLabel>
+	<skos:altLabel>Aradippu</skos:altLabel>
+	<skos:prefLabel>Aradhippou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/146822/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.7125</wgs:lat>
+	<wgs:long>33.12917</wgs:long>
+	<skos:altLabel>Amathous</skos:altLabel>
+	<skos:altLabel>Amathoúnda</skos:altLabel>
+	<skos:altLabel>Amathus</skos:altLabel>
+	<skos:altLabel>Amathus City-Site</skos:altLabel>
+	<skos:altLabel>Amatus</skos:altLabel>
+	<skos:prefLabel>Amathus City-Site</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/414543/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.75833</wgs:lat>
+	<wgs:long>32.40833</wgs:long>
+	<skos:altLabel>Nea Pafo</skos:altLabel>
+	<skos:altLabel>Nea Pafos</skos:altLabel>
+	<skos:altLabel>Nea Paphos City-Site</skos:altLabel>
+	<skos:prefLabel>Nea Paphos City-Site</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/414603/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.67083</wgs:lat>
+	<wgs:long>32.875</wgs:long>
+	<skos:prefLabel>Kourion Stadium</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/414736/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>35.11806</wgs:lat>
+	<wgs:long>33.9625</wgs:long>
+	<skos:prefLabel>Pambuli Adası</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/414846/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.9</wgs:lat>
+	<wgs:long>33.32083</wgs:long>
+	<skos:prefLabel>Ayios Yeoryios Peyias</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6640324/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A."/>
+	<wgs:lat>35.03</wgs:lat>
+	<wgs:long>33.23914</wgs:long>
+	<skos:prefLabel>Paphos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7626610/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>34.68348</wgs:lat>
+	<wgs:long>32.50391</wgs:long>
+	<skos:prefLabel>Papo Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7646164/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/146669/"/>
+	<europeana:country>CY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>35.05631</wgs:lat>
+	<wgs:long>32.34457</wgs:long>
+	<skos:prefLabel>Baths of Aphrodite</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 123 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

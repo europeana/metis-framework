@@ -1,0 +1,2895 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: NA_HT
+Description: Selected fields pulled from Geonames about HT done on Mon May 23 21:14:25 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/3715942/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.8</wgs:lat>
+	<wgs:long>-72.23333</wgs:long>
+	<skos:altLabel>Saut d’Eau</skos:altLabel>
+	<skos:altLabel>Ville Bonheur</skos:altLabel>
+	<skos:prefLabel>Ville Bonheur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3716029/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.51667</wgs:lat>
+	<wgs:long>-73.66667</wgs:long>
+	<skos:altLabel>Rum Cay</skos:altLabel>
+	<skos:prefLabel>Île à Viarde</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3716044/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>48724</europeana:population>
+	<wgs:lat>19.05</wgs:lat>
+	<wgs:long>-72.46667</wgs:long>
+	<skos:altLabel>Les Verettes</skos:altLabel>
+	<skos:altLabel>Les Verrettes</skos:altLabel>
+	<skos:prefLabel>Verrettes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3716045/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.03333</wgs:lat>
+	<wgs:long>-72.48333</wgs:long>
+	<skos:prefLabel>Verrettes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3716114/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3719540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.36667</wgs:lat>
+	<wgs:long>-71.9</wgs:long>
+	<skos:altLabel>Arrondissement de Vallière</skos:altLabel>
+	<skos:altLabel>Arrondissement de Vallières</skos:altLabel>
+	<skos:altLabel>Vallière</skos:altLabel>
+	<skos:prefLabel>Arrondissement de Vallières</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3716116/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.43333</wgs:lat>
+	<wgs:long>-71.93333</wgs:long>
+	<skos:prefLabel>Vallières</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3716145/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.06667</wgs:lat>
+	<wgs:long>-73.63333</wgs:long>
+	<skos:altLabel>Vache Island</skos:altLabel>
+	<skos:altLabel>Île à Vache</skos:altLabel>
+	<skos:altLabel>Île-à-Vaches</skos:altLabel>
+	<skos:prefLabel>Île à Vache</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3716223/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3719540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.55</wgs:lat>
+	<wgs:long>-71.98333</wgs:long>
+	<skos:altLabel>Arrondissement du Trou</skos:altLabel>
+	<skos:altLabel>Arrondissement du Trou du Nord</skos:altLabel>
+	<skos:altLabel>Trou</skos:altLabel>
+	<skos:prefLabel>Arrondissement du Trou du Nord</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3716224/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10569</europeana:population>
+	<wgs:lat>19.63333</wgs:lat>
+	<wgs:long>-72.01667</wgs:long>
+	<skos:altLabel>Le Trou</skos:altLabel>
+	<skos:altLabel>Trou</skos:altLabel>
+	<skos:altLabel>Trou du Nord</skos:altLabel>
+	<skos:prefLabel>Trou du Nord</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3716225/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.55</wgs:lat>
+	<wgs:long>-72</wgs:long>
+	<skos:prefLabel>Trou du Nord</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3716264/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.65</wgs:lat>
+	<wgs:long>-74.23333</wgs:long>
+	<skos:altLabel>Bon Bon</skos:altLabel>
+	<skos:prefLabel>Trou Bonbon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3716385/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>20.06667</wgs:lat>
+	<wgs:long>-72.81667</wgs:long>
+	<skos:altLabel xml:lang="es">Isla de la Tortuga</skos:altLabel>
+	<skos:altLabel>La Tortue</skos:altLabel>
+	<skos:altLabel xml:lang="id">Tortuga</skos:altLabel>
+	<skos:altLabel>Tortuga</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Tortuga</skos:altLabel>
+	<skos:altLabel xml:lang="no">Tortuga</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tortuga</skos:altLabel>
+	<skos:altLabel xml:lang="it">Tortuga</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Tortuga</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Tortuga</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Tortuga</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Tortuga</skos:altLabel>
+	<skos:altLabel>Tortuga Island</skos:altLabel>
+	<skos:altLabel xml:lang="de">Île de la Tortue</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Île de la Tortue</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Île de la Tortue</skos:altLabel>
+	<skos:altLabel>Île de la Tortue</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Тортуга</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Тортуга</skos:altLabel>
+	<skos:altLabel xml:lang="ja">トルトゥーガ島</skos:altLabel>
+	<skos:prefLabel>Île de la Tortue</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3716404/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.28333</wgs:lat>
+	<wgs:long>-73.88333</wgs:long>
+	<skos:prefLabel>Torbeck</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3716620/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.35</wgs:lat>
+	<wgs:long>-74.3</wgs:long>
+	<skos:prefLabel>Tiburon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3716666/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19</wgs:lat>
+	<wgs:long>-71.96667</wgs:long>
+	<skos:prefLabel>Thomonde</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3716667/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>52017</europeana:population>
+	<wgs:lat>18.65194</wgs:lat>
+	<wgs:long>-72.09472</wgs:long>
+	<skos:prefLabel>Thomazeau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3716668/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.63333</wgs:lat>
+	<wgs:long>-72.1</wgs:long>
+	<skos:prefLabel>Thomazeau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3716670/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.06667</wgs:lat>
+	<wgs:long>-71.81667</wgs:long>
+	<skos:prefLabel>Thomassique</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3716678/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.23333</wgs:lat>
+	<wgs:long>-71.86667</wgs:long>
+	<skos:prefLabel>Thiotte</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3716738/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.6</wgs:lat>
+	<wgs:long>-71.91667</wgs:long>
+	<skos:prefLabel>Terrier Rouge</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3716789/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.63333</wgs:lat>
+	<wgs:long>-72.8</wgs:long>
+	<skos:prefLabel>Terre Neuve</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3716950/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>18.3</wgs:lat>
+	<wgs:long>-72.4</wgs:long>
+	<skos:altLabel>Département du Sud-Est</skos:altLabel>
+	<skos:altLabel>Sud-Est</skos:altLabel>
+	<skos:prefLabel>Département du Sud-Est</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3716952/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>18.25</wgs:lat>
+	<wgs:long>-73.66667</wgs:long>
+	<skos:altLabel>Département du Sud</skos:altLabel>
+	<skos:altLabel>Sud</skos:altLabel>
+	<skos:prefLabel>Département du Sud</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3717237/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.75</wgs:lat>
+	<wgs:long>-71.86667</wgs:long>
+	<skos:prefLabel>Savanette</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3717496/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.45</wgs:lat>
+	<wgs:long>-73.1</wgs:long>
+	<skos:altLabel>Salomon Cay</skos:altLabel>
+	<skos:prefLabel>Caye Salomon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3717545/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3719543/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.41667</wgs:lat>
+	<wgs:long>-72.18333</wgs:long>
+	<skos:prefLabel>Arrondissement de Saint-Raphaël</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3717546/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>37739</europeana:population>
+	<wgs:lat>19.43333</wgs:lat>
+	<wgs:long>-72.2</wgs:long>
+	<skos:prefLabel>Saint-Raphaël</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3717547/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.38333</wgs:lat>
+	<wgs:long>-72.18333</wgs:long>
+	<skos:prefLabel>Saint- Raphaël</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3717563/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3731053/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.33333</wgs:lat>
+	<wgs:long>-72.36667</wgs:long>
+	<skos:prefLabel>Arrondissement de Saint-Michel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3717565/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.33333</wgs:lat>
+	<wgs:long>-72.35</wgs:long>
+	<skos:altLabel>Saint Michel de l’Attalaye</skos:altLabel>
+	<skos:altLabel>Saint-Michel</skos:altLabel>
+	<skos:prefLabel>Saint-Michel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3717587/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3731053/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19</wgs:lat>
+	<wgs:long>-72.5</wgs:long>
+	<skos:prefLabel>Arrondissement de Saint-Marc</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3717588/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>66226</europeana:population>
+	<wgs:lat>19.11667</wgs:lat>
+	<wgs:long>-72.7</wgs:long>
+	<skos:altLabel xml:lang="fr">Saint-Marc</skos:altLabel>
+	<skos:altLabel xml:lang="en">Saint-Marc</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Saint-Marc</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Saint-Marc</skos:altLabel>
+	<skos:altLabel xml:lang="it">Saint-Marc</skos:altLabel>
+	<skos:altLabel>Saint-Marc</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сен-Марк</skos:altLabel>
+	<skos:prefLabel>Saint-Marc</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3717590/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.1</wgs:lat>
+	<wgs:long>-72.65</wgs:long>
+	<skos:prefLabel>Saint-Marc</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3717597/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.3</wgs:lat>
+	<wgs:long>-73.51667</wgs:long>
+	<skos:prefLabel>Saint-Louis du Sud</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3717599/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3719536/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.85</wgs:lat>
+	<wgs:long>-72.66667</wgs:long>
+	<skos:prefLabel>Arrondissement de Saint-Louis du Nord</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3717600/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11849</europeana:population>
+	<wgs:lat>19.93333</wgs:lat>
+	<wgs:long>-72.71667</wgs:long>
+	<skos:altLabel>Saint Louis</skos:altLabel>
+	<skos:altLabel>Saint-Louis du Nord</skos:altLabel>
+	<skos:prefLabel>Saint-Louis du Nord</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3717601/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.85</wgs:lat>
+	<wgs:long>-72.7</wgs:long>
+	<skos:prefLabel>Saint-Louis du Nord</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3717618/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.08333</wgs:lat>
+	<wgs:long>-73.85</wgs:long>
+	<skos:prefLabel>Saint-Jean du Sud</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3717648/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.5</wgs:lat>
+	<wgs:long>-72.03333</wgs:long>
+	<skos:prefLabel>Sainte-Suzanne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3717714/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.7</wgs:lat>
+	<wgs:long>-72.76667</wgs:long>
+	<skos:altLabel>Caye Sable</skos:altLabel>
+	<skos:altLabel>Sable Island</skos:altLabel>
+	<skos:prefLabel>Caye Sable</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3717801/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.55</wgs:lat>
+	<wgs:long>-74.05</wgs:long>
+	<skos:prefLabel>Roseaux</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3717917/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.23333</wgs:lat>
+	<wgs:long>-73.96667</wgs:long>
+	<skos:prefLabel>Roche-à-Bateau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3718072/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.55</wgs:lat>
+	<wgs:long>-73.68333</wgs:long>
+	<skos:prefLabel>Îlet Rémy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3718084/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.21667</wgs:lat>
+	<wgs:long>-73.43333</wgs:long>
+	<skos:altLabel>Regalle Cay</skos:altLabel>
+	<skos:altLabel>Île Régale</skos:altLabel>
+	<skos:altLabel>Île Régalle</skos:altLabel>
+	<skos:prefLabel>Île Régale</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3718184/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.8</wgs:lat>
+	<wgs:long>-72.31667</wgs:long>
+	<skos:altLabel>Rat Island</skos:altLabel>
+	<skos:altLabel>Île Rat</skos:altLabel>
+	<skos:prefLabel>Île Rat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3718185/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.21667</wgs:lat>
+	<wgs:long>-73.58333</wgs:long>
+	<skos:prefLabel>Caye à Rat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3718186/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.11667</wgs:lat>
+	<wgs:long>-73.63333</wgs:long>
+	<skos:altLabel>Caye Rat</skos:altLabel>
+	<skos:altLabel>Caye Rate</skos:altLabel>
+	<skos:prefLabel>Caye Rat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3718189/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.1</wgs:lat>
+	<wgs:long>-73.7</wgs:long>
+	<skos:prefLabel>Caye Raquette</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3718200/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.4</wgs:lat>
+	<wgs:long>-72.08333</wgs:long>
+	<skos:altLabel>Ranquite</skos:altLabel>
+	<skos:altLabel>Ranquitte</skos:altLabel>
+	<skos:prefLabel>Ranquitte</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3718224/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.21667</wgs:lat>
+	<wgs:long>-73.46667</wgs:long>
+	<skos:prefLabel>Caye Ramier</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3718279/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.66667</wgs:lat>
+	<wgs:long>-72.16667</wgs:long>
+	<skos:altLabel>Qartier-Morin</skos:altLabel>
+	<skos:altLabel>Quartier-Morin</skos:altLabel>
+	<skos:prefLabel>Quartier-Morin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3718355/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.43333</wgs:lat>
+	<wgs:long>-72.86667</wgs:long>
+	<skos:altLabel>Île des Poules</skos:altLabel>
+	<skos:altLabel>Îlet à Poule</skos:altLabel>
+	<skos:prefLabel>Île des Poules</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3718404/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3716952/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.13333</wgs:lat>
+	<wgs:long>-73.9</wgs:long>
+	<skos:prefLabel>Arrondissement de Port-Salut</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3718407/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.1</wgs:lat>
+	<wgs:long>-73.9</wgs:long>
+	<skos:prefLabel>Port-Salut</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3718410/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.83333</wgs:lat>
+	<wgs:long>-72.43333</wgs:long>
+	<skos:altLabel>Cap Marigot</skos:altLabel>
+	<skos:altLabel>Marigot Head</skos:altLabel>
+	<skos:altLabel>Îlet Port Margot</skos:altLabel>
+	<skos:prefLabel>Îlet Port Margot</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3718412/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.73333</wgs:lat>
+	<wgs:long>-72.46667</wgs:long>
+	<skos:prefLabel>Port Margot</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3718419/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3719536/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.83333</wgs:lat>
+	<wgs:long>-72.88333</wgs:long>
+	<skos:prefLabel>Arrondissement de Port-de-Paix</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3718422/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.83333</wgs:lat>
+	<wgs:long>-72.91667</wgs:long>
+	<skos:prefLabel>Port-de-Paix</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3718425/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3719432/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.5</wgs:lat>
+	<wgs:long>-72.36667</wgs:long>
+	<skos:prefLabel>Arrondissement de Port-au-Prince</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3718426/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>1234742</europeana:population>
+	<wgs:lat>18.53917</wgs:lat>
+	<wgs:long>-72.335</wgs:long>
+	<skos:altLabel xml:lang="lt">Port o Prensas</skos:altLabel>
+	<skos:altLabel xml:lang="id">Port-au-Prince</skos:altLabel>
+	<skos:altLabel xml:lang="en">Port-au-Prince</skos:altLabel>
+	<skos:altLabel xml:lang="da">Port-au-Prince</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Port-au-Prince</skos:altLabel>
+	<skos:altLabel xml:lang="de">Port-au-Prince</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Port-au-Prince</skos:altLabel>
+	<skos:altLabel xml:lang="et">Port-au-Prince</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Port-au-Prince</skos:altLabel>
+	<skos:altLabel xml:lang="io">Port-au-Prince</skos:altLabel>
+	<skos:altLabel xml:lang="no">Port-au-Prince</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Port-au-Prince</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Port-au-Prince</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Port-au-Prince</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Port-au-Prince</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Port-au-Prince</skos:altLabel>
+	<skos:altLabel xml:lang="br">Port-au-Prince</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Port-au-Prince</skos:altLabel>
+	<skos:altLabel xml:lang="it">Port-au-Prince</skos:altLabel>
+	<skos:altLabel>Port-au-Prince</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Portofprensa</skos:altLabel>
+	<skos:altLabel xml:lang="es">Puerto Príncipe</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Pòtoprens</skos:altLabel>
+	<skos:altLabel>Ville de Port-au-Prince</skos:altLabel>
+	<skos:altLabel xml:lang="el">Πορτ-ο-Πρενς</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Порт о Пренс</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Порт-о-Пренс</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Порт-о-Пренс</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Порто Пренс</skos:altLabel>
+	<skos:altLabel xml:lang="he">פורט או פרינס</skos:altLabel>
+	<skos:altLabel xml:lang="he">פורט-או-פרנס</skos:altLabel>
+	<skos:altLabel xml:lang="fa">پورت او پرنس</skos:altLabel>
+	<skos:altLabel xml:lang="ka">პორტ-ო-პრენსი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ፖርቶፕሪንስ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ポルトープランス</skos:altLabel>
+	<skos:altLabel xml:lang="zh">太子港</skos:altLabel>
+	<skos:altLabel xml:lang="ko">포르토프랭스</skos:altLabel>
+	<skos:prefLabel>Port-au-Prince</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3718427/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.51667</wgs:lat>
+	<wgs:long>-72.31667</wgs:long>
+	<skos:prefLabel>Port-au-Prince</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3718432/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.28333</wgs:lat>
+	<wgs:long>-74.05</wgs:long>
+	<skos:prefLabel>Port-à-Piment</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3718526/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.85</wgs:lat>
+	<wgs:long>-73.15</wgs:long>
+	<skos:altLabel>Pointe à Raquette</skos:altLabel>
+	<skos:altLabel>Pointe à Raquettes</skos:altLabel>
+	<skos:prefLabel>Pointe à Raquettes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3718665/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3719543/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.66756</wgs:lat>
+	<wgs:long>-72.54908</wgs:long>
+	<skos:prefLabel>Arrondissement de Plaisance</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3718673/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.58333</wgs:lat>
+	<wgs:long>-72.5</wgs:long>
+	<skos:prefLabel>Plaisance</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3718708/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.63333</wgs:lat>
+	<wgs:long>-72.25</wgs:long>
+	<skos:prefLabel>Plaine du Nord</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3718827/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.68333</wgs:lat>
+	<wgs:long>-72.55</wgs:long>
+	<skos:prefLabel>Pilate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3718836/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.31667</wgs:lat>
+	<wgs:long>-72.08333</wgs:long>
+	<skos:prefLabel>Pignon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3718862/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.46667</wgs:lat>
+	<wgs:long>-74.46667</wgs:long>
+	<skos:prefLabel>Île Pierre Joseph</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3718879/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.53333</wgs:lat>
+	<wgs:long>-73.55</wgs:long>
+	<skos:altLabel>Île Picolet</skos:altLabel>
+	<skos:prefLabel>Île Picoulet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3718939/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.43333</wgs:lat>
+	<wgs:long>-73.53333</wgs:long>
+	<skos:prefLabel>Petit Trou de Nippes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3718962/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>117504</europeana:population>
+	<wgs:lat>18.43139</wgs:lat>
+	<wgs:long>-72.86694</wgs:long>
+	<skos:altLabel>Petit Goâve</skos:altLabel>
+	<skos:altLabel>Ville de Petit Goâve</skos:altLabel>
+	<skos:prefLabel>Petit Goâve</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3718963/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.33333</wgs:lat>
+	<wgs:long>-72.91667</wgs:long>
+	<skos:prefLabel>Petit-Goâve</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3718973/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.08333</wgs:lat>
+	<wgs:long>-72.36667</wgs:long>
+	<skos:altLabel>Petite Rivière l’Artibonite</skos:altLabel>
+	<skos:altLabel>Petite de l’Artibonite</skos:altLabel>
+	<skos:prefLabel>Petite Rivière l’Artibonite</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3718976/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.45</wgs:lat>
+	<wgs:long>-73.2</wgs:long>
+	<skos:prefLabel>Petite Rivière de Nippes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3718999/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.7</wgs:lat>
+	<wgs:long>-72.8</wgs:long>
+	<skos:altLabel>Little Gonave Island</skos:altLabel>
+	<skos:altLabel>Petite Gonâve</skos:altLabel>
+	<skos:prefLabel>Petite Gonâve</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3719003/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.61028</wgs:lat>
+	<wgs:long>-73.81056</wgs:long>
+	<skos:altLabel>Little Cayemites Island</skos:altLabel>
+	<skos:altLabel>Île Petite Cayemitte</skos:altLabel>
+	<skos:prefLabel>Petite Cayemite</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3719004/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.08361</wgs:lat>
+	<wgs:long>-73.81028</wgs:long>
+	<skos:altLabel>Petite Cay</skos:altLabel>
+	<skos:altLabel>Petite Caye</skos:altLabel>
+	<skos:prefLabel>Petite Caye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3719028/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>283052</europeana:population>
+	<wgs:lat>18.5125</wgs:lat>
+	<wgs:long>-72.28528</wgs:long>
+	<skos:altLabel>Pétionville</skos:altLabel>
+	<skos:altLabel>Ville de Pétion-Ville</skos:altLabel>
+	<skos:prefLabel>Pétionville</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3719029/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.48333</wgs:lat>
+	<wgs:long>-72.26667</wgs:long>
+	<skos:prefLabel>Pétion-Ville</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3719036/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.53333</wgs:lat>
+	<wgs:long>-73.8</wgs:long>
+	<skos:prefLabel>Pestel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3719063/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.11667</wgs:lat>
+	<wgs:long>-73.66667</wgs:long>
+	<skos:altLabel>Permantois Island</skos:altLabel>
+	<skos:altLabel>Île Permantois</skos:altLabel>
+	<skos:prefLabel>Île Permantois</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3719100/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.5</wgs:lat>
+	<wgs:long>-71.91667</wgs:long>
+	<skos:altLabel>Les Perches</skos:altLabel>
+	<skos:altLabel>Perches</skos:altLabel>
+	<skos:prefLabel>Perches</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3719130/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>18.61667</wgs:lat>
+	<wgs:long>-72.4</wgs:long>
+	<skos:altLabel>Cayes du Pélican</skos:altLabel>
+	<skos:altLabel>Pelican Cays</skos:altLabel>
+	<skos:prefLabel>Cayes du Pélican</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3719191/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.23333</wgs:lat>
+	<wgs:long>-72.21667</wgs:long>
+	<skos:altLabel>Patira Island</skos:altLabel>
+	<skos:altLabel>Roche Patien</skos:altLabel>
+	<skos:altLabel>Îlot de la Patira</skos:altLabel>
+	<skos:prefLabel>Îlot de la Patira</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3719341/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.62278</wgs:lat>
+	<wgs:long>-73.83639</wgs:long>
+	<skos:altLabel>Palm Island</skos:altLabel>
+	<skos:prefLabel>Îlet Palmier</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3719432/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>18.66667</wgs:lat>
+	<wgs:long>-72.33333</wgs:long>
+	<skos:altLabel>Department of the West</skos:altLabel>
+	<skos:altLabel>Ouest</skos:altLabel>
+	<skos:prefLabel>Département de l'Ouest</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3719435/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3719540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.48333</wgs:lat>
+	<wgs:long>-71.76667</wgs:long>
+	<skos:prefLabel>Arrondissement d’ Ouanaminthe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3719436/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10118</europeana:population>
+	<wgs:lat>19.55</wgs:lat>
+	<wgs:long>-71.73333</wgs:long>
+	<skos:altLabel>Juana Mendez</skos:altLabel>
+	<skos:altLabel>Ouanaminthe</skos:altLabel>
+	<skos:altLabel>Quanamenthe</skos:altLabel>
+	<skos:prefLabel>Ouanaminthe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3719437/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.48333</wgs:lat>
+	<wgs:long>-71.78333</wgs:long>
+	<skos:prefLabel>Ouanaminthe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3719470/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.21667</wgs:lat>
+	<wgs:long>-73.53333</wgs:long>
+	<skos:altLabel>Caye Orange</skos:altLabel>
+	<skos:altLabel>Ilet Orange</skos:altLabel>
+	<skos:altLabel>Orange Cay</skos:altLabel>
+	<skos:prefLabel>Caye Orange</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3719527/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.43333</wgs:lat>
+	<wgs:long>-72.9</wgs:long>
+	<skos:altLabel>Caye de Normita</skos:altLabel>
+	<skos:altLabel>Normita Cay</skos:altLabel>
+	<skos:prefLabel>Caye de Normita</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3719536/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>19.75</wgs:lat>
+	<wgs:long>-73.08333</wgs:long>
+	<skos:altLabel>Department of the Northwest</skos:altLabel>
+	<skos:altLabel>Département du Nord-Ouest</skos:altLabel>
+	<skos:altLabel>Nord-Ouest</skos:altLabel>
+	<skos:prefLabel>Département du Nord-Ouest</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3719540/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>19.53333</wgs:lat>
+	<wgs:long>-71.7</wgs:long>
+	<skos:altLabel>Département du Nord-Est</skos:altLabel>
+	<skos:altLabel>Nord-Est</skos:altLabel>
+	<skos:prefLabel>Département du Nord-Est</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3719543/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>19.6</wgs:lat>
+	<wgs:long>-72.3</wgs:long>
+	<skos:altLabel>Département du Nord</skos:altLabel>
+	<skos:altLabel>Nord</skos:altLabel>
+	<skos:prefLabel>Département du Nord</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3720404/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.21667</wgs:lat>
+	<wgs:long>-73.53333</wgs:long>
+	<skos:altLabel>Caye Moustique</skos:altLabel>
+	<skos:altLabel>Mosquito Cay</skos:altLabel>
+	<skos:altLabel>Îlet Moustique</skos:altLabel>
+	<skos:prefLabel>Îlet Moustique</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3720456/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.53333</wgs:lat>
+	<wgs:long>-74.25</wgs:long>
+	<skos:prefLabel>Moron</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3720668/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.36667</wgs:lat>
+	<wgs:long>-71.78333</wgs:long>
+	<skos:prefLabel>Mont Organisé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3720746/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.31667</wgs:lat>
+	<wgs:long>-71.85</wgs:long>
+	<skos:prefLabel>Mombin Crochu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3720764/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3719536/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.75</wgs:lat>
+	<wgs:long>-73.25</wgs:long>
+	<skos:prefLabel>Arrondissement du Môle Saint-Nicolas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3720767/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.75</wgs:lat>
+	<wgs:long>-73.33333</wgs:long>
+	<skos:prefLabel>Môle Saint-Nicolas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3720809/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3728069/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.88333</wgs:lat>
+	<wgs:long>-72.13333</wgs:long>
+	<skos:prefLabel>Arrondissement de Mirebalais</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3720812/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.8</wgs:lat>
+	<wgs:long>-72.05</wgs:long>
+	<skos:prefLabel>Mirebalais</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3720823/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3724613/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.36667</wgs:lat>
+	<wgs:long>-73.16667</wgs:long>
+	<skos:prefLabel>Arrondissement de Miragoâne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3720824/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>89202</europeana:population>
+	<wgs:lat>18.44232</wgs:lat>
+	<wgs:long>-73.08758</wgs:long>
+	<skos:prefLabel>Miragoâne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3720826/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.38333</wgs:lat>
+	<wgs:long>-73.11667</wgs:long>
+	<skos:prefLabel>Miragoâne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3720855/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.63333</wgs:lat>
+	<wgs:long>-72.21667</wgs:long>
+	<skos:prefLabel>Milot</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3721274/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.86667</wgs:lat>
+	<wgs:long>-72.9</wgs:long>
+	<skos:altLabel>Mare Island</skos:altLabel>
+	<skos:altLabel>Île a la Marc</skos:altLabel>
+	<skos:altLabel>Île à la Mane</skos:altLabel>
+	<skos:altLabel>Île à la Marne</skos:altLabel>
+	<skos:prefLabel>Île à la Marne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3721281/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.5</wgs:lat>
+	<wgs:long>-72.36667</wgs:long>
+	<skos:prefLabel>Marmelade</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3721314/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.3</wgs:lat>
+	<wgs:long>-72.31667</wgs:long>
+	<skos:prefLabel>Marigot</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3721712/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.18333</wgs:lat>
+	<wgs:long>-72.16667</wgs:long>
+	<skos:prefLabel>Maïssade</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3722111/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.66667</wgs:lat>
+	<wgs:long>-72.13333</wgs:long>
+	<skos:prefLabel>Limonade</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3722119/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.81667</wgs:lat>
+	<wgs:long>-72.38333</wgs:long>
+	<skos:altLabel>Islet du Limbé</skos:altLabel>
+	<skos:altLabel>Île du Limbé</skos:altLabel>
+	<skos:altLabel>Îlet Limbé</skos:altLabel>
+	<skos:prefLabel>Îlet Limbé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3722122/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3719543/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.66667</wgs:lat>
+	<wgs:long>-72.41667</wgs:long>
+	<skos:prefLabel>Arrondissement du Limbé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3722124/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>32645</europeana:population>
+	<wgs:lat>19.7</wgs:lat>
+	<wgs:long>-72.4</wgs:long>
+	<skos:altLabel>Le Limbe</skos:altLabel>
+	<skos:altLabel>Limbé</skos:altLabel>
+	<skos:altLabel>Ville de Limbé</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Лимбе</skos:altLabel>
+	<skos:prefLabel>Limbé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3722125/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.65</wgs:lat>
+	<wgs:long>-72.41667</wgs:long>
+	<skos:prefLabel>Limbé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3722138/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.23333</wgs:lat>
+	<wgs:long>-73.66667</wgs:long>
+	<skos:altLabel>L’llet</skos:altLabel>
+	<skos:altLabel>L’Îlet</skos:altLabel>
+	<skos:prefLabel>L’Îlet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3722240/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.43333</wgs:lat>
+	<wgs:long>-74.33333</wgs:long>
+	<skos:prefLabel>Les Irois</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3722245/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.28333</wgs:lat>
+	<wgs:long>-73.75</wgs:long>
+	<skos:altLabel>Cayes</skos:altLabel>
+	<skos:altLabel>Les Cayes</skos:altLabel>
+	<skos:prefLabel>Les Cayes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3722252/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>18.8</wgs:lat>
+	<wgs:long>-72.65</wgs:long>
+	<skos:altLabel>Arcadine Islands</skos:altLabel>
+	<skos:altLabel>Ilots des Arcadins</skos:altLabel>
+	<skos:altLabel>Les Arcadins</skos:altLabel>
+	<skos:prefLabel>Les Arcadins</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3722254/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.35</wgs:lat>
+	<wgs:long>-74.2</wgs:long>
+	<skos:prefLabel>Les Anglais</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3722285/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3719432/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.41667</wgs:lat>
+	<wgs:long>-72.75</wgs:long>
+	<skos:prefLabel>Arrondissement de Léogâne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3722286/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>134190</europeana:population>
+	<wgs:lat>18.51083</wgs:lat>
+	<wgs:long>-72.63389</wgs:long>
+	<skos:altLabel>Léogâne</skos:altLabel>
+	<skos:altLabel>Ville de Léogane</skos:altLabel>
+	<skos:altLabel>Yaguana</skos:altLabel>
+	<skos:prefLabel>Léogâne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3722287/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.43333</wgs:lat>
+	<wgs:long>-72.58333</wgs:long>
+	<skos:prefLabel>Léogâne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3722392/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.35</wgs:lat>
+	<wgs:long>-72.05</wgs:long>
+	<skos:prefLabel>La Victoire</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3722412/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.26667</wgs:lat>
+	<wgs:long>-72.7</wgs:long>
+	<skos:prefLabel>La Vallée de Jacmel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3722450/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.25</wgs:lat>
+	<wgs:long>-73.43333</wgs:long>
+	<skos:prefLabel>La Trompeuse</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3722564/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.36667</wgs:lat>
+	<wgs:long>-73.41667</wgs:long>
+	<skos:prefLabel>L'Asile</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3722578/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3728069/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.83333</wgs:lat>
+	<wgs:long>-71.88333</wgs:long>
+	<skos:prefLabel>Arrondissement de Lascahobas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3722580/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.85</wgs:lat>
+	<wgs:long>-71.96667</wgs:long>
+	<skos:prefLabel>Lascahobas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3723019/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3719432/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.85</wgs:lat>
+	<wgs:long>-73.05</wgs:long>
+	<skos:prefLabel>Arrondissement de La Gonâve</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3723295/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.91667</wgs:lat>
+	<wgs:long>-72.33333</wgs:long>
+	<skos:prefLabel>La Chapelle</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3723440/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>42175</europeana:population>
+	<wgs:lat>18.45056</wgs:lat>
+	<wgs:long>-72.28694</wgs:long>
+	<skos:altLabel>Kenscoff</skos:altLabel>
+	<skos:altLabel>Kenskoff</skos:altLabel>
+	<skos:prefLabel>Kenscoff</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3723441/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.38333</wgs:lat>
+	<wgs:long>-72.31667</wgs:long>
+	<skos:prefLabel>Kenscoff</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3723592/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3724613/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.58333</wgs:lat>
+	<wgs:long>-74.2</wgs:long>
+	<skos:prefLabel>Arrondissement du Jérémie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3723593/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>97503</europeana:population>
+	<wgs:lat>18.65</wgs:lat>
+	<wgs:long>-74.11667</wgs:long>
+	<skos:altLabel xml:lang="ru">Жереми</skos:altLabel>
+	<skos:prefLabel>Jérémie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3723596/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.56667</wgs:lat>
+	<wgs:long>-74.15</wgs:long>
+	<skos:prefLabel>Jérémie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3723621/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.81667</wgs:lat>
+	<wgs:long>-73.13333</wgs:long>
+	<skos:prefLabel>Jean Rabel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3723778/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3716950/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.33333</wgs:lat>
+	<wgs:long>-72.5</wgs:long>
+	<skos:prefLabel>Arrondissement de Jacmel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3723779/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>137966</europeana:population>
+	<wgs:lat>18.23417</wgs:lat>
+	<wgs:long>-72.53472</wgs:long>
+	<skos:altLabel xml:lang="pl">Jacmel</skos:altLabel>
+	<skos:altLabel xml:lang="de">Jacmel</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Jacmel</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Jacmel</skos:altLabel>
+	<skos:altLabel xml:lang="en">Jacmel</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Jacmel</skos:altLabel>
+	<skos:altLabel>Jacmel</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Jakmèl</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Жакмеле</skos:altLabel>
+	<skos:altLabel xml:lang="he">ג'אקמל</skos:altLabel>
+	<skos:prefLabel>Jacmel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3723781/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.31667</wgs:lat>
+	<wgs:long>-72.5</wgs:long>
+	<skos:prefLabel>Jacmel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3723794/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.56556</wgs:lat>
+	<wgs:long>-73.83</wgs:long>
+	<skos:prefLabel>Îlet des Irois</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3723840/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3728069/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.13333</wgs:lat>
+	<wgs:long>-72.06667</wgs:long>
+	<skos:prefLabel>Arrondissement de Hinche</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3723841/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18590</europeana:population>
+	<wgs:lat>19.15</wgs:lat>
+	<wgs:long>-72.01667</wgs:long>
+	<skos:altLabel>Hinche</skos:altLabel>
+	<skos:prefLabel>Hinche</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3723843/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.16667</wgs:lat>
+	<wgs:long>-72</wgs:long>
+	<skos:prefLabel>Hinche</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3723982/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.23333</wgs:lat>
+	<wgs:long>-73.51667</wgs:long>
+	<skos:altLabel>Henri Island</skos:altLabel>
+	<skos:altLabel>Îlet Harold</skos:altLabel>
+	<skos:altLabel>Îlet d’ Henry</skos:altLabel>
+	<skos:prefLabel>Îlet Harold</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3723988/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255149/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>9648924</europeana:population>
+	<wgs:lat>19</wgs:lat>
+	<wgs:long>-72.41667</wgs:long>
+	<skos:altLabel xml:lang="wo">Aayti</skos:altLabel>
+	<skos:altLabel xml:lang="an">Aití</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Ayiti</skos:altLabel>
+	<skos:altLabel xml:lang="kg">Ayiti</skos:altLabel>
+	<skos:altLabel>HT</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ha-i-ti</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ha-i-ti (Haiti)</skos:altLabel>
+	<skos:altLabel xml:lang="et">Haiiti</skos:altLabel>
+	<skos:altLabel xml:lang="id">Haiti</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Haiti</skos:altLabel>
+	<skos:altLabel xml:lang="da">Haiti</skos:altLabel>
+	<skos:altLabel xml:lang="et">Haiti</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Haiti</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Haiti</skos:altLabel>
+	<skos:altLabel xml:lang="it">Haiti</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Haiti</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Haiti</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Haiti</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Haiti</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Haiti</skos:altLabel>
+	<skos:altLabel xml:lang="de">Haiti</skos:altLabel>
+	<skos:altLabel xml:lang="en">Haiti</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Haiti</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Haiti</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Haiti</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Haiti</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Haiti</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Haiti</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Haiti</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Haiti</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Haiti</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Haiti</skos:altLabel>
+	<skos:altLabel xml:lang="io">Haiti</skos:altLabel>
+	<skos:altLabel xml:lang="na">Haiti</skos:altLabel>
+	<skos:altLabel xml:lang="no">Haiti</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Haiti</skos:altLabel>
+	<skos:altLabel xml:lang="tt">Haiti</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Haiti</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Haiti</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Haiti</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Haiti</skos:altLabel>
+	<skos:altLabel xml:lang="se">Haiti</skos:altLabel>
+	<skos:altLabel xml:lang="la">Haitia</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Haitio</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Haitis</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Haitiyän</skos:altLabel>
+	<skos:altLabel xml:lang="es">Haití</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Haití</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Haití</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Haití</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Haití - Haïti</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Hayti</skos:altLabel>
+	<skos:altLabel xml:lang="is">Haítí</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Haïti</skos:altLabel>
+	<skos:altLabel xml:lang="af">Haïti</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Haïti</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Haïti</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Háití</skos:altLabel>
+	<skos:altLabel xml:lang="en">Republic of Haiti</skos:altLabel>
+	<skos:altLabel xml:lang="br">Republik Haiti</skos:altLabel>
+	<skos:altLabel xml:lang="fr">République d'Haïti</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Ħaiti</skos:altLabel>
+	<skos:altLabel xml:lang="el">Αϊτή</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гаити</skos:altLabel>
+	<skos:altLabel xml:lang="be">Гаіці</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Гаїті</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Хаити</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Хаити</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Хаити</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Հաիթի</skos:altLabel>
+	<skos:altLabel xml:lang="he">האיטי</skos:altLabel>
+	<skos:altLabel xml:lang="fa">هائیتی</skos:altLabel>
+	<skos:altLabel xml:lang="ar">هايتى</skos:altLabel>
+	<skos:altLabel xml:lang="ar">هايتي</skos:altLabel>
+	<skos:altLabel xml:lang="fa">هاییتی</skos:altLabel>
+	<skos:altLabel xml:lang="fa">هیتی</skos:altLabel>
+	<skos:altLabel xml:lang="ps">هېياتي</skos:altLabel>
+	<skos:altLabel xml:lang="ug">ھايتى</skos:altLabel>
+	<skos:altLabel xml:lang="ur">ہائٹی</skos:altLabel>
+	<skos:altLabel xml:lang="hi">हाइती</skos:altLabel>
+	<skos:altLabel xml:lang="sa">हेटी</skos:altLabel>
+	<skos:altLabel xml:lang="mr">हैती</skos:altLabel>
+	<skos:altLabel xml:lang="bn">হাইতি</skos:altLabel>
+	<skos:altLabel xml:lang="ta">ஹெய்தி</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ഹൈയ്തി</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศเฮติ</skos:altLabel>
+	<skos:altLabel xml:lang="th">เฮติ</skos:altLabel>
+	<skos:altLabel xml:lang="th">ไฮติ</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ໄອທີ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཧེ་ཏི།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ჰაიტი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሀይቲ</skos:altLabel>
+	<skos:altLabel xml:lang="km">ហៃទី</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ハイチ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ハイチ共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">海地</skos:altLabel>
+	<skos:altLabel xml:lang="ko">아이티</skos:altLabel>
+	<skos:altLabel xml:lang="ko">하이티</skos:altLabel>
+	<skos:prefLabel>Republic of Haiti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3724132/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.21667</wgs:lat>
+	<wgs:long>-73.4</wgs:long>
+	<skos:altLabel>Grosse Caye</skos:altLabel>
+	<skos:altLabel>La Grosse Caye</skos:altLabel>
+	<skos:prefLabel>Grosse Caye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3724144/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3731053/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.65</wgs:lat>
+	<wgs:long>-72.85</wgs:long>
+	<skos:prefLabel>Arrondissement de Gros Morne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3724170/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.68333</wgs:lat>
+	<wgs:long>-72.7</wgs:long>
+	<skos:prefLabel>Gros Morne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3724233/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>25947</europeana:population>
+	<wgs:lat>18.55</wgs:lat>
+	<wgs:long>-72.51667</wgs:long>
+	<skos:prefLabel>Gressier</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3724234/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.51667</wgs:lat>
+	<wgs:long>-72.51667</wgs:long>
+	<skos:prefLabel>Gressier</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3724330/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.11667</wgs:lat>
+	<wgs:long>-73.63333</wgs:long>
+	<skos:prefLabel>Caye Grand Gosier</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3724332/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.28333</wgs:lat>
+	<wgs:long>-71.9</wgs:long>
+	<skos:prefLabel>Grand Gosier</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3724335/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.43333</wgs:lat>
+	<wgs:long>-72.75</wgs:long>
+	<skos:prefLabel>Îlet du Grand Goâve</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3724337/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>49288</europeana:population>
+	<wgs:lat>18.42889</wgs:lat>
+	<wgs:long>-72.77056</wgs:long>
+	<skos:altLabel>Grand Goâve</skos:altLabel>
+	<skos:altLabel>Grande Goave</skos:altLabel>
+	<skos:prefLabel>Grand Goâve</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3724338/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.35</wgs:lat>
+	<wgs:long>-72.75</wgs:long>
+	<skos:prefLabel>Grand Goâve</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3724436/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.25</wgs:lat>
+	<wgs:long>-72.66667</wgs:long>
+	<skos:prefLabel>Grande Saline</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3724438/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3719543/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.51667</wgs:lat>
+	<wgs:long>-72.16667</wgs:long>
+	<skos:prefLabel>Arrondissement de la Grande Rivière du Nord</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3724440/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.55</wgs:lat>
+	<wgs:long>-72.16667</wgs:long>
+	<skos:prefLabel>Grande Rivière du Nord</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3724530/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.62333</wgs:lat>
+	<wgs:long>-73.75111</wgs:long>
+	<skos:altLabel>Grande Cayemitte</skos:altLabel>
+	<skos:altLabel>Grandes Cayemites</skos:altLabel>
+	<skos:altLabel>Great Cayemites</skos:altLabel>
+	<skos:altLabel>Great Cayemites Island</skos:altLabel>
+	<skos:altLabel>Île Grande Cayemite</skos:altLabel>
+	<skos:prefLabel>Grande Cayemite</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3724531/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.0875</wgs:lat>
+	<wgs:long>-73.81222</wgs:long>
+	<skos:altLabel>Grande Cay</skos:altLabel>
+	<skos:altLabel>Grande Caye</skos:altLabel>
+	<skos:prefLabel>Grande Caye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3724613/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>337000</europeana:population>
+	<wgs:lat>18.5</wgs:lat>
+	<wgs:long>-73.66667</wgs:long>
+	<skos:altLabel>GrandʼAnse</skos:altLabel>
+	<skos:prefLabel>Département de la Grand'Anse</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3724692/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.85</wgs:lat>
+	<wgs:long>-73.05</wgs:long>
+	<skos:altLabel>Gonava Island</skos:altLabel>
+	<skos:altLabel>Gonave Island</skos:altLabel>
+	<skos:altLabel>La Gonave</skos:altLabel>
+	<skos:altLabel>La Gonave Island</skos:altLabel>
+	<skos:altLabel>Île de la Gonâve</skos:altLabel>
+	<skos:prefLabel>Île de la Gonâve</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3724695/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3731053/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.5</wgs:lat>
+	<wgs:long>-72.66667</wgs:long>
+	<skos:prefLabel>Arrondissement des Gonaïves</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3724696/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>84961</europeana:population>
+	<wgs:lat>19.45</wgs:lat>
+	<wgs:long>-72.68333</wgs:long>
+	<skos:altLabel xml:lang="pl">Gonaïves</skos:altLabel>
+	<skos:altLabel xml:lang="de">Gonaïves</skos:altLabel>
+	<skos:altLabel xml:lang="en">Gonaïves</skos:altLabel>
+	<skos:altLabel>Gonaïves</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Les Gonaïves</skos:altLabel>
+	<skos:altLabel>Ville des Gonaives</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гонаив</skos:altLabel>
+	<skos:prefLabel>Gonaïves</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3724698/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.45</wgs:lat>
+	<wgs:long>-72.65</wgs:long>
+	<skos:prefLabel>Gonaïves</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3724988/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.48333</wgs:lat>
+	<wgs:long>-72.03333</wgs:long>
+	<skos:prefLabel>Ganthier</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3725088/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.68333</wgs:lat>
+	<wgs:long>-72.76667</wgs:long>
+	<skos:altLabel>Fregate de Croissant Island</skos:altLabel>
+	<skos:altLabel>Île Croissant</skos:altLabel>
+	<skos:altLabel>Île Frégate le Croissant</skos:altLabel>
+	<skos:altLabel>Îlot Frégate de Croissant</skos:altLabel>
+	<skos:prefLabel>Îlot Frégate de Croissant</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3725089/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.86667</wgs:lat>
+	<wgs:long>-72.93333</wgs:long>
+	<skos:prefLabel>Île Frégate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3725169/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3719540/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.56667</wgs:lat>
+	<wgs:long>-71.83333</wgs:long>
+	<skos:prefLabel>Arrondissement de Fort Liberté</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3725170/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11465</europeana:population>
+	<wgs:lat>19.66778</wgs:lat>
+	<wgs:long>-71.83972</wgs:long>
+	<skos:altLabel>Fort Liberté</skos:altLabel>
+	<skos:altLabel>Fort-Dauphin</skos:altLabel>
+	<skos:altLabel>Ville de Fort-Liberté</skos:altLabel>
+	<skos:prefLabel>Fort Liberté</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3725172/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.56667</wgs:lat>
+	<wgs:long>-71.85</wgs:long>
+	<skos:prefLabel>Fort Liberté</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3725192/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.55</wgs:lat>
+	<wgs:long>-72.35</wgs:long>
+	<skos:altLabel>Fort Ilet</skos:altLabel>
+	<skos:altLabel>Îlot du Fort</skos:altLabel>
+	<skos:prefLabel>Îlot du Fort</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3725223/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.35</wgs:lat>
+	<wgs:long>-71.86667</wgs:long>
+	<skos:prefLabel>Fond Verrettes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3725276/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18256</europeana:population>
+	<wgs:lat>18.50583</wgs:lat>
+	<wgs:long>-71.97667</wgs:long>
+	<skos:prefLabel>Fond Parisien</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3725521/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.61667</wgs:lat>
+	<wgs:long>-71.78333</wgs:long>
+	<skos:prefLabel>Ferrier</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3725664/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.48333</wgs:lat>
+	<wgs:long>-72.48333</wgs:long>
+	<skos:prefLabel>Ennery</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3725737/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>18.13333</wgs:lat>
+	<wgs:long>-73.63333</wgs:long>
+	<skos:prefLabel>Cayes à l’ Eau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3726265/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.51667</wgs:lat>
+	<wgs:long>-72.26667</wgs:long>
+	<skos:prefLabel>Dondon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3726470/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.21667</wgs:lat>
+	<wgs:long>-73.38333</wgs:long>
+	<skos:altLabel>Diamant Island</skos:altLabel>
+	<skos:altLabel>Île Diamant</skos:altLabel>
+	<skos:prefLabel>Île Diamant</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3726539/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3731053/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.16667</wgs:lat>
+	<wgs:long>-72.41667</wgs:long>
+	<skos:prefLabel>Arrondissement de Dessalines</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3726540/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12288</europeana:population>
+	<wgs:lat>19.28333</wgs:lat>
+	<wgs:long>-72.5</wgs:long>
+	<skos:altLabel>Dessalines</skos:altLabel>
+	<skos:altLabel>Marchand</skos:altLabel>
+	<skos:prefLabel>Dessalines</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3726542/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.21667</wgs:lat>
+	<wgs:long>-72.45</wgs:long>
+	<skos:prefLabel>Dessalines</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3726643/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.31667</wgs:lat>
+	<wgs:long>-72.68333</wgs:long>
+	<skos:prefLabel>Desdunes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3726674/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15594</europeana:population>
+	<wgs:lat>18.99167</wgs:lat>
+	<wgs:long>-72.38889</wgs:long>
+	<skos:prefLabel>Désarmes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3726786/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>382920</europeana:population>
+	<wgs:lat>18.54472</wgs:lat>
+	<wgs:long>-72.30278</wgs:long>
+	<skos:prefLabel>Delmas 73</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3726791/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.56667</wgs:lat>
+	<wgs:long>-72.28333</wgs:long>
+	<skos:prefLabel>Delmas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3727058/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.58333</wgs:lat>
+	<wgs:long>-74.35</wgs:long>
+	<skos:prefLabel>Dame Marie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3727134/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3719432/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.48333</wgs:lat>
+	<wgs:long>-72.01667</wgs:long>
+	<skos:prefLabel>Arrondissement de Croix des Bouquets</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3727135/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3724916/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>229127</europeana:population>
+	<wgs:lat>18.575</wgs:lat>
+	<wgs:long>-72.225</wgs:long>
+	<skos:prefLabel>Croix des Bouquets</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3727136/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.5</wgs:lat>
+	<wgs:long>-72.16667</wgs:long>
+	<skos:prefLabel>Croix des Bouquets</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3727289/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.21667</wgs:lat>
+	<wgs:long>-72.8</wgs:long>
+	<skos:prefLabel>Côtes-de-Fer</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3727295/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3716952/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.25</wgs:lat>
+	<wgs:long>-74</wgs:long>
+	<skos:prefLabel>Arrondissement des Coteaux</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3727299/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.25</wgs:lat>
+	<wgs:long>-74.03333</wgs:long>
+	<skos:prefLabel>Coteaux</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3727323/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.51667</wgs:lat>
+	<wgs:long>-73.65</wgs:long>
+	<skos:prefLabel>Île Corny</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3727328/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.66667</wgs:lat>
+	<wgs:long>-71.91667</wgs:long>
+	<skos:prefLabel>Cornillon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3727381/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3724613/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.55</wgs:lat>
+	<wgs:long>-73.93333</wgs:long>
+	<skos:prefLabel>Arrondissement de Corail</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3727429/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.55</wgs:lat>
+	<wgs:long>-74</wgs:long>
+	<skos:prefLabel>Corail</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3727481/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.2</wgs:lat>
+	<wgs:long>-73.71667</wgs:long>
+	<skos:altLabel>Compagnie Island</skos:altLabel>
+	<skos:altLabel>Îlet de la Compagnie</skos:altLabel>
+	<skos:prefLabel>Îlet de la Compagnie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3727900/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3716952/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.36667</wgs:lat>
+	<wgs:long>-74.25</wgs:long>
+	<skos:prefLabel>Arrondissement des Chardonnières</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3727901/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.35</wgs:lat>
+	<wgs:long>-74.1</wgs:long>
+	<skos:prefLabel>Chardonnières</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3727945/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.3</wgs:lat>
+	<wgs:long>-73.96667</wgs:long>
+	<skos:prefLabel>Chantal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3727985/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.53333</wgs:lat>
+	<wgs:long>-74.31667</wgs:long>
+	<skos:altLabel>Chanbellan</skos:altLabel>
+	<skos:prefLabel>Chambellan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3728053/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3728069/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.11667</wgs:lat>
+	<wgs:long>-71.75</wgs:long>
+	<skos:prefLabel>Arrondissement de Cerca La Source</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3728055/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.16667</wgs:lat>
+	<wgs:long>-71.75</wgs:long>
+	<skos:prefLabel>Cerca La Source</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3728063/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.25</wgs:lat>
+	<wgs:long>-71.95</wgs:long>
+	<skos:prefLabel>Cerca Carvajal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3728069/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>19</wgs:lat>
+	<wgs:long>-72</wgs:long>
+	<skos:altLabel>Centre</skos:altLabel>
+	<skos:altLabel>Département du Centre</skos:altLabel>
+	<skos:prefLabel>Département du Centre</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3728096/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3716952/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.3</wgs:lat>
+	<wgs:long>-73.83333</wgs:long>
+	<skos:prefLabel>Arrondissement des Cayes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3728097/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>125799</europeana:population>
+	<wgs:lat>18.2</wgs:lat>
+	<wgs:long>-73.75</wgs:long>
+	<skos:altLabel>Aux Cayes</skos:altLabel>
+	<skos:altLabel>Cayes</skos:altLabel>
+	<skos:altLabel>Les Cayes</skos:altLabel>
+	<skos:altLabel>Ville des Cayes</skos:altLabel>
+	<skos:prefLabel>Les Cayes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3728123/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.33333</wgs:lat>
+	<wgs:long>-73.63333</wgs:long>
+	<skos:prefLabel>Cavaillon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3728338/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3716661/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>442156</europeana:population>
+	<wgs:lat>18.54114</wgs:lat>
+	<wgs:long>-72.39922</wgs:long>
+	<skos:prefLabel>Carrefour</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3728339/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.45</wgs:lat>
+	<wgs:long>-72.41667</wgs:long>
+	<skos:prefLabel>Carrefour</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3728387/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.35</wgs:lat>
+	<wgs:long>-71.81667</wgs:long>
+	<skos:prefLabel>Carice</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3728391/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.45</wgs:lat>
+	<wgs:long>-73.06667</wgs:long>
+	<skos:altLabel>Carenage Cay</skos:altLabel>
+	<skos:prefLabel>Caye Carénage</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3728399/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.23333</wgs:lat>
+	<wgs:long>-73.68333</wgs:long>
+	<skos:altLabel>Caranaro Island</skos:altLabel>
+	<skos:altLabel>Carenage</skos:altLabel>
+	<skos:altLabel>Carenage Island</skos:altLabel>
+	<skos:altLabel>Île du Carénage</skos:altLabel>
+	<skos:prefLabel>Carenage</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3728432/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.66667</wgs:lat>
+	<wgs:long>-72</wgs:long>
+	<skos:prefLabel>Caracol</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3728452/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.43333</wgs:lat>
+	<wgs:long>-71.71667</wgs:long>
+	<skos:prefLabel>Capotille</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3728473/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3719543/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.66667</wgs:lat>
+	<wgs:long>-72.15</wgs:long>
+	<skos:prefLabel>Arrondissement du Cap-Haïtien</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3728474/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>134815</europeana:population>
+	<wgs:lat>19.75778</wgs:lat>
+	<wgs:long>-72.20417</wgs:long>
+	<skos:altLabel xml:lang="id">Cap Haitien</skos:altLabel>
+	<skos:altLabel xml:lang="da">Cap Haitien</skos:altLabel>
+	<skos:altLabel>Cap-Français</skos:altLabel>
+	<skos:altLabel xml:lang="de">Cap-Haitien</skos:altLabel>
+	<skos:altLabel xml:lang="en">Cap-Haïtien</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Cap-Haïtien</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Cap-Haïtien</skos:altLabel>
+	<skos:altLabel xml:lang="es">Cap-Haïtien</skos:altLabel>
+	<skos:altLabel xml:lang="et">Cap-Haïtien</skos:altLabel>
+	<skos:altLabel xml:lang="de">Cap-Haïtien</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Cap-Haïtien</skos:altLabel>
+	<skos:altLabel xml:lang="id">Cap-Haïtien</skos:altLabel>
+	<skos:altLabel>Cap-Haïtien</skos:altLabel>
+	<skos:altLabel>Cape Haitien</skos:altLabel>
+	<skos:altLabel>Cape Haytien</skos:altLabel>
+	<skos:altLabel>Guárico</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Kap Ayisyen</skos:altLabel>
+	<skos:altLabel>Le Cap</skos:altLabel>
+	<skos:altLabel>Ville du Cap-Haitien</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кап-Аитьене</skos:altLabel>
+	<skos:prefLabel>Cap-Haïtien</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3728476/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.75</wgs:lat>
+	<wgs:long>-72.2</wgs:long>
+	<skos:prefLabel>Cap-Haïtien</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3728563/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.35</wgs:lat>
+	<wgs:long>-73.85</wgs:long>
+	<skos:prefLabel>Camp Perrin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3728916/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.55</wgs:lat>
+	<wgs:long>-73.66667</wgs:long>
+	<skos:altLabel>Cabrit Islet</skos:altLabel>
+	<skos:altLabel>Ilet à Cabrit</skos:altLabel>
+	<skos:altLabel>Île Cabrite</skos:altLabel>
+	<skos:prefLabel>Île à Cabrits</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3728923/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.7</wgs:lat>
+	<wgs:long>-72.38333</wgs:long>
+	<skos:altLabel>Carenage Island</skos:altLabel>
+	<skos:altLabel>Caye Carenage</skos:altLabel>
+	<skos:altLabel>Caye Carrenage</skos:altLabel>
+	<skos:altLabel>Île à Cabrit</skos:altLabel>
+	<skos:altLabel>Île à Cabrits</skos:altLabel>
+	<skos:prefLabel>Île à Cabrit</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3729149/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.06778</wgs:lat>
+	<wgs:long>-73.80028</wgs:long>
+	<skos:prefLabel>Îlet Boyer</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3729394/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.95</wgs:lat>
+	<wgs:long>-72.13333</wgs:long>
+	<skos:prefLabel>Boucan Carré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3729454/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3719543/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.75</wgs:lat>
+	<wgs:long>-72.5</wgs:long>
+	<skos:prefLabel>Arrondissement du Borgne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3729456/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.8</wgs:lat>
+	<wgs:long>-72.58333</wgs:long>
+	<skos:prefLabel>Borgne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3729549/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.7</wgs:lat>
+	<wgs:long>-73.33333</wgs:long>
+	<skos:prefLabel>Bombardopolis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3730361/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3716950/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.25</wgs:lat>
+	<wgs:long>-72</wgs:long>
+	<skos:prefLabel>Arrondissement de Belle-Anse</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3730364/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.28333</wgs:lat>
+	<wgs:long>-72.1</wgs:long>
+	<skos:prefLabel>Belle-Anse</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3730375/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.86667</wgs:lat>
+	<wgs:long>-71.8</wgs:long>
+	<skos:prefLabel>Belladère</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3730473/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.5</wgs:lat>
+	<wgs:long>-73.95</wgs:long>
+	<skos:prefLabel>Beaumont</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3730544/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.68222</wgs:lat>
+	<wgs:long>-71.85556</wgs:long>
+	<skos:prefLabel>Île Bayau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3730641/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.76667</wgs:lat>
+	<wgs:long>-72.81667</wgs:long>
+	<skos:prefLabel>Bassin Bleu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3730675/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.75</wgs:lat>
+	<wgs:long>-72.4</wgs:long>
+	<skos:prefLabel>Bas Limbé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3730801/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.45</wgs:lat>
+	<wgs:long>-73.66667</wgs:long>
+	<skos:prefLabel>Baradères</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3730910/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3716950/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.25</wgs:lat>
+	<wgs:long>-72.85</wgs:long>
+	<skos:prefLabel>Arrondissement de Bainet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3730912/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.18333</wgs:lat>
+	<wgs:long>-72.75</wgs:long>
+	<skos:prefLabel>Bainet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3730933/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.7</wgs:lat>
+	<wgs:long>-73.2</wgs:long>
+	<skos:altLabel>Baie de Haine</skos:altLabel>
+	<skos:altLabel>Baie de Henne</skos:altLabel>
+	<skos:prefLabel>Baie de Henne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3730935/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.45</wgs:lat>
+	<wgs:long>-73.1</wgs:long>
+	<skos:altLabel>Baice Cay</skos:altLabel>
+	<skos:prefLabel>Caye Baice</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3730939/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.45</wgs:lat>
+	<wgs:long>-72.11667</wgs:long>
+	<skos:altLabel>Bahon</skos:altLabel>
+	<skos:altLabel>Baron</skos:altLabel>
+	<skos:prefLabel>Bahon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3731053/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>19.33333</wgs:lat>
+	<wgs:long>-72.5</wgs:long>
+	<skos:altLabel>Artibonite</skos:altLabel>
+	<skos:altLabel>Département de Central L'Artibonite</skos:altLabel>
+	<skos:prefLabel>Département de l'Artibonite</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3731061/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.13333</wgs:lat>
+	<wgs:long>-73.91667</wgs:long>
+	<skos:prefLabel>Arniquet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3731075/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.8</wgs:lat>
+	<wgs:long>-72.3</wgs:long>
+	<skos:prefLabel>Caye Arena</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3731086/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3719432/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.83333</wgs:lat>
+	<wgs:long>-72.41667</wgs:long>
+	<skos:prefLabel>Arrondissement d’ Arcahaie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3731089/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.85</wgs:lat>
+	<wgs:long>-72.5</wgs:long>
+	<skos:prefLabel>Arcahaie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3731094/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3716952/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.28333</wgs:lat>
+	<wgs:long>-73.38333</wgs:long>
+	<skos:prefLabel>Arrondissement d’ Aquin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3731096/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.28333</wgs:lat>
+	<wgs:long>-73.25</wgs:long>
+	<skos:prefLabel>Aquin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3731106/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.65</wgs:lat>
+	<wgs:long>-72.98333</wgs:long>
+	<skos:prefLabel>Anse Rouge</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3731116/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3724613/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.51667</wgs:lat>
+	<wgs:long>-74.36667</wgs:long>
+	<skos:prefLabel>Arrondissement de l' Anse d'Hainault</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3731118/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.5</wgs:lat>
+	<wgs:long>-74.35</wgs:long>
+	<skos:prefLabel>Anse d'Hainault</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3731122/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3724613/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.41667</wgs:lat>
+	<wgs:long>-73.5</wgs:long>
+	<skos:prefLabel>Arrondissement de l' Anse-à-Veau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3731124/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.41667</wgs:lat>
+	<wgs:long>-73.33333</wgs:long>
+	<skos:prefLabel>Anse-à-Veau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3731127/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.18333</wgs:lat>
+	<wgs:long>-71.81667</wgs:long>
+	<skos:prefLabel>Anse-à-Pitres</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3731133/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.81667</wgs:lat>
+	<wgs:long>-72.95</wgs:long>
+	<skos:prefLabel>Anse à Galets</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3731135/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.83333</wgs:lat>
+	<wgs:long>-72.63333</wgs:long>
+	<skos:prefLabel>Anse-à-Foleur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3731232/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3719543/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.66667</wgs:lat>
+	<wgs:long>-72.28333</wgs:long>
+	<skos:prefLabel>Arrondissement de l’ Acul du Nord</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3731234/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>19.65</wgs:lat>
+	<wgs:long>-72.31667</wgs:long>
+	<skos:prefLabel>Acul du Nord</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3731260/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>18.65</wgs:lat>
+	<wgs:long>-74.3</wgs:long>
+	<skos:prefLabel>Abricots</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3738227/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.35417</wgs:lat>
+	<wgs:long>-72.7625</wgs:long>
+	<skos:prefLabel>Grand L’Îlet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3740016/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>34657</europeana:population>
+	<wgs:lat>19.93333</wgs:lat>
+	<wgs:long>-72.83333</wgs:long>
+	<skos:prefLabel>Ti Port-de-Paix</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3740026/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.66667</wgs:lat>
+	<wgs:long>-71.81667</wgs:long>
+	<skos:prefLabel>Garnier</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3740029/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.68333</wgs:lat>
+	<wgs:long>-71.81667</wgs:long>
+	<skos:prefLabel>Île Mat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3740030/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.68333</wgs:lat>
+	<wgs:long>-71.81667</wgs:long>
+	<skos:prefLabel>Île Nat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3740031/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.66667</wgs:lat>
+	<wgs:long>-71.81667</wgs:long>
+	<skos:prefLabel>Crag Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7115999/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3723988/"/>
+	<europeana:country>HT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>266000</europeana:population>
+	<wgs:lat>18.44973</wgs:lat>
+	<wgs:long>-73.10466</wgs:long>
+	<skos:altLabel>Nippes</skos:altLabel>
+	<skos:prefLabel>Département de Nippes</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 266 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

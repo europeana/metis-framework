@@ -1,0 +1,44 @@
+            ------
+            Technical overview
+            ------
+ 
+ Technically speaking, AnnoCultor is the following:
+  
+  * a wrap-up on a SAX parser that extracts domain objects from their XML representation,
+  
+  * an object conversion rule that checks if a domain object should be converted and invokes property rules,
+  
+  * property conversion rules that rename specific properties, modify their values, and write RDF triples to named graphs,
+   
+  * named graphs that collect triples and store them in RDF files,
+  
+  * and more...
+  
+  In AnnoCultor we build converters from the following classes (<<outdated>>):
+ 
+ * <<<Converter>>> than are extended by users to create converters specific for a dataset. 
+ 
+ * <<<Task>>> than has a few documenting fields and a link to the <<<Environment>>>.
+ 
+ * <<<Environment>>> specifies basic file locations, such as the temp directory, and loads vocabularies from their RDF files.
+   You are likely to override it.
+ 
+ * <<<Graph>>>, or RDF graphs that are created by converters as their output; these graphs are typically stored in separate RDF files.
+   It is common to create a graph for works, and graph for their images, one for directory of people, etc.
+ 
+ During conversion we examine the XML tree of XML tags and their values 
+ and need to select the XML subtrees that correspond to domain objects that we represent with RDF resources in the output RDF.
+ 
+ * <<<ObjectRule>>>, linked to a Task, specifies how RDF objects can be found in the XML files. 
+ In an Object Rule we specify the object separating path that separates domain objects in their XML representation.
+ These objects are represented with the AnnoCultor class <<<DataObject>>>. 
+ 
+ * <<<PropertyRules>>> apply to an XML tag to create one or more RDF triples, typically retaining (or translating) the
+ value of the XML tag.
+ 
+ AnnoCultor provides a number of standard rules to create RDF resources, literals, modify tag values, etc. 
+ In addition, it defines several lookup rules (<<<LookupPersonRule>>>, <<<LookupPlaceRule>>>, <<<LookupTermRule>>>) that allow looking the values up in external vocabularies and replacing
+ them with the corresponding vocabulary codes.
+  
+  
+ 

@@ -1,0 +1,6 @@
+edm:Concept;setAbout
+skos:prefLabel;setPrefLabel
+skos:broader;setBroader
+skos:related;setRelated
+skos:exactMatch;setExactMatch
+skos:note;setNote

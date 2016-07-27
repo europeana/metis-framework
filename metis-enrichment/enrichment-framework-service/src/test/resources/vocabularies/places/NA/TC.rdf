@@ -1,0 +1,647 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: NA_TC
+Description: Selected fields pulled from Geonames about TC done on Mon May 23 21:14:33 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576904/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.18333</wgs:lat>
+	<wgs:long>-71.8</wgs:long>
+	<skos:prefLabel>White Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576908/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.36667</wgs:lat>
+	<wgs:long>-72.16667</wgs:long>
+	<skos:prefLabel>West Sand Spit</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576911/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.65</wgs:lat>
+	<wgs:long>-72.46667</wgs:long>
+	<skos:altLabel>Belle Isle</skos:altLabel>
+	<skos:altLabel>West Caicos</skos:altLabel>
+	<skos:altLabel>West Caicos Island</skos:altLabel>
+	<skos:prefLabel>West Caicos Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576913/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.85</wgs:lat>
+	<wgs:long>-72.11667</wgs:long>
+	<skos:prefLabel>Water Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576914/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>21.4</wgs:lat>
+	<wgs:long>-71.11667</wgs:long>
+	<skos:altLabel>Iles Turques</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Illes Turks</skos:altLabel>
+	<skos:altLabel>Turk Islands</skos:altLabel>
+	<skos:altLabel>Turks Islands</skos:altLabel>
+	<skos:altLabel xml:lang="fr">turks et caicos</skos:altLabel>
+	<skos:prefLabel>Turks Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576916/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255149/"/>
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLD"/>
+	<europeana:population>20556</europeana:population>
+	<wgs:lat>21.73333</wgs:lat>
+	<wgs:long>-71.58333</wgs:long>
+	<skos:altLabel xml:lang="pt">Ilhas Turks e Caicos</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Illas Turks e Caicos</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Illes Turks i Caicos</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Insulas Turcos e Caicos</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Insulele Turks şi Caicos</skos:altLabel>
+	<skos:altLabel xml:lang="es">Islas Turcas y Caicos</skos:altLabel>
+	<skos:altLabel xml:lang="id">Kepulauan Turks dan Caicos</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Oileáin Turks agus Caicos</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Ostrovy Turks a Caicos</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Ostrovy Turks a Caicos</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Otoci Turks i Caicos</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Otoki Turks in Caicos</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Quần Đảo Turk và Caicos</skos:altLabel>
+	<skos:altLabel>TC</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Turk eta Caico uharteak</skos:altLabel>
+	<skos:altLabel xml:lang="en">Turks and Caicos Islands</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Turks and Caicos Islands</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Turks and Caicos Islands</skos:altLabel>
+	<skos:altLabel>Turks and Caicos Islands</skos:altLabel>
+	<skos:altLabel xml:lang="it">Turks e Caicos</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Turks et Caïques, îles</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Turks i Caicos</skos:altLabel>
+	<skos:altLabel xml:lang="se">Turks ja Caicos-sullot</skos:altLabel>
+	<skos:altLabel xml:lang="is">Turks og Caicoseyjar</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Turks- en Caicoseilanden</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Turks- ja Caicossaaret</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Turks- och Caicosöarna</skos:altLabel>
+	<skos:altLabel xml:lang="da">Turks- og Caicosøerne</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Turks- og Caicosøyane</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Turks- og Caicosøyene</skos:altLabel>
+	<skos:altLabel xml:lang="de">Turks- und Caicos-Inseln</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Turkso ir Caicoso salos</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Török és Caicos Szigetek</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Türk ve Caicos Adaları</skos:altLabel>
+	<skos:altLabel xml:lang="et">Türklased ja Caicos saared</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Tērksas un Kaikosas salas</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Wyspy Turks i Caicos</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Ynysoedd Turks a Caicos</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Îles Turques-et-Caïques</skos:altLabel>
+	<skos:altLabel xml:lang="el">Νησιά Τουρκ και Κάικος</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Острова Теркс И Кайкос</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Теркс і Кайкос, острови</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Турк и Каикос Острови</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Турска и Каико острва</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Търкс и Кайкос О-ви</skos:altLabel>
+	<skos:altLabel xml:lang="be">Тэркс і Кайкас астравы</skos:altLabel>
+	<skos:altLabel xml:lang="he">טרקס וקייקוס, איי</skos:altLabel>
+	<skos:altLabel xml:lang="ur">جزائر کیکس اور ترکیّہ</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جزر الترك وجايكوس</skos:altLabel>
+	<skos:altLabel xml:lang="fa">جزیره های ترکها و کیکوس</skos:altLabel>
+	<skos:altLabel xml:lang="hi">तुर्क्स ऐंड कैकोज़ आइलैंड्स</skos:altLabel>
+	<skos:altLabel xml:lang="bn">টার্ক ও কায়কস দ্বীপপুঞ্জ</skos:altLabel>
+	<skos:altLabel xml:lang="th">เติร์กและหมู่เกาะไคคอส</skos:altLabel>
+	<skos:altLabel xml:lang="am">የቱርኮችና የካኢኮስ ደሴቶች</skos:altLabel>
+	<skos:altLabel xml:lang="ja">タークス諸島及びカイコス諸島</skos:altLabel>
+	<skos:altLabel xml:lang="zh">特克斯和凯科斯群岛</skos:altLabel>
+	<skos:altLabel xml:lang="ko">투르크 &amp; 카이코스 군도</skos:altLabel>
+	<skos:prefLabel>Turks and Caicos Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576921/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>21.95</wgs:lat>
+	<wgs:long>-72.01667</wgs:long>
+	<skos:prefLabel>Three Mary Cays</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576924/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>21.9</wgs:lat>
+	<wgs:long>-71.98333</wgs:long>
+	<skos:prefLabel>Sugar Cane Mill</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576925/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.91667</wgs:lat>
+	<wgs:long>-72.1</wgs:long>
+	<skos:altLabel>Stubb Cay</skos:altLabel>
+	<skos:altLabel>Stubbs Cay</skos:altLabel>
+	<skos:prefLabel>Stubbs Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576931/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.51667</wgs:lat>
+	<wgs:long>-71.5</wgs:long>
+	<skos:altLabel>Caïque du Sud</skos:altLabel>
+	<skos:altLabel>South Caicos</skos:altLabel>
+	<skos:altLabel>South Caicos Island</skos:altLabel>
+	<skos:prefLabel>South Caicos Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576933/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>21.45</wgs:lat>
+	<wgs:long>-71.63333</wgs:long>
+	<skos:altLabel>Six Hill Cay</skos:altLabel>
+	<skos:altLabel>Six Hill Cays</skos:altLabel>
+	<skos:prefLabel>Six Hill Cays</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576935/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.18333</wgs:lat>
+	<wgs:long>-71.71667</wgs:long>
+	<skos:prefLabel>Shot Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576937/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>21.16667</wgs:lat>
+	<wgs:long>-71.63333</wgs:long>
+	<skos:altLabel>Cayes de Seal</skos:altLabel>
+	<skos:altLabel>Seal Cays</skos:altLabel>
+	<skos:prefLabel>Seal Cays</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576939/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.33333</wgs:lat>
+	<wgs:long>-71.18333</wgs:long>
+	<skos:altLabel>Caye de Sel</skos:altLabel>
+	<skos:altLabel>Salt Cay</skos:altLabel>
+	<skos:prefLabel>Salt Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576940/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.58333</wgs:lat>
+	<wgs:long>-71.51667</wgs:long>
+	<skos:prefLabel>Sail Rock Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576944/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.78333</wgs:lat>
+	<wgs:long>-72.28333</wgs:long>
+	<skos:altLabel>Blue Hills</skos:altLabel>
+	<skos:altLabel>Providence Island</skos:altLabel>
+	<skos:altLabel>Providenciales</skos:altLabel>
+	<skos:altLabel>Providenciales Island</skos:altLabel>
+	<skos:prefLabel>Providenciales Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576946/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.56667</wgs:lat>
+	<wgs:long>-71.48333</wgs:long>
+	<skos:prefLabel>Plandon Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576947/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.86667</wgs:lat>
+	<wgs:long>-72.08333</wgs:long>
+	<skos:prefLabel>Pine Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576949/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.36667</wgs:lat>
+	<wgs:long>-71.11667</wgs:long>
+	<skos:prefLabel>Penniston Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576950/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.38333</wgs:lat>
+	<wgs:long>-71.08333</wgs:long>
+	<skos:altLabel>Bird Island</skos:altLabel>
+	<skos:altLabel>Pear Cay</skos:altLabel>
+	<skos:prefLabel>Pear Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576951/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.18333</wgs:lat>
+	<wgs:long>-71.68333</wgs:long>
+	<skos:prefLabel>Pear Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576952/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.93333</wgs:lat>
+	<wgs:long>-72.06667</wgs:long>
+	<skos:altLabel>Caye Parrot</skos:altLabel>
+	<skos:altLabel>Parrot Cay</skos:altLabel>
+	<skos:prefLabel>Parrot Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576957/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.93333</wgs:lat>
+	<wgs:long>-71.98333</wgs:long>
+	<skos:altLabel>Caïque du Nord</skos:altLabel>
+	<skos:altLabel>North Caicos</skos:altLabel>
+	<skos:altLabel>North Caicos Island</skos:altLabel>
+	<skos:prefLabel>North Caicos Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576958/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.63333</wgs:lat>
+	<wgs:long>-71.48333</wgs:long>
+	<skos:prefLabel>Nigger Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576960/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>21.91667</wgs:lat>
+	<wgs:long>-72.01667</wgs:long>
+	<skos:prefLabel>Monkey Hill</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576962/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.5</wgs:lat>
+	<wgs:long>-71.56667</wgs:long>
+	<skos:prefLabel>Middleton Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576963/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.58333</wgs:lat>
+	<wgs:long>-71.48333</wgs:long>
+	<skos:prefLabel>Middle Creek Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576964/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.78333</wgs:lat>
+	<wgs:long>-71.71667</wgs:long>
+	<skos:altLabel>Grand Caicos</skos:altLabel>
+	<skos:altLabel>Grand Caicos Island</skos:altLabel>
+	<skos:altLabel>Grande Caïque</skos:altLabel>
+	<skos:altLabel>Middle Caicos</skos:altLabel>
+	<skos:prefLabel>Middle Caicos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576965/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.81667</wgs:lat>
+	<wgs:long>-72.13333</wgs:long>
+	<skos:prefLabel>Mangrove Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576967/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.93333</wgs:lat>
+	<wgs:long>-71.9</wgs:long>
+	<skos:prefLabel>Major Hill Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576970/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.46667</wgs:lat>
+	<wgs:long>-71.55</wgs:long>
+	<skos:prefLabel>Long Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576971/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.41667</wgs:lat>
+	<wgs:long>-71.08333</wgs:long>
+	<skos:altLabel>Ile Longue</skos:altLabel>
+	<skos:altLabel>Long Cay</skos:altLabel>
+	<skos:altLabel>Pelican Cay</skos:altLabel>
+	<skos:prefLabel>Long Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576976/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.83333</wgs:lat>
+	<wgs:long>-72.15</wgs:long>
+	<skos:prefLabel>Little Water Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576977/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.28333</wgs:lat>
+	<wgs:long>-71.68333</wgs:long>
+	<skos:prefLabel>Little Ambergris Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576981/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.75</wgs:lat>
+	<wgs:long>-71.6</wgs:long>
+	<skos:prefLabel>Joe Grants Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576984/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.75</wgs:lat>
+	<wgs:long>-71.58333</wgs:long>
+	<skos:prefLabel>Iguana Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576985/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.63333</wgs:lat>
+	<wgs:long>-71.51667</wgs:long>
+	<skos:prefLabel>Hog Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576987/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.86667</wgs:lat>
+	<wgs:long>-71.83333</wgs:long>
+	<skos:prefLabel>Highas Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576990/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>21.43333</wgs:lat>
+	<wgs:long>-71.11667</wgs:long>
+	<skos:prefLabel>Gun Hill</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576993/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.46002</wgs:lat>
+	<wgs:long>-71.14158</wgs:long>
+	<skos:altLabel>Grand Turk Island</skos:altLabel>
+	<skos:prefLabel>Grand Turk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576997/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.43333</wgs:lat>
+	<wgs:long>-71.1</wgs:long>
+	<skos:altLabel>Gibb Cay</skos:altLabel>
+	<skos:altLabel>Gibb’s Cay</skos:altLabel>
+	<skos:prefLabel>Gibb’s Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576998/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>21.88333</wgs:lat>
+	<wgs:long>-72.08333</wgs:long>
+	<skos:prefLabel>Fort George</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576999/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.5</wgs:lat>
+	<wgs:long>-72.25</wgs:long>
+	<skos:prefLabel>French Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577000/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.88333</wgs:lat>
+	<wgs:long>-72.11667</wgs:long>
+	<skos:prefLabel>Fort George Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577001/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>21.88333</wgs:lat>
+	<wgs:long>-72.11667</wgs:long>
+	<skos:prefLabel>Fort George</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577005/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>21.73333</wgs:lat>
+	<wgs:long>-72.25</wgs:long>
+	<skos:prefLabel>Five Cays</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577006/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>21.36667</wgs:lat>
+	<wgs:long>-71.58333</wgs:long>
+	<skos:prefLabel>Fish Cays</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577011/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.36667</wgs:lat>
+	<wgs:long>-71.08333</wgs:long>
+	<skos:altLabel>Breeches Island</skos:altLabel>
+	<skos:altLabel>East Cay</skos:altLabel>
+	<skos:prefLabel>East Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577012/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.68333</wgs:lat>
+	<wgs:long>-71.5</wgs:long>
+	<skos:altLabel>Caïque de l’Est</skos:altLabel>
+	<skos:altLabel>East Caicos Island</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Illes Caicos de l'Est</skos:altLabel>
+	<skos:prefLabel>East Caicos Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577017/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.81667</wgs:lat>
+	<wgs:long>-72.13333</wgs:long>
+	<skos:prefLabel>Donna Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577018/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.75</wgs:lat>
+	<wgs:long>-71.63333</wgs:long>
+	<skos:prefLabel>Dikish Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577019/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.9</wgs:lat>
+	<wgs:long>-72.06667</wgs:long>
+	<skos:prefLabel>Dellis Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577021/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.36667</wgs:lat>
+	<wgs:long>-71.13333</wgs:long>
+	<skos:altLabel>Caye a Coton</skos:altLabel>
+	<skos:altLabel>Cotton Cay</skos:altLabel>
+	<skos:prefLabel>Cotton Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577023/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.85</wgs:lat>
+	<wgs:long>-71.85</wgs:long>
+	<skos:prefLabel>Conch Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577034/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>21.93333</wgs:lat>
+	<wgs:long>-71.96667</wgs:long>
+	<skos:altLabel>Caicos</skos:altLabel>
+	<skos:altLabel>Caicos Islands</skos:altLabel>
+	<skos:altLabel>Les Caïques</skos:altLabel>
+	<skos:prefLabel>Caicos Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577037/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.2</wgs:lat>
+	<wgs:long>-71.6</wgs:long>
+	<skos:prefLabel>Bush Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577042/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.81667</wgs:lat>
+	<wgs:long>-71.66667</wgs:long>
+	<skos:prefLabel>Booby Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577044/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.2</wgs:lat>
+	<wgs:long>-71.23333</wgs:long>
+	<skos:altLabel>Big Sand Cay</skos:altLabel>
+	<skos:altLabel>Sand Cay</skos:altLabel>
+	<skos:prefLabel>Big Sand Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577048/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.61667</wgs:lat>
+	<wgs:long>-71.58333</wgs:long>
+	<skos:prefLabel>Big Cameron Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577049/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.3</wgs:lat>
+	<wgs:long>-71.63333</wgs:long>
+	<skos:prefLabel>Big Ambergris Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577052/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>21.91667</wgs:lat>
+	<wgs:long>-71.88333</wgs:long>
+	<skos:prefLabel>Bay Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577057/">
+	<europeana:country>TC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>21.3</wgs:lat>
+	<wgs:long>-71.61667</wgs:long>
+	<skos:altLabel>Ambergris Cays</skos:altLabel>
+	<skos:altLabel>Cayes d’ Ambre gris</skos:altLabel>
+	<skos:prefLabel>Ambergris Cays</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 61 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

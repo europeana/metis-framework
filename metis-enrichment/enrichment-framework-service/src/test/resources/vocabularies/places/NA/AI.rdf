@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: NA_AI
+Description: Selected fields pulled from Geonames about AI done on Mon May 23 21:14:14 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573367/">
+	<europeana:country>AI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.26667</wgs:lat>
+	<wgs:long>-63.28333</wgs:long>
+	<skos:prefLabel>West Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573384/">
+	<europeana:country>AI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.16667</wgs:lat>
+	<wgs:long>-63.16667</wgs:long>
+	<skos:prefLabel>South Wager</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573387/">
+	<europeana:country>AI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.6</wgs:lat>
+	<wgs:long>-63.43333</wgs:long>
+	<skos:altLabel>Hat Island</skos:altLabel>
+	<skos:altLabel>Sombrero</skos:altLabel>
+	<skos:altLabel>Sombrero Island</skos:altLabel>
+	<skos:prefLabel>Sombrero</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573396/">
+	<europeana:country>AI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.26667</wgs:lat>
+	<wgs:long>-63.15</wgs:long>
+	<skos:altLabel>Seal Island</skos:altLabel>
+	<skos:altLabel>Seal Islands</skos:altLabel>
+	<skos:altLabel>Seal Islets</skos:altLabel>
+	<skos:prefLabel>Seal Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573398/">
+	<europeana:country>AI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.28333</wgs:lat>
+	<wgs:long>-62.95</wgs:long>
+	<skos:altLabel>Scrub Island</skos:altLabel>
+	<skos:altLabel>Scrub Islet</skos:altLabel>
+	<skos:prefLabel>Scrub Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573401/">
+	<europeana:country>AI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.26027</wgs:lat>
+	<wgs:long>-63.00204</wgs:long>
+	<skos:prefLabel>Scilly Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573405/">
+	<europeana:country>AI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.21667</wgs:lat>
+	<wgs:long>-63.11667</wgs:long>
+	<skos:altLabel>Sand Island</skos:altLabel>
+	<skos:altLabel>Sandy Island</skos:altLabel>
+	<skos:prefLabel>Sandy Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573415/">
+	<europeana:country>AI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>18.26667</wgs:lat>
+	<wgs:long>-63.18333</wgs:long>
+	<skos:altLabel>Prickley Pear Cays</skos:altLabel>
+	<skos:altLabel>Prickly Pear Cays</skos:altLabel>
+	<skos:prefLabel>Prickly Pear Cays</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573423/">
+	<europeana:country>AI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.28333</wgs:lat>
+	<wgs:long>-63.26667</wgs:long>
+	<skos:prefLabel>Mid Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573444/">
+	<europeana:country>AI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.3</wgs:lat>
+	<wgs:long>-62.96667</wgs:long>
+	<skos:altLabel>Little Scrub Island</skos:altLabel>
+	<skos:altLabel>Little Scrub Islet</skos:altLabel>
+	<skos:prefLabel>Little Scrub Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573445/">
+	<europeana:country>AI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.23333</wgs:lat>
+	<wgs:long>-62.96667</wgs:long>
+	<skos:prefLabel>Little Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573474/">
+	<europeana:country>AI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.28333</wgs:lat>
+	<wgs:long>-63.25</wgs:long>
+	<skos:prefLabel>East Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573476/">
+	<europeana:country>AI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.28333</wgs:lat>
+	<wgs:long>-63.26667</wgs:long>
+	<skos:altLabel>Dog Island</skos:altLabel>
+	<skos:altLabel>Dog Islet</skos:altLabel>
+	<skos:prefLabel>Dog Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573478/">
+	<europeana:country>AI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.28333</wgs:lat>
+	<wgs:long>-62.91667</wgs:long>
+	<skos:prefLabel>Deadman’s Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573510/">
+	<europeana:country>AI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.15</wgs:lat>
+	<wgs:long>-63.18333</wgs:long>
+	<skos:prefLabel>Anguillita Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573511/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255149/"/>
+	<europeana:country>AI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLD"/>
+	<europeana:population>13254</europeana:population>
+	<wgs:lat>18.21667</wgs:lat>
+	<wgs:long>-63.05</wgs:long>
+	<skos:altLabel>AI</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Angilija</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Angilja</skos:altLabel>
+	<skos:altLabel xml:lang="es">Anguila</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Anguila</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Anguila</skos:altLabel>
+	<skos:altLabel xml:lang="id">Anguilla</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Anguilla</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Anguilla</skos:altLabel>
+	<skos:altLabel xml:lang="da">Anguilla</skos:altLabel>
+	<skos:altLabel xml:lang="de">Anguilla</skos:altLabel>
+	<skos:altLabel xml:lang="en">Anguilla</skos:altLabel>
+	<skos:altLabel xml:lang="et">Anguilla</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Anguilla</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Anguilla</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Anguilla</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Anguilla</skos:altLabel>
+	<skos:altLabel xml:lang="it">Anguilla</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Anguilla</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Anguilla</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Anguilla</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Anguilla</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Anguilla</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Anguilla</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Anguilla</skos:altLabel>
+	<skos:altLabel xml:lang="se">Anguilla</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Anguilla</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Anguilla</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Anguilla</skos:altLabel>
+	<skos:altLabel>Anguilla</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Angvila</skos:altLabel>
+	<skos:altLabel xml:lang="is">Angvilla</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Angvilo</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Angwilla</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ανγκουίλα</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Ангвила</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Ангвила</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Ангуила</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ангуилла</skos:altLabel>
+	<skos:altLabel xml:lang="be">Ангуілля</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Анґілья</skos:altLabel>
+	<skos:altLabel xml:lang="he">אנגווילה</skos:altLabel>
+	<skos:altLabel xml:lang="fa">آنگیل</skos:altLabel>
+	<skos:altLabel xml:lang="ar">أنجويلا</skos:altLabel>
+	<skos:altLabel xml:lang="hi">एंगुइला</skos:altLabel>
+	<skos:altLabel xml:lang="bn">আংগুইলা</skos:altLabel>
+	<skos:altLabel xml:lang="th">อันกิล่า</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ອັນກິລາ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཨང་གུའི་ལ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ანტიგუა</skos:altLabel>
+	<skos:altLabel xml:lang="am">አንጉኢላ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">アンギラ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">安圭拉岛</skos:altLabel>
+	<skos:altLabel xml:lang="ko">안길라</skos:altLabel>
+	<skos:prefLabel>Anguilla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3573512/">
+	<europeana:country>AI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.21667</wgs:lat>
+	<wgs:long>-63.05</wgs:long>
+	<skos:altLabel xml:lang="lt">Angilija</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Angiļa</skos:altLabel>
+	<skos:altLabel xml:lang="es">Anguila</skos:altLabel>
+	<skos:altLabel xml:lang="io">Anguila</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Anguila - Anguilla</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Anguilla</skos:altLabel>
+	<skos:altLabel xml:lang="id">Anguilla</skos:altLabel>
+	<skos:altLabel xml:lang="de">Anguilla</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Anguilla</skos:altLabel>
+	<skos:altLabel xml:lang="et">Anguilla</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Anguilla</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Anguilla</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Anguilla</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Anguilla</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Anguilla</skos:altLabel>
+	<skos:altLabel xml:lang="en">Anguilla</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Anguilla</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Anguilla</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Anguilla</skos:altLabel>
+	<skos:altLabel xml:lang="it">Anguilla</skos:altLabel>
+	<skos:altLabel xml:lang="no">Anguilla</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Anguilla</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Anguilla</skos:altLabel>
+	<skos:altLabel xml:lang="da">Anguilla</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Anguilla</skos:altLabel>
+	<skos:altLabel>Anguilla</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Angvila</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Angvila</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Angvila</skos:altLabel>
+	<skos:altLabel xml:lang="is">Angvilla</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Angvilo</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Angwilla</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ανγκουίλα</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Ангвила</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ангилья</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Ангиља</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Ангілья</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Анґілья</skos:altLabel>
+	<skos:altLabel xml:lang="he">אנגווילה</skos:altLabel>
+	<skos:altLabel xml:lang="th">แองกวิลลา</skos:altLabel>
+	<skos:altLabel xml:lang="ja">アンギラ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">安圭拉</skos:altLabel>
+	<skos:altLabel xml:lang="ko">앵귈라</skos:altLabel>
+	<skos:prefLabel>Anguilla</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 16 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

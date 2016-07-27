@@ -1,0 +1,658 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: OC_UM
+Description: Selected fields pulled from Geonames about UM done on Mon May 23 21:17:20 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041682/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.31028</wgs:lat>
+	<wgs:long>166.62667</wgs:long>
+	<skos:altLabel xml:lang="ca">Cap Peale</skos:altLabel>
+	<skos:prefLabel>Peale Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041685/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/5854968/"/>
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>19.31</wgs:lat>
+	<wgs:long>166.6</wgs:long>
+	<skos:altLabel xml:lang="pt">Ilha Wake</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Illa Wake</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Illes Wake</skos:altLabel>
+	<skos:altLabel xml:lang="es">Isla Wake</skos:altLabel>
+	<skos:altLabel xml:lang="it">Isola di Wake</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Otok Wake</skos:altLabel>
+	<skos:altLabel xml:lang="id">Pulau Wake</skos:altLabel>
+	<skos:altLabel xml:lang="is">Varsímaeyja</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Veika sala</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Vejkinsulo</skos:altLabel>
+	<skos:altLabel xml:lang="de">Wake</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Wake</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Wake</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Wake</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Wake</skos:altLabel>
+	<skos:altLabel xml:lang="et">Wake</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Wake Adası</skos:altLabel>
+	<skos:altLabel xml:lang="en">Wake Island</skos:altLabel>
+	<skos:altLabel xml:lang="da">Wake Island</skos:altLabel>
+	<skos:altLabel xml:lang="no">Wake Island</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Wake-eiland</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Wake-sziget</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Wakensaari</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Île Wake</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Атолл Уэйк</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Уейк</skos:altLabel>
+	<skos:altLabel xml:lang="he">וייק</skos:altLabel>
+	<skos:altLabel xml:lang="th">เกาะเวก</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ウェーク島</skos:altLabel>
+	<skos:altLabel xml:lang="zh">威克島</skos:altLabel>
+	<skos:altLabel xml:lang="ko">웨이크 섬</skos:altLabel>
+	<skos:prefLabel>Wake Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4041688/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.29528</wgs:lat>
+	<wgs:long>166.60889</wgs:long>
+	<skos:altLabel xml:lang="ca">Illa Wilkes</skos:altLabel>
+	<skos:prefLabel>Wilkes Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4743747/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.8</wgs:lat>
+	<wgs:long>-79.85</wgs:long>
+	<skos:prefLabel>Serranilla Beacon Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4743748/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.85832</wgs:lat>
+	<wgs:long>-79.74152</wgs:long>
+	<skos:prefLabel>Serranilla East Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4743752/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>15.8533</wgs:lat>
+	<wgs:long>-78.633</wgs:long>
+	<skos:prefLabel>Bajo Nuevo Low Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4743755/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/5854968/"/>
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>18.403</wgs:lat>
+	<wgs:long>-75.012</wgs:long>
+	<skos:altLabel xml:lang="ca">Illa Navassa</skos:altLabel>
+	<skos:altLabel xml:lang="es">Isla Navassa</skos:altLabel>
+	<skos:altLabel xml:lang="it">Isola Navassa</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Navasa Insulo</skos:altLabel>
+	<skos:altLabel xml:lang="de">Navassa</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Navassa</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Navassa</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Navassa</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Navassa</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Navassa</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Navassa</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Navassa Adası</skos:altLabel>
+	<skos:altLabel xml:lang="en">Navassa Island</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Navassa-sziget</skos:altLabel>
+	<skos:altLabel xml:lang="no">Navassa-øya</skos:altLabel>
+	<skos:altLabel xml:lang="is">Navassaeyja</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Navassaön</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Otok Navassa</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Otok Navassa</skos:altLabel>
+	<skos:altLabel xml:lang="id">Pulau Navassa</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Ynys Navassa</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Île de Navassa</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Наваса</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Навасса</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Остров Навасса</skos:altLabel>
+	<skos:altLabel xml:lang="he">נבאסה</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ナヴァッサ島</skos:altLabel>
+	<skos:altLabel xml:lang="zh">納弗沙島</skos:altLabel>
+	<skos:altLabel xml:lang="ko">나바사 섬</skos:altLabel>
+	<skos:prefLabel>Navassa Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4743759/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>15.84907</wgs:lat>
+	<wgs:long>-79.85962</wgs:long>
+	<skos:prefLabel>Serranilla Bank</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4743779/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>15.83982</wgs:lat>
+	<wgs:long>-78.67035</wgs:long>
+	<skos:altLabel>Petrel Islands</skos:altLabel>
+	<skos:prefLabel>Bajo Nuevo Bank</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5854904/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLF"/>
+	<wgs:lat>16.76193</wgs:lat>
+	<wgs:long>-169.51664</wgs:long>
+	<skos:altLabel>North Island</skos:altLabel>
+	<skos:prefLabel>Akau Artificial Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5854905/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>5.89145</wgs:lat>
+	<wgs:long>-162.06779</wgs:long>
+	<skos:altLabel xml:lang="ca">Illa Aviation</skos:altLabel>
+	<skos:prefLabel>Aviation Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5854906/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.19472</wgs:lat>
+	<wgs:long>-176.47944</wgs:long>
+	<skos:prefLabel>Baker Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5854907/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/5854968/"/>
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>0.19472</wgs:lat>
+	<wgs:long>-176.47944</wgs:long>
+	<skos:prefLabel>Baker Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5854909/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.87845</wgs:lat>
+	<wgs:long>-162.04493</wgs:long>
+	<skos:altLabel xml:lang="ca">Illa Barren</skos:altLabel>
+	<skos:prefLabel>Barren Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5854910/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>5.87133</wgs:lat>
+	<wgs:long>-162.06096</wgs:long>
+	<skos:altLabel xml:lang="ca">Illa Bird</skos:altLabel>
+	<skos:prefLabel>Bird Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5854912/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.89005</wgs:lat>
+	<wgs:long>-162.07905</wgs:long>
+	<skos:altLabel xml:lang="ca">Illa Cooper</skos:altLabel>
+	<skos:prefLabel>Cooper Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5854914/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>28.21608</wgs:lat>
+	<wgs:long>-177.3274</wgs:long>
+	<skos:prefLabel>Eastern Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5854915/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>5.88241</wgs:lat>
+	<wgs:long>-162.05485</wgs:long>
+	<skos:altLabel xml:lang="ca">Illa Eastern</skos:altLabel>
+	<skos:prefLabel>Eastern Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5854916/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>5.87349</wgs:lat>
+	<wgs:long>-162.07068</wgs:long>
+	<skos:altLabel xml:lang="ca">Illa Engineer</skos:altLabel>
+	<skos:prefLabel>Engineer Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5854918/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLF"/>
+	<wgs:lat>16.7554</wgs:lat>
+	<wgs:long>-169.48651</wgs:long>
+	<skos:altLabel>East Island</skos:altLabel>
+	<skos:prefLabel>Hikina Artificial Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5854919/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>5.87195</wgs:lat>
+	<wgs:long>-162.06437</wgs:long>
+	<skos:altLabel xml:lang="ca">Illa Holei</skos:altLabel>
+	<skos:prefLabel>Holei Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5854920/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.873</wgs:lat>
+	<wgs:long>-162.09711</wgs:long>
+	<skos:altLabel xml:lang="ca">Illa Home</skos:altLabel>
+	<skos:prefLabel>Home Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5854921/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.8133</wgs:lat>
+	<wgs:long>-176.61801</wgs:long>
+	<skos:altLabel>Worth Island</skos:altLabel>
+	<skos:prefLabel>Howland Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5854922/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/5854968/"/>
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>0.81021</wgs:lat>
+	<wgs:long>-176.61733</wgs:long>
+	<skos:prefLabel>Howland Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5854925/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.37473</wgs:lat>
+	<wgs:long>-160.00051</wgs:long>
+	<skos:altLabel>Bunker Island</skos:altLabel>
+	<skos:prefLabel>Jarvis Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5854926/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/5854968/"/>
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-0.37405</wgs:lat>
+	<wgs:long>-159.99742</wgs:long>
+	<skos:prefLabel>Jarvis Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5854929/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/5854968/"/>
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>16.72</wgs:lat>
+	<wgs:long>-169.506</wgs:long>
+	<skos:prefLabel>Johnston Atoll</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5854931/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.72433</wgs:lat>
+	<wgs:long>-169.53801</wgs:long>
+	<skos:prefLabel>Johnston Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5854933/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>5.87522</wgs:lat>
+	<wgs:long>-162.08166</wgs:long>
+	<skos:altLabel xml:lang="ca">Illa Kaula</skos:altLabel>
+	<skos:prefLabel>Kaula Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5854936/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/5854968/"/>
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>6.4</wgs:lat>
+	<wgs:long>-162.4</wgs:long>
+	<skos:prefLabel>Kingman Reef</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5854938/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>5.8744</wgs:lat>
+	<wgs:long>-162.07679</wgs:long>
+	<skos:altLabel xml:lang="ca">Illa Marine</skos:altLabel>
+	<skos:prefLabel>Marine Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5854943/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/5854968/"/>
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>28.228</wgs:lat>
+	<wgs:long>-177.392</wgs:long>
+	<skos:prefLabel>Midway Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5854952/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/5854968/"/>
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>5.875</wgs:lat>
+	<wgs:long>-162.056</wgs:long>
+	<skos:prefLabel>Palmyra Atoll</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5854954/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>5.87765</wgs:lat>
+	<wgs:long>-162.05967</wgs:long>
+	<skos:altLabel xml:lang="ca">Illa Papala</skos:altLabel>
+	<skos:prefLabel>Papala Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5854955/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>5.87437</wgs:lat>
+	<wgs:long>-162.09104</wgs:long>
+	<skos:altLabel xml:lang="ca">Illa Paradise</skos:altLabel>
+	<skos:prefLabel>Paradise Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5854956/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>5.87438</wgs:lat>
+	<wgs:long>-162.05933</wgs:long>
+	<skos:altLabel xml:lang="ca">Illa Pelican</skos:altLabel>
+	<skos:prefLabel>Pelican Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5854960/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>5.88881</wgs:lat>
+	<wgs:long>-162.06065</wgs:long>
+	<skos:altLabel xml:lang="ca">Illa Quail</skos:altLabel>
+	<skos:prefLabel>Quail Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5854961/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.74525</wgs:lat>
+	<wgs:long>-169.50823</wgs:long>
+	<skos:altLabel>Agnes Island</skos:altLabel>
+	<skos:prefLabel>Sand Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5854962/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>28.21551</wgs:lat>
+	<wgs:long>-177.38178</wgs:long>
+	<skos:prefLabel>Sand Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5854963/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.87479</wgs:lat>
+	<wgs:long>-162.10621</wgs:long>
+	<skos:altLabel xml:lang="ca">Illa Sand</skos:altLabel>
+	<skos:prefLabel>Sand Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5854966/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>5.89018</wgs:lat>
+	<wgs:long>-162.09608</wgs:long>
+	<skos:altLabel xml:lang="ca">Illa Strawn</skos:altLabel>
+	<skos:prefLabel>Strawn Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5854967/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>5.8743</wgs:lat>
+	<wgs:long>-162.07332</wgs:long>
+	<skos:altLabel xml:lang="ca">Illa Tananger</skos:altLabel>
+	<skos:prefLabel>Tananger Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5854968/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255151/"/>
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLD"/>
+	<wgs:lat>5.875</wgs:lat>
+	<wgs:long>-162.057</wgs:long>
+	<skos:altLabel xml:lang="lv">ASV Mazās Aizjūras salas</skos:altLabel>
+	<skos:altLabel xml:lang="et">Ameerika Ühendriikide väiksed väljaspool olevad saared</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Americké Tichooceánske ostrovy</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Amerikaanse ondergeschikte afgelegen eilanden</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Birleşik Devletler etrafındaki adalar</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Các đảo nhỏ xa trung tâm thuộc Mỹ</skos:altLabel>
+	<skos:altLabel xml:lang="da">De Mindre Amerikanske Oversøiske Øer</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Druga ameriška ozemlja v Tihem oceanu</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Estatu Batuetatik urruti dauden uharte txikiak</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Illas Menores Distantes dos EUA.</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Illes Perifèriques Menors dels EUA</skos:altLabel>
+	<skos:altLabel xml:lang="es">Islas menores alejadas de los Estados Unidos</skos:altLabel>
+	<skos:altLabel xml:lang="it">Isole minori degli Stati Uniti</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Jungtinių Valstijų smulkios atokios salos</skos:altLabel>
+	<skos:altLabel xml:lang="id">Kepulauan minor sekitar Amerika Serikat</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Mion-Oileáin Imeallacha S.A.M.</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Mân Ynysoedd Pellenig yr Unol Daleithiau</skos:altLabel>
+	<skos:altLabel xml:lang="is">Smáeyjar Bandaríkjanna</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Territórios Insulares (EUA)</skos:altLabel>
+	<skos:altLabel>UM</skos:altLabel>
+	<skos:altLabel xml:lang="cs">USA (malé ostrovy)</skos:altLabel>
+	<skos:altLabel xml:lang="de">USA, kleinere ausgelagerte Inseln</skos:altLabel>
+	<skos:altLabel xml:lang="nb">USAs mindre øyer</skos:altLabel>
+	<skos:altLabel xml:lang="nn">USAs ytre småøyer</skos:altLabel>
+	<skos:altLabel xml:lang="sv">USAs yttre öar</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Ujedinjene Države Manjih Pacifičkih Otoka</skos:altLabel>
+	<skos:altLabel xml:lang="en">United States Minor Outlying Islands</skos:altLabel>
+	<skos:altLabel xml:lang="hu">United States Minor Outlying Islands</skos:altLabel>
+	<skos:altLabel xml:lang="ms">United States Minor Outlying Islands</skos:altLabel>
+	<skos:altLabel xml:lang="mt">United States Minor Outlying Islands</skos:altLabel>
+	<skos:altLabel xml:lang="pl">United States Minor Outlying Islands</skos:altLabel>
+	<skos:altLabel xml:lang="ro">United States Minor Outlying Islands</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Usonaj malgrandaj insuloj</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Yhdysvaltain Tyynenmeren pienet erillissaaret</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Îles mineures éloignées des États-Unis</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μικρά απομακρυσμένα νησιά Ηνωμένων Πολιτειών</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Малки отдалечени острови на Съединените Щати</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Малі Віддалені Острови Сполучених Штатів</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Мања спољна острва САД-а</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Мелкие отдаленные острова США</skos:altLabel>
+	<skos:altLabel xml:lang="he">איים קטנים מחוץ לארה"ב</skos:altLabel>
+	<skos:altLabel xml:lang="fa">جزایر کوچک دورافتادهٔ ایالات متحده</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جزر الولايات المتحدة البعيدة الصغيرة</skos:altLabel>
+	<skos:altLabel xml:lang="ur">ریاست ہائے متحدہ اور بیرونی جزائر</skos:altLabel>
+	<skos:altLabel xml:lang="hi">युनाइटेड स्टेट्स माइनर आउटलाइंग आइलैंड्स</skos:altLabel>
+	<skos:altLabel xml:lang="bn">যুক্তরাষ্ট্রের ক্ষুদ্র ও পার্শ্ববর্তী দ্বীপপুঞ্জ</skos:altLabel>
+	<skos:altLabel xml:lang="th">เกาะไร้คนอาศัยโพ้นทะเลของสหรัฐอเมริกา</skos:altLabel>
+	<skos:altLabel xml:lang="ka">შეერთებული შტატების მცირე დაშორებული კუნძულები</skos:altLabel>
+	<skos:altLabel xml:lang="am">የአሜሪካ ራቅ ያሉ አናሳ ደሴቶች</skos:altLabel>
+	<skos:altLabel xml:lang="ja">アメリカ合衆国外諸島</skos:altLabel>
+	<skos:altLabel xml:lang="zh">美属外岛</skos:altLabel>
+	<skos:altLabel xml:lang="ko">미합중국의 군도</skos:altLabel>
+	<skos:prefLabel>United States Minor Outlying Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5854972/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>5.88617</wgs:lat>
+	<wgs:long>-162.05785</wgs:long>
+	<skos:altLabel xml:lang="ca">Illa Whippoorwill</skos:altLabel>
+	<skos:prefLabel>Whippoorwill Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576047/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>0.19758</wgs:lat>
+	<wgs:long>-176.48206</wgs:long>
+	<skos:prefLabel>US Army Airforce Baker Air Station WW2</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576053/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>0.7994</wgs:lat>
+	<wgs:long>-176.61419</wgs:long>
+	<skos:prefLabel>Prehistoric Polynesian Settlement</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576274/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLF"/>
+	<wgs:lat>16.74488</wgs:lat>
+	<wgs:long>-169.51492</wgs:long>
+	<skos:prefLabel>Artificial Sand Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576305/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLET"/>
+	<wgs:lat>6.40301</wgs:lat>
+	<wgs:long>-162.35008</wgs:long>
+	<skos:prefLabel>Emerged Reef String</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576306/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLET"/>
+	<wgs:lat>6.38439</wgs:lat>
+	<wgs:long>-162.38162</wgs:long>
+	<skos:prefLabel>Short Emerged Reef String</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576395/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.403</wgs:lat>
+	<wgs:long>-75.013</wgs:long>
+	<skos:prefLabel>Navassa Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576486/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>5.89016</wgs:lat>
+	<wgs:long>-162.08817</wgs:long>
+	<skos:prefLabel>Menge Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576506/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>19.31</wgs:lat>
+	<wgs:long>166.602</wgs:long>
+	<skos:prefLabel>US National Historic Landmark District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576516/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>28.228</wgs:lat>
+	<wgs:long>-177.39</wgs:long>
+	<skos:prefLabel>US National Historic Landmark District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576578/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.27667</wgs:lat>
+	<wgs:long>166.6453</wgs:long>
+	<skos:prefLabel>Wake Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576588/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>19.29237</wgs:lat>
+	<wgs:long>166.61456</wgs:long>
+	<skos:prefLabel>JP-Murder of US Civilian POWs Memorial</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576599/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>19.29571</wgs:lat>
+	<wgs:long>166.60408</wgs:long>
+	<skos:prefLabel>Japanese Wilkes Landing Site WW2</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576600/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>19.27927</wgs:lat>
+	<wgs:long>166.63526</wgs:long>
+	<skos:prefLabel>Japanese Wake Landing Sites WW2</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576668/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLET"/>
+	<wgs:lat>28.20617</wgs:lat>
+	<wgs:long>-177.34956</wgs:long>
+	<skos:prefLabel>Spit Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576703/">
+	<europeana:country>UM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>28.2123</wgs:lat>
+	<wgs:long>-177.37284</wgs:long>
+	<skos:prefLabel>Battle of Midway Memorial</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 58 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

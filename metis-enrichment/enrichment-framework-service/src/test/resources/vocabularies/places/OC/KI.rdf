@@ -1,0 +1,1821 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: OC_KI
+Description: Selected fields pulled from Geonames about KI done on Mon May 23 21:17:13 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110024/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.463</wgs:lat>
+	<wgs:long>175.04439</wgs:long>
+	<skos:prefLabel>Nikutiri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110027/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.52962</wgs:lat>
+	<wgs:long>175.06471</wgs:long>
+	<skos:altLabel>Umai Ataei</skos:altLabel>
+	<skos:altLabel>Umaia Ataei</skos:altLabel>
+	<skos:prefLabel>Umaia Ataei</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110031/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>3.23015</wgs:lat>
+	<wgs:long>172.9237</wgs:long>
+	<skos:altLabel>Ubantakoto</skos:altLabel>
+	<skos:altLabel>Ubrantakoto Island</skos:altLabel>
+	<skos:altLabel>Upalhaku</skos:altLabel>
+	<skos:prefLabel>Ubantakoto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110032/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>3.13827</wgs:lat>
+	<wgs:long>172.71158</wgs:long>
+	<skos:altLabel>Nakudi Island</skos:altLabel>
+	<skos:altLabel>Takurere Island</skos:altLabel>
+	<skos:altLabel>Tukerere</skos:altLabel>
+	<skos:altLabel>Tukerure</skos:altLabel>
+	<skos:altLabel>Tukurere</skos:altLabel>
+	<skos:prefLabel>Tikurere</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110036/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.43927</wgs:lat>
+	<wgs:long>175.01555</wgs:long>
+	<skos:prefLabel>Tewai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110038/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.42988</wgs:lat>
+	<wgs:long>174.99551</wgs:long>
+	<skos:prefLabel>Tetongo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110048/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.797</wgs:lat>
+	<wgs:long>175.51981</wgs:long>
+	<skos:prefLabel>Temuah Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110049/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.80524</wgs:lat>
+	<wgs:long>174.45662</wgs:long>
+	<skos:altLabel>Temoto Island</skos:altLabel>
+	<skos:altLabel>Temotu</skos:altLabel>
+	<skos:prefLabel>Temotu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110057/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.79542</wgs:lat>
+	<wgs:long>172.92085</wgs:long>
+	<skos:altLabel>Teirio</skos:altLabel>
+	<skos:altLabel>Terio</skos:altLabel>
+	<skos:prefLabel>Teirio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110066/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.95371</wgs:lat>
+	<wgs:long>172.89845</wgs:long>
+	<skos:prefLabel>Taete</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110072/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.45279</wgs:lat>
+	<wgs:long>175.0353</wgs:long>
+	<skos:altLabel>Taungeaka</skos:altLabel>
+	<skos:altLabel>Tongiaka</skos:altLabel>
+	<skos:prefLabel>Taungeaka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110073/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.23346</wgs:lat>
+	<wgs:long>174.78338</wgs:long>
+	<skos:prefLabel>Tauma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110081/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.80832</wgs:lat>
+	<wgs:long>175.5538</wgs:long>
+	<skos:prefLabel>Tanyah Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110107/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.41928</wgs:lat>
+	<wgs:long>173.10702</wgs:long>
+	<skos:altLabel>Tabiteuea</skos:altLabel>
+	<skos:altLabel>Tabiteues</skos:altLabel>
+	<skos:prefLabel>Tabiteuea</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110117/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-0.79099</wgs:lat>
+	<wgs:long>175.29785</wgs:long>
+	<skos:altLabel>Kingsmill Group</skos:altLabel>
+	<skos:altLabel>Kingsmills Islands</skos:altLabel>
+	<skos:altLabel>Southern Gilbert Islands</skos:altLabel>
+	<skos:prefLabel>Southern Gilbert Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110123/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>-0.63496</wgs:lat>
+	<wgs:long>174.42204</wgs:long>
+	<skos:prefLabel>Rotuma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110128/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.96667</wgs:lat>
+	<wgs:long>172.86667</wgs:long>
+	<skos:altLabel>Ribona</skos:altLabel>
+	<skos:altLabel>Ribono</skos:altLabel>
+	<skos:prefLabel>Ribono</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110137/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.26615</wgs:lat>
+	<wgs:long>172.69688</wgs:long>
+	<skos:prefLabel>Bikatieta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110140/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>3.21271</wgs:lat>
+	<wgs:long>172.70089</wgs:long>
+	<skos:altLabel>Oteariki</skos:altLabel>
+	<skos:altLabel>Ourriki Island</skos:altLabel>
+	<skos:prefLabel>Oteariki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110143/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.29477</wgs:lat>
+	<wgs:long>172.96815</wgs:long>
+	<skos:altLabel>Honai Island</skos:altLabel>
+	<skos:altLabel>Honni</skos:altLabel>
+	<skos:altLabel>Onne</skos:altLabel>
+	<skos:prefLabel>Onne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110144/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>0.2544</wgs:lat>
+	<wgs:long>173.39996</wgs:long>
+	<skos:prefLabel>Oneeke</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110146/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.85761</wgs:lat>
+	<wgs:long>172.88618</wgs:long>
+	<skos:prefLabel>Ouba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110148/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.88521</wgs:lat>
+	<wgs:long>172.81582</wgs:long>
+	<skos:prefLabel>Nuotaea</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110149/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.55068</wgs:lat>
+	<wgs:long>174.21902</wgs:long>
+	<skos:altLabel>Numatofi</skos:altLabel>
+	<skos:altLabel>Numatong</skos:altLabel>
+	<skos:prefLabel>Noumatang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110153/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>1.51611</wgs:lat>
+	<wgs:long>173.01119</wgs:long>
+	<skos:prefLabel>Notoue</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110154/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>3.31602</wgs:lat>
+	<wgs:long>173.11707</wgs:long>
+	<skos:altLabel>Northern Gilbert Islands</skos:altLabel>
+	<skos:altLabel>Northern Gilberts</skos:altLabel>
+	<skos:prefLabel>Northern Gilbert Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110161/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.21824</wgs:lat>
+	<wgs:long>172.95781</wgs:long>
+	<skos:altLabel>Nataka Island</skos:altLabel>
+	<skos:altLabel>Natata Island</skos:altLabel>
+	<skos:prefLabel>Natata</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110165/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.89555</wgs:lat>
+	<wgs:long>172.7816</wgs:long>
+	<skos:altLabel>Nanikirata</skos:altLabel>
+	<skos:altLabel>Nanikirati</skos:altLabel>
+	<skos:prefLabel>Nanikirata</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110167/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.22814</wgs:lat>
+	<wgs:long>172.9554</wgs:long>
+	<skos:altLabel>Namaka Island</skos:altLabel>
+	<skos:altLabel>Namoka Island</skos:altLabel>
+	<skos:prefLabel>Namoka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110170/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.15379</wgs:lat>
+	<wgs:long>172.71499</wgs:long>
+	<skos:altLabel>Nabuni</skos:altLabel>
+	<skos:altLabel>Napuni Island</skos:altLabel>
+	<skos:prefLabel>Nabuni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110172/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.44099</wgs:lat>
+	<wgs:long>173.08127</wgs:long>
+	<skos:prefLabel>Nabeina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110173/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>1.33015</wgs:lat>
+	<wgs:long>172.99766</wgs:long>
+	<skos:prefLabel>Naanikai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110178/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>-0.66483</wgs:lat>
+	<wgs:long>174.44984</wgs:long>
+	<skos:altLabel>Matan</skos:altLabel>
+	<skos:altLabel>Matang</skos:altLabel>
+	<skos:prefLabel>Matang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110184/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.85982</wgs:lat>
+	<wgs:long>172.88182</wgs:long>
+	<skos:prefLabel>Manra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110194/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.1147</wgs:lat>
+	<wgs:long>172.74059</wgs:long>
+	<skos:altLabel>Entrance Island</skos:altLabel>
+	<skos:altLabel>Kotabu Island</skos:altLabel>
+	<skos:prefLabel>Kotabu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110196/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>0</wgs:lat>
+	<wgs:long>174</wgs:long>
+	<skos:altLabel>Gilbert Archipelago</skos:altLabel>
+	<skos:altLabel>Gilbert Group</skos:altLabel>
+	<skos:altLabel>Gilbert Islands</skos:altLabel>
+	<skos:altLabel>Gilbert-Inseln</skos:altLabel>
+	<skos:altLabel>Kingsmill Group</skos:altLabel>
+	<skos:altLabel>Kingsmill Islands</skos:altLabel>
+	<skos:altLabel>Kiribati</skos:altLabel>
+	<skos:prefLabel>Kiribati</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110198/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.32604</wgs:lat>
+	<wgs:long>172.97708</wgs:long>
+	<skos:altLabel>Kiebu</skos:altLabel>
+	<skos:altLabel>Kuup</skos:altLabel>
+	<skos:prefLabel>Kiebu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110200/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.31053</wgs:lat>
+	<wgs:long>173.90825</wgs:long>
+	<skos:prefLabel>Kenna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110202/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.9527</wgs:lat>
+	<wgs:long>172.90296</wgs:long>
+	<skos:prefLabel>Iaia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110203/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.50182</wgs:lat>
+	<wgs:long>175.0719</wgs:long>
+	<skos:prefLabel>Katabanga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110207/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.33333</wgs:lat>
+	<wgs:long>174.78333</wgs:long>
+	<skos:altLabel>Kabuna</skos:altLabel>
+	<skos:altLabel>Kapuna</skos:altLabel>
+	<skos:altLabel>Kopuna</skos:altLabel>
+	<skos:prefLabel>Kabuna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110209/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.77342</wgs:lat>
+	<wgs:long>172.94533</wgs:long>
+	<skos:altLabel>Iku</skos:altLabel>
+	<skos:altLabel>Lone Tree Island</skos:altLabel>
+	<skos:prefLabel>Iku</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110215/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>83683</europeana:population>
+	<wgs:lat>0</wgs:lat>
+	<wgs:long>174</wgs:long>
+	<skos:altLabel xml:lang="en">Gilbert Islands</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Gilbertøyane</skos:altLabel>
+	<skos:altLabel xml:lang="no">Gilbertøyene</skos:altLabel>
+	<skos:prefLabel>Gilbert Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110219/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.85662</wgs:lat>
+	<wgs:long>172.88854</wgs:long>
+	<skos:prefLabel>Eke</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110222/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>1.36398</wgs:lat>
+	<wgs:long>173.08702</wgs:long>
+	<skos:prefLabel>Eita</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110223/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.15366</wgs:lat>
+	<wgs:long>174.71489</wgs:long>
+	<skos:prefLabel>Eanikai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110225/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.09458</wgs:lat>
+	<wgs:long>172.8276</wgs:long>
+	<skos:altLabel>Butaritari Island</skos:altLabel>
+	<skos:prefLabel>Butaritari</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110232/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>1.61289</wgs:lat>
+	<wgs:long>172.96094</wgs:long>
+	<skos:altLabel>Buariki</skos:altLabel>
+	<skos:prefLabel>Buariki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110233/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.4817</wgs:lat>
+	<wgs:long>175.07478</wgs:long>
+	<skos:prefLabel>Nuguti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110236/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>1.36578</wgs:lat>
+	<wgs:long>173.1562</wgs:long>
+	<skos:altLabel>Ella Island</skos:altLabel>
+	<skos:prefLabel>Bonriki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110243/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.38601</wgs:lat>
+	<wgs:long>172.99043</wgs:long>
+	<skos:altLabel>Bikeman Island</skos:altLabel>
+	<skos:prefLabel>Bikeman Bank</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110244/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.34332</wgs:lat>
+	<wgs:long>173.8465</wgs:long>
+	<skos:altLabel>Bike Island</skos:altLabel>
+	<skos:altLabel>Entrance Island</skos:altLabel>
+	<skos:prefLabel>Bike</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110246/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.26748</wgs:lat>
+	<wgs:long>172.68409</wgs:long>
+	<skos:prefLabel>Bikati</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110248/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12509</europeana:population>
+	<wgs:lat>1.35797</wgs:lat>
+	<wgs:long>172.92105</wgs:long>
+	<skos:prefLabel>Betio Village</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110249/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>1.35797</wgs:lat>
+	<wgs:long>172.92079</wgs:long>
+	<skos:altLabel>Betino Island</skos:altLabel>
+	<skos:altLabel>Betio</skos:altLabel>
+	<skos:altLabel>Bititu</skos:altLabel>
+	<skos:altLabel>Bitutu</skos:altLabel>
+	<skos:prefLabel>Betio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110255/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.35643</wgs:lat>
+	<wgs:long>174.87634</wgs:long>
+	<skos:altLabel>Bangai</skos:altLabel>
+	<skos:altLabel>Pangai</skos:altLabel>
+	<skos:prefLabel>Bangai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110256/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.85682</wgs:lat>
+	<wgs:long>169.53548</wgs:long>
+	<skos:altLabel>Baanopa</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Banaba</skos:altLabel>
+	<skos:altLabel xml:lang="de">Banaba</skos:altLabel>
+	<skos:altLabel xml:lang="es">Banaba</skos:altLabel>
+	<skos:altLabel xml:lang="et">Banaba</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Banaba</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Banaba</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Banaba</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Banaba</skos:altLabel>
+	<skos:altLabel xml:lang="en">Banaba Island</skos:altLabel>
+	<skos:altLabel>Bonabe</skos:altLabel>
+	<skos:altLabel>Ocean Island</skos:altLabel>
+	<skos:altLabel>Paanopa Island</skos:altLabel>
+	<skos:altLabel>Panopea</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Банаба</skos:altLabel>
+	<skos:altLabel xml:lang="he">בנבה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بانابا</skos:altLabel>
+	<skos:prefLabel>Banaba Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110257/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>40311</europeana:population>
+	<wgs:lat>1.3278</wgs:lat>
+	<wgs:long>172.97696</wgs:long>
+	<skos:altLabel xml:lang="en">South Tarawa</skos:altLabel>
+	<skos:altLabel xml:lang="fi">South Tarawa</skos:altLabel>
+	<skos:altLabel xml:lang="da">South Tarawa</skos:altLabel>
+	<skos:altLabel xml:lang="ro">South Tarawa</skos:altLabel>
+	<skos:altLabel>Tarawa</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tarawa</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Tarawa-Sud</skos:altLabel>
+	<skos:altLabel xml:lang="it">Tarawa-Sud</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Tarawa-Sul</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Zuid-Tarawa</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Байрики</skos:altLabel>
+	<skos:altLabel xml:lang="he">דרום טאראווה</skos:altLabel>
+	<skos:altLabel xml:lang="ko">남 타라와</skos:altLabel>
+	<skos:prefLabel>Tarawa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110258/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>1.32926</wgs:lat>
+	<wgs:long>172.97495</wgs:long>
+	<skos:prefLabel>Bairiki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110261/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>-0.64766</wgs:lat>
+	<wgs:long>174.4404</wgs:long>
+	<skos:prefLabel>Autukia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110269/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.46674</wgs:lat>
+	<wgs:long>175.04843</wgs:long>
+	<skos:prefLabel>Aranuka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110271/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.43554</wgs:lat>
+	<wgs:long>175.00422</wgs:long>
+	<skos:prefLabel>Arakeaka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110279/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.3874</wgs:lat>
+	<wgs:long>174.90552</wgs:long>
+	<skos:prefLabel>Aiwa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110281/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.38778</wgs:lat>
+	<wgs:long>173.77058</wgs:long>
+	<skos:prefLabel>Abatiku</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110283/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.40534</wgs:lat>
+	<wgs:long>173.11801</wgs:long>
+	<skos:prefLabel>Abatao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110286/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>1.49968</wgs:lat>
+	<wgs:long>173.01673</wgs:long>
+	<skos:prefLabel>Abaokoro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030880/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>3.90168</wgs:lat>
+	<wgs:long>-159.32339</wgs:long>
+	<skos:prefLabel>Vai-tepu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030881/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.99786</wgs:lat>
+	<wgs:long>-157.44979</wgs:long>
+	<skos:prefLabel>Motu Upou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030882/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.93082</wgs:lat>
+	<wgs:long>-157.41932</wgs:long>
+	<skos:altLabel>Motu Tuba</skos:altLabel>
+	<skos:altLabel>Tuba Island</skos:altLabel>
+	<skos:prefLabel>Motu Tuba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030887/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.82399</wgs:lat>
+	<wgs:long>-159.27073</wgs:long>
+	<skos:prefLabel>Te Nupa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030889/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>3.93096</wgs:lat>
+	<wgs:long>-159.35334</wgs:long>
+	<skos:prefLabel>Tawata</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030890/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>3.91743</wgs:lat>
+	<wgs:long>-159.3239</wgs:long>
+	<skos:prefLabel>Ponota</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030894/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.97153</wgs:lat>
+	<wgs:long>-157.43151</wgs:long>
+	<skos:prefLabel>Motu Tabu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030895/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.63632</wgs:lat>
+	<wgs:long>-155.89531</wgs:long>
+	<skos:altLabel>Barren Island</skos:altLabel>
+	<skos:altLabel>Hero Island</skos:altLabel>
+	<skos:altLabel>Starve Island</skos:altLabel>
+	<skos:altLabel>Volunteer Island</skos:altLabel>
+	<skos:prefLabel>Starbuck Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030896/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.81163</wgs:lat>
+	<wgs:long>-171.71245</wgs:long>
+	<skos:prefLabel>Spam Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030909/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-9.98373</wgs:lat>
+	<wgs:long>-150.21216</wgs:long>
+	<skos:prefLabel>Pig Islet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030911/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-4</wgs:lat>
+	<wgs:long>-172</wgs:long>
+	<skos:altLabel xml:lang="nn">Føniksøyane</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Føniksøyene</skos:altLabel>
+	<skos:altLabel>Motu Lakau</skos:altLabel>
+	<skos:altLabel>Motu Lavaki</skos:altLabel>
+	<skos:altLabel>Phoenix Group</skos:altLabel>
+	<skos:altLabel>Phoenix Islands</skos:altLabel>
+	<skos:prefLabel>Phoenix Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030925/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-9.91407</wgs:lat>
+	<wgs:long>-150.20319</wgs:long>
+	<skos:prefLabel>Nake Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030937/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-9.94607</wgs:lat>
+	<wgs:long>-150.19838</wgs:long>
+	<skos:prefLabel>Long Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030940/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>8809</europeana:population>
+	<wgs:lat>0</wgs:lat>
+	<wgs:long>-157</wgs:long>
+	<skos:altLabel xml:lang="en">Line Islands</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Lineøyane</skos:altLabel>
+	<skos:altLabel xml:lang="no">Linjeøyene</skos:altLabel>
+	<skos:prefLabel>Line Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030941/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>0</wgs:lat>
+	<wgs:long>-157</wgs:long>
+	<skos:altLabel>Equatorial Islands</skos:altLabel>
+	<skos:altLabel xml:lang="en">Line Islands</skos:altLabel>
+	<skos:altLabel>Line Islands</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Lineøyane</skos:altLabel>
+	<skos:altLabel xml:lang="no">Linjeøyene</skos:altLabel>
+	<skos:prefLabel>Line Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030945/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255151/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>92533</europeana:population>
+	<wgs:lat>1.421</wgs:lat>
+	<wgs:long>172.984</wgs:long>
+	<skos:altLabel xml:lang="ga">Cireabaití</skos:altLabel>
+	<skos:altLabel>Gilbert Islands</skos:altLabel>
+	<skos:altLabel>KI</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Karibati</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ki-ri-ba-ti</skos:altLabel>
+	<skos:altLabel xml:lang="to">Kilipasi</skos:altLabel>
+	<skos:altLabel>Kiribasi</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Kiribasuäns</skos:altLabel>
+	<skos:altLabel xml:lang="na">Kiribat</skos:altLabel>
+	<skos:altLabel xml:lang="id">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="es">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="da">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="et">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="it">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="an">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="no">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="af">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="io">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="la">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="se">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="uz">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Kiribatis</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Kiribato</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Kiribès</skos:altLabel>
+	<skos:altLabel xml:lang="is">Kíribatí</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Qiribati</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Quiribati</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Quiribati - Kiribati</skos:altLabel>
+	<skos:altLabel>Republic of Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="el">Κιριμπάτι</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Кирибати</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Кирибати</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кирибати</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Кирибати</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Кірибаті</skos:altLabel>
+	<skos:altLabel xml:lang="be">Кірыбаці</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Кірібаті</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Կիրիբատի</skos:altLabel>
+	<skos:altLabel xml:lang="he">קיריבאטי</skos:altLabel>
+	<skos:altLabel xml:lang="he">קיריבטי</skos:altLabel>
+	<skos:altLabel xml:lang="ar">كيريباتي</skos:altLabel>
+	<skos:altLabel xml:lang="ar">كيريباس</skos:altLabel>
+	<skos:altLabel xml:lang="fa">کریباتی</skos:altLabel>
+	<skos:altLabel xml:lang="ur">کِرباتی</skos:altLabel>
+	<skos:altLabel xml:lang="fa">کیریباتی</skos:altLabel>
+	<skos:altLabel xml:lang="ps">کېريباتي</skos:altLabel>
+	<skos:altLabel xml:lang="mr">किरिबाटी</skos:altLabel>
+	<skos:altLabel xml:lang="sa">किरिबाटी</skos:altLabel>
+	<skos:altLabel xml:lang="hi">किरिबाती</skos:altLabel>
+	<skos:altLabel xml:lang="bn">কিরিবাতি</skos:altLabel>
+	<skos:altLabel xml:lang="bn">কিরিবাস</skos:altLabel>
+	<skos:altLabel xml:lang="ta">கிரிபடி</skos:altLabel>
+	<skos:altLabel xml:lang="ml">കിരിബാത്തി</skos:altLabel>
+	<skos:altLabel xml:lang="ml">കിരീബാസ്</skos:altLabel>
+	<skos:altLabel xml:lang="th">คิริบาส</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศคิริบาส</skos:altLabel>
+	<skos:altLabel xml:lang="th">สาธารณรัฐคิริบาส</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ຄີລິບາດ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཀི་རི་བཱ་ཏི།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">კირიბატი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ኪሪባቲ</skos:altLabel>
+	<skos:altLabel xml:lang="km">គិរិបាទី</skos:altLabel>
+	<skos:altLabel xml:lang="ja">キリバス</skos:altLabel>
+	<skos:altLabel xml:lang="ja">キリバス共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">基里巴斯</skos:altLabel>
+	<skos:altLabel xml:lang="ko">키리바시</skos:altLabel>
+	<skos:altLabel xml:lang="ko">키리바티</skos:altLabel>
+	<skos:prefLabel>Republic of Kiribati</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030956/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.9563</wgs:lat>
+	<wgs:long>-157.48168</wgs:long>
+	<skos:prefLabel>Cook Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030965/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-9.9779</wgs:lat>
+	<wgs:long>-150.20894</wgs:long>
+	<skos:prefLabel>Brothers Islet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030969/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-9.97358</wgs:lat>
+	<wgs:long>-150.21727</wgs:long>
+	<skos:prefLabel>Bird Islet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030973/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-9.98912</wgs:lat>
+	<wgs:long>-150.21583</wgs:long>
+	<skos:prefLabel>Arundel Islet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4033022/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-10.00621</wgs:lat>
+	<wgs:long>-150.22679</wgs:long>
+	<skos:prefLabel>South Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521379/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>41</europeana:population>
+	<wgs:lat>-3.99963</wgs:lat>
+	<wgs:long>-172.00221</wgs:long>
+	<skos:prefLabel>Phoenix Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521489/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>0.21423</wgs:lat>
+	<wgs:long>173.42588</wgs:long>
+	<skos:prefLabel>Kuria</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521527/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-9.96412</wgs:lat>
+	<wgs:long>-150.20057</wgs:long>
+	<skos:prefLabel>Windward</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521565/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-9.95253</wgs:lat>
+	<wgs:long>-150.21177</wgs:long>
+	<skos:prefLabel>Motu Mannikiba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521567/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-9.994</wgs:lat>
+	<wgs:long>-150.21941</wgs:long>
+	<skos:prefLabel>Tridacna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521573/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-9.99181</wgs:lat>
+	<wgs:long>-150.22934</wgs:long>
+	<skos:prefLabel>Motu Ana-Ana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521576/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>-9.91375</wgs:lat>
+	<wgs:long>-150.20585</wgs:long>
+	<skos:prefLabel>Prehistoric Marae by Polynesians</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521581/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2110215/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>5502</europeana:population>
+	<wgs:lat>1.85293</wgs:lat>
+	<wgs:long>172.94369</wgs:long>
+	<skos:prefLabel>Abaiang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521582/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2110215/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>3404</europeana:population>
+	<wgs:lat>0.4</wgs:lat>
+	<wgs:long>173.86667</wgs:long>
+	<skos:prefLabel>Abemama</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521583/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2110215/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>1158</europeana:population>
+	<wgs:lat>0.16428</wgs:lat>
+	<wgs:long>173.60579</wgs:long>
+	<skos:prefLabel>Aranuka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521584/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2110215/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>1256</europeana:population>
+	<wgs:lat>-2.63399</wgs:lat>
+	<wgs:long>176.82409</wgs:long>
+	<skos:prefLabel>Arorae</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521585/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2110215/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>301</europeana:population>
+	<wgs:lat>-0.85682</wgs:lat>
+	<wgs:long>169.53548</wgs:long>
+	<skos:prefLabel>Banaba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521586/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2110215/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>2169</europeana:population>
+	<wgs:lat>-1.32957</wgs:lat>
+	<wgs:long>175.98072</wgs:long>
+	<skos:prefLabel>Beru</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521587/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/7521379/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-3.58333</wgs:lat>
+	<wgs:long>-171.51667</wgs:long>
+	<skos:prefLabel>Birnie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521588/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2110215/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>3280</europeana:population>
+	<wgs:lat>3.1616</wgs:lat>
+	<wgs:long>172.79739</wgs:long>
+	<skos:prefLabel>Butaritari</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521589/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030940/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-9.95871</wgs:lat>
+	<wgs:long>-150.20748</wgs:long>
+	<skos:prefLabel>Caroline</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521590/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/7521379/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-3.13333</wgs:lat>
+	<wgs:long>-171.08333</wgs:long>
+	<skos:prefLabel>Enderbury</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521591/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030940/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-11.43149</wgs:lat>
+	<wgs:long>-151.81852</wgs:long>
+	<skos:prefLabel>Flint</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521592/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/7521379/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>41</europeana:population>
+	<wgs:lat>-2.80897</wgs:lat>
+	<wgs:long>-171.67477</wgs:long>
+	<skos:prefLabel>Kanton</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521593/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030940/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>5115</europeana:population>
+	<wgs:lat>1.86667</wgs:lat>
+	<wgs:long>-157.41667</wgs:long>
+	<skos:prefLabel>Kiritimati</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521594/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2110215/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>1082</europeana:population>
+	<wgs:lat>0.26522</wgs:lat>
+	<wgs:long>173.38881</wgs:long>
+	<skos:prefLabel>Kuria</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521595/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2110215/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>1908</europeana:population>
+	<wgs:lat>0.91869</wgs:lat>
+	<wgs:long>172.99759</wgs:long>
+	<skos:prefLabel>Maiana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521596/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2110215/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>2385</europeana:population>
+	<wgs:lat>3.33093</wgs:lat>
+	<wgs:long>172.98265</wgs:long>
+	<skos:prefLabel>Makin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521597/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030940/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-4.01873</wgs:lat>
+	<wgs:long>-154.92954</wgs:long>
+	<skos:prefLabel>Malden</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521598/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/7521379/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-4.45561</wgs:lat>
+	<wgs:long>-171.24415</wgs:long>
+	<skos:prefLabel>Manra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521599/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2110215/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>2741</europeana:population>
+	<wgs:lat>2.01077</wgs:lat>
+	<wgs:long>173.27637</wgs:long>
+	<skos:prefLabel>Marakei</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521600/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/7521379/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-3.59562</wgs:lat>
+	<wgs:long>-174.12292</wgs:long>
+	<skos:prefLabel>McKean</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521601/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/7521379/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-4.67412</wgs:lat>
+	<wgs:long>-174.52246</wgs:long>
+	<skos:prefLabel>Nikumaroro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521602/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2110215/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>1912</europeana:population>
+	<wgs:lat>-1.36567</wgs:lat>
+	<wgs:long>176.46412</wgs:long>
+	<skos:prefLabel>Nikunau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521603/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2110215/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>3179</europeana:population>
+	<wgs:lat>-0.66667</wgs:lat>
+	<wgs:long>174.35</wgs:long>
+	<skos:prefLabel>Nonouti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521604/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2110215/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>1644</europeana:population>
+	<wgs:lat>-1.88587</wgs:lat>
+	<wgs:long>175.56393</wgs:long>
+	<skos:prefLabel>Onotoa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521605/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/7521379/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-4.51667</wgs:lat>
+	<wgs:long>-172.18333</wgs:long>
+	<skos:prefLabel>Orona</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521606/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/7521379/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-3.71667</wgs:lat>
+	<wgs:long>-170.71667</wgs:long>
+	<skos:prefLabel>Rawaki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521607/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030940/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-5.63632</wgs:lat>
+	<wgs:long>-155.89531</wgs:long>
+	<skos:prefLabel>Starbuck</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521608/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2110215/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>4898</europeana:population>
+	<wgs:lat>-1.42241</wgs:lat>
+	<wgs:long>174.89805</wgs:long>
+	<skos:prefLabel>Tabiteuea</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521609/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030940/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>2539</europeana:population>
+	<wgs:lat>3.86667</wgs:lat>
+	<wgs:long>-159.33333</wgs:long>
+	<skos:prefLabel>Tabuaeran</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521610/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2110215/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>875</europeana:population>
+	<wgs:lat>-2.50113</wgs:lat>
+	<wgs:long>175.98621</wgs:long>
+	<skos:prefLabel>Tamana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521611/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2110215/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>45989</europeana:population>
+	<wgs:lat>1.42361</wgs:lat>
+	<wgs:long>172.99192</wgs:long>
+	<skos:prefLabel>Tarawa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521612/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030940/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>1155</europeana:population>
+	<wgs:lat>4.68764</wgs:lat>
+	<wgs:long>-160.38803</wgs:long>
+	<skos:prefLabel>Teraina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521613/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030940/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-10.06318</wgs:lat>
+	<wgs:long>-152.31068</wgs:long>
+	<skos:prefLabel>Vostok</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521628/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-9.96302</wgs:lat>
+	<wgs:long>-150.21422</wgs:long>
+	<skos:prefLabel>Emerald</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521629/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-9.96691</wgs:lat>
+	<wgs:long>-150.21469</wgs:long>
+	<skos:prefLabel>Shark</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521748/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>-4.00302</wgs:lat>
+	<wgs:long>-154.96164</wgs:long>
+	<skos:prefLabel>Prehistoric Polynesian Marae</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521749/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>-4.03193</wgs:lat>
+	<wgs:long>-154.94531</wgs:long>
+	<skos:prefLabel>Prehistoric Polynesian Settlement</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521787/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>1.3808</wgs:lat>
+	<wgs:long>173.15271</wgs:long>
+	<skos:prefLabel>US Mullinix Airfield WW2</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521810/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>-2.7678</wgs:lat>
+	<wgs:long>-171.71208</wgs:long>
+	<skos:prefLabel>Canton USAAF Airbase WW2</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521867/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>3.86974</wgs:lat>
+	<wgs:long>-159.36918</wgs:long>
+	<skos:prefLabel>NZ then US Garrison WW2</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576067/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>-4.50179</wgs:lat>
+	<wgs:long>-172.13527</wgs:long>
+	<skos:prefLabel>Prehistoric Polynesian Stone Marae</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576077/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>-4.45347</wgs:lat>
+	<wgs:long>-171.23291</wgs:long>
+	<skos:prefLabel>Polynesian Stone Ruins</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576078/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>-4.44474</wgs:lat>
+	<wgs:long>-171.25033</wgs:long>
+	<skos:prefLabel>Micronesian Stone Ruins</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576191/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>-0.8569</wgs:lat>
+	<wgs:long>169.53681</wgs:long>
+	<skos:prefLabel>GB-HQ Gilbert and Ellice Crown Colony</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576574/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<europeana:population>1298</europeana:population>
+	<wgs:lat>-1.4926</wgs:lat>
+	<wgs:long>175.0153</wgs:long>
+	<skos:altLabel>Tabiteuea Maiaki</skos:altLabel>
+	<skos:prefLabel>Tabiteuea South</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576575/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<europeana:population>3600</europeana:population>
+	<wgs:lat>-1.19828</wgs:lat>
+	<wgs:long>174.71781</wgs:long>
+	<skos:altLabel>Tabiteuea Meang</skos:altLabel>
+	<skos:prefLabel>Tabiteuea North</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576709/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.14608</wgs:lat>
+	<wgs:long>173.63411</wgs:long>
+	<skos:prefLabel>Buariki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576710/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.18102</wgs:lat>
+	<wgs:long>173.55291</wgs:long>
+	<skos:prefLabel>Takaeang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576792/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>0.31028</wgs:lat>
+	<wgs:long>173.93203</wgs:long>
+	<skos:prefLabel>Kabangaki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576793/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>0.34053</wgs:lat>
+	<wgs:long>173.94014</wgs:long>
+	<skos:prefLabel>Manoku</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576794/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>0.36873</wgs:lat>
+	<wgs:long>173.93641</wgs:long>
+	<skos:prefLabel>Tebanga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576795/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>0.30796</wgs:lat>
+	<wgs:long>173.90508</wgs:long>
+	<skos:prefLabel>USMC Recon Company Landing Site WW2</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576809/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>0.34569</wgs:lat>
+	<wgs:long>173.9362</wgs:long>
+	<skos:prefLabel>JP Defense Bunkers</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576817/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>0.40561</wgs:lat>
+	<wgs:long>173.91973</wgs:long>
+	<skos:prefLabel>UK Declaration of Gilberts Protectorate 1892</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576824/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.00897</wgs:lat>
+	<wgs:long>173.00428</wgs:long>
+	<skos:prefLabel>Tebikerai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576907/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.37529</wgs:lat>
+	<wgs:long>172.98358</wgs:long>
+	<skos:prefLabel>Makin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576910/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.34594</wgs:lat>
+	<wgs:long>172.98364</wgs:long>
+	<skos:prefLabel>Aonbike</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576911/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.33768</wgs:lat>
+	<wgs:long>172.9813</wgs:long>
+	<skos:prefLabel>Tebua Tarawa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576913/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>3.39416</wgs:lat>
+	<wgs:long>173.00604</wgs:long>
+	<skos:prefLabel>Nakaa Islet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576957/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.19091</wgs:lat>
+	<wgs:long>172.9642</wgs:long>
+	<skos:prefLabel>Kaionobi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576963/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.21728</wgs:lat>
+	<wgs:long>172.69703</wgs:long>
+	<skos:prefLabel>Teirio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576964/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>3.11409</wgs:lat>
+	<wgs:long>172.74079</wgs:long>
+	<skos:prefLabel>USMC Landing WW2</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576965/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>3.05223</wgs:lat>
+	<wgs:long>172.75918</wgs:long>
+	<skos:prefLabel>US Army Main Landing WW2</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576969/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>3.07542</wgs:lat>
+	<wgs:long>172.78935</wgs:long>
+	<skos:prefLabel>JP Seaplane Ramp WW2</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576981/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>3.07962</wgs:lat>
+	<wgs:long>172.79752</wgs:long>
+	<skos:prefLabel>JP Seaplane Base WW2</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7577014/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>1.86506</wgs:lat>
+	<wgs:long>172.9888</wgs:long>
+	<skos:prefLabel>First Gilbertese Protestant Church 1859</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7577056/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<europeana:population>40311</europeana:population>
+	<wgs:lat>1.39517</wgs:lat>
+	<wgs:long>173.13812</wgs:long>
+	<skos:prefLabel>Urban South Tawara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7577057/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<europeana:population>5678</europeana:population>
+	<wgs:lat>1.3965</wgs:lat>
+	<wgs:long>173.13644</wgs:long>
+	<skos:prefLabel>Rural North Tawara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7577067/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.39521</wgs:lat>
+	<wgs:long>173.12728</wgs:long>
+	<skos:prefLabel>Buota</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7577068/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>1.39208</wgs:lat>
+	<wgs:long>173.13656</wgs:long>
+	<skos:prefLabel>Tanaea</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7577076/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.43601</wgs:lat>
+	<wgs:long>173.07272</wgs:long>
+	<skos:prefLabel>Biketawa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7601792/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4030945/"/>
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>1.35353</wgs:lat>
+	<wgs:long>172.91877</wgs:long>
+	<skos:prefLabel>JP Naval Guns 200mm WW2</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 165 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

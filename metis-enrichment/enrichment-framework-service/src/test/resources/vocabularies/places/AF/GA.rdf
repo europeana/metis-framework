@@ -1,0 +1,1402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AF_GA
+Description: Selected fields pulled from Geonames about GA done on Mon May 23 21:16:13 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/2396076/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>134028</europeana:population>
+	<wgs:lat>2</wgs:lat>
+	<wgs:long>12</wgs:long>
+	<skos:altLabel>Province du Woleu-Ntem</skos:altLabel>
+	<skos:altLabel>Région de Woleu-N’tem</skos:altLabel>
+	<skos:altLabel>Woleu-Ntem</skos:altLabel>
+	<skos:prefLabel>Province du Woleu-Ntem</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2396166/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.51064</wgs:lat>
+	<wgs:long>9.91008</wgs:long>
+	<skos:prefLabel>Tseki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2396187/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-3.38333</wgs:lat>
+	<wgs:long>10.66667</wgs:long>
+	<skos:prefLabel>Île Toumbou Itsimba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2396253/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>19365</europeana:population>
+	<wgs:lat>-2.85</wgs:lat>
+	<wgs:long>11.03333</wgs:long>
+	<skos:prefLabel>Tchibanga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2396277/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1</wgs:lat>
+	<wgs:long>9.8</wgs:long>
+	<skos:altLabel>Isla Tabalán</skos:altLabel>
+	<skos:altLabel>Île Tabalon</skos:altLabel>
+	<skos:prefLabel>Île Tabalon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2396288/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.52364</wgs:lat>
+	<wgs:long>9.57156</wgs:long>
+	<skos:prefLabel>Île Soukou Doukou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2396307/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.16667</wgs:lat>
+	<wgs:long>10.03333</wgs:long>
+	<skos:prefLabel>Île Sombie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2396339/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.86667</wgs:lat>
+	<wgs:long>9.28333</wgs:long>
+	<skos:altLabel>Ningué Sika</skos:altLabel>
+	<skos:altLabel>Sika Ninga</skos:altLabel>
+	<skos:prefLabel>Ningué Sika</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2396340/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.58101</wgs:lat>
+	<wgs:long>9.45046</wgs:long>
+	<skos:altLabel>Ninga Sika</skos:altLabel>
+	<skos:altLabel>Ningué Sika</skos:altLabel>
+	<skos:altLabel>Île Ninghe Sika</skos:altLabel>
+	<skos:altLabel>Île Ningué Sika</skos:altLabel>
+	<skos:prefLabel>Ningué Sika</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2396341/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.13333</wgs:lat>
+	<wgs:long>9.85</wgs:long>
+	<skos:prefLabel>Île Sika</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2396371/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.81667</wgs:lat>
+	<wgs:long>9</wgs:long>
+	<skos:prefLabel>Sapania</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2396397/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.65</wgs:lat>
+	<wgs:long>9.31667</wgs:long>
+	<skos:prefLabel>Sandé Polo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2396442/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.11627</wgs:lat>
+	<wgs:long>9.44598</wgs:long>
+	<skos:prefLabel>Saganié</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2396451/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.26366</wgs:lat>
+	<wgs:long>9.0155</wgs:long>
+	<skos:prefLabel>Ningué Rolé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2396463/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.68333</wgs:lat>
+	<wgs:long>9.28333</wgs:long>
+	<skos:altLabel>Rendyego</skos:altLabel>
+	<skos:altLabel>Île du Basilic</skos:altLabel>
+	<skos:prefLabel>Rendyego</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2396518/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>109163</europeana:population>
+	<wgs:lat>-0.71667</wgs:lat>
+	<wgs:long>8.78333</wgs:long>
+	<skos:altLabel xml:lang="pl">Port Gentil</skos:altLabel>
+	<skos:altLabel xml:lang="de">Port-Gentil</skos:altLabel>
+	<skos:altLabel xml:lang="en">Port-Gentil</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Port-Gentil</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Port-Gentil</skos:altLabel>
+	<skos:altLabel>Port-Gentil</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Порт Жантил</skos:altLabel>
+	<skos:prefLabel>Port-Gentil</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2396529/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.44572</wgs:lat>
+	<wgs:long>9.25605</wgs:long>
+	<skos:prefLabel>Ningué Polo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2396544/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.28333</wgs:lat>
+	<wgs:long>9.01667</wgs:long>
+	<skos:prefLabel>Ningué Pilato</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2396545/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.66667</wgs:lat>
+	<wgs:long>8.75</wgs:long>
+	<skos:prefLabel>Île aux Pigeons</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2396546/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.025</wgs:lat>
+	<wgs:long>9.50092</wgs:long>
+	<skos:prefLabel>Pido</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2396575/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.21667</wgs:lat>
+	<wgs:long>9.5</wgs:long>
+	<skos:altLabel>Île M’Bini</skos:altLabel>
+	<skos:altLabel>Île Perroquet</skos:altLabel>
+	<skos:altLabel>Île Perroquet M’Bini</skos:altLabel>
+	<skos:prefLabel>Île Perroquet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2396646/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>30870</europeana:population>
+	<wgs:lat>1.5983</wgs:lat>
+	<wgs:long>11.57537</wgs:long>
+	<skos:prefLabel>Oyem</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2396860/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.48333</wgs:lat>
+	<wgs:long>9.21667</wgs:long>
+	<skos:altLabel>Ile Carpertier</skos:altLabel>
+	<skos:altLabel>Ombéné</skos:altLabel>
+	<skos:altLabel>Île Carpentier</skos:altLabel>
+	<skos:prefLabel>Ombéné</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2396924/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>134913</europeana:population>
+	<wgs:lat>-2</wgs:lat>
+	<wgs:long>9.5</wgs:long>
+	<skos:altLabel>L’Ogooué-Maritime</skos:altLabel>
+	<skos:altLabel>Ogooué-Maritime</skos:altLabel>
+	<skos:altLabel>Ogoué Maritime</skos:altLabel>
+	<skos:altLabel>Province de l’ Ogooué-Maritime</skos:altLabel>
+	<skos:altLabel>Région l’ Ogooué-Maritime</skos:altLabel>
+	<skos:prefLabel>Province de l’ Ogooué-Maritime</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2396925/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>60510</europeana:population>
+	<wgs:lat>-1</wgs:lat>
+	<wgs:long>13</wgs:long>
+	<skos:altLabel>Les Adoumas</skos:altLabel>
+	<skos:altLabel>Ogooué-Lolo</skos:altLabel>
+	<skos:altLabel>Province de l’ Ogooué-Lolo</skos:altLabel>
+	<skos:prefLabel>Province de l’ Ogooué-Lolo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2396926/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>67326</europeana:population>
+	<wgs:lat>0.5</wgs:lat>
+	<wgs:long>13</wgs:long>
+	<skos:altLabel>Djouah</skos:altLabel>
+	<skos:altLabel>Ogooué-Ivindo</skos:altLabel>
+	<skos:altLabel>Province de l’ Ogooué-Ivindo</skos:altLabel>
+	<skos:altLabel>Région de l’ Ogooué-Ivindo</skos:altLabel>
+	<skos:prefLabel>Province de l’ Ogooué-Ivindo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2397141/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>54330</europeana:population>
+	<wgs:lat>-3</wgs:lat>
+	<wgs:long>11</wgs:long>
+	<skos:altLabel>Nyanga</skos:altLabel>
+	<skos:altLabel>Province de la Nyanga</skos:altLabel>
+	<skos:altLabel>Région de Nyanga</skos:altLabel>
+	<skos:prefLabel>Province de la Nyanga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2397152/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.09279</wgs:lat>
+	<wgs:long>9.36753</wgs:long>
+	<skos:prefLabel>Nwarongoe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2397264/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.05377</wgs:lat>
+	<wgs:long>9.22664</wgs:long>
+	<skos:altLabel>Ile N’Kui</skos:altLabel>
+	<skos:altLabel>Île Nkoui</skos:altLabel>
+	<skos:prefLabel>Île Nkoui</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2397275/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.0724</wgs:lat>
+	<wgs:long>9.28647</wgs:long>
+	<skos:prefLabel>Nkongono</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2397382/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.7</wgs:lat>
+	<wgs:long>9.06667</wgs:long>
+	<skos:altLabel>Nengué</skos:altLabel>
+	<skos:altLabel>Ninge Island</skos:altLabel>
+	<skos:altLabel>Île Ningué</skos:altLabel>
+	<skos:altLabel>Îlot Ningué</skos:altLabel>
+	<skos:prefLabel>Îlot Ningué</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2397386/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.18333</wgs:lat>
+	<wgs:long>9.95</wgs:long>
+	<skos:altLabel>Nenoué Oualé</skos:altLabel>
+	<skos:altLabel>Île Ninge Uate</skos:altLabel>
+	<skos:prefLabel>Île Ninge Uate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2397387/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.13333</wgs:lat>
+	<wgs:long>10.13333</wgs:long>
+	<skos:altLabel>Ningué Ningué</skos:altLabel>
+	<skos:altLabel>Île Ninge Ninge</skos:altLabel>
+	<skos:prefLabel>Île Ninge Ninge</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2397388/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.16667</wgs:lat>
+	<wgs:long>9.9</wgs:long>
+	<skos:altLabel>Nengué Bouénié</skos:altLabel>
+	<skos:altLabel>Île Ninge Buende</skos:altLabel>
+	<skos:prefLabel>Île Ninge Buende</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2397391/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.89073</wgs:lat>
+	<wgs:long>9.3734</wgs:long>
+	<skos:altLabel>Himba</skos:altLabel>
+	<skos:altLabel>Nimbe</skos:altLabel>
+	<skos:prefLabel>Nimbe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2397457/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.07183</wgs:lat>
+	<wgs:long>9.31543</wgs:long>
+	<skos:prefLabel>Ngubout</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2397466/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>107173</europeana:population>
+	<wgs:lat>-2</wgs:lat>
+	<wgs:long>11</wgs:long>
+	<skos:altLabel>Ngounié</skos:altLabel>
+	<skos:altLabel>Province de la Ngounié</skos:altLabel>
+	<skos:altLabel>Région de N’Gounié</skos:altLabel>
+	<skos:prefLabel>Province de la Ngounié</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2397486/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.96282</wgs:lat>
+	<wgs:long>9.56865</wgs:long>
+	<skos:prefLabel>Ngoumbi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2397532/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.91667</wgs:lat>
+	<wgs:long>9.66667</wgs:long>
+	<skos:prefLabel>Ngosoué</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2397535/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.52167</wgs:lat>
+	<wgs:long>9.86822</wgs:long>
+	<skos:prefLabel>Ngoré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2397578/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.46543</wgs:lat>
+	<wgs:long>9.26297</wgs:long>
+	<skos:prefLabel>Ningué Ngnango</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2397593/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.50168</wgs:lat>
+	<wgs:long>9.88184</wgs:long>
+	<skos:prefLabel>Ngalley</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2397600/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.06355</wgs:lat>
+	<wgs:long>9.52856</wgs:long>
+	<skos:prefLabel>Ngafi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2397612/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.58759</wgs:lat>
+	<wgs:long>9.54173</wgs:long>
+	<skos:altLabel>Munda Island</skos:altLabel>
+	<skos:altLabel>Île Mondah</skos:altLabel>
+	<skos:altLabel>Île Nendé</skos:altLabel>
+	<skos:prefLabel>Île Nendé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2397713/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.68333</wgs:lat>
+	<wgs:long>9.06667</wgs:long>
+	<skos:prefLabel>Nangué</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2397717/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.52828</wgs:lat>
+	<wgs:long>9.80055</wgs:long>
+	<skos:prefLabel>Nanga Tsonga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2397718/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.88333</wgs:lat>
+	<wgs:long>9.36667</wgs:long>
+	<skos:prefLabel>Nanga Ronga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2397724/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.48077</wgs:lat>
+	<wgs:long>9.86372</wgs:long>
+	<skos:prefLabel>Nama</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2397842/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>58307</europeana:population>
+	<wgs:lat>-0.5</wgs:lat>
+	<wgs:long>10.5</wgs:long>
+	<skos:altLabel>Le Moyen-Ogooué</skos:altLabel>
+	<skos:altLabel>Moyen-Ogooué</skos:altLabel>
+	<skos:altLabel>Province du Moyen-Ogooué</skos:altLabel>
+	<skos:altLabel>Région du Moyen-Ogooué</skos:altLabel>
+	<skos:prefLabel>Province du Moyen-Ogooué</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2397960/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.54579</wgs:lat>
+	<wgs:long>9.87335</wgs:long>
+	<skos:prefLabel>Moungombi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2398073/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>22469</europeana:population>
+	<wgs:lat>-1.8635</wgs:lat>
+	<wgs:long>11.05995</wgs:long>
+	<skos:prefLabel>Mouila</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2398229/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.1</wgs:lat>
+	<wgs:long>10.95</wgs:long>
+	<skos:prefLabel>Molongué</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2398269/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>30151</europeana:population>
+	<wgs:lat>-1.56542</wgs:lat>
+	<wgs:long>13.18937</wgs:long>
+	<skos:altLabel>Moanda</skos:altLabel>
+	<skos:altLabel>Mouanda</skos:altLabel>
+	<skos:altLabel>Mouenda</skos:altLabel>
+	<skos:prefLabel>Moanda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2398448/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.47025</wgs:lat>
+	<wgs:long>9.88229</wgs:long>
+	<skos:prefLabel>Miloungou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2398519/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.58481</wgs:lat>
+	<wgs:long>9.97182</wgs:long>
+	<skos:prefLabel>Mifouma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2398978/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.09085</wgs:lat>
+	<wgs:long>11.84512</wgs:long>
+	<skos:prefLabel>Île Mbama</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2398987/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.8</wgs:lat>
+	<wgs:long>9.4</wgs:long>
+	<skos:altLabel>Île Baynia</skos:altLabel>
+	<skos:altLabel>Île Mbagné</skos:altLabel>
+	<skos:prefLabel>Île Mbagné</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2399371/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>13571</europeana:population>
+	<wgs:lat>0.57381</wgs:lat>
+	<wgs:long>12.86419</wgs:long>
+	<skos:altLabel xml:lang="en">Makokou</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Makokou</skos:altLabel>
+	<skos:altLabel>Makokou</skos:altLabel>
+	<skos:altLabel>Makokou Fortifié</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Макоку</skos:altLabel>
+	<skos:prefLabel>Makokou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2399611/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.87253</wgs:lat>
+	<wgs:long>8.84336</wgs:long>
+	<skos:altLabel>Manji Island</skos:altLabel>
+	<skos:altLabel>Île Lopez</skos:altLabel>
+	<skos:altLabel>Île Mandji</skos:altLabel>
+	<skos:prefLabel>Île Mandji</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2399697/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>578156</europeana:population>
+	<wgs:lat>0.38333</wgs:lat>
+	<wgs:long>9.45</wgs:long>
+	<skos:altLabel xml:lang="lt">Librevilis</skos:altLabel>
+	<skos:altLabel xml:lang="de">Libreville</skos:altLabel>
+	<skos:altLabel xml:lang="es">Libreville</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Libreville</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Libreville</skos:altLabel>
+	<skos:altLabel xml:lang="io">Libreville</skos:altLabel>
+	<skos:altLabel xml:lang="no">Libreville</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Libreville</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Libreville</skos:altLabel>
+	<skos:altLabel xml:lang="en">Libreville</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Libreville</skos:altLabel>
+	<skos:altLabel xml:lang="it">Libreville</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Libreville</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Libreville</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Libreville</skos:altLabel>
+	<skos:altLabel xml:lang="et">Libreville</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Libreville</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Libreville</skos:altLabel>
+	<skos:altLabel xml:lang="da">Libreville</skos:altLabel>
+	<skos:altLabel>Libreville</skos:altLabel>
+	<skos:altLabel xml:lang="el">Λιμπρεβίλ</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Либревиль</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Либървил</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Լիբրևիլ</skos:altLabel>
+	<skos:altLabel xml:lang="he">ליברוויל</skos:altLabel>
+	<skos:altLabel xml:lang="fa">لیبرویل</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሊብረቪል</skos:altLabel>
+	<skos:altLabel xml:lang="zh">利伯维尔</skos:altLabel>
+	<skos:altLabel xml:lang="ko">리브르빌</skos:altLabel>
+	<skos:prefLabel>Libreville</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2399888/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>20714</europeana:population>
+	<wgs:lat>-0.7</wgs:lat>
+	<wgs:long>10.21667</wgs:long>
+	<skos:altLabel xml:lang="de">Lambaréné</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Lambaréné</skos:altLabel>
+	<skos:altLabel xml:lang="en">Lambaréné</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Lambaréné</skos:altLabel>
+	<skos:altLabel>Lambaréné</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ламбарене</skos:altLabel>
+	<skos:prefLabel>Lambaréné</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2399915/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.63532</wgs:lat>
+	<wgs:long>10.03939</wgs:long>
+	<skos:prefLabel>Koussou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2399959/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>16222</europeana:population>
+	<wgs:lat>-1.13032</wgs:lat>
+	<wgs:long>12.47359</wgs:long>
+	<skos:altLabel>Koula Moubou</skos:altLabel>
+	<skos:altLabel>Koula Mouta</skos:altLabel>
+	<skos:altLabel>Koulamotou</skos:altLabel>
+	<skos:altLabel xml:lang="en">Koulamoutou</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Koulamoutou</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Koulamoutou</skos:altLabel>
+	<skos:altLabel>Koulamoutou</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Куламуту</skos:altLabel>
+	<skos:prefLabel>Koulamoutou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2399988/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.46492</wgs:lat>
+	<wgs:long>9.25529</wgs:long>
+	<skos:prefLabel>Ningué Koroué</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2400041/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.6</wgs:lat>
+	<wgs:long>10</wgs:long>
+	<skos:prefLabel>Kizoma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2400044/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.55674</wgs:lat>
+	<wgs:long>9.88859</wgs:long>
+	<skos:prefLabel>Kiongo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2400049/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.57834</wgs:lat>
+	<wgs:long>10.04974</wgs:long>
+	<skos:prefLabel>Kimembo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2400050/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.53758</wgs:lat>
+	<wgs:long>9.97472</wgs:long>
+	<skos:prefLabel>Kimba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2400055/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.45719</wgs:lat>
+	<wgs:long>9.86644</wgs:long>
+	<skos:prefLabel>Kibaka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2400109/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.55905</wgs:lat>
+	<wgs:long>9.97985</wgs:long>
+	<skos:prefLabel>Kebi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2400149/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.54528</wgs:lat>
+	<wgs:long>10.04566</wgs:long>
+	<skos:prefLabel>Kamba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2400243/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.07078</wgs:lat>
+	<wgs:long>9.53498</wgs:long>
+	<skos:prefLabel>Iroumba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2400246/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.08333</wgs:lat>
+	<wgs:long>9.75</wgs:long>
+	<skos:prefLabel>Îlot Irongombene</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2400365/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.23708</wgs:lat>
+	<wgs:long>9.00355</wgs:long>
+	<skos:altLabel>Ninge Igeze</skos:altLabel>
+	<skos:altLabel>Ningué Iguéré</skos:altLabel>
+	<skos:altLabel>Ningué Iguézé</skos:altLabel>
+	<skos:altLabel>Île Iguézé</skos:altLabel>
+	<skos:prefLabel>Ningué Iguéré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2400452/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.55472</wgs:lat>
+	<wgs:long>9.92544</wgs:long>
+	<skos:prefLabel>Hiaba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2400453/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.48316</wgs:lat>
+	<wgs:long>9.2549</wgs:long>
+	<skos:altLabel>Heide Island</skos:altLabel>
+	<skos:altLabel>Île Balé</skos:altLabel>
+	<skos:altLabel>Île Heddé</skos:altLabel>
+	<skos:prefLabel>Île Heddé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2400454/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>143715</europeana:population>
+	<wgs:lat>-2</wgs:lat>
+	<wgs:long>14</wgs:long>
+	<skos:altLabel>Haut-Ogooué</skos:altLabel>
+	<skos:altLabel>Le Haut-Ogooué</skos:altLabel>
+	<skos:altLabel>Province du Haut-Ogooué</skos:altLabel>
+	<skos:altLabel>Région du Haut-Ogooué</skos:altLabel>
+	<skos:prefLabel>Province du Haut-Ogooué</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2400477/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>0.16667</wgs:lat>
+	<wgs:long>10.18333</wgs:long>
+	<skos:prefLabel>Grande Nenghé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2400495/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.60415</wgs:lat>
+	<wgs:long>9.99629</wgs:long>
+	<skos:prefLabel>Goumba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2400508/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.09347</wgs:lat>
+	<wgs:long>9.27334</wgs:long>
+	<skos:prefLabel>Gongoué Nanga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2400515/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.87836</wgs:lat>
+	<wgs:long>9.29959</wgs:long>
+	<skos:prefLabel>Gondé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2400521/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.56059</wgs:lat>
+	<wgs:long>10.12935</wgs:long>
+	<skos:prefLabel>Gomba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2400553/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255146/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>1545255</europeana:population>
+	<wgs:lat>-1</wgs:lat>
+	<wgs:long>11.75</wgs:long>
+	<skos:altLabel xml:lang="ga">An Ghabúin</skos:altLabel>
+	<skos:altLabel xml:lang="ca">El Gabon</skos:altLabel>
+	<skos:altLabel>GA</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ga-bông</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ga-bông (Gabon)</skos:altLabel>
+	<skos:altLabel xml:lang="af">Gaboen</skos:altLabel>
+	<skos:altLabel xml:lang="id">Gabon</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Gabon</skos:altLabel>
+	<skos:altLabel xml:lang="da">Gabon</skos:altLabel>
+	<skos:altLabel xml:lang="et">Gabon</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Gabon</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Gabon</skos:altLabel>
+	<skos:altLabel xml:lang="is">Gabon</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Gabon</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Gabon</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Gabon</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Gabon</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Gabon</skos:altLabel>
+	<skos:altLabel xml:lang="en">Gabon</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Gabon</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Gabon</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Gabon</skos:altLabel>
+	<skos:altLabel xml:lang="it">Gabon</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Gabon</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Gabon</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Gabon</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Gabon</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Gabon</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Gabon</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Gabon</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Gabon</skos:altLabel>
+	<skos:altLabel xml:lang="io">Gabon</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Gabon</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Gabon</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Gabon</skos:altLabel>
+	<skos:altLabel xml:lang="li">Gabon</skos:altLabel>
+	<skos:altLabel xml:lang="no">Gabon</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Gabon</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Gabon</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Gabon</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Gabon</skos:altLabel>
+	<skos:altLabel xml:lang="se">Gabon</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Gabona</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Gabonas</skos:altLabel>
+	<skos:altLabel xml:lang="en">Gabonese Republic</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Gaboni</skos:altLabel>
+	<skos:altLabel xml:lang="la">Gabonia</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Gabonia</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Gabono</skos:altLabel>
+	<skos:altLabel>Gaboon Republic</skos:altLabel>
+	<skos:altLabel xml:lang="wo">Gaboŋ</skos:altLabel>
+	<skos:altLabel>Gabun</skos:altLabel>
+	<skos:altLabel xml:lang="de">Gabun</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Gabunän</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Gabão</skos:altLabel>
+	<skos:altLabel xml:lang="es">Gabón</skos:altLabel>
+	<skos:altLabel xml:lang="an">Gabón</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Gabón</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Gabón - Gabon</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Gjabon</skos:altLabel>
+	<skos:altLabel xml:lang="fr">République Gabonaise</skos:altLabel>
+	<skos:altLabel>Territoire du Gabon</skos:altLabel>
+	<skos:altLabel xml:lang="el">Γκαμπόν</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Габон</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Габон</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Габон</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Габон</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Габон</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Габон</skos:altLabel>
+	<skos:altLabel xml:lang="be">Габон</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Ґабон</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Գաբոն</skos:altLabel>
+	<skos:altLabel xml:lang="yi">גאבאן</skos:altLabel>
+	<skos:altLabel xml:lang="he">גאבון</skos:altLabel>
+	<skos:altLabel xml:lang="he">גבון</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الجابون</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الغابون</skos:altLabel>
+	<skos:altLabel xml:lang="ar">غابون</skos:altLabel>
+	<skos:altLabel xml:lang="ur">غیبون</skos:altLabel>
+	<skos:altLabel xml:lang="ps">ګابون</skos:altLabel>
+	<skos:altLabel xml:lang="fa">گابن</skos:altLabel>
+	<skos:altLabel xml:lang="ug">گابون</skos:altLabel>
+	<skos:altLabel xml:lang="fa">گابون</skos:altLabel>
+	<skos:altLabel xml:lang="sa">गाबोन</skos:altLabel>
+	<skos:altLabel xml:lang="hi">गैबॉन</skos:altLabel>
+	<skos:altLabel xml:lang="bn">গ্যাবন</skos:altLabel>
+	<skos:altLabel xml:lang="ta">காபோன்</skos:altLabel>
+	<skos:altLabel xml:lang="th">กาบอง</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศกาบอง</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ກາບອນ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">གེ་བཽན།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">გაბონი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ጋቦን</skos:altLabel>
+	<skos:altLabel xml:lang="km">ហ្គាបុង</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ガボン</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ガボン共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">加蓬</skos:altLabel>
+	<skos:altLabel xml:lang="ko">가봉</skos:altLabel>
+	<skos:prefLabel>Gabonese Republic</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2400555/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>42967</europeana:population>
+	<wgs:lat>-1.6081</wgs:lat>
+	<wgs:long>13.6154</wgs:long>
+	<skos:altLabel xml:lang="es">Franceville</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Franceville</skos:altLabel>
+	<skos:altLabel xml:lang="en">Franceville</skos:altLabel>
+	<skos:altLabel xml:lang="it">Franceville</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Franceville</skos:altLabel>
+	<skos:altLabel xml:lang="de">Franceville</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Franceville</skos:altLabel>
+	<skos:altLabel>Franceville</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Франсвил</skos:altLabel>
+	<skos:prefLabel>Franceville</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2400564/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.61237</wgs:lat>
+	<wgs:long>10.02764</wgs:long>
+	<skos:prefLabel>Foula Tendi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2400588/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.51404</wgs:lat>
+	<wgs:long>9.89306</wgs:long>
+	<skos:prefLabel>Findou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2400618/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.15</wgs:lat>
+	<wgs:long>9.83333</wgs:long>
+	<skos:prefLabel>Île Eyeng Eyeghe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2400650/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-1.50102</wgs:lat>
+	<wgs:long>9.17216</wgs:long>
+	<skos:altLabel>Îles Evongué</skos:altLabel>
+	<skos:altLabel>Îles Lawlin</skos:altLabel>
+	<skos:prefLabel>Îles Evongué</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2400652/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.65449</wgs:lat>
+	<wgs:long>9.34709</wgs:long>
+	<skos:prefLabel>Evingué Polo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2400653/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.18333</wgs:lat>
+	<wgs:long>9.51667</wgs:long>
+	<skos:prefLabel>Evingué</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2400682/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>638219</europeana:population>
+	<wgs:lat>0.16667</wgs:lat>
+	<wgs:long>10</wgs:long>
+	<skos:altLabel>Estuaire</skos:altLabel>
+	<skos:altLabel>L’Estuaire</skos:altLabel>
+	<skos:altLabel>Province de l’ Estuaire</skos:altLabel>
+	<skos:altLabel>Région de l’ Estuaire</skos:altLabel>
+	<skos:prefLabel>Province de l’ Estuaire</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2400946/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.6</wgs:lat>
+	<wgs:long>10</wgs:long>
+	<skos:prefLabel>Dzibou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2400948/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.58445</wgs:lat>
+	<wgs:long>10.12411</wgs:long>
+	<skos:prefLabel>Dzanza</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2401055/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.47437</wgs:lat>
+	<wgs:long>9.86112</wgs:long>
+	<skos:prefLabel>Doubinda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2401088/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.4051</wgs:lat>
+	<wgs:long>9.10751</wgs:long>
+	<skos:altLabel>Île Domé</skos:altLabel>
+	<skos:altLabel>Île Doumé</skos:altLabel>
+	<skos:prefLabel>Île Domé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2401222/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.5192</wgs:lat>
+	<wgs:long>9.92405</wgs:long>
+	<skos:prefLabel>Dika</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2401223/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.49585</wgs:lat>
+	<wgs:long>9.81644</wgs:long>
+	<skos:prefLabel>Diguela</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2401284/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.59479</wgs:lat>
+	<wgs:long>10.02165</wgs:long>
+	<skos:prefLabel>Diana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2401296/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.31667</wgs:lat>
+	<wgs:long>9.36667</wgs:long>
+	<skos:prefLabel>Pointe Denis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2401335/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.26667</wgs:lat>
+	<wgs:long>9.55</wgs:long>
+	<skos:altLabel>Île Coniquet</skos:altLabel>
+	<skos:altLabel>Île Conniquet</skos:altLabel>
+	<skos:prefLabel>Île Coniquet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2401352/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.6257</wgs:lat>
+	<wgs:long>10.01684</wgs:long>
+	<skos:prefLabel>Coma Chena</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2401358/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.7</wgs:lat>
+	<wgs:long>9.05</wgs:long>
+	<skos:altLabel>Cobié</skos:altLabel>
+	<skos:altLabel>Gabe Island</skos:altLabel>
+	<skos:altLabel>Île Coubié</skos:altLabel>
+	<skos:altLabel>Île Goubié</skos:altLabel>
+	<skos:altLabel>Île Koiva</skos:altLabel>
+	<skos:prefLabel>Cobié</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2401387/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.16667</wgs:lat>
+	<wgs:long>9.55</wgs:long>
+	<skos:altLabel>Coilloux Island</skos:altLabel>
+	<skos:altLabel>Île à Cailloux</skos:altLabel>
+	<skos:prefLabel>Île à Cailloux</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2401395/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.57049</wgs:lat>
+	<wgs:long>9.5536</wgs:long>
+	<skos:prefLabel>Île Busimba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2401398/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.05478</wgs:lat>
+	<wgs:long>9.18844</wgs:long>
+	<skos:altLabel>Île Bouiti</skos:altLabel>
+	<skos:altLabel>Île Buiti</skos:altLabel>
+	<skos:prefLabel>Île Buiti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2401463/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.58366</wgs:lat>
+	<wgs:long>10.02815</wgs:long>
+	<skos:prefLabel>Boukanghi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2401578/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10297</europeana:population>
+	<wgs:lat>2.07597</wgs:lat>
+	<wgs:long>11.50065</wgs:long>
+	<skos:prefLabel>Bitam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2401849/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.57314</wgs:lat>
+	<wgs:long>9.92961</wgs:long>
+	<skos:prefLabel>Bendé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2402057/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.07804</wgs:lat>
+	<wgs:long>9.26353</wgs:long>
+	<skos:prefLabel>Azo Mitongo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2402103/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.23333</wgs:lat>
+	<wgs:long>9.38333</wgs:long>
+	<skos:altLabel>Nenghe Awogha</skos:altLabel>
+	<skos:altLabel>Saint Denis</skos:altLabel>
+	<skos:prefLabel>Nenghe Awogha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2402190/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.6033</wgs:lat>
+	<wgs:long>9.5432</wgs:long>
+	<skos:prefLabel>Île Assimba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2402212/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.14122</wgs:lat>
+	<wgs:long>9.48285</wgs:long>
+	<skos:prefLabel>Arouvé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2402217/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.18333</wgs:lat>
+	<wgs:long>9.48333</wgs:long>
+	<skos:prefLabel>Arena</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2402224/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.71667</wgs:lat>
+	<wgs:long>8.91667</wgs:long>
+	<skos:altLabel>Île Aparia</skos:altLabel>
+	<skos:altLabel>Île Apaïa</skos:altLabel>
+	<skos:altLabel>Île Pavaria</skos:altLabel>
+	<skos:prefLabel>Île Aparia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2402354/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.15</wgs:lat>
+	<wgs:long>9.5</wgs:long>
+	<skos:prefLabel>Aloupou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2402527/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.1</wgs:lat>
+	<wgs:long>9.5</wgs:long>
+	<skos:altLabel>Île Agoume</skos:altLabel>
+	<skos:altLabel>Île Egumé</skos:altLabel>
+	<skos:prefLabel>Île Agoume</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2402535/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.7</wgs:lat>
+	<wgs:long>9.08333</wgs:long>
+	<skos:prefLabel>Agondia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2402538/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-0.77982</wgs:lat>
+	<wgs:long>8.89971</wgs:long>
+	<skos:altLabel>Agelengels</skos:altLabel>
+	<skos:altLabel>Iles Aguélégué</skos:altLabel>
+	<skos:altLabel>Îles Agelenge</skos:altLabel>
+	<skos:prefLabel>Îles Agelenge</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2402600/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2400553/"/>
+	<europeana:country>GA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.44813</wgs:lat>
+	<wgs:long>9.15383</wgs:long>
+	<skos:altLabel>Adianga</skos:altLabel>
+	<skos:altLabel>Île Adyanga</skos:altLabel>
+	<skos:altLabel>Île Brooklyn</skos:altLabel>
+	<skos:prefLabel>Adianga</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 118 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

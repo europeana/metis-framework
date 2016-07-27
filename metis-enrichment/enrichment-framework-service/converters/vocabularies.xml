@@ -1,0 +1,168 @@
+
+	<!--
+		This file defines three most common vocabularies used in converters: 
+		
+		terms - based on AAT
+		people - based on ULAN 
+		places - based on Geonames 
+		
+		It is an XML fragment, and it should be included in xconverters using 
+		
+		<!ENTITY vocabularies SYSTEM "../../vocabularies.xml"> 
+		
+		Accordingly, this file has neither XML nor DOCTYPE declarations and 
+		assumes that the ac namespace is properly defined in the including
+		document.
+		
+		This file also assumes that the vocabularyDir parameter
+		is set to the local directory with vocabularies.
+	-->
+
+<ac:VocabularyOfTerms rdf:about="terms">
+	<ac:comment>general terminology based on AAT</ac:comment>
+	<ac:file>/../../vocabularies/terms/*.rdf</ac:file>
+	<ac:file>/../../vocabularies/terms/*.rdfs</ac:file>
+	<ac:sparqlQuery><![CDATA[
+	PREFIX skos: <http://www.w3.org/2004/02/skos/core#> 	
+	SELECT ?code ?label 
+	WHERE {
+      { ?code skos:prefLabel ?label }  
+    UNION 
+      { ?code skos:altLabel ?label } 
+	}
+	]]></ac:sparqlQuery>
+  <ac:listeners rdf:parseType="Collection"> 
+    <ac:OnNormaliseLabel>
+    	<ac:java>
+//    	  if (caller == NormaliseCaller.query)
+//    	    System.out.println(">terms query>" + label);
+    		return label.toLowerCase();
+    	</ac:java>
+    </ac:OnNormaliseLabel>
+  </ac:listeners>
+</ac:VocabularyOfTerms>
+
+<ac:VocabularyOfPeople rdf:about="people">
+  <ac:comment>directory of people based on ULAN</ac:comment>
+  <ac:file>../../vocabularies/people/*.rdf</ac:file>
+  <ac:sparqlQuery><![CDATA[
+  PREFIX skos: <http://www.w3.org/2004/02/skos/core#> 	
+  SELECT ?code ?label  
+  WHERE { 
+    { ?code skos:prefLabel ?label }  
+  UNION 
+    { ?code skos:altLabel ?label } 
+  }
+  ]]></ac:sparqlQuery>
+  <ac:sparqlQuery ac:termProperty="birth"><![CDATA[
+  PREFIX ulan: <http://e-culture.multimedian.nl/ns/getty/ulan#> 	
+  SELECT ?code ?birth 
+  WHERE { 
+    ?code ulan:birthDate ?birth 
+  }
+  ]]></ac:sparqlQuery>
+  <ac:sparqlQuery ac:termProperty="death"><![CDATA[
+  PREFIX ulan: <http://e-culture.multimedian.nl/ns/getty/ulan#> 	
+  SELECT ?code ?death 
+  WHERE { 
+    ?code ulan:birthDate ?death 
+  }
+  ]]></ac:sparqlQuery>
+  <ac:listeners rdf:parseType="Collection"> 
+    <ac:OnNormaliseLabel>
+    	<ac:java>
+ //   	  if (caller == NormaliseCaller.query)
+ //   	    System.out.println(">people query>" + label);
+      	    
+    		return  super.onNormaliseLabel(label.toLowerCase(), caller);
+    	</ac:java>
+    </ac:OnNormaliseLabel>
+  </ac:listeners>
+</ac:VocabularyOfPeople>
+    			
+<ac:VocabularyOfPlaces rdf:about="places">
+  <ac:comment>geographical vocabulary based on Geonames</ac:comment>
+  <ac:file>../../vocabularies/places/EU/*.rdf</ac:file>
+  <ac:file>../../vocabularies/places/AS/ID.rdf</ac:file>
+  <ac:sparqlQuery><![CDATA[
+  PREFIX skos: <http://www.w3.org/2004/02/skos/core#> 	
+  SELECT ?code ?label  
+  WHERE { 
+    { ?code skos:prefLabel ?label }  
+  UNION 
+    { ?code skos:altLabel ?label } 
+  }
+  ]]></ac:sparqlQuery>
+  <ac:sparqlQuery ac:termProperty="population"><![CDATA[
+  PREFIX places: <http://www.europeana.eu/resolve/ontology/> 	
+  SELECT ?code ?population 
+  WHERE { 
+    ?code places:population ?population 
+  }
+  ]]></ac:sparqlQuery>
+  <ac:sparqlQuery ac:termProperty="division"><![CDATA[
+  PREFIX places: <http://www.europeana.eu/resolve/ontology/> 	
+  SELECT ?code ?division 
+  WHERE { 
+    ?code places:division ?division 
+  }
+  ]]></ac:sparqlQuery>
+  <ac:sparqlQuery ac:termProperty="latitude"><![CDATA[
+  PREFIX places: <http://www.europeana.eu/resolve/ontology/> 	
+  SELECT ?code ?latitude 
+  WHERE { 
+    ?code places:latitude ?latitude 
+  }
+  ]]></ac:sparqlQuery>
+  <ac:sparqlQuery ac:termProperty="longitude"><![CDATA[
+  PREFIX places: <http://www.europeana.eu/resolve/ontology/> 	
+  SELECT ?code ?longitude 
+  WHERE { 
+    ?code places:longitude ?longitude 
+  }
+  ]]></ac:sparqlQuery>
+  <ac:sparqlQuery ac:termProperty="country"><![CDATA[
+  PREFIX places: <http://www.europeana.eu/resolve/ontology/> 	
+  SELECT ?code ?country 
+  WHERE { 
+    ?code places:country ?country 
+  }
+  ]]></ac:sparqlQuery>
+  <ac:listeners rdf:parseType="Collection"> 
+    <ac:OnNormaliseLabel>
+    	<ac:java>
+  //  	  if (caller == NormaliseCaller.query)
+  //  	    System.out.println(">places query>" + label);
+    		return label.toLowerCase();
+    	</ac:java>
+    </ac:OnNormaliseLabel>
+  </ac:listeners>
+</ac:VocabularyOfPlaces>
+
+<ac:VocabularyOfTime rdf:about="time">
+  <ac:comment>AnnoCultor time ontology</ac:comment>
+  <ac:file>../../vocabularies/time/*.rdf</ac:file>
+  <ac:sparqlQuery><![CDATA[
+  PREFIX skos: <http://www.w3.org/2004/02/skos/core#> 	
+  SELECT ?code ?label  
+  WHERE { 
+    { ?code skos:prefLabel ?label }  
+  UNION 
+    { ?code skos:altLabel ?label } 
+  }
+  ]]></ac:sparqlQuery>
+  <ac:sparqlQuery ac:termProperty="begin"><![CDATA[
+  PREFIX time: <http://annocultor.eu/time/> 	
+  SELECT ?code ?endpoint 
+  WHERE { 
+    ?code time:beginDate ?endpoint
+  }
+  ]]></ac:sparqlQuery>
+  <ac:sparqlQuery ac:termProperty="end"><![CDATA[
+  PREFIX time: <http://annocultor.eu/time/> 	
+  SELECT ?code ?endpoint 
+  WHERE { 
+    ?code time:endDate ?endpoint
+  }
+  ]]></ac:sparqlQuery>
+</ac:VocabularyOfTime>

@@ -1,0 +1,1907 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AF_SO
+Description: Selected fields pulled from Geonames about SO done on Mon May 23 21:16:22 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/49530/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.51667</wgs:lat>
+	<wgs:long>42.45</wgs:long>
+	<skos:prefLabel>Ziva Zecundru</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/49566/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.96667</wgs:lat>
+	<wgs:long>42.1</wgs:long>
+	<skos:altLabel>Indu</skos:altLabel>
+	<skos:altLabel>Isola Iundu Iundu</skos:altLabel>
+	<skos:altLabel>Tegadi</skos:altLabel>
+	<skos:altLabel>Yondiyoond</skos:altLabel>
+	<skos:prefLabel>Yondiyoond</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/49646/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.51667</wgs:lat>
+	<wgs:long>42.43333</wgs:long>
+	<skos:altLabel xml:lang="so">Yabangoodi</skos:altLabel>
+	<skos:prefLabel>Yabangoodi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/49687/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.76667</wgs:lat>
+	<wgs:long>42.25</wgs:long>
+	<skos:prefLabel>Yaambo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/49891/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.91806</wgs:lat>
+	<wgs:long>46.92806</wgs:long>
+	<skos:altLabel>Hais</skos:altLabel>
+	<skos:altLabel>Heis Island</skos:altLabel>
+	<skos:altLabel>Heis islet</skos:altLabel>
+	<skos:altLabel>Xiis</skos:altLabel>
+	<skos:prefLabel>Xiis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/50036/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.95806</wgs:lat>
+	<wgs:long>45.22056</wgs:long>
+	<skos:altLabel>Arim Omascia</skos:altLabel>
+	<skos:altLabel>Xariim Xumaas Gal</skos:altLabel>
+	<skos:prefLabel>Xariim Xumaas Gal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/50037/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.96667</wgs:lat>
+	<wgs:long>45.21667</wgs:long>
+	<skos:prefLabel>Xariim Xumaas Bar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/50333/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.14734</wgs:lat>
+	<wgs:long>41.93887</wgs:long>
+	<skos:altLabel>Hagi Bulle</skos:altLabel>
+	<skos:altLabel>Isola Hagi Bule</skos:altLabel>
+	<skos:altLabel>Khadzhi Bulle</skos:altLabel>
+	<skos:altLabel xml:lang="so">Xaaji Buulle</skos:altLabel>
+	<skos:prefLabel>Xaaji Buulle</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/50349/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLT"/>
+	<wgs:lat>10.43016</wgs:lat>
+	<wgs:long>51.32948</wgs:long>
+	<skos:prefLabel>Jasiiradsha Xaafuun</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/50360/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>10</wgs:lat>
+	<wgs:long>44.5</wgs:long>
+	<skos:altLabel xml:lang="so">Gobolka Woqooyi Galbeed</skos:altLabel>
+	<skos:altLabel>Hargeisa</skos:altLabel>
+	<skos:altLabel>North-West</skos:altLabel>
+	<skos:altLabel>North-Western Region</skos:altLabel>
+	<skos:altLabel>Waqooye</skos:altLabel>
+	<skos:altLabel>West Galbeed</skos:altLabel>
+	<skos:altLabel>Woqooyi Galbeed</skos:altLabel>
+	<skos:prefLabel>Gobolka Woqooyi Galbeed</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/50672/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>22022</europeana:population>
+	<wgs:lat>2.61667</wgs:lat>
+	<wgs:long>44.9</wgs:long>
+	<skos:altLabel>Bahle Dogli</skos:altLabel>
+	<skos:altLabel>Uanle Uen</skos:altLabel>
+	<skos:altLabel>Wangleweyn</skos:altLabel>
+	<skos:altLabel>Wanla Uen</skos:altLabel>
+	<skos:altLabel>Wanla Weyne</skos:altLabel>
+	<skos:altLabel>Wanlaweyn</skos:altLabel>
+	<skos:altLabel>Wanle Weyne</skos:altLabel>
+	<skos:prefLabel>Wanlaweyn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/50947/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-1.58803</wgs:lat>
+	<wgs:long>41.62929</wgs:long>
+	<skos:altLabel xml:lang="so">Umfaali</skos:altLabel>
+	<skos:altLabel>Umfali</skos:altLabel>
+	<skos:prefLabel>Umfaali</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/50966/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.03333</wgs:lat>
+	<wgs:long>42.01667</wgs:long>
+	<skos:prefLabel>Ukahiiyo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/51184/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.58333</wgs:lat>
+	<wgs:long>42.73333</wgs:long>
+	<skos:prefLabel>Isola Touata</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/51213/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.41667</wgs:lat>
+	<wgs:long>44.36667</wgs:long>
+	<skos:altLabel>Ceel Toorre</skos:altLabel>
+	<skos:altLabel>El Torre</skos:altLabel>
+	<skos:altLabel>Toore</skos:altLabel>
+	<skos:prefLabel>Toore</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/51218/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-0.34602</wgs:lat>
+	<wgs:long>42.58488</wgs:long>
+	<skos:altLabel>Isolotti Tomba</skos:altLabel>
+	<skos:altLabel>Toomba</skos:altLabel>
+	<skos:prefLabel>Toomba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/51230/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>9.33333</wgs:lat>
+	<wgs:long>45.41667</wgs:long>
+	<skos:altLabel>Burao</skos:altLabel>
+	<skos:altLabel>Dohdayr</skos:altLabel>
+	<skos:altLabel xml:lang="so">Gobolka Togdheer</skos:altLabel>
+	<skos:altLabel>North-East</skos:altLabel>
+	<skos:altLabel>Togdheer</skos:altLabel>
+	<skos:altLabel>Tug Der</skos:altLabel>
+	<skos:altLabel>Tugdayr</skos:altLabel>
+	<skos:prefLabel>Gobolka Togdheer</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/51331/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.16328</wgs:lat>
+	<wgs:long>41.92305</wgs:long>
+	<skos:altLabel>Ciandraa</skos:altLabel>
+	<skos:altLabel>Dzhandra</skos:altLabel>
+	<skos:altLabel>Isola Ciandraa</skos:altLabel>
+	<skos:altLabel>Isola Ciandrà</skos:altLabel>
+	<skos:altLabel xml:lang="so">Jandra</skos:altLabel>
+	<skos:altLabel>Jasiiradda Tandraas</skos:altLabel>
+	<skos:altLabel xml:lang="so">Tandraas</skos:altLabel>
+	<skos:altLabel>Tandras</skos:altLabel>
+	<skos:prefLabel>Tandraas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/51537/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255146/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>10112453</europeana:population>
+	<wgs:lat>6</wgs:lat>
+	<wgs:long>48</wgs:long>
+	<skos:altLabel xml:lang="ga">An tSomáil</skos:altLabel>
+	<skos:altLabel>Jamhuuriyada Demuqraadiga Soomaaliyeed</skos:altLabel>
+	<skos:altLabel>SO</skos:altLabel>
+	<skos:altLabel xml:lang="et">Somaalia</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Somali</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Somali</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Somali</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Somali</skos:altLabel>
+	<skos:altLabel>Somali Democratic Republic</skos:altLabel>
+	<skos:altLabel xml:lang="es">Somalia</skos:altLabel>
+	<skos:altLabel xml:lang="id">Somalia</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Somalia</skos:altLabel>
+	<skos:altLabel xml:lang="en">Somalia</skos:altLabel>
+	<skos:altLabel xml:lang="de">Somalia</skos:altLabel>
+	<skos:altLabel xml:lang="da">Somalia</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Somalia</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Somalia</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Somalia</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Somalia</skos:altLabel>
+	<skos:altLabel xml:lang="an">Somalia</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Somalia</skos:altLabel>
+	<skos:altLabel xml:lang="io">Somalia</skos:altLabel>
+	<skos:altLabel xml:lang="it">Somalia</skos:altLabel>
+	<skos:altLabel xml:lang="la">Somalia</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Somalia</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Somalia</skos:altLabel>
+	<skos:altLabel xml:lang="rm">Somalia</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Somalia</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Somalia</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Somalia</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Somalia</skos:altLabel>
+	<skos:altLabel xml:lang="no">Somalia</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Somalia</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Somalia</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Somalia</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Somalia</skos:altLabel>
+	<skos:altLabel xml:lang="ln">Somalia</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Somalia</skos:altLabel>
+	<skos:altLabel>Somalia</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Somalia - Soomaaliya</skos:altLabel>
+	<skos:altLabel>Somalie</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Somalie</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Somalija</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Somalija</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Somalija</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Somalija</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Somalio</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Somalis</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Somaliya</skos:altLabel>
+	<skos:altLabel xml:lang="af">Somalië</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Somalië</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Somalja</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Somalujo</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Somalän</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Somàlia</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Somália</skos:altLabel>
+	<skos:altLabel xml:lang="se">Somália</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Somálsko</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Somálsko</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Somālija</skos:altLabel>
+	<skos:altLabel>Soomaaliya</skos:altLabel>
+	<skos:altLabel xml:lang="so">Soomaaliya</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Sumalya</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Szomália</skos:altLabel>
+	<skos:altLabel xml:lang="is">Sómalía</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Xô-ma-li-a (Somalia)</skos:altLabel>
+	<skos:altLabel xml:lang="el">Σομαλία</skos:altLabel>
+	<skos:altLabel xml:lang="be">Самалі</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сомали</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Сомалия</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Сомалија</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Сомалија</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Сомалі</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Сумолӣ</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Սոմալի</skos:altLabel>
+	<skos:altLabel xml:lang="he">סומליה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الصومال</skos:altLabel>
+	<skos:altLabel xml:lang="ug">سومالى</skos:altLabel>
+	<skos:altLabel xml:lang="fa">سومالی</skos:altLabel>
+	<skos:altLabel xml:lang="ur">صوپالیہ</skos:altLabel>
+	<skos:altLabel xml:lang="hi">सोमालिया</skos:altLabel>
+	<skos:altLabel xml:lang="sa">सोमालिया</skos:altLabel>
+	<skos:altLabel xml:lang="bn">সোমালিয়া</skos:altLabel>
+	<skos:altLabel xml:lang="ml">സോമാലിയ</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศโซมาเลีย</skos:altLabel>
+	<skos:altLabel xml:lang="th">โซมาเลีย</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ໂຊມາເລຍ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">སོ་མཱལི་ཡ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">სომალი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሱማሌ</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሶማሊያ</skos:altLabel>
+	<skos:altLabel xml:lang="km">សូម៉ាលី</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ソマリア</skos:altLabel>
+	<skos:altLabel xml:lang="zh">索马里</skos:altLabel>
+	<skos:altLabel xml:lang="ko">소말리아</skos:altLabel>
+	<skos:prefLabel>Somalia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/51819/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.31667</wgs:lat>
+	<wgs:long>44.25</wgs:long>
+	<skos:prefLabel>Shiidume</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/51966/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>1.83333</wgs:lat>
+	<wgs:long>44.41667</wgs:long>
+	<skos:altLabel>Gobolka Shabeellaha Hoose</skos:altLabel>
+	<skos:altLabel>Lower Scebeli</skos:altLabel>
+	<skos:altLabel>Lower Shebele</skos:altLabel>
+	<skos:altLabel>Province of Lower Shabelle</skos:altLabel>
+	<skos:altLabel>Shabeellaha Hoose</skos:altLabel>
+	<skos:altLabel>Shabeelle Hoose</skos:altLabel>
+	<skos:prefLabel>Gobolka Shabeellaha Hoose</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/51967/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>3</wgs:lat>
+	<wgs:long>46</wgs:long>
+	<skos:altLabel>Central Shabele</skos:altLabel>
+	<skos:altLabel>Gobolka Shabeellaha Dhexe</skos:altLabel>
+	<skos:altLabel>Middle Scebeli</skos:altLabel>
+	<skos:altLabel xml:lang="en">Middle Shabele</skos:altLabel>
+	<skos:altLabel>Middle Shabelli</skos:altLabel>
+	<skos:altLabel>Middle Shebelli</skos:altLabel>
+	<skos:altLabel>Province of Central Shabelle</skos:altLabel>
+	<skos:altLabel>Shabeellaha Dhexe</skos:altLabel>
+	<skos:altLabel>Shabeelle Dhexaad</skos:altLabel>
+	<skos:altLabel>Upper Shabelle</skos:altLabel>
+	<skos:prefLabel>Gobolka Shabeellaha Dhexe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/52014/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.37656</wgs:lat>
+	<wgs:long>42.55675</wgs:long>
+	<skos:altLabel>Chisimaio Island</skos:altLabel>
+	<skos:altLabel>Isola Chisimaio</skos:altLabel>
+	<skos:altLabel>Isola dei Serpenti</skos:altLabel>
+	<skos:altLabel>Kisimayu Island</skos:altLabel>
+	<skos:altLabel>Seerbeenti</skos:altLabel>
+	<skos:altLabel>Serpenti Island</skos:altLabel>
+	<skos:prefLabel>Seerbeenti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/52187/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>10.5</wgs:lat>
+	<wgs:long>48</wgs:long>
+	<skos:altLabel>Gobolka Sanaag</skos:altLabel>
+	<skos:altLabel>Province of Sanaag</skos:altLabel>
+	<skos:altLabel>Sanaag</skos:altLabel>
+	<skos:altLabel>Sinad</skos:altLabel>
+	<skos:altLabel>Snaq</skos:altLabel>
+	<skos:prefLabel>Gobolka Sanaag</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/52211/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.43294</wgs:lat>
+	<wgs:long>42.50782</wgs:long>
+	<skos:altLabel>Isolotto Verde</skos:altLabel>
+	<skos:altLabel>Salooto Feerde</skos:altLabel>
+	<skos:prefLabel>Salooto Feerde</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/52269/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.18067</wgs:lat>
+	<wgs:long>41.82211</wgs:long>
+	<skos:altLabel xml:lang="so">Saklatiini</skos:altLabel>
+	<skos:altLabel>Saklatini</skos:altLabel>
+	<skos:prefLabel>Saklatiini</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/52385/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.43639</wgs:lat>
+	<wgs:long>43.46167</wgs:long>
+	<skos:altLabel>Saacada Diin</skos:altLabel>
+	<skos:altLabel>Saad Ed Din</skos:altLabel>
+	<skos:altLabel>Saada Din</skos:altLabel>
+	<skos:altLabel>Saada Din Island</skos:altLabel>
+	<skos:altLabel>Sadaddin</skos:altLabel>
+	<skos:altLabel>Sa’d ed Dîn</skos:altLabel>
+	<skos:prefLabel>Saacada Diin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/52867/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>51720</europeana:population>
+	<wgs:lat>1.78333</wgs:lat>
+	<wgs:long>44.53333</wgs:long>
+	<skos:altLabel>Coriole</skos:altLabel>
+	<skos:altLabel>Coriolei</skos:altLabel>
+	<skos:altLabel>Koriolay</skos:altLabel>
+	<skos:altLabel>Qoreyole</skos:altLabel>
+	<skos:altLabel>Qoryolay</skos:altLabel>
+	<skos:altLabel>Qoryooley</skos:altLabel>
+	<skos:prefLabel>Qoryooley</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/53157/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15923</europeana:population>
+	<wgs:lat>11.47245</wgs:lat>
+	<wgs:long>49.87159</wgs:long>
+	<skos:altLabel>Candala</skos:altLabel>
+	<skos:altLabel>Kandala</skos:altLabel>
+	<skos:altLabel>Qandala</skos:altLabel>
+	<skos:prefLabel>Qandala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/53477/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>8.16667</wgs:lat>
+	<wgs:long>49</wgs:long>
+	<skos:altLabel xml:lang="so">Gobolka Nugaal</skos:altLabel>
+	<skos:altLabel>Nogal</skos:altLabel>
+	<skos:altLabel>Nugaal</skos:altLabel>
+	<skos:altLabel xml:lang="no">Nugaal</skos:altLabel>
+	<skos:altLabel>Nuugaal</skos:altLabel>
+	<skos:altLabel>Province of Nugaal</skos:altLabel>
+	<skos:prefLabel>Gobolka Nugaal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/53492/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.32512</wgs:lat>
+	<wgs:long>41.79481</wgs:long>
+	<skos:altLabel xml:lang="so">Gannaarfa</skos:altLabel>
+	<skos:altLabel>Gannarfa</skos:altLabel>
+	<skos:altLabel xml:lang="so">Niyaarwo</skos:altLabel>
+	<skos:altLabel>Niyyaruo</skos:altLabel>
+	<skos:prefLabel>Niyaarwo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/53543/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.08333</wgs:lat>
+	<wgs:long>44.01667</wgs:long>
+	<skos:altLabel>Ilot Mnara</skos:altLabel>
+	<skos:altLabel>Isola Mnara</skos:altLabel>
+	<skos:altLabel>Isolotto Mnara</skos:altLabel>
+	<skos:altLabel>Kisawa Mnara</skos:altLabel>
+	<skos:altLabel>Kisiwa Mnara</skos:altLabel>
+	<skos:altLabel>Mnara</skos:altLabel>
+	<skos:altLabel>Naraan</skos:altLabel>
+	<skos:prefLabel>Naraan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/53654/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>2587183</europeana:population>
+	<wgs:lat>2.03711</wgs:lat>
+	<wgs:long>45.34375</wgs:long>
+	<skos:altLabel>Magadiscio</skos:altLabel>
+	<skos:altLabel>Maqdishu</skos:altLabel>
+	<skos:altLabel>Mogadiisho</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Mogadiisho</skos:altLabel>
+	<skos:altLabel xml:lang="de">Mogadischu</skos:altLabel>
+	<skos:altLabel>Mogadiscio</skos:altLabel>
+	<skos:altLabel xml:lang="es">Mogadiscio</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Mogadiscio</skos:altLabel>
+	<skos:altLabel xml:lang="it">Mogadiscio</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Mogadiscio</skos:altLabel>
+	<skos:altLabel>Mogadish</skos:altLabel>
+	<skos:altLabel>Mogadisho</skos:altLabel>
+	<skos:altLabel xml:lang="id">Mogadishu</skos:altLabel>
+	<skos:altLabel xml:lang="en">Mogadishu</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Mogadishu</skos:altLabel>
+	<skos:altLabel xml:lang="io">Mogadishu</skos:altLabel>
+	<skos:altLabel xml:lang="no">Mogadishu</skos:altLabel>
+	<skos:altLabel xml:lang="da">Mogadishu</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Mogadishu</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Mogadishu</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Mogadishu</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Mogadishu</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Mogadisxo</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Mogadiszu</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Mogadiŝo</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Mogadişu</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Mogadiša</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Mogadišas</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Mogadišo</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Mogadišu</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Mogadíscio</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Mogaidisiú</skos:altLabel>
+	<skos:altLabel xml:lang="so">Muqdisho</skos:altLabel>
+	<skos:altLabel xml:lang="et">Muqdisho</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Muqdisho</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Muqdisho</skos:altLabel>
+	<skos:altLabel>Muqdishow</skos:altLabel>
+	<skos:altLabel>Muqdishu</skos:altLabel>
+	<skos:altLabel>Xamar</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μουκντίσο</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Могадишу</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Могадишу</skos:altLabel>
+	<skos:altLabel xml:lang="he">מוגדישו</skos:altLabel>
+	<skos:altLabel xml:lang="ar">مقديشو</skos:altLabel>
+	<skos:altLabel xml:lang="ar">مقديشيو</skos:altLabel>
+	<skos:altLabel xml:lang="fa">موگادیشو</skos:altLabel>
+	<skos:altLabel xml:lang="ka">მოგადიშო</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሞቃዲሾ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">モガディシュ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">摩加迪休</skos:altLabel>
+	<skos:altLabel xml:lang="ko">모가디슈</skos:altLabel>
+	<skos:prefLabel>Mogadishu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/53707/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>733964</europeana:population>
+	<wgs:lat>7</wgs:lat>
+	<wgs:long>48</wgs:long>
+	<skos:altLabel>Commissariat du Modugh</skos:altLabel>
+	<skos:altLabel>Commissariat du Mudugh</skos:altLabel>
+	<skos:altLabel>Gobolka Mudug</skos:altLabel>
+	<skos:altLabel>Modugh</skos:altLabel>
+	<skos:altLabel>Mudug</skos:altLabel>
+	<skos:altLabel>Mudugh</skos:altLabel>
+	<skos:altLabel>Province of Mudug</skos:altLabel>
+	<skos:prefLabel>Gobolka Mudug</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/53741/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>11.44073</wgs:lat>
+	<wgs:long>43.37046</wgs:long>
+	<skos:prefLabel>Mosheykh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/53820/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.20944</wgs:lat>
+	<wgs:long>42.77</wgs:long>
+	<skos:altLabel>Isola Mombasa</skos:altLabel>
+	<skos:altLabel>Mombaasa</skos:altLabel>
+	<skos:prefLabel>Mombaasa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/53863/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.56331</wgs:lat>
+	<wgs:long>41.63932</wgs:long>
+	<skos:altLabel xml:lang="so">Miyaandi</skos:altLabel>
+	<skos:altLabel>Miyyandi</skos:altLabel>
+	<skos:prefLabel>Miyaandi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/54079/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.2</wgs:lat>
+	<wgs:long>47.21667</wgs:long>
+	<skos:altLabel>Burnt Island</skos:altLabel>
+	<skos:altLabel>Jasiired Maydh</skos:altLabel>
+	<skos:altLabel>Jezirat ar-Rabbsh</skos:altLabel>
+	<skos:altLabel>Mait</skos:altLabel>
+	<skos:altLabel>Mait Island</skos:altLabel>
+	<skos:altLabel>Mayd Jasired</skos:altLabel>
+	<skos:altLabel>Maydh</skos:altLabel>
+	<skos:altLabel>Rebehi</skos:altLabel>
+	<skos:altLabel>Île Mait</skos:altLabel>
+	<skos:prefLabel>Maydh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/54110/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.47826</wgs:lat>
+	<wgs:long>42.47788</wgs:long>
+	<skos:altLabel xml:lang="so">Matunga-iyo-Baaba</skos:altLabel>
+	<skos:altLabel>Matunga-iyo-Baba</skos:altLabel>
+	<skos:prefLabel>Matunga-iyo-Baaba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/54377/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.15</wgs:lat>
+	<wgs:long>44.08333</wgs:long>
+	<skos:prefLabel>Mamba Qasheera</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/54706/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-1.18353</wgs:lat>
+	<wgs:long>41.89278</wgs:long>
+	<skos:altLabel xml:lang="so">Maafondokowa</skos:altLabel>
+	<skos:altLabel>Mafondokoua</skos:altLabel>
+	<skos:prefLabel>Maafondokowa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/54707/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.18333</wgs:lat>
+	<wgs:long>41.88333</wgs:long>
+	<skos:altLabel>Isoletti Mafondoca</skos:altLabel>
+	<skos:altLabel xml:lang="so">Maafondokowa</skos:altLabel>
+	<skos:prefLabel>Maafondokowa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/54715/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>33820</europeana:population>
+	<wgs:lat>3.79651</wgs:lat>
+	<wgs:long>42.54421</wgs:long>
+	<skos:altLabel>Lugh</skos:altLabel>
+	<skos:altLabel>Lugh Ferrandi</skos:altLabel>
+	<skos:altLabel>Lugh Ganana</skos:altLabel>
+	<skos:altLabel>Lugh Ganane</skos:altLabel>
+	<skos:altLabel>Lughferandi</skos:altLabel>
+	<skos:altLabel>Luuq</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Лук</skos:altLabel>
+	<skos:prefLabel>Luuq</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/55024/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-1.65943</wgs:lat>
+	<wgs:long>41.57844</wgs:long>
+	<skos:altLabel>Diua Damasciaca</skos:altLabel>
+	<skos:altLabel>Ilots Lamasciaca</skos:altLabel>
+	<skos:altLabel>Isolotti Lamasciaca</skos:altLabel>
+	<skos:altLabel xml:lang="so">Kadkiya</skos:altLabel>
+	<skos:altLabel>Kadkiyya</skos:altLabel>
+	<skos:altLabel xml:lang="so">Lama Shaaqa</skos:altLabel>
+	<skos:altLabel>Lama Shaka</skos:altLabel>
+	<skos:prefLabel>Lama Shaaqa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/55144/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.0113</wgs:lat>
+	<wgs:long>45.52333</wgs:long>
+	<skos:prefLabel>Laba Webi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/55195/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.7</wgs:lat>
+	<wgs:long>42.68333</wgs:long>
+	<skos:prefLabel>Labadaad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/55294/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-1.18401</wgs:lat>
+	<wgs:long>41.91318</wgs:long>
+	<skos:altLabel xml:lang="so">Laangua Bembe</skos:altLabel>
+	<skos:altLabel>Langua Bembe</skos:altLabel>
+	<skos:prefLabel>Laangua Bembe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/55345/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.93333</wgs:lat>
+	<wgs:long>42.1</wgs:long>
+	<skos:altLabel>Cuvùmbi</skos:altLabel>
+	<skos:altLabel>Kuwuubi</skos:altLabel>
+	<skos:prefLabel>Kuwuubi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/55520/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.63333</wgs:lat>
+	<wgs:long>42.35</wgs:long>
+	<skos:altLabel>Coiama Island</skos:altLabel>
+	<skos:altLabel>Ile Coiama</skos:altLabel>
+	<skos:altLabel>Isola Coiama</skos:altLabel>
+	<skos:altLabel>Isola di Coiama</skos:altLabel>
+	<skos:altLabel>Jasiira Koiama</skos:altLabel>
+	<skos:altLabel>Jasiirad Koyaama</skos:altLabel>
+	<skos:altLabel>Jasīra Koiama</skos:altLabel>
+	<skos:altLabel>Koyaama</skos:altLabel>
+	<skos:altLabel>Koyama Island</skos:altLabel>
+	<skos:prefLabel>Koyaama</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/55581/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-0.46348</wgs:lat>
+	<wgs:long>42.5099</wgs:long>
+	<skos:altLabel>Isolotti Cordata</skos:altLabel>
+	<skos:altLabel>Koordaada</skos:altLabel>
+	<skos:altLabel>Nyuni</skos:altLabel>
+	<skos:prefLabel>Koordaada</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/55615/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-1.35637</wgs:lat>
+	<wgs:long>41.77794</wgs:long>
+	<skos:altLabel xml:lang="so">Konaandoofu</skos:altLabel>
+	<skos:altLabel>Konandofu</skos:altLabel>
+	<skos:prefLabel>Konaandoofu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/55656/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.05</wgs:lat>
+	<wgs:long>42.01667</wgs:long>
+	<skos:prefLabel>Kiyoojo Lagooni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/55657/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.05</wgs:lat>
+	<wgs:long>42.01667</wgs:long>
+	<skos:prefLabel>Kiyoojo Kaaji</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/55661/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-0.61667</wgs:lat>
+	<wgs:long>42.36667</wgs:long>
+	<skos:prefLabel>Kiyaamwa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/55664/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.95</wgs:lat>
+	<wgs:long>42.08333</wgs:long>
+	<skos:altLabel>Chiva Giamoga</skos:altLabel>
+	<skos:altLabel>Kiwamooka</skos:altLabel>
+	<skos:prefLabel>Kiwamooka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/55666/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.6</wgs:lat>
+	<wgs:long>42.38333</wgs:long>
+	<skos:altLabel>Chiuassa</skos:altLabel>
+	<skos:altLabel>Kiwaasa</skos:altLabel>
+	<skos:prefLabel>Kiwaasa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/55671/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>234852</europeana:population>
+	<wgs:lat>-0.35817</wgs:lat>
+	<wgs:long>42.54536</wgs:long>
+	<skos:altLabel>Chisimaio</skos:altLabel>
+	<skos:altLabel xml:lang="en">Chisimayu</skos:altLabel>
+	<skos:altLabel>Kisimayo</skos:altLabel>
+	<skos:altLabel>Kisimayu</skos:altLabel>
+	<skos:altLabel>Kismaanyo</skos:altLabel>
+	<skos:altLabel xml:lang="so">Kismaayo</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Kismaayo</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kismaayo</skos:altLabel>
+	<skos:altLabel xml:lang="es">Kismaayo</skos:altLabel>
+	<skos:altLabel xml:lang="id">Kismaayo</skos:altLabel>
+	<skos:altLabel>Kismayo</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Kismayo</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kismayo</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Kismayo</skos:altLabel>
+	<skos:altLabel>Kismayu</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Kismayu</skos:altLabel>
+	<skos:altLabel>Kismānyó</skos:altLabel>
+	<skos:altLabel xml:lang="ja">キスマヨ</skos:altLabel>
+	<skos:prefLabel>Chisimayu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/55685/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.06667</wgs:lat>
+	<wgs:long>42</wgs:long>
+	<skos:altLabel xml:lang="so">Kiiwa Kasabuuli</skos:altLabel>
+	<skos:prefLabel>Kiiwa Kasabuuli</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/55686/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-1.55562</wgs:lat>
+	<wgs:long>41.65264</wgs:long>
+	<skos:altLabel>Kiiua Dzhafagfali</skos:altLabel>
+	<skos:altLabel xml:lang="so">Kiiwa Jafaagfaali</skos:altLabel>
+	<skos:prefLabel>Kiiwa Jafaagfaali</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/55716/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-1.23796</wgs:lat>
+	<wgs:long>41.86348</wgs:long>
+	<skos:altLabel>Isoletti Chete Chete</skos:altLabel>
+	<skos:altLabel xml:lang="so">Keti-Keti</skos:altLabel>
+	<skos:prefLabel>Keti-Keti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/55969/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>5.89189</wgs:lat>
+	<wgs:long>48.89067</wgs:long>
+	<skos:prefLabel>Kalad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/56075/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.98333</wgs:lat>
+	<wgs:long>42.05</wgs:long>
+	<skos:altLabel>Chula Island</skos:altLabel>
+	<skos:altLabel>Ciula Island</skos:altLabel>
+	<skos:altLabel>Ile Ciula</skos:altLabel>
+	<skos:altLabel>Isola Ciula</skos:altLabel>
+	<skos:altLabel>Jasiira Jula</skos:altLabel>
+	<skos:altLabel>Jasiirad Juula</skos:altLabel>
+	<skos:altLabel>Jasira Jula</skos:altLabel>
+	<skos:altLabel>Tula</skos:altLabel>
+	<skos:prefLabel>Jasiirad Juula</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/56083/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>0</wgs:lat>
+	<wgs:long>42</wgs:long>
+	<skos:altLabel>Basso Giuba</skos:altLabel>
+	<skos:altLabel>Commissariat du Bas-Giuba</skos:altLabel>
+	<skos:altLabel xml:lang="so">Gobolka Jubbada Hoose</skos:altLabel>
+	<skos:altLabel>Jubada Hoose</skos:altLabel>
+	<skos:altLabel>Jubbada Hoose</skos:altLabel>
+	<skos:altLabel>Lower Giuba</skos:altLabel>
+	<skos:altLabel xml:lang="en">Lower Juba</skos:altLabel>
+	<skos:prefLabel>Gobolka Jubbada Hoose</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/56084/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>1.33333</wgs:lat>
+	<wgs:long>42.66667</wgs:long>
+	<skos:altLabel>Central Juba</skos:altLabel>
+	<skos:altLabel>Gobolka Jubbada Dhexe</skos:altLabel>
+	<skos:altLabel>Jubbada Dhexe</skos:altLabel>
+	<skos:altLabel xml:lang="en">Middle Juba</skos:altLabel>
+	<skos:altLabel>Upper Juba Region</skos:altLabel>
+	<skos:prefLabel>Gobolka Jubbada Dhexe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/56090/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-1.38319</wgs:lat>
+	<wgs:long>41.75548</wgs:long>
+	<skos:altLabel>Dzhondo</skos:altLabel>
+	<skos:altLabel xml:lang="so">Joondho</skos:altLabel>
+	<skos:prefLabel>Joondho</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/56097/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.86667</wgs:lat>
+	<wgs:long>42.18333</wgs:long>
+	<skos:altLabel>Ciovai Island</skos:altLabel>
+	<skos:altLabel>Ciuai</skos:altLabel>
+	<skos:altLabel>Isola Ciovai</skos:altLabel>
+	<skos:altLabel>Isola Giovai</skos:altLabel>
+	<skos:altLabel>Jasiira Jowai</skos:altLabel>
+	<skos:altLabel>Jevai Island</skos:altLabel>
+	<skos:altLabel>Jofay</skos:altLabel>
+	<skos:prefLabel>Jofay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/56166/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>43694</europeana:population>
+	<wgs:lat>0.49583</wgs:lat>
+	<wgs:long>42.77278</wgs:long>
+	<skos:altLabel>Gelib</skos:altLabel>
+	<skos:altLabel>Jeelib</skos:altLabel>
+	<skos:altLabel>Jilib</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Джилиб</skos:altLabel>
+	<skos:prefLabel>Jilib</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/56178/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>1.1</wgs:lat>
+	<wgs:long>44.03333</wgs:long>
+	<skos:prefLabel>Jilaani</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/56335/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>47086</europeana:population>
+	<wgs:lat>2.76667</wgs:lat>
+	<wgs:long>45.51667</wgs:long>
+	<skos:altLabel xml:lang="de">Giohar</skos:altLabel>
+	<skos:altLabel xml:lang="en">Giohar</skos:altLabel>
+	<skos:altLabel xml:lang="so">Jawhar</skos:altLabel>
+	<skos:altLabel xml:lang="de">Jawhar</skos:altLabel>
+	<skos:altLabel>Johar</skos:altLabel>
+	<skos:altLabel>Joher</skos:altLabel>
+	<skos:altLabel>Joowhar</skos:altLabel>
+	<skos:altLabel xml:lang="de">Jowhar</skos:altLabel>
+	<skos:altLabel>Jōwhar</skos:altLabel>
+	<skos:altLabel>Villa Duca Abruzzi</skos:altLabel>
+	<skos:altLabel>Villaggio Duca Abruzzi</skos:altLabel>
+	<skos:altLabel>Villaggio Duca degli Abruzzi</skos:altLabel>
+	<skos:prefLabel>Giohar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/56399/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>185270</europeana:population>
+	<wgs:lat>0.07222</wgs:lat>
+	<wgs:long>42.75056</wgs:long>
+	<skos:altLabel>Giamama</skos:altLabel>
+	<skos:altLabel>Giamame</skos:altLabel>
+	<skos:altLabel>Giamana</skos:altLabel>
+	<skos:altLabel>Giamane</skos:altLabel>
+	<skos:altLabel xml:lang="en">Jamaame</skos:altLabel>
+	<skos:altLabel xml:lang="de">Jamaame</skos:altLabel>
+	<skos:altLabel>Jamaame</skos:altLabel>
+	<skos:altLabel>Jamāme</skos:altLabel>
+	<skos:altLabel>Margherita</skos:altLabel>
+	<skos:prefLabel>Jamaame</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/56444/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.76667</wgs:lat>
+	<wgs:long>42.25</wgs:long>
+	<skos:altLabel>Ciapape</skos:altLabel>
+	<skos:altLabel>Jabbaabe</skos:altLabel>
+	<skos:prefLabel>Jabbaabe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/56649/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.55</wgs:lat>
+	<wgs:long>42.41667</wgs:long>
+	<skos:prefLabel>Ilisi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/56685/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-1.48783</wgs:lat>
+	<wgs:long>41.69596</wgs:long>
+	<skos:altLabel xml:lang="so">Ikumbi</skos:altLabel>
+	<skos:prefLabel>Ikumbi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/57000/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12564</europeana:population>
+	<wgs:lat>5.35139</wgs:lat>
+	<wgs:long>48.52556</wgs:long>
+	<skos:altLabel>Hobiya</skos:altLabel>
+	<skos:altLabel>Hobyaa</skos:altLabel>
+	<skos:altLabel>Hobyo</skos:altLabel>
+	<skos:altLabel>Hobyā</skos:altLabel>
+	<skos:altLabel>Obbia</skos:altLabel>
+	<skos:prefLabel>Hobyo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/57060/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>4</wgs:lat>
+	<wgs:long>45.5</wgs:long>
+	<skos:altLabel>Commissariat de l’ Uebi Scebeli</skos:altLabel>
+	<skos:altLabel>Gobolka Hiiraan</skos:altLabel>
+	<skos:altLabel>Hiiraan</skos:altLabel>
+	<skos:altLabel>Hiiran</skos:altLabel>
+	<skos:altLabel>Hiran</skos:altLabel>
+	<skos:altLabel>Province of Hiran</skos:altLabel>
+	<skos:altLabel>Uebi Scebeli</skos:altLabel>
+	<skos:prefLabel>Gobolka Hiiraan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/57289/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>477876</europeana:population>
+	<wgs:lat>9.56</wgs:lat>
+	<wgs:long>44.065</wgs:long>
+	<skos:altLabel>Hargeisa</skos:altLabel>
+	<skos:altLabel>Hargesa</skos:altLabel>
+	<skos:altLabel>Hargeysa</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Харгейсе</skos:altLabel>
+	<skos:prefLabel>Hargeysa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/57664/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.78333</wgs:lat>
+	<wgs:long>42.25</wgs:long>
+	<skos:altLabel>Gua Island</skos:altLabel>
+	<skos:altLabel>Guuwa</skos:altLabel>
+	<skos:altLabel>Guà</skos:altLabel>
+	<skos:altLabel>Isola di Quà</skos:altLabel>
+	<skos:prefLabel>Guuwa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/57674/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.71667</wgs:lat>
+	<wgs:long>42.3</wgs:long>
+	<skos:altLabel>Guumme</skos:altLabel>
+	<skos:altLabel>Isola Ngumi</skos:altLabel>
+	<skos:altLabel>Isola di Ngûmi</skos:altLabel>
+	<skos:altLabel>Jasiira Ngumi</skos:altLabel>
+	<skos:altLabel>Jasīra Ngumi</skos:altLabel>
+	<skos:altLabel>Ngumi Island</skos:altLabel>
+	<skos:altLabel>Vuma</skos:altLabel>
+	<skos:prefLabel>Guumme</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/57843/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.12683</wgs:lat>
+	<wgs:long>41.78157</wgs:long>
+	<skos:altLabel xml:lang="so">Gumaani</skos:altLabel>
+	<skos:altLabel>Gumani</skos:altLabel>
+	<skos:prefLabel>Gumaani</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/58500/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-0.75</wgs:lat>
+	<wgs:long>42.31667</wgs:long>
+	<skos:altLabel>Bagiumi</skos:altLabel>
+	<skos:altLabel>Bajun Islands</skos:altLabel>
+	<skos:altLabel>Dundas Islands</skos:altLabel>
+	<skos:altLabel>Isole Giuba</skos:altLabel>
+	<skos:altLabel>Isole dei Bagiuni</skos:altLabel>
+	<skos:altLabel>Juba Islands</skos:altLabel>
+	<skos:prefLabel>Isole Giuba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/58802/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>3</wgs:lat>
+	<wgs:long>42</wgs:long>
+	<skos:altLabel>Gedo</skos:altLabel>
+	<skos:altLabel>Gobolka Gedo</skos:altLabel>
+	<skos:altLabel>Province of Gedo</skos:altLabel>
+	<skos:altLabel>Upper Juba</skos:altLabel>
+	<skos:prefLabel>Gobolka Gedo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/58994/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12652</europeana:population>
+	<wgs:lat>3.31627</wgs:lat>
+	<wgs:long>42.22085</wgs:long>
+	<skos:altLabel>Garba Harey</skos:altLabel>
+	<skos:altLabel>Garba Harre</skos:altLabel>
+	<skos:altLabel>Garbahaarrey</skos:altLabel>
+	<skos:prefLabel>Garbahaarrey</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/59362/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>5</wgs:lat>
+	<wgs:long>47</wgs:long>
+	<skos:altLabel>Galguduud</skos:altLabel>
+	<skos:altLabel>Gobolka Galguduud</skos:altLabel>
+	<skos:altLabel>Province of Galgaduud</skos:altLabel>
+	<skos:prefLabel>Gobolka Galguduud</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/59611/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>61200</europeana:population>
+	<wgs:lat>6.76972</wgs:lat>
+	<wgs:long>47.43083</wgs:long>
+	<skos:altLabel xml:lang="so">Gaalkacyo</skos:altLabel>
+	<skos:altLabel xml:lang="en">Gaalkacyo</skos:altLabel>
+	<skos:altLabel xml:lang="de">Gaalkacyo</skos:altLabel>
+	<skos:altLabel xml:lang="en">Galcaio</skos:altLabel>
+	<skos:altLabel>Galka‘yo’</skos:altLabel>
+	<skos:altLabel>Gallacai</skos:altLabel>
+	<skos:altLabel>Rocca Littorio</skos:altLabel>
+	<skos:prefLabel>Galcaio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/59643/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-0.56667</wgs:lat>
+	<wgs:long>42.4</wgs:long>
+	<skos:prefLabel>Fuyuuma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/59662/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.55</wgs:lat>
+	<wgs:long>42.43333</wgs:long>
+	<skos:altLabel>Furro</skos:altLabel>
+	<skos:altLabel>Furu</skos:altLabel>
+	<skos:prefLabel>Furro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/59683/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.16667</wgs:lat>
+	<wgs:long>41.81667</wgs:long>
+	<skos:prefLabel>Fua Daua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/59919/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.17748</wgs:lat>
+	<wgs:long>41.82454</wgs:long>
+	<skos:altLabel xml:lang="so">Fanda Dhondi</skos:altLabel>
+	<skos:altLabel>Fanda Dondi</skos:altLabel>
+	<skos:altLabel xml:lang="so">Shakombo</skos:altLabel>
+	<skos:prefLabel>Fanda Dhondi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/59922/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.61134</wgs:lat>
+	<wgs:long>41.61173</wgs:long>
+	<skos:altLabel>Famau Uali</skos:altLabel>
+	<skos:altLabel>Famau Uali Island</skos:altLabel>
+	<skos:altLabel>Famauuali</skos:altLabel>
+	<skos:altLabel xml:lang="so">Famauwaali</skos:altLabel>
+	<skos:altLabel>Isola Famauali</skos:altLabel>
+	<skos:altLabel>Isolotto Famauali</skos:altLabel>
+	<skos:prefLabel>Famauwaali</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/59947/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.39342</wgs:lat>
+	<wgs:long>42.54252</wgs:long>
+	<skos:altLabel>Fafaatu</skos:altLabel>
+	<skos:altLabel>Favatu</skos:altLabel>
+	<skos:altLabel>Isolotto Favatu</skos:altLabel>
+	<skos:prefLabel>Fafaatu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/60019/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18904</europeana:population>
+	<wgs:lat>7.98333</wgs:lat>
+	<wgs:long>49.81667</wgs:long>
+	<skos:altLabel>Ayl</skos:altLabel>
+	<skos:altLabel>Ceel</skos:altLabel>
+	<skos:altLabel>Eeyl</skos:altLabel>
+	<skos:altLabel>Eil</skos:altLabel>
+	<skos:altLabel>Eyl</skos:altLabel>
+	<skos:prefLabel>Eyl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/60690/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLT"/>
+	<wgs:lat>11.48778</wgs:lat>
+	<wgs:long>43.28194</wgs:long>
+	<skos:prefLabel>Doloktiya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/60753/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-1.21954</wgs:lat>
+	<wgs:long>41.88363</wgs:long>
+	<skos:prefLabel>Isoletti Divadicioci</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/61613/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>3.31667</wgs:lat>
+	<wgs:long>45.66667</wgs:long>
+	<skos:prefLabel>Degaho</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/61799/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.0827</wgs:lat>
+	<wgs:long>41.98567</wgs:long>
+	<skos:altLabel>Daracasi</skos:altLabel>
+	<skos:altLabel>Darcasi</skos:altLabel>
+	<skos:altLabel xml:lang="so">Dargas</skos:altLabel>
+	<skos:altLabel>Isola Daracàs</skos:altLabel>
+	<skos:prefLabel>Dargas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/62651/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.33628</wgs:lat>
+	<wgs:long>42.58718</wgs:long>
+	<skos:altLabel>Chimoni Island</skos:altLabel>
+	<skos:altLabel>Isola Chimoni</skos:altLabel>
+	<skos:altLabel>Isolotto Chimoni</skos:altLabel>
+	<skos:altLabel>Jimoono Goosto</skos:altLabel>
+	<skos:prefLabel>Jimoono Goosto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/62653/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.51667</wgs:lat>
+	<wgs:long>42.43333</wgs:long>
+	<skos:prefLabel>Chianguva</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/62691/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>33853</europeana:population>
+	<wgs:lat>10.61806</wgs:lat>
+	<wgs:long>47.37</wgs:long>
+	<skos:altLabel xml:lang="so">Ceerigaabo</skos:altLabel>
+	<skos:altLabel>Cerigaabo</skos:altLabel>
+	<skos:altLabel>Erigabo</skos:altLabel>
+	<skos:altLabel xml:lang="en">Erigavo</skos:altLabel>
+	<skos:prefLabel>Erigavo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/62788/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>26562</europeana:population>
+	<wgs:lat>3.84878</wgs:lat>
+	<wgs:long>47.18064</wgs:long>
+	<skos:altLabel xml:lang="so">Ceeldheer</skos:altLabel>
+	<skos:altLabel>Ceeldheere</skos:altLabel>
+	<skos:altLabel>El Dere</skos:altLabel>
+	<skos:prefLabel>Ceeldheere</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/62861/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.50139</wgs:lat>
+	<wgs:long>43.45778</wgs:long>
+	<skos:altLabel>Aibat Island</skos:altLabel>
+	<skos:altLabel>Ceebaad</skos:altLabel>
+	<skos:prefLabel>Ceebaad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/63568/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.29668</wgs:lat>
+	<wgs:long>41.81555</wgs:long>
+	<skos:altLabel>Bur Khoula</skos:altLabel>
+	<skos:altLabel>Buri Ayle</skos:altLabel>
+	<skos:altLabel xml:lang="so">Buur Howla</skos:altLabel>
+	<skos:altLabel xml:lang="so">Buuri Caile</skos:altLabel>
+	<skos:altLabel>Buuri Calle</skos:altLabel>
+	<skos:altLabel>Isoleti Buri Aole</skos:altLabel>
+	<skos:prefLabel>Buur Howla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/63571/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>27792</europeana:population>
+	<wgs:lat>2.78333</wgs:lat>
+	<wgs:long>44.08333</wgs:long>
+	<skos:altLabel>Bur Acaba</skos:altLabel>
+	<skos:altLabel>Bur Hacaba</skos:altLabel>
+	<skos:altLabel>Burhakaba</skos:altLabel>
+	<skos:altLabel>Buur Hakkaba</skos:altLabel>
+	<skos:altLabel>Buurhakaba</skos:altLabel>
+	<skos:prefLabel>Buurhakaba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/63689/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16928</europeana:population>
+	<wgs:lat>3.85366</wgs:lat>
+	<wgs:long>45.56557</wgs:long>
+	<skos:altLabel>Bulo Burti</skos:altLabel>
+	<skos:altLabel>Buulo</skos:altLabel>
+	<skos:altLabel>Buulo Berde</skos:altLabel>
+	<skos:altLabel>Buulo Burte</skos:altLabel>
+	<skos:altLabel>Buulobarde</skos:altLabel>
+	<skos:altLabel>Būlo Bérde</skos:altLabel>
+	<skos:prefLabel>Buulobarde</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/63737/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>2.26667</wgs:lat>
+	<wgs:long>44.95</wgs:long>
+	<skos:prefLabel>Buslei</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/63795/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>99270</europeana:population>
+	<wgs:lat>9.52417</wgs:lat>
+	<wgs:long>45.53694</wgs:long>
+	<skos:altLabel>Bur ‘ó</skos:altLabel>
+	<skos:altLabel xml:lang="es">Burao</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Burao</skos:altLabel>
+	<skos:altLabel xml:lang="en">Burao</skos:altLabel>
+	<skos:altLabel xml:lang="so">Burco</skos:altLabel>
+	<skos:altLabel xml:lang="en">Burco</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бурао</skos:altLabel>
+	<skos:prefLabel>Burao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/63971/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>1.85</wgs:lat>
+	<wgs:long>43.86667</wgs:long>
+	<skos:altLabel>Boron</skos:altLabel>
+	<skos:altLabel>Borroon</skos:altLabel>
+	<skos:prefLabel>Borroon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/64013/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>74287</europeana:population>
+	<wgs:lat>11.28421</wgs:lat>
+	<wgs:long>49.18158</wgs:long>
+	<skos:altLabel>Bandar Kassim</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bender Cassim</skos:altLabel>
+	<skos:altLabel>Bender Qaasin</skos:altLabel>
+	<skos:altLabel xml:lang="so">Boosaaso</skos:altLabel>
+	<skos:altLabel>Boosaso</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bosaso</skos:altLabel>
+	<skos:altLabel>Bosasso</skos:altLabel>
+	<skos:altLabel>Bénder Qāsin</skos:altLabel>
+	<skos:prefLabel>Bender Cassim</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/64072/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.81667</wgs:lat>
+	<wgs:long>44.93333</wgs:long>
+	<skos:prefLabel>Bolo-Bolo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/64247/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.43742</wgs:lat>
+	<wgs:long>42.50902</wgs:long>
+	<skos:altLabel>Bishikaani</skos:altLabel>
+	<skos:altLabel>Isola dei Pescicani</skos:altLabel>
+	<skos:altLabel>Mtanga Ya Papa</skos:altLabel>
+	<skos:altLabel>Mtanga ia Papa</skos:altLabel>
+	<skos:altLabel>Mtanga io Papa</skos:altLabel>
+	<skos:prefLabel>Bishikaani</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/64412/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11262</europeana:population>
+	<wgs:lat>11.87063</wgs:lat>
+	<wgs:long>51.05912</wgs:long>
+	<skos:altLabel>Bareeda</skos:altLabel>
+	<skos:altLabel>Barēdá</skos:altLabel>
+	<skos:altLabel>Bereda</skos:altLabel>
+	<skos:altLabel>Bereeda</skos:altLabel>
+	<skos:prefLabel>Bereeda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/64435/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>242344</europeana:population>
+	<wgs:lat>10.43556</wgs:lat>
+	<wgs:long>45.01639</wgs:long>
+	<skos:altLabel xml:lang="id">Berbera</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Berbera</skos:altLabel>
+	<skos:altLabel xml:lang="en">Berbera</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Berbera</skos:altLabel>
+	<skos:altLabel xml:lang="so">Berbera</skos:altLabel>
+	<skos:altLabel xml:lang="es">Berbera</skos:altLabel>
+	<skos:altLabel xml:lang="de">Berbera</skos:altLabel>
+	<skos:altLabel xml:lang="it">Berbera</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Berbera</skos:altLabel>
+	<skos:altLabel>Berbera</skos:altLabel>
+	<skos:altLabel>Berberah</skos:altLabel>
+	<skos:altLabel>Berbere</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бербера</skos:altLabel>
+	<skos:altLabel xml:lang="zh">柏培拉</skos:altLabel>
+	<skos:prefLabel>Berbera</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/64441/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.91667</wgs:lat>
+	<wgs:long>42.11667</wgs:long>
+	<skos:altLabel>Bangadini</skos:altLabel>
+	<skos:altLabel>Bengadiiene</skos:altLabel>
+	<skos:altLabel>Île Bagadini</skos:altLabel>
+	<skos:prefLabel>Bengadiiene</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/64460/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>55410</europeana:population>
+	<wgs:lat>4.73583</wgs:lat>
+	<wgs:long>45.20361</wgs:long>
+	<skos:altLabel>Belai-Wen</skos:altLabel>
+	<skos:altLabel>Beled Weyn</skos:altLabel>
+	<skos:altLabel>Beledueyne</skos:altLabel>
+	<skos:altLabel>Beledweyne</skos:altLabel>
+	<skos:altLabel>Belet Uen</skos:altLabel>
+	<skos:altLabel>Belet Wayne</skos:altLabel>
+	<skos:altLabel>Belet Wen</skos:altLabel>
+	<skos:altLabel>Belet Weyne</skos:altLabel>
+	<skos:altLabel>Bālad Weyn</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Беледуэйне</skos:altLabel>
+	<skos:prefLabel>Beledweyne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/64536/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>129839</europeana:population>
+	<wgs:lat>3.11667</wgs:lat>
+	<wgs:long>43.65</wgs:long>
+	<skos:altLabel>Baidabho</skos:altLabel>
+	<skos:altLabel>Baidabo</skos:altLabel>
+	<skos:altLabel xml:lang="en">Baidoa</skos:altLabel>
+	<skos:altLabel xml:lang="de">Baidoa</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Baidoa</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Baidoa</skos:altLabel>
+	<skos:altLabel xml:lang="it">Baidoa</skos:altLabel>
+	<skos:altLabel xml:lang="so">Baydhabo</skos:altLabel>
+	<skos:altLabel>Iscia Baidoa</skos:altLabel>
+	<skos:altLabel>Isha Baydabo</skos:altLabel>
+	<skos:altLabel>Isha Baydhaba</skos:altLabel>
+	<skos:altLabel>Isha Baydhabo</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Байдоа</skos:altLabel>
+	<skos:altLabel xml:lang="ja">バイドア</skos:altLabel>
+	<skos:altLabel xml:lang="zh">拜多亞</skos:altLabel>
+	<skos:altLabel xml:lang="ja">日本語</skos:altLabel>
+	<skos:prefLabel>Baidoa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/64538/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>3</wgs:lat>
+	<wgs:long>43.5</wgs:long>
+	<skos:altLabel>Alto Giuba</skos:altLabel>
+	<skos:altLabel>Bay</skos:altLabel>
+	<skos:altLabel>Gobolka Bay</skos:altLabel>
+	<skos:altLabel>Jubada Sarree</skos:altLabel>
+	<skos:altLabel>Province of Bay</skos:altLabel>
+	<skos:altLabel>Upper Juba</skos:altLabel>
+	<skos:prefLabel>Gobolka Bay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/64551/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.91667</wgs:lat>
+	<wgs:long>42.08333</wgs:long>
+	<skos:altLabel>Bavadi</skos:altLabel>
+	<skos:altLabel>Bawaadi</skos:altLabel>
+	<skos:prefLabel>Bawaadi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/64661/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>10</wgs:lat>
+	<wgs:long>50</wgs:long>
+	<skos:altLabel>Bari</skos:altLabel>
+	<skos:altLabel>Gobolka Bari</skos:altLabel>
+	<skos:altLabel>Majeerteen</skos:altLabel>
+	<skos:altLabel>Majerteinia</skos:altLabel>
+	<skos:altLabel>Migiurtinia</skos:altLabel>
+	<skos:altLabel>Mijertinia</skos:altLabel>
+	<skos:altLabel>Mijjertenia</skos:altLabel>
+	<skos:prefLabel>Gobolka Bari</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/64763/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.88333</wgs:lat>
+	<wgs:long>45.06667</wgs:long>
+	<skos:prefLabel>Bantaabsi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/64808/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>2.28333</wgs:lat>
+	<wgs:long>45.8</wgs:long>
+	<skos:altLabel>Bandarka</skos:altLabel>
+	<skos:altLabel>Biramlide</skos:altLabel>
+	<skos:prefLabel>Bandarka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/64814/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13753</europeana:population>
+	<wgs:lat>9.48333</wgs:lat>
+	<wgs:long>50.81667</wgs:long>
+	<skos:altLabel>Bandarbeyla</skos:altLabel>
+	<skos:altLabel>Bender Beila</skos:altLabel>
+	<skos:altLabel>Bender Beyla</skos:altLabel>
+	<skos:altLabel>Bénder Bäylá</skos:altLabel>
+	<skos:prefLabel>Bandarbeyla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/64833/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>2.11667</wgs:lat>
+	<wgs:long>45.4</wgs:long>
+	<skos:altLabel>Banaadir</skos:altLabel>
+	<skos:altLabel>Benaadir</skos:altLabel>
+	<skos:altLabel>Benadir</skos:altLabel>
+	<skos:altLabel>Benadir Region</skos:altLabel>
+	<skos:altLabel>Gobolka Banaadir</skos:altLabel>
+	<skos:altLabel>Gobolka Xamar</skos:altLabel>
+	<skos:altLabel>Mogadiscio</skos:altLabel>
+	<skos:altLabel>Mogadishu</skos:altLabel>
+	<skos:prefLabel>Gobolka Banaadir</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/64982/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>4</wgs:lat>
+	<wgs:long>44</wgs:long>
+	<skos:altLabel>Bakol</skos:altLabel>
+	<skos:altLabel>Bakool</skos:altLabel>
+	<skos:altLabel>Gobolka Bakool</skos:altLabel>
+	<skos:altLabel>Province of Bakol</skos:altLabel>
+	<skos:prefLabel>Gobolka Bakool</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/65061/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/56083/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-1.00207</wgs:lat>
+	<wgs:long>41.66144</wgs:long>
+	<skos:altLabel>Bad Adda</skos:altLabel>
+	<skos:altLabel>Badade District</skos:altLabel>
+	<skos:altLabel xml:lang="so">Degmada Badhaadhe</skos:altLabel>
+	<skos:prefLabel>Degmada Badhaadhe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/65170/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLL"/>
+	<europeana:population>42240</europeana:population>
+	<wgs:lat>2.34464</wgs:lat>
+	<wgs:long>42.27644</wgs:long>
+	<skos:prefLabel>Baardheere</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/65282/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.9</wgs:lat>
+	<wgs:long>45.11667</wgs:long>
+	<skos:prefLabel>Raas Aw Maki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/65580/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.81667</wgs:lat>
+	<wgs:long>42.21667</wgs:long>
+	<skos:altLabel>Ambuu</skos:altLabel>
+	<skos:altLabel>Bulbuni</skos:altLabel>
+	<skos:altLabel>Isole Ambu</skos:altLabel>
+	<skos:altLabel>Thenina</skos:altLabel>
+	<skos:prefLabel>Ambuu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/65682/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>3.31667</wgs:lat>
+	<wgs:long>45.83333</wgs:long>
+	<skos:prefLabel>Ahmed Dere</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/65785/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>65461</europeana:population>
+	<wgs:lat>2.15</wgs:lat>
+	<wgs:long>45.11667</wgs:long>
+	<skos:altLabel>Afgoi</skos:altLabel>
+	<skos:altLabel>Afgooye</skos:altLabel>
+	<skos:altLabel>Afgōye</skos:altLabel>
+	<skos:altLabel>Asgoi</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Афгойе</skos:altLabel>
+	<skos:prefLabel>Afgooye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/65870/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.8</wgs:lat>
+	<wgs:long>44.91667</wgs:long>
+	<skos:prefLabel>Addilo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/400769/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>60100</europeana:population>
+	<wgs:lat>8.47556</wgs:lat>
+	<wgs:long>47.35778</wgs:long>
+	<skos:altLabel>Laascaanood</skos:altLabel>
+	<skos:altLabel xml:lang="en">Las Anod</skos:altLabel>
+	<skos:prefLabel>Laascaanood</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/404198/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.50028</wgs:lat>
+	<wgs:long>43.455</wgs:long>
+	<skos:prefLabel>Ceebaad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6268943/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>10.5</wgs:lat>
+	<wgs:long>43.5</wgs:long>
+	<skos:altLabel>Awdal</skos:altLabel>
+	<skos:altLabel xml:lang="no">Awdal</skos:altLabel>
+	<skos:altLabel xml:lang="so">Gobolka Awdal</skos:altLabel>
+	<skos:prefLabel>Gobolka Awdal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6268947/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>8.66667</wgs:lat>
+	<wgs:long>47.5</wgs:long>
+	<skos:altLabel xml:lang="so">Gobolka Sool</skos:altLabel>
+	<skos:altLabel>Sool</skos:altLabel>
+	<skos:altLabel xml:lang="no">Sool</skos:altLabel>
+	<skos:prefLabel>Gobolka Sool</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6768579/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/51537/"/>
+	<europeana:country>SO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-1.22821</wgs:lat>
+	<wgs:long>41.87129</wgs:long>
+	<skos:altLabel xml:lang="so">Kifa Kamlaango</skos:altLabel>
+	<skos:altLabel>Kifa Kamlango</skos:altLabel>
+	<skos:prefLabel>Kifa Kamlaango</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 133 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

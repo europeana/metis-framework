@@ -1,0 +1,11 @@
+<!-- Decades templates  -->
+<!-- Warning! Labels like 199x and 199? are added automatically -->
+<list>
+<eu.annocultor.converters.time.LabelTemplate>
+    <lang>en</lang>
+    <pattern_1>%dst decade of the %dth century</pattern_1>
+    <pattern_2>%dnd decade of the %dth century</pattern_2>
+    <pattern_3>%drd decade of the %dth century</pattern_3>
+    <pattern_N>%dth decade of the %dth century</pattern_N>
+</eu.annocultor.converters.time.LabelTemplate>
+</list>

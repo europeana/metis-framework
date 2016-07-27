@@ -1,0 +1,57 @@
+            ------
+            Download: As a Maven module or source code
+            ------
+ 
+
+Maven module
+
+  AnnoCultor can be used as a Maven module, so that the latest release is
+  always automatically downloaded and used.
+  
+  To use AnnoCultor as a Maven module you first need to create a Maven project.
+  Please, refer to {{{http://maven.apache.org} Maven project site}} to learn what 
+  Maven is and how you can benefit from it.
+  
+  Then, you need to modify your <<<pom.xml>>> file with the following 
+  two fragments.
+  
+  Set your project to use the AnnoCultor Maven repository:
+  
++------------------------------------------------------------------+
+ <repositories>
+	...
+	<repository>
+		<id>annocultor.eu</id>
+		<name>AnnoCultor</name>
+		<url>http://annocultor.eu/repository/maven2/</url>
+		<releases>
+			<enabled>true</enabled>
+  			<updatePolicy>always</updatePolicy>
+		</releases>
+	</repository>
+  ...
+ </repositories>
++------------------------------------------------------------------+
+  
+  Add AnnoCultor as a Maven dependency:
+   
++------------------------------------------------------------------+
+ <dependencies>
+	...
+	<dependency>
+		<groupId>annocultor</groupId>
+		<artifactId>annocultor</artifactId>
+		<version>RELEASE</version>
+	</dependency>
+	...
+ </dependencies>		
++------------------------------------------------------------------+
+  
+Subversion
+
+  Check out the AnnoCultor source code from SourceForge, or browse it, from the following Subversion repository:
+  
++------------------------------------------------------------------+
+  https://annocultor.svn.sourceforge.net/svnroot/annocultor
++------------------------------------------------------------------+
+   

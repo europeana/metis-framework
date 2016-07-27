@@ -1,0 +1,1261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AS_KG
+Description: Selected fields pulled from Geonames about KG done on Mon May 23 21:13:31 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/1222562/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15019</europeana:population>
+	<wgs:lat>39.93028</wgs:lat>
+	<wgs:long>69.56972</wgs:long>
+	<skos:altLabel>Seluka</skos:altLabel>
+	<skos:altLabel>Selukta</skos:altLabel>
+	<skos:altLabel>Sulyukta</skos:altLabel>
+	<skos:altLabel xml:lang="ky">Sülüktü</skos:altLabel>
+	<skos:prefLabel>Sulyukta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1222584/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>40</wgs:lat>
+	<wgs:long>73</wgs:long>
+	<skos:altLabel>Osh Oblast</skos:altLabel>
+	<skos:prefLabel>Oshskaya Oblast'</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1222597/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>39.83333</wgs:lat>
+	<wgs:long>69.75</wgs:long>
+	<skos:prefLabel>Lyaylyakskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1222635/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11857</europeana:population>
+	<wgs:lat>39.94139</wgs:lat>
+	<wgs:long>71.34583</wgs:long>
+	<skos:altLabel>Khaidarkan</skos:altLabel>
+	<skos:altLabel xml:lang="ky">Khaydarkan</skos:altLabel>
+	<skos:altLabel>Khaydarken</skos:altLabel>
+	<skos:prefLabel>Khaydarkan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1222662/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16952</europeana:population>
+	<wgs:lat>39.83333</wgs:lat>
+	<wgs:long>69.51667</wgs:long>
+	<skos:altLabel>Isfana</skos:altLabel>
+	<skos:altLabel>Isfina</skos:altLabel>
+	<skos:prefLabel>Isfana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1222671/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>40</wgs:lat>
+	<wgs:long>71.58333</wgs:long>
+	<skos:altLabel>Frunzenskiy Rayon</skos:altLabel>
+	<skos:altLabel>Kadamdzhayskiy Rayon</skos:altLabel>
+	<skos:altLabel>Kadamzhayskiy Rayon</skos:altLabel>
+	<skos:altLabel>Khalmionskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Kadamjaiskiy Raion</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1222703/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>39.75</wgs:lat>
+	<wgs:long>71</wgs:long>
+	<skos:prefLabel>Batkenskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1222711/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>39.91667</wgs:lat>
+	<wgs:long>73.5</wgs:long>
+	<skos:prefLabel>Alayskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1346798/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>40</wgs:lat>
+	<wgs:long>73</wgs:long>
+	<skos:altLabel>Osh</skos:altLabel>
+	<skos:altLabel xml:lang="ky">Osh Oblasty</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Oshskaya Oblast’</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ошская Область</skos:altLabel>
+	<skos:prefLabel>Osh Oblasty</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1463580/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>400370</europeana:population>
+	<wgs:lat>39.83333</wgs:lat>
+	<wgs:long>71</wgs:long>
+	<skos:altLabel>Batken</skos:altLabel>
+	<skos:altLabel xml:lang="ky">Batken Oblasty</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Batkenskaya Oblast’</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Баткенская Область</skos:altLabel>
+	<skos:prefLabel>Batken Oblasty</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1527004/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>40000</europeana:population>
+	<wgs:lat>42.46111</wgs:lat>
+	<wgs:long>76.18028</wgs:long>
+	<skos:altLabel xml:lang="ky">Balykchy</skos:altLabel>
+	<skos:altLabel>Issyk-Kul’</skos:altLabel>
+	<skos:altLabel>Rybach’e</skos:altLabel>
+	<skos:altLabel>Rybach’ye</skos:altLabel>
+	<skos:altLabel>Ysyk-Köl</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Балыкчи</skos:altLabel>
+	<skos:prefLabel>Balykchy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1527051/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>40.91667</wgs:lat>
+	<wgs:long>73.5</wgs:long>
+	<skos:prefLabel>Uzgenskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1527118/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>42.75</wgs:lat>
+	<wgs:long>78.5</wgs:long>
+	<skos:prefLabel>Tyupskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1527121/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13437</europeana:population>
+	<wgs:lat>42.75</wgs:lat>
+	<wgs:long>78.33333</wgs:long>
+	<skos:altLabel>Preobrazhenskoye</skos:altLabel>
+	<skos:altLabel>Tjup</skos:altLabel>
+	<skos:altLabel>Tyup</skos:altLabel>
+	<skos:prefLabel>Tyup</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1527131/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>41.58333</wgs:lat>
+	<wgs:long>76.33333</wgs:long>
+	<skos:altLabel>Narynskiy Rayon</skos:altLabel>
+	<skos:altLabel>Tyan’-Shan’skiy Rayon</skos:altLabel>
+	<skos:prefLabel>Tyan’-Shan’skiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1527185/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42</wgs:lat>
+	<wgs:long>77</wgs:long>
+	<skos:prefLabel>Tonskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1527194/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>41.75</wgs:lat>
+	<wgs:long>73</wgs:long>
+	<skos:altLabel>Ketmen’-Tyubinskiy Rayon</skos:altLabel>
+	<skos:altLabel>Toktogul’skiy Rayon</skos:altLabel>
+	<skos:prefLabel>Toktogul’skiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1527199/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>63047</europeana:population>
+	<wgs:lat>42.84139</wgs:lat>
+	<wgs:long>75.28833</wgs:long>
+	<skos:altLabel>Tokmak</skos:altLabel>
+	<skos:altLabel xml:lang="ky">Tokmok</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Токмок</skos:altLabel>
+	<skos:prefLabel>Tokmok</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1527201/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>41.33333</wgs:lat>
+	<wgs:long>74.16667</wgs:long>
+	<skos:prefLabel>Toguz-Torouskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1527260/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23594</europeana:population>
+	<wgs:lat>41.34583</wgs:lat>
+	<wgs:long>72.21</wgs:long>
+	<skos:altLabel>Naryn</skos:altLabel>
+	<skos:altLabel xml:lang="ky">Tash-Kömür</skos:altLabel>
+	<skos:altLabel>Tashkumör</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Таш-Кумыр</skos:altLabel>
+	<skos:prefLabel>Tash-Kumyr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1527296/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.5</wgs:lat>
+	<wgs:long>72.33333</wgs:long>
+	<skos:prefLabel>Talasskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1527297/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>216053</europeana:population>
+	<wgs:lat>42.33333</wgs:lat>
+	<wgs:long>72</wgs:long>
+	<skos:altLabel>Talas</skos:altLabel>
+	<skos:altLabel xml:lang="ky">Talas Oblasty</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Talasskaya Oblast’</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Таласская Область</skos:altLabel>
+	<skos:prefLabel>Talasskaya Oblast’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1527299/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>35172</europeana:population>
+	<wgs:lat>42.52222</wgs:lat>
+	<wgs:long>72.24194</wgs:long>
+	<skos:altLabel>Dmitriyevka</skos:altLabel>
+	<skos:altLabel>Dmitriyevskoye</skos:altLabel>
+	<skos:altLabel xml:lang="ky">Talas</skos:altLabel>
+	<skos:altLabel>Talass</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Талас</skos:altLabel>
+	<skos:prefLabel>Talas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1527315/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<wgs:lat>42.9</wgs:lat>
+	<wgs:long>74.6</wgs:long>
+	<skos:prefLabel>Sverdlovskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1527316/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>41</wgs:lat>
+	<wgs:long>73</wgs:long>
+	<skos:prefLabel>Suzakskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1527348/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>40.5</wgs:lat>
+	<wgs:long>74</wgs:long>
+	<skos:altLabel>Kara-Kul’dzhinskiy Rayon</skos:altLabel>
+	<skos:altLabel>Sovetskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Kara-Kul’dzhinskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1527358/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.83333</wgs:lat>
+	<wgs:long>74.33333</wgs:long>
+	<skos:altLabel>Kaganovichskiy Rayon</skos:altLabel>
+	<skos:altLabel>Sokulukskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Sokulukskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1527497/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16927</europeana:population>
+	<wgs:lat>42.34083</wgs:lat>
+	<wgs:long>77.99806</wgs:long>
+	<skos:altLabel xml:lang="ky">Kyzyl-Suu</skos:altLabel>
+	<skos:altLabel>Leninskoye</skos:altLabel>
+	<skos:altLabel>Nov Pokrovka</skos:altLabel>
+	<skos:altLabel>Novo-Pokrovskoye</skos:altLabel>
+	<skos:altLabel>Pokrovka</skos:altLabel>
+	<skos:prefLabel>Pokrovka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1527506/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>42.9</wgs:lat>
+	<wgs:long>74.6</wgs:long>
+	<skos:prefLabel>Pervomayskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1527509/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.81667</wgs:lat>
+	<wgs:long>73.68333</wgs:long>
+	<skos:prefLabel>Panfilovskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1527513/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>40360</europeana:population>
+	<wgs:lat>40.76667</wgs:lat>
+	<wgs:long>73.3</wgs:long>
+	<skos:altLabel>Uzgen</skos:altLabel>
+	<skos:altLabel>Uzkend</skos:altLabel>
+	<skos:altLabel>Özgön</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Узген</skos:altLabel>
+	<skos:prefLabel>Özgön</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1527534/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>200000</europeana:population>
+	<wgs:lat>40.52944</wgs:lat>
+	<wgs:long>72.79</wgs:long>
+	<skos:altLabel xml:lang="uz">O'sh</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Och</skos:altLabel>
+	<skos:altLabel xml:lang="de">Osch</skos:altLabel>
+	<skos:altLabel xml:lang="ky">Osh</skos:altLabel>
+	<skos:altLabel xml:lang="en">Osh</skos:altLabel>
+	<skos:altLabel xml:lang="it">Osh</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Osj</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Osj</skos:altLabel>
+	<skos:altLabel xml:lang="da">Osj</skos:altLabel>
+	<skos:altLabel xml:lang="no">Osj</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Osz</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Oş</skos:altLabel>
+	<skos:altLabel xml:lang="et">Oš</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Oš</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Ош</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ош</skos:altLabel>
+	<skos:altLabel xml:lang="ky">Ош</skos:altLabel>
+	<skos:altLabel xml:lang="he">אוש</skos:altLabel>
+	<skos:altLabel xml:lang="fa">شهر اوش</skos:altLabel>
+	<skos:altLabel xml:lang="ja">オシ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">奧什</skos:altLabel>
+	<skos:prefLabel>Osh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1527588/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>40.16667</wgs:lat>
+	<wgs:long>72.75</wgs:long>
+	<skos:prefLabel>Naukatskiy Raion</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1527590/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>269651</europeana:population>
+	<wgs:lat>41.43333</wgs:lat>
+	<wgs:long>75.96667</wgs:long>
+	<skos:altLabel>Naryn</skos:altLabel>
+	<skos:altLabel xml:lang="ky">Naryn Oblasty</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Narynskaya Oblast’</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Нарынская Область</skos:altLabel>
+	<skos:prefLabel>Narynskaya Oblast’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1527592/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>52300</europeana:population>
+	<wgs:lat>41.43</wgs:lat>
+	<wgs:long>76</wgs:long>
+	<skos:altLabel>Naron</skos:altLabel>
+	<skos:altLabel xml:lang="de">Naryn</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Naryn</skos:altLabel>
+	<skos:altLabel xml:lang="en">Naryn</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Naryn</skos:altLabel>
+	<skos:altLabel xml:lang="ky">Naryn</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Нарын</skos:altLabel>
+	<skos:prefLabel>Naryn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1527613/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.83333</wgs:lat>
+	<wgs:long>74.16667</wgs:long>
+	<skos:altLabel>Moskovskiy Rayon</skos:altLabel>
+	<skos:altLabel>Stalinskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Moskovskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1527658/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>42.75</wgs:lat>
+	<wgs:long>71.6</wgs:long>
+	<skos:prefLabel>Manasskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1527685/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.25</wgs:lat>
+	<wgs:long>72.58333</wgs:long>
+	<skos:altLabel>Leninskiy Rayon</skos:altLabel>
+	<skos:altLabel>Nookenskiy Rayon</skos:altLabel>
+	<skos:altLabel>Nookentskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Nookenskiy Raion</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1527686/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>42.9</wgs:lat>
+	<wgs:long>74.6</wgs:long>
+	<skos:prefLabel>Leninskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1527687/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.48333</wgs:lat>
+	<wgs:long>71.91667</wgs:long>
+	<skos:altLabel>Bakay-Atinskiy Rayon</skos:altLabel>
+	<skos:altLabel>Leninpol’skiy Rayon</skos:altLabel>
+	<skos:prefLabel>Bakay-Atinskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1527719/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>32000</europeana:population>
+	<wgs:lat>40.25389</wgs:lat>
+	<wgs:long>72.12278</wgs:long>
+	<skos:altLabel>Kizyl-Kiya</skos:altLabel>
+	<skos:altLabel>Kizöl-Kiva</skos:altLabel>
+	<skos:altLabel>Kyzyl-Kiya</skos:altLabel>
+	<skos:altLabel xml:lang="ky">Kyzyl-Kyya</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kzyl-Kiya</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кызыл-Кия</skos:altLabel>
+	<skos:prefLabel>Kyzyl-Kyya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1527747/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255147/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>5508626</europeana:population>
+	<wgs:lat>41</wgs:lat>
+	<wgs:long>75</wgs:long>
+	<skos:altLabel xml:lang="ga">An Chirgeastáin</skos:altLabel>
+	<skos:altLabel xml:lang="la">Chirgisia</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Cirgistan</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Cư-rơ-gư-xtan</skos:altLabel>
+	<skos:altLabel>KG</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ka-dắc-xtan (Kyrgyzstan)</skos:altLabel>
+	<skos:altLabel>Kirghiz Soviet Socialist Republic</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Kirghizia</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Kirghizistan</skos:altLabel>
+	<skos:altLabel xml:lang="it">Kirghizistan</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Kirghizistan</skos:altLabel>
+	<skos:altLabel xml:lang="et">Kirgiisi</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Kirgiisia</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Kirgisia</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Kirgisia</skos:altLabel>
+	<skos:altLabel xml:lang="da">Kirgisistan</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kirgisistan</skos:altLabel>
+	<skos:altLabel xml:lang="is">Kirgisistan</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Kirgisistan</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Kirgisistan</skos:altLabel>
+	<skos:altLabel xml:lang="no">Kirgisistan</skos:altLabel>
+	<skos:altLabel xml:lang="se">Kirgisistan</skos:altLabel>
+	<skos:altLabel xml:lang="af">Kirgisië</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Kirgistan</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Kirgistan</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kirgistan</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Kirgistan</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Kirgistan</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Kirgistan</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Kirgistan</skos:altLabel>
+	<skos:altLabel xml:lang="is">Kirgistan</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kirgistan</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Kirgistani</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Kirgisän</skos:altLabel>
+	<skos:altLabel>Kirgiz Soviet Socialist Republic</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Kirgizija</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Kirgizio</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Kirgizistan</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Kirgizistan</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Kirgizistan</skos:altLabel>
+	<skos:altLabel xml:lang="io">Kirgizistan</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Kirgizistano</skos:altLabel>
+	<skos:altLabel xml:lang="es">Kirgizistán</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Kirgizisztán</skos:altLabel>
+	<skos:altLabel xml:lang="li">Kirgizië</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Kirgizië</skos:altLabel>
+	<skos:altLabel>Kirgizskaya Respublika</skos:altLabel>
+	<skos:altLabel>Kirgizskaya Sovetskaya Sotsialisticheskaya Respublika</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Kirgizsko</skos:altLabel>
+	<skos:altLabel xml:lang="id">Kirgizstan</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Kirgizstan</skos:altLabel>
+	<skos:altLabel xml:lang="br">Kirgizstan</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Kirgizstāna</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Kirgiztanas</skos:altLabel>
+	<skos:altLabel xml:lang="an">Kirguisistán</skos:altLabel>
+	<skos:altLabel xml:lang="es">Kirguistán</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Kirguizistan</skos:altLabel>
+	<skos:altLabel xml:lang="es">Kirguizistán</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Kirgyzje</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Kirgīzija</skos:altLabel>
+	<skos:altLabel xml:lang="id">Kyrgystan</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kyrgyz Republic</skos:altLabel>
+	<skos:altLabel xml:lang="ky">Kyrgyz Respublikasy</skos:altLabel>
+	<skos:altLabel>Kyrgyzskaya Respublika</skos:altLabel>
+	<skos:altLabel xml:lang="id">Kyrgyzstan</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kyrgyzstan</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Kyrgyzstan</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Kyrgyzstan</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Kyrgyzstan</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Kyrgyzstan</skos:altLabel>
+	<skos:altLabel>Kyrgyzstan Respublikasy</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Kyrgyzstán</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Kârgâzstan</skos:altLabel>
+	<skos:altLabel xml:lang="et">Kõrgõzstan</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Kırgızistan</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Pow Kyrgys</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Qirgizîstan</skos:altLabel>
+	<skos:altLabel xml:lang="uz">Qirgʻiziston</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Quirguicistán</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Quirguicistán - Кыргыз Республикасы</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Quirguistão</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Quirguizstan</skos:altLabel>
+	<skos:altLabel xml:lang="az">Qırğızıstan</skos:altLabel>
+	<skos:altLabel>Republic of Kyrgyzstan</skos:altLabel>
+	<skos:altLabel xml:lang="el">Κιργιζία</skos:altLabel>
+	<skos:altLabel xml:lang="el">Κιργιστάν</skos:altLabel>
+	<skos:altLabel xml:lang="cv">Киргизи</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Киргизия</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Киргизија</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Киргизстан</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Киргизстан</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Киргизстан</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Киргистан</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Киргистан</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Киргізстан</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Кургистан</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кыргызской Республики</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Кыргызстан</skos:altLabel>
+	<skos:altLabel xml:lang="ky">Кыргызстан</skos:altLabel>
+	<skos:altLabel xml:lang="be">Кыргызстан</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кыргызстан</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Қирғизистон</skos:altLabel>
+	<skos:altLabel xml:lang="kk">Қырғызстан</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Կիրգիզստան</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Ղրղզստան</skos:altLabel>
+	<skos:altLabel xml:lang="he">קירגיזסטאן</skos:altLabel>
+	<skos:altLabel xml:lang="he">קירגיזסטן</skos:altLabel>
+	<skos:altLabel xml:lang="ar">قرغيزستان</skos:altLabel>
+	<skos:altLabel xml:lang="fa">قرقیزستان</skos:altLabel>
+	<skos:altLabel xml:lang="ug">قىرغىزىستان</skos:altLabel>
+	<skos:altLabel xml:lang="ar">قيرغيزستان</skos:altLabel>
+	<skos:altLabel xml:lang="ur">کرغزستان</skos:altLabel>
+	<skos:altLabel xml:lang="ur">کرغستان</skos:altLabel>
+	<skos:altLabel xml:lang="sd">ڪِرگزِستانُ</skos:altLabel>
+	<skos:altLabel xml:lang="hi">किरगिजस्तान</skos:altLabel>
+	<skos:altLabel xml:lang="hi">किर्गिज</skos:altLabel>
+	<skos:altLabel xml:lang="bn">কির্গিজিয়া</skos:altLabel>
+	<skos:altLabel xml:lang="bn">কির্ঘিজস্তান</skos:altLabel>
+	<skos:altLabel xml:lang="ta">கிர்கிஸ்தான்</skos:altLabel>
+	<skos:altLabel xml:lang="te">కిర్గిజ్‌స్తాన్</skos:altLabel>
+	<skos:altLabel xml:lang="ml">കിര്‍ഗിസ്ഥാന്‍</skos:altLabel>
+	<skos:altLabel xml:lang="th">คีร์กิซสถาน</skos:altLabel>
+	<skos:altLabel xml:lang="th">คีร์กีซสถาน</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศคีร์กีซสถาน</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ເດີກິດສະຖານ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཁིར་གིཛ་སྟཱན།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ყირგიზეთი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ካዛኪስታን</skos:altLabel>
+	<skos:altLabel xml:lang="km">គៀរហ្គីស្តង់</skos:altLabel>
+	<skos:altLabel xml:lang="ja">キルギス</skos:altLabel>
+	<skos:altLabel xml:lang="ja">キルギスタン</skos:altLabel>
+	<skos:altLabel xml:lang="ja">キルギス共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">吉尔吉克斯坦</skos:altLabel>
+	<skos:altLabel xml:lang="zh">吉尔吉斯斯坦</skos:altLabel>
+	<skos:altLabel xml:lang="ko">키르기스</skos:altLabel>
+	<skos:altLabel xml:lang="ko">키르기스스탄</skos:altLabel>
+	<skos:prefLabel>Kyrgyz Republic</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1527900/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.08333</wgs:lat>
+	<wgs:long>75.66667</wgs:long>
+	<skos:prefLabel>Kochkorskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1527920/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.5</wgs:lat>
+	<wgs:long>71.41667</wgs:long>
+	<skos:altLabel>Kara-Buurinskiy Rayon</skos:altLabel>
+	<skos:altLabel>Kirovskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Kara-Buurinskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1527974/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.83333</wgs:lat>
+	<wgs:long>76.33333</wgs:long>
+	<skos:prefLabel>Keminskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1528008/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>42.18333</wgs:lat>
+	<wgs:long>77.43333</wgs:long>
+	<skos:prefLabel>Ostrov Kayrak</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1528075/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>40.66667</wgs:lat>
+	<wgs:long>72.91667</wgs:long>
+	<skos:prefLabel>Kara-Suskiy Raion</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1528091/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17800</europeana:population>
+	<wgs:lat>40.7</wgs:lat>
+	<wgs:long>72.86667</wgs:long>
+	<skos:altLabel>Kara-Su</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кара-Суу</skos:altLabel>
+	<skos:prefLabel>Kara-Su</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1528121/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>70171</europeana:population>
+	<wgs:lat>42.48333</wgs:lat>
+	<wgs:long>78.4</wgs:long>
+	<skos:altLabel xml:lang="de">Karakol</skos:altLabel>
+	<skos:altLabel xml:lang="es">Karakol</skos:altLabel>
+	<skos:altLabel xml:lang="en">Karakol</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Karakol</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Karakol</skos:altLabel>
+	<skos:altLabel xml:lang="it">Karakol</skos:altLabel>
+	<skos:altLabel xml:lang="ky">Karakol</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Karakoł</skos:altLabel>
+	<skos:altLabel>Prjeval’sk</skos:altLabel>
+	<skos:altLabel>Przheval’sk</skos:altLabel>
+	<skos:altLabel xml:lang="ky">Каракол</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Каракол</skos:altLabel>
+	<skos:prefLabel>Karakol</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1528182/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>62796</europeana:population>
+	<wgs:lat>42.82611</wgs:lat>
+	<wgs:long>73.84417</wgs:long>
+	<skos:altLabel>Imeni Mikoyana</skos:altLabel>
+	<skos:altLabel>Kara-Balta</skos:altLabel>
+	<skos:altLabel>Kara-Balty</skos:altLabel>
+	<skos:altLabel>Karabaltö</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кара-Балта</skos:altLabel>
+	<skos:prefLabel>Kara-Balta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1528191/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.75</wgs:lat>
+	<wgs:long>74.83333</wgs:long>
+	<skos:altLabel>Alamedinskiy Rayon</skos:altLabel>
+	<skos:altLabel>Kantskiy Rayon</skos:altLabel>
+	<skos:altLabel>Voroshilovskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Kantskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1528193/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20181</europeana:population>
+	<wgs:lat>42.8875</wgs:lat>
+	<wgs:long>74.84722</wgs:long>
+	<skos:altLabel>Kant</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кант</skos:altLabel>
+	<skos:prefLabel>Kant</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1528212/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42.5</wgs:lat>
+	<wgs:long>73.75</wgs:long>
+	<skos:prefLabel>Kalininskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1528234/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10616</europeana:population>
+	<wgs:lat>42.81667</wgs:lat>
+	<wgs:long>73.68333</wgs:long>
+	<skos:altLabel>Kainda</skos:altLabel>
+	<skos:altLabel>Kaindy</skos:altLabel>
+	<skos:altLabel>Molotovsk</skos:altLabel>
+	<skos:altLabel>Molotovskiy</skos:altLabel>
+	<skos:prefLabel>Kaindy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1528249/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>75700</europeana:population>
+	<wgs:lat>40.93333</wgs:lat>
+	<wgs:long>73</wgs:long>
+	<skos:altLabel xml:lang="de">Dschalalabat</skos:altLabel>
+	<skos:altLabel>Dzhalal-Abad</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Dzjalal-Abad</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Dzjalal-Abad</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Dżalalabad</skos:altLabel>
+	<skos:altLabel xml:lang="et">Džalal-Abad</skos:altLabel>
+	<skos:altLabel xml:lang="et">Džalalabat</skos:altLabel>
+	<skos:altLabel xml:lang="en">Jalal-Abad</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Jalal-Abad</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Jalal-Abad</skos:altLabel>
+	<skos:altLabel xml:lang="ky">Jalal-Abad</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Джалал Абад</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Джалал-Абад</skos:altLabel>
+	<skos:prefLabel>Jalal-Abad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1528260/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>42</wgs:lat>
+	<wgs:long>78</wgs:long>
+	<skos:altLabel>Issyk-Kul Oblast</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Issyk-Kul’skaya Oblast’</skos:altLabel>
+	<skos:altLabel>Ysyk-Köl</skos:altLabel>
+	<skos:altLabel xml:lang="ky">Ysyk-Köl Oblasty</skos:altLabel>
+	<skos:prefLabel>Issyk-Kul’skaya Oblast’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1528261/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.88333</wgs:lat>
+	<wgs:long>75.1</wgs:long>
+	<skos:prefLabel>Issyk-Atinskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1528334/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>896259</europeana:population>
+	<wgs:lat>42.9</wgs:lat>
+	<wgs:long>74.6</wgs:long>
+	<skos:altLabel>Bishkek</skos:altLabel>
+	<skos:altLabel xml:lang="ky">Bishkek Shaary</skos:altLabel>
+	<skos:altLabel>Frunze</skos:altLabel>
+	<skos:altLabel>Gorod Bishkek</skos:altLabel>
+	<skos:altLabel>Gorod Frunze</skos:altLabel>
+	<skos:altLabel>Фрунзе</skos:altLabel>
+	<skos:prefLabel>Gorod Bishkek</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1528355/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42</wgs:lat>
+	<wgs:long>74.5</wgs:long>
+	<skos:prefLabel>Dzhumgal’skiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1528382/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>42</wgs:lat>
+	<wgs:long>78.5</wgs:long>
+	<skos:prefLabel>Dzhety-Oguzskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1528415/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>41.5</wgs:lat>
+	<wgs:long>72.25</wgs:long>
+	<skos:altLabel>Dzhangi-Dzhol’skiy Rayon</skos:altLabel>
+	<skos:altLabel>Tashkumyrskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Dzhangi-Dzhol’skiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1528472/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.66667</wgs:lat>
+	<wgs:long>75.33333</wgs:long>
+	<skos:prefLabel>Chuyskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1528512/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18595</europeana:population>
+	<wgs:lat>42.65639</wgs:lat>
+	<wgs:long>77.08222</wgs:long>
+	<skos:altLabel>Chalpan-Ata</skos:altLabel>
+	<skos:altLabel xml:lang="ky">Cholpon-Ata</skos:altLabel>
+	<skos:altLabel>Stanovishche Chalpan-Ata</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Чолпон-Ата</skos:altLabel>
+	<skos:prefLabel>Cholpon-Ata</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1528606/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10295</europeana:population>
+	<wgs:lat>42.78528</wgs:lat>
+	<wgs:long>75.69111</wgs:long>
+	<skos:altLabel>Bostrorechenskoye</skos:altLabel>
+	<skos:altLabel>Bystrorechenskoye</skos:altLabel>
+	<skos:altLabel>Bystrovka</skos:altLabel>
+	<skos:altLabel xml:lang="ky">Kemin</skos:altLabel>
+	<skos:prefLabel>Kemin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1528675/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>900000</europeana:population>
+	<wgs:lat>42.87306</wgs:lat>
+	<wgs:long>74.60028</wgs:long>
+	<skos:altLabel xml:lang="fr">Bichkek</skos:altLabel>
+	<skos:altLabel xml:lang="de">Bischkek</skos:altLabel>
+	<skos:altLabel xml:lang="id">Bishkek</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bishkek</skos:altLabel>
+	<skos:altLabel xml:lang="es">Bishkek</skos:altLabel>
+	<skos:altLabel xml:lang="it">Bishkek</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Bishkek</skos:altLabel>
+	<skos:altLabel xml:lang="io">Bishkek</skos:altLabel>
+	<skos:altLabel xml:lang="ky">Bishkek</skos:altLabel>
+	<skos:altLabel xml:lang="da">Bisjkek</skos:altLabel>
+	<skos:altLabel xml:lang="no">Bisjkek</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Bisjkek</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Bisjkek</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Biskek</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Biszkek</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Bixkek</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Biŝkeko</skos:altLabel>
+	<skos:altLabel xml:lang="az">Bişkek</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Bişkek</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Biškek</skos:altLabel>
+	<skos:altLabel xml:lang="et">Biškek</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Biškek</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Biškek</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Biškek</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Biškekas</skos:altLabel>
+	<skos:altLabel>Frunze</skos:altLabel>
+	<skos:altLabel>Pishkek</skos:altLabel>
+	<skos:altLabel>Pishpek</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μπισκέκ</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Бишкек</skos:altLabel>
+	<skos:altLabel xml:lang="ky">Бишкек</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бишкек</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Բիշկեկ</skos:altLabel>
+	<skos:altLabel xml:lang="he">בישקק</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بشكيك</skos:altLabel>
+	<skos:altLabel xml:lang="fa">بیشکک</skos:altLabel>
+	<skos:altLabel xml:lang="am">ቢሽኬክ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ビシュケク</skos:altLabel>
+	<skos:altLabel xml:lang="zh">比什凯克</skos:altLabel>
+	<skos:altLabel xml:lang="ko">비슈케크</skos:altLabel>
+	<skos:prefLabel>Bishkek</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1528716/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>41.03333</wgs:lat>
+	<wgs:long>72.75</wgs:long>
+	<skos:prefLabel>Bazar-Kurganskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1528717/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>27704</europeana:population>
+	<wgs:lat>41.03333</wgs:lat>
+	<wgs:long>72.75</wgs:long>
+	<skos:altLabel>Bazar</skos:altLabel>
+	<skos:altLabel>Bazar-Kurgan</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Базар-Курган</skos:altLabel>
+	<skos:prefLabel>Bazar-Kurgan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1528735/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10155</europeana:population>
+	<wgs:lat>40.05</wgs:lat>
+	<wgs:long>70.83333</wgs:long>
+	<skos:altLabel xml:lang="id">Batken</skos:altLabel>
+	<skos:altLabel xml:lang="es">Batken</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Batken</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Batken</skos:altLabel>
+	<skos:altLabel xml:lang="en">Batken</skos:altLabel>
+	<skos:altLabel>Batken</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Баткен</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Баткен</skos:altLabel>
+	<skos:prefLabel>Batken</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1528795/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>41</wgs:lat>
+	<wgs:long>76</wgs:long>
+	<skos:prefLabel>At-Bashinskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1528796/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15226</europeana:population>
+	<wgs:lat>41.16972</wgs:lat>
+	<wgs:long>75.81028</wgs:long>
+	<skos:altLabel>At-Bashi</skos:altLabel>
+	<skos:altLabel xml:lang="ky">At-Bashy</skos:altLabel>
+	<skos:prefLabel>At-Bashy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1528829/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>40.5</wgs:lat>
+	<wgs:long>72.5</wgs:long>
+	<skos:prefLabel>Aravanskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1528867/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.9</wgs:lat>
+	<wgs:long>74.63333</wgs:long>
+	<skos:prefLabel>Alamedinskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1528872/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>41.38333</wgs:lat>
+	<wgs:long>71.5</wgs:long>
+	<skos:prefLabel>Ala-Bukinskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1528901/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>41.33333</wgs:lat>
+	<wgs:long>74.91667</wgs:long>
+	<skos:prefLabel>Ak-Talinskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1528905/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>42.5</wgs:lat>
+	<wgs:long>78.5</wgs:long>
+	<skos:prefLabel>Ak-Suyskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1529778/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>41.5</wgs:lat>
+	<wgs:long>72.5</wgs:long>
+	<skos:altLabel xml:lang="ru">Dzhalal-Abadskaya Oblast’</skos:altLabel>
+	<skos:altLabel>Jalal-Abad</skos:altLabel>
+	<skos:altLabel xml:lang="ky">Jalal-Abad Oblasty</skos:altLabel>
+	<skos:prefLabel>Jalal-Abad Oblasty</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1538648/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19336</europeana:population>
+	<wgs:lat>41.90333</wgs:lat>
+	<wgs:long>72.94556</wgs:long>
+	<skos:altLabel xml:lang="ky">Toktogul</skos:altLabel>
+	<skos:prefLabel>Toktogul</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1538652/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>42.41667</wgs:lat>
+	<wgs:long>74.5</wgs:long>
+	<skos:altLabel xml:lang="ru">Chuyskaya Oblast’</skos:altLabel>
+	<skos:altLabel>Chüy</skos:altLabel>
+	<skos:altLabel xml:lang="ky">Chüy Oblasty</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Чуйская Область</skos:altLabel>
+	<skos:prefLabel>Chüy Oblasty</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649197/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527297/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.46721</wgs:lat>
+	<wgs:long>71.28742</wgs:long>
+	<skos:prefLabel>Kara Buura</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649210/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1528260/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.26126</wgs:lat>
+	<wgs:long>79.17606</wgs:long>
+	<skos:prefLabel>Ak-Su</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649213/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1528260/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.77582</wgs:lat>
+	<wgs:long>78.11083</wgs:long>
+	<skos:prefLabel>Jety-Oguz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649222/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1528260/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.59496</wgs:lat>
+	<wgs:long>77.17805</wgs:long>
+	<skos:prefLabel>Issyk - Kulskaya, Kyrgyzstan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649245/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527590/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.06275</wgs:lat>
+	<wgs:long>74.78052</wgs:long>
+	<skos:prefLabel>Ak-Tala, Kyrgyzstan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649273/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527590/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.56807</wgs:lat>
+	<wgs:long>76.27108</wgs:long>
+	<skos:prefLabel>Tien Shan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7654212/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527590/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.94924</wgs:lat>
+	<wgs:long>74.40566</wgs:long>
+	<skos:prefLabel>Jumgal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667441/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1538652/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.74457</wgs:lat>
+	<wgs:long>74.1259</wgs:long>
+	<skos:prefLabel>Moskovsky Raion</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667445/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1346798/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>40.55</wgs:lat>
+	<wgs:long>73.3</wgs:long>
+	<skos:prefLabel>Uzgensky Raion</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667452/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1529778/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.07</wgs:lat>
+	<wgs:long>73.26</wgs:long>
+	<skos:prefLabel>Suzakskiy Raion</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667453/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1529778/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>41.2</wgs:lat>
+	<wgs:long>72.93</wgs:long>
+	<skos:prefLabel>Bazar-Korgonskiy Raion</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667972/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1527747/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1538652/"/>
+	<europeana:country>KG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>42.636</wgs:lat>
+	<wgs:long>74.964</wgs:long>
+	<skos:prefLabel>Ysyk-Ata</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 89 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

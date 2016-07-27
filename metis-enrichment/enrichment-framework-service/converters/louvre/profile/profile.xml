@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rdf:RDF [
+  <!ENTITY rdf 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
+  <!ENTITY rdfs 'http://www.w3.org/2000/01/rdf-schema#'>
+  <!ENTITY ac 'http://annocultor.eu/converter/'>
+  <!ENTITY vra 'http://www.vraweb.org/vracore/vracore3#'>
+  <!ENTITY geo 'http://www.geonames.org/ontology#'>
+    
+  <!ENTITY vocabularies SYSTEM '/../../vocabularies.xml'> 
+  <!ENTITY parameters SYSTEM '/../../parameters.xml'> 
+    
+]>
+<rdf:RDF 
+  xmlns:ac="http://annocultor.eu/converter/" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/" 
+  xmlns:inm="http://www.inmagic.com/webpublisher/query"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:schemaLocation="http://annocultor.eu/schema/XConverter.xsd"
+  xmlns:rdf="&rdf;" 
+  xmlns:rdfs="&rdfs;" 
+  xmlns:vra="&vra;"
+  xmlns:geo="&geo;"
+>
+<ac:Profile ac:institution="Multimedian e-Culture project" ac:publisherId="000" ac:versionAnnoCultor="2.0" rdf:about="louvre">
+    <!-- 
+      Shared definition of parameters and vocabularies are loaded from the corresponding files.
+     -->
+    <ac:parameters rdf:parseType="Collection">
+      &parameters;
+    </ac:parameters>
+    <ac:vocabularies rdf:parseType="Collection">
+      &vocabularies;      
+    </ac:vocabularies>
+    <ac:repositories rdf:parseType="Collection">
+      <ac:Repository rdf:about="louvre">
+        <ac:datasources rdf:parseType="Collection">
+          <ac:XmlDataSource>
+            <!-- 
+              Load all xml files from the input directory defined in ../parameters.xml
+              Multiple ac:file patterns are allowed.
+             -->         
+            <ac:file>*.xml</ac:file>
+          </ac:XmlDataSource>
+        </ac:datasources>
+        <ac:destinations rdf:parseType="Collection">
+        <!-- 
+          Destinations are separate RDF files that will be created.
+          Each property rule has a parameter that specifies where to store the result.
+          Splitting a dataset among several files may be quite useful in practice.
+         -->
+         <ac:RdfGraph rdf:about="Works">
+            <ac:comment>Museum objects, one RDF resource per object</ac:comment>
+         </ac:RdfGraph>              
+         <ac:RdfGraph rdf:about="Links">
+            <ac:comment>Links from museum objects to terms from external vocabularies</ac:comment>
+          </ac:RdfGraph>              
+          <ac:RdfGraph rdf:about="PlaceLinks">
+            <ac:comment>Links from museum objects to terms in a geographical vocabulary</ac:comment>   
+          </ac:RdfGraph>
+          <ac:RdfGraph rdf:about="CreatorLinks">
+            <ac:comment>Links from museum objects to terms in directory of people</ac:comment>  
+          </ac:RdfGraph>              
+        </ac:destinations>  
+        <ac:objectRules rdf:parseType="Collection">    
+         <!-- 
+                Main object rule for records.
+          -->
+        <ac:ObjectRule rdf:about="recordRule">
+          <ac:recordSeparator>/data/oeuvre</ac:recordSeparator>
+          <ac:recordIdentifier>/data/oeuvre/@ninv</ac:recordIdentifier>
+          <ac:recordInformalIdentifier>Name</ac:recordInformalIdentifier>
+          <ac:listeners rdf:parseType="Collection"> 
+            <ac:OnPreCondition>
+              <ac:java>
+                // sample precondition: consult a list of works to convert
+                // see the end of this file to find where images is declared
+                // return images.containsKey(factory.makePath("/data/oeuvre/@ninv"));
+                
+                // another example: print this record title to console for debugging
+                // console.println("debug title:" + 
+                //    sourceDataObject.getFirstValue(factory.makePath("titre")));
+                
+                // compulsory return statement; true means 'include this record', false - 'skip it'
+                return true;
+              </ac:java>
+            </ac:OnPreCondition>                  
+          </ac:listeners>
+                
+          <ac:propertyRules> 
+            <!-- 
+            Getting attribute ninv from the record separating path.
+            Full path is need as there is no local (element) path
+             -->                                   
+            <ac:eu.annocultor.rules.RenameLiteralPropertyRule-default>
+              <ac:srcPath rdf:datatype="ac:Path">/data/oeuvre/@ninv</ac:srcPath>
+              <ac:dstProperty rdf:datatype="ac:Property">dc:identifier</ac:dstProperty>
+              <ac:dstGraph rdf:datatype="ac:Graph">Works</ac:dstGraph>
+            </ac:eu.annocultor.rules.RenameLiteralPropertyRule-default>
+
+            <!-- 
+            Batch rule: uses rule ac:rule as a template and populates it,
+            using each of the ac:srcPath paths. 
+            Target properties get the same name as the srcPath 
+            in the namespace defined in dstNamespace.
+             -->
+            <ac:eu.annocultor.rules.BatchRule-autoPropNames>
+              <ac:rule rdf:datatype="ac:Rule">
+                 <ac:eu.annocultor.rules.RenameLiteralPropertyRule-template>
+                  <ac:dstGraph rdf:datatype="ac:Graph">Works</ac:dstGraph>
+                </ac:eu.annocultor.rules.RenameLiteralPropertyRule-template>
+              </ac:rule>
+              <ac:dstNamespace rdf:datatype="ac:Namespace">dc</ac:dstNamespace>
+               <ac:srcPath rdf:datatype="ac:Path">date</ac:srcPath>
+             </ac:eu.annocultor.rules.BatchRule-autoPropNames>
+            
+            <!-- 
+            Batch rule, populated with each ac:map. 
+            Target properties are set explicitly in the map.
+             -->      
+             <ac:eu.annocultor.rules.BatchRule-setPropNames>
+               <ac:rule rdf:datatype="ac:Rule">
+                <ac:eu.annocultor.rules.RenameLiteralPropertyRule-template>
+                  <ac:dstGraph rdf:datatype="ac:Graph">Works</ac:dstGraph>
+                </ac:eu.annocultor.rules.RenameLiteralPropertyRule-template>
+              </ac:rule>
+              <ac:map rdf:datatype="ac:Map"> 
+                 <ac:srcValue rdf:datatype="ac:Path">titre</ac:srcValue>
+                 <ac:dstValue rdf:datatype="ac:Property">dc:title</ac:dstValue>
+              </ac:map>
+             </ac:eu.annocultor.rules.BatchRule-setPropNames>
+  
+            <!-- 
+            Looking up terms (here: material) in the terms vocabulary.
+             -->
+             <ac:eu.annocultor.tagger.rules.LookupTermRule-noLocalTerms>
+              <ac:srcPath rdf:datatype="ac:Path">techniquematiere</ac:srcPath>
+              <ac:dstProperty rdf:datatype="ac:Property">dc:material</ac:dstProperty>
+              <ac:dstGraphLiterals rdf:datatype="ac:Graph">TermLinks</ac:dstGraphLiterals>
+              <ac:dstGraphLinks rdf:datatype="ac:Graph">TermLinks</ac:dstGraphLinks>
+              <ac:termsProperty rdf:datatype="ac:Property">dc:material</ac:termsProperty>
+              <ac:termsSignature rdf:datatype="ac:String">material</ac:termsSignature>
+              <ac:termsSplitPattern rdf:datatype="ac:String">( *; *)|( *, *)</ac:termsSplitPattern>
+              <ac:termsVocabulary rdf:datatype="ac:VocabularyOfTerms">terms</ac:termsVocabulary>
+            </ac:eu.annocultor.tagger.rules.LookupTermRule-noLocalTerms>        
+                    
+            <!-- 
+            Looking up places (here: creation site) in geographical vocabulary.
+             -->                        
+             <ac:eu.annocultor.tagger.rules.LookupPlaceRule-noLocalTerms>
+              <ac:srcPath rdf:datatype="ac:Path">lieufabrication</ac:srcPath>
+              <ac:dstProperty rdf:datatype="ac:Property">vra:location.creationSite</ac:dstProperty>
+              <ac:dstGraphLiterals rdf:datatype="ac:Graph">PlaceLinks</ac:dstGraphLiterals>
+              <ac:dstGraphLinks rdf:datatype="ac:Graph">PlaceLinks</ac:dstGraphLinks>
+              <ac:termsProperty rdf:datatype="ac:Property">vra:location.creationSite</ac:termsProperty>
+              <ac:termsSignature rdf:datatype="ac:String">creationSite</ac:termsSignature>
+              <ac:termsSplitPattern rdf:datatype="ac:String">( *; *)|( *, *)</ac:termsSplitPattern>
+              <ac:termsVocabulary rdf:datatype="ac:VocabularyOfPlaces">places</ac:termsVocabulary>
+            </ac:eu.annocultor.tagger.rules.LookupPlaceRule-noLocalTerms>        
+           </ac:propertyRules> 
+        </ac:ObjectRule>
+        <!-- 
+            Child rule for objects, each representing an author.
+         -->
+        <ac:ObjectRule rdf:about="authorRule">
+          <ac:recordSeparator>/data/oeuvre/listeauteurs/auteur</ac:recordSeparator>
+           <ac:recordIdentifier>ac:useParentId</ac:recordIdentifier>
+          <ac:recordInformalIdentifier>ac:useParentId</ac:recordInformalIdentifier>
+           <ac:parentObjectRule>recordRule</ac:parentObjectRule>                
+          <ac:propertyRules>                  
+            <ac:eu.annocultor.tagger.rules.LookupPersonRule-noLocalTerms>
+              <ac:srcPath rdf:datatype="ac:Path">identite</ac:srcPath>
+              <ac:dstProperty rdf:datatype="ac:Property">dc:creator</ac:dstProperty>
+              <ac:dstGraphLiterals rdf:datatype="ac:Graph">CreatorLinks</ac:dstGraphLiterals>
+              <ac:dstGraphLinks rdf:datatype="ac:Graph">CreatorLinks</ac:dstGraphLinks>
+              <ac:birthPath rdf:datatype="ac:Path">dates</ac:birthPath>
+              <ac:deathPath rdf:datatype="ac:Path">dates</ac:deathPath>                    
+              <ac:termsProperty rdf:datatype="ac:Property">dc:creator</ac:termsProperty>
+              <ac:termsSignature rdf:datatype="ac:String">creator</ac:termsSignature>
+              <ac:termsSplitPattern rdf:datatype="ac:String">( *; *)|( *, *)</ac:termsSplitPattern>
+              <ac:termsVocabulary rdf:datatype="ac:VocabularyOfPeople">people</ac:termsVocabulary>
+            </ac:eu.annocultor.tagger.rules.LookupPersonRule-noLocalTerms>                  
+           </ac:propertyRules>
+         </ac:ObjectRule>
+              
+        <!-- 
+            Child rule for objects, each representing a category.
+         -->
+        <ac:ObjectRule rdf:about="categoryRule">
+          <ac:recordSeparator>/data/oeuvre/listecategories</ac:recordSeparator>
+           <ac:recordIdentifier>ac:useParentId</ac:recordIdentifier>
+          <ac:recordInformalIdentifier>ac:useParentId</ac:recordInformalIdentifier>
+           <ac:parentObjectRule>recordRule</ac:parentObjectRule>                
+          <ac:propertyRules>                  
+            <ac:eu.annocultor.tagger.rules.LookupTermRule-noLocalTerms>
+              <ac:srcPath rdf:datatype="ac:Path">categorie</ac:srcPath>
+              <ac:dstProperty rdf:datatype="ac:Property">dc:type</ac:dstProperty>
+              <ac:dstGraphLiterals rdf:datatype="ac:Graph">TermLinks</ac:dstGraphLiterals>
+              <ac:dstGraphLinks rdf:datatype="ac:Graph">TermLinks</ac:dstGraphLinks>
+              <ac:termsProperty rdf:datatype="ac:Property">dc:type</ac:termsProperty>
+              <ac:termsSignature rdf:datatype="ac:String">category</ac:termsSignature>
+              <ac:termsSplitPattern rdf:datatype="ac:String">( *; *)|( *, *)</ac:termsSplitPattern>
+              <ac:termsVocabulary rdf:datatype="ac:VocabularyOfTerms">terms</ac:termsVocabulary>
+             </ac:eu.annocultor.tagger.rules.LookupTermRule-noLocalTerms>                      
+           </ac:propertyRules>
+         </ac:ObjectRule>
+              
+      </ac:objectRules>      
+
+      <!-- 
+      Sample listeners: load an list of works that should be converted
+       -->            
+      <ac:listeners rdf:parseType="Collection">
+         <ac:Declarations>
+          <ac:java>
+             Properties images = new Properties();
+          </ac:java>
+        </ac:Declarations>
+        <ac:OnConversionStarts>
+          <ac:java>
+            // images.load(...);
+          </ac:java>
+        </ac:OnConversionStarts>
+      </ac:listeners>
+
+      <!-- 
+        Conversion limit made for debugging. 
+        A positive value would stop conversion after the corresponding
+        number of records is passed. 
+        
+        Note: in a normal completion it creates all output files but 
+        end with an exception that is raised to stop conversion. Watch out!
+       -->            
+    <ac:maxRecordsToConvert>-1</ac:maxRecordsToConvert>
+   </ac:Repository>
+  </ac:repositories>
+ </ac:Profile>
+</rdf:RDF>

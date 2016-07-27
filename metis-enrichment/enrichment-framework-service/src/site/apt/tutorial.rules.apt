@@ -1,0 +1,89 @@
+            ------
+            Tutorial: Rules and customization
+            ------
+ 
+
+Customization levels
+
+  AnnoCultor allows customization of conversion rules at three levels:
+  
+  * specifying parameters in XML
+  
+  Basic customization, e.g. by specifying target property name in XML;
+  
+  * writing event listeners in Java
+  
+  Suitable for small transformations, e.g. converting triple value to uppercase.
+  
+  Pros: no extra tools or advanced Java knowledge is needed, just paste a few lines of
+  Java code in XML. 
+  
+  Cons: becomes difficult to develop if they grow larger than a few lines or invoke advanced 
+  data processing. Not reusable.
+  
+  * defining rules in Java
+  
+  Suitable for complex rules that are developed in Java by a Java developer.
+  It requires creation of a Java class, compiling it to a JAR, including this JAR to
+  classpath. And exporting their XML signatures in XML Schema.
+   
+  Pros: allows using Java IDEs and tests to develop complex rules. Reusable across
+  multiple converters.  
+  
+  Cons: larger effort to develop. 
+  
+Defining rule in Java  
+  
+  All AnnoCultor rules are defined in Java in exactly the same way.
+  A number of rules are bundled with AnnoCultor distribution and are available out
+  of the box.
+  
+* Extending <<<CustomPropertyRule>>>
+  
+  A custom rule is a class, an extension to the <<<CustomPropertyRule>>> class.
+  It is likely that this extension would need to define a constructor and override method <<<fire>>>. 
+  
+* Defining a constructor
+  
+  In fact, a rule, as a class may have any number of constructors. Not all of them are included in the XML Schema and,
+  thus, are allowed in custom converters in XML. To be included, a constructor should have Java 5 annotation
+
++------------------------------------------------------------------+
+  @AnnoCultor.xmlapi( include = true, affix = "AFFIX" )
++------------------------------------------------------------------+
+
+  This annotation will tell AnnoCultor XML Schema generator to produce XML Schema for this constructor 
+  and to include in into the aggregated XML Schema for custom converters in XML.
+     
+  In the schema a single rule may have multiple constructors, that would have the same name but
+  different types of their parameters. In the XML schema we use the same XML Schema type for all of them.
+  To distinguish overwritten constructors we create annotation <<<affix>>>. In the above annotation word
+  <<<AFFIX>>> should be replaced with a word describing the constructor. 
+  
+  Another option would be to use the list of parameter types as the affix.
+  However, this made it really inconvenient to use, as these affixes get very long and say nothing
+  about the constructor itself. Hence, we decided to replace with list with a human-understandable affix. 
+   
++------------------------------------------------------------------+
+ /**
+  * @param dstProperty destination property
+  * @param dstGraph destination graph
+  */
+  @AnnoCultor.xmlapi( include = true, affix = "rename" )
+  public RenameLiteralPropertyRule(
+    Path srcPath, 
+    Property dstProperty, 
+    Graph dstGraph)
++------------------------------------------------------------------+
+  
+* Parameter naming guidelines
+  
+  Not yet
+  
+* Synchronising XML with Java
+
+  Converters are written in XML, guided by the XML Schema. At runtime each rule 
+  invocation is translated to a call to Java constructor of the rule. XML Schema for
+  the rules is kept in sync with the Java constructors with the process illustrated in the following figure:
+  
+[images/x-converter-roundtrip.png] Sync XML with Java    

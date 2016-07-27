@@ -1,0 +1,89 @@
+            ------
+            Best practices: filter records according to a file with allowed patterns
+            ------
+ 
+ AnnoCultor allows having a list of regular expressions and include a record only if
+ its identifier matches one of them.
+ 
+File with filters
+
+ First we need a file with regular expressions, let us call it <<<filter.txt>>>
+ to select all URLs from the AnnoCultor Time Ontology that match the 19-th and 20-th century
+ (well, it may not do exactly that, but it illustrates how a regular expressions can be set):
+ 
++------------------------------------------------------------------+
+^http\://www\.annocultor\.eu/time/19(\d\d)$
+^http\://www\.annocultor\.eu/time/20(.*)$
++------------------------------------------------------------------+
+
+Selector on object rule
+ 
+ In the handler on precondition we tell AnnoCultor to filter certain records out: 
+  
++------------------------------------------------------------------+
+<ac:ObjectRule rdf:about="subjectRule">
+   <ac:recordSeparator></ac:recordSeparator>
+   <ac:recordIdentifier>id</ac:recordIdentifier>
+   <ac:recordInformalIdentifier>label</ac:recordInformalIdentifier>
+   <ac:listeners rdf:parseType="Collection"> 
+      <ac:OnPreCondition>
+         <ac:java><![CDATA[
+           // get id
+           String id = sourceDataObject.getFirstValue(new Path("id")).getValue();
+           return shouldConvert(id);
+         ]]> </ac:java>
+      </ac:OnPreCondition>                  
+   </ac:listeners>
+... 
++------------------------------------------------------------------+
+ 
+Filter code
+
+  Let us write the filter itself. 
+  
++------------------------------------------------------------------+
+...
+        </ac:propertyRules>
+    </ac:ObjectRule>
+</ac:objectRules>
+<ac:listeners rdf:parseType="Collection">
+   <ac:Declarations>
+      <ac:java><![CDATA[
+          List<String> patternsToConvert = new ArrayList<String>();
+          List<String> log = new ArrayList<String>();
+                    
+          public boolean shouldConvert(String url) { 
+
+            for (String pattern : patternsToConvert) {
+               if (!pattern() && !url.isEmpty() && url.matches(pattern)) {
+                  // let us create a log of records that went through
+                  log.add(url);
+                  return true;
+               }
+            }  
+            
+            return false;
+          }    
+     ]]></ac:java>
+   </ac:Declarations>
+   <ac:OnConversionStarts>
+      <ac:java>
+          patternsToConvert = FileUtils.readLines(new File("filter.txt"), "UTF-8");
+      </ac:java>
+   </ac:OnConversionStarts>
+   <ac:OnConversionEnds>
+      <ac:java><![CDATA[
+          // save log
+          FileUtils.writeLines(new File("includedRecords.log"), log, "UTF-8");
+      ]]></ac:java>
+   </ac:OnConversionEnds>
+</ac:listeners>  
+
+<ac:maxRecordsToConvert>-1</ac:maxRecordsToConvert>
+</ac:Repository>
+</ac:repositories>
+</ac:Profile>
+</rdf:RDF>
++------------------------------------------------------------------+
+
+ That's it.

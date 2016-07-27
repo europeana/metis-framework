@@ -1,0 +1,1929 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AS_HK
+Description: Selected fields pulled from Geonames about HK done on Mon May 23 21:13:27 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818224/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1819730/"/>
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>534192</europeana:population>
+	<wgs:lat>22.41667</wgs:lat>
+	<wgs:long>114.05</wgs:long>
+	<skos:altLabel>Yuen Long</skos:altLabel>
+	<skos:altLabel>Yuen Long Area</skos:altLabel>
+	<skos:altLabel>Yuen Long District</skos:altLabel>
+	<skos:prefLabel>Yuen Long District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818228/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.16255</wgs:lat>
+	<wgs:long>113.91656</wgs:long>
+	<skos:altLabel>Yuen Kong Chau</skos:altLabel>
+	<skos:altLabel xml:lang="zh">圓崗洲</skos:altLabel>
+	<skos:prefLabel>Yuen Kong Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818232/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.45</wgs:lat>
+	<wgs:long>114.18333</wgs:long>
+	<skos:prefLabel>Yuen Chau Tsai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818235/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.17385</wgs:lat>
+	<wgs:long>113.90484</wgs:long>
+	<skos:altLabel>Yuen Chau</skos:altLabel>
+	<skos:altLabel xml:lang="zh">圓洲</skos:altLabel>
+	<skos:prefLabel>Yuen Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818250/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.45</wgs:lat>
+	<wgs:long>114.21667</wgs:long>
+	<skos:prefLabel>Yim Tin Tsai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818251/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.38333</wgs:lat>
+	<wgs:long>114.3</wgs:long>
+	<skos:prefLabel>Yim Tin Tsai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818261/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.46667</wgs:lat>
+	<wgs:long>114.21667</wgs:long>
+	<skos:prefLabel>Yeung Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818262/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.38333</wgs:lat>
+	<wgs:long>114.28333</wgs:long>
+	<skos:altLabel>Nga Ju Tau</skos:altLabel>
+	<skos:altLabel>Ngaju To</skos:altLabel>
+	<skos:altLabel>Yeong Chau</skos:altLabel>
+	<skos:altLabel>Yeung Chau</skos:altLabel>
+	<skos:prefLabel>Yeung Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818275/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.53333</wgs:lat>
+	<wgs:long>114.28333</wgs:long>
+	<skos:prefLabel>Yan Chau Tsai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818276/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.53333</wgs:lat>
+	<wgs:long>114.28333</wgs:long>
+	<skos:prefLabel>Yan Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818280/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.51667</wgs:lat>
+	<wgs:long>114.28333</wgs:long>
+	<skos:prefLabel>Wu Yeung Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818298/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.51667</wgs:lat>
+	<wgs:long>114.3</wgs:long>
+	<skos:altLabel>Double Island</skos:altLabel>
+	<skos:altLabel>Wong Wan Chau</skos:altLabel>
+	<skos:prefLabel>Wong Wan Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818312/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.55</wgs:lat>
+	<wgs:long>114.3</wgs:long>
+	<skos:prefLabel>Wong Nai Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818313/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.35</wgs:lat>
+	<wgs:long>114.36667</wgs:long>
+	<skos:altLabel>Huang Ngai</skos:altLabel>
+	<skos:altLabel>Hwang Ngai Chau</skos:altLabel>
+	<skos:altLabel>Hwangngai Chow</skos:altLabel>
+	<skos:altLabel>Wong Nai Chau</skos:altLabel>
+	<skos:prefLabel>Wong Nai Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818316/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.45</wgs:lat>
+	<wgs:long>114.4</wgs:long>
+	<skos:altLabel>South Gau</skos:altLabel>
+	<skos:altLabel>Wong Mau Chau</skos:altLabel>
+	<skos:altLabel>Wong mao Chow</skos:altLabel>
+	<skos:prefLabel>Wong Mau Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818339/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.36667</wgs:lat>
+	<wgs:long>114.3</wgs:long>
+	<skos:prefLabel>Wong Chau Tsai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818362/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.18333</wgs:lat>
+	<wgs:long>113.9</wgs:long>
+	<skos:altLabel>Wan Hau Chau</skos:altLabel>
+	<skos:prefLabel>Wan Hau Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818371/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.18333</wgs:lat>
+	<wgs:long>114.3</wgs:long>
+	<skos:altLabel>Rugged Rock</skos:altLabel>
+	<skos:altLabel>Wang Lan</skos:altLabel>
+	<skos:altLabel>Wang Lang Island</skos:altLabel>
+	<skos:prefLabel>Wang Lang Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818376/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.33333</wgs:lat>
+	<wgs:long>114.36667</wgs:long>
+	<skos:altLabel>Hei Lo To</skos:altLabel>
+	<skos:altLabel>Hole Island</skos:altLabel>
+	<skos:altLabel>Wang Chau</skos:altLabel>
+	<skos:prefLabel>Wang Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818416/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.45</wgs:lat>
+	<wgs:long>114.25</wgs:long>
+	<skos:prefLabel>Tung Tau Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818427/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.25</wgs:lat>
+	<wgs:long>114.28333</wgs:long>
+	<skos:altLabel>Lamtong</skos:altLabel>
+	<skos:altLabel>Lamtong Island</skos:altLabel>
+	<skos:altLabel>Lamtung Island</skos:altLabel>
+	<skos:altLabel>Tamtu Island</skos:altLabel>
+	<skos:altLabel>Tung Lung</skos:altLabel>
+	<skos:altLabel>Tung Lung Chau</skos:altLabel>
+	<skos:altLabel>Tung Lung Island</skos:altLabel>
+	<skos:altLabel>Tung-lung-tao</skos:altLabel>
+	<skos:prefLabel>Tung Lung Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818431/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.26667</wgs:lat>
+	<wgs:long>114.36667</wgs:long>
+	<skos:altLabel>East Ninepin</skos:altLabel>
+	<skos:altLabel>East Ninepin Island</skos:altLabel>
+	<skos:altLabel>Tung Kwo Chau</skos:altLabel>
+	<skos:prefLabel>East Ninepin Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818440/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.53333</wgs:lat>
+	<wgs:long>114.3</wgs:long>
+	<skos:altLabel>Tui Min Chau</skos:altLabel>
+	<skos:altLabel>Tui Mui Chau</skos:altLabel>
+	<skos:altLabel>Tuimui Chow</skos:altLabel>
+	<skos:prefLabel>Tui Min Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818443/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.36667</wgs:lat>
+	<wgs:long>114.3</wgs:long>
+	<skos:altLabel>Tse Leung Chau</skos:altLabel>
+	<skos:altLabel>Tuen Tau Chau</skos:altLabel>
+	<skos:prefLabel>Tuen Tau Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818458/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1819730/"/>
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>288728</europeana:population>
+	<wgs:lat>22.35</wgs:lat>
+	<wgs:long>114.08333</wgs:long>
+	<skos:altLabel>Tseun Wan</skos:altLabel>
+	<skos:altLabel>Tsuen Wan</skos:altLabel>
+	<skos:altLabel>Tsuen Wan Area</skos:altLabel>
+	<skos:altLabel>Tsuen Wan District</skos:altLabel>
+	<skos:prefLabel>Tsuen Wan District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818485/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.35</wgs:lat>
+	<wgs:long>114.1</wgs:long>
+	<skos:altLabel>Chung Hsü</skos:altLabel>
+	<skos:altLabel>Chung Hue</skos:altLabel>
+	<skos:altLabel>Chung Hue Island</skos:altLabel>
+	<skos:altLabel>Tsing Island</skos:altLabel>
+	<skos:altLabel>Tsing Yi</skos:altLabel>
+	<skos:altLabel>Tsing Yi Island</skos:altLabel>
+	<skos:prefLabel>Tsing Yi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818497/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.53333</wgs:lat>
+	<wgs:long>114.28333</wgs:long>
+	<skos:altLabel>Table Island</skos:altLabel>
+	<skos:altLabel>Tsing Chau</skos:altLabel>
+	<skos:prefLabel>Tsing Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818498/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.28333</wgs:lat>
+	<wgs:long>114.11667</wgs:long>
+	<skos:altLabel>Green Island</skos:altLabel>
+	<skos:altLabel>Tsing Chan</skos:altLabel>
+	<skos:altLabel>Tsing Chau</skos:altLabel>
+	<skos:prefLabel>Green Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818505/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>22.4</wgs:lat>
+	<wgs:long>114.38333</wgs:long>
+	<skos:altLabel>Chim Chau</skos:altLabel>
+	<skos:altLabel>Chim Chow</skos:altLabel>
+	<skos:altLabel>Tsim Chau</skos:altLabel>
+	<skos:prefLabel>Tsim Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818522/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.35</wgs:lat>
+	<wgs:long>113.86667</wgs:long>
+	<skos:altLabel>Pai Chou</skos:altLabel>
+	<skos:altLabel>Pak Chau</skos:altLabel>
+	<skos:altLabel>Shu Tao</skos:altLabel>
+	<skos:altLabel>Tree Island</skos:altLabel>
+	<skos:prefLabel>Tree Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818532/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.23333</wgs:lat>
+	<wgs:long>114.18333</wgs:long>
+	<skos:altLabel>Can Chau</skos:altLabel>
+	<skos:altLabel>Middle Island</skos:altLabel>
+	<skos:altLabel>Tong Po Shan</skos:altLabel>
+	<skos:altLabel>Tung Ku Chau</skos:altLabel>
+	<skos:altLabel>Tungbo Chau</skos:altLabel>
+	<skos:prefLabel>Tong Po Shan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818551/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.33333</wgs:lat>
+	<wgs:long>114.31667</wgs:long>
+	<skos:altLabel>Tiu Chung</skos:altLabel>
+	<skos:altLabel>Tiu Chung Pai</skos:altLabel>
+	<skos:prefLabel>Tiu Chung Pai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818552/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.33333</wgs:lat>
+	<wgs:long>114.31667</wgs:long>
+	<skos:altLabel>Jin Island</skos:altLabel>
+	<skos:altLabel>Tiu Chung Chau</skos:altLabel>
+	<skos:prefLabel>Jin Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818556/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.26667</wgs:lat>
+	<wgs:long>114.26667</wgs:long>
+	<skos:altLabel>Jan Chau</skos:altLabel>
+	<skos:altLabel>Kun Tsoi Kok</skos:altLabel>
+	<skos:altLabel>Kunjoi Kok</skos:altLabel>
+	<skos:altLabel>Slope Island</skos:altLabel>
+	<skos:altLabel>Tit Cham Chau</skos:altLabel>
+	<skos:altLabel>Tit Chan Chau</skos:altLabel>
+	<skos:prefLabel>Tit Cham Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818579/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>22.33188</wgs:lat>
+	<wgs:long>113.97521</wgs:long>
+	<skos:altLabel>Mo To Chau</skos:altLabel>
+	<skos:altLabel>The Brothers</skos:altLabel>
+	<skos:altLabel xml:lang="zh">磨刀洲</skos:altLabel>
+	<skos:prefLabel>Mo To Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818582/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.15</wgs:lat>
+	<wgs:long>113.91667</wgs:long>
+	<skos:altLabel>Tau Lo Chau</skos:altLabel>
+	<skos:prefLabel>Tau Lo Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818583/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>22.21667</wgs:lat>
+	<wgs:long>114.18333</wgs:long>
+	<skos:altLabel>Ma Kong Chau</skos:altLabel>
+	<skos:altLabel>Makong</skos:altLabel>
+	<skos:altLabel>Tau Chau</skos:altLabel>
+	<skos:prefLabel>Tau Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818591/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.48333</wgs:lat>
+	<wgs:long>114.36667</wgs:long>
+	<skos:altLabel>Grass Island</skos:altLabel>
+	<skos:altLabel>Tap Mun Chau</skos:altLabel>
+	<skos:altLabel>Tap Mun Island</skos:altLabel>
+	<skos:prefLabel>Tap Mun Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818599/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.33889</wgs:lat>
+	<wgs:long>114.06389</wgs:long>
+	<skos:prefLabel>Tang Lung Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818609/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.26137</wgs:lat>
+	<wgs:long>113.94072</wgs:long>
+	<skos:altLabel>Lan Tao</skos:altLabel>
+	<skos:altLabel>Lan Tau</skos:altLabel>
+	<skos:altLabel>Lan Tau Island</skos:altLabel>
+	<skos:altLabel>Lantao Island</skos:altLabel>
+	<skos:altLabel>Nan-ta-ao</skos:altLabel>
+	<skos:altLabel>Ta-hao Tao</skos:altLabel>
+	<skos:altLabel>Ta-hsü</skos:altLabel>
+	<skos:altLabel>Ta-hsü Shan</skos:altLabel>
+	<skos:altLabel>Ta-hsü Tao</skos:altLabel>
+	<skos:altLabel>Tai Yue Shan</skos:altLabel>
+	<skos:altLabel>Taiho</skos:altLabel>
+	<skos:altLabel>Taiho Island</skos:altLabel>
+	<skos:altLabel>Taiyu Shan</skos:altLabel>
+	<skos:altLabel xml:lang="zh">大嶼山</skos:altLabel>
+	<skos:prefLabel>Tai Yue Shan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818639/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.36667</wgs:lat>
+	<wgs:long>114.31667</wgs:long>
+	<skos:altLabel>Tai Tau Chau</skos:altLabel>
+	<skos:altLabel>Urn Island</skos:altLabel>
+	<skos:prefLabel>Tai Tau Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818640/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.23333</wgs:lat>
+	<wgs:long>114.25</wgs:long>
+	<skos:prefLabel>Tai Tau Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818672/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1819730/"/>
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>293542</europeana:population>
+	<wgs:lat>22.41667</wgs:lat>
+	<wgs:long>114.16667</wgs:long>
+	<skos:altLabel>Ta-p’u</skos:altLabel>
+	<skos:altLabel>Tai Po</skos:altLabel>
+	<skos:altLabel>Tai Po Area</skos:altLabel>
+	<skos:altLabel>Tai Po District</skos:altLabel>
+	<skos:prefLabel>Tai Po District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818687/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.53333</wgs:lat>
+	<wgs:long>114.26667</wgs:long>
+	<skos:prefLabel>Tai Nim Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818690/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.33078</wgs:lat>
+	<wgs:long>113.96646</wgs:long>
+	<skos:altLabel>Mo To West</skos:altLabel>
+	<skos:altLabel>Shang-mo-tao</skos:altLabel>
+	<skos:altLabel>Tai Mo To</skos:altLabel>
+	<skos:altLabel>West Brother</skos:altLabel>
+	<skos:altLabel xml:lang="zh">大磨刀</skos:altLabel>
+	<skos:prefLabel>Tai Mo To</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818707/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.28333</wgs:lat>
+	<wgs:long>114.03333</wgs:long>
+	<skos:altLabel>Tai Lei</skos:altLabel>
+	<skos:altLabel>Tai Pak</skos:altLabel>
+	<skos:prefLabel>Tai Lei</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818741/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.38333</wgs:lat>
+	<wgs:long>114.28333</wgs:long>
+	<skos:altLabel>On Kwai Chau</skos:altLabel>
+	<skos:altLabel>Tai Chau</skos:altLabel>
+	<skos:altLabel>Ung Kwai Chau</skos:altLabel>
+	<skos:prefLabel>Tai Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818743/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.16193</wgs:lat>
+	<wgs:long>113.9099</wgs:long>
+	<skos:altLabel>A Chau</skos:altLabel>
+	<skos:altLabel>A Chou</skos:altLabel>
+	<skos:altLabel>A Chow</skos:altLabel>
+	<skos:altLabel>Ta-ya-chou</skos:altLabel>
+	<skos:altLabel>Tai A Chau</skos:altLabel>
+	<skos:altLabel>Ya Chou</skos:altLabel>
+	<skos:altLabel xml:lang="zh">大鴉洲</skos:altLabel>
+	<skos:prefLabel>Tai A Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818752/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.18333</wgs:lat>
+	<wgs:long>114.28333</wgs:long>
+	<skos:altLabel>Sam Kong</skos:altLabel>
+	<skos:altLabel>Sun Kong</skos:altLabel>
+	<skos:altLabel>Sun Kong Island</skos:altLabel>
+	<skos:altLabel>Sung Kong</skos:altLabel>
+	<skos:prefLabel>Sung Kong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818774/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>22.17333</wgs:lat>
+	<wgs:long>113.91385</wgs:long>
+	<skos:altLabel>Shekka Ch’ün-tao</skos:altLabel>
+	<skos:altLabel>Soko Islands</skos:altLabel>
+	<skos:altLabel xml:lang="zh">索罟群島</skos:altLabel>
+	<skos:prefLabel>Soko Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818780/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.33729</wgs:lat>
+	<wgs:long>113.98208</wgs:long>
+	<skos:altLabel>East Brother</skos:altLabel>
+	<skos:altLabel>East Brother Island</skos:altLabel>
+	<skos:altLabel>Hsia-mo-tao</skos:altLabel>
+	<skos:altLabel>Mo To East</skos:altLabel>
+	<skos:altLabel>Motoe</skos:altLabel>
+	<skos:altLabel>Motoe Islet</skos:altLabel>
+	<skos:altLabel>Siu Mo To</skos:altLabel>
+	<skos:altLabel xml:lang="zh">小磨刀</skos:altLabel>
+	<skos:prefLabel>Siu Mo To</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818783/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.28333</wgs:lat>
+	<wgs:long>114.05</wgs:long>
+	<skos:altLabel>Cheang Chau Ching Island</skos:altLabel>
+	<skos:altLabel>Cheang Chow Ching</skos:altLabel>
+	<skos:altLabel>Siu Kau Yi Chau</skos:altLabel>
+	<skos:altLabel>Siukau Island</skos:altLabel>
+	<skos:altLabel>Sui Kau Island</skos:altLabel>
+	<skos:altLabel>Suinkau Island</skos:altLabel>
+	<skos:prefLabel>Siu Kau Yi Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818793/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.18255</wgs:lat>
+	<wgs:long>113.91198</wgs:long>
+	<skos:altLabel>Hsi-ya Chow</skos:altLabel>
+	<skos:altLabel>North Soko</skos:altLabel>
+	<skos:altLabel>North Soko Island</skos:altLabel>
+	<skos:altLabel>Siu A Chau</skos:altLabel>
+	<skos:altLabel>Siu-a-chou</skos:altLabel>
+	<skos:altLabel xml:lang="zh">小鴉洲</skos:altLabel>
+	<skos:prefLabel>Siu A Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818885/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.46667</wgs:lat>
+	<wgs:long>114.43333</wgs:long>
+	<skos:altLabel>Gau Tau</skos:altLabel>
+	<skos:altLabel>She Kngau Chow</skos:altLabel>
+	<skos:altLabel>Shek Ngau Chau</skos:altLabel>
+	<skos:prefLabel>Shek Ngau Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818899/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.19567</wgs:lat>
+	<wgs:long>113.98779</wgs:long>
+	<skos:altLabel>Green Island</skos:altLabel>
+	<skos:altLabel>Patung</skos:altLabel>
+	<skos:altLabel>Patung Island</skos:altLabel>
+	<skos:altLabel>Sha</skos:altLabel>
+	<skos:altLabel>Sha Ku Chou</skos:altLabel>
+	<skos:altLabel>Sha Ku chau</skos:altLabel>
+	<skos:altLabel>Sha Ku chow</skos:altLabel>
+	<skos:altLabel>Shekku Chau</skos:altLabel>
+	<skos:altLabel>Shekku Chou</skos:altLabel>
+	<skos:altLabel>Shih-kao Chou</skos:altLabel>
+	<skos:prefLabel>Shek Kwu Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818909/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.17338</wgs:lat>
+	<wgs:long>113.90724</wgs:long>
+	<skos:altLabel>Shek Chau</skos:altLabel>
+	<skos:altLabel xml:lang="zh">石洲</skos:altLabel>
+	<skos:prefLabel>Shek Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818914/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.31667</wgs:lat>
+	<wgs:long>114.35</wgs:long>
+	<skos:altLabel>Bluff Island</skos:altLabel>
+	<skos:altLabel>Sha Tong Hau Shan</skos:altLabel>
+	<skos:prefLabel>Bluff Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1818971/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.34526</wgs:lat>
+	<wgs:long>113.89</wgs:long>
+	<skos:altLabel>Saw Chau</skos:altLabel>
+	<skos:altLabel>Sha Chau</skos:altLabel>
+	<skos:altLabel>Sha Chou</skos:altLabel>
+	<skos:altLabel>Sha Zhou</skos:altLabel>
+	<skos:altLabel>Shao Chou</skos:altLabel>
+	<skos:altLabel xml:lang="zh">沙洲</skos:altLabel>
+	<skos:prefLabel>Sha Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819016/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.43333</wgs:lat>
+	<wgs:long>114.26667</wgs:long>
+	<skos:altLabel>Sam Pui Chau</skos:altLabel>
+	<skos:altLabel>Sigan</skos:altLabel>
+	<skos:prefLabel>Sam Pui Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819049/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1819730/"/>
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>406442</europeana:population>
+	<wgs:lat>22.38198</wgs:lat>
+	<wgs:long>114.27017</wgs:long>
+	<skos:altLabel>Sai Kung</skos:altLabel>
+	<skos:altLabel>Sai Kung Area</skos:altLabel>
+	<skos:prefLabel>Sai Kung District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819052/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.55</wgs:lat>
+	<wgs:long>114.26667</wgs:long>
+	<skos:prefLabel>Sai Ap Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819054/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.21479</wgs:lat>
+	<wgs:long>113.94594</wgs:long>
+	<skos:altLabel>Rocky Islet</skos:altLabel>
+	<skos:altLabel>Yen-shih Tao</skos:altLabel>
+	<skos:prefLabel>Rocky Islet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819056/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.32667</wgs:lat>
+	<wgs:long>113.97917</wgs:long>
+	<skos:altLabel>Reef Island</skos:altLabel>
+	<skos:altLabel>Reef Islet</skos:altLabel>
+	<skos:altLabel>Tsz Kan Chau</skos:altLabel>
+	<skos:altLabel xml:lang="zh">匙羹洲</skos:altLabel>
+	<skos:prefLabel>Tsz Kan Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819080/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.16667</wgs:lat>
+	<wgs:long>114.26667</wgs:long>
+	<skos:altLabel>Po Toi</skos:altLabel>
+	<skos:altLabel>Po Toi Island</skos:altLabel>
+	<skos:altLabel>Pu Toi Island</skos:altLabel>
+	<skos:altLabel>Putoi</skos:altLabel>
+	<skos:altLabel>Putoi Tao</skos:altLabel>
+	<skos:altLabel>P’u-t’ai</skos:altLabel>
+	<skos:prefLabel>Po Toi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819081/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>22.18333</wgs:lat>
+	<wgs:long>114.28333</wgs:long>
+	<skos:altLabel>Po Toi Group</skos:altLabel>
+	<skos:altLabel>Po Toi Island Group</skos:altLabel>
+	<skos:altLabel>Po Toi Islands</skos:altLabel>
+	<skos:altLabel>Putoi Group</skos:altLabel>
+	<skos:altLabel>P’u-t’ai-ch’ün-tao</skos:altLabel>
+	<skos:prefLabel>Po Toi Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819083/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.36667</wgs:lat>
+	<wgs:long>114.38333</wgs:long>
+	<skos:altLabel>Broken Head</skos:altLabel>
+	<skos:altLabel>Po Pin Chau</skos:altLabel>
+	<skos:altLabel>Poh Pin Chau</skos:altLabel>
+	<skos:prefLabel>Po Pin Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819102/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.31667</wgs:lat>
+	<wgs:long>114.31667</wgs:long>
+	<skos:altLabel>Ping Min Chau</skos:altLabel>
+	<skos:altLabel>Table Island</skos:altLabel>
+	<skos:altLabel>Table Islet</skos:altLabel>
+	<skos:prefLabel>Ping Min Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819108/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.55</wgs:lat>
+	<wgs:long>114.43333</wgs:long>
+	<skos:altLabel>Peng Chau</skos:altLabel>
+	<skos:altLabel>Peng Chow</skos:altLabel>
+	<skos:altLabel>Ping Chau</skos:altLabel>
+	<skos:altLabel>Ping Chau Island</skos:altLabel>
+	<skos:altLabel>P’ing Chou</skos:altLabel>
+	<skos:prefLabel>Ping Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819111/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.28333</wgs:lat>
+	<wgs:long>114.03333</wgs:long>
+	<skos:altLabel>Peang</skos:altLabel>
+	<skos:altLabel>Peang Chow</skos:altLabel>
+	<skos:altLabel>Peng Chau</skos:altLabel>
+	<skos:altLabel>Peng Chau Island</skos:altLabel>
+	<skos:altLabel>Ping Chau</skos:altLabel>
+	<skos:altLabel>Ping Chau Island</skos:altLabel>
+	<skos:altLabel>Ping Chou</skos:altLabel>
+	<skos:prefLabel>Peng Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819113/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.36573</wgs:lat>
+	<wgs:long>113.98911</wgs:long>
+	<skos:altLabel>Pearl Island</skos:altLabel>
+	<skos:altLabel>Pei Pa Chau</skos:altLabel>
+	<skos:altLabel xml:lang="zh">龍珠島</skos:altLabel>
+	<skos:prefLabel>Pearl Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819157/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.45</wgs:lat>
+	<wgs:long>114.25</wgs:long>
+	<skos:altLabel>Harbour Island</skos:altLabel>
+	<skos:altLabel>Pak Sha Tau Chau</skos:altLabel>
+	<skos:prefLabel>Pak Sha Tau Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819161/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.55</wgs:lat>
+	<wgs:long>114.33333</wgs:long>
+	<skos:altLabel>Pak Sha Chau</skos:altLabel>
+	<skos:altLabel>Round Island</skos:altLabel>
+	<skos:prefLabel>Pak Sha Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819162/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.38333</wgs:lat>
+	<wgs:long>114.28333</wgs:long>
+	<skos:altLabel>Pak Sha Chau</skos:altLabel>
+	<skos:altLabel>Tide Island</skos:altLabel>
+	<skos:prefLabel>Pak Sha Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819175/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.26667</wgs:lat>
+	<wgs:long>114.35</wgs:long>
+	<skos:altLabel>North Ninepin</skos:altLabel>
+	<skos:altLabel>North Ninepin Island</skos:altLabel>
+	<skos:altLabel>Pak Kwo Chau</skos:altLabel>
+	<skos:prefLabel>North Ninepin Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819226/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.31667</wgs:lat>
+	<wgs:long>114.13333</wgs:long>
+	<skos:altLabel>Ngon Shun Chau</skos:altLabel>
+	<skos:altLabel>Ngong Shuen Chau</skos:altLabel>
+	<skos:altLabel>Ngongshun Chau</skos:altLabel>
+	<skos:altLabel>Stonecutters Island</skos:altLabel>
+	<skos:altLabel>Wan Chu Chau</skos:altLabel>
+	<skos:prefLabel>Stonecutters Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819233/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.53333</wgs:lat>
+	<wgs:long>114.31667</wgs:long>
+	<skos:altLabel>Crescent Island</skos:altLabel>
+	<skos:altLabel>Lokwaiwan To</skos:altLabel>
+	<skos:altLabel>Ngo Mei Chau</skos:altLabel>
+	<skos:altLabel>Ngoh Mi Chau</skos:altLabel>
+	<skos:prefLabel>Ngo Mei Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819237/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.23333</wgs:lat>
+	<wgs:long>114.25</wgs:long>
+	<skos:altLabel>Mfan Chau</skos:altLabel>
+	<skos:altLabel>Ng Fan Chau</skos:altLabel>
+	<skos:prefLabel>Ng Fan Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819242/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.25</wgs:lat>
+	<wgs:long>114.28333</wgs:long>
+	<skos:prefLabel>Nga Ying Pai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819256/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.33333</wgs:lat>
+	<wgs:long>114.3</wgs:long>
+	<skos:altLabel>Ngau Mei Chau</skos:altLabel>
+	<skos:altLabel>Shelter Island</skos:altLabel>
+	<skos:prefLabel>Ngau Mei Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819274/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.36667</wgs:lat>
+	<wgs:long>114.1</wgs:long>
+	<skos:prefLabel>Ngan Ying Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819278/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.48333</wgs:lat>
+	<wgs:long>114.33333</wgs:long>
+	<skos:altLabel>Flat Islet</skos:altLabel>
+	<skos:altLabel>Ngan Chau</skos:altLabel>
+	<skos:altLabel>Pin Chau</skos:altLabel>
+	<skos:prefLabel>Ngan Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819279/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.21667</wgs:lat>
+	<wgs:long>114.18333</wgs:long>
+	<skos:altLabel>Ngan Chau</skos:altLabel>
+	<skos:altLabel>Round Island</skos:altLabel>
+	<skos:prefLabel>Round Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819306/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.25</wgs:lat>
+	<wgs:long>114.35</wgs:long>
+	<skos:altLabel>Nam Kwo Chau</skos:altLabel>
+	<skos:altLabel>South Ninepin Island</skos:altLabel>
+	<skos:prefLabel>South Ninepin Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819315/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.35</wgs:lat>
+	<wgs:long>114.35</wgs:long>
+	<skos:altLabel>Green Islet</skos:altLabel>
+	<skos:altLabel>Nam Fung Chau</skos:altLabel>
+	<skos:prefLabel>Nam Fung Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819338/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.38333</wgs:lat>
+	<wgs:long>113.96667</wgs:long>
+	<skos:altLabel>Mouse Island</skos:altLabel>
+	<skos:prefLabel>Mouse Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819345/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.48333</wgs:lat>
+	<wgs:long>114.33333</wgs:long>
+	<skos:altLabel>Fung Chau</skos:altLabel>
+	<skos:altLabel>Fung Chow</skos:altLabel>
+	<skos:altLabel>Mo Shek Pai</skos:altLabel>
+	<skos:prefLabel>Mo Shek Pai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819375/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.35</wgs:lat>
+	<wgs:long>114.05944</wgs:long>
+	<skos:altLabel>Ma Wan</skos:altLabel>
+	<skos:altLabel>Ma Wan Island</skos:altLabel>
+	<skos:prefLabel>Ma Wan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819393/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.16667</wgs:lat>
+	<wgs:long>114.25</wgs:long>
+	<skos:prefLabel>Mat Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819397/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.45</wgs:lat>
+	<wgs:long>114.23333</wgs:long>
+	<skos:altLabel>Ma Shi Chau</skos:altLabel>
+	<skos:altLabel>Ma Sze Chau</skos:altLabel>
+	<skos:altLabel>No Kot Chai</skos:altLabel>
+	<skos:altLabel>Nokot Chow</skos:altLabel>
+	<skos:prefLabel>Ma Shi Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819426/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.17203</wgs:lat>
+	<wgs:long>113.90026</wgs:long>
+	<skos:altLabel>Ma Chau</skos:altLabel>
+	<skos:altLabel xml:lang="zh">孖洲</skos:altLabel>
+	<skos:prefLabel>Ma Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819441/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.37807</wgs:lat>
+	<wgs:long>113.88297</wgs:long>
+	<skos:altLabel>Longgu Zhou</skos:altLabel>
+	<skos:altLabel>Lung Kwu Chau</skos:altLabel>
+	<skos:altLabel>Tongku</skos:altLabel>
+	<skos:altLabel>Tongku Island</skos:altLabel>
+	<skos:altLabel>Tung Kwu</skos:altLabel>
+	<skos:altLabel>T’ung-ku</skos:altLabel>
+	<skos:altLabel xml:lang="zh">龙鼓洲</skos:altLabel>
+	<skos:prefLabel>Lung Kwu Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819454/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.23333</wgs:lat>
+	<wgs:long>114.13333</wgs:long>
+	<skos:altLabel>George Island</skos:altLabel>
+	<skos:altLabel>Kuk Chau</skos:altLabel>
+	<skos:altLabel>Luk Chau</skos:altLabel>
+	<skos:prefLabel>Luk Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819495/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.21667</wgs:lat>
+	<wgs:long>114.21667</wgs:long>
+	<skos:altLabel>Lo Chau Island</skos:altLabel>
+	<skos:altLabel>Tweed Island</skos:altLabel>
+	<skos:prefLabel>Lo Chau Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819496/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.18333</wgs:lat>
+	<wgs:long>114.25</wgs:long>
+	<skos:altLabel>Baufort Island</skos:altLabel>
+	<skos:altLabel>Beaufort Island</skos:altLabel>
+	<skos:altLabel>Lo Chau</skos:altLabel>
+	<skos:altLabel>Lo Chow</skos:altLabel>
+	<skos:prefLabel>Beaufort Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819499/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.28333</wgs:lat>
+	<wgs:long>114.11667</wgs:long>
+	<skos:altLabel>Little Green Island</skos:altLabel>
+	<skos:altLabel>Siu Tsing Chau</skos:altLabel>
+	<skos:prefLabel>Siu Tsing Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819513/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.35</wgs:lat>
+	<wgs:long>114.35</wgs:long>
+	<skos:altLabel>High Island</skos:altLabel>
+	<skos:altLabel>Kao Tao</skos:altLabel>
+	<skos:altLabel>Leung Shuen Wan Chau</skos:altLabel>
+	<skos:altLabel>Lung Shun Wan Chau</skos:altLabel>
+	<skos:prefLabel>High Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819539/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.38333</wgs:lat>
+	<wgs:long>114.28333</wgs:long>
+	<skos:altLabel>Lap Sap Chau</skos:altLabel>
+	<skos:altLabel>Sam Po Yik Chau</skos:altLabel>
+	<skos:prefLabel>Lap Sap Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819557/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.2</wgs:lat>
+	<wgs:long>114.13333</wgs:long>
+	<skos:altLabel>Lamma Island</skos:altLabel>
+	<skos:altLabel>Pok Liu Chau</skos:altLabel>
+	<skos:altLabel>Pok liu chan</skos:altLabel>
+	<skos:altLabel>Pu-liao</skos:altLabel>
+	<skos:prefLabel>Lamma Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819561/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>22.3</wgs:lat>
+	<wgs:long>114.31667</wgs:long>
+	<skos:altLabel>Lak Lei Tsai</skos:altLabel>
+	<skos:altLabel>Tai Lak Lei</skos:altLabel>
+	<skos:altLabel>Trio Island</skos:altLabel>
+	<skos:altLabel>Trio Islands</skos:altLabel>
+	<skos:altLabel>Trio Islets</skos:altLabel>
+	<skos:prefLabel>Trio Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819575/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.26667</wgs:lat>
+	<wgs:long>114.28333</wgs:long>
+	<skos:prefLabel>Kwun Tsai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819581/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.38333</wgs:lat>
+	<wgs:long>114.3</wgs:long>
+	<skos:prefLabel>Kwun Cham Wan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819583/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>22.26667</wgs:lat>
+	<wgs:long>114.35</wgs:long>
+	<skos:altLabel>Chiuchen Chün-tao</skos:altLabel>
+	<skos:altLabel>Kwo Chau Islands</skos:altLabel>
+	<skos:altLabel>Kwo Chau Kwan To</skos:altLabel>
+	<skos:altLabel>Ninepin Group</skos:altLabel>
+	<skos:prefLabel>Ninepin Group</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819598/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>22.48333</wgs:lat>
+	<wgs:long>114.36667</wgs:long>
+	<skos:altLabel>Kong Chau</skos:altLabel>
+	<skos:altLabel>Kong Chow</skos:altLabel>
+	<skos:altLabel>Kung Chau</skos:altLabel>
+	<skos:altLabel>North Gau</skos:altLabel>
+	<skos:prefLabel>Kung Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819609/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1819729/"/>
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>2019533</europeana:population>
+	<wgs:lat>22.31667</wgs:lat>
+	<wgs:long>114.18333</wgs:long>
+	<skos:altLabel>Chiu-lung</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Kaulunas</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Koulun</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kowloon</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Kowloon</skos:altLabel>
+	<skos:altLabel xml:lang="no">Kowloon</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Kowloon</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kowloon</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Kowloon</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Kowloon</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Kowloon</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Цзюлун</skos:altLabel>
+	<skos:altLabel xml:lang="ja">九龍</skos:altLabel>
+	<skos:altLabel xml:lang="zh">九龍</skos:altLabel>
+	<skos:altLabel xml:lang="ko">주룽</skos:altLabel>
+	<skos:prefLabel>Kowloon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819620/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.33333</wgs:lat>
+	<wgs:long>114.36667</wgs:long>
+	<skos:prefLabel>Kong Tau Pai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819627/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.36667</wgs:lat>
+	<wgs:long>114.28333</wgs:long>
+	<skos:altLabel>Kiu Tsui Chau</skos:altLabel>
+	<skos:altLabel>Sharp Island</skos:altLabel>
+	<skos:prefLabel>Kiu Tsui Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819640/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.28333</wgs:lat>
+	<wgs:long>114.18333</wgs:long>
+	<skos:altLabel>Kellet Island</skos:altLabel>
+	<skos:altLabel>Kellett Island</skos:altLabel>
+	<skos:prefLabel>Kellett Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819649/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.28333</wgs:lat>
+	<wgs:long>114.31667</wgs:long>
+	<skos:altLabel>Ching Chau</skos:altLabel>
+	<skos:altLabel>Kei Chau</skos:altLabel>
+	<skos:altLabel>Steep Island</skos:altLabel>
+	<skos:prefLabel>Steep Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819650/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.28333</wgs:lat>
+	<wgs:long>114.06667</wgs:long>
+	<skos:altLabel>Kau I Chau Island</skos:altLabel>
+	<skos:altLabel>Kau I Chow</skos:altLabel>
+	<skos:altLabel>Kau Yi Chau</skos:altLabel>
+	<skos:altLabel>Kaui Chau</skos:altLabel>
+	<skos:altLabel>Kaui Chou</skos:altLabel>
+	<skos:altLabel>Kaui Chou Island</skos:altLabel>
+	<skos:prefLabel>Kau Yi Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819663/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.36667</wgs:lat>
+	<wgs:long>114.31667</wgs:long>
+	<skos:altLabel>Kau Sai Chau</skos:altLabel>
+	<skos:altLabel>Keui Island</skos:altLabel>
+	<skos:prefLabel>Kau Sai Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819665/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.2</wgs:lat>
+	<wgs:long>114.25</wgs:long>
+	<skos:altLabel>Kau Pei Chau</skos:altLabel>
+	<skos:altLabel>Kau Pi Chau</skos:altLabel>
+	<skos:altLabel>Kau Pui Chau</skos:altLabel>
+	<skos:prefLabel>Kau Pei Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819676/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.55</wgs:lat>
+	<wgs:long>114.3</wgs:long>
+	<skos:altLabel>Crooked Island</skos:altLabel>
+	<skos:altLabel>Kat O Chau</skos:altLabel>
+	<skos:prefLabel>Kat O Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819704/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.36667</wgs:lat>
+	<wgs:long>114.31667</wgs:long>
+	<skos:altLabel>Kai Chau</skos:altLabel>
+	<skos:altLabel>Kwai Chau</skos:altLabel>
+	<skos:altLabel>Kwau Chau</skos:altLabel>
+	<skos:prefLabel>Kai Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819708/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1819730/"/>
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>137122</europeana:population>
+	<wgs:lat>22.35</wgs:lat>
+	<wgs:long>114.23333</wgs:long>
+	<skos:altLabel>Islands</skos:altLabel>
+	<skos:altLabel>Islands Area</skos:altLabel>
+	<skos:altLabel>Islands District</skos:altLabel>
+	<skos:altLabel>Southern District</skos:altLabel>
+	<skos:prefLabel>Islands District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819727/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.26686</wgs:lat>
+	<wgs:long>114.17885</wgs:long>
+	<skos:altLabel xml:lang="id">Hong Kong</skos:altLabel>
+	<skos:altLabel>Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="es">Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="io">Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="it">Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="jv">Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="li">Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="en">Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="an">Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="is">Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Hong Kong - 香港</skos:altLabel>
+	<skos:altLabel xml:lang="la">Hongcongum</skos:altLabel>
+	<skos:altLabel xml:lang="mi">Hongipua</skos:altLabel>
+	<skos:altLabel xml:lang="de">Hongkong</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Hongkong</skos:altLabel>
+	<skos:altLabel xml:lang="da">Hongkong</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Hongkong</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Hongkong</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Hongkong</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Hongkong</skos:altLabel>
+	<skos:altLabel xml:lang="et">Hongkong</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Hongkong</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Hongkong</skos:altLabel>
+	<skos:altLabel xml:lang="no">Hongkong</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Hongkong</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Honkonga</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Honkongas</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Honkongo</skos:altLabel>
+	<skos:altLabel>Hsiang-chiang</skos:altLabel>
+	<skos:altLabel>Hsiang-kang</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Hồng Kông</skos:altLabel>
+	<skos:altLabel xml:lang="el">Χονγκ Κονγκ</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Гонконг</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гонконг</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Гонконґ</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Хонг Конг</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Хонг Конг</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Хонг Конг</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Хонгконг</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Хонконг</skos:altLabel>
+	<skos:altLabel xml:lang="he">הונג קונג</skos:altLabel>
+	<skos:altLabel xml:lang="ug">شياڭگاڭ</skos:altLabel>
+	<skos:altLabel xml:lang="fa">هنگ‌کنگ</skos:altLabel>
+	<skos:altLabel xml:lang="ar">هونغ كونغ</skos:altLabel>
+	<skos:altLabel xml:lang="hi">होन्ग कोन्ग</skos:altLabel>
+	<skos:altLabel xml:lang="th">เขตบริหารพิเศษฮ่องกง</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ჰონკონგი</skos:altLabel>
+	<skos:altLabel xml:lang="ja">香港</skos:altLabel>
+	<skos:altLabel xml:lang="zh">香港</skos:altLabel>
+	<skos:altLabel xml:lang="ko">홍콩</skos:altLabel>
+	<skos:prefLabel>Hong Kong Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819729/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>7012738</europeana:population>
+	<wgs:lat>22.28552</wgs:lat>
+	<wgs:long>114.15769</wgs:long>
+	<skos:altLabel xml:lang="de">Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="en">Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="it">Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="el">Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="da">Victoria</skos:altLabel>
+	<skos:altLabel xml:lang="es">Victoria</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Victoria</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гонконг</skos:altLabel>
+	<skos:prefLabel>Hong Kong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819730/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255147/"/>
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLS"/>
+	<europeana:population>6898686</europeana:population>
+	<wgs:lat>22.25</wgs:lat>
+	<wgs:long>114.16667</wgs:long>
+	<skos:altLabel>Colony of Hong Kong</skos:altLabel>
+	<skos:altLabel>HK</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Hong Cong</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="de">Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="en">Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="es">Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Hong Kong</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Hong Kong S.A.R. Kitajske</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Hong Kong S.A.R. Číny</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Hong Kong S.A.R., China</skos:altLabel>
+	<skos:altLabel xml:lang="id">Hong Kong S.A.R., Cina</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Hong Kong S.A.R., Tseina</skos:altLabel>
+	<skos:altLabel xml:lang="en">Hong Kong Special Administrative Region</skos:altLabel>
+	<skos:altLabel xml:lang="it">Hong-Kong</skos:altLabel>
+	<skos:altLabel xml:lang="af">Hongkong</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Hongkong</skos:altLabel>
+	<skos:altLabel xml:lang="da">Hongkong</skos:altLabel>
+	<skos:altLabel xml:lang="et">Hongkong</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Hongkong</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Hongkong</skos:altLabel>
+	<skos:altLabel xml:lang="is">Hongkong</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Hongkong</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Hongkong</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Hongkong</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Hongkong</skos:altLabel>
+	<skos:altLabel xml:lang="se">Hongkong</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Hongkong</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Honkonga</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Honkongas</skos:altLabel>
+	<skos:altLabel>Hsiang-chiang</skos:altLabel>
+	<skos:altLabel>Xianggang Tebie Xingzhengqu</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Ħong Kong S.A.R., Ċina</skos:altLabel>
+	<skos:altLabel xml:lang="el">Χονγκ Κονγκ</skos:altLabel>
+	<skos:altLabel xml:lang="be">Гон-Конг</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гонгконг</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Гонконґ</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Хон Конг С.А.Р Кина</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Хонг Конг</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Хонг-Конг</skos:altLabel>
+	<skos:altLabel xml:lang="he">הונג קונג</skos:altLabel>
+	<skos:altLabel xml:lang="fa">هنگ‌کنگ، ناحیهٔ ویژهٔ حکومتی چین</skos:altLabel>
+	<skos:altLabel xml:lang="ar">هونج كونج</skos:altLabel>
+	<skos:altLabel xml:lang="hi">हाँग काँग</skos:altLabel>
+	<skos:altLabel xml:lang="bn">হংকং</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ഹോങ്കോങ്</skos:altLabel>
+	<skos:altLabel xml:lang="th">ฮ่องกง</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ຮ່ອງກົງ</skos:altLabel>
+	<skos:altLabel xml:lang="dz">ཧོང་ཀོང</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཧོང་ཀོང༌།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ჰონგ კონგი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሆንግ ኮንግ</skos:altLabel>
+	<skos:altLabel xml:lang="km">ហុងកុង</skos:altLabel>
+	<skos:altLabel xml:lang="ja">香港</skos:altLabel>
+	<skos:altLabel xml:lang="zh">香港</skos:altLabel>
+	<skos:altLabel xml:lang="ko">홍콩</skos:altLabel>
+	<skos:prefLabel>Hong Kong Special Administrative Region</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819761/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.25</wgs:lat>
+	<wgs:long>114.03333</wgs:long>
+	<skos:altLabel>Hei Ling Chau</skos:altLabel>
+	<skos:altLabel>Ni Ku Chau Island</skos:altLabel>
+	<skos:altLabel>Niku Chau</skos:altLabel>
+	<skos:altLabel>Papai</skos:altLabel>
+	<skos:altLabel>Papai Island</skos:altLabel>
+	<skos:altLabel>Tai Ku Chow</skos:altLabel>
+	<skos:altLabel>Taiku Chau</skos:altLabel>
+	<skos:prefLabel>Hei Ling Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819830/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.33333</wgs:lat>
+	<wgs:long>114.36667</wgs:long>
+	<skos:altLabel>Fu Tau Pun Chau</skos:altLabel>
+	<skos:altLabel>Town Island</skos:altLabel>
+	<skos:prefLabel>Fu Tau Pun Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819853/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.23333</wgs:lat>
+	<wgs:long>114.13333</wgs:long>
+	<skos:altLabel>Chu Kwu Chau</skos:altLabel>
+	<skos:altLabel>Chukwuchau Chau</skos:altLabel>
+	<skos:altLabel>Fo Yeuk Chau</skos:altLabel>
+	<skos:altLabel>Magazine Island</skos:altLabel>
+	<skos:altLabel>One Tree Island</skos:altLabel>
+	<skos:altLabel>Tree Island</skos:altLabel>
+	<skos:prefLabel>Magazine Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819856/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.31667</wgs:lat>
+	<wgs:long>114.36667</wgs:long>
+	<skos:altLabel>Basalt Island</skos:altLabel>
+	<skos:altLabel>Fo Shek Chau</skos:altLabel>
+	<skos:prefLabel>Basalt Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819865/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.28333</wgs:lat>
+	<wgs:long>114.26667</wgs:long>
+	<skos:altLabel>Fat Tau Chau</skos:altLabel>
+	<skos:altLabel>Fat Tong Chau</skos:altLabel>
+	<skos:altLabel>Fatau Chau</skos:altLabel>
+	<skos:altLabel>Futau Chan</skos:altLabel>
+	<skos:altLabel>Futau Chau</skos:altLabel>
+	<skos:altLabel>Futau Chow</skos:altLabel>
+	<skos:altLabel>Junk Island</skos:altLabel>
+	<skos:prefLabel>Fat Tong Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819870/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.36667</wgs:lat>
+	<wgs:long>114.4</wgs:long>
+	<skos:altLabel>Conic Island</skos:altLabel>
+	<skos:altLabel>Fan Chin Chau</skos:altLabel>
+	<skos:altLabel>Fan Tsang Chau</skos:altLabel>
+	<skos:prefLabel>Conic Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819884/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>22.33333</wgs:lat>
+	<wgs:long>114.36667</wgs:long>
+	<skos:altLabel>Fan Kwai Lun Chau</skos:altLabel>
+	<skos:altLabel>Wei Sam Chau</skos:altLabel>
+	<skos:altLabel>Weisam Chow</skos:altLabel>
+	<skos:prefLabel>Fan Kwai Lun Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819938/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.33333</wgs:lat>
+	<wgs:long>114.33333</wgs:long>
+	<skos:altLabel>Bay Islet</skos:altLabel>
+	<skos:altLabel>Chi Chau</skos:altLabel>
+	<skos:prefLabel>Chi Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819949/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.55</wgs:lat>
+	<wgs:long>114.25</wgs:long>
+	<skos:prefLabel>Cheung Shek Tsui</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819960/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.1787</wgs:lat>
+	<wgs:long>113.925</wgs:long>
+	<skos:altLabel>Cheung Muk Tau</skos:altLabel>
+	<skos:altLabel xml:lang="zh">樟木頭</skos:altLabel>
+	<skos:prefLabel>Cheung Muk Tau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819967/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.2089</wgs:lat>
+	<wgs:long>114.02852</wgs:long>
+	<skos:altLabel>Chang</skos:altLabel>
+	<skos:altLabel>Chang Chau</skos:altLabel>
+	<skos:altLabel>Cheung Chan</skos:altLabel>
+	<skos:altLabel>Cheung Chan Island</skos:altLabel>
+	<skos:altLabel xml:lang="en">Cheung Chau Island</skos:altLabel>
+	<skos:altLabel xml:lang="zh">長洲</skos:altLabel>
+	<skos:prefLabel>Cheung Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819973/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.30792</wgs:lat>
+	<wgs:long>113.92062</wgs:long>
+	<skos:altLabel>Chek Lap Kok</skos:altLabel>
+	<skos:altLabel>Chek Lap Kok Island</skos:altLabel>
+	<skos:altLabel>Chik Lap Kok</skos:altLabel>
+	<skos:altLabel>Chik Lap Kok Island</skos:altLabel>
+	<skos:altLabel>Chu Lou Kok</skos:altLabel>
+	<skos:altLabel>Chu Lou Kok Island</skos:altLabel>
+	<skos:altLabel>Chu Lu Kok</skos:altLabel>
+	<skos:altLabel>Chu Lu Kok Island</skos:altLabel>
+	<skos:altLabel>Ch’ih-li-chiao</skos:altLabel>
+	<skos:altLabel xml:lang="zh">赤鱲角</skos:altLabel>
+	<skos:prefLabel>Chek Lap Kok</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819982/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.5</wgs:lat>
+	<wgs:long>114.35</wgs:long>
+	<skos:altLabel>Chak Chow</skos:altLabel>
+	<skos:altLabel>Chek Chau</skos:altLabel>
+	<skos:altLabel>Chik Chau</skos:altLabel>
+	<skos:altLabel>Port Island</skos:altLabel>
+	<skos:prefLabel>Chek Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819985/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.35</wgs:lat>
+	<wgs:long>114.35</wgs:long>
+	<skos:prefLabel>Chau Tsai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819986/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.33333</wgs:lat>
+	<wgs:long>114.1</wgs:long>
+	<skos:prefLabel>Chau Tsai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819990/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.26667</wgs:lat>
+	<wgs:long>114.05</wgs:long>
+	<skos:altLabel>Chau Kung</skos:altLabel>
+	<skos:altLabel>Chau Kung Island</skos:altLabel>
+	<skos:altLabel>Chau Kung To</skos:altLabel>
+	<skos:altLabel>Chow Kung</skos:altLabel>
+	<skos:altLabel>Sunshine Island</skos:altLabel>
+	<skos:prefLabel>Sunshine Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1819996/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.38333</wgs:lat>
+	<wgs:long>114.28333</wgs:long>
+	<skos:prefLabel>Cham Tau Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1820038/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.23333</wgs:lat>
+	<wgs:long>114.15</wgs:long>
+	<skos:altLabel>Ap Lei Pai</skos:altLabel>
+	<skos:altLabel>Apli Pai</skos:altLabel>
+	<skos:altLabel>Aplichai</skos:altLabel>
+	<skos:prefLabel>Ap Lei Pai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1820039/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.23333</wgs:lat>
+	<wgs:long>114.15</wgs:long>
+	<skos:altLabel>Aberdeen Island</skos:altLabel>
+	<skos:altLabel>Ap Lei Chau</skos:altLabel>
+	<skos:altLabel>Ap Li Chau</skos:altLabel>
+	<skos:prefLabel>Ap Lei Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1820040/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.55</wgs:lat>
+	<wgs:long>114.26667</wgs:long>
+	<skos:altLabel>Ap Chau</skos:altLabel>
+	<skos:altLabel>Ap Cheuk</skos:altLabel>
+	<skos:altLabel>Robinson Island</skos:altLabel>
+	<skos:prefLabel>Ap Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1820050/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.43333</wgs:lat>
+	<wgs:long>114.21667</wgs:long>
+	<skos:altLabel>A Chau</skos:altLabel>
+	<skos:altLabel>Ah Chau</skos:altLabel>
+	<skos:altLabel>Center Island</skos:altLabel>
+	<skos:altLabel>Centre Island</skos:altLabel>
+	<skos:prefLabel>A Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1901043/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.35778</wgs:lat>
+	<wgs:long>114.06389</wgs:long>
+	<skos:prefLabel>Ngau Lan Tsui</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1970248/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.40056</wgs:lat>
+	<wgs:long>114.38278</wgs:long>
+	<skos:prefLabel>Tai Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1970249/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.3625</wgs:lat>
+	<wgs:long>114.36806</wgs:long>
+	<skos:prefLabel>Wong Nai Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6324616/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.TMPL"/>
+	<wgs:lat>22.21246</wgs:lat>
+	<wgs:long>114.02773</wgs:long>
+	<skos:altLabel xml:lang="zh">北帝</skos:altLabel>
+	<skos:prefLabel>Pak Tai temple</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6621502/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.TMPL"/>
+	<wgs:lat>22.30988</wgs:lat>
+	<wgs:long>114.17059</wgs:long>
+	<skos:prefLabel>Tin Hau Temple</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6621504/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.TMPL"/>
+	<wgs:lat>22.33263</wgs:lat>
+	<wgs:long>114.1874</wgs:long>
+	<skos:prefLabel>Hau Wong Temple</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6951521/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>22.25399</wgs:lat>
+	<wgs:long>113.90512</wgs:long>
+	<skos:prefLabel>Tian Tan Boeddha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6956821/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.TMPL"/>
+	<wgs:lat>22.28212</wgs:lat>
+	<wgs:long>114.19274</wgs:long>
+	<skos:prefLabel>Tin Hau Temple (HK Island)</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6962716/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.15479</wgs:lat>
+	<wgs:long>113.92281</wgs:long>
+	<skos:altLabel>Tau Lo Chau</skos:altLabel>
+	<skos:altLabel xml:lang="zh">頭顱洲</skos:altLabel>
+	<skos:prefLabel>Tau Lo Chau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7533598/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1819730/"/>
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>250064</europeana:population>
+	<wgs:lat>22.28219</wgs:lat>
+	<wgs:long>114.14486</wgs:long>
+	<skos:altLabel>Central and Western</skos:altLabel>
+	<skos:prefLabel>Central and Western District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7533607/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1819730/"/>
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>155196</europeana:population>
+	<wgs:lat>22.28282</wgs:lat>
+	<wgs:long>114.1616</wgs:long>
+	<skos:prefLabel>Wan Chai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7533608/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1819730/"/>
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>587690</europeana:population>
+	<wgs:lat>22.27988</wgs:lat>
+	<wgs:long>114.17911</wgs:long>
+	<skos:prefLabel>Eastern</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7533609/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1819730/"/>
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>275162</europeana:population>
+	<wgs:lat>22.28195</wgs:lat>
+	<wgs:long>114.15061</wgs:long>
+	<skos:prefLabel>Southern</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7533610/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1819730/"/>
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>280548</europeana:population>
+	<wgs:lat>22.28092</wgs:lat>
+	<wgs:long>114.17696</wgs:long>
+	<skos:prefLabel>Yau Tsim Mong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7533611/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1819730/"/>
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>365540</europeana:population>
+	<wgs:lat>22.28648</wgs:lat>
+	<wgs:long>114.14546</wgs:long>
+	<skos:prefLabel>Sham Shui Po</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7533612/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1819730/"/>
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>362501</europeana:population>
+	<wgs:lat>22.28648</wgs:lat>
+	<wgs:long>114.14254</wgs:long>
+	<skos:prefLabel>Kowloon City</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7533613/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1819730/"/>
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>423521</europeana:population>
+	<wgs:lat>22.28743</wgs:lat>
+	<wgs:long>114.1416</wgs:long>
+	<skos:prefLabel>Wong Tai Sin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7533614/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1819730/"/>
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>587423</europeana:population>
+	<wgs:lat>22.28719</wgs:lat>
+	<wgs:long>114.14194</wgs:long>
+	<skos:prefLabel>Kwon Tong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7533615/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1819730/"/>
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>523300</europeana:population>
+	<wgs:lat>22.28663</wgs:lat>
+	<wgs:long>114.14331</wgs:long>
+	<skos:prefLabel>Kwai Tsing</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7533616/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1819730/"/>
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>502035</europeana:population>
+	<wgs:lat>22.28513</wgs:lat>
+	<wgs:long>114.13825</wgs:long>
+	<skos:prefLabel>Tuen Mun</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7533617/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1819730/"/>
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>280730</europeana:population>
+	<wgs:lat>22.30276</wgs:lat>
+	<wgs:long>114.17782</wgs:long>
+	<skos:prefLabel>North</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7533618/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1819730/"/>
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>607544</europeana:population>
+	<wgs:lat>22.28314</wgs:lat>
+	<wgs:long>114.13207</wgs:long>
+	<skos:prefLabel>Sha Tin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628268/">
+	<europeana:country>HK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.26463</wgs:lat>
+	<wgs:long>113.94745</wgs:long>
+	<skos:prefLabel>Lantau Island</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 160 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

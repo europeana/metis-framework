@@ -1,0 +1,26 @@
+            ------
+            Tutorial: Converting RDF to RDF
+            ------
+ 
+Using AnnoCultor to convert and filter RDF documents
+
+  Sometimes we need to convert an RDf document to another RDF document. Typically, this is needed to
+  
+  * filter some fields out. A typical situation is a vocabulary where each term is described with 
+    a few labels and a long change log, tens times larger that the term itself. In many
+    applications we would like to use the latest snapshot of terms, ignoring their change log. This can also be
+    done with SPARQL construct queries.
+  
+  * restructure RDF document. The two typical cases are: extracting several literal fields of an RDF object
+    into a separate RDF object linked to the parent one; flattening RDF objects by making a few fields
+    of a part-of object fields of the parent object self.  
+    
+  * filter some records out. In a situation where decision whether a record should be included or not
+    depends on a non-trivial condition. For simple conditions SPARQL queries can be more efficient.
+  
+  * change values of some fields. Prefixing values, changing namespaces, cleaning data.
+  
+  Some of the RDF-to-RDF conversions may be efficiently done by SPARQL construct queries.
+  
+     
+  

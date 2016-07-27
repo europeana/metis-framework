@@ -1,0 +1,3018 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: NA_BZ
+Description: Selected fields pulled from Geonames about BZ done on Mon May 23 21:14:19 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580766/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.2</wgs:lat>
+	<wgs:long>-88.2</wgs:long>
+	<skos:prefLabel>Youngs Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580770/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>17.25</wgs:lat>
+	<wgs:long>-88.85</wgs:long>
+	<skos:prefLabel>Young Girl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580773/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>18.08333</wgs:lat>
+	<wgs:long>-88.61667</wgs:long>
+	<skos:prefLabel>Yo Creek</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580784/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>17.36667</wgs:lat>
+	<wgs:long>-88.93333</wgs:long>
+	<skos:prefLabel>Yalbac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580787/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>17.08333</wgs:lat>
+	<wgs:long>-89.13333</wgs:long>
+	<skos:altLabel>Xunantanich</skos:altLabel>
+	<skos:altLabel>Xunantunich</skos:altLabel>
+	<skos:prefLabel>Xunantunich</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580801/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.53333</wgs:lat>
+	<wgs:long>-88.21667</wgs:long>
+	<skos:altLabel>Wippan Cay</skos:altLabel>
+	<skos:altLabel>Wippari Cay</skos:altLabel>
+	<skos:prefLabel>Wippari Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580803/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.21667</wgs:lat>
+	<wgs:long>-88.58333</wgs:long>
+	<skos:prefLabel>Wilson Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580807/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.18333</wgs:lat>
+	<wgs:long>-88.63333</wgs:long>
+	<skos:prefLabel>Wild Cane Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580808/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>16.21667</wgs:lat>
+	<wgs:long>-88.66667</wgs:long>
+	<skos:prefLabel>Wild Cane Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580810/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.4</wgs:lat>
+	<wgs:long>-88.11667</wgs:long>
+	<skos:prefLabel>White Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580818/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.18333</wgs:lat>
+	<wgs:long>-88.56667</wgs:long>
+	<skos:prefLabel>West Snake Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580825/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.75</wgs:lat>
+	<wgs:long>-88.13333</wgs:long>
+	<skos:prefLabel>Wee Wee Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580830/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.36667</wgs:lat>
+	<wgs:long>-88.05</wgs:long>
+	<skos:prefLabel>Water Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580831/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.8</wgs:lat>
+	<wgs:long>-88.08333</wgs:long>
+	<skos:altLabel>South Water Cay</skos:altLabel>
+	<skos:altLabel>Water Cay</skos:altLabel>
+	<skos:prefLabel>Water Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580867/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>17.05</wgs:lat>
+	<wgs:long>-89.05</wgs:long>
+	<skos:prefLabel>Vaca Falls</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580869/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>16.26667</wgs:lat>
+	<wgs:long>-88.96667</wgs:long>
+	<skos:altLabel>Uxbenton</skos:altLabel>
+	<skos:altLabel>Uxbentun</skos:altLabel>
+	<skos:prefLabel>Uxbenton</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580878/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>16.81667</wgs:lat>
+	<wgs:long>-88.1</wgs:long>
+	<skos:prefLabel>Twin Cays</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580882/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>17.33333</wgs:lat>
+	<wgs:long>-87.86667</wgs:long>
+	<skos:altLabel>Isla Turneffe</skos:altLabel>
+	<skos:altLabel>Terra Nueve</skos:altLabel>
+	<skos:altLabel>Terranof</skos:altLabel>
+	<skos:altLabel>Turneefe</skos:altLabel>
+	<skos:altLabel>Turneffe Islands</skos:altLabel>
+	<skos:prefLabel>Turneffe Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580892/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>17.3</wgs:lat>
+	<wgs:long>-88.16667</wgs:long>
+	<skos:prefLabel>The Triangles</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580907/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.05</wgs:lat>
+	<wgs:long>-88</wgs:long>
+	<skos:altLabel>Cayo Tostado</skos:altLabel>
+	<skos:altLabel>Swab Cay</skos:altLabel>
+	<skos:prefLabel>Cayo Tostado</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580911/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.2</wgs:lat>
+	<wgs:long>-88.21667</wgs:long>
+	<skos:prefLabel>Tom Owen’s Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580913/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>27598</europeana:population>
+	<wgs:lat>16.33333</wgs:lat>
+	<wgs:long>-88.75</wgs:long>
+	<skos:altLabel>Distrito de Toledo</skos:altLabel>
+	<skos:altLabel>Toledo</skos:altLabel>
+	<skos:altLabel>Toledo District</skos:altLabel>
+	<skos:prefLabel>Toledo District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580915/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>16.88333</wgs:lat>
+	<wgs:long>-88.08333</wgs:long>
+	<skos:altLabel>Tabacco Range</skos:altLabel>
+	<skos:altLabel>Tobacco Range</skos:altLabel>
+	<skos:altLabel>Tobacco Range Cays</skos:altLabel>
+	<skos:prefLabel>Tobacco Range</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580917/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.88333</wgs:lat>
+	<wgs:long>-88.05</wgs:long>
+	<skos:altLabel>Tabacco Cay</skos:altLabel>
+	<skos:altLabel>Tobacco Cay</skos:altLabel>
+	<skos:prefLabel>Tobacco Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580928/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.53333</wgs:lat>
+	<wgs:long>-87.76667</wgs:long>
+	<skos:prefLabel>Three Corner Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580942/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.56667</wgs:lat>
+	<wgs:long>-88.15</wgs:long>
+	<skos:altLabel>Cay Tarpoon</skos:altLabel>
+	<skos:altLabel>Tarpum Cay</skos:altLabel>
+	<skos:prefLabel>Tarpum Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580956/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.48333</wgs:lat>
+	<wgs:long>-88.11667</wgs:long>
+	<skos:prefLabel>Swallow Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580965/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.13333</wgs:lat>
+	<wgs:long>-88.71667</wgs:long>
+	<skos:prefLabel>Stuart Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580971/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.76667</wgs:lat>
+	<wgs:long>-88.15</wgs:long>
+	<skos:prefLabel>Stewart Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580973/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>16.88333</wgs:lat>
+	<wgs:long>-89.05</wgs:long>
+	<skos:prefLabel>Starkey Hill</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580975/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>29882</europeana:population>
+	<wgs:lat>16.83333</wgs:lat>
+	<wgs:long>-88.5</wgs:long>
+	<skos:altLabel>Southern District</skos:altLabel>
+	<skos:altLabel>Stann Creek</skos:altLabel>
+	<skos:altLabel>Stann Creek District</skos:altLabel>
+	<skos:altLabel>Stann Creek Distrito</skos:altLabel>
+	<skos:prefLabel>Stann Creek District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580976/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.45</wgs:lat>
+	<wgs:long>-88.13333</wgs:long>
+	<skos:altLabel>Stake Bank</skos:altLabel>
+	<skos:altLabel>State Bank</skos:altLabel>
+	<skos:prefLabel>Stake Bank</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580977/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.71667</wgs:lat>
+	<wgs:long>-88.16667</wgs:long>
+	<skos:prefLabel>Spruce Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580979/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.55</wgs:lat>
+	<wgs:long>-88.06667</wgs:long>
+	<skos:prefLabel>The Spit</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580980/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.53333</wgs:lat>
+	<wgs:long>-88.08333</wgs:long>
+	<skos:prefLabel>Spider Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580984/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.4</wgs:lat>
+	<wgs:long>-88.06667</wgs:long>
+	<skos:altLabel>Snake Pit</skos:altLabel>
+	<skos:altLabel>Spanish Cay</skos:altLabel>
+	<skos:altLabel>Spanish Lookout Cay</skos:altLabel>
+	<skos:prefLabel>Spanish Lookout Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580988/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>17.23333</wgs:lat>
+	<wgs:long>-88.98333</wgs:long>
+	<skos:prefLabel>Spanish Lookout</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580992/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.33333</wgs:lat>
+	<wgs:long>-88.15</wgs:long>
+	<skos:prefLabel>Spanish Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580993/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>16.7</wgs:lat>
+	<wgs:long>-87.83333</wgs:long>
+	<skos:altLabel>Southwest Cay</skos:altLabel>
+	<skos:altLabel>Southwest Cays</skos:altLabel>
+	<skos:prefLabel>Southwest Cays</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3580998/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.16667</wgs:lat>
+	<wgs:long>-88.56667</wgs:long>
+	<skos:prefLabel>South Snake Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581000/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.08333</wgs:lat>
+	<wgs:long>-88.03333</wgs:long>
+	<skos:altLabel>Cayo Long Southern</skos:altLabel>
+	<skos:altLabel>Southern Long Cay</skos:altLabel>
+	<skos:prefLabel>Southern Long Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581004/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>17.2</wgs:lat>
+	<wgs:long>-87.56667</wgs:long>
+	<skos:prefLabel>Southern Four Cays</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581008/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.08333</wgs:lat>
+	<wgs:long>-88.28333</wgs:long>
+	<skos:prefLabel>South Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581015/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.31667</wgs:lat>
+	<wgs:long>-87.78333</wgs:long>
+	<skos:prefLabel>Soldier Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581017/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>17.08333</wgs:lat>
+	<wgs:long>-89.11667</wgs:long>
+	<skos:prefLabel>Socotz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581023/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>16.18333</wgs:lat>
+	<wgs:long>-88.56667</wgs:long>
+	<skos:altLabel xml:lang="en">Snake Cays</skos:altLabel>
+	<skos:altLabel>The Snake Cays</skos:altLabel>
+	<skos:prefLabel>The Snake Cays</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581025/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.28333</wgs:lat>
+	<wgs:long>-88.53333</wgs:long>
+	<skos:prefLabel>Small Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581026/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.15</wgs:lat>
+	<wgs:long>-88.71667</wgs:long>
+	<skos:prefLabel>Small Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581028/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.58333</wgs:lat>
+	<wgs:long>-88.18333</wgs:long>
+	<skos:prefLabel>Slasher Sand Bore</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581030/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.21667</wgs:lat>
+	<wgs:long>-88.05</wgs:long>
+	<skos:prefLabel>Skiff Sand</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581034/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.8</wgs:lat>
+	<wgs:long>-88.25</wgs:long>
+	<skos:prefLabel>Sittee Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581038/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.3</wgs:lat>
+	<wgs:long>-88.16667</wgs:long>
+	<skos:altLabel>Cayo Summonds</skos:altLabel>
+	<skos:altLabel>Simmonds Cay</skos:altLabel>
+	<skos:prefLabel>Simmonds Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581051/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>16.43333</wgs:lat>
+	<wgs:long>-88.03333</wgs:long>
+	<skos:altLabel>Queen Cays</skos:altLabel>
+	<skos:altLabel>Silk Cays</skos:altLabel>
+	<skos:prefLabel>Silk Cays</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581055/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.13333</wgs:lat>
+	<wgs:long>-88.71667</wgs:long>
+	<skos:prefLabel>Sickle Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581068/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>17.86667</wgs:lat>
+	<wgs:long>-88.63333</wgs:long>
+	<skos:prefLabel>Shipyard</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581071/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.3</wgs:lat>
+	<wgs:long>-88.08333</wgs:long>
+	<skos:altLabel>Shipstern Cay</skos:altLabel>
+	<skos:altLabel>Ship’s Stern</skos:altLabel>
+	<skos:prefLabel>Shipstern Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581076/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.26667</wgs:lat>
+	<wgs:long>-87.88333</wgs:long>
+	<skos:prefLabel>Shag Cay Bluff</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581077/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.43333</wgs:lat>
+	<wgs:long>-88.06667</wgs:long>
+	<skos:prefLabel>Shag Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581078/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.45</wgs:lat>
+	<wgs:long>-88.05</wgs:long>
+	<skos:prefLabel>Shag Bluff</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581084/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>16.21667</wgs:lat>
+	<wgs:long>-88.76667</wgs:long>
+	<skos:prefLabel>Seven Hills</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581087/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.38333</wgs:lat>
+	<wgs:long>-88.03333</wgs:long>
+	<skos:prefLabel>Sergeants Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581098/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.46667</wgs:lat>
+	<wgs:long>-88.28333</wgs:long>
+	<skos:prefLabel>Scipio Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581103/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.93333</wgs:lat>
+	<wgs:long>-88.11667</wgs:long>
+	<skos:altLabel>Savanna Cay</skos:altLabel>
+	<skos:altLabel>Savannah Cay</skos:altLabel>
+	<skos:prefLabel>Savannah Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581114/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>18.35</wgs:lat>
+	<wgs:long>-88.15</wgs:long>
+	<skos:prefLabel>Sarteneja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581128/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>16.1</wgs:lat>
+	<wgs:long>-88.25</wgs:long>
+	<skos:altLabel>Cayos Zapotillos</skos:altLabel>
+	<skos:altLabel>Sapodilla Cays</skos:altLabel>
+	<skos:altLabel>Zapatillas Cays</skos:altLabel>
+	<skos:altLabel>Zapotilla Cays</skos:altLabel>
+	<skos:altLabel>Zapotillos Cays</skos:altLabel>
+	<skos:prefLabel>Sapodilla Cays</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581137/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>18.4</wgs:lat>
+	<wgs:long>-88.4</wgs:long>
+	<skos:prefLabel>Santa Rita</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581153/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>17.85</wgs:lat>
+	<wgs:long>-88.3</wgs:long>
+	<skos:prefLabel>Santa Ana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581192/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>17.48333</wgs:lat>
+	<wgs:long>-88.91667</wgs:long>
+	<skos:prefLabel>San Jose</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581194/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16812</europeana:population>
+	<wgs:lat>17.15611</wgs:lat>
+	<wgs:long>-89.07139</wgs:long>
+	<skos:altLabel>Cayo</skos:altLabel>
+	<skos:altLabel>Cayo Town</skos:altLabel>
+	<skos:altLabel>El Cayo</skos:altLabel>
+	<skos:altLabel>El Cayo de San Ignacio</skos:altLabel>
+	<skos:altLabel>San Ignacio</skos:altLabel>
+	<skos:prefLabel>San Ignacio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581202/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>17.15</wgs:lat>
+	<wgs:long>-89.05</wgs:long>
+	<skos:prefLabel>San Felipe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581205/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>18.13333</wgs:lat>
+	<wgs:long>-88.5</wgs:long>
+	<skos:prefLabel>San Estevan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581209/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>17</wgs:lat>
+	<wgs:long>-88.08333</wgs:long>
+	<skos:prefLabel>Sandfly Cays</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581213/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.46408</wgs:lat>
+	<wgs:long>-87.48812</wgs:long>
+	<skos:prefLabel>Sandbore Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581224/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>17.08333</wgs:lat>
+	<wgs:long>-89.01667</wgs:long>
+	<skos:prefLabel>San Antonio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581225/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>16.26667</wgs:lat>
+	<wgs:long>-89</wgs:long>
+	<skos:prefLabel>San Antonio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581228/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.28894</wgs:lat>
+	<wgs:long>-88.04409</wgs:long>
+	<skos:prefLabel>Samphire Spot</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581229/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.45</wgs:lat>
+	<wgs:long>-88.05</wgs:long>
+	<skos:prefLabel>Samphire Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581234/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>18.28333</wgs:lat>
+	<wgs:long>-88.38333</wgs:long>
+	<skos:prefLabel>Saltillo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581251/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>18.46667</wgs:lat>
+	<wgs:long>-88.41667</wgs:long>
+	<skos:altLabel>Saint Helena</skos:altLabel>
+	<skos:altLabel>Santa Elena</skos:altLabel>
+	<skos:prefLabel>Saint Helena</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581252/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.55</wgs:lat>
+	<wgs:long>-88.06667</wgs:long>
+	<skos:prefLabel>Saint George’s Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581255/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.23333</wgs:lat>
+	<wgs:long>-87.51667</wgs:long>
+	<skos:prefLabel>Saddle Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581256/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.66667</wgs:lat>
+	<wgs:long>-88.16667</wgs:long>
+	<skos:prefLabel>Saddle Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581266/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.58333</wgs:lat>
+	<wgs:long>-88.11667</wgs:long>
+	<skos:altLabel>Round Cay</skos:altLabel>
+	<skos:altLabel>Round Clay</skos:altLabel>
+	<skos:prefLabel>Round Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581267/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.5</wgs:lat>
+	<wgs:long>-88.25</wgs:long>
+	<skos:prefLabel>Round Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581268/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.4</wgs:lat>
+	<wgs:long>-88.06667</wgs:long>
+	<skos:prefLabel>Round Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581272/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.98333</wgs:lat>
+	<wgs:long>-87.98333</wgs:long>
+	<skos:altLabel>Cay Guana</skos:altLabel>
+	<skos:altLabel>Cayo Rosario</skos:altLabel>
+	<skos:prefLabel>Cayo Rosario</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581274/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.9</wgs:lat>
+	<wgs:long>-88</wgs:long>
+	<skos:prefLabel>Cayo Romero</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581294/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.83333</wgs:lat>
+	<wgs:long>-88.45</wgs:long>
+	<skos:prefLabel>Rock Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581298/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.35</wgs:lat>
+	<wgs:long>-88.18333</wgs:long>
+	<skos:prefLabel>Robinson Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581311/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>16.96667</wgs:lat>
+	<wgs:long>-88.98333</wgs:long>
+	<skos:prefLabel>Rio Frio Caves</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581319/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>17.53333</wgs:lat>
+	<wgs:long>-88.16667</wgs:long>
+	<skos:altLabel>Coffee</skos:altLabel>
+	<skos:altLabel>Peter’s Bluff</skos:altLabel>
+	<skos:altLabel>Riders Cays</skos:altLabel>
+	<skos:prefLabel>Riders Cays</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581337/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.23333</wgs:lat>
+	<wgs:long>-88.05</wgs:long>
+	<skos:prefLabel>Rendezvous Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581338/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.53333</wgs:lat>
+	<wgs:long>-88.1</wgs:long>
+	<skos:prefLabel>Rendezvous Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581347/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.21667</wgs:lat>
+	<wgs:long>-88.18333</wgs:long>
+	<skos:prefLabel>Red Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581358/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.3</wgs:lat>
+	<wgs:long>-88.11667</wgs:long>
+	<skos:prefLabel>Ranguana Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581368/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.35</wgs:lat>
+	<wgs:long>-88.16667</wgs:long>
+	<skos:prefLabel>Ramsey’s Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581377/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.83333</wgs:lat>
+	<wgs:long>-88.11667</wgs:long>
+	<skos:prefLabel>Ragged Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581378/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.05</wgs:lat>
+	<wgs:long>-88.28333</wgs:long>
+	<skos:prefLabel>Ragged Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581389/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.63333</wgs:lat>
+	<wgs:long>-88.21667</wgs:long>
+	<skos:altLabel>Quamina Cay</skos:altLabel>
+	<skos:altLabel>Quamino Cay</skos:altLabel>
+	<skos:prefLabel>Quamina Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581393/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>16.1</wgs:lat>
+	<wgs:long>-89.16667</wgs:long>
+	<skos:prefLabel>Pusilha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581435/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.38333</wgs:lat>
+	<wgs:long>-88.1</wgs:long>
+	<skos:altLabel>Cayo Spanish Pit</skos:altLabel>
+	<skos:altLabel>Pompion Cay</skos:altLabel>
+	<skos:prefLabel>Pompion Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581437/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>16.98333</wgs:lat>
+	<wgs:long>-88.36667</wgs:long>
+	<skos:prefLabel>Pomona</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581451/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.5</wgs:lat>
+	<wgs:long>-88.35</wgs:long>
+	<skos:prefLabel>Placentia Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581466/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>16.8</wgs:lat>
+	<wgs:long>-88.55</wgs:long>
+	<skos:prefLabel>Pierce Ruins</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581472/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.7</wgs:lat>
+	<wgs:long>-88.16667</wgs:long>
+	<skos:altLabel>Douglas Cay</skos:altLabel>
+	<skos:altLabel>Peter Douglas Cay</skos:altLabel>
+	<skos:prefLabel>Peter Douglas Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581483/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>16.65</wgs:lat>
+	<wgs:long>-88.2</wgs:long>
+	<skos:prefLabel>Pelican Cays</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581484/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>17.38333</wgs:lat>
+	<wgs:long>-87.81667</wgs:long>
+	<skos:prefLabel>Pelican Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581485/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.48333</wgs:lat>
+	<wgs:long>-87.76667</wgs:long>
+	<skos:prefLabel>Pelican Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581486/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.23677</wgs:lat>
+	<wgs:long>-87.89818</wgs:long>
+	<skos:prefLabel>Pelican Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581489/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.4</wgs:lat>
+	<wgs:long>-88.03333</wgs:long>
+	<skos:altLabel>Paunch Cay</skos:altLabel>
+	<skos:altLabel>Paunch Cay Spit</skos:altLabel>
+	<skos:prefLabel>Paunch Cay Spit</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581502/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.41667</wgs:lat>
+	<wgs:long>-88.41667</wgs:long>
+	<skos:prefLabel>Palmetto Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581511/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>44854</europeana:population>
+	<wgs:lat>17.83333</wgs:lat>
+	<wgs:long>-88.83333</wgs:long>
+	<skos:altLabel>Northern District</skos:altLabel>
+	<skos:altLabel>Orange Walk</skos:altLabel>
+	<skos:altLabel>Orange Walk District</skos:altLabel>
+	<skos:prefLabel>Orange Walk District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581514/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15298</europeana:population>
+	<wgs:lat>18.06667</wgs:lat>
+	<wgs:long>-88.55</wgs:long>
+	<skos:altLabel>Orange Walk</skos:altLabel>
+	<skos:prefLabel>Orange Walk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581522/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.35</wgs:lat>
+	<wgs:long>-88.16667</wgs:long>
+	<skos:prefLabel>One Man Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581536/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.7</wgs:lat>
+	<wgs:long>-88.15</wgs:long>
+	<skos:prefLabel>Norval Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581539/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.23333</wgs:lat>
+	<wgs:long>-88.18333</wgs:long>
+	<skos:prefLabel>North Spot</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581545/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.44557</wgs:lat>
+	<wgs:long>-87.5037</wgs:long>
+	<skos:altLabel>Northern Cay</skos:altLabel>
+	<skos:altLabel>Northern Two Cays</skos:altLabel>
+	<skos:prefLabel>Northern Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581550/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.13333</wgs:lat>
+	<wgs:long>-88.23333</wgs:long>
+	<skos:prefLabel>Northeast Sapodilla Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581551/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>16.65</wgs:lat>
+	<wgs:long>-88.13333</wgs:long>
+	<skos:prefLabel>Northeast Cay Range</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581552/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.75</wgs:lat>
+	<wgs:long>-87.76667</wgs:long>
+	<skos:prefLabel>Northeast Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581553/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.66667</wgs:lat>
+	<wgs:long>-88.18333</wgs:long>
+	<skos:prefLabel>Northeast Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581554/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.5</wgs:lat>
+	<wgs:long>-88.15</wgs:long>
+	<skos:prefLabel>North Drowned Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581559/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>17.11667</wgs:lat>
+	<wgs:long>-89.1</wgs:long>
+	<skos:prefLabel>Nohock Ek</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581560/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>18.21667</wgs:lat>
+	<wgs:long>-88.58333</wgs:long>
+	<skos:prefLabel>Noh Mul</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581562/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>16.25</wgs:lat>
+	<wgs:long>-88.86667</wgs:long>
+	<skos:prefLabel>Nim Li Punit</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581564/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.1</wgs:lat>
+	<wgs:long>-88.25</wgs:long>
+	<skos:altLabel>Nicholas Cay</skos:altLabel>
+	<skos:altLabel>Nicolás Cayo</skos:altLabel>
+	<skos:prefLabel>Nicholas Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581574/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>17.63333</wgs:lat>
+	<wgs:long>-88.33333</wgs:long>
+	<skos:prefLabel>New Boston</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581584/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.25345</wgs:lat>
+	<wgs:long>-88.09018</wgs:long>
+	<skos:prefLabel>Negro Head</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581586/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.01667</wgs:lat>
+	<wgs:long>-88.01667</wgs:long>
+	<skos:altLabel>Blackadore Cay</skos:altLabel>
+	<skos:altLabel>Cayo Negro</skos:altLabel>
+	<skos:prefLabel>Cayo Negro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581597/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>17.51667</wgs:lat>
+	<wgs:long>-88.95</wgs:long>
+	<skos:prefLabel>Naranial</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581606/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>17.46667</wgs:lat>
+	<wgs:long>-88.88333</wgs:long>
+	<skos:prefLabel>Mun Diego</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581613/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>17.01667</wgs:lat>
+	<wgs:long>-89.11667</wgs:long>
+	<skos:prefLabel>Mucnal Tunich</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581620/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>17.23333</wgs:lat>
+	<wgs:long>-88.96667</wgs:long>
+	<skos:prefLabel>Mount Hope</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581626/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>16.78333</wgs:lat>
+	<wgs:long>-88.98333</wgs:long>
+	<skos:altLabel>Mountain Cow</skos:altLabel>
+	<skos:altLabel>Tzimin Kax</skos:altLabel>
+	<skos:prefLabel>Mountain Cow</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581629/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.96667</wgs:lat>
+	<wgs:long>-88.08333</wgs:long>
+	<skos:prefLabel>Mosquito Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581630/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.03333</wgs:lat>
+	<wgs:long>-88.06667</wgs:long>
+	<skos:prefLabel>Mosquito Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581631/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.46667</wgs:lat>
+	<wgs:long>-88.21667</wgs:long>
+	<skos:prefLabel>Mosquito Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581639/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.58333</wgs:lat>
+	<wgs:long>-88.06667</wgs:long>
+	<skos:prefLabel>Montego Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581657/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>16.15</wgs:lat>
+	<wgs:long>-88.66667</wgs:long>
+	<skos:prefLabel>Moho Cays</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581658/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.52362</wgs:lat>
+	<wgs:long>-88.20206</wgs:long>
+	<skos:prefLabel>Moho Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581659/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.48333</wgs:lat>
+	<wgs:long>-88.16667</wgs:long>
+	<skos:prefLabel>Moho Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581660/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.15</wgs:lat>
+	<wgs:long>-88.66667</wgs:long>
+	<skos:prefLabel>Moho Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581661/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>17.52364</wgs:lat>
+	<wgs:long>-88.20161</wgs:long>
+	<skos:prefLabel>Moho Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581670/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.2</wgs:lat>
+	<wgs:long>-88.55</wgs:long>
+	<skos:prefLabel>Middle Snake Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581674/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.27296</wgs:lat>
+	<wgs:long>-88.08426</wgs:long>
+	<skos:prefLabel>Middle Long Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581678/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.73333</wgs:lat>
+	<wgs:long>-87.78333</wgs:long>
+	<skos:prefLabel>Middle Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581707/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>16.91667</wgs:lat>
+	<wgs:long>-88.38333</wgs:long>
+	<skos:prefLabel>Mayflower</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581714/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.6</wgs:lat>
+	<wgs:long>-87.76667</wgs:long>
+	<skos:prefLabel>Mauger Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581726/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.73333</wgs:lat>
+	<wgs:long>-88.23333</wgs:long>
+	<skos:prefLabel>Marlowe Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581734/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.5</wgs:lat>
+	<wgs:long>-88.1</wgs:long>
+	<skos:prefLabel>Mapp’s Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581735/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.38333</wgs:lat>
+	<wgs:long>-88.15</wgs:long>
+	<skos:prefLabel>Man of War Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581736/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.21667</wgs:lat>
+	<wgs:long>-87.9</wgs:long>
+	<skos:prefLabel>Man of War Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581737/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.86667</wgs:lat>
+	<wgs:long>-88.08333</wgs:long>
+	<skos:prefLabel>Man of War Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581742/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>16.16667</wgs:lat>
+	<wgs:long>-88.63333</wgs:long>
+	<skos:prefLabel>Mangrove Cays</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581772/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>16.26667</wgs:lat>
+	<wgs:long>-88.95</wgs:long>
+	<skos:altLabel>Lubaantan</skos:altLabel>
+	<skos:altLabel>Lubaantum</skos:altLabel>
+	<skos:altLabel>Lubaantun</skos:altLabel>
+	<skos:prefLabel>Lubaantun</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581777/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>18.3</wgs:lat>
+	<wgs:long>-88.4</wgs:long>
+	<skos:altLabel>Louisville</skos:altLabel>
+	<skos:altLabel>Pueblo Nuevo</skos:altLabel>
+	<skos:prefLabel>Louisville</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581788/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.55</wgs:lat>
+	<wgs:long>-88.1</wgs:long>
+	<skos:altLabel>Long Coco Cay</skos:altLabel>
+	<skos:altLabel>Long Cocoa Cay</skos:altLabel>
+	<skos:prefLabel>Long Coco Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581789/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.48333</wgs:lat>
+	<wgs:long>-88.2</wgs:long>
+	<skos:altLabel>Long Coco Cay</skos:altLabel>
+	<skos:altLabel>Long Cocoa Cays</skos:altLabel>
+	<skos:prefLabel>Long Coco Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581791/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.61667</wgs:lat>
+	<wgs:long>-88.06667</wgs:long>
+	<skos:prefLabel>Long Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581792/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.31667</wgs:lat>
+	<wgs:long>-88.16667</wgs:long>
+	<skos:prefLabel>Long Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581793/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.18333</wgs:lat>
+	<wgs:long>-87.56667</wgs:long>
+	<skos:prefLabel>Long Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581794/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.73333</wgs:lat>
+	<wgs:long>-87.76667</wgs:long>
+	<skos:prefLabel>Long Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581802/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.43333</wgs:lat>
+	<wgs:long>-88.1</wgs:long>
+	<skos:prefLabel>Little Water Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581805/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>17.66667</wgs:lat>
+	<wgs:long>-88.25</wgs:long>
+	<skos:prefLabel>Little Rocky Point</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581807/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.7</wgs:lat>
+	<wgs:long>-88.16667</wgs:long>
+	<skos:prefLabel>Little Peter Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581808/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.36667</wgs:lat>
+	<wgs:long>-88.46667</wgs:long>
+	<skos:altLabel>Little Monkey Cay</skos:altLabel>
+	<skos:altLabel>Monkey Cay</skos:altLabel>
+	<skos:prefLabel>Little Monkey Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581818/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.08333</wgs:lat>
+	<wgs:long>-88.25</wgs:long>
+	<skos:altLabel>Lime Cay</skos:altLabel>
+	<skos:altLabel>Low Cay</skos:altLabel>
+	<skos:prefLabel>Lime Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581829/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.43333</wgs:lat>
+	<wgs:long>-88.2</wgs:long>
+	<skos:prefLabel>Laughing Bird Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581830/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.71667</wgs:lat>
+	<wgs:long>-88.23333</wgs:long>
+	<skos:prefLabel>Last Chance Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581833/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.51667</wgs:lat>
+	<wgs:long>-88.26667</wgs:long>
+	<skos:prefLabel>Lark Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581838/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>17.8</wgs:lat>
+	<wgs:long>-88.98333</wgs:long>
+	<skos:prefLabel>La Milpa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581840/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>17.75</wgs:lat>
+	<wgs:long>-88.65</wgs:long>
+	<skos:altLabel>Indian Church</skos:altLabel>
+	<skos:altLabel>Lamanai</skos:altLabel>
+	<skos:prefLabel>Lamanai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581844/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>16.61667</wgs:lat>
+	<wgs:long>-88.2</wgs:long>
+	<skos:prefLabel>Lagoon Cays</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581859/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>16.81667</wgs:lat>
+	<wgs:long>-88.36667</wgs:long>
+	<skos:prefLabel>Kendal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581860/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>17.55</wgs:lat>
+	<wgs:long>-89.1</wgs:long>
+	<skos:prefLabel>Kaxil Uinic</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581891/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.53333</wgs:lat>
+	<wgs:long>-88.06667</wgs:long>
+	<skos:prefLabel>Jack’s Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581894/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>16.2</wgs:lat>
+	<wgs:long>-88.83333</wgs:long>
+	<skos:prefLabel>Jacinto Creek</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581895/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>17.68333</wgs:lat>
+	<wgs:long>-88.45</wgs:long>
+	<skos:prefLabel>Jabonche</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581911/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.7</wgs:lat>
+	<wgs:long>-88.25</wgs:long>
+	<skos:prefLabel>Iguana Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581912/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.03333</wgs:lat>
+	<wgs:long>-87.96667</wgs:long>
+	<skos:altLabel>Cayo Iguana</skos:altLabel>
+	<skos:altLabel>Cayo Iguano</skos:altLabel>
+	<skos:altLabel>Cayo Pajaros</skos:altLabel>
+	<skos:prefLabel>Cayo Iguana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581914/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.98333</wgs:lat>
+	<wgs:long>-88.08333</wgs:long>
+	<skos:prefLabel>Hutson Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581916/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.1</wgs:lat>
+	<wgs:long>-88.26667</wgs:long>
+	<skos:prefLabel>Hunting Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581920/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>17.53333</wgs:lat>
+	<wgs:long>-89.03333</wgs:long>
+	<skos:prefLabel>Hoyuk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581931/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>18.03333</wgs:lat>
+	<wgs:long>-88.46667</wgs:long>
+	<skos:prefLabel>Honey Camp</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581947/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>17.6594</wgs:lat>
+	<wgs:long>-88.15859</wgs:long>
+	<skos:altLabel>Cayos Hicks</skos:altLabel>
+	<skos:altLabel>Hicks Cayes</skos:altLabel>
+	<skos:altLabel>Hick’s Cays</skos:altLabel>
+	<skos:prefLabel>Hick’s Cays</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581952/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>17.56667</wgs:lat>
+	<wgs:long>-88.21667</wgs:long>
+	<skos:altLabel>Hen and Chicken Cays</skos:altLabel>
+	<skos:altLabel>Hen and Chickens Cays</skos:altLabel>
+	<skos:prefLabel>Hen and Chickens Cays</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581969/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.45</wgs:lat>
+	<wgs:long>-88.06667</wgs:long>
+	<skos:prefLabel>Hatchet Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581970/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.13333</wgs:lat>
+	<wgs:long>-87.58333</wgs:long>
+	<skos:prefLabel>Hat Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581973/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.46667</wgs:lat>
+	<wgs:long>-88.4</wgs:long>
+	<skos:prefLabel>Harvest Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581978/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>17.23333</wgs:lat>
+	<wgs:long>-88.88333</wgs:long>
+	<skos:prefLabel>Happy Home</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581983/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.2</wgs:lat>
+	<wgs:long>-87.53333</wgs:long>
+	<skos:prefLabel>Half Moon Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581986/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>17.9</wgs:lat>
+	<wgs:long>-88.63333</wgs:long>
+	<skos:prefLabel>Guinea Grass</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581991/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.33333</wgs:lat>
+	<wgs:long>-88.18333</wgs:long>
+	<skos:prefLabel>Grennels Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581993/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.36667</wgs:lat>
+	<wgs:long>-88.46667</wgs:long>
+	<skos:prefLabel>Great Monkey Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3581997/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>17.46667</wgs:lat>
+	<wgs:long>-87.78333</wgs:long>
+	<skos:prefLabel>Grassy Cay Range</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582033/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.33333</wgs:lat>
+	<wgs:long>-88.03333</wgs:long>
+	<skos:altLabel>Goff Cay</skos:altLabel>
+	<skos:altLabel>Goff’s Cay</skos:altLabel>
+	<skos:prefLabel>Goff’s Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582038/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.1</wgs:lat>
+	<wgs:long>-88.01667</wgs:long>
+	<skos:prefLabel>Glory Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582041/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.55</wgs:lat>
+	<wgs:long>-88.05</wgs:long>
+	<skos:altLabel>Gladden Cay</skos:altLabel>
+	<skos:altLabel>Gladden Cays</skos:altLabel>
+	<skos:prefLabel>Gladden Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582050/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.96667</wgs:lat>
+	<wgs:long>-88.08333</wgs:long>
+	<skos:altLabel>Garbutt Cay</skos:altLabel>
+	<skos:altLabel>Garbutt’s Cay</skos:altLabel>
+	<skos:prefLabel>Garbutt’s Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582063/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.53333</wgs:lat>
+	<wgs:long>-88.06667</wgs:long>
+	<skos:prefLabel>Funk Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582076/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.56667</wgs:lat>
+	<wgs:long>-88.06667</wgs:long>
+	<skos:prefLabel>Frenchman’s Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582077/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.16667</wgs:lat>
+	<wgs:long>-88.65</wgs:long>
+	<skos:prefLabel>Frenchman’s Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582082/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.11667</wgs:lat>
+	<wgs:long>-88.23333</wgs:long>
+	<skos:altLabel>Frank’s Cay</skos:altLabel>
+	<skos:altLabel>Grass Cay</skos:altLabel>
+	<skos:altLabel>Grass Cays</skos:altLabel>
+	<skos:prefLabel>Frank’s Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582087/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.01667</wgs:lat>
+	<wgs:long>-87.93333</wgs:long>
+	<skos:prefLabel>Cayo Frances</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582097/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>16.98333</wgs:lat>
+	<wgs:long>-88.08333</wgs:long>
+	<skos:prefLabel>Fly Range</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582107/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>17.2</wgs:lat>
+	<wgs:long>-88.95</wgs:long>
+	<skos:prefLabel>Floral Park</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582123/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.6</wgs:lat>
+	<wgs:long>-88.33333</wgs:long>
+	<skos:prefLabel>False Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582126/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.45</wgs:lat>
+	<wgs:long>-88.06667</wgs:long>
+	<skos:prefLabel>Falle Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582140/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>16.41667</wgs:lat>
+	<wgs:long>-89</wgs:long>
+	<skos:prefLabel>Esperanza</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582145/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.31667</wgs:lat>
+	<wgs:long>-88.01667</wgs:long>
+	<skos:prefLabel>English Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582152/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>17.96667</wgs:lat>
+	<wgs:long>-88.63333</wgs:long>
+	<skos:prefLabel>El Posito</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582154/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.8</wgs:lat>
+	<wgs:long>-88.08333</wgs:long>
+	<skos:prefLabel>Ellen Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582158/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>16.66667</wgs:lat>
+	<wgs:long>-88.16667</wgs:long>
+	<skos:prefLabel>Elbow Cays</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582165/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.2</wgs:lat>
+	<wgs:long>-88.5</wgs:long>
+	<skos:prefLabel>East Snake Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582170/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.23333</wgs:lat>
+	<wgs:long>-88.18333</wgs:long>
+	<skos:prefLabel>Dula Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582179/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>17.46667</wgs:lat>
+	<wgs:long>-88.06667</wgs:long>
+	<skos:altLabel>Cayos Drowned</skos:altLabel>
+	<skos:altLabel>Drowned Cays</skos:altLabel>
+	<skos:prefLabel>Drowned Cays</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582183/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.33333</wgs:lat>
+	<wgs:long>-87.91667</wgs:long>
+	<skos:prefLabel>Douglas Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582187/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>18.23333</wgs:lat>
+	<wgs:long>-88.61667</wgs:long>
+	<skos:prefLabel>Douglas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582204/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.48333</wgs:lat>
+	<wgs:long>-87.76667</wgs:long>
+	<skos:prefLabel>Dog Flea Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582213/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.08333</wgs:lat>
+	<wgs:long>-87.96667</wgs:long>
+	<skos:prefLabel>Deer Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582218/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>17.18333</wgs:lat>
+	<wgs:long>-87.86667</wgs:long>
+	<skos:altLabel>Deadman Cays</skos:altLabel>
+	<skos:altLabel>Deadman’s Cays</skos:altLabel>
+	<skos:prefLabel>Deadman’s Cays</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582228/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10750</europeana:population>
+	<wgs:lat>16.96667</wgs:lat>
+	<wgs:long>-88.21667</wgs:long>
+	<skos:altLabel>Dangriga</skos:altLabel>
+	<skos:altLabel>Dangriga Town</skos:altLabel>
+	<skos:altLabel>Stann Creek</skos:altLabel>
+	<skos:altLabel>Stann Creek Town</skos:altLabel>
+	<skos:altLabel>Stann Creek Village</skos:altLabel>
+	<skos:altLabel>Stanncrek</skos:altLabel>
+	<skos:prefLabel>Dangriga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582237/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.38333</wgs:lat>
+	<wgs:long>-88.03333</wgs:long>
+	<skos:prefLabel>Curlew Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582238/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.76667</wgs:lat>
+	<wgs:long>-88.06667</wgs:long>
+	<skos:prefLabel>Curlew Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582246/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>18.06667</wgs:lat>
+	<wgs:long>-88.6</wgs:long>
+	<skos:altLabel>Cuello</skos:altLabel>
+	<skos:prefLabel>Cuello</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582250/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.71667</wgs:lat>
+	<wgs:long>-88.15</wgs:long>
+	<skos:prefLabel>Crow’s Nest Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582255/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.36667</wgs:lat>
+	<wgs:long>-87.83333</wgs:long>
+	<skos:prefLabel>Cross Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582256/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.26667</wgs:lat>
+	<wgs:long>-87.88333</wgs:long>
+	<skos:prefLabel>Cross Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582257/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.96667</wgs:lat>
+	<wgs:long>-88.05</wgs:long>
+	<skos:prefLabel>Cross Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582271/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>17.3</wgs:lat>
+	<wgs:long>-87.86667</wgs:long>
+	<skos:prefLabel>Crayfish Range</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582272/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.31667</wgs:lat>
+	<wgs:long>-88.15</wgs:long>
+	<skos:prefLabel>Crayfish Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582273/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.56667</wgs:lat>
+	<wgs:long>-87.8</wgs:long>
+	<skos:prefLabel>Crawl Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582274/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.58333</wgs:lat>
+	<wgs:long>-88.21667</wgs:long>
+	<skos:prefLabel>Crawl Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582302/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>35417</europeana:population>
+	<wgs:lat>18.25</wgs:lat>
+	<wgs:long>-88.33333</wgs:long>
+	<skos:altLabel>Corozal</skos:altLabel>
+	<skos:altLabel>Corozal District</skos:altLabel>
+	<skos:altLabel>Northern District</skos:altLabel>
+	<skos:prefLabel>Corozal District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582307/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>18.38333</wgs:lat>
+	<wgs:long>-88.41667</wgs:long>
+	<skos:prefLabel>Corozal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582310/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.74215</wgs:lat>
+	<wgs:long>-88.02898</wgs:long>
+	<skos:altLabel xml:lang="sh">Cay Caulker</skos:altLabel>
+	<skos:altLabel>Cay Corker</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Corner Cay</skos:altLabel>
+	<skos:prefLabel>Cay Corker</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582325/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>18.45</wgs:lat>
+	<wgs:long>-88.33333</wgs:long>
+	<skos:prefLabel>Consejo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582337/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17</wgs:lat>
+	<wgs:long>-88.01667</wgs:long>
+	<skos:prefLabel>Columbus Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582342/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>17.13333</wgs:lat>
+	<wgs:long>-88.06667</wgs:long>
+	<skos:prefLabel>Colson Cays</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582343/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.45</wgs:lat>
+	<wgs:long>-88.3</wgs:long>
+	<skos:prefLabel>Colson Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582346/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>17.95</wgs:lat>
+	<wgs:long>-88.36667</wgs:long>
+	<skos:prefLabel>Colha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582348/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.35</wgs:lat>
+	<wgs:long>-88.3</wgs:long>
+	<skos:prefLabel>Cohune Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582350/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.56667</wgs:lat>
+	<wgs:long>-88.15</wgs:long>
+	<skos:prefLabel>Coffee Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582351/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.18333</wgs:lat>
+	<wgs:long>-87.86667</wgs:long>
+	<skos:altLabel>Coco Tree Cay</skos:altLabel>
+	<skos:altLabel>Cocoa Tree Cay</skos:altLabel>
+	<skos:prefLabel>Coco Tree Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582355/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.86667</wgs:lat>
+	<wgs:long>-88.11667</wgs:long>
+	<skos:altLabel>Coco Plum Cay</skos:altLabel>
+	<skos:altLabel>Cocoa Plum Cay</skos:altLabel>
+	<skos:prefLabel>Coco Plum Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582366/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.48333</wgs:lat>
+	<wgs:long>-87.76667</wgs:long>
+	<skos:prefLabel>Cockroach Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582367/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.21667</wgs:lat>
+	<wgs:long>-88.31667</wgs:long>
+	<skos:prefLabel>Clarke Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582386/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.69603</wgs:lat>
+	<wgs:long>-88.04237</wgs:long>
+	<skos:altLabel>Cay Chapel</skos:altLabel>
+	<skos:altLabel>Cayo Chapel</skos:altLabel>
+	<skos:altLabel>Cayo Chapie</skos:altLabel>
+	<skos:altLabel>Chapel Cay</skos:altLabel>
+	<skos:altLabel>Chaple Cay</skos:altLabel>
+	<skos:prefLabel>Cay Chapel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582393/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.63333</wgs:lat>
+	<wgs:long>-88.13333</wgs:long>
+	<skos:prefLabel>Channel Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582405/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>18.35</wgs:lat>
+	<wgs:long>-88.35</wgs:long>
+	<skos:altLabel>Cerros</skos:altLabel>
+	<skos:prefLabel>Cerros</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582429/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>66565</europeana:population>
+	<wgs:lat>16.83333</wgs:lat>
+	<wgs:long>-88.91667</wgs:long>
+	<skos:altLabel>Cayo</skos:altLabel>
+	<skos:altLabel>Cayo District</skos:altLabel>
+	<skos:altLabel>Distrito del Cayo</skos:altLabel>
+	<skos:altLabel>Western District</skos:altLabel>
+	<skos:prefLabel>Cayo District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582430/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>17.18333</wgs:lat>
+	<wgs:long>-89.06667</wgs:long>
+	<skos:prefLabel>Cayo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582434/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.51667</wgs:lat>
+	<wgs:long>-88.68333</wgs:long>
+	<skos:altLabel>The Cay</skos:altLabel>
+	<skos:altLabel>The Caye</skos:altLabel>
+	<skos:prefLabel>The Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582442/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.63333</wgs:lat>
+	<wgs:long>-88.2</wgs:long>
+	<skos:prefLabel>Cat Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582443/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.83333</wgs:lat>
+	<wgs:long>-88.45</wgs:long>
+	<skos:prefLabel>Cataract Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582450/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.5</wgs:lat>
+	<wgs:long>-88.18333</wgs:long>
+	<skos:prefLabel>Cary Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582452/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.78333</wgs:lat>
+	<wgs:long>-88.06667</wgs:long>
+	<skos:altLabel>Carrie Bow Cay</skos:altLabel>
+	<skos:altLabel>Ellen Cay</skos:altLabel>
+	<skos:prefLabel>Carrie Bow Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582462/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>16.7575</wgs:lat>
+	<wgs:long>-89.12472</wgs:long>
+	<skos:altLabel>Caracol</skos:altLabel>
+	<skos:prefLabel>Caracol</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582465/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.83333</wgs:lat>
+	<wgs:long>-88.05</wgs:long>
+	<skos:altLabel>Cangrejo Cay</skos:altLabel>
+	<skos:altLabel>Congrejo Cay</skos:altLabel>
+	<skos:prefLabel>Cangrejo Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582489/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>18.23333</wgs:lat>
+	<wgs:long>-88.5</wgs:long>
+	<skos:prefLabel>Caledonia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582493/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.26667</wgs:lat>
+	<wgs:long>-87.81667</wgs:long>
+	<skos:prefLabel>Calabash Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582494/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>17.13333</wgs:lat>
+	<wgs:long>-89.06667</wgs:long>
+	<skos:altLabel>Cahal Pech</skos:altLabel>
+	<skos:prefLabel>Cahal Pech</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582510/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.53333</wgs:lat>
+	<wgs:long>-88.05</wgs:long>
+	<skos:prefLabel>Buttonwood Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582530/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>16.48333</wgs:lat>
+	<wgs:long>-88.31667</wgs:long>
+	<skos:prefLabel>Bugle Cays</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582538/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>17.11667</wgs:lat>
+	<wgs:long>-89.11667</wgs:long>
+	<skos:prefLabel>Buena Vista</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582543/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.75</wgs:lat>
+	<wgs:long>-88.15</wgs:long>
+	<skos:prefLabel>Bread and Butter Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582585/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>16.8</wgs:lat>
+	<wgs:long>-88.15</wgs:long>
+	<skos:altLabel>Blue Ground Range</skos:altLabel>
+	<skos:altLabel>Cockney Range</skos:altLabel>
+	<skos:prefLabel>Blue Ground Range</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582586/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>17.21667</wgs:lat>
+	<wgs:long>-88.08333</wgs:long>
+	<skos:altLabel>Bluefield Range</skos:altLabel>
+	<skos:altLabel>Bluefields Range</skos:altLabel>
+	<skos:prefLabel>Bluefield Range</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582593/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>16.2</wgs:lat>
+	<wgs:long>-89.03333</wgs:long>
+	<skos:prefLabel>Blue Creek</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582608/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.2</wgs:lat>
+	<wgs:long>-88.18333</wgs:long>
+	<skos:prefLabel>Black Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582626/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.33333</wgs:lat>
+	<wgs:long>-87.81667</wgs:long>
+	<skos:prefLabel>Blackbird Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582628/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.48648</wgs:lat>
+	<wgs:long>-88.18794</wgs:long>
+	<skos:altLabel>Birds Island</skos:altLabel>
+	<skos:altLabel>Birds Isle</skos:altLabel>
+	<skos:prefLabel>Birds Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582629/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.35</wgs:lat>
+	<wgs:long>-88.3</wgs:long>
+	<skos:prefLabel>Bird Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582657/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.17154</wgs:lat>
+	<wgs:long>-87.9041</wgs:long>
+	<skos:altLabel>Big Cay Bokel</skos:altLabel>
+	<skos:altLabel>Boket Cay</skos:altLabel>
+	<skos:altLabel>Cay Bakel</skos:altLabel>
+	<skos:altLabel>Cay Bokel</skos:altLabel>
+	<skos:prefLabel>Big Cay Bokel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582660/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>17.76667</wgs:lat>
+	<wgs:long>-88.98333</wgs:long>
+	<skos:prefLabel>Betson Bank</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582664/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>17.1</wgs:lat>
+	<wgs:long>-89.13333</wgs:long>
+	<skos:prefLabel>Benque Viejo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582672/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>13381</europeana:population>
+	<wgs:lat>17.25</wgs:lat>
+	<wgs:long>-88.76667</wgs:long>
+	<skos:altLabel xml:lang="id">Belmopan</skos:altLabel>
+	<skos:altLabel xml:lang="en">Belmopan</skos:altLabel>
+	<skos:altLabel xml:lang="da">Belmopan</skos:altLabel>
+	<skos:altLabel xml:lang="et">Belmopan</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Belmopan</skos:altLabel>
+	<skos:altLabel xml:lang="io">Belmopan</skos:altLabel>
+	<skos:altLabel xml:lang="no">Belmopan</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Belmopan</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Belmopan</skos:altLabel>
+	<skos:altLabel xml:lang="de">Belmopan</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Belmopan</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Belmopan</skos:altLabel>
+	<skos:altLabel xml:lang="it">Belmopan</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Belmopan</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Belmopan</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Belmopan</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Belmopan</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Belmopan</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Belmopan</skos:altLabel>
+	<skos:altLabel xml:lang="rm">Belmopan</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Belmopan</skos:altLabel>
+	<skos:altLabel>Belmopan</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Belmopanas</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Belmopano</skos:altLabel>
+	<skos:altLabel xml:lang="es">Belmopán</skos:altLabel>
+	<skos:altLabel>Hattieville</skos:altLabel>
+	<skos:altLabel>Mopan</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μπελμοπάν</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Белмопан</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Белмопан</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Белмопан</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бельмопан</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Բելմոպան</skos:altLabel>
+	<skos:altLabel xml:lang="he">בלמופן</skos:altLabel>
+	<skos:altLabel xml:lang="fa">بلموپان</skos:altLabel>
+	<skos:altLabel xml:lang="am">ቤልሞፓን</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ベルモパン</skos:altLabel>
+	<skos:altLabel xml:lang="zh">貝爾墨邦</skos:altLabel>
+	<skos:altLabel xml:lang="ko">벨모판</skos:altLabel>
+	<skos:prefLabel>Belmopan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582676/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>17.25</wgs:lat>
+	<wgs:long>-88.16667</wgs:long>
+	<skos:altLabel>Belice Distrito</skos:altLabel>
+	<skos:altLabel>Belize</skos:altLabel>
+	<skos:altLabel>Belize District</skos:altLabel>
+	<skos:prefLabel>Belize District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582677/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>61461</europeana:population>
+	<wgs:lat>17.49952</wgs:lat>
+	<wgs:long>-88.19756</wgs:long>
+	<skos:altLabel>Belice</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Belizas</skos:altLabel>
+	<skos:altLabel>Belize</skos:altLabel>
+	<skos:altLabel xml:lang="it">Belize</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Belize</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Belize City</skos:altLabel>
+	<skos:altLabel xml:lang="en">Belize City</skos:altLabel>
+	<skos:altLabel xml:lang="da">Belize City</skos:altLabel>
+	<skos:altLabel xml:lang="de">Belize City</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Belize City</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Belize City</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Belize City</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Belize City</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Belize City</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Belize City</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Belize-stad</skos:altLabel>
+	<skos:altLabel xml:lang="es">Ciudad de Belice</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ベリーズシティ</skos:altLabel>
+	<skos:prefLabel>Belize City</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582678/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255149/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>314522</europeana:population>
+	<wgs:lat>17.25</wgs:lat>
+	<wgs:long>-88.75</wgs:long>
+	<skos:altLabel xml:lang="ga">An Bheilís</skos:altLabel>
+	<skos:altLabel>BZ</skos:altLabel>
+	<skos:altLabel>Balize</skos:altLabel>
+	<skos:altLabel xml:lang="es">Belice</skos:altLabel>
+	<skos:altLabel>Belice</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Belice - Belize</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Belis</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Belisa</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Belisän</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Beliz</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Beliz</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Beliz</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Beliza</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Beliza</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Belizas</skos:altLabel>
+	<skos:altLabel xml:lang="id">Belize</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Belize</skos:altLabel>
+	<skos:altLabel xml:lang="da">Belize</skos:altLabel>
+	<skos:altLabel xml:lang="et">Belize</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Belize</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Belize</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Belize</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Belize</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Belize</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Belize</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Belize</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Belize</skos:altLabel>
+	<skos:altLabel xml:lang="de">Belize</skos:altLabel>
+	<skos:altLabel xml:lang="en">Belize</skos:altLabel>
+	<skos:altLabel xml:lang="it">Belize</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Belize</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Belize</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Belize</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Belize</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Belize</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Belize</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Belize</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Belize</skos:altLabel>
+	<skos:altLabel xml:lang="an">Belize</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Belize</skos:altLabel>
+	<skos:altLabel xml:lang="na">Belize</skos:altLabel>
+	<skos:altLabel xml:lang="no">Belize</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Belize</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Belize</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Belize</skos:altLabel>
+	<skos:altLabel xml:lang="io">Belize</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Belize</skos:altLabel>
+	<skos:altLabel xml:lang="jv">Belize</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Belize</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Belize</skos:altLabel>
+	<skos:altLabel xml:lang="rm">Belize</skos:altLabel>
+	<skos:altLabel xml:lang="se">Belize</skos:altLabel>
+	<skos:altLabel>Belize</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Belizo</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Beliże</skos:altLabel>
+	<skos:altLabel xml:lang="is">Belís</skos:altLabel>
+	<skos:altLabel>British Honduras</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Bê-li-xê</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μπελίζ</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μπελίζε</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Белиз</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Белиз</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Белиз</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Белизе</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Белизе</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Белисе</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Беліз</skos:altLabel>
+	<skos:altLabel xml:lang="be">Беліз</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Բելիզ</skos:altLabel>
+	<skos:altLabel xml:lang="he">בליז</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بليز</skos:altLabel>
+	<skos:altLabel xml:lang="fa">بلیز</skos:altLabel>
+	<skos:altLabel xml:lang="ug">بېلىز</skos:altLabel>
+	<skos:altLabel xml:lang="hi">बेलिज</skos:altLabel>
+	<skos:altLabel xml:lang="ks">बेलीज</skos:altLabel>
+	<skos:altLabel xml:lang="sa">बेलीज</skos:altLabel>
+	<skos:altLabel xml:lang="hi">बेलीज़</skos:altLabel>
+	<skos:altLabel xml:lang="bn">বেলজিয়াম</skos:altLabel>
+	<skos:altLabel xml:lang="bn">বেলিজ</skos:altLabel>
+	<skos:altLabel xml:lang="ta">பெலிஸ்</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ബെലീസ്</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศเบลีซ</skos:altLabel>
+	<skos:altLabel xml:lang="th">เบลีช</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ເບລິຊ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">བེ་ལིཛ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ბელიზი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ቤሊዘ</skos:altLabel>
+	<skos:altLabel xml:lang="km">បេលីហ្ស</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ベリーズ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">伯利兹</skos:altLabel>
+	<skos:altLabel xml:lang="ko">벨리즈</skos:altLabel>
+	<skos:prefLabel>Belize</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582680/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>16.23333</wgs:lat>
+	<wgs:long>-88.61667</wgs:long>
+	<skos:prefLabel>Bedford Cays</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582717/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>17.18333</wgs:lat>
+	<wgs:long>-89</wgs:long>
+	<skos:prefLabel>Baking Pot</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582718/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>16.55</wgs:lat>
+	<wgs:long>-88.2</wgs:long>
+	<skos:prefLabel>Bakers Rendezvous</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582727/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.48333</wgs:lat>
+	<wgs:long>-87.78333</wgs:long>
+	<skos:prefLabel>Baby Roach Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582743/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>17.05</wgs:lat>
+	<wgs:long>-89.13333</wgs:long>
+	<skos:prefLabel>Arenal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582758/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.04762</wgs:lat>
+	<wgs:long>-87.9229</wgs:long>
+	<skos:altLabel>Cay Ambergris</skos:altLabel>
+	<skos:altLabel>Cayo Ambergris</skos:altLabel>
+	<skos:altLabel>San Pedro Island</skos:altLabel>
+	<skos:prefLabel>Ambergris Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582760/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>17.75</wgs:lat>
+	<wgs:long>-88.33333</wgs:long>
+	<skos:altLabel>Altun Ha</skos:altLabel>
+	<skos:altLabel>Atun Ha</skos:altLabel>
+	<skos:prefLabel>Altun Ha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582767/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.18333</wgs:lat>
+	<wgs:long>-88.08333</wgs:long>
+	<skos:altLabel>Alligator Cay</skos:altLabel>
+	<skos:altLabel>Alligator Cays</skos:altLabel>
+	<skos:altLabel>Cayos Alligator</skos:altLabel>
+	<skos:prefLabel>Alligator Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582769/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.13333</wgs:lat>
+	<wgs:long>-88.68333</wgs:long>
+	<skos:altLabel>Albion Island</skos:altLabel>
+	<skos:altLabel>Isla Albión</skos:altLabel>
+	<skos:prefLabel>Albion Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3582783/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>17.1</wgs:lat>
+	<wgs:long>-89.13333</wgs:long>
+	<skos:prefLabel>Actuncan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3740889/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.34167</wgs:lat>
+	<wgs:long>-88.03167</wgs:long>
+	<skos:prefLabel>The Sandbore</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6941969/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.35588</wgs:lat>
+	<wgs:long>-88.18588</wgs:long>
+	<skos:prefLabel>Silk Cayes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6942862/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3581511/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3582678/"/>
+	<europeana:country>BZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>34687</europeana:population>
+	<wgs:lat>17.8</wgs:lat>
+	<wgs:long>-89.1</wgs:long>
+	<skos:prefLabel>Hopelchén</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 292 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

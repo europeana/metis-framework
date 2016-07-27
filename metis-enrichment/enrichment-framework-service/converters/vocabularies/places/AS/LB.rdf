@@ -1,0 +1,2645 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AS_LB
+Description: Selected fields pulled from Geonames about LB done on Mon May 23 21:13:32 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/265802/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>33.9</wgs:lat>
+	<wgs:long>35.53333</wgs:long>
+	<skos:prefLabel>Zīrat an Nahr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/265845/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/278297/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>34.3</wgs:lat>
+	<wgs:long>35.91667</wgs:long>
+	<skos:prefLabel>Qaḑā’ Zghartā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/265946/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.31472</wgs:lat>
+	<wgs:long>36.27639</wgs:long>
+	<skos:altLabel>Zarîbet el Hajj</skos:altLabel>
+	<skos:altLabel>Zarībat al Ḩājj</skos:altLabel>
+	<skos:prefLabel>Zarîbet el Hajj</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/266042/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/280282/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>33.83333</wgs:lat>
+	<wgs:long>35.9</wgs:long>
+	<skos:altLabel>Bekâa</skos:altLabel>
+	<skos:altLabel>Qaḑā’ Zaḩlah</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ Zaḩlah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/266045/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>78145</europeana:population>
+	<wgs:lat>33.84972</wgs:lat>
+	<wgs:long>35.90417</wgs:long>
+	<skos:altLabel xml:lang="en">Zahle</skos:altLabel>
+	<skos:altLabel xml:lang="no">Zahle</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Zahle</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Zahleh</skos:altLabel>
+	<skos:altLabel xml:lang="de">Zahlé</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Zahlé</skos:altLabel>
+	<skos:altLabel>Zaḩlah</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Захла</skos:altLabel>
+	<skos:altLabel xml:lang="he">זחלה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">زحلة</skos:altLabel>
+	<skos:prefLabel>Zahlé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/266212/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.22667</wgs:lat>
+	<wgs:long>35.87722</wgs:long>
+	<skos:altLabel>Khirbat al Waţā’</skos:altLabel>
+	<skos:altLabel>Khirbet el Ouata</skos:altLabel>
+	<skos:prefLabel>Khirbet el Ouata</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/266332/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.62472</wgs:lat>
+	<wgs:long>35.86389</wgs:long>
+	<skos:altLabel>Kharâyeb Ouâdi Aazzi</skos:altLabel>
+	<skos:altLabel>Kharā’ib Wādī ‘Azzah</skos:altLabel>
+	<skos:prefLabel>Kharâyeb Ouâdi Aazzi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/266412/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.17667</wgs:lat>
+	<wgs:long>36.27722</wgs:long>
+	<skos:altLabel>Khirab al ‘Uyūn</skos:altLabel>
+	<skos:altLabel>Khorab el Aayoûn</skos:altLabel>
+	<skos:prefLabel>Khorab el Aayoûn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/266759/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>34.46667</wgs:lat>
+	<wgs:long>35.8</wgs:long>
+	<skos:prefLabel>Juzur Ţāwilīn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/266761/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>34.47167</wgs:lat>
+	<wgs:long>35.79944</wgs:long>
+	<skos:altLabel>Et Taouîlé</skos:altLabel>
+	<skos:altLabel>Jazīrat aţ Ţawīlah</skos:altLabel>
+	<skos:prefLabel>Et Taouîlé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/266806/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.23278</wgs:lat>
+	<wgs:long>36.30306</wgs:long>
+	<skos:altLabel>Kharāb aţ Ţarrāf</skos:altLabel>
+	<skos:altLabel>Khrâb et Tarrâf</skos:altLabel>
+	<skos:prefLabel>Khrâb et Tarrâf</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/266810/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>34.47417</wgs:lat>
+	<wgs:long>35.79611</wgs:long>
+	<skos:altLabel>Jazīrat at Tāris</skos:altLabel>
+	<skos:altLabel>Toûroûs</skos:altLabel>
+	<skos:prefLabel>Toûroûs</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/266825/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/278297/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>34.33333</wgs:lat>
+	<wgs:long>36</wgs:long>
+	<skos:prefLabel>Qaḑā’ Ţarābulus</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/266826/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>229398</europeana:population>
+	<wgs:lat>34.43667</wgs:lat>
+	<wgs:long>35.84972</wgs:long>
+	<skos:altLabel xml:lang="id">Tripoli</skos:altLabel>
+	<skos:altLabel xml:lang="de">Tripoli</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tripoli</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Tripoli</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Tripoli</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Tripoli</skos:altLabel>
+	<skos:altLabel xml:lang="it">Tripoli</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Tripoli</skos:altLabel>
+	<skos:altLabel xml:lang="et">Tripoli</skos:altLabel>
+	<skos:altLabel xml:lang="no">Tripoli</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Tripoli</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Tripolo</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Trypolis</skos:altLabel>
+	<skos:altLabel>Trâblous</skos:altLabel>
+	<skos:altLabel xml:lang="es">Trípoli</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Trípoli</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ţarābulus</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Триполи</skos:altLabel>
+	<skos:altLabel xml:lang="he">טריפולי</skos:altLabel>
+	<skos:altLabel xml:lang="fa">ترابلس</skos:altLabel>
+	<skos:altLabel xml:lang="ar">طرابلس</skos:altLabel>
+	<skos:altLabel xml:lang="fa">طرابلس</skos:altLabel>
+	<skos:altLabel xml:lang="ar">طَرَابُلُس</skos:altLabel>
+	<skos:altLabel xml:lang="ja">トリポリ</skos:altLabel>
+	<skos:prefLabel>Tripoli</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/266965/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.10889</wgs:lat>
+	<wgs:long>35.87111</wgs:long>
+	<skos:altLabel>Tadmur</skos:altLabel>
+	<skos:altLabel>Tedmor</skos:altLabel>
+	<skos:prefLabel>Tedmor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/267006/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/279894/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>33.26667</wgs:lat>
+	<wgs:long>35.18333</wgs:long>
+	<skos:prefLabel>Qaḑā’ Şūr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/267008/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>135204</europeana:population>
+	<wgs:lat>33.27333</wgs:lat>
+	<wgs:long>35.19389</wgs:long>
+	<skos:altLabel>Es Sur</skos:altLabel>
+	<skos:altLabel>Soûr</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Tir</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Tir</skos:altLabel>
+	<skos:altLabel xml:lang="br">Tir</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Tir</skos:altLabel>
+	<skos:altLabel xml:lang="es">Tiro</skos:altLabel>
+	<skos:altLabel xml:lang="it">Tiro</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Tiro</skos:altLabel>
+	<skos:altLabel>Tyr</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Tyr</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Tyr</skos:altLabel>
+	<skos:altLabel xml:lang="no">Tyr</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Tyras</skos:altLabel>
+	<skos:altLabel xml:lang="id">Tyre</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tyre</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Tyros</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Tyros</skos:altLabel>
+	<skos:altLabel xml:lang="de">Tyros</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Tyros</skos:altLabel>
+	<skos:altLabel xml:lang="la">Tyrus</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Tyrus</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Týros</skos:altLabel>
+	<skos:altLabel xml:lang="is">Týros</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Şūr</skos:altLabel>
+	<skos:altLabel xml:lang="el">Τύρος</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Тир</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Тир</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Тір</skos:altLabel>
+	<skos:altLabel xml:lang="cu">Тѵръ</skos:altLabel>
+	<skos:altLabel xml:lang="he">צור</skos:altLabel>
+	<skos:altLabel xml:lang="he">צר</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الصور</skos:altLabel>
+	<skos:altLabel xml:lang="ar">صور</skos:altLabel>
+	<skos:altLabel xml:lang="fa">صور</skos:altLabel>
+	<skos:altLabel xml:lang="ar">صُور</skos:altLabel>
+	<skos:altLabel xml:lang="he">Ṣōr</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ティルス</skos:altLabel>
+	<skos:altLabel xml:lang="zh">泰爾</skos:altLabel>
+	<skos:prefLabel>Tyre</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/267021/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>34.46056</wgs:lat>
+	<wgs:long>35.80528</wgs:long>
+	<skos:altLabel>Snaïaa</skos:altLabel>
+	<skos:altLabel>Şunay‘ah</skos:altLabel>
+	<skos:prefLabel>Snaïaa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/267322/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.09</wgs:lat>
+	<wgs:long>35.77028</wgs:long>
+	<skos:altLabel>Chîr el Mîdâne</skos:altLabel>
+	<skos:altLabel>Shīr al Mīdān</skos:altLabel>
+	<skos:prefLabel>Chîr el Mîdâne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/267847/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.03111</wgs:lat>
+	<wgs:long>35.64583</wgs:long>
+	<skos:altLabel>Chakbâr</skos:altLabel>
+	<skos:altLabel>Shakbār</skos:altLabel>
+	<skos:prefLabel>Chakbâr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/267930/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.59667</wgs:lat>
+	<wgs:long>35.82778</wgs:long>
+	<skos:altLabel>Chebiâta</skos:altLabel>
+	<skos:altLabel>Shabyātah</skos:altLabel>
+	<skos:prefLabel>Chebiâta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/267973/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.2075</wgs:lat>
+	<wgs:long>35.71056</wgs:long>
+	<skos:altLabel>Sayyidat az Zurū‘</skos:altLabel>
+	<skos:altLabel>Saïdet ez Zroûaa</skos:altLabel>
+	<skos:prefLabel>Saïdet ez Zroûaa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/268064/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>163554</europeana:population>
+	<wgs:lat>33.56306</wgs:lat>
+	<wgs:long>35.36889</wgs:long>
+	<skos:altLabel xml:lang="sv">Saida</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Sayda</skos:altLabel>
+	<skos:altLabel>Saïda</skos:altLabel>
+	<skos:altLabel xml:lang="id">Sidon</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Sidon</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Sidon</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Sidon</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Sidon</skos:altLabel>
+	<skos:altLabel xml:lang="en">Sidon</skos:altLabel>
+	<skos:altLabel xml:lang="de">Sidon</skos:altLabel>
+	<skos:altLabel xml:lang="no">Sidon</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Sidon</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Sidonas</skos:altLabel>
+	<skos:altLabel xml:lang="it">Sidone</skos:altLabel>
+	<skos:altLabel xml:lang="es">Sidón</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Sydon</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Sídon</skos:altLabel>
+	<skos:altLabel xml:lang="is">Sídon</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Şaydā</skos:altLabel>
+	<skos:altLabel xml:lang="el">Σιδώνα</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сидон</skos:altLabel>
+	<skos:altLabel xml:lang="cu">Сидонъ</skos:altLabel>
+	<skos:altLabel xml:lang="he">צידון</skos:altLabel>
+	<skos:altLabel xml:lang="ar">صيدا</skos:altLabel>
+	<skos:altLabel xml:lang="ar">صَيْدَا</skos:altLabel>
+	<skos:altLabel xml:lang="ja">サイダ</skos:altLabel>
+	<skos:prefLabel>Sidon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/268200/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.CSTL"/>
+	<wgs:lat>34.43361</wgs:lat>
+	<wgs:long>35.84444</wgs:long>
+	<skos:altLabel>Qalaat Saint Gilles</skos:altLabel>
+	<skos:altLabel>Qal‘at Sanjīl</skos:altLabel>
+	<skos:prefLabel>Qalaat Saint Gilles</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/268214/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>34.48667</wgs:lat>
+	<wgs:long>35.77778</wgs:long>
+	<skos:altLabel>Jazīrat Sanānī</skos:altLabel>
+	<skos:altLabel>Sanâni</skos:altLabel>
+	<skos:prefLabel>Sanâni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/268557/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.13528</wgs:lat>
+	<wgs:long>36.35222</wgs:long>
+	<skos:altLabel>Kherbet er Raayâne</skos:altLabel>
+	<skos:altLabel>Khirbat ar Ru‘yān</skos:altLabel>
+	<skos:prefLabel>Kherbet er Raayâne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/268632/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.44306</wgs:lat>
+	<wgs:long>35.46417</wgs:long>
+	<skos:altLabel>Kherbet Rouaïsset el Bîr</skos:altLabel>
+	<skos:altLabel>Khirbat Ru’aysat al Bi’r</skos:altLabel>
+	<skos:prefLabel>Kherbet Rouaïsset el Bîr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/268737/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/280282/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>33.53333</wgs:lat>
+	<wgs:long>35.83333</wgs:long>
+	<skos:prefLabel>Qaḑā’ Rāshayyā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/268743/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6275265/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>1251739</europeana:population>
+	<wgs:lat>33.9</wgs:lat>
+	<wgs:long>35.48333</wgs:long>
+	<skos:prefLabel>Ra’s Bayrūt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/268801/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>34.46667</wgs:lat>
+	<wgs:long>35.8</wgs:long>
+	<skos:prefLabel>Jazīrat Rankas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/268815/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>34.4675</wgs:lat>
+	<wgs:long>35.80389</wgs:long>
+	<skos:altLabel>Er Rmaïle</skos:altLabel>
+	<skos:altLabel>Jazīrat ar Ramlah</skos:altLabel>
+	<skos:prefLabel>Er Rmaïle</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/268822/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>34.4975</wgs:lat>
+	<wgs:long>35.76167</wgs:long>
+	<skos:altLabel>Jazīrat Ramkīn</skos:altLabel>
+	<skos:altLabel>Ramkîne</skos:altLabel>
+	<skos:prefLabel>Ramkîne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/269001/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.61528</wgs:lat>
+	<wgs:long>36.29639</wgs:long>
+	<skos:altLabel>Qbour el Bid</skos:altLabel>
+	<skos:altLabel>Qubūr al Bīḑ</skos:altLabel>
+	<skos:prefLabel>Qbour el Bid</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/269013/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.01111</wgs:lat>
+	<wgs:long>36.20278</wgs:long>
+	<skos:altLabel>Qoubbet es Saâdîne</skos:altLabel>
+	<skos:altLabel>Qubbat as Sa‘ādīn</skos:altLabel>
+	<skos:prefLabel>Qoubbet es Saâdîne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/269092/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.3775</wgs:lat>
+	<wgs:long>36.33667</wgs:long>
+	<skos:altLabel>Qild adh Dhi’b</skos:altLabel>
+	<skos:altLabel>Qold od Dîb</skos:altLabel>
+	<skos:prefLabel>Qold od Dîb</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/269220/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.235</wgs:lat>
+	<wgs:long>35.87833</wgs:long>
+	<skos:altLabel>Qasr Bent el Malek</skos:altLabel>
+	<skos:altLabel>Qaşr Bint al Malik</skos:altLabel>
+	<skos:prefLabel>Qasr Bent el Malek</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/269221/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.76444</wgs:lat>
+	<wgs:long>35.95528</wgs:long>
+	<skos:altLabel>Qasr Bent el Malek</skos:altLabel>
+	<skos:altLabel>Qaşr Bint al Malik</skos:altLabel>
+	<skos:prefLabel>Qasr Bent el Malek</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/269226/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.0875</wgs:lat>
+	<wgs:long>36.11778</wgs:long>
+	<skos:altLabel>Qasr el Banât</skos:altLabel>
+	<skos:altLabel>Qaşr al Banāt</skos:altLabel>
+	<skos:prefLabel>Qasr el Banât</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/269408/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.58556</wgs:lat>
+	<wgs:long>35.39833</wgs:long>
+	<skos:altLabel>Qalaat Qachmoûn Aazâr</skos:altLabel>
+	<skos:altLabel>Qal‘at Qashmūn ‘Āzār</skos:altLabel>
+	<skos:prefLabel>Qalaat Qachmoûn Aazâr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/269432/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.78361</wgs:lat>
+	<wgs:long>35.48861</wgs:long>
+	<skos:altLabel>Qalaat Hanna</skos:altLabel>
+	<skos:altLabel>Qal‘at Ḩannā</skos:altLabel>
+	<skos:prefLabel>Qalaat Hanna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/269474/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.32417</wgs:lat>
+	<wgs:long>35.53194</wgs:long>
+	<skos:altLabel xml:lang="sh">Beaufort</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Beaufort Castle</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Belfort</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Chaqif Arnoûn</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Chateau de Beaufort</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Qalaat esh Shqif</skos:altLabel>
+	<skos:altLabel>Qal‘at ash Shaqīf</skos:altLabel>
+	<skos:prefLabel>Qalaat esh Shqif</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/269512/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.27389</wgs:lat>
+	<wgs:long>35.68972</wgs:long>
+	<skos:altLabel>Castle of Musaylaha</skos:altLabel>
+	<skos:altLabel>Qalaat el Mseïlha</skos:altLabel>
+	<skos:altLabel>Qal‘at al Muşayliḩah</skos:altLabel>
+	<skos:prefLabel>Qalaat el Mseïlha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/269800/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>33.9</wgs:lat>
+	<wgs:long>35.53333</wgs:long>
+	<skos:prefLabel>Nibr Abū Şāliḩ</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/269828/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>33.66</wgs:lat>
+	<wgs:long>35.80417</wgs:long>
+	<skos:altLabel>Jazîret Nassâr</skos:altLabel>
+	<skos:altLabel>Jazīrat Naşşār</skos:altLabel>
+	<skos:prefLabel>Jazîret Nassâr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/269918/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>34.5</wgs:lat>
+	<wgs:long>35.76667</wgs:long>
+	<skos:altLabel>An Nakhlah</skos:altLabel>
+	<skos:altLabel>En Nakhle</skos:altLabel>
+	<skos:altLabel>Jazīrat al Balahah</skos:altLabel>
+	<skos:altLabel>Jazīrat an Nakhl</skos:altLabel>
+	<skos:prefLabel>Jazīrat an Nakhl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/269977/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>34.33222</wgs:lat>
+	<wgs:long>35.72444</wgs:long>
+	<skos:altLabel>Nêfoûkh</skos:altLabel>
+	<skos:altLabel>Nāfūkh</skos:altLabel>
+	<skos:prefLabel>Nêfoûkh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/270013/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/444191/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>33.38333</wgs:lat>
+	<wgs:long>35.48333</wgs:long>
+	<skos:prefLabel>Mukhayyam an Nabaţīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/270075/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.10528</wgs:lat>
+	<wgs:long>36.09861</wgs:long>
+	<skos:altLabel>Khirbat al Muţrān</skos:altLabel>
+	<skos:altLabel>Khirbet el Moutrâne</skos:altLabel>
+	<skos:prefLabel>Khirbet el Moutrâne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/270176/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.40028</wgs:lat>
+	<wgs:long>36.31444</wgs:long>
+	<skos:altLabel>Murād Ilyās</skos:altLabel>
+	<skos:prefLabel>Mrâd Eliâs</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/270294/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>34.46528</wgs:lat>
+	<wgs:long>35.80361</wgs:long>
+	<skos:altLabel>El Mdoura</skos:altLabel>
+	<skos:altLabel>Juzur al Mudawwarah</skos:altLabel>
+	<skos:prefLabel>El Mdoura</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/270832/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.45167</wgs:lat>
+	<wgs:long>35.9925</wgs:long>
+	<skos:altLabel>Mathanet er Râmi</skos:altLabel>
+	<skos:altLabel>Maţḩanat ar Rāmī</skos:altLabel>
+	<skos:prefLabel>Mathanet er Râmi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/270833/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.48972</wgs:lat>
+	<wgs:long>35.34722</wgs:long>
+	<skos:altLabel>Mathane en Nammoûrîyé</skos:altLabel>
+	<skos:altLabel>Maţḩanat an Nammūrīyah</skos:altLabel>
+	<skos:prefLabel>Mathane en Nammoûrîyé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/270836/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.48056</wgs:lat>
+	<wgs:long>35.36889</wgs:long>
+	<skos:altLabel>Mathané el Maamârîyé</skos:altLabel>
+	<skos:altLabel>Maţḩanat al Mi‘marīyah</skos:altLabel>
+	<skos:prefLabel>Mathané el Maamârîyé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/270848/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.45028</wgs:lat>
+	<wgs:long>35.31444</wgs:long>
+	<skos:altLabel>Mathane el Boustâne</skos:altLabel>
+	<skos:altLabel>Maţḩanat al Bustān</skos:altLabel>
+	<skos:prefLabel>Mathane el Boustâne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/271097/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.20472</wgs:lat>
+	<wgs:long>35.7975</wgs:long>
+	<skos:altLabel>Mâr Toûma</skos:altLabel>
+	<skos:altLabel>Mār Tūmā</skos:altLabel>
+	<skos:prefLabel>Mâr Toûma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/271145/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.TMPL"/>
+	<wgs:lat>34.40139</wgs:lat>
+	<wgs:long>35.90139</wgs:long>
+	<skos:altLabel>Deīr Mâr Sarkīs</skos:altLabel>
+	<skos:altLabel>Mar Sarkis</skos:altLabel>
+	<skos:prefLabel>Deīr Mâr Sarkīs</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/271161/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.20778</wgs:lat>
+	<wgs:long>35.79833</wgs:long>
+	<skos:prefLabel>Mâr Sâba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/271168/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.42639</wgs:lat>
+	<wgs:long>35.42583</wgs:long>
+	<skos:altLabel>Kherbet el Marqad</skos:altLabel>
+	<skos:altLabel>Khirbat al Marqad</skos:altLabel>
+	<skos:prefLabel>Kherbet el Marqad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/271225/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/444191/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>33.33333</wgs:lat>
+	<wgs:long>35.58333</wgs:long>
+	<skos:prefLabel>Qaḑā’ Marji‘yūn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/271417/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.TMPL"/>
+	<wgs:lat>34.25056</wgs:lat>
+	<wgs:long>36.00167</wgs:long>
+	<skos:altLabel>Mâr Barbâra</skos:altLabel>
+	<skos:altLabel>Mār Barbārah</skos:altLabel>
+	<skos:prefLabel>Mâr Barbâra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/271428/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.TMPL"/>
+	<wgs:lat>34.25139</wgs:lat>
+	<wgs:long>36.01611</wgs:long>
+	<skos:altLabel>Dayr Mār Anţūniyūs</skos:altLabel>
+	<skos:altLabel>Deïr Mâr Antonios</skos:altLabel>
+	<skos:prefLabel>Deïr Mâr Antonios</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/271645/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.06972</wgs:lat>
+	<wgs:long>36.31028</wgs:long>
+	<skos:altLabel>Kherbet Mâr Aabboûd</skos:altLabel>
+	<skos:altLabel>Khirbat Mār ‘Abbūd</skos:altLabel>
+	<skos:prefLabel>Kherbet Mâr Aabboûd</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/271720/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.97306</wgs:lat>
+	<wgs:long>35.80361</wgs:long>
+	<skos:altLabel>Manzoûl Bou Eid</skos:altLabel>
+	<skos:altLabel>Manzūl Bū ‘Īd</skos:altLabel>
+	<skos:prefLabel>Manzoûl Bou Eid</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/271821/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>34.4575</wgs:lat>
+	<wgs:long>35.80639</wgs:long>
+	<skos:altLabel>Maksbi</skos:altLabel>
+	<skos:altLabel>Maksibah</skos:altLabel>
+	<skos:prefLabel>Maksbi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/271914/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.02528</wgs:lat>
+	<wgs:long>35.66944</wgs:long>
+	<skos:altLabel>Mahbīt</skos:altLabel>
+	<skos:altLabel>Mehbît</skos:altLabel>
+	<skos:prefLabel>Mehbît</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/271928/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.11639</wgs:lat>
+	<wgs:long>35.51056</wgs:long>
+	<skos:altLabel xml:lang="sh">Khirbat al Maḩāfir</skos:altLabel>
+	<skos:altLabel>Khirbet el Mahafir</skos:altLabel>
+	<skos:prefLabel>Khirbet el Mahafir</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/272016/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.05444</wgs:lat>
+	<wgs:long>35.69028</wgs:long>
+	<skos:altLabel>Madār at Taḩtā</skos:altLabel>
+	<skos:altLabel>Mdâr et Tahta</skos:altLabel>
+	<skos:prefLabel>Mdâr et Tahta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/272017/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.05194</wgs:lat>
+	<wgs:long>35.69444</wgs:long>
+	<skos:altLabel>El Mdar</skos:altLabel>
+	<skos:altLabel>El Mdâra</skos:altLabel>
+	<skos:altLabel>Madār al Fawqā</skos:altLabel>
+	<skos:altLabel>Mdâr el Faouqa</skos:altLabel>
+	<skos:prefLabel>Mdâr el Faouqa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/272046/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.06722</wgs:lat>
+	<wgs:long>35.88972</wgs:long>
+	<skos:altLabel>Amar et Adonis du</skos:altLabel>
+	<skos:altLabel>Maabad Adônîs</skos:altLabel>
+	<skos:altLabel>Ma‘bad Adūnīs</skos:altLabel>
+	<skos:prefLabel>Maabad Adônîs</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/272103/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255147/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>4125247</europeana:population>
+	<wgs:lat>33.83333</wgs:lat>
+	<wgs:long>35.83333</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Jumhūrīyah al Lubnānīyah</skos:altLabel>
+	<skos:altLabel xml:lang="ga">An Liobáin</skos:altLabel>
+	<skos:altLabel>LB</skos:altLabel>
+	<skos:altLabel xml:lang="id">Lebanon</skos:altLabel>
+	<skos:altLabel xml:lang="en">Lebanon</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Lebanon</skos:altLabel>
+	<skos:altLabel xml:lang="uz">Lebanon</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Lebanoni</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Lebnon</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Li-băng</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Li-băng (Lebanon)</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Liban</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Liban</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Liban</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Liban</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Liban</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Liban</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Liban</skos:altLabel>
+	<skos:altLabel xml:lang="br">Liban</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Libana Respubliko</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Libanas</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Libani</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Libano</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Libano</skos:altLabel>
+	<skos:altLabel xml:lang="it">Libano</skos:altLabel>
+	<skos:altLabel xml:lang="an">Libano</skos:altLabel>
+	<skos:altLabel xml:lang="io">Libano</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Libano</skos:altLabel>
+	<skos:altLabel xml:lang="id">Libanon</skos:altLabel>
+	<skos:altLabel xml:lang="af">Libanon</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Libanon</skos:altLabel>
+	<skos:altLabel xml:lang="da">Libanon</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Libanon</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Libanon</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Libanon</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Libanon</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Libanon</skos:altLabel>
+	<skos:altLabel xml:lang="de">Libanon</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Libanon</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Libanon</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Libanon</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Libanon</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Libanon</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Libanon</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Libanon</skos:altLabel>
+	<skos:altLabel xml:lang="li">Libanon</skos:altLabel>
+	<skos:altLabel xml:lang="no">Libanon</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Libanon</skos:altLabel>
+	<skos:altLabel xml:lang="se">Libanon</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Libanu</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Libanus</skos:altLabel>
+	<skos:altLabel xml:lang="la">Libanus</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Libnan</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Libāna</skos:altLabel>
+	<skos:altLabel xml:lang="et">Liibanon</skos:altLabel>
+	<skos:altLabel xml:lang="uz">Livan</skos:altLabel>
+	<skos:altLabel xml:lang="so">Lubnaan</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Lubnan</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Lubnän</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Líban</skos:altLabel>
+	<skos:altLabel xml:lang="es">Líbano</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Líbano</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Líbano</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Líbano - لبنان</skos:altLabel>
+	<skos:altLabel xml:lang="is">Líbanon</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Lübnan</skos:altLabel>
+	<skos:altLabel xml:lang="en">Republic of Lebanon</skos:altLabel>
+	<skos:altLabel xml:lang="es">el país del cedro</skos:altLabel>
+	<skos:altLabel>État du Grand Liban</skos:altLabel>
+	<skos:altLabel xml:lang="el">Λίβανος</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Либан</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Либан</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Либанон</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ливан</skos:altLabel>
+	<skos:altLabel xml:lang="cv">Ливан</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Ливан</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Лубнон</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Ліван</skos:altLabel>
+	<skos:altLabel xml:lang="be">Ліван</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Լիբանան</skos:altLabel>
+	<skos:altLabel xml:lang="he">לבנון</skos:altLabel>
+	<skos:altLabel xml:lang="yi">לבנון</skos:altLabel>
+	<skos:altLabel xml:lang="yi">לעוואנען</skos:altLabel>
+	<skos:altLabel xml:lang="ar">اَلْجُمْهُورِيَّة اَللُّبْنَانِيَّة</skos:altLabel>
+	<skos:altLabel xml:lang="fa">لبنان</skos:altLabel>
+	<skos:altLabel xml:lang="ar">لبنان</skos:altLabel>
+	<skos:altLabel xml:lang="ps">لبنان</skos:altLabel>
+	<skos:altLabel xml:lang="ur">لبنان</skos:altLabel>
+	<skos:altLabel xml:lang="ug">لىۋان</skos:altLabel>
+	<skos:altLabel xml:lang="hi">लेबनान</skos:altLabel>
+	<skos:altLabel xml:lang="bn">লেবানন</skos:altLabel>
+	<skos:altLabel xml:lang="ta">லெபனான்</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ലബനന്‍</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศเลบานอน</skos:altLabel>
+	<skos:altLabel xml:lang="th">เลบานอน</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ເລບານອນ</skos:altLabel>
+	<skos:altLabel xml:lang="dz">ལེ་བཱ་ནཱོན</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ལེབ་ནོན།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ლიბანი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሊባኖስ</skos:altLabel>
+	<skos:altLabel xml:lang="km">លីបង់</skos:altLabel>
+	<skos:altLabel xml:lang="ja">レバノン</skos:altLabel>
+	<skos:altLabel xml:lang="ja">レバノン共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">黎巴嫩</skos:altLabel>
+	<skos:altLabel xml:lang="ko">레바논</skos:altLabel>
+	<skos:prefLabel>Republic of Lebanon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/272138/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>34.46889</wgs:lat>
+	<wgs:long>35.80306</wgs:long>
+	<skos:altLabel>Laoukas</skos:altLabel>
+	<skos:altLabel>Lawkas</skos:altLabel>
+	<skos:prefLabel>Laoukas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/272294/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.58083</wgs:lat>
+	<wgs:long>35.92083</wgs:long>
+	<skos:altLabel>Kharâyeb el Knaïssé</skos:altLabel>
+	<skos:altLabel>Kharā’ib al Knaysah</skos:altLabel>
+	<skos:prefLabel>Kharâyeb el Knaïssé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/272300/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/273607/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>34.03333</wgs:lat>
+	<wgs:long>35.8</wgs:long>
+	<skos:prefLabel>Qaḑā’ Kisrwān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/272338/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.44611</wgs:lat>
+	<wgs:long>35.45083</wgs:long>
+	<skos:altLabel>Kherbet el Khoury</skos:altLabel>
+	<skos:altLabel>Khirbat al Khūrī</skos:altLabel>
+	<skos:prefLabel>Kherbet el Khoury</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/272354/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.34639</wgs:lat>
+	<wgs:long>36.37528</wgs:long>
+	<skos:altLabel>Khourab el Hayât</skos:altLabel>
+	<skos:altLabel>Khurab al Ḩayyāt</skos:altLabel>
+	<skos:prefLabel>Khourab el Hayât</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/272410/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.18306</wgs:lat>
+	<wgs:long>36.50889</wgs:long>
+	<skos:altLabel>Khirbat al ‘Ajram</skos:altLabel>
+	<skos:altLabel>Khirbet el Aajram</skos:altLabel>
+	<skos:prefLabel>Khirbet el Aajram</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/273106/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.92583</wgs:lat>
+	<wgs:long>35.77417</wgs:long>
+	<skos:altLabel>Joûret el Himi</skos:altLabel>
+	<skos:altLabel>Jūrat al Ḩimī</skos:altLabel>
+	<skos:prefLabel>Joûret el Himi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/273140/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>96315</europeana:population>
+	<wgs:lat>33.98083</wgs:lat>
+	<wgs:long>35.61778</wgs:long>
+	<skos:altLabel>Djounie</skos:altLabel>
+	<skos:altLabel>Joünié</skos:altLabel>
+	<skos:altLabel>Jūniyah</skos:altLabel>
+	<skos:prefLabel>Joünié</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/273178/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.TMPL"/>
+	<wgs:lat>34.36028</wgs:lat>
+	<wgs:long>35.89028</wgs:long>
+	<skos:altLabel>Al Judaydah</skos:altLabel>
+	<skos:altLabel>Dayr al Judaydah</skos:altLabel>
+	<skos:altLabel>Deïr ej Jdaïdé</skos:altLabel>
+	<skos:altLabel>Ej Jdaïdé</skos:altLabel>
+	<skos:prefLabel>Deïr ej Jdaïdé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/273201/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/273607/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>34</wgs:lat>
+	<wgs:long>35.66667</wgs:long>
+	<skos:altLabel>Jbail</skos:altLabel>
+	<skos:altLabel>Jbeil</skos:altLabel>
+	<skos:altLabel>Qadā’ Jubayl</skos:altLabel>
+	<skos:prefLabel>Qadā’ Jubayl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/273203/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20784</europeana:population>
+	<wgs:lat>34.12111</wgs:lat>
+	<wgs:long>35.64806</wgs:long>
+	<skos:altLabel xml:lang="es">Biblos</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Biblos</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Biblos</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Biblos</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Biblos</skos:altLabel>
+	<skos:altLabel xml:lang="en">Byblos</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Byblos</skos:altLabel>
+	<skos:altLabel xml:lang="de">Byblos</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Byblos</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Byblos</skos:altLabel>
+	<skos:altLabel xml:lang="da">Byblos</skos:altLabel>
+	<skos:altLabel xml:lang="it">Byblos</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Byblos</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Byblos</skos:altLabel>
+	<skos:altLabel>Djébail</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Gibelet</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Giblet</skos:altLabel>
+	<skos:altLabel>Jbail</skos:altLabel>
+	<skos:altLabel>Jbayl</skos:altLabel>
+	<skos:altLabel>Jbaïl</skos:altLabel>
+	<skos:altLabel xml:lang="no">Jbeil</skos:altLabel>
+	<skos:altLabel>Jebaïl</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jubayl</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ǧubayl</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Библ</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Библос</skos:altLabel>
+	<skos:altLabel xml:lang="he">גבל</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جبيل</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ビブロス</skos:altLabel>
+	<skos:prefLabel>Jbail</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/273359/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/279894/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>33.55</wgs:lat>
+	<wgs:long>35.5</wgs:long>
+	<skos:prefLabel>Qadā’ Jazzīn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/273607/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1679229</europeana:population>
+	<wgs:lat>33.91667</wgs:lat>
+	<wgs:long>35.66667</wgs:long>
+	<skos:altLabel xml:lang="nn">Libanonfjella</skos:altLabel>
+	<skos:altLabel xml:lang="no">Libanonfjellene</skos:altLabel>
+	<skos:altLabel>Mohafazat Jabal Loubnane</skos:altLabel>
+	<skos:altLabel>Mohafazat Mont-Liban</skos:altLabel>
+	<skos:altLabel>Mont-Liban</skos:altLabel>
+	<skos:altLabel xml:lang="es">Monte Libano</skos:altLabel>
+	<skos:altLabel>Muḩāaz̧at Jabal Lubnān</skos:altLabel>
+	<skos:prefLabel>Mohafazat Mont-Liban</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/273951/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>34.36667</wgs:lat>
+	<wgs:long>36.41667</wgs:long>
+	<skos:altLabel>Aâmoûd el Hermel</skos:altLabel>
+	<skos:altLabel>Hermel Monument</skos:altLabel>
+	<skos:altLabel>‘Āmūd al Hirmil</skos:altLabel>
+	<skos:prefLabel>‘Āmūd al Hirmil</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/274210/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.16806</wgs:lat>
+	<wgs:long>36.26528</wgs:long>
+	<skos:altLabel>Khirab al Ḩawsh</skos:altLabel>
+	<skos:altLabel>Khorab el Haouch</skos:altLabel>
+	<skos:prefLabel>Khorab el Haouch</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/274237/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.26778</wgs:lat>
+	<wgs:long>36.57611</wgs:long>
+	<skos:altLabel>Kheurbet Haouerté</skos:altLabel>
+	<skos:altLabel>Khirbat Ḩawartah</skos:altLabel>
+	<skos:altLabel>Khirbet Haouerté</skos:altLabel>
+	<skos:prefLabel>Khirbet Haouerté</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/274311/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/444191/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>33.38333</wgs:lat>
+	<wgs:long>35.68333</wgs:long>
+	<skos:altLabel>Hasbaya</skos:altLabel>
+	<skos:altLabel>Hasbeiya</skos:altLabel>
+	<skos:altLabel>Qada Hâsbaïya</skos:altLabel>
+	<skos:altLabel>Qaḑā’ Ḩāşbayyā</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ Ḩāşbayyā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/274874/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>98433</europeana:population>
+	<wgs:lat>33.4075</wgs:lat>
+	<wgs:long>35.48278</wgs:long>
+	<skos:altLabel>Habboush</skos:altLabel>
+	<skos:altLabel>Habboûch</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Хаббуше</skos:altLabel>
+	<skos:altLabel>Ḩabbūsh</skos:altLabel>
+	<skos:prefLabel>Habboûch</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/275333/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.00167</wgs:lat>
+	<wgs:long>35.805</wgs:long>
+	<skos:prefLabel>Faqra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/275393/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>33.99833</wgs:lat>
+	<wgs:long>36.18389</wgs:long>
+	<skos:altLabel>Qoubbet Doûris</skos:altLabel>
+	<skos:altLabel>Qubbat Dūris</skos:altLabel>
+	<skos:prefLabel>Qoubbet Doûris</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/275456/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.11333</wgs:lat>
+	<wgs:long>36.06528</wgs:long>
+	<skos:altLabel>Khirbat Dūghān</skos:altLabel>
+	<skos:altLabel>Khirbet Doughâne</skos:altLabel>
+	<skos:prefLabel>Khirbet Doughâne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/275590/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.39222</wgs:lat>
+	<wgs:long>35.85194</wgs:long>
+	<skos:altLabel>Dayr Sayyidat al Buzayzāt</skos:altLabel>
+	<skos:altLabel>Deïr Saïdet el Bzaīzât</skos:altLabel>
+	<skos:prefLabel>Deïr Saïdet el Bzaīzât</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/275608/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.05139</wgs:lat>
+	<wgs:long>35.65167</wgs:long>
+	<skos:altLabel>Dayr Mār Yūḩannā</skos:altLabel>
+	<skos:altLabel>Deïr Mâr Youhanna</skos:altLabel>
+	<skos:prefLabel>Deïr Mâr Youhanna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/275613/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.2425</wgs:lat>
+	<wgs:long>35.99583</wgs:long>
+	<skos:altLabel>Dayr Mār Sim‘ān</skos:altLabel>
+	<skos:altLabel>Deïr Mâr Semaâne</skos:altLabel>
+	<skos:prefLabel>Deïr Mâr Semaâne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/275614/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.18583</wgs:lat>
+	<wgs:long>35.705</wgs:long>
+	<skos:altLabel>Dayr Mār Sim‘ān</skos:altLabel>
+	<skos:altLabel>Deïr Mâr Semaâne</skos:altLabel>
+	<skos:prefLabel>Deïr Mâr Semaâne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/275616/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.19167</wgs:lat>
+	<wgs:long>35.70722</wgs:long>
+	<skos:altLabel>Dayr Mār Sarkīs Zarnīţā</skos:altLabel>
+	<skos:altLabel>Deïr Mâr Sarkis Zarnîta</skos:altLabel>
+	<skos:prefLabel>Deïr Mâr Sarkis Zarnîta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/275617/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.23944</wgs:lat>
+	<wgs:long>35.87917</wgs:long>
+	<skos:altLabel>Dayr Mār Sarkīs</skos:altLabel>
+	<skos:altLabel>Deïr Mâr Sarkîs</skos:altLabel>
+	<skos:prefLabel>Deïr Mâr Sarkîs</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/275627/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.19333</wgs:lat>
+	<wgs:long>35.66806</wgs:long>
+	<skos:altLabel>Dayr Mār Fawqā</skos:altLabel>
+	<skos:altLabel>Deïr Mâr Faouqâ</skos:altLabel>
+	<skos:prefLabel>Deïr Mâr Faouqâ</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/275630/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.84083</wgs:lat>
+	<wgs:long>36.17778</wgs:long>
+	<skos:altLabel>Dayr Ma‘rabūn</skos:altLabel>
+	<skos:altLabel>Deir Maareboun</skos:altLabel>
+	<skos:altLabel>Deïr Maaraboun</skos:altLabel>
+	<skos:altLabel>Deïr Maarboûn</skos:altLabel>
+	<skos:prefLabel>Deïr Maaraboun</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/275636/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.47139</wgs:lat>
+	<wgs:long>35.98444</wgs:long>
+	<skos:altLabel>Dayr Ḩillah</skos:altLabel>
+	<skos:altLabel>Deïr Héllé</skos:altLabel>
+	<skos:prefLabel>Deïr Héllé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/275638/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.21694</wgs:lat>
+	<wgs:long>35.76639</wgs:long>
+	<skos:altLabel>Dayr Fāsā</skos:altLabel>
+	<skos:altLabel>Deïr Fâssa</skos:altLabel>
+	<skos:prefLabel>Deïr Fâssa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/275667/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.01167</wgs:lat>
+	<wgs:long>35.67694</wgs:long>
+	<skos:altLabel>Dayr al ‘Afş</skos:altLabel>
+	<skos:altLabel>Deïr el Aafs</skos:altLabel>
+	<skos:prefLabel>Deïr el Aafs</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/275786/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.725</wgs:lat>
+	<wgs:long>35.4825</wgs:long>
+	<skos:altLabel>Darayâ</skos:altLabel>
+	<skos:altLabel>Daraïya</skos:altLabel>
+	<skos:altLabel>Dārayyā</skos:altLabel>
+	<skos:prefLabel>Daraïya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/275877/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.03472</wgs:lat>
+	<wgs:long>35.64861</wgs:long>
+	<skos:altLabel>Dahr Hassane</skos:altLabel>
+	<skos:altLabel>Ḑahr Ḩasan</skos:altLabel>
+	<skos:prefLabel>Dahr Hassane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/276330/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.04667</wgs:lat>
+	<wgs:long>35.6575</wgs:long>
+	<skos:altLabel>Btâta</skos:altLabel>
+	<skos:altLabel>El Harf</skos:altLabel>
+	<skos:altLabel>El Harfa</skos:altLabel>
+	<skos:altLabel>El-Hreif</skos:altLabel>
+	<skos:altLabel>Āthār Btātā</skos:altLabel>
+	<skos:prefLabel>Btâta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/276358/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/278297/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>34.25</wgs:lat>
+	<wgs:long>36</wgs:long>
+	<skos:altLabel>Bécharré</skos:altLabel>
+	<skos:altLabel>Qaḑā’ Bsharrī</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ Bsharrī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/276359/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20000</europeana:population>
+	<wgs:lat>34.25083</wgs:lat>
+	<wgs:long>36.01056</wgs:long>
+	<skos:altLabel>Basharrī</skos:altLabel>
+	<skos:altLabel>Bcharreh</skos:altLabel>
+	<skos:altLabel>Bcharré</skos:altLabel>
+	<skos:altLabel>Bcharrī</skos:altLabel>
+	<skos:altLabel>Becharri</skos:altLabel>
+	<skos:altLabel>Besherri</skos:altLabel>
+	<skos:altLabel>Bisharri</skos:altLabel>
+	<skos:altLabel>Bsharrī</skos:altLabel>
+	<skos:altLabel>Bsherri</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бишари</skos:altLabel>
+	<skos:prefLabel>Bcharré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/276591/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/444191/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>33.11667</wgs:lat>
+	<wgs:long>35.43333</wgs:long>
+	<skos:altLabel>Bent Jbeil</skos:altLabel>
+	<skos:altLabel>Bint-Jbail</skos:altLabel>
+	<skos:altLabel>Qaḑā’ Bint Jubayl</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ Bint Jubayl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/276744/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.13972</wgs:lat>
+	<wgs:long>36.11917</wgs:long>
+	<skos:altLabel>Bayt as Sātītī</skos:altLabel>
+	<skos:altLabel>Beït es Sittîte</skos:altLabel>
+	<skos:altLabel>Beït es Sâtîti</skos:altLabel>
+	<skos:prefLabel>Beït es Sâtîti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/276780/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>33.88333</wgs:lat>
+	<wgs:long>35.5</wgs:long>
+	<skos:altLabel>Beirut</skos:altLabel>
+	<skos:altLabel>Beyrouth</skos:altLabel>
+	<skos:altLabel>Mohafazat Beyrouth</skos:altLabel>
+	<skos:altLabel>Muhāfaz̧at Bayrūt</skos:altLabel>
+	<skos:prefLabel>Mohafazat Beyrouth</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/276781/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>1916100</europeana:population>
+	<wgs:lat>33.88894</wgs:lat>
+	<wgs:long>35.49442</wgs:long>
+	<skos:altLabel xml:lang="ar">Bayrūt</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Beiroet</skos:altLabel>
+	<skos:altLabel>Beiroūt</skos:altLabel>
+	<skos:altLabel xml:lang="id">Beirut</skos:altLabel>
+	<skos:altLabel xml:lang="en">Beirut</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Beirut</skos:altLabel>
+	<skos:altLabel xml:lang="de">Beirut</skos:altLabel>
+	<skos:altLabel xml:lang="es">Beirut</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Beirut</skos:altLabel>
+	<skos:altLabel xml:lang="da">Beirut</skos:altLabel>
+	<skos:altLabel xml:lang="it">Beirut</skos:altLabel>
+	<skos:altLabel xml:lang="no">Beirut</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Beirut</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Beirut</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Beirut</skos:altLabel>
+	<skos:altLabel xml:lang="io">Beirut</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Beirut</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Beirut</skos:altLabel>
+	<skos:altLabel xml:lang="et">Beirut</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Beirutas</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Beirute</skos:altLabel>
+	<skos:altLabel xml:lang="is">Beirút</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Bejrut</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Bejrut</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Bejrut</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Bejruto</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Bejrút</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Bejrút</skos:altLabel>
+	<skos:altLabel xml:lang="la">Berytus</skos:altLabel>
+	<skos:altLabel>Beyrouth</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Beyrouth</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Beyrut</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Bäyrut</skos:altLabel>
+	<skos:altLabel xml:lang="el">Βηρυτός</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Бейрут</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Бейрут</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бейрут</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Бејрут</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Բեյրութ</skos:altLabel>
+	<skos:altLabel xml:lang="he">ביירות</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بيروت</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بَيْرُوت</skos:altLabel>
+	<skos:altLabel xml:lang="fa">بیروت</skos:altLabel>
+	<skos:altLabel xml:lang="bo">འཔེ་ལུ་ཐ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ベイルート</skos:altLabel>
+	<skos:altLabel xml:lang="zh">贝鲁特</skos:altLabel>
+	<skos:altLabel xml:lang="ko">베이루트</skos:altLabel>
+	<skos:prefLabel>Beirut</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/277129/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6201371/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>34.05</wgs:lat>
+	<wgs:long>36.18333</wgs:long>
+	<skos:altLabel>Baalbek</skos:altLabel>
+	<skos:altLabel>Caza de Baalbeck</skos:altLabel>
+	<skos:altLabel>Qaḑā’ Ba‘labak</skos:altLabel>
+	<skos:altLabel>Qaḑā’ Ba‘labakk</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ Ba‘labakk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/277130/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>30916</europeana:population>
+	<wgs:lat>34.00583</wgs:lat>
+	<wgs:long>36.21806</wgs:long>
+	<skos:altLabel xml:lang="pt">Baalbeck</skos:altLabel>
+	<skos:altLabel>Baalbeck</skos:altLabel>
+	<skos:altLabel xml:lang="en">Baalbek</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Baalbek</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Baalbek</skos:altLabel>
+	<skos:altLabel xml:lang="it">Baalbek</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Baalbek</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Baalbek</skos:altLabel>
+	<skos:altLabel xml:lang="de">Baalbek</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Baalbek</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Baalbek</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Baalbek</skos:altLabel>
+	<skos:altLabel xml:lang="es">Baalbek</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Baalbek</skos:altLabel>
+	<skos:altLabel xml:lang="no">Baalbek</skos:altLabel>
+	<skos:altLabel>Baalbek</skos:altLabel>
+	<skos:altLabel>Ba‘albak</skos:altLabel>
+	<skos:altLabel>Ba‘labak</skos:altLabel>
+	<skos:altLabel>Ba‘labakk</skos:altLabel>
+	<skos:altLabel>Héliopolis</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Баалбек</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Баальбек</skos:altLabel>
+	<skos:altLabel xml:lang="he">בעלבק</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بعلبك</skos:altLabel>
+	<skos:altLabel xml:lang="fa">بعلبک</skos:altLabel>
+	<skos:altLabel xml:lang="ja">バールベック</skos:altLabel>
+	<skos:prefLabel>Baalbek</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/277225/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/273607/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>33.83333</wgs:lat>
+	<wgs:long>35.66667</wgs:long>
+	<skos:altLabel>Baabda</skos:altLabel>
+	<skos:altLabel>Qaḑā’ B‘abdā</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ B‘abdā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/277264/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>33.57222</wgs:lat>
+	<wgs:long>35.36778</wgs:long>
+	<skos:altLabel>Az Zīrah</skos:altLabel>
+	<skos:altLabel>Ez Zîré</skos:altLabel>
+	<skos:prefLabel>Ez Zîré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/277282/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>34.325</wgs:lat>
+	<wgs:long>35.72111</wgs:long>
+	<skos:altLabel>Az Zārūb</skos:altLabel>
+	<skos:altLabel>Ez Zâroûb</skos:altLabel>
+	<skos:prefLabel>Ez Zâroûb</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/277444/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.04944</wgs:lat>
+	<wgs:long>35.69833</wgs:long>
+	<skos:altLabel>Aïn Kâtir</skos:altLabel>
+	<skos:altLabel>‘Ayn Kātīr</skos:altLabel>
+	<skos:prefLabel>Aïn Kâtir</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/277698/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.78361</wgs:lat>
+	<wgs:long>35.76972</wgs:long>
+	<skos:altLabel>Aïn el Biyâda</skos:altLabel>
+	<skos:altLabel>‘Ayn al Bayāḑah</skos:altLabel>
+	<skos:prefLabel>Aïn el Biyâda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/277724/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.22611</wgs:lat>
+	<wgs:long>35.95444</wgs:long>
+	<skos:altLabel>Aïn ed Dahab</skos:altLabel>
+	<skos:altLabel>‘Ayn adh Dhahab</skos:altLabel>
+	<skos:prefLabel>Aïn ed Dahab</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/278156/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/273607/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>33.7</wgs:lat>
+	<wgs:long>35.58333</wgs:long>
+	<skos:altLabel>Choûf</skos:altLabel>
+	<skos:altLabel>Qaḑā’ ash Shūf</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ ash Shūf</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/278297/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>899339</europeana:population>
+	<wgs:lat>34.33333</wgs:lat>
+	<wgs:long>35.91667</wgs:long>
+	<skos:altLabel>Liban-Nord</skos:altLabel>
+	<skos:altLabel>Mohafazat Liban-Nord</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Mohafazat ech Chimâl</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Muḩāfaz̧at ash Shamāl</skos:altLabel>
+	<skos:prefLabel>Mohafazat Liban-Nord</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/278870/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.07611</wgs:lat>
+	<wgs:long>36.27222</wgs:long>
+	<skos:altLabel>An Nabī Sulaymān</skos:altLabel>
+	<skos:altLabel>En Nabi Sleïmâne</skos:altLabel>
+	<skos:prefLabel>En Nabi Sleïmâne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/278913/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>120000</europeana:population>
+	<wgs:lat>33.37889</wgs:lat>
+	<wgs:long>35.48389</wgs:long>
+	<skos:altLabel>An Nabaţīyah at Taḩtā</skos:altLabel>
+	<skos:prefLabel>Nabatîyé et Tahta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/278915/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/444191/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>306859</europeana:population>
+	<wgs:lat>33.38333</wgs:lat>
+	<wgs:long>35.48333</wgs:long>
+	<skos:prefLabel>Qaḑā’ an Nabaţīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/278937/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.06694</wgs:lat>
+	<wgs:long>36.15667</wgs:long>
+	<skos:altLabel>Aâmoûd Îaât</skos:altLabel>
+	<skos:altLabel>‘Amūd Ī‘āt</skos:altLabel>
+	<skos:prefLabel>Aâmoûd Îaât</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/278979/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.21667</wgs:lat>
+	<wgs:long>35.96889</wgs:long>
+	<skos:altLabel>Al Wāţi’ah</skos:altLabel>
+	<skos:altLabel>El Ouâtîyé</skos:altLabel>
+	<skos:prefLabel>El Ouâtîyé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/279163/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.66306</wgs:lat>
+	<wgs:long>35.91306</wgs:long>
+	<skos:altLabel>Al Qaşr</skos:altLabel>
+	<skos:altLabel>El Qasr</skos:altLabel>
+	<skos:prefLabel>El Qasr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/279164/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.61056</wgs:lat>
+	<wgs:long>35.99528</wgs:long>
+	<skos:altLabel>Al Qaşr</skos:altLabel>
+	<skos:altLabel>El Qasr</skos:altLabel>
+	<skos:prefLabel>El Qasr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/279235/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.40139</wgs:lat>
+	<wgs:long>36.05944</wgs:long>
+	<skos:altLabel>Al Qal‘ah</skos:altLabel>
+	<skos:altLabel>El Qalaa</skos:altLabel>
+	<skos:prefLabel>El Qalaa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/279292/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.14222</wgs:lat>
+	<wgs:long>36.14278</wgs:long>
+	<skos:altLabel>Al Mushayrifah</skos:altLabel>
+	<skos:altLabel>El Mchaïrfé</skos:altLabel>
+	<skos:prefLabel>El Mchaïrfé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/279421/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.76889</wgs:lat>
+	<wgs:long>35.80306</wgs:long>
+	<skos:altLabel>Al Mazra‘ah</skos:altLabel>
+	<skos:altLabel>El Mazraâ</skos:altLabel>
+	<skos:prefLabel>El Mazraâ</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/279440/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/273607/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>33.85</wgs:lat>
+	<wgs:long>35.65</wgs:long>
+	<skos:prefLabel>Qaḑā’ al Matn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/279676/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/278297/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>34.3</wgs:lat>
+	<wgs:long>35.8</wgs:long>
+	<skos:prefLabel>Qadā’ al Kūrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/279894/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>33.41667</wgs:lat>
+	<wgs:long>35.33333</wgs:long>
+	<skos:altLabel>Aj Jeanoub</skos:altLabel>
+	<skos:altLabel>Liban-Sud</skos:altLabel>
+	<skos:altLabel>Mohafazat Liban-Sud</skos:altLabel>
+	<skos:altLabel>Mohafazat ej Jnoub</skos:altLabel>
+	<skos:prefLabel>Mohafazat Liban-Sud</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/279970/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.04667</wgs:lat>
+	<wgs:long>35.66722</wgs:long>
+	<skos:altLabel>Al Ḩurayf</skos:altLabel>
+	<skos:altLabel>El Hraïf</skos:altLabel>
+	<skos:prefLabel>El Hraïf</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/279999/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6201371/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>34.33333</wgs:lat>
+	<wgs:long>36.46667</wgs:long>
+	<skos:altLabel>Al Harmal</skos:altLabel>
+	<skos:altLabel>Qaḑā’ al Hirmil</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ al Hirmil</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/280237/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.885</wgs:lat>
+	<wgs:long>35.76528</wgs:long>
+	<skos:altLabel>Al Burj</skos:altLabel>
+	<skos:altLabel>El Borj</skos:altLabel>
+	<skos:prefLabel>El Borj</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/280280/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/280282/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>33.61667</wgs:lat>
+	<wgs:long>35.78333</wgs:long>
+	<skos:altLabel>Békaa el-Gharbi</skos:altLabel>
+	<skos:altLabel>Qada Beqâa Ouest</skos:altLabel>
+	<skos:altLabel>Qaḑā’ al Biqā‘ al Gharbī</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ al Biqā‘ al Gharbī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/280282/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>33.66667</wgs:lat>
+	<wgs:long>35.83333</wgs:long>
+	<skos:altLabel xml:lang="sh">Bekaa</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Beqaa</skos:altLabel>
+	<skos:altLabel>Béqaa</skos:altLabel>
+	<skos:altLabel>Mohafazat Béqaa</skos:altLabel>
+	<skos:altLabel>Muḩāfaz̧at al Biqā‘</skos:altLabel>
+	<skos:prefLabel>Mohafazat Béqaa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/280320/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.04556</wgs:lat>
+	<wgs:long>35.67861</wgs:long>
+	<skos:altLabel>Al Bayāḑ</skos:altLabel>
+	<skos:altLabel>El Biyâd</skos:altLabel>
+	<skos:prefLabel>El Biyâd</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/280328/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10852</europeana:population>
+	<wgs:lat>34.25528</wgs:lat>
+	<wgs:long>35.65806</wgs:long>
+	<skos:altLabel>Al Batrūn</skos:altLabel>
+	<skos:altLabel>Batroûn</skos:altLabel>
+	<skos:altLabel>Batrūn</skos:altLabel>
+	<skos:altLabel>Botrys</skos:altLabel>
+	<skos:prefLabel>Batroûn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/280329/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/278297/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>34.23333</wgs:lat>
+	<wgs:long>35.83333</wgs:long>
+	<skos:altLabel>Batroun</skos:altLabel>
+	<skos:altLabel>Qaḑā’ al Batrūn</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ al Batrūn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/280359/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>34.45722</wgs:lat>
+	<wgs:long>35.80972</wgs:long>
+	<skos:altLabel>Al Baqar</skos:altLabel>
+	<skos:altLabel>Al Baḩr</skos:altLabel>
+	<skos:altLabel>El Bahar</skos:altLabel>
+	<skos:altLabel>El Baqar</skos:altLabel>
+	<skos:prefLabel>El Baqar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/280367/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>34.46278</wgs:lat>
+	<wgs:long>35.80028</wgs:long>
+	<skos:altLabel>Al Ballān</skos:altLabel>
+	<skos:altLabel>Bellame</skos:altLabel>
+	<skos:altLabel>El Bellâne</skos:altLabel>
+	<skos:altLabel>El Bellān</skos:altLabel>
+	<skos:altLabel>Ile Bella</skos:altLabel>
+	<skos:prefLabel>El Bellâne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/280424/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/273607/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>33.76667</wgs:lat>
+	<wgs:long>35.63333</wgs:long>
+	<skos:altLabel>Aaley</skos:altLabel>
+	<skos:altLabel>Aley</skos:altLabel>
+	<skos:altLabel>Qaḑā’ ‘Ālayh</skos:altLabel>
+	<skos:altLabel>‘Āleih</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ ‘Ālayh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/280452/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.15861</wgs:lat>
+	<wgs:long>35.75139</wgs:long>
+	<skos:altLabel>Al Asārīyah</skos:altLabel>
+	<skos:altLabel>El Assârîyé</skos:altLabel>
+	<skos:prefLabel>El Assârîyé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/280572/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6201370/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>34.53333</wgs:lat>
+	<wgs:long>36.16667</wgs:long>
+	<skos:altLabel>Aakkâr</skos:altLabel>
+	<skos:altLabel>Qaḑā’ ‘Akkār</skos:altLabel>
+	<skos:prefLabel>Qaḑā’ ‘Akkār</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/280765/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.0425</wgs:lat>
+	<wgs:long>35.65694</wgs:long>
+	<skos:altLabel>Ad Dawrāt</skos:altLabel>
+	<skos:altLabel>Ed Daourât</skos:altLabel>
+	<skos:prefLabel>Ed Daourât</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/280828/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.0275</wgs:lat>
+	<wgs:long>35.65167</wgs:long>
+	<skos:altLabel>Ad Dafnah</skos:altLabel>
+	<skos:altLabel>Ed Defné</skos:altLabel>
+	<skos:prefLabel>Ed Defné</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/434616/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.TMPL"/>
+	<wgs:lat>34.32583</wgs:lat>
+	<wgs:long>36.085</wgs:long>
+	<skos:prefLabel>Jâmia ed Dill</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/444191/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>33.25</wgs:lat>
+	<wgs:long>35.5</wgs:long>
+	<skos:altLabel>Mohafazat Nabatîyé</skos:altLabel>
+	<skos:altLabel>Nabatîyé</skos:altLabel>
+	<skos:prefLabel>Mohafazat Nabatîyé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6201370/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>34.53333</wgs:lat>
+	<wgs:long>36.16667</wgs:long>
+	<skos:altLabel>Aakkâr</skos:altLabel>
+	<skos:altLabel>Mohafazat Aakâr</skos:altLabel>
+	<skos:prefLabel>Mohafazat Aakâr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6201371/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>34.20833</wgs:lat>
+	<wgs:long>36.3</wgs:long>
+	<skos:altLabel>Baalbek-Hermel</skos:altLabel>
+	<skos:altLabel>Mohafazat Baalbek-Hermel</skos:altLabel>
+	<skos:prefLabel>Mohafazat Baalbek-Hermel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6253911/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.44583</wgs:lat>
+	<wgs:long>35.76167</wgs:long>
+	<skos:prefLabel>El Khorab</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6271962/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.93167</wgs:lat>
+	<wgs:long>36.25889</wgs:long>
+	<skos:prefLabel>Karzoun</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6273786/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.80694</wgs:lat>
+	<wgs:long>35.48083</wgs:long>
+	<skos:prefLabel>Qasr el Mellaha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6273867/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.78722</wgs:lat>
+	<wgs:long>35.56694</wgs:long>
+	<skos:prefLabel>Kharayeb Bou Chams</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6273898/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.76972</wgs:lat>
+	<wgs:long>35.46667</wgs:long>
+	<skos:prefLabel>Qasr Hakamoun</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6273922/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.78306</wgs:lat>
+	<wgs:long>35.56139</wgs:long>
+	<skos:prefLabel>Qalaat el Hosn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6275151/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.89056</wgs:lat>
+	<wgs:long>35.62028</wgs:long>
+	<skos:prefLabel>Qannabét el Aaqabé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6275188/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.90806</wgs:lat>
+	<wgs:long>35.5975</wgs:long>
+	<skos:prefLabel>Mezher</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6275203/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>33.8975</wgs:lat>
+	<wgs:long>35.4725</wgs:long>
+	<skos:prefLabel>El Manqra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6275502/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.99833</wgs:lat>
+	<wgs:long>35.8075</wgs:long>
+	<skos:prefLabel>Faqra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6275645/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.75556</wgs:lat>
+	<wgs:long>35.79472</wgs:long>
+	<skos:prefLabel>Khorab Saadnayel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6275830/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>34.49389</wgs:lat>
+	<wgs:long>35.77389</wgs:long>
+	<skos:prefLabel>Ile Du Palmier</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6275835/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>34.49389</wgs:lat>
+	<wgs:long>35.77389</wgs:long>
+	<skos:prefLabel>Ou Des Lapins</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6275897/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>33.63944</wgs:lat>
+	<wgs:long>35.77667</wgs:long>
+	<skos:prefLabel>Souk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6276563/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.83111</wgs:lat>
+	<wgs:long>36.10639</wgs:long>
+	<skos:prefLabel>Khirab Bitbine</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6276653/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.89778</wgs:lat>
+	<wgs:long>36.21389</wgs:long>
+	<skos:prefLabel>Khorab el Hadid</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6276657/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.9075</wgs:lat>
+	<wgs:long>36.18139</wgs:long>
+	<skos:prefLabel>Khorab Bqaddâni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6276821/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>33.97</wgs:lat>
+	<wgs:long>36.03083</wgs:long>
+	<skos:prefLabel>Mougharet Hamzé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6276949/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.00694</wgs:lat>
+	<wgs:long>36.20389</wgs:long>
+	<skos:prefLabel>Acropole</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6276982/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.14583</wgs:lat>
+	<wgs:long>36.19722</wgs:long>
+	<skos:prefLabel>El Qâchoûch</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6276984/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.14417</wgs:lat>
+	<wgs:long>36.21111</wgs:long>
+	<skos:prefLabel>Cheaab el Bîr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6277183/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.195</wgs:lat>
+	<wgs:long>36.27167</wgs:long>
+	<skos:prefLabel>Kharâyeb Tallet et Tîne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6277479/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.19194</wgs:lat>
+	<wgs:long>36.54306</wgs:long>
+	<skos:prefLabel>Khirbet Nour ed Dine</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6277480/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.19333</wgs:lat>
+	<wgs:long>36.53639</wgs:long>
+	<skos:prefLabel>Khirbet Khazaal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6277496/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.2125</wgs:lat>
+	<wgs:long>36.54722</wgs:long>
+	<skos:prefLabel>Khirbet Dâoûd</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6277514/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.22389</wgs:lat>
+	<wgs:long>36.57333</wgs:long>
+	<skos:prefLabel>Khirbet Ouadi Aïn Ghrâb</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6277526/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.24139</wgs:lat>
+	<wgs:long>36.51778</wgs:long>
+	<skos:prefLabel>Khirbet el Khechen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6277536/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.22583</wgs:lat>
+	<wgs:long>36.52028</wgs:long>
+	<skos:prefLabel>Khirbet ech Chmîs</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6277773/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.29889</wgs:lat>
+	<wgs:long>36.51472</wgs:long>
+	<skos:prefLabel>Khirbet el Chmîs</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6277937/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.36472</wgs:lat>
+	<wgs:long>36.47472</wgs:long>
+	<skos:prefLabel>Khirbet el Msâyed</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6277972/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.37972</wgs:lat>
+	<wgs:long>36.50278</wgs:long>
+	<skos:prefLabel>Khirbet el Lebn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6277974/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.3575</wgs:lat>
+	<wgs:long>36.51611</wgs:long>
+	<skos:prefLabel>Khirbet Mansour</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6277979/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.35778</wgs:lat>
+	<wgs:long>36.53222</wgs:long>
+	<skos:prefLabel>Rejem el Aafrit</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6277984/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.38611</wgs:lat>
+	<wgs:long>36.53917</wgs:long>
+	<skos:prefLabel>Khirbet el Mzénît</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6277989/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.40056</wgs:lat>
+	<wgs:long>36.55806</wgs:long>
+	<skos:prefLabel>Jousset el Kharab</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6277990/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.33667</wgs:lat>
+	<wgs:long>36.5475</wgs:long>
+	<skos:prefLabel>Naamât el Faouqa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6277992/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.34167</wgs:lat>
+	<wgs:long>36.54</wgs:long>
+	<skos:prefLabel>Naamât et Tahta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6278014/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.45444</wgs:lat>
+	<wgs:long>36.40444</wgs:long>
+	<skos:prefLabel>Khirbet el Botn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6278039/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.44528</wgs:lat>
+	<wgs:long>36.46972</wgs:long>
+	<skos:prefLabel>Khirbet Hira</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6278051/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.44278</wgs:lat>
+	<wgs:long>36.51083</wgs:long>
+	<skos:prefLabel>Khirbet el Hayat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6278052/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.42778</wgs:lat>
+	<wgs:long>36.50333</wgs:long>
+	<skos:prefLabel>Khirbet el Mchaïrfé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6278175/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.53778</wgs:lat>
+	<wgs:long>36.37667</wgs:long>
+	<skos:prefLabel>Khribet el Qasr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6278355/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.64667</wgs:lat>
+	<wgs:long>36.33583</wgs:long>
+	<skos:prefLabel>Khorab el Haïyat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6278363/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.63694</wgs:lat>
+	<wgs:long>36.29806</wgs:long>
+	<skos:prefLabel>Khirbet Hbanjar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6278388/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.635</wgs:lat>
+	<wgs:long>36.32083</wgs:long>
+	<skos:prefLabel>Tahoun Ksar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6278389/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.62861</wgs:lat>
+	<wgs:long>36.315</wgs:long>
+	<skos:prefLabel>El Mansoura</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6278393/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.63278</wgs:lat>
+	<wgs:long>36.30417</wgs:long>
+	<skos:prefLabel>Khirbet Arhsar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6278422/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.62417</wgs:lat>
+	<wgs:long>36.36778</wgs:long>
+	<skos:prefLabel>Qalaat Deïr Chir</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6278471/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.60889</wgs:lat>
+	<wgs:long>36.27194</wgs:long>
+	<skos:prefLabel>Khorab Beït Daher</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6278570/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.62056</wgs:lat>
+	<wgs:long>36.40972</wgs:long>
+	<skos:prefLabel>Har Baâra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6278575/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.60778</wgs:lat>
+	<wgs:long>36.42222</wgs:long>
+	<skos:prefLabel>Khirbet es Sindiâné</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6278589/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.61722</wgs:lat>
+	<wgs:long>36.40861</wgs:long>
+	<skos:prefLabel>El Qalaa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6279328/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.445</wgs:lat>
+	<wgs:long>35.88778</wgs:long>
+	<skos:prefLabel>Deïr Mâr Doûmit</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6279638/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.62528</wgs:lat>
+	<wgs:long>36.12444</wgs:long>
+	<skos:prefLabel>Barchâ</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6279668/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.23</wgs:lat>
+	<wgs:long>35.7075</wgs:long>
+	<skos:prefLabel>Dahr el Aïn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6279708/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.17139</wgs:lat>
+	<wgs:long>35.73778</wgs:long>
+	<skos:prefLabel>Beït es Salîb</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6279734/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.23917</wgs:lat>
+	<wgs:long>35.8425</wgs:long>
+	<skos:prefLabel>Deïr Mâr Estephâne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6279791/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.21</wgs:lat>
+	<wgs:long>35.84111</wgs:long>
+	<skos:prefLabel>Deïr Mâr Charbel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6280245/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.14111</wgs:lat>
+	<wgs:long>35.66167</wgs:long>
+	<skos:prefLabel>Deïr Mâr Lîchaa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6280259/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.10778</wgs:lat>
+	<wgs:long>35.6725</wgs:long>
+	<skos:prefLabel>Kfar Kellas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6280292/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.09</wgs:lat>
+	<wgs:long>35.67972</wgs:long>
+	<skos:prefLabel>Harf el Faouqa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6280313/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>34.16194</wgs:lat>
+	<wgs:long>35.67056</wgs:long>
+	<skos:prefLabel>Bjirrîne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7646521/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/272103/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/444191/"/>
+	<europeana:country>LB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>33.34578</wgs:lat>
+	<wgs:long>35.53181</wgs:long>
+	<skos:prefLabel>Marjayoun</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 215 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

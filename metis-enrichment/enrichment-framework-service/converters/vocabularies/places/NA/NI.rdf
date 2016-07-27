@@ -1,0 +1,3579 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: NA_NI
+Description: Selected fields pulled from Geonames about NI done on Mon May 23 21:14:29 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/3615609/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13</wgs:lat>
+	<wgs:long>-84.5</wgs:long>
+	<skos:altLabel>Departamento de Bluefields</skos:altLabel>
+	<skos:prefLabel>Departamento de (historical) Zelaya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3615614/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.08333</wgs:lat>
+	<wgs:long>-84.9</wgs:long>
+	<skos:prefLabel>Isla Zapotillo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3615617/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.08333</wgs:lat>
+	<wgs:long>-84.88333</wgs:long>
+	<skos:prefLabel>Isla Zapote</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3615620/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.73333</wgs:lat>
+	<wgs:long>-85.83333</wgs:long>
+	<skos:prefLabel>Isla Zapatera</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3615623/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.21667</wgs:lat>
+	<wgs:long>-85.26667</wgs:long>
+	<skos:altLabel>Isla Sonatitos</skos:altLabel>
+	<skos:altLabel>Isla Zanatillo</skos:altLabel>
+	<skos:altLabel>Las Sonatitas</skos:altLabel>
+	<skos:altLabel>Sonintas</skos:altLabel>
+	<skos:altLabel>Zanatita</skos:altLabel>
+	<skos:prefLabel>Isla Zanatillo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3615624/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.26667</wgs:lat>
+	<wgs:long>-85.26667</wgs:long>
+	<skos:prefLabel>Isla Zanate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3615648/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.05</wgs:lat>
+	<wgs:long>-83.73333</wgs:long>
+	<skos:prefLabel>Cayo Yellow Tail</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3615668/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13.5</wgs:lat>
+	<wgs:long>-86.43333</wgs:long>
+	<skos:prefLabel>Municipio de Yalagüina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3615682/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617458/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.61667</wgs:lat>
+	<wgs:long>-85.86667</wgs:long>
+	<skos:prefLabel>Municipio de Wiwilí</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3615719/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.46667</wgs:lat>
+	<wgs:long>-83.43333</wgs:long>
+	<skos:altLabel>Cayo Agua</skos:altLabel>
+	<skos:altLabel>Cayo Water</skos:altLabel>
+	<skos:prefLabel>Cayo Water</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3615729/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>14.58333</wgs:lat>
+	<wgs:long>-84.41667</wgs:long>
+	<skos:prefLabel>Municipio de Waspam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3615750/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13.06667</wgs:lat>
+	<wgs:long>-85</wgs:long>
+	<skos:altLabel>Comarca Wasayama</skos:altLabel>
+	<skos:altLabel>Wasallama</skos:altLabel>
+	<skos:altLabel>Wasallamba</skos:altLabel>
+	<skos:prefLabel>Comarca Wasayama</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3615800/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.38333</wgs:lat>
+	<wgs:long>-83.03333</wgs:long>
+	<skos:altLabel>Uaham Cay</skos:altLabel>
+	<skos:altLabel>Waham Cay</skos:altLabel>
+	<skos:altLabel>Wanam</skos:altLabel>
+	<skos:prefLabel>Waham Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3615811/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.45</wgs:lat>
+	<wgs:long>-83.43333</wgs:long>
+	<skos:altLabel>Cayo Vicente</skos:altLabel>
+	<skos:altLabel>Cayo Vincent</skos:altLabel>
+	<skos:prefLabel>Cayo Vincent</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3615812/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3620368/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>12</wgs:lat>
+	<wgs:long>-84.83333</wgs:long>
+	<skos:altLabel>Municipio de Villa Sandino</skos:altLabel>
+	<skos:altLabel>Municipio de Villa Somoza</skos:altLabel>
+	<skos:prefLabel>Municipio de Villa Sandino</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3615816/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3620380/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>12.91667</wgs:lat>
+	<wgs:long>-86.73333</wgs:long>
+	<skos:prefLabel>Municipio de Villa Nueva</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3615847/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.31325</wgs:lat>
+	<wgs:long>-86.95038</wgs:long>
+	<skos:prefLabel>Isla del Venado</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3615848/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.31306</wgs:lat>
+	<wgs:long>-86.94889</wgs:long>
+	<skos:prefLabel>Isla del Venado</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3615849/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.95</wgs:lat>
+	<wgs:long>-83.73333</wgs:long>
+	<skos:altLabel>Deer Island</skos:altLabel>
+	<skos:altLabel>Isla El Venado</skos:altLabel>
+	<skos:altLabel>Isla de la Cierro</skos:altLabel>
+	<skos:altLabel>Isla de la Ciervo</skos:altLabel>
+	<skos:altLabel>Isla del Venado</skos:altLabel>
+	<skos:prefLabel>Isla del Venado</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3615943/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.88333</wgs:lat>
+	<wgs:long>-83.36667</wgs:long>
+	<skos:altLabel>Cayo Tyara</skos:altLabel>
+	<skos:altLabel>Cayo Tyra Grande</skos:altLabel>
+	<skos:altLabel>Great Tyra Cay</skos:altLabel>
+	<skos:prefLabel>Cayo Tyara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3615960/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.46667</wgs:lat>
+	<wgs:long>-83.38333</wgs:long>
+	<skos:altLabel>Cayo Tang Wira</skos:altLabel>
+	<skos:altLabel>Cayo Tungawara</skos:altLabel>
+	<skos:altLabel>Tungwara Cays</skos:altLabel>
+	<skos:prefLabel>Cayo Tungawara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3615975/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13</wgs:lat>
+	<wgs:long>-84.4</wgs:long>
+	<skos:altLabel>Banco Tuburús</skos:altLabel>
+	<skos:altLabel>Guzmán</skos:altLabel>
+	<skos:prefLabel>Banco Tuburús</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3615997/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13.56092</wgs:lat>
+	<wgs:long>-86.49283</wgs:long>
+	<skos:prefLabel>Municipio de Totogalpa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616005/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.41667</wgs:lat>
+	<wgs:long>-83.05</wgs:long>
+	<skos:altLabel>Cayo Toro</skos:altLabel>
+	<skos:altLabel>Toro Cay</skos:altLabel>
+	<skos:prefLabel>Toro Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616018/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>11.46667</wgs:lat>
+	<wgs:long>-86</wgs:long>
+	<skos:prefLabel>Municipio de Tola</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616026/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.1</wgs:lat>
+	<wgs:long>-85.96667</wgs:long>
+	<skos:prefLabel>Municipio de Tisma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616034/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.33333</wgs:lat>
+	<wgs:long>-85.95</wgs:long>
+	<skos:prefLabel>Municipio de Tipitapa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616035/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>127153</europeana:population>
+	<wgs:lat>12.19732</wgs:lat>
+	<wgs:long>-86.09706</wgs:long>
+	<skos:altLabel xml:lang="pl">Tipitapa</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tipitapa</skos:altLabel>
+	<skos:altLabel>Tipitapa</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Типитапа</skos:altLabel>
+	<skos:prefLabel>Tipitapa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616064/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13209</europeana:population>
+	<wgs:lat>12.02263</wgs:lat>
+	<wgs:long>-86.20493</wgs:long>
+	<skos:altLabel>Ticuantepe</skos:altLabel>
+	<skos:prefLabel>Ticuantepe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616069/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.45</wgs:lat>
+	<wgs:long>-85.8</wgs:long>
+	<skos:prefLabel>Municipio de Teustepe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616075/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.71667</wgs:lat>
+	<wgs:long>-85.88333</wgs:long>
+	<skos:prefLabel>Municipio de Terrabona</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616087/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13.53333</wgs:lat>
+	<wgs:long>-86.28333</wgs:long>
+	<skos:prefLabel>Municipio de Telpaneca</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616091/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.61667</wgs:lat>
+	<wgs:long>-86.75</wgs:long>
+	<skos:prefLabel>Municipio de Telica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616107/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.06667</wgs:lat>
+	<wgs:long>-83.73333</wgs:long>
+	<skos:altLabel>Cayo Zarceta</skos:altLabel>
+	<skos:altLabel>Teal Cay</skos:altLabel>
+	<skos:prefLabel>Teal Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616112/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.88333</wgs:lat>
+	<wgs:long>-83.66667</wgs:long>
+	<skos:prefLabel>Isla Taura</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616191/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.55</wgs:lat>
+	<wgs:long>-82.75</wgs:long>
+	<skos:altLabel>Sucra Cay</skos:altLabel>
+	<skos:altLabel>Sukra Cay</skos:altLabel>
+	<skos:prefLabel>Sukra Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616220/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.55</wgs:lat>
+	<wgs:long>-82.96667</wgs:long>
+	<skos:prefLabel>South Ham Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616231/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13.56667</wgs:lat>
+	<wgs:long>-86.58333</wgs:long>
+	<skos:prefLabel>Municipio de Somoto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616232/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20316</europeana:population>
+	<wgs:lat>13.48082</wgs:lat>
+	<wgs:long>-86.58208</wgs:long>
+	<skos:altLabel>Somoto</skos:altLabel>
+	<skos:prefLabel>Somoto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616233/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13</wgs:lat>
+	<wgs:long>-87</wgs:long>
+	<skos:prefLabel>Municipio de Somotillo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616234/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15385</europeana:population>
+	<wgs:lat>13.04328</wgs:lat>
+	<wgs:long>-86.90645</wgs:long>
+	<skos:altLabel>Poyas</skos:altLabel>
+	<skos:altLabel>Somotillo</skos:altLabel>
+	<skos:prefLabel>Somotillo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616237/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>11.16667</wgs:lat>
+	<wgs:long>-85</wgs:long>
+	<skos:altLabel>Archipiélago de Solentiname</skos:altLabel>
+	<skos:altLabel>Islas de Solentiname</skos:altLabel>
+	<skos:prefLabel>Archipiélago de Solentiname</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616253/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16056</europeana:population>
+	<wgs:lat>13.73333</wgs:lat>
+	<wgs:long>-84.76667</wgs:long>
+	<skos:altLabel>Siuna</skos:altLabel>
+	<skos:altLabel>Suina</skos:altLabel>
+	<skos:prefLabel>Siuna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616275/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.3</wgs:lat>
+	<wgs:long>-84.48333</wgs:long>
+	<skos:prefLabel>Isla Silibila</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616310/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.93333</wgs:lat>
+	<wgs:long>-86.05</wgs:long>
+	<skos:prefLabel>Municipio de Sébaco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616314/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.41667</wgs:lat>
+	<wgs:long>-83.28333</wgs:long>
+	<skos:altLabel>Cayo Foca</skos:altLabel>
+	<skos:altLabel>Cayo Seal</skos:altLabel>
+	<skos:altLabel>Seal Cay</skos:altLabel>
+	<skos:prefLabel>Cayo Seal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616316/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.08333</wgs:lat>
+	<wgs:long>-83.75</wgs:long>
+	<skos:altLabel>Cayo Goleta</skos:altLabel>
+	<skos:altLabel>Cayo Schooner</skos:altLabel>
+	<skos:altLabel>Schooner Cays</skos:altLabel>
+	<skos:prefLabel>Cayo Schooner</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616345/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3620380/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.21667</wgs:lat>
+	<wgs:long>-86.83333</wgs:long>
+	<skos:altLabel>Municipio de Santo Tomás</skos:altLabel>
+	<skos:altLabel>Municipio de Santo Tomás del Norte</skos:altLabel>
+	<skos:prefLabel>Municipio de Santo Tomás del Norte</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616347/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.08333</wgs:lat>
+	<wgs:long>-85</wgs:long>
+	<skos:prefLabel>Municipio de Santo Tomás</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616349/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14809</europeana:population>
+	<wgs:lat>12.06667</wgs:lat>
+	<wgs:long>-85.08333</wgs:long>
+	<skos:altLabel>Santa Tomas</skos:altLabel>
+	<skos:altLabel>Santo Tomás</skos:altLabel>
+	<skos:prefLabel>Santo Tomás</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616351/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.3</wgs:lat>
+	<wgs:long>-85</wgs:long>
+	<skos:prefLabel>Municipio de Santo Domingo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616367/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>11.73333</wgs:lat>
+	<wgs:long>-86.21667</wgs:long>
+	<skos:prefLabel>Municipio de Santa Teresa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616386/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.83333</wgs:lat>
+	<wgs:long>-86.33333</wgs:long>
+	<skos:prefLabel>Municipio de Santa Rosa del Peñón</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616439/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13.75</wgs:lat>
+	<wgs:long>-86.61667</wgs:long>
+	<skos:prefLabel>Municipio de Santa María</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616455/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.55</wgs:lat>
+	<wgs:long>-85.7</wgs:long>
+	<skos:prefLabel>Municipio de Santa Lucía</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616571/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13.41667</wgs:lat>
+	<wgs:long>-86.08333</wgs:long>
+	<skos:prefLabel>Municipio de San Sebastián de Yalí</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616581/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.96667</wgs:lat>
+	<wgs:long>-85.66667</wgs:long>
+	<skos:prefLabel>Municipio de San Ramón</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616593/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>11.86667</wgs:lat>
+	<wgs:long>-86.41667</wgs:long>
+	<skos:prefLabel>Municipio de San Rafael del Sur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616594/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>29836</europeana:population>
+	<wgs:lat>11.84854</wgs:lat>
+	<wgs:long>-86.43839</wgs:long>
+	<skos:altLabel>San Rafael</skos:altLabel>
+	<skos:altLabel>San Rafael del Sur</skos:altLabel>
+	<skos:prefLabel>San Rafael del Sur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616596/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13.33333</wgs:lat>
+	<wgs:long>-86</wgs:long>
+	<skos:prefLabel>Municipio de San Rafael del Norte</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616607/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.98333</wgs:lat>
+	<wgs:long>-83.15</wgs:long>
+	<skos:prefLabel>Isla San Pío</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616608/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.13333</wgs:lat>
+	<wgs:long>-85.08333</wgs:long>
+	<skos:prefLabel>Municipio de San Pedro de Lóvago</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616610/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3620380/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.27363</wgs:lat>
+	<wgs:long>-86.87835</wgs:long>
+	<skos:altLabel>Municipio de San Pedro</skos:altLabel>
+	<skos:altLabel>Municipio de San Pedro del Norte</skos:altLabel>
+	<skos:prefLabel>Municipio de San Pedro del Norte</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616647/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.93333</wgs:lat>
+	<wgs:long>-86.33333</wgs:long>
+	<skos:prefLabel>Municipio de San Nicolás</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616653/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>11.46667</wgs:lat>
+	<wgs:long>-84.71667</wgs:long>
+	<skos:prefLabel>Municipio de San Miguelito</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616675/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>11.91667</wgs:lat>
+	<wgs:long>-86.25</wgs:long>
+	<skos:prefLabel>Municipio de San Marcos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616682/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23347</europeana:population>
+	<wgs:lat>11.90949</wgs:lat>
+	<wgs:long>-86.20351</wgs:long>
+	<skos:prefLabel>San Marcos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616697/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13.41667</wgs:lat>
+	<wgs:long>-86.58333</wgs:long>
+	<skos:prefLabel>Municipio de San Lucas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616705/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.25</wgs:lat>
+	<wgs:long>-85.66667</wgs:long>
+	<skos:prefLabel>Municipio de San Lorenzo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616722/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>11.9</wgs:lat>
+	<wgs:long>-86.03333</wgs:long>
+	<skos:prefLabel>Municipio de San Juan de Oriente</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616724/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617051/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>11.2</wgs:lat>
+	<wgs:long>-85.78333</wgs:long>
+	<skos:prefLabel>Municipio de San Juan del Sur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616727/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13.53333</wgs:lat>
+	<wgs:long>-86.16667</wgs:long>
+	<skos:prefLabel>Municipio de San Juan del Río Coco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616728/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>11</wgs:lat>
+	<wgs:long>-84.08333</wgs:long>
+	<skos:prefLabel>Municipio de San Juan del Norte</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616731/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13.21667</wgs:lat>
+	<wgs:long>-86.5</wgs:long>
+	<skos:prefLabel>Municipio de San Juan de Limay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616752/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3620673/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>12.58333</wgs:lat>
+	<wgs:long>-85.75</wgs:long>
+	<skos:prefLabel>Municipio de San José de los Remates</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616756/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13.3</wgs:lat>
+	<wgs:long>-86.63333</wgs:long>
+	<skos:prefLabel>Municipio de San José de Cusmapa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616766/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.58333</wgs:lat>
+	<wgs:long>-85.75</wgs:long>
+	<skos:prefLabel>Municipio de San José</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616791/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>11.48333</wgs:lat>
+	<wgs:long>-85.8</wgs:long>
+	<skos:prefLabel>Municipio de San Jorge</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616814/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.91667</wgs:lat>
+	<wgs:long>-86.16667</wgs:long>
+	<skos:prefLabel>Municipio de San Isidro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616847/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.5</wgs:lat>
+	<wgs:long>-86.16667</wgs:long>
+	<skos:altLabel>Municipio de San Francisco Libre</skos:altLabel>
+	<skos:altLabel>Municipio de San Francisco del Carnicero</skos:altLabel>
+	<skos:prefLabel>Municipio de San Francisco Libre</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616851/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3620380/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.23333</wgs:lat>
+	<wgs:long>-86.7</wgs:long>
+	<skos:altLabel>Municipio de San Francisco</skos:altLabel>
+	<skos:altLabel>Municipio de San Francisco del Norte</skos:altLabel>
+	<skos:prefLabel>Municipio de San Francisco del Norte</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616869/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13.8</wgs:lat>
+	<wgs:long>-86.25</wgs:long>
+	<skos:prefLabel>Municipio de San Fernando</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616870/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.18333</wgs:lat>
+	<wgs:long>-84.98333</wgs:long>
+	<skos:altLabel>Isla Fernando</skos:altLabel>
+	<skos:altLabel>Isla San Fernando</skos:altLabel>
+	<skos:prefLabel>Isla San Fernando</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616887/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.75</wgs:lat>
+	<wgs:long>-85.83333</wgs:long>
+	<skos:prefLabel>Municipio de San Dionisio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616908/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>11.16667</wgs:lat>
+	<wgs:long>-84.5</wgs:long>
+	<skos:prefLabel>Municipio de San Carlos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616911/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13451</europeana:population>
+	<wgs:lat>11.11667</wgs:lat>
+	<wgs:long>-84.78333</wgs:long>
+	<skos:altLabel>San Carlos</skos:altLabel>
+	<skos:prefLabel>San Carlos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616920/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.53333</wgs:lat>
+	<wgs:long>-85.1</wgs:long>
+	<skos:altLabel>Isla San Bernado</skos:altLabel>
+	<skos:altLabel>Isla San Bernardo</skos:altLabel>
+	<skos:prefLabel>Isla San Bernardo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616921/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.55</wgs:lat>
+	<wgs:long>-85.08333</wgs:long>
+	<skos:prefLabel>Isla San Bernardito</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3616986/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.78333</wgs:lat>
+	<wgs:long>-83.7</wgs:long>
+	<skos:prefLabel>Isla Salomón</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617032/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.40072</wgs:lat>
+	<wgs:long>-86.47776</wgs:long>
+	<skos:prefLabel>Isla Rosa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617050/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>11.35</wgs:lat>
+	<wgs:long>-85.6</wgs:long>
+	<skos:prefLabel>Municipio de Rivas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617051/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>11.3</wgs:lat>
+	<wgs:long>-85.75</wgs:long>
+	<skos:altLabel>Departamento de Rivas</skos:altLabel>
+	<skos:altLabel>Rivas</skos:altLabel>
+	<skos:prefLabel>Departamento de Rivas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617052/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>30293</europeana:population>
+	<wgs:lat>11.43333</wgs:lat>
+	<wgs:long>-85.83333</wgs:long>
+	<skos:altLabel>Nicaragua</skos:altLabel>
+	<skos:altLabel>Rivas</skos:altLabel>
+	<skos:altLabel>Villa of Nicaragua</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ривас</skos:altLabel>
+	<skos:prefLabel>Rivas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617056/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>11.33333</wgs:lat>
+	<wgs:long>-84.58333</wgs:long>
+	<skos:altLabel>Departamento de Río San Juan</skos:altLabel>
+	<skos:altLabel>Río San Juan</skos:altLabel>
+	<skos:prefLabel>Departamento de Río San Juan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617068/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617707/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>12.91667</wgs:lat>
+	<wgs:long>-85.25</wgs:long>
+	<skos:prefLabel>Municipio de Río Blanco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617069/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17018</europeana:population>
+	<wgs:lat>12.93333</wgs:lat>
+	<wgs:long>-85.21667</wgs:long>
+	<skos:altLabel>Río Blanco</skos:altLabel>
+	<skos:prefLabel>Río Blanco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617076/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.96667</wgs:lat>
+	<wgs:long>-85.61667</wgs:long>
+	<skos:prefLabel>Isla Redonda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617092/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.88333</wgs:lat>
+	<wgs:long>-83.8</wgs:long>
+	<skos:altLabel>Isla Rama Cay</skos:altLabel>
+	<skos:altLabel>Rama Cay</skos:altLabel>
+	<skos:prefLabel>Rama Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617094/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.16667</wgs:lat>
+	<wgs:long>-84.41667</wgs:long>
+	<skos:prefLabel>Municipio de Rama</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617095/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20456</europeana:population>
+	<wgs:lat>12.15</wgs:lat>
+	<wgs:long>-84.21667</wgs:long>
+	<skos:altLabel>Ciudad Rama</skos:altLabel>
+	<skos:altLabel>Rama</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Рамы</skos:altLabel>
+	<skos:prefLabel>Rama</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617108/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13.6</wgs:lat>
+	<wgs:long>-85.88333</wgs:long>
+	<skos:prefLabel>Municipio de Quilalí</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617109/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13590</europeana:population>
+	<wgs:lat>13.56695</wgs:lat>
+	<wgs:long>-86.026</wgs:long>
+	<skos:altLabel>Quilalí</skos:altLabel>
+	<skos:prefLabel>Quilalí</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617114/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.58333</wgs:lat>
+	<wgs:long>-86.86667</wgs:long>
+	<skos:prefLabel>Municipio de Quezalguaque</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617145/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.85</wgs:lat>
+	<wgs:long>-87.16667</wgs:long>
+	<skos:altLabel>Municipio de Morazan</skos:altLabel>
+	<skos:altLabel>Municipio de Puerto Morazán</skos:altLabel>
+	<skos:prefLabel>Municipio de Puerto Morazán</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617153/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>14.08333</wgs:lat>
+	<wgs:long>-83.91667</wgs:long>
+	<skos:prefLabel>Municipio de Puerto Cabezas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617154/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>33635</europeana:population>
+	<wgs:lat>14.03333</wgs:lat>
+	<wgs:long>-83.38333</wgs:long>
+	<skos:altLabel xml:lang="es">Bilwi</skos:altLabel>
+	<skos:altLabel>Bragman’s Bluff</skos:altLabel>
+	<skos:altLabel>Puerto Cabezas</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Пуэрто-Кабесас</skos:altLabel>
+	<skos:prefLabel>Puerto Cabezas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617161/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13.38333</wgs:lat>
+	<wgs:long>-86.46667</wgs:long>
+	<skos:prefLabel>Municipio de Pueblo Nuevo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617168/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13.83333</wgs:lat>
+	<wgs:long>-84.33333</wgs:long>
+	<skos:prefLabel>Municipio de Prinzapolka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617174/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>14.13333</wgs:lat>
+	<wgs:long>-83.55</wgs:long>
+	<skos:prefLabel>Río Prata</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617185/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>11.65</wgs:lat>
+	<wgs:long>-85.9</wgs:long>
+	<skos:prefLabel>Municipio de Potosí</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617190/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.63333</wgs:lat>
+	<wgs:long>-86.91667</wgs:long>
+	<skos:prefLabel>Municipio de Posoltega</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617192/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.75</wgs:lat>
+	<wgs:long>-83.65</wgs:long>
+	<skos:altLabel>Cayo Kisudákura</skos:altLabel>
+	<skos:altLabel>Cayo Porundo</skos:altLabel>
+	<skos:altLabel>Isla Kisudakri</skos:altLabel>
+	<skos:prefLabel>Cayo Porundo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617214/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.73333</wgs:lat>
+	<wgs:long>-85.9</wgs:long>
+	<skos:prefLabel>Isla del Plátano</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617249/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.36667</wgs:lat>
+	<wgs:long>-83.65</wgs:long>
+	<skos:prefLabel>Cayo Pigeon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617279/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>12.46667</wgs:lat>
+	<wgs:long>-83.38333</wgs:long>
+	<skos:altLabel>Archipiélago de Las Perlas</skos:altLabel>
+	<skos:altLabel>Cayos Perlas</skos:altLabel>
+	<skos:altLabel>Pearl Cays</skos:altLabel>
+	<skos:prefLabel>Cayos Perlas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617387/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13.48333</wgs:lat>
+	<wgs:long>-86.33333</wgs:long>
+	<skos:prefLabel>Municipio de Palacagüina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617411/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.58333</wgs:lat>
+	<wgs:long>-82.98333</wgs:long>
+	<skos:prefLabel>Outer Mohegan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617424/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.5</wgs:lat>
+	<wgs:long>-85.58333</wgs:long>
+	<skos:altLabel>Isla Ometepe</skos:altLabel>
+	<skos:altLabel>Isla de Ometepe</skos:altLabel>
+	<skos:altLabel>Isla de Omotepe</skos:altLabel>
+	<skos:prefLabel>Isla de Ometepe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617447/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13.66667</wgs:lat>
+	<wgs:long>-86.45</wgs:long>
+	<skos:prefLabel>Municipio de Ocotal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617448/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>33928</europeana:population>
+	<wgs:lat>13.63208</wgs:lat>
+	<wgs:long>-86.47516</wgs:long>
+	<skos:altLabel>Ocotal</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Окоталь</skos:altLabel>
+	<skos:prefLabel>Ocotal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617458/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>13.7</wgs:lat>
+	<wgs:long>-86.16667</wgs:long>
+	<skos:altLabel>Departamento de Nueva Segovia</skos:altLabel>
+	<skos:altLabel>Nueva Segovia</skos:altLabel>
+	<skos:prefLabel>Departamento de Nueva Segovia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617459/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>52929</europeana:population>
+	<wgs:lat>11.68333</wgs:lat>
+	<wgs:long>-84.45</wgs:long>
+	<skos:altLabel>Colonia Nueva Guinea</skos:altLabel>
+	<skos:altLabel>Nueva Guinea</skos:altLabel>
+	<skos:prefLabel>Nueva Guinea</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617463/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.55</wgs:lat>
+	<wgs:long>-83.33333</wgs:long>
+	<skos:altLabel>Cayo Noreste</skos:altLabel>
+	<skos:altLabel>Cayos Northeast</skos:altLabel>
+	<skos:prefLabel>Cayo Noreste</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617469/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>11.9</wgs:lat>
+	<wgs:long>-86.08333</wgs:long>
+	<skos:prefLabel>Municipio de Niquinohomo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617472/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.06667</wgs:lat>
+	<wgs:long>-86.11667</wgs:long>
+	<skos:prefLabel>Municipio de Nindirí</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617476/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255149/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>5995928</europeana:population>
+	<wgs:lat>13</wgs:lat>
+	<wgs:long>-85</wgs:long>
+	<skos:altLabel>NI</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ni-ca-ra-goa</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ni-ca-ra-goa (Nicaragua)</skos:altLabel>
+	<skos:altLabel xml:lang="es">Nicaragua</skos:altLabel>
+	<skos:altLabel xml:lang="id">Nicaragua</skos:altLabel>
+	<skos:altLabel xml:lang="en">Nicaragua</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Nicaragua</skos:altLabel>
+	<skos:altLabel xml:lang="de">Nicaragua</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Nicaragua</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Nicaragua</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Nicaragua</skos:altLabel>
+	<skos:altLabel xml:lang="it">Nicaragua</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Nicaragua</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Nicaragua</skos:altLabel>
+	<skos:altLabel xml:lang="da">Nicaragua</skos:altLabel>
+	<skos:altLabel xml:lang="et">Nicaragua</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Nicaragua</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Nicaragua</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Nicaragua</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Nicaragua</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Nicaragua</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Nicaragua</skos:altLabel>
+	<skos:altLabel xml:lang="an">Nicaragua</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Nicaragua</skos:altLabel>
+	<skos:altLabel xml:lang="la">Nicaragua</skos:altLabel>
+	<skos:altLabel xml:lang="no">Nicaragua</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Nicaragua</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Nicaragua</skos:altLabel>
+	<skos:altLabel xml:lang="af">Nicaragua</skos:altLabel>
+	<skos:altLabel xml:lang="se">Nicaragua</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Nicaragwa</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Nicarágua</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Nicearagua</skos:altLabel>
+	<skos:altLabel xml:lang="et">Nikaraagua</skos:altLabel>
+	<skos:altLabel xml:lang="so">Nikaraaguwa</skos:altLabel>
+	<skos:altLabel xml:lang="id">Nikaragua</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Nikaragua</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Nikaragua</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Nikaragua</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Nikaragua</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Nikaragua</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Nikaragua</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Nikaragua</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Nikaragua</skos:altLabel>
+	<skos:altLabel xml:lang="io">Nikaragua</skos:altLabel>
+	<skos:altLabel xml:lang="de">Nikaragua</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Nikaragua</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Nikaraguvän</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Nikaragva</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Nikaragva</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Nikaragva</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Nikaragva</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Nikaragva</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Nikaragva</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Nikaragvo</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Nikaragwa</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Nikaragwa</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Nikaragwa</skos:altLabel>
+	<skos:altLabel xml:lang="ks">Nikāraguvā</skos:altLabel>
+	<skos:altLabel xml:lang="is">Níkaragva</skos:altLabel>
+	<skos:altLabel xml:lang="en">Republic of Nicaragua</skos:altLabel>
+	<skos:altLabel xml:lang="es">República de Nicaragua</skos:altLabel>
+	<skos:altLabel xml:lang="el">Νικαράγουα</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Никарагва</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Никарагва</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Никарагуа</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Никарагуа</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Никарагуа</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Никараква</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Нікарагуа</skos:altLabel>
+	<skos:altLabel xml:lang="be">Нікарагуа</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Нікараґуа</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Նիկարագուա</skos:altLabel>
+	<skos:altLabel xml:lang="he">ניקאראגואה</skos:altLabel>
+	<skos:altLabel xml:lang="he">ניקרגואה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">نيكاراجوا</skos:altLabel>
+	<skos:altLabel xml:lang="ar">نيكاراغوا</skos:altLabel>
+	<skos:altLabel xml:lang="ps">نکاراګوا</skos:altLabel>
+	<skos:altLabel xml:lang="ur">نکاراگوا</skos:altLabel>
+	<skos:altLabel xml:lang="fa">نیکاراگوآ</skos:altLabel>
+	<skos:altLabel xml:lang="fa">نیکاراگوئه</skos:altLabel>
+	<skos:altLabel xml:lang="fa">نیکاراگوا</skos:altLabel>
+	<skos:altLabel xml:lang="sa">निकारगुवा</skos:altLabel>
+	<skos:altLabel xml:lang="hi">निकारागुआ</skos:altLabel>
+	<skos:altLabel xml:lang="bn">নিকারাগুয়া</skos:altLabel>
+	<skos:altLabel xml:lang="bn">নিকারাগোয়া</skos:altLabel>
+	<skos:altLabel xml:lang="ta">நிகாராகுவா</skos:altLabel>
+	<skos:altLabel xml:lang="ml">നിക്കാരഗ്വ</skos:altLabel>
+	<skos:altLabel xml:lang="th">นิการากัว</skos:altLabel>
+	<skos:altLabel xml:lang="th">นิคารากัว</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศนิการากัว</skos:altLabel>
+	<skos:altLabel xml:lang="th">สาธารณรัฐนิการากัว</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ນິຄາລາກົວ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ནི་ཀ་ར་གུ་ཨ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ნიკარაგუა</skos:altLabel>
+	<skos:altLabel xml:lang="am">ኒካራጓ</skos:altLabel>
+	<skos:altLabel xml:lang="km">នីការ៉ាហ្គ័រ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ニカラグア</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ニカラグア共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">尼加拉瓜</skos:altLabel>
+	<skos:altLabel xml:lang="ko">니카라과</skos:altLabel>
+	<skos:prefLabel>Republic of Nicaragua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617480/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.71667</wgs:lat>
+	<wgs:long>-83.9</wgs:long>
+	<skos:altLabel>El Paraiso</skos:altLabel>
+	<skos:altLabel>Isla Nelson</skos:altLabel>
+	<skos:prefLabel>Isla Nelson</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617492/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.16667</wgs:lat>
+	<wgs:long>-82.8</wgs:long>
+	<skos:prefLabel>Ned Thomas Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617509/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>11.93333</wgs:lat>
+	<wgs:long>-86.11667</wgs:long>
+	<skos:prefLabel>Municipio de Nandasmo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617512/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>11.75</wgs:lat>
+	<wgs:long>-86</wgs:long>
+	<skos:prefLabel>Municipio de Nandaime</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617513/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20810</europeana:population>
+	<wgs:lat>11.75696</wgs:lat>
+	<wgs:long>-86.05286</wgs:long>
+	<skos:prefLabel>Nandaime</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617517/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>11.75</wgs:lat>
+	<wgs:long>-85.21667</wgs:long>
+	<skos:altLabel>Islas El Nancital</skos:altLabel>
+	<skos:altLabel>Islas Jobo</skos:altLabel>
+	<skos:altLabel>Islas Nancital</skos:altLabel>
+	<skos:altLabel>Islas de Nancital</skos:altLabel>
+	<skos:prefLabel>Islas Nancital</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617521/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.21667</wgs:lat>
+	<wgs:long>-86.58333</wgs:long>
+	<skos:prefLabel>Municipio de Nagarote</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617522/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>26270</europeana:population>
+	<wgs:lat>12.26593</wgs:lat>
+	<wgs:long>-86.56474</wgs:long>
+	<skos:altLabel>Nagarote</skos:altLabel>
+	<skos:altLabel>Nagorote</skos:altLabel>
+	<skos:prefLabel>Nagarote</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617531/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.78333</wgs:lat>
+	<wgs:long>-85.56667</wgs:long>
+	<skos:prefLabel>Municipio de Muy Muy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617542/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13.81667</wgs:lat>
+	<wgs:long>-85.83333</wgs:long>
+	<skos:prefLabel>Municipio de Murra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617558/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.56667</wgs:lat>
+	<wgs:long>-82.73333</wgs:long>
+	<skos:altLabel>Muerto Cay</skos:altLabel>
+	<skos:altLabel>Old Mohegan</skos:altLabel>
+	<skos:prefLabel>Muerto Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617561/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3830308/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>12.08333</wgs:lat>
+	<wgs:long>-84.5</wgs:long>
+	<skos:prefLabel>Municipio de Muelle de los Bueyes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617564/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13.71667</wgs:lat>
+	<wgs:long>-86.35</wgs:long>
+	<skos:prefLabel>Municipio de Mozonte</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617568/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>11.55</wgs:lat>
+	<wgs:long>-85.65</wgs:long>
+	<skos:prefLabel>Municipio de Moyogalpa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617574/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>11.75</wgs:lat>
+	<wgs:long>-84.88333</wgs:long>
+	<skos:prefLabel>Municipio de Morrito</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617576/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>14.46667</wgs:lat>
+	<wgs:long>-82.88333</wgs:long>
+	<skos:altLabel>Cayos Morrison Dennis</skos:altLabel>
+	<skos:altLabel>Dennis Cays</skos:altLabel>
+	<skos:altLabel>Morrison Dennis Cays</skos:altLabel>
+	<skos:prefLabel>Cayos Morrison Dennis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617621/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.35287</wgs:lat>
+	<wgs:long>-86.47476</wgs:long>
+	<skos:altLabel>Isla Momotombito</skos:altLabel>
+	<skos:altLabel>Momotombito</skos:altLabel>
+	<skos:prefLabel>Isla Momotombito</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617636/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.86667</wgs:lat>
+	<wgs:long>-83.78333</wgs:long>
+	<skos:prefLabel>Mission Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617638/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>14.38333</wgs:lat>
+	<wgs:long>-82.76667</wgs:long>
+	<skos:altLabel>Cayos Miskitos</skos:altLabel>
+	<skos:altLabel>Cayos Mosquito</skos:altLabel>
+	<skos:altLabel>Miskito Cays</skos:altLabel>
+	<skos:altLabel>Mosquito Islands</skos:altLabel>
+	<skos:prefLabel>Cayos Miskitos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617640/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>14.4</wgs:lat>
+	<wgs:long>-82.9</wgs:long>
+	<skos:altLabel>Miskitnata Cays</skos:altLabel>
+	<skos:altLabel>Miskitnata Kays</skos:altLabel>
+	<skos:prefLabel>Miskitnata Cays</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617657/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.56667</wgs:lat>
+	<wgs:long>-82.96667</wgs:long>
+	<skos:prefLabel>Mid Ham Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617668/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.73333</wgs:lat>
+	<wgs:long>-83.96667</wgs:long>
+	<skos:altLabel>Copalchí</skos:altLabel>
+	<skos:altLabel>Isla Mendoza</skos:altLabel>
+	<skos:prefLabel>Isla Mendoza</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617674/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.23333</wgs:lat>
+	<wgs:long>-83.28333</wgs:long>
+	<skos:altLabel>Isla Mairinkayaska</skos:altLabel>
+	<skos:altLabel>Isla Meir Kayasca</skos:altLabel>
+	<skos:prefLabel>Isla Meir Kayasca</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617677/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.00472</wgs:lat>
+	<wgs:long>-83.72167</wgs:long>
+	<skos:altLabel>Cayo Medio Camino</skos:altLabel>
+	<skos:altLabel>Halfway Cay</skos:altLabel>
+	<skos:prefLabel>Cayo Medio Camino</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617693/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.91667</wgs:lat>
+	<wgs:long>-85.33333</wgs:long>
+	<skos:prefLabel>Municipio de Matiguás</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617694/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10523</europeana:population>
+	<wgs:lat>12.83333</wgs:lat>
+	<wgs:long>-85.46667</wgs:long>
+	<skos:altLabel>Matiguás</skos:altLabel>
+	<skos:prefLabel>Matiguás</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617696/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.25</wgs:lat>
+	<wgs:long>-86.4</wgs:long>
+	<skos:prefLabel>Municipio de Mateare</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617706/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13.16667</wgs:lat>
+	<wgs:long>-85.63333</wgs:long>
+	<skos:prefLabel>Municipio de Matagalpa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617707/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>12.91667</wgs:lat>
+	<wgs:long>-85.66667</wgs:long>
+	<skos:altLabel>Departamento de Matagalpa</skos:altLabel>
+	<skos:altLabel>Matagalpa</skos:altLabel>
+	<skos:prefLabel>Departamento de Matagalpa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617708/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>109089</europeana:population>
+	<wgs:lat>12.91667</wgs:lat>
+	<wgs:long>-85.91667</wgs:long>
+	<skos:altLabel>Matagalpa</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Матагальпа</skos:altLabel>
+	<skos:prefLabel>Matagalpa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617720/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12</wgs:lat>
+	<wgs:long>-86.03333</wgs:long>
+	<skos:prefLabel>Municipio de Masaya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617722/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>12</wgs:lat>
+	<wgs:long>-86.16667</wgs:long>
+	<skos:altLabel>Departamento de Masaya</skos:altLabel>
+	<skos:altLabel>Masaya</skos:altLabel>
+	<skos:prefLabel>Departamento de Masaya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617723/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>130113</europeana:population>
+	<wgs:lat>11.97444</wgs:lat>
+	<wgs:long>-86.09417</wgs:long>
+	<skos:altLabel>Masaya</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Масая</skos:altLabel>
+	<skos:prefLabel>Masaya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617724/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>11.91667</wgs:lat>
+	<wgs:long>-86.11667</wgs:long>
+	<skos:prefLabel>Municipio de Masatepe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617725/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21452</europeana:population>
+	<wgs:lat>11.9184</wgs:lat>
+	<wgs:long>-86.14467</wgs:long>
+	<skos:altLabel>Masatepe</skos:altLabel>
+	<skos:prefLabel>Masatepe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617738/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.4</wgs:lat>
+	<wgs:long>-83.46667</wgs:long>
+	<skos:altLabel>Cayo Cimarrón</skos:altLabel>
+	<skos:altLabel>Cayo Maroon</skos:altLabel>
+	<skos:prefLabel>Cayo Maroon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617756/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.18333</wgs:lat>
+	<wgs:long>-85.06667</wgs:long>
+	<skos:altLabel>Isla Macaroncita</skos:altLabel>
+	<skos:altLabel>Isla Mancaroncita</skos:altLabel>
+	<skos:altLabel>Isla Mancarroncito</skos:altLabel>
+	<skos:altLabel>Isla Mancornadito</skos:altLabel>
+	<skos:prefLabel>Isla Mancarroncito</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617757/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.16667</wgs:lat>
+	<wgs:long>-85.03333</wgs:long>
+	<skos:altLabel>Isla Mancaron</skos:altLabel>
+	<skos:altLabel>Isla Mancarrón</skos:altLabel>
+	<skos:altLabel>Isla Mancornada</skos:altLabel>
+	<skos:prefLabel>Isla Mancarrón</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617760/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.08333</wgs:lat>
+	<wgs:long>-86.33333</wgs:long>
+	<skos:prefLabel>Municipio de Managua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617762/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>12</wgs:lat>
+	<wgs:long>-86.41667</wgs:long>
+	<skos:altLabel>Departamento de Managua</skos:altLabel>
+	<skos:altLabel>Managua</skos:altLabel>
+	<skos:prefLabel>Departamento de Managua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617763/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>973087</europeana:population>
+	<wgs:lat>12.13282</wgs:lat>
+	<wgs:long>-86.2504</wgs:long>
+	<skos:altLabel xml:lang="id">Managua</skos:altLabel>
+	<skos:altLabel xml:lang="es">Managua</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Managua</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Managua</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Managua</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Managua</skos:altLabel>
+	<skos:altLabel xml:lang="io">Managua</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Managua</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Managua</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Managua</skos:altLabel>
+	<skos:altLabel xml:lang="en">Managua</skos:altLabel>
+	<skos:altLabel xml:lang="de">Managua</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Managua</skos:altLabel>
+	<skos:altLabel xml:lang="da">Managua</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Managua</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Managua</skos:altLabel>
+	<skos:altLabel xml:lang="it">Managua</skos:altLabel>
+	<skos:altLabel xml:lang="no">Managua</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Managua</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Managua</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Managva</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Managvo</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Manágua</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μανάγκουα</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Манагва</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Манагуа</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Манагуа</skos:altLabel>
+	<skos:altLabel xml:lang="he">מנגואה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">ماناغوا</skos:altLabel>
+	<skos:altLabel xml:lang="fa">ماناگوآ</skos:altLabel>
+	<skos:altLabel xml:lang="th">มานากัว</skos:altLabel>
+	<skos:altLabel xml:lang="am">ማናጓ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">マナグア</skos:altLabel>
+	<skos:altLabel xml:lang="zh">馬拿瓜</skos:altLabel>
+	<skos:altLabel xml:lang="ko">마나과</skos:altLabel>
+	<skos:prefLabel>Managua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617784/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.28333</wgs:lat>
+	<wgs:long>-82.98333</wgs:long>
+	<skos:altLabel>Isla Pequeña del Maíz</skos:altLabel>
+	<skos:altLabel>Isla del Maíz Pequeña</skos:altLabel>
+	<skos:altLabel>Little Corn Island</skos:altLabel>
+	<skos:altLabel>Mangle Chico</skos:altLabel>
+	<skos:altLabel>Pequeña Isla del Maíz</skos:altLabel>
+	<skos:prefLabel>Isla del Maíz Pequeña</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617785/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.16667</wgs:lat>
+	<wgs:long>-83.05</wgs:long>
+	<skos:altLabel>Grande Isla del Maíz</skos:altLabel>
+	<skos:altLabel>Great Corn Island</skos:altLabel>
+	<skos:altLabel>Isla Grande del Maíz</skos:altLabel>
+	<skos:altLabel>Isla del Maíz Grande</skos:altLabel>
+	<skos:altLabel>Mangle Grande</skos:altLabel>
+	<skos:prefLabel>Isla del Maíz Grande</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617788/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>12.25</wgs:lat>
+	<wgs:long>-83</wgs:long>
+	<skos:altLabel>Corn Islands</skos:altLabel>
+	<skos:altLabel>Islas del Maíz</skos:altLabel>
+	<skos:altLabel>Mangles Islands</skos:altLabel>
+	<skos:prefLabel>Islas del Maíz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617796/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>13.5</wgs:lat>
+	<wgs:long>-86.41667</wgs:long>
+	<skos:altLabel>Departamento de Madriz</skos:altLabel>
+	<skos:altLabel>Madriz</skos:altLabel>
+	<skos:prefLabel>Departamento de Madriz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617797/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.56728</wgs:lat>
+	<wgs:long>-87.26001</wgs:long>
+	<skos:altLabel>Isla Madera Negra</skos:altLabel>
+	<skos:altLabel>Isla Maderas Negras</skos:altLabel>
+	<skos:prefLabel>Isla Maderas Negras</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617803/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13.71667</wgs:lat>
+	<wgs:long>-86.55</wgs:long>
+	<skos:prefLabel>Municipio de Macuelizo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617971/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>14.33333</wgs:lat>
+	<wgs:long>-82.6</wgs:long>
+	<skos:altLabel>Cayos Londres</skos:altLabel>
+	<skos:altLabel>London Cays</skos:altLabel>
+	<skos:prefLabel>Cayos Londres</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617994/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.73333</wgs:lat>
+	<wgs:long>-83.4</wgs:long>
+	<skos:altLabel>Cayo Little Tyara</skos:altLabel>
+	<skos:altLabel>Cayo Tyra Chico</skos:altLabel>
+	<skos:altLabel>Little Tyra Cay</skos:altLabel>
+	<skos:prefLabel>Cayo Little Tyara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3617995/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.48333</wgs:lat>
+	<wgs:long>-83.4</wgs:long>
+	<skos:altLabel>Cayo Little Tungawara</skos:altLabel>
+	<skos:altLabel>Cayo Tang Wira Pequeño</skos:altLabel>
+	<skos:altLabel>Little Tang Wira Cay</skos:altLabel>
+	<skos:altLabel>Little Tungawarra Cay</skos:altLabel>
+	<skos:altLabel>Little Tungwara Cay</skos:altLabel>
+	<skos:prefLabel>Cayo Little Tungawara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3618009/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.49406</wgs:lat>
+	<wgs:long>-86.31917</wgs:long>
+	<skos:prefLabel>Isla del Limón</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3618012/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.43333</wgs:lat>
+	<wgs:long>-83.43333</wgs:long>
+	<skos:altLabel>Cayo Lima</skos:altLabel>
+	<skos:altLabel>Cayo Lime</skos:altLabel>
+	<skos:prefLabel>Cayo Lime</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3618028/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.41667</wgs:lat>
+	<wgs:long>-86.83333</wgs:long>
+	<skos:prefLabel>Municipio de León</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3618029/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>12.58333</wgs:lat>
+	<wgs:long>-86.58333</wgs:long>
+	<skos:altLabel>Departamento de León</skos:altLabel>
+	<skos:altLabel>León</skos:altLabel>
+	<skos:prefLabel>Departamento de León</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3618030/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>144538</europeana:population>
+	<wgs:lat>12.43787</wgs:lat>
+	<wgs:long>-86.87804</wgs:long>
+	<skos:altLabel xml:lang="eu">Leon</skos:altLabel>
+	<skos:altLabel xml:lang="en">León</skos:altLabel>
+	<skos:altLabel xml:lang="fr">León</skos:altLabel>
+	<skos:altLabel xml:lang="nl">León</skos:altLabel>
+	<skos:altLabel xml:lang="pt">León</skos:altLabel>
+	<skos:altLabel xml:lang="de">León</skos:altLabel>
+	<skos:altLabel xml:lang="es">León</skos:altLabel>
+	<skos:altLabel xml:lang="pl">León</skos:altLabel>
+	<skos:altLabel>León</skos:altLabel>
+	<skos:altLabel xml:lang="he">לאון</skos:altLabel>
+	<skos:prefLabel>León</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3618060/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.35168</wgs:lat>
+	<wgs:long>-86.00299</wgs:long>
+	<skos:altLabel>Isla La Vieja</skos:altLabel>
+	<skos:altLabel>Isla Vieja</skos:altLabel>
+	<skos:altLabel>Vieja Islet</skos:altLabel>
+	<skos:prefLabel>Isla La Vieja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3618066/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.15</wgs:lat>
+	<wgs:long>-84.93333</wgs:long>
+	<skos:altLabel>Isla La Venada</skos:altLabel>
+	<skos:altLabel>Isla Venada</skos:altLabel>
+	<skos:altLabel>Isla Venado</skos:altLabel>
+	<skos:altLabel>Isla Venata</skos:altLabel>
+	<skos:altLabel>Venada Islands</skos:altLabel>
+	<skos:prefLabel>Isla La Venada</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3618085/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13</wgs:lat>
+	<wgs:long>-86.16667</wgs:long>
+	<skos:prefLabel>Municipio de La Trinidad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3618123/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13.34152</wgs:lat>
+	<wgs:long>-86.62007</wgs:long>
+	<skos:prefLabel>Municipio de Las Sabanas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3618126/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.03333</wgs:lat>
+	<wgs:long>-85.63333</wgs:long>
+	<skos:prefLabel>Isla Las Rosas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3618237/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13.01667</wgs:lat>
+	<wgs:long>-84.86667</wgs:long>
+	<skos:prefLabel>Comarca La Sirena</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3618269/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>10.75</wgs:lat>
+	<wgs:long>-83.81667</wgs:long>
+	<skos:altLabel>Isla Las Culebra</skos:altLabel>
+	<skos:altLabel>Islas de Las Culebras</skos:altLabel>
+	<skos:prefLabel>Islas de Las Culebras</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3618318/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.33333</wgs:lat>
+	<wgs:long>-84.38333</wgs:long>
+	<skos:prefLabel>Isla Las Cabezas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3618331/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>11.16667</wgs:lat>
+	<wgs:long>-84.86667</wgs:long>
+	<skos:altLabel>Basillas Island</skos:altLabel>
+	<skos:altLabel>Islas Balsillas</skos:altLabel>
+	<skos:altLabel>Islas Batsillas</skos:altLabel>
+	<skos:altLabel>Islas Las Balsías</skos:altLabel>
+	<skos:altLabel>Islas Las Bastillas</skos:altLabel>
+	<skos:altLabel>Las Balsillas</skos:altLabel>
+	<skos:prefLabel>Islas Las Balsías</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3618335/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.66667</wgs:lat>
+	<wgs:long>-86.58333</wgs:long>
+	<skos:prefLabel>Municipio de Larreynaga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3618409/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>11.81667</wgs:lat>
+	<wgs:long>-86.13333</wgs:long>
+	<skos:prefLabel>Municipio de La Paz de Oriente</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3618411/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23481</europeana:population>
+	<wgs:lat>12.34</wgs:lat>
+	<wgs:long>-86.67528</wgs:long>
+	<skos:altLabel>La Paz</skos:altLabel>
+	<skos:altLabel>La Paz Central</skos:altLabel>
+	<skos:altLabel>La Paz Centro</skos:altLabel>
+	<skos:altLabel>Paz Central</skos:altLabel>
+	<skos:prefLabel>La Paz Centro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3618412/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.5</wgs:lat>
+	<wgs:long>-86.5</wgs:long>
+	<skos:prefLabel>Municipio de La Paz Central</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3618481/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.25</wgs:lat>
+	<wgs:long>-85.16667</wgs:long>
+	<skos:prefLabel>Municipio de La Libertad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3618500/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.18333</wgs:lat>
+	<wgs:long>-84.96667</wgs:long>
+	<skos:prefLabel>Isla La Juana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3618561/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.01667</wgs:lat>
+	<wgs:long>-85.65</wgs:long>
+	<skos:altLabel>Isla La Flor</skos:altLabel>
+	<skos:altLabel>Isla Pelona</skos:altLabel>
+	<skos:altLabel>Isla Santa Rosa</skos:altLabel>
+	<skos:prefLabel>Isla La Flor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3618617/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13.2</wgs:lat>
+	<wgs:long>-84.5</wgs:long>
+	<skos:prefLabel>Municipio de La Cruz de Río Grande</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3618634/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>11.75</wgs:lat>
+	<wgs:long>-86.16667</wgs:long>
+	<skos:prefLabel>Municipio de La Conquista</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3618636/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13.25</wgs:lat>
+	<wgs:long>-86.13333</wgs:long>
+	<skos:prefLabel>Municipio de La Concordia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3618641/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>11.96667</wgs:lat>
+	<wgs:long>-86.2</wgs:long>
+	<skos:prefLabel>Municipio de La Concepción</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3618671/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.73333</wgs:lat>
+	<wgs:long>-85.2</wgs:long>
+	<skos:prefLabel>Isla La Ceiba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3618706/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.08333</wgs:lat>
+	<wgs:long>-85.88333</wgs:long>
+	<skos:altLabel>Isla Cabezas</skos:altLabel>
+	<skos:altLabel>Isla Calabaza</skos:altLabel>
+	<skos:altLabel>Isla Calabazas</skos:altLabel>
+	<skos:altLabel>Isla La Calabaza</skos:altLabel>
+	<skos:prefLabel>Isla La Calabaza</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3618813/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.75</wgs:lat>
+	<wgs:long>-84.93333</wgs:long>
+	<skos:prefLabel>Krau Tara Dákura</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3618839/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.43333</wgs:lat>
+	<wgs:long>-83.03333</wgs:long>
+	<skos:prefLabel>Kisura Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3618852/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.75</wgs:lat>
+	<wgs:long>-83.3</wgs:long>
+	<skos:altLabel>Cayo King Pequeño</skos:altLabel>
+	<skos:altLabel>Little King Cay</skos:altLabel>
+	<skos:prefLabel>Cayo King Pequeño</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3618853/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.75</wgs:lat>
+	<wgs:long>-83.33333</wgs:long>
+	<skos:altLabel>Cayo Great King</skos:altLabel>
+	<skos:altLabel>Cayo King</skos:altLabel>
+	<skos:prefLabel>Cayo King</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3618907/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.08333</wgs:lat>
+	<wgs:long>-85.33333</wgs:long>
+	<skos:prefLabel>Municipio de Juigalpa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3618908/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>54731</europeana:population>
+	<wgs:lat>12.08333</wgs:lat>
+	<wgs:long>-85.4</wgs:long>
+	<skos:altLabel>Juigalpa</skos:altLabel>
+	<skos:prefLabel>Juigalpa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3618925/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>11.75</wgs:lat>
+	<wgs:long>-86.21667</wgs:long>
+	<skos:prefLabel>Municipio de Jinotepe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3618926/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>29507</europeana:population>
+	<wgs:lat>11.84962</wgs:lat>
+	<wgs:long>-86.19903</wgs:long>
+	<skos:altLabel>Jinotepe</skos:altLabel>
+	<skos:prefLabel>Jinotepe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3618927/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13.75</wgs:lat>
+	<wgs:long>-85.5</wgs:long>
+	<skos:prefLabel>Municipio de Jinotega</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3618928/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>13.75</wgs:lat>
+	<wgs:long>-85.58333</wgs:long>
+	<skos:altLabel>Departamento de Jinotega</skos:altLabel>
+	<skos:altLabel>Jinotega</skos:altLabel>
+	<skos:prefLabel>Departamento de Jinotega</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3618929/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>51073</europeana:population>
+	<wgs:lat>13.09171</wgs:lat>
+	<wgs:long>-86.00177</wgs:long>
+	<skos:altLabel>Jinotega</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Хинотега</skos:altLabel>
+	<skos:prefLabel>Jinotega</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3618942/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.78333</wgs:lat>
+	<wgs:long>-85.85</wgs:long>
+	<skos:prefLabel>Isla de Jesús Grande</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3618951/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13.95</wgs:lat>
+	<wgs:long>-86</wgs:long>
+	<skos:prefLabel>Municipio de Jalapa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3618954/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>24037</europeana:population>
+	<wgs:lat>13.92222</wgs:lat>
+	<wgs:long>-86.12346</wgs:long>
+	<skos:altLabel>Jalapa</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Халапа</skos:altLabel>
+	<skos:prefLabel>Jalapa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3618982/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.58333</wgs:lat>
+	<wgs:long>-82.96667</wgs:long>
+	<skos:prefLabel>Inner Mohegan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3619044/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>14.56667</wgs:lat>
+	<wgs:long>-82.96667</wgs:long>
+	<skos:altLabel>Ham Cays</skos:altLabel>
+	<skos:altLabel>Hamkera</skos:altLabel>
+	<skos:prefLabel>Hamkera</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3619060/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>12.75</wgs:lat>
+	<wgs:long>-83.31667</wgs:long>
+	<skos:altLabel>Cayos Guerrero</skos:altLabel>
+	<skos:altLabel>Cayos Man o’ War</skos:altLabel>
+	<skos:altLabel>Man of War Cays</skos:altLabel>
+	<skos:prefLabel>Cayos Guerrero</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3619072/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.88333</wgs:lat>
+	<wgs:long>-83.66667</wgs:long>
+	<skos:altLabel>Cayo Guano</skos:altLabel>
+	<skos:altLabel>Cayo de Guaro</skos:altLabel>
+	<skos:altLabel>Isla de Guano</skos:altLabel>
+	<skos:prefLabel>Isla de Guano</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3619094/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.43333</wgs:lat>
+	<wgs:long>-83.41667</wgs:long>
+	<skos:altLabel>Cayo Caña Silvestre</skos:altLabel>
+	<skos:altLabel>Cayo Great Tree</skos:altLabel>
+	<skos:altLabel>Wild Cane Cays</skos:altLabel>
+	<skos:prefLabel>Cayo Great Tree</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3619097/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.43333</wgs:lat>
+	<wgs:long>-83.41667</wgs:long>
+	<skos:altLabel>Cayo Grape</skos:altLabel>
+	<skos:altLabel>Cayo María Crow Cam</skos:altLabel>
+	<skos:altLabel>Cayo Uva</skos:altLabel>
+	<skos:altLabel>Grade Cays</skos:altLabel>
+	<skos:prefLabel>Cayo Grape</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3619120/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12</wgs:lat>
+	<wgs:long>-85.61667</wgs:long>
+	<skos:altLabel>Isla Granada</skos:altLabel>
+	<skos:altLabel>Isla Grandada</skos:altLabel>
+	<skos:altLabel>Isla Grande</skos:altLabel>
+	<skos:prefLabel>Isla Grande</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3619121/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.75</wgs:lat>
+	<wgs:long>-85.23333</wgs:long>
+	<skos:altLabel>Isla Grande</skos:altLabel>
+	<skos:altLabel>Isla Nancital</skos:altLabel>
+	<skos:altLabel>Jobo</skos:altLabel>
+	<skos:prefLabel>Isla Grande</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3619122/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.55</wgs:lat>
+	<wgs:long>-85.55</wgs:long>
+	<skos:prefLabel>Isla Grande</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3619123/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.08333</wgs:lat>
+	<wgs:long>-84.56667</wgs:long>
+	<skos:prefLabel>Isla Grande</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3619133/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>11.95</wgs:lat>
+	<wgs:long>-85.93333</wgs:long>
+	<skos:prefLabel>Municipio de Granada</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3619134/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>11.88333</wgs:lat>
+	<wgs:long>-85.88333</wgs:long>
+	<skos:altLabel>Isletas</skos:altLabel>
+	<skos:altLabel>Isletas de Granada</skos:altLabel>
+	<skos:altLabel>Las Islas</skos:altLabel>
+	<skos:altLabel>Las Isletas</skos:altLabel>
+	<skos:prefLabel>Isletas de Granada</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3619135/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>11.83333</wgs:lat>
+	<wgs:long>-85.91667</wgs:long>
+	<skos:altLabel>Departamento de Granada</skos:altLabel>
+	<skos:altLabel>Granada</skos:altLabel>
+	<skos:prefLabel>Departamento de Granada</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3619136/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>89409</europeana:population>
+	<wgs:lat>11.93144</wgs:lat>
+	<wgs:long>-85.95772</wgs:long>
+	<skos:altLabel xml:lang="en">Granada</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Granada</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Granada</skos:altLabel>
+	<skos:altLabel xml:lang="de">Granada</skos:altLabel>
+	<skos:altLabel xml:lang="es">Granada</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Granada</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Granada</skos:altLabel>
+	<skos:altLabel xml:lang="it">Granada</skos:altLabel>
+	<skos:altLabel>Granada</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Granado</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гренада</skos:altLabel>
+	<skos:prefLabel>Granada</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3619165/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.46667</wgs:lat>
+	<wgs:long>-83.45</wgs:long>
+	<skos:prefLabel>French Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3619168/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.43333</wgs:lat>
+	<wgs:long>-83.41667</wgs:long>
+	<skos:altLabel>Cayo Forster</skos:altLabel>
+	<skos:altLabel>Cayo Foster</skos:altLabel>
+	<skos:altLabel>Froster Cay</skos:altLabel>
+	<skos:prefLabel>Cayo Forster</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3619191/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13.16667</wgs:lat>
+	<wgs:long>-86.33333</wgs:long>
+	<skos:prefLabel>Municipio de Estelí</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3619193/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>13.16667</wgs:lat>
+	<wgs:long>-86.33333</wgs:long>
+	<skos:altLabel>Departamento de Estelí</skos:altLabel>
+	<skos:altLabel>Estelí</skos:altLabel>
+	<skos:prefLabel>Departamento de Estelí</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3619194/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>96422</europeana:population>
+	<wgs:lat>13.09185</wgs:lat>
+	<wgs:long>-86.35384</wgs:long>
+	<skos:altLabel>Estelí</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Эстели</skos:altLabel>
+	<skos:prefLabel>Estelí</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3619201/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.7</wgs:lat>
+	<wgs:long>-85.73333</wgs:long>
+	<skos:prefLabel>Municipio de Esquipulas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3619266/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.83333</wgs:lat>
+	<wgs:long>-87.33333</wgs:long>
+	<skos:prefLabel>Municipio de El Viejo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3619267/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>53504</europeana:population>
+	<wgs:lat>12.6633</wgs:lat>
+	<wgs:long>-87.16722</wgs:long>
+	<skos:altLabel>El Viejo</skos:altLabel>
+	<skos:altLabel>Viejo</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Эль-Вьехо</skos:altLabel>
+	<skos:prefLabel>El Viejo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3619381/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.9</wgs:lat>
+	<wgs:long>-86.5</wgs:long>
+	<skos:prefLabel>Municipio de El Sauce</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3619382/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11898</europeana:population>
+	<wgs:lat>12.88687</wgs:lat>
+	<wgs:long>-86.53903</wgs:long>
+	<skos:altLabel>El Sauce</skos:altLabel>
+	<skos:altLabel>Sauce</skos:altLabel>
+	<skos:prefLabel>El Sauce</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3619409/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>11.83333</wgs:lat>
+	<wgs:long>-86.16667</wgs:long>
+	<skos:prefLabel>Municipio de El Rosario</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3619449/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.58333</wgs:lat>
+	<wgs:long>-87.16667</wgs:long>
+	<skos:prefLabel>Municipio de El Realejo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3619457/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.36667</wgs:lat>
+	<wgs:long>-83.66667</wgs:long>
+	<skos:altLabel>Cayo El Puerco</skos:altLabel>
+	<skos:altLabel>Cayo Hog</skos:altLabel>
+	<skos:altLabel>Cayo Puerco</skos:altLabel>
+	<skos:altLabel>Hog Cay</skos:altLabel>
+	<skos:prefLabel>Cayo El Puerco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3619503/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.8</wgs:lat>
+	<wgs:long>-83.65</wgs:long>
+	<skos:altLabel>Cayo El Pigeon</skos:altLabel>
+	<skos:altLabel>Cayo Pigeon</skos:altLabel>
+	<skos:altLabel>Cayo Pingeon</skos:altLabel>
+	<skos:altLabel>Cayo de la Paloma</skos:altLabel>
+	<skos:altLabel>Cayos Paloma</skos:altLabel>
+	<skos:prefLabel>Cayo El Pigeon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3619614/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.95</wgs:lat>
+	<wgs:long>-85.61667</wgs:long>
+	<skos:altLabel>Isla El Muerto</skos:altLabel>
+	<skos:altLabel>Isla Meurto</skos:altLabel>
+	<skos:altLabel>Isla Muerto</skos:altLabel>
+	<skos:prefLabel>Isla El Muerto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3619615/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.76667</wgs:lat>
+	<wgs:long>-85.86667</wgs:long>
+	<skos:prefLabel>Isla El Muerto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3619629/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.75</wgs:lat>
+	<wgs:long>-85.88333</wgs:long>
+	<skos:altLabel>Isla El Molenillo</skos:altLabel>
+	<skos:altLabel>Isla Molinillo</skos:altLabel>
+	<skos:prefLabel>Isla El Molenillo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3619693/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.71667</wgs:lat>
+	<wgs:long>-86.31667</wgs:long>
+	<skos:prefLabel>Municipio de El Jicaral</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3619853/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16469</europeana:population>
+	<wgs:lat>11.99008</wgs:lat>
+	<wgs:long>-86.30954</wgs:long>
+	<skos:altLabel>Crucero</skos:altLabel>
+	<skos:altLabel>El Cirucero</skos:altLabel>
+	<skos:altLabel>El Crucero</skos:altLabel>
+	<skos:prefLabel>El Crucero</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3619908/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.16667</wgs:lat>
+	<wgs:long>-84.88333</wgs:long>
+	<skos:prefLabel>Isla El Coco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3619947/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.75</wgs:lat>
+	<wgs:long>-85.21667</wgs:long>
+	<skos:prefLabel>Isla El Cedro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3619988/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.4711</wgs:lat>
+	<wgs:long>-87.18821</wgs:long>
+	<skos:altLabel>Isla Cardon</skos:altLabel>
+	<skos:altLabel>Isla El Cardón</skos:altLabel>
+	<skos:prefLabel>Isla El Cardón</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620003/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.11667</wgs:lat>
+	<wgs:long>-84.71667</wgs:long>
+	<skos:prefLabel>Isla El Caño</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620046/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.36667</wgs:lat>
+	<wgs:long>-84.9</wgs:long>
+	<skos:prefLabel>Isla El Boquete</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620052/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLT"/>
+	<wgs:lat>11.98333</wgs:lat>
+	<wgs:long>-83.68333</wgs:long>
+	<skos:prefLabel>El Bluff</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620088/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.76667</wgs:lat>
+	<wgs:long>-85.83333</wgs:long>
+	<skos:prefLabel>Isla El Armado</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620110/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.08333</wgs:lat>
+	<wgs:long>-83.75</wgs:long>
+	<skos:altLabel>Cayo Hombre Ahorcado</skos:altLabel>
+	<skos:altLabel>Hang Man Cay</skos:altLabel>
+	<skos:altLabel>Isla El Ahorcado</skos:altLabel>
+	<skos:prefLabel>Isla El Ahorcado</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620132/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.81667</wgs:lat>
+	<wgs:long>-82.68333</wgs:long>
+	<skos:prefLabel>Edinburgh Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620161/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>11.86667</wgs:lat>
+	<wgs:long>-86.18333</wgs:long>
+	<skos:prefLabel>Municipio de Dolores</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620167/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>11.88333</wgs:lat>
+	<wgs:long>-86</wgs:long>
+	<skos:prefLabel>Municipio de Diriomo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620168/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10113</europeana:population>
+	<wgs:lat>11.87612</wgs:lat>
+	<wgs:long>-86.05184</wgs:long>
+	<skos:altLabel>Diriomo</skos:altLabel>
+	<skos:prefLabel>Diriomo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620169/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>11.78333</wgs:lat>
+	<wgs:long>-86.33333</wgs:long>
+	<skos:prefLabel>Municipio de Diriamba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620170/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>35008</europeana:population>
+	<wgs:lat>11.85842</wgs:lat>
+	<wgs:long>-86.23878</wgs:long>
+	<skos:altLabel>Diriamba</skos:altLabel>
+	<skos:altLabel>Diriambo</skos:altLabel>
+	<skos:prefLabel>Diriamba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620171/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>11.88333</wgs:lat>
+	<wgs:long>-86.05</wgs:long>
+	<skos:prefLabel>Municipio de Diriá</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620176/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13.76667</wgs:lat>
+	<wgs:long>-86.46667</wgs:long>
+	<skos:prefLabel>Municipio de Dipilto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620199/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.98333</wgs:lat>
+	<wgs:long>-83.23333</wgs:long>
+	<skos:prefLabel>Isla Dákura Tara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620248/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.43333</wgs:lat>
+	<wgs:long>-83.41667</wgs:long>
+	<skos:altLabel>Cayo Crawl</skos:altLabel>
+	<skos:altLabel>Cayo Gateando</skos:altLabel>
+	<skos:prefLabel>Cayo Crawl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620265/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.16667</wgs:lat>
+	<wgs:long>-83.08333</wgs:long>
+	<skos:prefLabel>Municipio de Corn Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620267/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.53193</wgs:lat>
+	<wgs:long>-87.22489</wgs:long>
+	<skos:prefLabel>Municipio de Corinto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620268/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.50708</wgs:lat>
+	<wgs:long>-87.18773</wgs:long>
+	<skos:altLabel>Isla Punta Icaco</skos:altLabel>
+	<skos:altLabel>Isla de Aserradores</skos:altLabel>
+	<skos:altLabel>Isla de Corinto</skos:altLabel>
+	<skos:prefLabel>Isla de Corinto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620269/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19183</europeana:population>
+	<wgs:lat>12.48199</wgs:lat>
+	<wgs:long>-87.17336</wgs:long>
+	<skos:altLabel>Corinto</skos:altLabel>
+	<skos:prefLabel>Corinto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620273/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.75</wgs:lat>
+	<wgs:long>-83.98333</wgs:long>
+	<skos:altLabel>Isla Corbina</skos:altLabel>
+	<skos:altLabel>Isla Corvina</skos:altLabel>
+	<skos:prefLabel>Isla Corbina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620297/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13.33333</wgs:lat>
+	<wgs:long>-86.33333</wgs:long>
+	<skos:prefLabel>Municipio de Condega</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620298/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11000</europeana:population>
+	<wgs:lat>13.36502</wgs:lat>
+	<wgs:long>-86.39846</wgs:long>
+	<skos:altLabel>Condega</skos:altLabel>
+	<skos:prefLabel>Condega</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620317/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.16667</wgs:lat>
+	<wgs:long>-85.55</wgs:long>
+	<skos:prefLabel>Municipio de Comalapa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620319/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.38333</wgs:lat>
+	<wgs:long>-83.38333</wgs:long>
+	<skos:prefLabel>Cayo Columbilla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620347/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617458/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>13.75</wgs:lat>
+	<wgs:long>-86.08333</wgs:long>
+	<skos:altLabel>Municipio de Ciudad Sandino</skos:altLabel>
+	<skos:altLabel>Municipio de El Jicaro</skos:altLabel>
+	<skos:prefLabel>Municipio de Ciudad Sandino</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620349/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.71667</wgs:lat>
+	<wgs:long>-86.08333</wgs:long>
+	<skos:prefLabel>Municipio de Ciudad Darío</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620350/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13318</europeana:population>
+	<wgs:lat>12.73143</wgs:lat>
+	<wgs:long>-86.12402</wgs:long>
+	<skos:altLabel>Ciudad Darío</skos:altLabel>
+	<skos:altLabel>Dario</skos:altLabel>
+	<skos:altLabel>Metapa</skos:altLabel>
+	<skos:prefLabel>Ciudad Darío</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620352/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13.66667</wgs:lat>
+	<wgs:long>-86.16667</wgs:long>
+	<skos:prefLabel>Municipio de Ciudad Antigua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620357/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13.23333</wgs:lat>
+	<wgs:long>-86.81667</wgs:long>
+	<skos:prefLabel>Municipio de Cinco Pinos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620368/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>12.08333</wgs:lat>
+	<wgs:long>-85.16667</wgs:long>
+	<skos:altLabel>Chontales</skos:altLabel>
+	<skos:altLabel>Departamento de Chontales</skos:altLabel>
+	<skos:prefLabel>Departamento de Chontales</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620379/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.75</wgs:lat>
+	<wgs:long>-87</wgs:long>
+	<skos:prefLabel>Municipio de Chinandega</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620380/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>12.83333</wgs:lat>
+	<wgs:long>-87.08333</wgs:long>
+	<skos:altLabel>Chinandega</skos:altLabel>
+	<skos:altLabel>Departamento de Chinandega</skos:altLabel>
+	<skos:prefLabel>Departamento de Chinandega</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620381/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>126387</europeana:population>
+	<wgs:lat>12.62937</wgs:lat>
+	<wgs:long>-87.13105</wgs:long>
+	<skos:altLabel>Chinandega</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Чинандеге</skos:altLabel>
+	<skos:prefLabel>Chinandega</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620389/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.61667</wgs:lat>
+	<wgs:long>-87</wgs:long>
+	<skos:prefLabel>Municipio de Chichigalpa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620390/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>33137</europeana:population>
+	<wgs:lat>12.57758</wgs:lat>
+	<wgs:long>-87.02705</wgs:long>
+	<skos:altLabel>Chichigalpa</skos:altLabel>
+	<skos:prefLabel>Chichigalpa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620421/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.6076</wgs:lat>
+	<wgs:long>-87.34579</wgs:long>
+	<skos:altLabel>Isla Limón</skos:altLabel>
+	<skos:altLabel>Isla del Cerro de Aserradores</skos:altLabel>
+	<skos:prefLabel>Isla del Cerro de Aserradores</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620434/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.76667</wgs:lat>
+	<wgs:long>-83.33333</wgs:long>
+	<skos:altLabel>Cayo Cayman</skos:altLabel>
+	<skos:altLabel>Cayos Roqueño</skos:altLabel>
+	<skos:altLabel>Rocky Cay</skos:altLabel>
+	<skos:prefLabel>Cayo Cayman</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620438/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617722/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>11.91667</wgs:lat>
+	<wgs:long>-86.06667</wgs:long>
+	<skos:prefLabel>Municipio de Catarina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620463/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.99306</wgs:lat>
+	<wgs:long>-83.70083</wgs:long>
+	<skos:altLabel>Casaya Cay</skos:altLabel>
+	<skos:altLabel>Cayo Casaba</skos:altLabel>
+	<skos:altLabel>Isla Casaba Cay</skos:altLabel>
+	<skos:prefLabel>Isla Casaba Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620472/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617762/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>12</wgs:lat>
+	<wgs:long>-86.5</wgs:long>
+	<skos:altLabel>Municipio de Carlos Fonseca Amador</skos:altLabel>
+	<skos:altLabel>Municipio de El Carmen</skos:altLabel>
+	<skos:prefLabel>Municipio de Carlos Fonseca Amador</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620478/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>11.15</wgs:lat>
+	<wgs:long>-85.38333</wgs:long>
+	<skos:prefLabel>Municipio de Cárdenas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620481/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>11.75</wgs:lat>
+	<wgs:long>-86.25</wgs:long>
+	<skos:altLabel>Carazo</skos:altLabel>
+	<skos:altLabel>Departamento de Carazo</skos:altLabel>
+	<skos:prefLabel>Departamento de Carazo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620543/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12.5</wgs:lat>
+	<wgs:long>-85.16667</wgs:long>
+	<skos:prefLabel>Municipio de Camoapa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620544/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16653</europeana:population>
+	<wgs:lat>12.38333</wgs:lat>
+	<wgs:long>-85.51667</wgs:long>
+	<skos:altLabel>Camaopa</skos:altLabel>
+	<skos:altLabel>Camoapa</skos:altLabel>
+	<skos:prefLabel>Camoapa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620548/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.75</wgs:lat>
+	<wgs:long>-83.96667</wgs:long>
+	<skos:altLabel>Isla California</skos:altLabel>
+	<skos:altLabel>Tamborcito</skos:altLabel>
+	<skos:prefLabel>Isla California</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620567/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>14.58333</wgs:lat>
+	<wgs:long>-83.5</wgs:long>
+	<skos:altLabel>Comarca de El Cabo</skos:altLabel>
+	<skos:altLabel>Comarca del Cabo</skos:altLabel>
+	<skos:altLabel>Comarca del Cabo de Gracias a Dios</skos:altLabel>
+	<skos:altLabel>Distrito del Cabo Gracias a Dios</skos:altLabel>
+	<skos:altLabel>Municipio de Cabo Gracias a Dios</skos:altLabel>
+	<skos:prefLabel>Municipio de Cabo Gracias a Dios</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620574/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.5</wgs:lat>
+	<wgs:long>-83.4</wgs:long>
+	<skos:altLabel>Buttonwood Cays</skos:altLabel>
+	<skos:altLabel>Cayo Buttonwood</skos:altLabel>
+	<skos:prefLabel>Cayo Buttonwood</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620596/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>11.55</wgs:lat>
+	<wgs:long>-85.78333</wgs:long>
+	<skos:prefLabel>Municipio de Buenos Aires</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620672/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3620673/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>12.58333</wgs:lat>
+	<wgs:long>-85.41667</wgs:long>
+	<skos:prefLabel>Municipio de Boaco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620673/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>12.5</wgs:lat>
+	<wgs:long>-85.5</wgs:long>
+	<skos:altLabel>Boaco</skos:altLabel>
+	<skos:altLabel>Departamento de Boaco</skos:altLabel>
+	<skos:prefLabel>Departamento de Boaco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620674/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>29046</europeana:population>
+	<wgs:lat>12.46667</wgs:lat>
+	<wgs:long>-85.66667</wgs:long>
+	<skos:altLabel>Boaco</skos:altLabel>
+	<skos:prefLabel>Boaco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620678/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>12</wgs:lat>
+	<wgs:long>-84.16667</wgs:long>
+	<skos:prefLabel>Municipio de Bluefields</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620680/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>44373</europeana:population>
+	<wgs:lat>12</wgs:lat>
+	<wgs:long>-83.75</wgs:long>
+	<skos:altLabel>Blewfield</skos:altLabel>
+	<skos:altLabel>Bluefields</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Блуфилдсе</skos:altLabel>
+	<skos:prefLabel>Bluefields</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620692/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.48333</wgs:lat>
+	<wgs:long>-83.38333</wgs:long>
+	<skos:altLabel>Black Mangrove Cay</skos:altLabel>
+	<skos:altLabel>Cayo Mangle Negro</skos:altLabel>
+	<skos:altLabel>Cayo Mangrow</skos:altLabel>
+	<skos:altLabel>Mangrove Cay</skos:altLabel>
+	<skos:prefLabel>Black Mangrove Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620731/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617051/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>11.58333</wgs:lat>
+	<wgs:long>-85.96667</wgs:long>
+	<skos:prefLabel>Municipio de Belén</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620789/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.73333</wgs:lat>
+	<wgs:long>-85.21667</wgs:long>
+	<skos:prefLabel>Isla Baja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620794/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.41667</wgs:lat>
+	<wgs:long>-83.43333</wgs:long>
+	<skos:altLabel>Cayo Baboon</skos:altLabel>
+	<skos:altLabel>Cayo Cinocéfalo</skos:altLabel>
+	<skos:prefLabel>Cayo Baboon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620841/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.53333</wgs:lat>
+	<wgs:long>-83.36667</wgs:long>
+	<skos:altLabel>Cayo Askill Pequeño</skos:altLabel>
+	<skos:altLabel>Little Askil Cays</skos:altLabel>
+	<skos:prefLabel>Cayo Askill Pequeño</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620842/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.53333</wgs:lat>
+	<wgs:long>-83.36667</wgs:long>
+	<skos:altLabel>Askil Cays</skos:altLabel>
+	<skos:altLabel>Cayo Askill</skos:altLabel>
+	<skos:prefLabel>Cayo Askill</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620845/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.60458</wgs:lat>
+	<wgs:long>-87.32326</wgs:long>
+	<skos:altLabel>Corinto</skos:altLabel>
+	<skos:altLabel>Isla Asarradores</skos:altLabel>
+	<skos:altLabel>Isla Cordon</skos:altLabel>
+	<skos:altLabel>Isla El Cardón</skos:altLabel>
+	<skos:altLabel>Isla Punta Icaco</skos:altLabel>
+	<skos:altLabel>Isla de Aserradores</skos:altLabel>
+	<skos:prefLabel>Isla de Aserradores</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620895/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.71667</wgs:lat>
+	<wgs:long>-83.86667</wgs:long>
+	<skos:prefLabel>Isla Anteguera</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620904/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.17429</wgs:lat>
+	<wgs:long>-86.31696</wgs:long>
+	<skos:altLabel>Isla Pajaros</skos:altLabel>
+	<skos:altLabel>Isla Pasaros</skos:altLabel>
+	<skos:altLabel>Isla del Amor</skos:altLabel>
+	<skos:altLabel>Loma</skos:altLabel>
+	<skos:altLabel>Pajovos</skos:altLabel>
+	<skos:prefLabel>Isla del Amor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620929/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>11.5</wgs:lat>
+	<wgs:long>-85.53333</wgs:long>
+	<skos:prefLabel>Municipio de Altagracia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620977/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>11.83333</wgs:lat>
+	<wgs:long>-85.16667</wgs:long>
+	<skos:prefLabel>Municipio de Acoyapa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620978/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10563</europeana:population>
+	<wgs:lat>11.96667</wgs:lat>
+	<wgs:long>-85.16667</wgs:long>
+	<skos:altLabel>Acoyapa</skos:altLabel>
+	<skos:altLabel>San Sebastian de Acoyapa</skos:altLabel>
+	<skos:prefLabel>Acoyapa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3620981/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>13.08333</wgs:lat>
+	<wgs:long>-86.53333</wgs:long>
+	<skos:prefLabel>Municipio de Achuapa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3735661/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.99417</wgs:lat>
+	<wgs:long>-83.70333</wgs:long>
+	<skos:prefLabel>Isla San Demetrio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3763779/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.06667</wgs:lat>
+	<wgs:long>-83.75833</wgs:long>
+	<skos:prefLabel>Green Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3763780/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.99083</wgs:lat>
+	<wgs:long>-83.75139</wgs:long>
+	<skos:prefLabel>Isla Santa Lucia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3828258/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.60167</wgs:lat>
+	<wgs:long>-86.06694</wgs:long>
+	<skos:prefLabel>Isla Seca</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3828259/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.59778</wgs:lat>
+	<wgs:long>-86.06</wgs:long>
+	<skos:prefLabel>Isla Honda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3828262/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>70013</europeana:population>
+	<wgs:lat>12.15889</wgs:lat>
+	<wgs:long>-86.34417</wgs:long>
+	<skos:prefLabel>Ciudad Sandino</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3830307/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>14</wgs:lat>
+	<wgs:long>-84.25</wgs:long>
+	<skos:altLabel>Atlántico Norte</skos:altLabel>
+	<skos:altLabel>Región Autónoma Atlántico Norte</skos:altLabel>
+	<skos:prefLabel>Región Autónoma Atlántico Norte</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3830308/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>12.25</wgs:lat>
+	<wgs:long>-84.25</wgs:long>
+	<skos:altLabel>Atlántico Sur</skos:altLabel>
+	<skos:altLabel>Región Autónoma Atlántico Sur</skos:altLabel>
+	<skos:prefLabel>Región Autónoma Atlántico Sur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690238/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3617476/"/>
+	<europeana:country>NI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.1642</wgs:lat>
+	<wgs:long>-83.05836</wgs:long>
+	<skos:prefLabel>Big Corn Island</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 327 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

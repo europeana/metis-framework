@@ -1,0 +1,2479 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: EU_SK
+Description: Selected fields pulled from Geonames about SK done on Mon May 23 21:12:51 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/723118/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>49.16667</wgs:lat>
+	<wgs:long>20.16667</wgs:long>
+	<skos:prefLabel>Okres Vysoké Tatry</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/723184/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>48.91667</wgs:lat>
+	<wgs:long>21.16667</wgs:long>
+	<skos:prefLabel>Východoslovenský Kraj</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/723194/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865085/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>48.9</wgs:lat>
+	<wgs:long>21.68333</wgs:long>
+	<skos:altLabel>Okres Vranov nad Topľou</skos:altLabel>
+	<skos:altLabel>Okres Vranov nad Topľov</skos:altLabel>
+	<skos:altLabel>Vranov nad Topľou</skos:altLabel>
+	<skos:prefLabel>Okres Vranov nad Topľou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/723195/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23246</europeana:population>
+	<wgs:lat>48.9</wgs:lat>
+	<wgs:long>21.68333</wgs:long>
+	<skos:altLabel xml:lang="hu">Varannó</skos:altLabel>
+	<skos:altLabel>Vranov</skos:altLabel>
+	<skos:altLabel xml:lang="en">Vranov nad Topľou</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Vranov nad Topľou</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Vranov nad Topľou</skos:altLabel>
+	<skos:altLabel xml:lang="de">Vranov nad Topľou</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Vranov nad Topľou</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Vranov nad Topľou</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Vranov nad Topľou</skos:altLabel>
+	<skos:altLabel>Vranov nad Topľou</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Вранов</skos:altLabel>
+	<skos:prefLabel>Vranov nad Topľou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/723197/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>48.91667</wgs:lat>
+	<wgs:long>21.58333</wgs:long>
+	<skos:altLabel>Vranovský Okres</skos:altLabel>
+	<skos:prefLabel>Vranov Okres</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/723357/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865084/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>48.63333</wgs:lat>
+	<wgs:long>21.71667</wgs:long>
+	<skos:altLabel>Okres Trebišov</skos:altLabel>
+	<skos:altLabel>Trebišov</skos:altLabel>
+	<skos:prefLabel>Okres Trebišov</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/723358/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>22947</europeana:population>
+	<wgs:lat>48.63333</wgs:lat>
+	<wgs:long>21.71667</wgs:long>
+	<skos:altLabel xml:lang="de">Trebišov</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Trebišov</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Trebišov</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Trebišov</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Trebišov</skos:altLabel>
+	<skos:altLabel xml:lang="en">Trebišov</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Trebišov</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Trebišov</skos:altLabel>
+	<skos:altLabel>Trebišov</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Tőketerebes</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Требишов</skos:altLabel>
+	<skos:prefLabel>Trebišov</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/723416/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865085/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>49.3</wgs:lat>
+	<wgs:long>21.56667</wgs:long>
+	<skos:altLabel>Okres Svidník</skos:altLabel>
+	<skos:altLabel>Svidník</skos:altLabel>
+	<skos:prefLabel>Okres Svidník</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/723417/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12428</europeana:population>
+	<wgs:lat>49.3</wgs:lat>
+	<wgs:long>21.56667</wgs:long>
+	<skos:altLabel xml:lang="hu">Felsővízköz</skos:altLabel>
+	<skos:altLabel xml:lang="de">Svidník</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Svidník</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Svidník</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Svidník</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Svidník</skos:altLabel>
+	<skos:altLabel xml:lang="en">Svidník</skos:altLabel>
+	<skos:altLabel>Svidník</skos:altLabel>
+	<skos:altLabel>Vyšnyj Svidnik</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Свидник</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Свидник</skos:altLabel>
+	<skos:prefLabel>Svidník</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/723455/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10874</europeana:population>
+	<wgs:lat>49.2</wgs:lat>
+	<wgs:long>21.65</wgs:long>
+	<skos:altLabel xml:lang="pl">Stropkov</skos:altLabel>
+	<skos:altLabel xml:lang="en">Stropkov</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Stropkov</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Stropkov</skos:altLabel>
+	<skos:altLabel xml:lang="de">Stropkov</skos:altLabel>
+	<skos:altLabel>Stropkov</skos:altLabel>
+	<skos:altLabel>Sztropkó</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Sztropkó</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Стропков</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Стропків</skos:altLabel>
+	<skos:prefLabel>Stropkov</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/723504/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865085/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>49.3</wgs:lat>
+	<wgs:long>20.7</wgs:long>
+	<skos:altLabel>Okres Stará Ĺubovňa</skos:altLabel>
+	<skos:altLabel>Stará Ĺubovňa</skos:altLabel>
+	<skos:prefLabel>Okres Stará Ĺubovňa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/723505/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16000</europeana:population>
+	<wgs:lat>49.3</wgs:lat>
+	<wgs:long>20.7</wgs:long>
+	<skos:altLabel xml:lang="pl">Stara Lubowla</skos:altLabel>
+	<skos:altLabel xml:lang="de">Stará Ľubovňa</skos:altLabel>
+	<skos:altLabel xml:lang="en">Stará Ľubovňa</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Stará Ľubovňa</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Stará Ľubovňa</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Ólubló</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Стара Любовня</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Стара Любовня</skos:altLabel>
+	<skos:prefLabel>Stará ľubovňa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/723525/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865084/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>48.95</wgs:lat>
+	<wgs:long>20.56667</wgs:long>
+	<skos:altLabel>Okres Spišská Nová Ves</skos:altLabel>
+	<skos:altLabel>Spišská Nová Ves</skos:altLabel>
+	<skos:prefLabel>Okres Spišská Nová Ves</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/723526/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>39195</europeana:population>
+	<wgs:lat>48.95</wgs:lat>
+	<wgs:long>20.56667</wgs:long>
+	<skos:altLabel>Igló</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Igló</skos:altLabel>
+	<skos:altLabel xml:lang="de">Neudorf</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Spiska Nowa Wieś</skos:altLabel>
+	<skos:altLabel>Spišská</skos:altLabel>
+	<skos:altLabel xml:lang="de">Spišská Nová Ves</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Spišská Nová Ves</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Spišská Nová Ves</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Spišská Nová Ves</skos:altLabel>
+	<skos:altLabel xml:lang="en">Spišská Nová Ves</skos:altLabel>
+	<skos:altLabel>Spišská Nová Ves</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Спишска Нова Вес</skos:altLabel>
+	<skos:prefLabel>Spišská Nová Ves</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/723559/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>22221</europeana:population>
+	<wgs:lat>48.98333</wgs:lat>
+	<wgs:long>22.15</wgs:long>
+	<skos:altLabel xml:lang="pl">Snina</skos:altLabel>
+	<skos:altLabel xml:lang="en">Snina</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Snina</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Snina</skos:altLabel>
+	<skos:altLabel xml:lang="de">Snina</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Snina</skos:altLabel>
+	<skos:altLabel>Snina</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Szinna</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Снина</skos:altLabel>
+	<skos:prefLabel>Snina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/723674/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12290</europeana:population>
+	<wgs:lat>49.1</wgs:lat>
+	<wgs:long>21.1</wgs:long>
+	<skos:altLabel>Kisseben</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Kisszeben</skos:altLabel>
+	<skos:altLabel xml:lang="de">Sabinov</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Sabinov</skos:altLabel>
+	<skos:altLabel xml:lang="en">Sabinov</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Sabinov</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Sabinov</skos:altLabel>
+	<skos:altLabel>Sabinov</skos:altLabel>
+	<skos:altLabel>Zeben</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сабинов</skos:altLabel>
+	<skos:prefLabel>Sabinov</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/723712/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865084/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>48.66667</wgs:lat>
+	<wgs:long>20.53333</wgs:long>
+	<skos:altLabel>Okres Rožňava</skos:altLabel>
+	<skos:altLabel>Rožňava</skos:altLabel>
+	<skos:prefLabel>Okres Rožňava</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/723713/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19261</europeana:population>
+	<wgs:lat>48.66667</wgs:lat>
+	<wgs:long>20.53333</wgs:long>
+	<skos:altLabel xml:lang="de">Rosenau</skos:altLabel>
+	<skos:altLabel>Rozsnyó</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Rozsnyó</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Rožňava</skos:altLabel>
+	<skos:altLabel xml:lang="en">Rožňava</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Rožňava</skos:altLabel>
+	<skos:altLabel xml:lang="de">Rožňava</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Rožňava</skos:altLabel>
+	<skos:altLabel>Rožňava</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Рожнява</skos:altLabel>
+	<skos:prefLabel>Rožňava</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/723735/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3343954/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>48.38333</wgs:lat>
+	<wgs:long>20.03333</wgs:long>
+	<skos:altLabel>Okres Rimavská Sobota</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Rimaszombati járás</skos:altLabel>
+	<skos:altLabel>Rimavská Sobota</skos:altLabel>
+	<skos:prefLabel>Okres Rimavská Sobota</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/723736/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>25235</europeana:population>
+	<wgs:lat>48.38333</wgs:lat>
+	<wgs:long>20.03333</wgs:long>
+	<skos:altLabel>Rima-Szombat</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Rimaszombat</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Rimavská Sobota</skos:altLabel>
+	<skos:altLabel xml:lang="en">Rimavská Sobota</skos:altLabel>
+	<skos:altLabel xml:lang="de">Rimavská Sobota</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Rimavská Sobota</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Rimavská Sobota</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Rimavská Sobota</skos:altLabel>
+	<skos:altLabel>Rimavská Sobota</skos:altLabel>
+	<skos:altLabel>Sobota Rimavská</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Римавска Собота</skos:altLabel>
+	<skos:prefLabel>Rimavská Sobota</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/723747/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13466</europeana:population>
+	<wgs:lat>48.68333</wgs:lat>
+	<wgs:long>20.11667</wgs:long>
+	<skos:altLabel xml:lang="hu">Nagyrőce</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Revúca</skos:altLabel>
+	<skos:altLabel xml:lang="en">Revúca</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Revúca</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Revúca</skos:altLabel>
+	<skos:altLabel xml:lang="de">Revúca</skos:altLabel>
+	<skos:altLabel>Revúca</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ревуца</skos:altLabel>
+	<skos:prefLabel>Revúca</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/723818/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865085/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>49</wgs:lat>
+	<wgs:long>21.25</wgs:long>
+	<skos:altLabel>Okres Prešov</skos:altLabel>
+	<skos:altLabel>Prešov</skos:altLabel>
+	<skos:prefLabel>Okres Prešov</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/723819/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>94718</europeana:population>
+	<wgs:lat>49</wgs:lat>
+	<wgs:long>21.25</wgs:long>
+	<skos:altLabel>Eperjes</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Eperjes</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Preszów</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Prešov</skos:altLabel>
+	<skos:altLabel xml:lang="es">Prešov</skos:altLabel>
+	<skos:altLabel xml:lang="it">Prešov</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Prešov</skos:altLabel>
+	<skos:altLabel xml:lang="en">Prešov</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Prešov</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Prešov</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Prešov</skos:altLabel>
+	<skos:altLabel xml:lang="de">Prešov</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Prešov</skos:altLabel>
+	<skos:altLabel>Prešov</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Prešova</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Прешов</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Прешов</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Пряшев</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Пряшів</skos:altLabel>
+	<skos:altLabel xml:lang="he">פרשוב</skos:altLabel>
+	<skos:prefLabel>Prešov</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/723844/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865085/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>49.05</wgs:lat>
+	<wgs:long>20.3</wgs:long>
+	<skos:altLabel>Okres Poprad</skos:altLabel>
+	<skos:altLabel>Poprad</skos:altLabel>
+	<skos:altLabel xml:lang="de">Poprad</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Poprad</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Poprad</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Poprad</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Poprad</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Poprad</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Poprad</skos:altLabel>
+	<skos:altLabel xml:lang="en">Poprad</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Poprad</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Poprad</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Poprad</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Popradas</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Poprád</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Попрад</skos:altLabel>
+	<skos:prefLabel>Okres Poprad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/723846/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>57431</europeana:population>
+	<wgs:lat>49.05</wgs:lat>
+	<wgs:long>20.3</wgs:long>
+	<skos:altLabel xml:lang="de">Deutschendorf</skos:altLabel>
+	<skos:altLabel>Poprad</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Попрад</skos:altLabel>
+	<skos:prefLabel>Poprad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/724143/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865084/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>48.75</wgs:lat>
+	<wgs:long>21.93333</wgs:long>
+	<skos:altLabel>Michalovce</skos:altLabel>
+	<skos:altLabel>Okres Michalovce</skos:altLabel>
+	<skos:prefLabel>Okres Michalovce</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/724144/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>40360</europeana:population>
+	<wgs:lat>48.75</wgs:lat>
+	<wgs:long>21.93333</wgs:long>
+	<skos:altLabel xml:lang="de">Großmichel</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Michalovce</skos:altLabel>
+	<skos:altLabel xml:lang="en">Michalovce</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Michalovce</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Michalovce</skos:altLabel>
+	<skos:altLabel xml:lang="de">Michalovce</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Michalovce</skos:altLabel>
+	<skos:altLabel>Michalovce</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Nagymihály</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Михаловце</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ミハロフツェ</skos:altLabel>
+	<skos:prefLabel>Michalovce</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/724294/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14511</europeana:population>
+	<wgs:lat>49.03333</wgs:lat>
+	<wgs:long>20.6</wgs:long>
+	<skos:altLabel>Leutschau</skos:altLabel>
+	<skos:altLabel xml:lang="de">Levoča</skos:altLabel>
+	<skos:altLabel xml:lang="en">Levoča</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Levoča</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Levoča</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Levoča</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Levoča</skos:altLabel>
+	<skos:altLabel>Levoča</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Lewocza</skos:altLabel>
+	<skos:altLabel>Löcse</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Lőcse</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Левоча</skos:altLabel>
+	<skos:prefLabel>Levoča</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/724441/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>48.7</wgs:lat>
+	<wgs:long>21.16667</wgs:long>
+	<skos:prefLabel>Košice-Vidiek Okres</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/724442/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>48.71667</wgs:lat>
+	<wgs:long>21.25</wgs:long>
+	<skos:prefLabel>Košice-Mesto Okres</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/724443/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>236563</europeana:population>
+	<wgs:lat>48.71667</wgs:lat>
+	<wgs:long>21.25</wgs:long>
+	<skos:altLabel xml:lang="de">Kaschau</skos:altLabel>
+	<skos:altLabel>Kassa</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Kassa</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Koszyce</skos:altLabel>
+	<skos:altLabel xml:lang="br">Košice</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Košice</skos:altLabel>
+	<skos:altLabel xml:lang="en">Košice</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Košice</skos:altLabel>
+	<skos:altLabel xml:lang="et">Košice</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Košice</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Košice</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Košice</skos:altLabel>
+	<skos:altLabel xml:lang="de">Košice</skos:altLabel>
+	<skos:altLabel xml:lang="es">Košice</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Košice</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Košice</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Košice</skos:altLabel>
+	<skos:altLabel xml:lang="it">Košice</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Košice</skos:altLabel>
+	<skos:altLabel xml:lang="no">Košice</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Košice</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Košice</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Košice</skos:altLabel>
+	<skos:altLabel>Košice</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Kösice</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Кошице</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Кошице</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кошице</skos:altLabel>
+	<skos:altLabel xml:lang="he">קושיצה</skos:altLabel>
+	<skos:altLabel xml:lang="ja">コシツェ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">科希策</skos:altLabel>
+	<skos:altLabel xml:lang="ko">코시체</skos:altLabel>
+	<skos:prefLabel>Košice</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/724503/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21391</europeana:population>
+	<wgs:lat>49.13333</wgs:lat>
+	<wgs:long>20.43333</wgs:long>
+	<skos:altLabel xml:lang="de">Kesmark</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kežmarok</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Kežmarok</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Kežmarok</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Kežmarok</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Kežmarok</skos:altLabel>
+	<skos:altLabel>Kežmarok</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Kežmarokas</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kieżmark</skos:altLabel>
+	<skos:altLabel xml:lang="de">Käsmark</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Késmárk</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кежмарок</skos:altLabel>
+	<skos:prefLabel>Kežmarok</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/724626/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865085/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>48.93333</wgs:lat>
+	<wgs:long>21.91667</wgs:long>
+	<skos:altLabel>Humenné</skos:altLabel>
+	<skos:altLabel>Okres Humenné</skos:altLabel>
+	<skos:prefLabel>Okres Humenné</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/724627/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>35367</europeana:population>
+	<wgs:lat>48.93333</wgs:lat>
+	<wgs:long>21.91667</wgs:long>
+	<skos:altLabel xml:lang="hu">Homonna</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Humenné</skos:altLabel>
+	<skos:altLabel xml:lang="en">Humenné</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Humenné</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Humenné</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Humenné</skos:altLabel>
+	<skos:altLabel xml:lang="de">Humenné</skos:altLabel>
+	<skos:altLabel>Humenné</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гуменне</skos:altLabel>
+	<skos:prefLabel>Humenné</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/725167/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/865085/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>49.28333</wgs:lat>
+	<wgs:long>21.28333</wgs:long>
+	<skos:altLabel>Bardejov</skos:altLabel>
+	<skos:altLabel>Okres Bardejov</skos:altLabel>
+	<skos:prefLabel>Okres Bardejov</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/725168/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>34209</europeana:population>
+	<wgs:lat>49.28333</wgs:lat>
+	<wgs:long>21.28333</wgs:long>
+	<skos:altLabel xml:lang="de">Bardejov</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Bardejov</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Bardejov</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bardejov</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Bardejov</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Bardejov</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Bardejov</skos:altLabel>
+	<skos:altLabel>Bardejov</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Bardiów</skos:altLabel>
+	<skos:altLabel>Bartfeld</skos:altLabel>
+	<skos:altLabel>Bártfa</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Bártfa</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бардейов</skos:altLabel>
+	<skos:altLabel xml:lang="he">ברדיוב</skos:altLabel>
+	<skos:prefLabel>Bardejov</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/865084/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>766012</europeana:population>
+	<wgs:lat>48.66667</wgs:lat>
+	<wgs:long>21.33333</wgs:long>
+	<skos:altLabel xml:lang="hu">Kassai körzet</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Košice</skos:altLabel>
+	<skos:altLabel>Košický</skos:altLabel>
+	<skos:altLabel>Košický Kraj</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Région de Košice</skos:altLabel>
+	<skos:prefLabel>Košický Kraj</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/865085/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>789968</europeana:population>
+	<wgs:lat>49.16667</wgs:lat>
+	<wgs:long>21.25</wgs:long>
+	<skos:altLabel xml:lang="hu">Eperjesi körzet</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Prešov</skos:altLabel>
+	<skos:altLabel>Prešovský</skos:altLabel>
+	<skos:altLabel>Prešovský Kraj</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Région de Prešov</skos:altLabel>
+	<skos:prefLabel>Prešovský Kraj</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3056458/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3343954/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>48.58333</wgs:lat>
+	<wgs:long>19.13333</wgs:long>
+	<skos:altLabel>Okres Zvolen</skos:altLabel>
+	<skos:altLabel>Zvolen</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Zólyomi járás</skos:altLabel>
+	<skos:prefLabel>Okres Zvolen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3056459/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>44502</europeana:population>
+	<wgs:lat>48.58333</wgs:lat>
+	<wgs:long>19.13333</wgs:long>
+	<skos:altLabel xml:lang="de">Altsohl</skos:altLabel>
+	<skos:altLabel xml:lang="en">Zvolen</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Zvolen</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Zvolen</skos:altLabel>
+	<skos:altLabel xml:lang="de">Zvolen</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Zvolen</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Zvolen</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Zvolen</skos:altLabel>
+	<skos:altLabel>Zvolen</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Zwoleń</skos:altLabel>
+	<skos:altLabel>Zólyom</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Zólyom</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Зволен</skos:altLabel>
+	<skos:prefLabel>Zvolen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3056495/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15618</europeana:population>
+	<wgs:lat>48.38333</wgs:lat>
+	<wgs:long>18.4</wgs:long>
+	<skos:altLabel>Zlaté Moravce</skos:altLabel>
+	<skos:prefLabel>Zlaté Moravce</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3056506/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>692332</europeana:population>
+	<wgs:lat>49.16667</wgs:lat>
+	<wgs:long>19.16667</wgs:long>
+	<skos:altLabel xml:lang="fr">Région de Žilina</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Zsolnai körzet</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Žilina</skos:altLabel>
+	<skos:altLabel>Žilinský</skos:altLabel>
+	<skos:altLabel>Žilinský Kraj</skos:altLabel>
+	<skos:prefLabel>Žilinský Kraj</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3056507/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3056506/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>49.22303</wgs:lat>
+	<wgs:long>18.74044</wgs:long>
+	<skos:altLabel>Žilina</skos:altLabel>
+	<skos:prefLabel>Okres Žilina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3056508/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>85985</europeana:population>
+	<wgs:lat>49.22315</wgs:lat>
+	<wgs:long>18.73941</wgs:long>
+	<skos:altLabel xml:lang="de">Sillein</skos:altLabel>
+	<skos:altLabel xml:lang="la">Solna</skos:altLabel>
+	<skos:altLabel>Zsolna</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Zsolna</skos:altLabel>
+	<skos:altLabel>Żylina</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Żylina</skos:altLabel>
+	<skos:altLabel xml:lang="et">Žilina</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Žilina</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Žilina</skos:altLabel>
+	<skos:altLabel xml:lang="en">Žilina</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Žilina</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Žilina</skos:altLabel>
+	<skos:altLabel xml:lang="de">Žilina</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Žilina</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Žilina</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Žilina</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Žilina</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Жилина</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Жилина</skos:altLabel>
+	<skos:prefLabel>Žilina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3056522/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3343954/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>48.58333</wgs:lat>
+	<wgs:long>18.86667</wgs:long>
+	<skos:altLabel xml:lang="hu">Garamszentkereszti járás</skos:altLabel>
+	<skos:altLabel>Okres Žiar nad Hronom</skos:altLabel>
+	<skos:altLabel>Žiar nad Hronom</skos:altLabel>
+	<skos:prefLabel>Okres Žiar nad Hronom</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3056523/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19392</europeana:population>
+	<wgs:lat>48.58333</wgs:lat>
+	<wgs:long>18.86667</wgs:long>
+	<skos:altLabel>Svätý Kríž nad Hronom</skos:altLabel>
+	<skos:altLabel>Žiar nad Hronom</skos:altLabel>
+	<skos:prefLabel>Žiar nad Hronom</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3056593/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>48.33333</wgs:lat>
+	<wgs:long>18</wgs:long>
+	<skos:altLabel>Western Slovakia Region</skos:altLabel>
+	<skos:altLabel>Západoslovensko</skos:altLabel>
+	<skos:prefLabel>Západoslovenský Kraj</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3056769/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>48.48333</wgs:lat>
+	<wgs:long>19.28333</wgs:long>
+	<skos:prefLabel>Vígľašská Huta-Kalinka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3056824/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3343954/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>48.2</wgs:lat>
+	<wgs:long>19.35</wgs:long>
+	<skos:altLabel xml:lang="hu">Nagykürtösi járás</skos:altLabel>
+	<skos:altLabel>Okres Veľký Krtíš</skos:altLabel>
+	<skos:altLabel>Veľký Krtíš</skos:altLabel>
+	<skos:prefLabel>Okres Veľký Krtíš</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3057122/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3343958/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>48.36667</wgs:lat>
+	<wgs:long>17.6</wgs:long>
+	<skos:altLabel>Okres Trnava</skos:altLabel>
+	<skos:altLabel>Trnava</skos:altLabel>
+	<skos:prefLabel>Okres Trnava</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3057124/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>69785</europeana:population>
+	<wgs:lat>48.36667</wgs:lat>
+	<wgs:long>17.6</wgs:long>
+	<skos:altLabel>Nagyszombat</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Nagyszombat</skos:altLabel>
+	<skos:altLabel xml:lang="en">Trnava</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Trnava</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Trnava</skos:altLabel>
+	<skos:altLabel xml:lang="de">Trnava</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Trnava</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Trnava</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Trnava</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Trnava</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Trnava</skos:altLabel>
+	<skos:altLabel xml:lang="es">Trnava</skos:altLabel>
+	<skos:altLabel xml:lang="et">Trnava</skos:altLabel>
+	<skos:altLabel>Trnava</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Trnawa</skos:altLabel>
+	<skos:altLabel>Tyrnau</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Трнава</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Трнава</skos:altLabel>
+	<skos:prefLabel>Trnava</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3057139/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3343957/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>48.8952</wgs:lat>
+	<wgs:long>18.04264</wgs:long>
+	<skos:altLabel xml:lang="it">Distretto di Trenčín</skos:altLabel>
+	<skos:altLabel xml:lang="es">Distrito de Trenčín</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Okres Trenčín</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Okres Trenčín</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Powiat Trenczyn</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Trencséni járás</skos:altLabel>
+	<skos:altLabel>Trenčín</skos:altLabel>
+	<skos:altLabel xml:lang="de">Trenčín</skos:altLabel>
+	<skos:altLabel>Trenčín District</skos:altLabel>
+	<skos:altLabel xml:lang="en">Trenčín District</skos:altLabel>
+	<skos:prefLabel>Okres Trenčín</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3057140/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>58278</europeana:population>
+	<wgs:lat>48.89452</wgs:lat>
+	<wgs:long>18.04436</wgs:long>
+	<skos:altLabel xml:lang="sv">Trencin</skos:altLabel>
+	<skos:altLabel>Trencsén</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Trencsén</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Trenczyn</skos:altLabel>
+	<skos:altLabel xml:lang="de">Trentschin</skos:altLabel>
+	<skos:altLabel>Trentsen</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Trenčin</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Trenčín</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Trenčín</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Trenčín</skos:altLabel>
+	<skos:altLabel xml:lang="en">Trenčín</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Trenčín</skos:altLabel>
+	<skos:altLabel xml:lang="de">Trenčín</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Trenčín</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Trenčín</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Тренчин</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Тренчин</skos:altLabel>
+	<skos:prefLabel>Trenčín</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3057173/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3343956/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>48.56667</wgs:lat>
+	<wgs:long>18.18333</wgs:long>
+	<skos:altLabel>Okres Topoľčany</skos:altLabel>
+	<skos:altLabel>Topoľčany</skos:altLabel>
+	<skos:prefLabel>Okres Topoľčany</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3057235/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>48.41667</wgs:lat>
+	<wgs:long>18.41667</wgs:long>
+	<skos:altLabel>Comitatus Barsiensis</skos:altLabel>
+	<skos:altLabel>Gespanschaft Tekov</skos:altLabel>
+	<skos:altLabel>Tekov</skos:altLabel>
+	<skos:altLabel>Tekovská Stolica</skos:altLabel>
+	<skos:prefLabel>Tekovská Župa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3057339/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10491</europeana:population>
+	<wgs:lat>48.08333</wgs:lat>
+	<wgs:long>18.18333</wgs:long>
+	<skos:altLabel xml:lang="hu">Nagysurány</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Surány</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Şuran</skos:altLabel>
+	<skos:altLabel xml:lang="de">Šurany</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Šurany</skos:altLabel>
+	<skos:altLabel xml:lang="en">Šurany</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Šurany</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Šurany</skos:altLabel>
+	<skos:altLabel>Šurany</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Шураны</skos:altLabel>
+	<skos:altLabel xml:lang="ja">シュラニ</skos:altLabel>
+	<skos:prefLabel>Šurany</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3057379/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11708</europeana:population>
+	<wgs:lat>47.8</wgs:lat>
+	<wgs:long>18.73333</wgs:long>
+	<skos:altLabel>Parkan</skos:altLabel>
+	<skos:altLabel>Parkany</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Párkány</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Štúrovo</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Štúrovo</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Štúrovo</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Štúrovo</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Štúrovo</skos:altLabel>
+	<skos:altLabel xml:lang="de">Štúrovo</skos:altLabel>
+	<skos:altLabel xml:lang="en">Štúrovo</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Štúrovo</skos:altLabel>
+	<skos:altLabel>Štúrovo</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Штурово</skos:altLabel>
+	<skos:prefLabel>Štúrovo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3057404/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>48.66667</wgs:lat>
+	<wgs:long>19.16667</wgs:long>
+	<skos:prefLabel>Stredoslovenský Kraj</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3057480/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10291</europeana:population>
+	<wgs:lat>48.78333</wgs:lat>
+	<wgs:long>17.7</wgs:long>
+	<skos:altLabel>Stará Turá</skos:altLabel>
+	<skos:altLabel>Ótura</skos:altLabel>
+	<skos:prefLabel>Stará Turá</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3057568/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255148/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>5455000</europeana:population>
+	<wgs:lat>48.66667</wgs:lat>
+	<wgs:long>19.5</wgs:long>
+	<skos:altLabel xml:lang="ga">An tSlóvaic</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Eslobakia</skos:altLabel>
+	<skos:altLabel xml:lang="an">Eslobaquia</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Eslovakia</skos:altLabel>
+	<skos:altLabel xml:lang="es">Eslovaquia</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Eslovaquia</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Eslovaquia</skos:altLabel>
+	<skos:altLabel xml:lang="es">Eslovaquia (República Eslovaca)</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Eslovaquia - Slovensko</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Eslovàquia</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Eslováquia</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Eslováquia (República Eslovaca)</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Isluwakya</skos:altLabel>
+	<skos:altLabel xml:lang="fr">République slovaque</skos:altLabel>
+	<skos:altLabel>SK</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Sllovaki</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Sllovakia</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Slofacia</skos:altLabel>
+	<skos:altLabel xml:lang="it">Slovacchia</skos:altLabel>
+	<skos:altLabel xml:lang="it">Slovacchia (Repubblica Slovacca)</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Slovachia</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Slovacia</skos:altLabel>
+	<skos:altLabel xml:lang="la">Slovacia</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Slovaki</skos:altLabel>
+	<skos:altLabel xml:lang="id">Slovakia</skos:altLabel>
+	<skos:altLabel xml:lang="en">Slovakia</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Slovakia</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Slovakia</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Slovakia</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Slovakia</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Slovakia</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Slovakia</skos:altLabel>
+	<skos:altLabel xml:lang="io">Slovakia</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Slovakia</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Slovakia</skos:altLabel>
+	<skos:altLabel xml:lang="no">Slovakia</skos:altLabel>
+	<skos:altLabel xml:lang="la">Slovakia</skos:altLabel>
+	<skos:altLabel xml:lang="na">Slovakia</skos:altLabel>
+	<skos:altLabel xml:lang="br">Slovakia</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Slovakia</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Slovakia (Den slovakiske republikk)</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Slovakien</skos:altLabel>
+	<skos:altLabel xml:lang="da">Slovakiet</skos:altLabel>
+	<skos:altLabel xml:lang="da">Slovakiet (Den Slovakiske Republik)</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Slovakija</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Slovakio</skos:altLabel>
+	<skos:altLabel xml:lang="et">Slovakkia</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Slovakkja</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Slovakujo</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Slovakya</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Slovakya</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Slovakän</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Slovaquie</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Slovačka</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Slovačka</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Slovačka</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Slovaška</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Slovensko</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Slovensko</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Slovenská republika</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Slovākija</skos:altLabel>
+	<skos:altLabel xml:lang="de">Slowakei</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Slowakei</skos:altLabel>
+	<skos:altLabel xml:lang="de">Slowakei (Slowakische Republik)</skos:altLabel>
+	<skos:altLabel xml:lang="id">Slowakia</skos:altLabel>
+	<skos:altLabel xml:lang="li">Slowakieë</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Slowakije</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Slowakije</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Slowakije (Slowaakse Republiek)</skos:altLabel>
+	<skos:altLabel xml:lang="af">Slowakye</skos:altLabel>
+	<skos:altLabel xml:lang="is">Slóvakía</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Szlovákia</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Słowacja</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Xlô-va-ki-a</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Xlô-va-ki-a (Slovakia)</skos:altLabel>
+	<skos:altLabel xml:lang="se">Šlovakia</skos:altLabel>
+	<skos:altLabel xml:lang="el">Σλοβακία</skos:altLabel>
+	<skos:altLabel xml:lang="be">Славакія</skos:altLabel>
+	<skos:altLabel xml:lang="be">Славаччына</skos:altLabel>
+	<skos:altLabel xml:lang="os">Словаки</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Словакия</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Словакия</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Словакия</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Словакія</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Словацкая республика</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Словачия</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Словачка</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Словачка</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Словаччина</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Սլովակիա</skos:altLabel>
+	<skos:altLabel xml:lang="he">סלובקיה</skos:altLabel>
+	<skos:altLabel xml:lang="fa">اسلواکی</skos:altLabel>
+	<skos:altLabel xml:lang="fa">اسلوواکی</skos:altLabel>
+	<skos:altLabel xml:lang="ar">سلوفاكيا</skos:altLabel>
+	<skos:altLabel xml:lang="ur">سلوواکیہ</skos:altLabel>
+	<skos:altLabel xml:lang="ug">سلوۋاكىيە</skos:altLabel>
+	<skos:altLabel xml:lang="ne">स्लोभाकिया</skos:altLabel>
+	<skos:altLabel xml:lang="hi">स्लोवाकिया</skos:altLabel>
+	<skos:altLabel xml:lang="sa">स्लोवाकिया</skos:altLabel>
+	<skos:altLabel xml:lang="bn">শ্লোভাকিয়া</skos:altLabel>
+	<skos:altLabel xml:lang="bn">স্লোভাকিয়া</skos:altLabel>
+	<skos:altLabel xml:lang="ta">ஸ்லோவாகியா</skos:altLabel>
+	<skos:altLabel xml:lang="ml">സ്ലോവാക്യ</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศสโลวาเกีย</skos:altLabel>
+	<skos:altLabel xml:lang="th">สโลวะเกีย</skos:altLabel>
+	<skos:altLabel xml:lang="th">สโลวาเกีย</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ສະໂລວາເກຍ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ས་ལཽ་ཝཀྱ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">სლოვაკეთი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ስሎቫኪያ</skos:altLabel>
+	<skos:altLabel xml:lang="km">ស្លូវ៉ាគី</skos:altLabel>
+	<skos:altLabel xml:lang="ja">スロバキア</skos:altLabel>
+	<skos:altLabel xml:lang="ja">スロバキア (スロバキア共和国)</skos:altLabel>
+	<skos:altLabel xml:lang="zh">斯洛伐克</skos:altLabel>
+	<skos:altLabel xml:lang="zh">斯洛伐克共和国</skos:altLabel>
+	<skos:altLabel xml:lang="ko">슬로바키아</skos:altLabel>
+	<skos:prefLabel>Slovak Republic</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3057629/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3343958/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>48.75</wgs:lat>
+	<wgs:long>17.16667</wgs:long>
+	<skos:altLabel xml:lang="it">Distretto di Skalica</skos:altLabel>
+	<skos:altLabel xml:lang="es">Distrito de Skalica</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Okres Skalica</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Okres Skalica</skos:altLabel>
+	<skos:altLabel>Okres Skalica</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Powiat Skalica</skos:altLabel>
+	<skos:altLabel>Skalica</skos:altLabel>
+	<skos:altLabel xml:lang="de">Skalica</skos:altLabel>
+	<skos:altLabel>Skalica District</skos:altLabel>
+	<skos:altLabel xml:lang="en">Skalica District</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Szakolcai járás</skos:altLabel>
+	<skos:prefLabel>Okres Skalica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3057630/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15013</europeana:population>
+	<wgs:lat>48.85</wgs:lat>
+	<wgs:long>17.23333</wgs:long>
+	<skos:altLabel>Skalica</skos:altLabel>
+	<skos:prefLabel>Skalica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3057689/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3343958/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>48.68333</wgs:lat>
+	<wgs:long>17.36667</wgs:long>
+	<skos:altLabel>Okres Senica</skos:altLabel>
+	<skos:altLabel>Senica</skos:altLabel>
+	<skos:prefLabel>Okres Senica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3057691/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21741</europeana:population>
+	<wgs:lat>48.68333</wgs:lat>
+	<wgs:long>17.36667</wgs:long>
+	<skos:altLabel>Senica</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сеница</skos:altLabel>
+	<skos:prefLabel>Senica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3057692/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14673</europeana:population>
+	<wgs:lat>48.21667</wgs:lat>
+	<wgs:long>17.4</wgs:long>
+	<skos:altLabel xml:lang="de">Senec</skos:altLabel>
+	<skos:altLabel xml:lang="en">Senec</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Senec</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Senec</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Senec</skos:altLabel>
+	<skos:altLabel>Senec</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Szenc</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сенец</skos:altLabel>
+	<skos:prefLabel>Senec</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3057757/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12143</europeana:population>
+	<wgs:lat>48.03333</wgs:lat>
+	<wgs:long>17.31667</wgs:long>
+	<skos:altLabel>Somorja</skos:altLabel>
+	<skos:altLabel>Šamorín</skos:altLabel>
+	<skos:prefLabel>Šamorín</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3057769/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>24513</europeana:population>
+	<wgs:lat>48.15</wgs:lat>
+	<wgs:long>17.88333</wgs:long>
+	<skos:altLabel xml:lang="hu">Sellye</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Vágsellye</skos:altLabel>
+	<skos:altLabel>Šala nad Váhom</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Šaľa</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Šaľa</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Šaľa</skos:altLabel>
+	<skos:altLabel xml:lang="de">Šaľa</skos:altLabel>
+	<skos:altLabel xml:lang="en">Šaľa</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Šaľa</skos:altLabel>
+	<skos:altLabel>Šaľa</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Шаля</skos:altLabel>
+	<skos:prefLabel>Šaľa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3057789/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>30806</europeana:population>
+	<wgs:lat>49.08333</wgs:lat>
+	<wgs:long>19.31667</wgs:long>
+	<skos:altLabel xml:lang="de">Rosenberg</skos:altLabel>
+	<skos:altLabel>Roźahegy</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Rużomberk</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Ružomberok</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ružomberok</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Ružomberok</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Ružomberok</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Ružomberok</skos:altLabel>
+	<skos:altLabel xml:lang="de">Ružomberok</skos:altLabel>
+	<skos:altLabel xml:lang="et">Ružomberok</skos:altLabel>
+	<skos:altLabel xml:lang="it">Ružomberok</skos:altLabel>
+	<skos:altLabel>Ružomberok</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Rózsahegy</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ружомберок</skos:altLabel>
+	<skos:prefLabel>Ružomberok</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3057963/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18833</europeana:population>
+	<wgs:lat>49.13333</wgs:lat>
+	<wgs:long>18.33333</wgs:long>
+	<skos:altLabel>Pucho</skos:altLabel>
+	<skos:altLabel>Puhó</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Puhó</skos:altLabel>
+	<skos:altLabel xml:lang="de">Púchov</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Púchov</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Púchov</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Púchov</skos:altLabel>
+	<skos:altLabel xml:lang="en">Púchov</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Púchov</skos:altLabel>
+	<skos:altLabel>Púchov</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Пухов</skos:altLabel>
+	<skos:prefLabel>Púchov</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3057999/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3343957/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>48.76667</wgs:lat>
+	<wgs:long>18.63333</wgs:long>
+	<skos:altLabel>Okres Prievidza</skos:altLabel>
+	<skos:altLabel>Prievidza</skos:altLabel>
+	<skos:prefLabel>Okres Prievidza</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3058000/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>52987</europeana:population>
+	<wgs:lat>48.76667</wgs:lat>
+	<wgs:long>18.63333</wgs:long>
+	<skos:altLabel xml:lang="pl">Prievidza</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Prievidza</skos:altLabel>
+	<skos:altLabel xml:lang="de">Prievidza</skos:altLabel>
+	<skos:altLabel xml:lang="en">Prievidza</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Prievidza</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Prievidza</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Prievidza</skos:altLabel>
+	<skos:altLabel>Prievidza</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Privigye</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Прьевидза</skos:altLabel>
+	<skos:prefLabel>Prievidza</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3058059/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3343957/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>49.11667</wgs:lat>
+	<wgs:long>18.45</wgs:long>
+	<skos:altLabel>Okres Považská Bystrica</skos:altLabel>
+	<skos:altLabel>Považská Bystrica</skos:altLabel>
+	<skos:altLabel>Považská-Bystrica District</skos:altLabel>
+	<skos:prefLabel>Okres Považská Bystrica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3058060/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>43936</europeana:population>
+	<wgs:lat>49.11667</wgs:lat>
+	<wgs:long>18.45</wgs:long>
+	<skos:altLabel>Bystrica</skos:altLabel>
+	<skos:altLabel>Povazske Bystraica</skos:altLabel>
+	<skos:altLabel xml:lang="de">Považská Bystrica</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Považská Bystrica</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Považská Bystrica</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Považská Bystrica</skos:altLabel>
+	<skos:altLabel xml:lang="en">Považská Bystrica</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Považská Bystrica</skos:altLabel>
+	<skos:altLabel>Považská Bystrica</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Poważska Bystrzyca</skos:altLabel>
+	<skos:altLabel>Vagbeszterce</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Vágbeszterce</skos:altLabel>
+	<skos:altLabel>Waagbistritz</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Поважска Бистрица</skos:altLabel>
+	<skos:prefLabel>Považská Bystrica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3058202/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>30000</europeana:population>
+	<wgs:lat>48.6</wgs:lat>
+	<wgs:long>17.83333</wgs:long>
+	<skos:altLabel xml:lang="pl">Pieszczany</skos:altLabel>
+	<skos:altLabel>Piešťanoch</skos:altLabel>
+	<skos:altLabel xml:lang="de">Piešťany</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Piešťany</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Piešťany</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Piešťany</skos:altLabel>
+	<skos:altLabel xml:lang="en">Piešťany</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Piešťany</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Pöstyén</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Пьештяны</skos:altLabel>
+	<skos:prefLabel>Piešťany</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3058210/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21343</europeana:population>
+	<wgs:lat>48.28333</wgs:lat>
+	<wgs:long>17.26667</wgs:long>
+	<skos:altLabel xml:lang="hu">Bazin</skos:altLabel>
+	<skos:altLabel>Pezinok</skos:altLabel>
+	<skos:altLabel xml:lang="de">Pösing</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Пезинок</skos:altLabel>
+	<skos:prefLabel>Pezinok</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3058268/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>24370</europeana:population>
+	<wgs:lat>48.63333</wgs:lat>
+	<wgs:long>18.38333</wgs:long>
+	<skos:altLabel>Baťovany</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Partizánske</skos:altLabel>
+	<skos:altLabel xml:lang="en">Partizánske</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Partizánske</skos:altLabel>
+	<skos:altLabel xml:lang="de">Partizánske</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Partizánske</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Partizánske</skos:altLabel>
+	<skos:altLabel>Partizánske</skos:altLabel>
+	<skos:altLabel>Partyzánske</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Simony</skos:altLabel>
+	<skos:altLabel>Šimonovany</skos:altLabel>
+	<skos:altLabel xml:lang="el">Παρτιζάνσκε</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Партизанске</skos:altLabel>
+	<skos:prefLabel>Partizánske</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3058330/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>48</wgs:lat>
+	<wgs:long>17.6</wgs:long>
+	<skos:altLabel>Csallóköz</skos:altLabel>
+	<skos:altLabel>Great Schütt</skos:altLabel>
+	<skos:altLabel>Ostrov</skos:altLabel>
+	<skos:altLabel>Veľký Ostrov Žitný</skos:altLabel>
+	<skos:altLabel>Veľký Žitný Ostrov</skos:altLabel>
+	<skos:prefLabel>Ostrov</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3058471/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3343956/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>47.98333</wgs:lat>
+	<wgs:long>18.16667</wgs:long>
+	<skos:altLabel>Nové Zámky</skos:altLabel>
+	<skos:altLabel>Okres Nové Zámky</skos:altLabel>
+	<skos:prefLabel>Okres Nové Zámky</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3058472/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>42044</europeana:population>
+	<wgs:lat>47.98544</wgs:lat>
+	<wgs:long>18.16195</wgs:long>
+	<skos:altLabel>Neuhaeusel</skos:altLabel>
+	<skos:altLabel>Neuhaus</skos:altLabel>
+	<skos:altLabel xml:lang="de">Neuhäusel</skos:altLabel>
+	<skos:altLabel xml:lang="en">Nové Zámky</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Nové Zámky</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Nové Zámky</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Nové Zámky</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Nové Zámky</skos:altLabel>
+	<skos:altLabel xml:lang="de">Nové Zámky</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Nové Zámky</skos:altLabel>
+	<skos:altLabel>Uyvar</skos:altLabel>
+	<skos:altLabel>Érsekújvár</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Érsekújvár</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Нове Замки</skos:altLabel>
+	<skos:prefLabel>Nové Zámky</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3058476/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3343957/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>48.75466</wgs:lat>
+	<wgs:long>17.83506</wgs:long>
+	<skos:altLabel xml:lang="it">Distretto di Nové Mesto nad Váhom</skos:altLabel>
+	<skos:altLabel xml:lang="es">Distrito de Nové Mesto nad Váhom</skos:altLabel>
+	<skos:altLabel>Nové Mesto nad Váhom</skos:altLabel>
+	<skos:altLabel xml:lang="de">Nové Mesto nad Váhom</skos:altLabel>
+	<skos:altLabel>Nové Mesto nad Váhom District</skos:altLabel>
+	<skos:altLabel xml:lang="en">Nové Mesto nad Váhom District</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Okres Nové Mesto nad Váhom</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Okres Nové Mesto nad Váhom</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Powiat Nové Mesto nad Váhom</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Vágújhelyi járás</skos:altLabel>
+	<skos:prefLabel>Okres Nové Mesto nad Váhom</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3058477/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21527</europeana:population>
+	<wgs:lat>48.75763</wgs:lat>
+	<wgs:long>17.8309</wgs:long>
+	<skos:altLabel xml:lang="sh">Nove Mesto nad Vahom</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Nové Mesto nad Váhom</skos:altLabel>
+	<skos:altLabel xml:lang="en">Nové Mesto nad Váhom</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Nové Mesto nad Váhom</skos:altLabel>
+	<skos:altLabel xml:lang="de">Nové Mesto nad Váhom</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Nové Mesto nad Váhom</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Nové Mesto nad Váhom</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Vágújhely</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Ótura</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Нове Место над Вагом</skos:altLabel>
+	<skos:prefLabel>Nové Mesto nad Váhom</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3058496/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12358</europeana:population>
+	<wgs:lat>48.93479</wgs:lat>
+	<wgs:long>18.14632</wgs:long>
+	<skos:altLabel xml:lang="hu">Kiskelecsény</skos:altLabel>
+	<skos:altLabel xml:lang="en">Nová Dubnica</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Nová Dubnica</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Nová Dubnica</skos:altLabel>
+	<skos:altLabel xml:lang="de">Nová Dubnica</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Nová Dubnica</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Nová Dubnica</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Újtölgyes</skos:altLabel>
+	<skos:prefLabel>Nová Dubnica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3058511/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>49.31667</wgs:lat>
+	<wgs:long>19.51667</wgs:long>
+	<skos:altLabel>Nižná</skos:altLabel>
+	<skos:prefLabel>Nižná nad Oravou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3058529/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3343956/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>48.31667</wgs:lat>
+	<wgs:long>18.08333</wgs:long>
+	<skos:altLabel>Nitra</skos:altLabel>
+	<skos:altLabel>Okres Nitra</skos:altLabel>
+	<skos:prefLabel>Okres Nitra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3058531/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>86329</europeana:population>
+	<wgs:lat>48.30763</wgs:lat>
+	<wgs:long>18.08453</wgs:long>
+	<skos:altLabel xml:lang="de">Neutra</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Nitra</skos:altLabel>
+	<skos:altLabel xml:lang="es">Nitra</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Nitra</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Nitra</skos:altLabel>
+	<skos:altLabel xml:lang="de">Nitra</skos:altLabel>
+	<skos:altLabel xml:lang="en">Nitra</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Nitra</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Nitra</skos:altLabel>
+	<skos:altLabel xml:lang="et">Nitra</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Nitra</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Nitra</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Nitra</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Nitra</skos:altLabel>
+	<skos:altLabel>Nyitra</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Nyitra</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Нитра</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Нитра</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Нитра</skos:altLabel>
+	<skos:altLabel xml:lang="he">ניטרה</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ニトラ</skos:altLabel>
+	<skos:prefLabel>Nitra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3058609/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3343957/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>48.75</wgs:lat>
+	<wgs:long>17.58333</wgs:long>
+	<skos:altLabel>Myjava</skos:altLabel>
+	<skos:altLabel>Okres Myjava</skos:altLabel>
+	<skos:prefLabel>Okres Myjava</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3058611/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13142</europeana:population>
+	<wgs:lat>48.75</wgs:lat>
+	<wgs:long>17.56667</wgs:long>
+	<skos:altLabel>Miava</skos:altLabel>
+	<skos:altLabel>Myjava</skos:altLabel>
+	<skos:prefLabel>Myjava</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3058779/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3056506/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>49.06667</wgs:lat>
+	<wgs:long>18.93333</wgs:long>
+	<skos:altLabel>Martin</skos:altLabel>
+	<skos:altLabel xml:lang="de">Martin</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Martin</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Martin</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Martin</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Martin</skos:altLabel>
+	<skos:altLabel xml:lang="en">Martin</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Martin</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Martin</skos:altLabel>
+	<skos:altLabel xml:lang="it">Martin</skos:altLabel>
+	<skos:altLabel xml:lang="it">Martin_</skos:altLabel>
+	<skos:altLabel>Okres Martin</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Turócszentmárton</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Мартин</skos:altLabel>
+	<skos:altLabel xml:lang="zh">马丁</skos:altLabel>
+	<skos:prefLabel>Okres Martin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3058780/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>60817</europeana:population>
+	<wgs:lat>49.06667</wgs:lat>
+	<wgs:long>18.93333</wgs:long>
+	<skos:altLabel>Martin</skos:altLabel>
+	<skos:altLabel>Turčiansky Svätý Martin</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Мартин</skos:altLabel>
+	<skos:prefLabel>Martin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3058897/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17773</europeana:population>
+	<wgs:lat>48.43333</wgs:lat>
+	<wgs:long>17.01667</wgs:long>
+	<skos:altLabel xml:lang="hu">Malacka</skos:altLabel>
+	<skos:altLabel>Malacke</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Malacky</skos:altLabel>
+	<skos:altLabel xml:lang="en">Malacky</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Malacky</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Malacky</skos:altLabel>
+	<skos:altLabel xml:lang="de">Malacky</skos:altLabel>
+	<skos:altLabel>Malacky</skos:altLabel>
+	<skos:altLabel>Malaczka</skos:altLabel>
+	<skos:altLabel>Malczka</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Малацки</skos:altLabel>
+	<skos:prefLabel>Malacky</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3058984/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3343954/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>48.33333</wgs:lat>
+	<wgs:long>19.66667</wgs:long>
+	<skos:altLabel xml:lang="hu">Losonci járás</skos:altLabel>
+	<skos:altLabel>Lučenec</skos:altLabel>
+	<skos:altLabel>Okres Lučenec</skos:altLabel>
+	<skos:prefLabel>Okres Lučenec</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3058986/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>28159</europeana:population>
+	<wgs:lat>48.33333</wgs:lat>
+	<wgs:long>19.66667</wgs:long>
+	<skos:altLabel>Losonc</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Losonc</skos:altLabel>
+	<skos:altLabel>Losoncz</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Lučenec</skos:altLabel>
+	<skos:altLabel xml:lang="de">Lučenec</skos:altLabel>
+	<skos:altLabel xml:lang="en">Lučenec</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Lučenec</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Lučenec</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Lučenec</skos:altLabel>
+	<skos:altLabel>Lučenec</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Лученец</skos:altLabel>
+	<skos:prefLabel>Lučenec</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3059049/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3056506/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>49.08333</wgs:lat>
+	<wgs:long>19.61667</wgs:long>
+	<skos:altLabel>Liptovský Mikuláš</skos:altLabel>
+	<skos:altLabel>Okres Liptovský Mikuláš</skos:altLabel>
+	<skos:prefLabel>Okres Liptovský Mikuláš</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3059050/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>33509</europeana:population>
+	<wgs:lat>49.08061</wgs:lat>
+	<wgs:long>19.62218</wgs:long>
+	<skos:altLabel xml:lang="de">Liptau-Sankt-Nikolaus</skos:altLabel>
+	<skos:altLabel xml:lang="en">Liptovský Mikuláš</skos:altLabel>
+	<skos:altLabel xml:lang="de">Liptovský Mikuláš</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Liptovský Mikuláš</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Liptovský Mikuláš</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Liptovský Mikuláš</skos:altLabel>
+	<skos:altLabel>Liptovský Svätý Mikuláš</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Liptowski Mikulasz</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Liptószentmiklós</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Липтовски Микулаш</skos:altLabel>
+	<skos:prefLabel>Liptovský Mikuláš</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3059100/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3343956/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>48.21667</wgs:lat>
+	<wgs:long>18.6</wgs:long>
+	<skos:altLabel>Levice</skos:altLabel>
+	<skos:altLabel>Okres Levice</skos:altLabel>
+	<skos:prefLabel>Okres Levice</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3059101/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>37574</europeana:population>
+	<wgs:lat>48.21667</wgs:lat>
+	<wgs:long>18.6</wgs:long>
+	<skos:altLabel xml:lang="la">Leua</skos:altLabel>
+	<skos:altLabel>Leva</skos:altLabel>
+	<skos:altLabel xml:lang="en">Levice</skos:altLabel>
+	<skos:altLabel xml:lang="de">Levice</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Levice</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Levice</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Levice</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Levice</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Levice</skos:altLabel>
+	<skos:altLabel>Levice</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Léva</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Левице</skos:altLabel>
+	<skos:prefLabel>Levice</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3059179/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16558</europeana:population>
+	<wgs:lat>49.3</wgs:lat>
+	<wgs:long>18.78333</wgs:long>
+	<skos:altLabel xml:lang="hu">Kiszucaújhely</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kysucké Nové Mesto</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kysucké Nové Mesto</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Kysucké Nové Mesto</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Kysucké Nové Mesto</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kysucké Nové Mesto</skos:altLabel>
+	<skos:altLabel>Kysucké Nové Mesto</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кисуцке Нове Место</skos:altLabel>
+	<skos:prefLabel>Kysucké Nové Mesto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3059432/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3343956/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>47.76667</wgs:lat>
+	<wgs:long>18.13333</wgs:long>
+	<skos:altLabel>Komárno</skos:altLabel>
+	<skos:altLabel>Okres Komárno</skos:altLabel>
+	<skos:prefLabel>Okres Komárno</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3059436/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>37365</europeana:population>
+	<wgs:lat>47.76356</wgs:lat>
+	<wgs:long>18.12263</wgs:long>
+	<skos:altLabel>Komarnom</skos:altLabel>
+	<skos:altLabel xml:lang="de">Komorn</skos:altLabel>
+	<skos:altLabel xml:lang="de">Komárno</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Komárno</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Komárno</skos:altLabel>
+	<skos:altLabel xml:lang="en">Komárno</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Komárno</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Komárno</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Komárno</skos:altLabel>
+	<skos:altLabel>Komárom</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Komárom</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Észak-Komárom</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Комарно</skos:altLabel>
+	<skos:prefLabel>Komárno</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3059448/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10823</europeana:population>
+	<wgs:lat>47.91667</wgs:lat>
+	<wgs:long>18</wgs:long>
+	<skos:altLabel>Guta</skos:altLabel>
+	<skos:altLabel xml:lang="de">Gutta</skos:altLabel>
+	<skos:altLabel>Kolárovo</skos:altLabel>
+	<skos:prefLabel>Kolárovo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3060077/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11416</europeana:population>
+	<wgs:lat>48.8</wgs:lat>
+	<wgs:long>17.16667</wgs:long>
+	<skos:prefLabel>Holíč</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3060093/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3343958/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>48.41667</wgs:lat>
+	<wgs:long>17.75</wgs:long>
+	<skos:altLabel xml:lang="it">Distretto di Hlohovec</skos:altLabel>
+	<skos:altLabel xml:lang="es">Distrito de Hlohovec</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Galgóci járás</skos:altLabel>
+	<skos:altLabel>Hlohovec</skos:altLabel>
+	<skos:altLabel xml:lang="de">Hlohovec</skos:altLabel>
+	<skos:altLabel>Hlohovec District</skos:altLabel>
+	<skos:altLabel xml:lang="en">Hlohovec District</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Okres Hlohovec</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Okres Hlohovec</skos:altLabel>
+	<skos:altLabel>Okres Hlohovec</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Powiat Hlohovec</skos:altLabel>
+	<skos:prefLabel>Okres Hlohovec</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3060095/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23930</europeana:population>
+	<wgs:lat>48.43333</wgs:lat>
+	<wgs:long>17.8</wgs:long>
+	<skos:altLabel xml:lang="hu">Galgóc</skos:altLabel>
+	<skos:altLabel xml:lang="de">Hlohovec</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Hlohovec</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Hlohovec</skos:altLabel>
+	<skos:altLabel xml:lang="en">Hlohovec</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Hlohovec</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Hlohovec</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Hlohovec</skos:altLabel>
+	<skos:altLabel>Hlohovec</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Глоговец</skos:altLabel>
+	<skos:prefLabel>Hlohovec</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3060139/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18018</europeana:population>
+	<wgs:lat>48.73333</wgs:lat>
+	<wgs:long>18.76667</wgs:long>
+	<skos:altLabel>Handlová</skos:altLabel>
+	<skos:prefLabel>Handlová</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3060218/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3343958/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>48.2</wgs:lat>
+	<wgs:long>17.71667</wgs:long>
+	<skos:altLabel>Galanta</skos:altLabel>
+	<skos:altLabel>Okres Galanta</skos:altLabel>
+	<skos:prefLabel>Okres Galanta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3060219/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16365</europeana:population>
+	<wgs:lat>48.19001</wgs:lat>
+	<wgs:long>17.72747</wgs:long>
+	<skos:altLabel xml:lang="de">Galanta</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Galanta</skos:altLabel>
+	<skos:altLabel xml:lang="en">Galanta</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Galanta</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Galanta</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Galanta</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Galánta</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Galánta</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Галанта</skos:altLabel>
+	<skos:prefLabel>Galanta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3060242/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10198</europeana:population>
+	<wgs:lat>48.26667</wgs:lat>
+	<wgs:long>19.83333</wgs:long>
+	<skos:altLabel>Filek</skos:altLabel>
+	<skos:altLabel>Fiľakovo</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Fülek</skos:altLabel>
+	<skos:prefLabel>Fiľakovo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3060307/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3343958/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>47.99635</wgs:lat>
+	<wgs:long>17.60937</wgs:long>
+	<skos:altLabel>Dunajská Streda</skos:altLabel>
+	<skos:prefLabel>Okres Dunajská Streda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3060308/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23639</europeana:population>
+	<wgs:lat>47.99268</wgs:lat>
+	<wgs:long>17.61211</wgs:long>
+	<skos:altLabel>Duna-Szerdahely</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Dunajská Streda</skos:altLabel>
+	<skos:altLabel xml:lang="en">Dunajská Streda</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Dunajská Streda</skos:altLabel>
+	<skos:altLabel xml:lang="de">Dunajská Streda</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Dunajská Streda</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Dunajská Streda</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Dunajská Streda</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Dunaszerdahely</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Дунайска Стреда</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ドゥナイスカー・ストレダ</skos:altLabel>
+	<skos:prefLabel>Dunajská Streda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3060346/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>26617</europeana:population>
+	<wgs:lat>48.96667</wgs:lat>
+	<wgs:long>18.18333</wgs:long>
+	<skos:altLabel xml:lang="de">Dubnica nad Váhom</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Dubnica nad Váhom</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Dubnica nad Váhom</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Dubnica nad Váhom</skos:altLabel>
+	<skos:altLabel xml:lang="en">Dubnica nad Váhom</skos:altLabel>
+	<skos:altLabel>Dubnica nad Váhom</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Máriatölgyes</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Дубница-над-Вагом</skos:altLabel>
+	<skos:prefLabel>Dubnica nad Váhom</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3060404/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3056506/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>49.2</wgs:lat>
+	<wgs:long>19.3</wgs:long>
+	<skos:altLabel>Dolný Kubín</skos:altLabel>
+	<skos:altLabel>Okres Dolný Kubín</skos:altLabel>
+	<skos:prefLabel>Okres Dolný Kubín</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3060405/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20401</europeana:population>
+	<wgs:lat>49.2</wgs:lat>
+	<wgs:long>19.3</wgs:long>
+	<skos:altLabel>Alsókubin</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Alsókubin</skos:altLabel>
+	<skos:altLabel>Dolní Kubín</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Dolný Kubín</skos:altLabel>
+	<skos:altLabel xml:lang="en">Dolný Kubín</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Dolný Kubín</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Dolný Kubín</skos:altLabel>
+	<skos:altLabel xml:lang="de">Dolný Kubín</skos:altLabel>
+	<skos:altLabel>Dolný Kubín</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Долны Кубин</skos:altLabel>
+	<skos:prefLabel>Dolný Kubín</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3060589/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15020</europeana:population>
+	<wgs:lat>48.56082</wgs:lat>
+	<wgs:long>19.41954</wgs:long>
+	<skos:altLabel>Detva</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Gyetva</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Детва</skos:altLabel>
+	<skos:prefLabel>Detva</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3060834/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3056506/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>49.43333</wgs:lat>
+	<wgs:long>18.78333</wgs:long>
+	<skos:altLabel>Okres Čadca</skos:altLabel>
+	<skos:altLabel>Čadca</skos:altLabel>
+	<skos:prefLabel>Okres Čadca</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3060835/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>27281</europeana:population>
+	<wgs:lat>49.43333</wgs:lat>
+	<wgs:long>18.78333</wgs:long>
+	<skos:altLabel xml:lang="hu">Csaca</skos:altLabel>
+	<skos:altLabel>Csacza</skos:altLabel>
+	<skos:altLabel>Czaca</skos:altLabel>
+	<skos:altLabel xml:lang="de">Čadca</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Čadca</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Čadca</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Čadca</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Čadca</skos:altLabel>
+	<skos:altLabel xml:lang="en">Čadca</skos:altLabel>
+	<skos:altLabel xml:lang="it">Čadca</skos:altLabel>
+	<skos:altLabel>Čadca</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Чадца</skos:altLabel>
+	<skos:prefLabel>Čadca</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3060852/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11550</europeana:population>
+	<wgs:lat>49.21667</wgs:lat>
+	<wgs:long>18.56667</wgs:long>
+	<skos:altLabel xml:lang="pl">Bytča</skos:altLabel>
+	<skos:altLabel xml:lang="de">Bytča</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bytča</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Bytča</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Bytča</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Bytča</skos:altLabel>
+	<skos:altLabel>Bytča</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Nagybiccse</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Битча</skos:altLabel>
+	<skos:prefLabel>Bytča</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3060949/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3343954/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>48.8</wgs:lat>
+	<wgs:long>19.75</wgs:long>
+	<skos:altLabel>Brezno</skos:altLabel>
+	<skos:altLabel xml:lang="de">Brezno</skos:altLabel>
+	<skos:altLabel>Brezno District</skos:altLabel>
+	<skos:altLabel xml:lang="en">Brezno District</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Breznóbányai járás</skos:altLabel>
+	<skos:altLabel xml:lang="it">Distretto di Brezno</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Distrikto Brezno</skos:altLabel>
+	<skos:altLabel xml:lang="es">Distrito de Brezno</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Okres Brezno</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Okres Brezno</skos:altLabel>
+	<skos:altLabel>Okres Brezno</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Powiat Brezno</skos:altLabel>
+	<skos:prefLabel>Okres Brezno</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3060950/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23055</europeana:population>
+	<wgs:lat>48.81667</wgs:lat>
+	<wgs:long>19.65</wgs:long>
+	<skos:altLabel xml:lang="pl">Brezno</skos:altLabel>
+	<skos:altLabel xml:lang="en">Brezno</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Brezno</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Brezno</skos:altLabel>
+	<skos:altLabel xml:lang="de">Brezno</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Brezno</skos:altLabel>
+	<skos:altLabel xml:lang="it">Brezno</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Brezno</skos:altLabel>
+	<skos:altLabel>Brezno</skos:altLabel>
+	<skos:altLabel>Brezno nad Hronom</skos:altLabel>
+	<skos:altLabel>Breznon</skos:altLabel>
+	<skos:altLabel>Breznóbánya</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Breznóbánya</skos:altLabel>
+	<skos:altLabel>Bries</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Брезно</skos:altLabel>
+	<skos:prefLabel>Brezno</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3060970/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>48.33333</wgs:lat>
+	<wgs:long>17.25</wgs:long>
+	<skos:prefLabel>Bratislava-vidiek</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3060971/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3343955/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>48.16667</wgs:lat>
+	<wgs:long>17.08333</wgs:long>
+	<skos:prefLabel>Hlavné Mesto Bratislava</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3060972/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>423737</europeana:population>
+	<wgs:lat>48.14816</wgs:lat>
+	<wgs:long>17.10674</wgs:long>
+	<skos:altLabel xml:lang="ga">An Bhratasláiv</skos:altLabel>
+	<skos:altLabel xml:lang="id">Bratislava</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bratislava</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Bratislava</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Bratislava</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Bratislava</skos:altLabel>
+	<skos:altLabel xml:lang="it">Bratislava</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Bratislava</skos:altLabel>
+	<skos:altLabel xml:lang="no">Bratislava</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Bratislava</skos:altLabel>
+	<skos:altLabel xml:lang="de">Bratislava</skos:altLabel>
+	<skos:altLabel xml:lang="es">Bratislava</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Bratislava</skos:altLabel>
+	<skos:altLabel xml:lang="da">Bratislava</skos:altLabel>
+	<skos:altLabel xml:lang="et">Bratislava</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Bratislava</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Bratislava</skos:altLabel>
+	<skos:altLabel xml:lang="la">Bratislava</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Bratislava</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Bratislava</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Bratislava</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Bratislava</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Bratislava</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Bratislava</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Bratislava</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Bratislava</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Bratislava</skos:altLabel>
+	<skos:altLabel xml:lang="io">Bratislava</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Bratislava</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Bratislava</skos:altLabel>
+	<skos:altLabel xml:lang="br">Bratislava</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Bratislava</skos:altLabel>
+	<skos:altLabel xml:lang="af">Bratislava</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Bratislava</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Bratislava</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Bratislavo</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Bratislawa</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Bratisllava</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Bratysława</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Pozsony</skos:altLabel>
+	<skos:altLabel>Presburg</skos:altLabel>
+	<skos:altLabel>Pressburg</skos:altLabel>
+	<skos:altLabel xml:lang="de">Pressburg</skos:altLabel>
+	<skos:altLabel>Preszburg</skos:altLabel>
+	<skos:altLabel xml:lang="de">Preßburg</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Prešporok</skos:altLabel>
+	<skos:altLabel>Prešpurk</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μπρατισλάβα</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Братислава</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Братислава</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Братислава</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Братислава</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Братислава</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Братіслава</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Բրատիսլավա</skos:altLabel>
+	<skos:altLabel xml:lang="he">ברטיסלאבה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">براتيسلافا</skos:altLabel>
+	<skos:altLabel xml:lang="fa">براتیسلاو</skos:altLabel>
+	<skos:altLabel xml:lang="fa">براتیسلاوا</skos:altLabel>
+	<skos:altLabel xml:lang="th">บราติสลาวา</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ბრატისლავა</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ブラチスラヴァ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">布拉迪斯拉发</skos:altLabel>
+	<skos:altLabel xml:lang="ko">브라티슬라바</skos:altLabel>
+	<skos:prefLabel>Bratislava</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3061184/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10874</europeana:population>
+	<wgs:lat>48.45</wgs:lat>
+	<wgs:long>18.9</wgs:long>
+	<skos:altLabel xml:lang="de">Banská Štiavnica</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Banská Štiavnica</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Banská Štiavnica</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Banská Štiavnica</skos:altLabel>
+	<skos:altLabel xml:lang="en">Banská Štiavnica</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Banská Štiavnica</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Banská Štiavnica</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Banská Štiavnica</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Banská Štiavnica</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Banská Štiavnica</skos:altLabel>
+	<skos:altLabel>Banská Štiavnica</skos:altLabel>
+	<skos:altLabel>Banská Štiavnica a Banská Belá</skos:altLabel>
+	<skos:altLabel>Schemnitz</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Selmecbánya</skos:altLabel>
+	<skos:altLabel>Selmeczbánya</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Банска Штьявница</skos:altLabel>
+	<skos:altLabel xml:lang="ja">バンスカー・シュチャヴニツァ</skos:altLabel>
+	<skos:altLabel xml:lang="ko">반스카 슈티아프니차</skos:altLabel>
+	<skos:prefLabel>Banská Štiavnica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3061185/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3343954/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>48.73333</wgs:lat>
+	<wgs:long>19.15</wgs:long>
+	<skos:altLabel xml:lang="de">Banská Bystrica</skos:altLabel>
+	<skos:altLabel>Banská Bystrica District</skos:altLabel>
+	<skos:altLabel xml:lang="en">Banská Bystrica District</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Besztercebányai járás</skos:altLabel>
+	<skos:altLabel xml:lang="it">Distretto di Banská Bystrica</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Distrikto Banská Bystrica</skos:altLabel>
+	<skos:altLabel xml:lang="es">Distrito de Banská Bystrica</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Okres Banská Bystrica</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Okres Banská Bystrica</skos:altLabel>
+	<skos:altLabel>Okres Banská Bystrica</skos:altLabel>
+	<skos:prefLabel>Okres Banská Bystrica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3061186/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>82336</europeana:population>
+	<wgs:lat>48.73333</wgs:lat>
+	<wgs:long>19.15</wgs:long>
+	<skos:altLabel xml:lang="lv">Banska Bistrica</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Banska Bystrica</skos:altLabel>
+	<skos:altLabel xml:lang="en">Banská Bystrica</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Banská Bystrica</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Banská Bystrica</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Banská Bystrica</skos:altLabel>
+	<skos:altLabel xml:lang="de">Banská Bystrica</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Banská Bystrica</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Banská Bystrica</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Banská Bystrica</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Banská Bystrica</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Banská Bystrica</skos:altLabel>
+	<skos:altLabel xml:lang="es">Banská Bystrica</skos:altLabel>
+	<skos:altLabel xml:lang="it">Banská Bystrica</skos:altLabel>
+	<skos:altLabel xml:lang="et">Banská Bystrica</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Banská Bystrica</skos:altLabel>
+	<skos:altLabel>Banská Bystrica</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Bańska Bystrzyca</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Besztercebánya</skos:altLabel>
+	<skos:altLabel>Beszterczebánya</skos:altLabel>
+	<skos:altLabel xml:lang="de">Neusohl</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Банска Бистрица</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Банска Бистрица</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Бањска Бистрица</skos:altLabel>
+	<skos:altLabel xml:lang="ja">バンスカー・ビストリツァ</skos:altLabel>
+	<skos:prefLabel>Banská Bystrica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3061188/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21328</europeana:population>
+	<wgs:lat>48.71667</wgs:lat>
+	<wgs:long>18.26667</wgs:long>
+	<skos:altLabel>Banovce</skos:altLabel>
+	<skos:altLabel>Bánovce nad Bebravou</skos:altLabel>
+	<skos:prefLabel>Bánovce nad Bebravou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343954/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>662121</europeana:population>
+	<wgs:lat>48.5</wgs:lat>
+	<wgs:long>19.5</wgs:long>
+	<skos:altLabel>Banskobystrický</skos:altLabel>
+	<skos:altLabel>Banskobystrický Kraj</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Banská Bystrica</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Besztercebányai körzet</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Région de Banská Bystrica</skos:altLabel>
+	<skos:prefLabel>Banskobystrický Kraj</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343955/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>599015</europeana:population>
+	<wgs:lat>48.33333</wgs:lat>
+	<wgs:long>17.16667</wgs:long>
+	<skos:altLabel xml:lang="fr">Bratislava</skos:altLabel>
+	<skos:altLabel>Bratislavský</skos:altLabel>
+	<skos:altLabel>Bratislavský Kraj</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Pozsonyi körzet</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Région de Bratislava</skos:altLabel>
+	<skos:prefLabel>Bratislavský Kraj</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343956/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>713422</europeana:population>
+	<wgs:lat>48.16667</wgs:lat>
+	<wgs:long>18.33333</wgs:long>
+	<skos:altLabel xml:lang="fr">Nitra</skos:altLabel>
+	<skos:altLabel>Nitriansky</skos:altLabel>
+	<skos:altLabel>Nitriansky Kraj</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Nyitrai körzet</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Région de Nitra</skos:altLabel>
+	<skos:prefLabel>Nitriansky Kraj</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343957/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>605582</europeana:population>
+	<wgs:lat>48.83333</wgs:lat>
+	<wgs:long>18.25</wgs:long>
+	<skos:altLabel xml:lang="fr">Région de Trenčín</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Trencséni körzet</skos:altLabel>
+	<skos:altLabel>Trenčiansky</skos:altLabel>
+	<skos:altLabel>Trenčiansky Kraj</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Trenčín</skos:altLabel>
+	<skos:prefLabel>Trenčiansky Kraj</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3343958/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>551003</europeana:population>
+	<wgs:lat>48.41667</wgs:lat>
+	<wgs:long>17.66667</wgs:long>
+	<skos:altLabel xml:lang="hu">Nagyszombati körzet</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Région de Trnava</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Trnava</skos:altLabel>
+	<skos:altLabel>Trnavský</skos:altLabel>
+	<skos:altLabel>Trnavský Kraj</skos:altLabel>
+	<skos:prefLabel>Trnavský Kraj</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690466/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>47.75156</wgs:lat>
+	<wgs:long>17.93346</wgs:long>
+	<skos:altLabel xml:lang="hu">Nagyléli-sziget</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Veľkolélsky ostrov</skos:altLabel>
+	<skos:prefLabel>Léli-sziget</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690492/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.CSTL"/>
+	<wgs:lat>47.96097</wgs:lat>
+	<wgs:long>18.41053</wgs:long>
+	<skos:prefLabel>Csúzy-kastély</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690499/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.CSTL"/>
+	<wgs:lat>47.93365</wgs:lat>
+	<wgs:long>18.39219</wgs:long>
+	<skos:prefLabel>Füri Zichy-kastély</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6692432/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>49.19337</wgs:lat>
+	<wgs:long>19.95255</wgs:long>
+	<skos:prefLabel>Hoge Tatra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6692651/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3056506/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>49.40651</wgs:lat>
+	<wgs:long>19.4767</wgs:long>
+	<skos:prefLabel>Okres Namestovo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6695882/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.CSTL"/>
+	<wgs:lat>48.47599</wgs:lat>
+	<wgs:long>17.28653</wgs:long>
+	<skos:prefLabel>Plavecký hrad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7521878/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.CSTL"/>
+	<wgs:lat>48.14222</wgs:lat>
+	<wgs:long>17.1</wgs:long>
+	<skos:prefLabel>Bratislava Castle</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7627326/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3057568/"/>
+	<europeana:country>SK</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.CSTL"/>
+	<wgs:lat>49.00056</wgs:lat>
+	<wgs:long>20.76833</wgs:long>
+	<skos:prefLabel>Spiš Castle</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 137 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>
